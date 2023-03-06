@@ -7,9 +7,9 @@
         mc:Ignorable="d"
         Title="IdentifyUserWindow" Height="450" Width="800">
     <Grid>
-        <PasswordBox FontSize="15" Name ="txtPassword" HorizontalAlignment="Left" Height="38" Margin="170,217,0,0" VerticalAlignment="Top" Width="256px" />
         <TextBox FontSize="15" Name="txtUsername" HorizontalAlignment="Left" Height="38" Margin="170,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256px" Text="{Binding Path=User.Username, UpdateSourceTrigger=PropertyChanged}" RenderTransformOrigin="0.5,0.514" />
-        <Button FontSize="15" Content="Log in" HorizontalAlignment="Left" BorderBrush="Black" Background="#FF63E263" Height="38" Margin="470,217,0,0" VerticalAlignment="Top" Width="100" Click="LogInClick"/>
+        <PasswordBox FontSize="15" Name ="txtPassword" HorizontalAlignment="Left" Height="38" Margin="170,217,0,0" VerticalAlignment="Top" Width="256px" />
+        <Button FontSize="15" Content="Log in" IsDefault="True" HorizontalAlignment="Left" BorderBrush="Black" Background="#FF63E263" Height="38" Margin="470,217,0,0" VerticalAlignment="Top" Width="100" Click="LogInClick"/>
         <Button FontSize="15" Content="Create account" HorizontalAlignment="Left" Height="38" Background="Yellow" Margin="470,312,0,0" VerticalAlignment="Top" Width="151" Click="CreateUserClick"/>
         <Label FontSize="15" Content="Enter your username:" HorizontalAlignment="Left" Margin="170,117,0,0" VerticalAlignment="Top" Width="230"/>
         <Label FontSize="15" Content="Enter your password:" HorizontalAlignment="Left" Margin="170,191,0,0" VerticalAlignment="Top" Width="230"/>

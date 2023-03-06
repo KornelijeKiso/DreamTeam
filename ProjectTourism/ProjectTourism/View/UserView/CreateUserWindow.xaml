@@ -7,11 +7,12 @@
         mc:Ignorable="d"
         Title="CreateUserWindow" Height="450" Width="800">
     <Grid>
-        <PasswordBox FontSize="15" Name ="txtPassword" HorizontalAlignment="Left" Height="38" Margin="170,288,0,0" VerticalAlignment="Top" Width="256" />
-        <PasswordBox FontSize="15" Name ="txtPasswordAgain" HorizontalAlignment="Left" Height="38" Margin="170,217,0,0" VerticalAlignment="Top" Width="256" />
-
         <TextBox FontSize="15" Name="txtUsername" HorizontalAlignment="Left" Height="38" Margin="170,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" Text="{Binding Path=User.Username, UpdateSourceTrigger=PropertyChanged}" />
-        <Button FontSize="15" Content="Create account" HorizontalAlignment="Left" Height="38" Margin="505,343,0,0" Background="#FF63E263" VerticalAlignment="Top" Width="120" Click="CreateUserClick"/>
+        <PasswordBox FontSize="15" Name ="txtPassword" HorizontalAlignment="Left" Height="38" Margin="170,217,0,0" VerticalAlignment="Top" Width="256" />
+
+        <PasswordBox FontSize="15" Name ="txtPasswordAgain" HorizontalAlignment="Left" Height="38" Margin="170,288,0,0" VerticalAlignment="Top" Width="256" />
+
+        <Button FontSize="15" Content="Create account" IsDefault="True" HorizontalAlignment="Left" Height="38" Margin="505,343,0,0" Background="#FF63E263" VerticalAlignment="Top" Width="120" Click="CreateUserClick"/>
         <ComboBox FontSize="15" Name ="ComboType" HorizontalAlignment="Left" Margin="505,146,0,0" VerticalAlignment="Top" Width="185" Height="38">
             <ComboBoxItem Content="Owner" IsSelected="True"/>
             <ComboBoxItem Content="Guest1"/>

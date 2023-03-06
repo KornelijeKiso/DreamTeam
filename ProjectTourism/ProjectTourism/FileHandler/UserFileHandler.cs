@@ -6,39 +6,27 @@ using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectTourism.Repository
+namespace ProjectTourism.FileHandler
 {
-    public class UserRepository
+    public class UserFileHandler
     {
         private Serializer<User> Serializer;
         private readonly string Filename = "../../../References/users.csv";
         private List<User> Users;
 
-        public UserRepository()
+        public UserFileHandler()
         {
             Serializer = new Serializer<User>();
             Users = Serializer.fromCSV(Filename);
         }
 
-        public User GetOne(string username)
-        {
-            foreach(User user in Users)
-            {
-                if (user.Username.Equals(username))
-                {
-                    return user;
-                }
-            }
-            return null;
-        }
-
-        public List<User> GetAll()
+        public List<User> Load()
         {
             Users = Serializer.fromCSV(Filename);
             return Users;
         }
 
-        public void Update(List<User> users)
+        public void Save(List<User> users)
         {
             Serializer.toCSV(Filename, users);
         }
