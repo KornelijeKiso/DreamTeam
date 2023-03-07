@@ -1,5 +1,6 @@
 ﻿using ProjectTourism.Controller;
 using ProjectTourism.Model;
+using ProjectTourism.View.OwnerView;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -65,8 +66,12 @@ namespace ProjectTourism.View.UserView
             }
             if (!error)
             {
-                Controller.Add(User);
-                Close();
+                if(User.Type == USERTYPE.OWNER)
+                {
+                    CreateOwnerWindow CreateOwnerWindow = new CreateOwnerWindow(User);
+                    CreateOwnerWindow.ShowDialog();
+                    Close();
+                }
             }
         }
     }

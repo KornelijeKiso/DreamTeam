@@ -11,24 +11,24 @@ namespace ProjectTourism.ModelDAO
 {
     public class UserDAO
     {
-        public UserFileHandler Repository { get; set; }
+        public UserFileHandler FileHandler { get; set; }
         public List<User> Users { get; set; }
         public UserDAO() 
         { 
-            Repository= new UserFileHandler();
-            Users = Repository.Load();
+            FileHandler= new UserFileHandler();
+            Users = FileHandler.Load();
         }
         public void Add(User addingUser)
         {
             if (!UsernameAlreadyInUse(addingUser.Username))
             {
                 Users.Add(addingUser);
-                Repository.Save(Users);
+                FileHandler.Save(Users);
             }
         }
         public User Identify(User user)
         {
-            Users = Repository.Load();
+            Users = FileHandler.Load();
             foreach(var existingUser in Users)
             {
                 if(user.Username.Equals(existingUser.Username) && user.Password.Equals(existingUser.Password))
