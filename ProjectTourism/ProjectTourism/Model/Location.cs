@@ -1,16 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjectTourism.Model
 {
-    public class Location:Serializable
+    public class Location:Serializable,INotifyPropertyChanged
     {
-        public int Id { get; set; }
-        public string City { get; set; }
-        public string Country { get; set; }
+        private int _Id;
+        public int Id
+        {
+            get => _Id;
+            set
+            {
+                if (value != _Id)
+                {
+                    _Id = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _City;
+        public string City
+        {
+            get => _City;
+            set
+            {
+                if (value != _City)
+                {
+                    _City = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _Country;
+        public string Country
+        {
+            get => _Country;
+            set
+            {
+                if (value != _Country)
+                {
+                    _Country = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public Location(int id, string city, string country)
         {
             Id = id;
@@ -31,6 +69,12 @@ namespace ProjectTourism.Model
                 City,
                 Country          };
             return csvValues;
+        }
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         public void FromCSV(string[] values)
         {

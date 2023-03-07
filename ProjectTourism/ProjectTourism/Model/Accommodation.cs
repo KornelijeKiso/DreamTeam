@@ -1,8 +1,10 @@
 ﻿using ProjectTourism.ModelDAO;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,22 +13,144 @@ using System.Windows.Controls;
 namespace ProjectTourism.Model
 {
     public enum ACCOMMODATIONTYPE { APARTMENT, HOUSE, HUT }
-    public class Accommodation:Serializable
+    public class Accommodation:Serializable,INotifyPropertyChanged
     {
-        public int Id { get; set; }
-        public Location Location { get; set; }
-        public int LocationId { get; set; }
-        public ACCOMMODATIONTYPE Type { get; set; }
-        public int MaxNumberOfGuests { get; set; }
-        public int MinDaysForReservation { get; set; }
-        public int CancellationDeadline { get; set; }
-        public string OwnerUsername { get; set; }
-        public Owner Owner { get; set; }
+        private int _Id;
+        public int Id
+        {
+            get => _Id;
+            set
+            {
+                if (value != _Id)
+                {
+                    _Id = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _Name;
+        public string Name
+        {
+            get => _Name;
+            set
+            {
+                if (value != _Name)
+                {
+                    _Name = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private Location _Location;
+        public Location Location
+        {
+            get => _Location;
+            set
+            {
+                if (value != _Location)
+                {
+                    _Location = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private int _LocationId;
+        public int LocationId
+        {
+            get => _LocationId;
+            set
+            {
+                if (value != _LocationId)
+                {
+                    _LocationId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private ACCOMMODATIONTYPE _Type;
+        public ACCOMMODATIONTYPE Type
+        {
+            get => _Type;
+            set
+            {
+                if (value != _Type)
+                {
+                    _Type = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private int _MaxNumberOfGuests;
+        public int MaxNumberOfGuests
+        {
+            get => _MaxNumberOfGuests;
+            set
+            {
+                if (value != _MaxNumberOfGuests)
+                {
+                    _MaxNumberOfGuests = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private int _MinDaysForReservation;
+        public int MinDaysForReservation
+        {
+            get => _MinDaysForReservation;
+            set
+            {
+                if (value != _MinDaysForReservation)
+                {
+                    _MinDaysForReservation = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private int _CancellationDeadline;
+        public int CancellationDeadline
+        {
+            get => _CancellationDeadline;
+            set
+            {
+                if (value != _CancellationDeadline)
+                {
+                    _CancellationDeadline = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _OwnerUsername;
+        public string OwnerUsername
+        {
+            get => _OwnerUsername;
+            set
+            {
+                if (value != _OwnerUsername)
+                {
+                    _OwnerUsername = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private Owner _Owner;
+        public Owner Owner
+        {
+            get => _Owner;
+            set
+            {
+                if (value != _Owner)
+                {
+                    _Owner = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public List<Image> Images { get; set; }
 
-        public Accommodation(int id, int locationId, ACCOMMODATIONTYPE type, int maxNumberOfGuests, int minDaysForReservation, int cancellationDeadline, string ownerUsername)
+        public Accommodation(int id, string name,  int locationId, ACCOMMODATIONTYPE type, int maxNumberOfGuests, int minDaysForReservation, int cancellationDeadline, string ownerUsername)
         {
             Id = id;
+            Name = name;
             LocationId = locationId;
             Location = FindLocation(locationId);
             Type = type;
@@ -37,8 +161,9 @@ namespace ProjectTourism.Model
             OwnerUsername = ownerUsername;
             Owner = FindOwner(ownerUsername);
         }
-        public Accommodation(int locationId, ACCOMMODATIONTYPE type, int maxNumberOfGuests, int minDaysForReservation, int cancellationDeadline, string ownerUsername)
+        public Accommodation(string name, int locationId, ACCOMMODATIONTYPE type, int maxNumberOfGuests, int minDaysForReservation, int cancellationDeadline, string ownerUsername)
         {
+            Name = name;
             Location = FindLocation(locationId);
             LocationId = locationId;
             Type = type;
@@ -64,6 +189,12 @@ namespace ProjectTourism.Model
             OwnerDAO ownerDAO = new OwnerDAO();
             return ownerDAO.GetOne(username);
         }
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         public string[] ToCSV()
         {
             int type;
@@ -82,7 +213,8 @@ namespace ProjectTourism.Model
                 MaxNumberOfGuests.ToString(),
                 MinDaysForReservation.ToString(),
                 CancellationDeadline.ToString(),
-                OwnerUsername               };
+                OwnerUsername,
+                Name        };
             return csvValues;
         }
 
@@ -102,6 +234,7 @@ namespace ProjectTourism.Model
             MinDaysForReservation = int.Parse(values[4]);
             CancellationDeadline = int.Parse(values[5]);
             OwnerUsername = values[6];
+            Name = values[7];
         }
     }
 }

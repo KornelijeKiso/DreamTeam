@@ -39,9 +39,23 @@ namespace ProjectTourism.ModelDAO
         {
             foreach (var owner in Owners)
             {
-                if (owner.Username == username) return owner;
+                if (owner.Username.Equals(username)) return owner;
             }
             return null;
+        }
+
+        public List<Accommodation> GetOwnersAccomodations(string username)
+        {
+            List<Accommodation> accommodations= new List<Accommodation>();
+            AccommodationDAO accommodationDAO= new AccommodationDAO();
+            foreach(var accommodation in accommodationDAO.GetAll())
+            {
+                if (accommodation.OwnerUsername.Equals(username))
+                {
+                    accommodations.Add(accommodation);
+                }
+            }
+            return accommodations;
         }
         public void Subscribe(IObserver observer)
         {

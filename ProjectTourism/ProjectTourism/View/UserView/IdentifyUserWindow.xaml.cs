@@ -1,5 +1,6 @@
 ﻿using ProjectTourism.Controller;
 using ProjectTourism.Model;
+using ProjectTourism.View.OwnerView;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -46,7 +47,12 @@ namespace ProjectTourism.View.UserView
             {
                 switch (User.Type)
                 {
-                    case USERTYPE.OWNER: { MessageBox.Show("owner."); break; }
+                    case USERTYPE.OWNER: 
+                        {
+                            MainOwnerWindow mainOwnerWindow = new MainOwnerWindow(User.Username);
+                            mainOwnerWindow.ShowDialog();
+                            break; 
+                        }
                     case USERTYPE.GUIDE: { MessageBox.Show("guide"); break; }
                     case USERTYPE.GUEST1: { MessageBox.Show("guest1"); break; }
                     case USERTYPE.GUEST2: { MessageBox.Show("guest2"); break; }

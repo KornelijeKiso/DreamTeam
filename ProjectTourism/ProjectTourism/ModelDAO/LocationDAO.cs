@@ -1,5 +1,6 @@
 ﻿using ProjectTourism.FileHandler;
 using ProjectTourism.Model;
+using ProjectTourism.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,23 +11,28 @@ namespace ProjectTourism.ModelDAO
 {
     public class LocationDAO
     {
+        public List<IObserver> Observers;
         public LocationFileHandler FileHandler { get; set; }
         public List<Location> Locations { get; set; }
         public LocationDAO()
         {
+            Observers = new List<IObserver>();
             FileHandler = new LocationFileHandler();
             Locations = FileHandler.Load();
         }
         public int GenerateId()
         {
-            int id;
+            int id = 0;
             if (Locations == null)
             {
                 id = 0;
             }
             else
             {
-                id = Locations[-1].Id + 1;
+                foreach(var location in Locations)
+                {
+                    id = location.Id + 1;
+                }
             }
             return id;
         }
@@ -53,6 +59,23 @@ namespace ProjectTourism.ModelDAO
                 if (location.Id == id) return location;
             }
             return null;
+        }
+        public void Subscribe(IObserver observer)
+        {
+            Observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            Observers.Remove(observer);
+        }
+
+        public void NotifyObservers()
+        {
+            foreach (var observer in Observers)
+            {
+                observer.Update();
+            }
         }
     }
 }
