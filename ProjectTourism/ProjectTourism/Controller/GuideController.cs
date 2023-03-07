@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ProjectTourism.Model;
 using ProjectTourism.ModelDAO;
+using ProjectTourism.Observer;
 
 namespace ProjectTourism.Controller
 {
@@ -21,20 +22,23 @@ namespace ProjectTourism.Controller
         }
         public Guide? GetOne(string username)
         {
-            foreach(Guide guide in GetAll())
-            {
-                if (guide.Username == username)
-                    return guide;
-            }
-            return null;
+            return GuideDAO.GetOne(username);
         }
         public void Add(Guide guide)
         {
             GuideDAO.Add(guide);
         }
-        public Guide Identify(string username)
+        public Guide? Identify(string username)
         {
             return GuideDAO.Identify(username);
+        }
+        public void Subscribe(IObserver observer)
+        {
+            GuideDAO.Subscribe(observer);
+        }
+        public void NotifyObservers()
+        {
+            GuideDAO.NotifyObservers();
         }
     }
 }

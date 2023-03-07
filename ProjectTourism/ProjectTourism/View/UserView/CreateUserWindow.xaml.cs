@@ -1,5 +1,6 @@
 ﻿using ProjectTourism.Controller;
 using ProjectTourism.Model;
+using ProjectTourism.View.GuideView;
 using ProjectTourism.View.OwnerView;
 using System;
 using System.Collections.Generic;
@@ -70,6 +71,12 @@ namespace ProjectTourism.View.UserView
                 {
                     CreateOwnerWindow CreateOwnerWindow = new CreateOwnerWindow(User);
                     CreateOwnerWindow.ShowDialog();
+                    Close();
+                }
+                else if(User.Type == USERTYPE.GUIDE)
+                {
+                    CreateGuideWindow createGuideWindow = new CreateGuideWindow(User);
+                    createGuideWindow.ShowDialog();
                     Close();
                 }
             }

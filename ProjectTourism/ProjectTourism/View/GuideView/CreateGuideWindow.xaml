@@ -1,0 +1,25 @@
+﻿<Window x:Class="ProjectTourism.View.GuideView.CreateGuideWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectTourism.View.GuideView"
+        mc:Ignorable="d"
+        Title="Window1" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="41*"/>
+            <RowDefinition Height="393*"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="Name" Content="Name" HorizontalAlignment="Left" Height="30" Margin="61,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117"/>
+        <Label x:Name="Surname" Content="Surname" HorizontalAlignment="Left" Height="30" Margin="61,56,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117"/>
+        <Label x:Name="Language" Content="Language" HorizontalAlignment="Left" Height="30" Margin="61,102,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117"/>
+        <Label x:Name="Biography" Content="Biography" HorizontalAlignment="Left" Height="30" Margin="61,147,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117"/>
+        <TextBox Text="{Binding Path = Guide.Name}" HorizontalAlignment="Center" Height="30" Margin="0,10,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="202"/>
+        <TextBox Text ="{Binding Path = Guide.Surname}" HorizontalAlignment="Center" Height="30" Margin="0,56,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="202"/>
+        <TextBox Text="{Binding Path = Guide.Language}" HorizontalAlignment="Center" Height="30" Margin="0,102,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="202"/>
+        <TextBox Text ="{Binding Path = Guide.Biography}" HorizontalAlignment="Center" Height="192" Margin="0,147,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="202"/>
+        <Button x:Name="CreateGuideButton" Content="Create" HorizontalAlignment="Left" Height="37" Margin="651,302,0,0" Grid.Row="1" VerticalAlignment="Top" Width="110" Click="CreateGuideButton_Click"/>
+
+    </Grid>
+</Window>

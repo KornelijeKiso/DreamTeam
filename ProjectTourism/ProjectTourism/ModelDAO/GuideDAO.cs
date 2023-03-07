@@ -5,16 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using ProjectTourism.FileHandler;
 using ProjectTourism.Model;
+using ProjectTourism.Observer;
 
 namespace ProjectTourism.ModelDAO
 {
     public class GuideDAO
     {
+        public List<IObserver> Observers;
         public GuideFileHandler GuideFileHandler { get; set; }
 
         public List <Guide> Guides { get; set; }
         public GuideDAO()
-        { 
+        {
+            Observers = new List<IObserver>();
             GuideFileHandler= new GuideFileHandler();
             Guides = GuideFileHandler.Load();
         }
@@ -45,6 +48,23 @@ namespace ProjectTourism.ModelDAO
                 }
             }
             return null;
+        }
+        public void Subscribe(IObserver observer)
+        {
+            Observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            Observers.Remove(observer);
+        }
+
+        public void NotifyObservers()
+        {
+            foreach (var observer in Observers)
+            {
+                observer.Update();
+            }
         }
     }
 }
