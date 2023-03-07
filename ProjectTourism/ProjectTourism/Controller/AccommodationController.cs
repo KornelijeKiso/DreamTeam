@@ -1,5 +1,6 @@
 ﻿using ProjectTourism.Model;
 using ProjectTourism.ModelDAO;
+using ProjectTourism.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,14 @@ namespace ProjectTourism.Controller
         public List<Accommodation> GetAll()
         {
             return AccommodationDAO.GetAll();
+        }
+        public void Subscribe(IObserver observer)
+        {
+            AccommodationDAO.Subscribe(observer);
+        }
+        public void NotifyObservers()
+        {
+            AccommodationDAO.NotifyObservers();
         }
     }
 }
