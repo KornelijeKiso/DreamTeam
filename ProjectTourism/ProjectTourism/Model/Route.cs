@@ -27,9 +27,20 @@ namespace ProjectTourism.Model
                 }
             }
         }
-        /// <summary>
-        /// LOCATION
-        /// </summary>
+
+        private Location Location;
+        public Location _Location
+        {
+            get => _Location;
+            set
+            {
+                if (_Location != value)
+                {
+                    _Location = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         private string _Description;
         public string Description
@@ -120,6 +131,17 @@ namespace ProjectTourism.Model
             }
         }
 
+        private string _GuideUsername;
+        public string GuideUsername
+        {
+            get => _GuideUsername;
+            set
+            {
+                _GuideUsername = value;
+                OnPropertyChanged();
+            }
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -128,21 +150,13 @@ namespace ProjectTourism.Model
         }
         public Route()
         {
-            Name = "";
-            //location
-            Description = "";
-            Language = "en-US";
-            MaxNumberOfGuests = 10;
-            Stops = "";
-            StartTime = DateTime.MinValue;
-            Duration = 0;
             Images = new List<Image>();
         }
 
-        public Route(string name, string description, string language, int maxNumberOfGuests, string stops, DateTime startTime, double duration, List<Image> images)
+        public Route(string name, Location location, string description, string language, int maxNumberOfGuests, string stops, DateTime startTime, double duration, List<Image> images, string guideUsername)
         {
             Name = name;
-            //location
+            Location = location;
             Description = description;
             Language = language;
             MaxNumberOfGuests = maxNumberOfGuests;
@@ -150,18 +164,20 @@ namespace ProjectTourism.Model
             StartTime = startTime;
             Duration = duration;
             Images = images;
+            GuideUsername = guideUsername;
         }
 
         public void FromCSV(string[] values)
         {
             Name = values[0];
-            //location
+            Location.Id = int.Parse(values[1]);
             Description = values[2];
             Language = values[3];
             MaxNumberOfGuests = int.Parse(values[4]);
             Stops = values[5];
             StartTime = DateTime.Parse(values[6]);
             Duration = int.Parse(values[7]);
+            GuideUsername = values[8];
         }
 
         public string[] ToCSV()
@@ -169,13 +185,14 @@ namespace ProjectTourism.Model
             string[] csvValues =
             {
                 Name,
-                //location
+                Location.Id.ToString(),
                 Description,
                 Language,
                 MaxNumberOfGuests.ToString(),
                 Stops,
                 StartTime.ToString(),
-                Duration.ToString()
+                Duration.ToString(),
+                GuideUsername
             };
             return csvValues;
         }

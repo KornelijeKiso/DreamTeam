@@ -105,7 +105,7 @@ namespace ProjectTourism.Model
         {
             string[] csvValues =
             {
-                Name, Surname, Biography, Language
+                Username, Name, Surname, Biography, Language
             };
             return csvValues;
         }
