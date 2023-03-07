@@ -1,5 +1,6 @@
 ﻿using ProjectTourism.FileHandler;
 using ProjectTourism.Model;
+using ProjectTourism.Observer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,12 @@ namespace ProjectTourism.ModelDAO
 {
     public class OwnerDAO
     {
+        public List<IObserver> Observers;
         public OwnerFileHandler FileHandler { get; set; }
         public List<Owner> Owners { get; set; }
         public OwnerDAO()
         {
+            Observers = new List<IObserver>();
             FileHandler = new OwnerFileHandler();
             Owners = FileHandler.Load();
         }
@@ -39,6 +42,23 @@ namespace ProjectTourism.ModelDAO
                 if (owner.Username == username) return owner;
             }
             return null;
+        }
+        public void Subscribe(IObserver observer)
+        {
+            Observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            Observers.Remove(observer);
+        }
+
+        public void NotifyObservers()
+        {
+            foreach (var observer in Observers)
+            {
+                observer.Update();
+            }
         }
     }
 }

@@ -1,18 +1,80 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjectTourism.Model
 {
-    public class Owner:Serializable
+    public class Owner:Serializable,INotifyPropertyChanged
     {
-        public string Username { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public double AverageGrade { get; set; }
+        private string _Username;
+        public string Username
+        {
+            get => _Username;
+            set
+            {
+                if (value != _Username)
+                {
+                    _Username = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _FirstName;
+        public string FirstName 
+        {
+            get => _FirstName;
+            set
+            {
+                if (value != _FirstName)
+                {
+                    _FirstName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _LastName;
+        public string LastName
+        {
+            get => _LastName;
+            set
+            {
+                if (value != _LastName)
+                {
+                    _LastName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _Email;
+        public string Email
+        {
+            get => _Email;
+            set
+            {
+                if (value != _Email)
+                {
+                    _Email = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private double _AverageGrade;
+        public double AverageGrade
+        {
+            get => _AverageGrade;
+            set
+            {
+                if (value != _AverageGrade)
+                {
+                    _AverageGrade = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public Owner()
         {
             AverageGrade = 0;
@@ -24,7 +86,12 @@ namespace ProjectTourism.Model
             LastName = lastName;
             Email = email;
         }
+        public event PropertyChangedEventHandler? PropertyChanged;
 
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         public string[] ToCSV()
         {
             string[] csvValues =
