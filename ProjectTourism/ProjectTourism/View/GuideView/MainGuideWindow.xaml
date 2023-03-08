@@ -1,0 +1,14 @@
+﻿<Window x:Class="ProjectTourism.View.GuideView.MainGuideWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectTourism.View.GuideView"
+        mc:Ignorable="d"
+        Title="MainGuideWindow" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="AddNewRouteButton" Content="Add a new route" HorizontalAlignment="Left" Height="48" Margin="646,353,0,0" VerticalAlignment="Top" Width="123" Click="AddNewRouteButton_Click"/>
+        <Button x:Name="LiveMonitoringButton" Content="Routes live monitoring" HorizontalAlignment="Left" Height="48" Margin="467,353,0,0" VerticalAlignment="Top" Width="123"/>
+
+    </Grid>
+</Window>

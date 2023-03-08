@@ -5,22 +5,26 @@ using System.Text;
 using System.Threading.Tasks;
 using ProjectTourism.FileHandler;
 using ProjectTourism.Model;
+using ProjectTourism.Observer;
 
 namespace ProjectTourism.ModelDAO
 {
     public class RouteDAO
     {
+        public List<IObserver> Observers;
         public RouteFileHandler RouteFileHandler { get; set; }
         public List<Route> Routes { get; set; }
         public RouteDAO()
         {
             RouteFileHandler = new RouteFileHandler();
             Routes = RouteFileHandler.Load();
+            Observers = new List<IObserver>();
         }
 
         public int GenerateId()
         {
-            return Routes[-1].Id + 1;
+            if(Routes.Count == 0) return 0;
+            return Routes.Last<Route>().Id + 1;
         }
         public void Add(Route addedRoute)
         {
@@ -47,6 +51,23 @@ namespace ProjectTourism.ModelDAO
                 }
             }
             return null;
+        }
+        public void Subscribe(IObserver observer)
+        {
+            Observers.Add(observer);
+        }
+
+        public void Unsubscribe(IObserver observer)
+        {
+            Observers.Remove(observer);
+        }
+
+        public void NotifyObservers()
+        {
+            foreach (var observer in Observers)
+            {
+                observer.Update();
+            }
         }
     }
 }

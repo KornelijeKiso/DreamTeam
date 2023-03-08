@@ -1,0 +1,38 @@
+﻿<Window x:Class="ProjectTourism.View.RouteView.CreateRouteWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectTourism.View.RouteView"
+        mc:Ignorable="d"
+        Title="CreateRoute" Height="700
+        " Width="800">
+    <Grid>
+        <Label Content="Name" HorizontalAlignment="Left" Height="30" Margin="83,42,0,0" VerticalAlignment="Top" Width="160"/>
+        <Label Content="Country" HorizontalAlignment="Left" Height="30" Margin="83,91,0,0" VerticalAlignment="Top" Width="160"/>
+        <Label Content="City" HorizontalAlignment="Left" Height="30" Margin="83,135,0,0" VerticalAlignment="Top" Width="160"/>
+        <Label Content="Address" HorizontalAlignment="Left" Height="30" Margin="83,187,0,0" VerticalAlignment="Top" Width="160"/>
+        <Label Content="Language" HorizontalAlignment="Left" Height="30" Margin="83,236,0,0" VerticalAlignment="Top" Width="160"/>
+        <Label Content="Maximum number of guests" HorizontalAlignment="Left" Height="30" Margin="83,287,0,0" VerticalAlignment="Top" Width="160"/>
+        <Label Content="Stops" HorizontalAlignment="Left" Height="30" Margin="83,333,0,0" VerticalAlignment="Top" Width="160"/>
+        <Label Content="Date and time" HorizontalAlignment="Left" Height="30" Margin="83,387,0,0" VerticalAlignment="Top" Width="160"/>
+        <Label Content="Duration" HorizontalAlignment="Left" Height="30" Margin="83,438,0,0" VerticalAlignment="Top" Width="160"/>
+        <Label Content="Route description" HorizontalAlignment="Left" Height="30" Margin="83,493,0,0" VerticalAlignment="Top" Width="160"/>
+        <Label Content="Images" HorizontalAlignment="Left" Height="30" Margin="83,626,0,0" VerticalAlignment="Top" Width="160"/>
+
+        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,42,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Name}" VerticalAlignment="Top" Width="293"/>
+        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,91,0,0" TextWrapping="Wrap" Text="{Binding Path = NewRouteLocation.Country}" VerticalAlignment="Top" Width="293"/>
+        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,135,0,0" TextWrapping="Wrap" Text="{Binding Path = NewRouteLocation.City}" VerticalAlignment="Top" Width="293"/>
+        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,187,0,0" TextWrapping="Wrap" Text="{Binding Path = NewRouteLocation.Address}" VerticalAlignment="Top" Width="293"/>
+        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,236,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Language}" VerticalAlignment="Top" Width="293"/>
+        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,287,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.MaxGuests}" VerticalAlignment="Top" Width="293"/>
+        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,333,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Stops}" VerticalAlignment="Top" Width="293"/>
+        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,438,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Duration}" VerticalAlignment="Top" Width="293"/>
+        <TextBox HorizontalAlignment="Left" Height="114" Margin="352,493,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Description}" VerticalAlignment="Top" Width="293"/>
+
+        <DatePicker HorizontalAlignment="Left" Height="30" Margin="352,387,0,0" VerticalAlignment="Top" Width="293"/>
+        <Button x:Name="AttachRouteImagesButton" Content="Attach" HorizontalAlignment="Left" Height="30" Margin="352,626,0,0" VerticalAlignment="Top" Width="105" Click="AttachRouteImagesButton_Click"/>
+        <Button x:Name="SaveRoute" Content="Save" HorizontalAlignment="Left" Height="30" Margin="675,626,0,0" VerticalAlignment="Top" Width="90" Click="SaveRoute_Click"/>
+
+    </Grid>
+</Window>

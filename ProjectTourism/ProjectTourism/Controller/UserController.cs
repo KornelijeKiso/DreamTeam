@@ -23,7 +23,13 @@ namespace ProjectTourism.Controller
         {
              UserDAO.Add(user);
         }
-
+        public User GetOne(string username) {
+            foreach(var user in UserDAO.Users)
+            {
+                if(user.Username.Equals(username)) return user;
+            }
+            return null;
+        }
         public User Identify(User user)
         {
             return UserDAO.Identify(user);

@@ -1,5 +1,6 @@
 ﻿using ProjectTourism.Controller;
 using ProjectTourism.Model;
+using ProjectTourism.View.GuideView;
 using ProjectTourism.View.OwnerView;
 using System;
 using System.Collections.Generic;
@@ -53,7 +54,12 @@ namespace ProjectTourism.View.UserView
                             mainOwnerWindow.ShowDialog();
                             break; 
                         }
-                    case USERTYPE.GUIDE: { MessageBox.Show("guide"); break; }
+                    case USERTYPE.GUIDE:
+                        {
+                            MainGuideWindow mainGuideWindow = new MainGuideWindow(User.Username);
+                            mainGuideWindow.ShowDialog();
+                            break;
+                        }
                     case USERTYPE.GUEST1: { MessageBox.Show("guest1"); break; }
                     case USERTYPE.GUEST2: { MessageBox.Show("guest2"); break; }
                 }

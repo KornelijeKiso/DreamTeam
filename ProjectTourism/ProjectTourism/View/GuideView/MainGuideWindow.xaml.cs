@@ -15,55 +15,52 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ProjectTourism.Controller;
 using ProjectTourism.Model;
+using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
+using ProjectTourism.View.RouteView;
 
 namespace ProjectTourism.View.GuideView
 {
     /// <summary>
-    /// Interaction logic for CreateGuideWindow.xaml
+    /// Interaction logic for MainGuideWindow.xaml
     /// </summary>
-    public partial class CreateGuideWindow : Window, INotifyPropertyChanged, IObserver
+    public partial class MainGuideWindow : Window, INotifyPropertyChanged, IObserver
     {
-        public Guide Guide { get; set; }
         public User User { get; set; }
-        public GuideController GuideController { get; set; }
+        public Guide Guide { get; set; }
         public UserController UserController { get; set; }
-        public CreateGuideWindow(User user)
+        public GuideController GuideController { get; set; }
+        public RouteLocation NewRouteLocation { get; set; }
+        public RouteLocationDAO RouteLocationDAO { get; set; }
+        public MainGuideWindow(string username)
         {
             InitializeComponent();
-            DataContext = this;
-            Guide = new Guide();
-            User = user;
-            Guide.Username = user.Username;
+            DataContext= this;
             GuideController = new GuideController();
             UserController = new UserController();
-            GuideController.Subscribe(this);
+            Guide = GuideController.GetOne(username);
+            User = UserController.GetOne(username);
+            RouteLocationDAO= new RouteLocationDAO();
+            NewRouteLocation = new RouteLocation();
+            //TODO
         }
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-
         public void Update()
         {
+            //TODO
             throw new NotImplementedException();
         }
 
-        private void CreateGuideButton_Click(object sender, RoutedEventArgs e)
+        private void AddNewRouteButton_Click(object sender, RoutedEventArgs e)
         {
-            if(Guide.Name != null && Guide.Surname!=null)
-            {
-                UserController.Add(User);
-                GuideController.Add(Guide);
-                Close();
-            }
-            else
-            {
-                MessageBox.Show("You have not entered the data correctly.");
-            }
+            CreateRouteWindow createGuideWindow = new CreateRouteWindow(Guide);
+            createGuideWindow.ShowDialog();
         }
     }
 }

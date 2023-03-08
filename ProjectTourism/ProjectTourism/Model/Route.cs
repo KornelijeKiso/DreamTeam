@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using ProjectTourism.ModelDAO;
 
 namespace ProjectTourism.Model
 {
@@ -28,15 +29,28 @@ namespace ProjectTourism.Model
             }
         }
 
-        private Location Location;
-        public Location _Location
+        private int _RouteLocationId;
+        public int RouteLocationId
         {
-            get => _Location;
+            get => _RouteLocationId;
             set
             {
-                if (_Location != value)
+                if (_RouteLocationId != value)
                 {
-                    _Location = value;
+                    _RouteLocationId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private RouteLocation _RouteLocation;
+        public RouteLocation RouteLocation
+        {
+            get => _RouteLocation;
+            set
+            {
+                if (_RouteLocation != value)
+                {
+                    _RouteLocation = value;
                     OnPropertyChanged();
                 }
             }
@@ -142,6 +156,17 @@ namespace ProjectTourism.Model
             }
         }
 
+        private Guide _Guide;
+        public Guide Guide
+        {
+            get => _Guide;
+            set
+            {
+                _Guide = value;
+                OnPropertyChanged();
+            }
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -153,10 +178,10 @@ namespace ProjectTourism.Model
             Images = new List<Image>();
         }
 
-        public Route(string name, Location location, string description, string language, int maxNumberOfGuests, string stops, DateTime startTime, double duration, List<Image> images, string guideUsername)
+        public Route(string name, RouteLocation routeLocation, string description, string language, int maxNumberOfGuests, string stops, DateTime startTime, double duration, List<Image> images, string guideUsername)
         {
             Name = name;
-            Location = location;
+            RouteLocation = routeLocation;
             Description = description;
             Language = language;
             MaxNumberOfGuests = maxNumberOfGuests;
@@ -165,12 +190,19 @@ namespace ProjectTourism.Model
             Duration = duration;
             Images = images;
             GuideUsername = guideUsername;
+            Guide = FindGuide(guideUsername);
+        }
+
+        public Guide? FindGuide(string username)
+        {
+            GuideDAO guideDAO = new GuideDAO();
+            return guideDAO.GetOne(username);
         }
 
         public void FromCSV(string[] values)
         {
             Name = values[0];
-            Location.Id = int.Parse(values[1]);
+            RouteLocation.Id = int.Parse(values[1]);
             Description = values[2];
             Language = values[3];
             MaxNumberOfGuests = int.Parse(values[4]);
@@ -178,6 +210,7 @@ namespace ProjectTourism.Model
             StartTime = DateTime.Parse(values[6]);
             Duration = int.Parse(values[7]);
             GuideUsername = values[8];
+            RouteLocationId= int.Parse(values[9]);
         }
 
         public string[] ToCSV()
@@ -185,14 +218,15 @@ namespace ProjectTourism.Model
             string[] csvValues =
             {
                 Name,
-                Location.Id.ToString(),
+                RouteLocation.Id.ToString(),
                 Description,
                 Language,
                 MaxNumberOfGuests.ToString(),
                 Stops,
                 StartTime.ToString(),
                 Duration.ToString(),
-                GuideUsername
+                GuideUsername,
+                RouteLocationId.ToString()
             };
             return csvValues;
         }
