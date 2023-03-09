@@ -27,8 +27,8 @@ namespace ProjectTourism.View.RouteView
     {
         public Route Route { get; set; }
         public RouteController RouteController { get; set; }
-        public RouteLocation NewRouteLocation { get; set; }
-        public RouteLocationDAO NewRouteLocationDAO { get; set; }
+        public Location NewLocation { get; set; }
+        public LocationDAO NewLocationDAO { get; set; }
         public CreateRouteWindow(Guide guide)
         {
             InitializeComponent();
@@ -38,8 +38,8 @@ namespace ProjectTourism.View.RouteView
             Route.Guide = guide;
             RouteController = new RouteController();
             RouteController.Subscribe(this);
-            NewRouteLocation = new RouteLocation();
-            NewRouteLocationDAO = new RouteLocationDAO();
+            NewLocation = new Location();
+            NewLocationDAO = new LocationDAO();
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -60,9 +60,9 @@ namespace ProjectTourism.View.RouteView
 
         private void SaveRoute_Click(object sender, RoutedEventArgs e)
         {
-            NewRouteLocation.Id = NewRouteLocationDAO.AddAndReturnId(NewRouteLocation);
-            Route.RouteLocation = NewRouteLocation;
-            Route.RouteLocationId = NewRouteLocation.Id;
+            NewLocation.Id = NewLocationDAO.AddAndReturnId(NewLocation);
+            Route.Location = NewLocation;
+            Route.LocationId = NewLocation.Id;
             RouteController.Add(Route);
             Close();
         }

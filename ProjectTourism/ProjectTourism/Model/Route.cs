@@ -29,28 +29,28 @@ namespace ProjectTourism.Model
             }
         }
 
-        private int _RouteLocationId;
-        public int RouteLocationId
+        private int _LocationId;
+        public int LocationId
         {
-            get => _RouteLocationId;
+            get => _LocationId;
             set
             {
-                if (_RouteLocationId != value)
+                if (_LocationId != value)
                 {
-                    _RouteLocationId = value;
+                    _LocationId = value;
                     OnPropertyChanged();
                 }
             }
         }
-        private RouteLocation _RouteLocation;
-        public RouteLocation RouteLocation
+        private Location _Location;
+        public Location Location
         {
-            get => _RouteLocation;
+            get => _Location;
             set
             {
-                if (_RouteLocation != value)
+                if (_Location != value)
                 {
-                    _RouteLocation = value;
+                    _Location = value;
                     OnPropertyChanged();
                 }
             }
@@ -157,7 +157,7 @@ namespace ProjectTourism.Model
         }
 
         private Guide _Guide;
-        public Guide Guide
+        public Guide? Guide
         {
             get => _Guide;
             set
@@ -178,10 +178,10 @@ namespace ProjectTourism.Model
             Images = new List<Image>();
         }
 
-        public Route(string name, RouteLocation routeLocation, string description, string language, int maxNumberOfGuests, string stops, DateTime startTime, double duration, List<Image> images, string guideUsername)
+        public Route(string name, Location location, string description, string language, int maxNumberOfGuests, string stops, DateTime startTime, double duration, List<Image> images, string guideUsername)
         {
             Name = name;
-            RouteLocation = routeLocation;
+            Location = location;
             Description = description;
             Language = language;
             MaxNumberOfGuests = maxNumberOfGuests;
@@ -202,7 +202,7 @@ namespace ProjectTourism.Model
         public void FromCSV(string[] values)
         {
             Name = values[0];
-            RouteLocation.Id = int.Parse(values[1]);
+            Id = int.Parse(values[1]);
             Description = values[2];
             Language = values[3];
             MaxNumberOfGuests = int.Parse(values[4]);
@@ -210,7 +210,7 @@ namespace ProjectTourism.Model
             StartTime = DateTime.Parse(values[6]);
             Duration = int.Parse(values[7]);
             GuideUsername = values[8];
-            RouteLocationId= int.Parse(values[9]);
+            LocationId= int.Parse(values[9]);
         }
 
         public string[] ToCSV()
@@ -218,7 +218,7 @@ namespace ProjectTourism.Model
             string[] csvValues =
             {
                 Name,
-                RouteLocation.Id.ToString(),
+                Id.ToString(),
                 Description,
                 Language,
                 MaxNumberOfGuests.ToString(),
@@ -226,7 +226,7 @@ namespace ProjectTourism.Model
                 StartTime.ToString(),
                 Duration.ToString(),
                 GuideUsername,
-                RouteLocationId.ToString()
+                LocationId.ToString()
             };
             return csvValues;
         }

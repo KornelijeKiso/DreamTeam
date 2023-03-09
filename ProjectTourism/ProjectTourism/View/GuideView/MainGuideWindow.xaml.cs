@@ -30,8 +30,8 @@ namespace ProjectTourism.View.GuideView
         public Guide Guide { get; set; }
         public UserController UserController { get; set; }
         public GuideController GuideController { get; set; }
-        public RouteLocation NewRouteLocation { get; set; }
-        public RouteLocationDAO RouteLocationDAO { get; set; }
+        public Location NewLocation { get; set; }
+        public LocationDAO LocationDAO { get; set; }
         public MainGuideWindow(string username)
         {
             InitializeComponent();
@@ -40,8 +40,8 @@ namespace ProjectTourism.View.GuideView
             UserController = new UserController();
             Guide = GuideController.GetOne(username);
             User = UserController.GetOne(username);
-            RouteLocationDAO= new RouteLocationDAO();
-            NewRouteLocation = new RouteLocation();
+            LocationDAO= new LocationDAO();
+            NewLocation = new Location();
             //TODO
         }
         public event PropertyChangedEventHandler? PropertyChanged;

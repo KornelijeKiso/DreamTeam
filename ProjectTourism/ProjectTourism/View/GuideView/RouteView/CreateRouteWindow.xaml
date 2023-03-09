@@ -11,7 +11,6 @@
         <Label Content="Name" HorizontalAlignment="Left" Height="30" Margin="83,42,0,0" VerticalAlignment="Top" Width="160"/>
         <Label Content="Country" HorizontalAlignment="Left" Height="30" Margin="83,91,0,0" VerticalAlignment="Top" Width="160"/>
         <Label Content="City" HorizontalAlignment="Left" Height="30" Margin="83,135,0,0" VerticalAlignment="Top" Width="160"/>
-        <Label Content="Address" HorizontalAlignment="Left" Height="30" Margin="83,187,0,0" VerticalAlignment="Top" Width="160"/>
         <Label Content="Language" HorizontalAlignment="Left" Height="30" Margin="83,236,0,0" VerticalAlignment="Top" Width="160"/>
         <Label Content="Maximum number of guests" HorizontalAlignment="Left" Height="30" Margin="83,287,0,0" VerticalAlignment="Top" Width="160"/>
         <Label Content="Stops" HorizontalAlignment="Left" Height="30" Margin="83,333,0,0" VerticalAlignment="Top" Width="160"/>
@@ -21,9 +20,8 @@
         <Label Content="Images" HorizontalAlignment="Left" Height="30" Margin="83,626,0,0" VerticalAlignment="Top" Width="160"/>
 
         <TextBox HorizontalAlignment="Left" Height="30" Margin="352,42,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Name}" VerticalAlignment="Top" Width="293"/>
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,91,0,0" TextWrapping="Wrap" Text="{Binding Path = NewRouteLocation.Country}" VerticalAlignment="Top" Width="293"/>
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,135,0,0" TextWrapping="Wrap" Text="{Binding Path = NewRouteLocation.City}" VerticalAlignment="Top" Width="293"/>
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,187,0,0" TextWrapping="Wrap" Text="{Binding Path = NewRouteLocation.Address}" VerticalAlignment="Top" Width="293"/>
+        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,91,0,0" TextWrapping="Wrap" Text="{Binding Path = NewLocation.Country}" VerticalAlignment="Top" Width="293"/>
+        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,135,0,0" TextWrapping="Wrap" Text="{Binding Path = NewLocation.City}" VerticalAlignment="Top" Width="293"/>
         <TextBox HorizontalAlignment="Left" Height="30" Margin="352,236,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Language}" VerticalAlignment="Top" Width="293"/>
         <TextBox HorizontalAlignment="Left" Height="30" Margin="352,287,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.MaxGuests}" VerticalAlignment="Top" Width="293"/>
         <TextBox HorizontalAlignment="Left" Height="30" Margin="352,333,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Stops}" VerticalAlignment="Top" Width="293"/>
