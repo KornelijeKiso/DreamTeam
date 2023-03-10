@@ -223,6 +223,7 @@ namespace ProjectTourism.Model
                 Stops,
                 StartDate.ToString("dd.MM.yyyy HH:mm"),
                 Duration.ToString(),
+                Images,
                 GuideUsername,
                 LocationId.ToString()
             };

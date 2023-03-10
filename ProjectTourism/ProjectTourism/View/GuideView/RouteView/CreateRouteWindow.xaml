@@ -28,10 +28,11 @@
         <TextBox HorizontalAlignment="Left" Height="30" Margin="352,333,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Stops}" VerticalAlignment="Top" Width="293"/>
         <TextBox HorizontalAlignment="Left" Height="30" Margin="352,438,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Duration}" VerticalAlignment="Top" Width="293"/>
         <TextBox HorizontalAlignment="Left" Height="114" Margin="352,493,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Description}" VerticalAlignment="Top" Width="293"/>
+        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,626,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Images}" VerticalAlignment="Top" Width="293"/>
 
         <TextBox Text="{Binding Route.StartDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="30" Margin="352,387,0,0" VerticalAlignment="Top" Width="293"/>
         <Button x:Name="SaveRoute" Content="Save" HorizontalAlignment="Left" Height="30" Margin="675,626,0,0" VerticalAlignment="Top" Width="90" Click="SaveRoute_Click"/>
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,626,0,0" TextWrapping="Wrap" Text="{Binding Route.Images}" VerticalAlignment="Top" Width="293"/>
+        
 
     </Grid>
 </Window>
