@@ -112,14 +112,14 @@ namespace ProjectTourism.Model
             }
         }
 
-        private DateTime _StartTime;
-        public DateTime StartTime
+        private DateTime _StartDate;
+        public DateTime StartDate
         {
-            get => _StartTime;
+            get => _StartDate;
             set
             {
-                _StartTime = value;
-                OnPropertyChanged();
+                _StartDate = value;
+                OnPropertyChanged(nameof(StartDate));
             }
         }
 
@@ -178,7 +178,7 @@ namespace ProjectTourism.Model
             Images = new List<Image>();
         }
 
-        public Route(string name, Location location, string description, string language, int maxNumberOfGuests, string stops, DateTime startTime, double duration, List<Image> images, string guideUsername)
+        public Route(string name, Location location, string description, string language, int maxNumberOfGuests, string stops, DateTime startDate, double duration, List<Image> images, string guideUsername)
         {
             Name = name;
             Location = location;
@@ -186,7 +186,7 @@ namespace ProjectTourism.Model
             Language = language;
             MaxNumberOfGuests = maxNumberOfGuests;
             Stops = stops;
-            StartTime = startTime;
+            StartDate = startDate;
             Duration = duration;
             Images = images;
             GuideUsername = guideUsername;
@@ -207,7 +207,7 @@ namespace ProjectTourism.Model
             Language = values[3];
             MaxNumberOfGuests = int.Parse(values[4]);
             Stops = values[5];
-            StartTime = DateTime.Parse(values[6]);
+            StartDate = DateTime.Parse(values[6]);
             Duration = int.Parse(values[7]);
             GuideUsername = values[8];
             LocationId= int.Parse(values[9]);
@@ -223,7 +223,7 @@ namespace ProjectTourism.Model
                 Language,
                 MaxNumberOfGuests.ToString(),
                 Stops,
-                StartTime.ToString(),
+                StartDate.ToString("dd.MM.yyyy"),
                 Duration.ToString(),
                 GuideUsername,
                 LocationId.ToString()
