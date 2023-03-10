@@ -223,7 +223,7 @@ namespace ProjectTourism.Model
                 Language,
                 MaxNumberOfGuests.ToString(),
                 Stops,
-                StartDate.ToString("dd.MM.yyyy"),
+                StartDate.ToString("dd.MM.yyyy HH:mm"),
                 Duration.ToString(),
                 GuideUsername,
                 LocationId.ToString()
