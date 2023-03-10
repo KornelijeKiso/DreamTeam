@@ -26,7 +26,7 @@ namespace ProjectTourism.ModelDAO
             Guides.Add(guide);
             GuideFileHandler.Save(Guides);
         }
-        public Guide? GetOne(string username)
+        public Guide GetOne(string username)
         {
             foreach(Guide guide in Guides)
             {
@@ -48,6 +48,19 @@ namespace ProjectTourism.ModelDAO
                 }
             }
             return null;
+        }
+        public List<Route> GetGuidesRoutes(string username)
+        {
+            List<Route> routes = new List<Route>();
+            RouteDAO routeDAO = new RouteDAO();
+            foreach(var route in routeDAO.GetAll())
+            {
+                if (route.GuideUsername.Equals(username))
+                {
+                    routes.Add(route);
+                }
+            }
+            return routes;
         }
         public void Subscribe(IObserver observer)
         {

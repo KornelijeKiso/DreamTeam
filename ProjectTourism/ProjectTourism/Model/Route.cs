@@ -15,8 +15,8 @@ namespace ProjectTourism.Model
     public class Route : Serializable, INotifyPropertyChanged
     {
         public int Id;
-        private string _Name;
-        public string Name
+        private string? _Name;
+        public string? Name
         {
             get => _Name;
             set
@@ -29,8 +29,8 @@ namespace ProjectTourism.Model
             }
         }
 
-        private int _LocationId;
-        public int LocationId
+        private int? _LocationId;
+        public int? LocationId
         {
             get => _LocationId;
             set
@@ -42,8 +42,8 @@ namespace ProjectTourism.Model
                 }
             }
         }
-        private Location _Location;
-        public Location Location
+        private Location? _Location;
+        public Location? Location
         {
             get => _Location;
             set
@@ -56,8 +56,8 @@ namespace ProjectTourism.Model
             }
         }
 
-        private string _Description;
-        public string Description
+        private string? _Description;
+        public string? Description
         {
             get => _Description;
             set
@@ -70,8 +70,8 @@ namespace ProjectTourism.Model
             }
         }
 
-        private string _Language;
-        public string Language
+        private string? _Language;
+        public string? Language
         {
             get => _Language;
             set
@@ -84,8 +84,8 @@ namespace ProjectTourism.Model
             }
         }
 
-        private int _MaxNumberOfGuests;
-        public int MaxNumberOfGuests
+        private int? _MaxNumberOfGuests;
+        public int? MaxNumberOfGuests
         {
             get => _MaxNumberOfGuests;
             set
@@ -98,8 +98,8 @@ namespace ProjectTourism.Model
             }
         }
 
-        private string _Stops;
-        public string Stops
+        private string? _Stops;
+        public string? Stops
         {
             get => _Stops;
             set
@@ -123,8 +123,8 @@ namespace ProjectTourism.Model
             }
         }
 
-        private double _Duration;
-        public double Duration
+        private double? _Duration;
+        public double? Duration
         {
             get => _Duration;
             set
@@ -134,8 +134,8 @@ namespace ProjectTourism.Model
             }
         }
 
-        private List<Image> _Images;
-        public List<Image> Images
+        private List<Image>? _Images;
+        public List<Image>? Images
         {
             get => _Images;
             set
@@ -145,8 +145,8 @@ namespace ProjectTourism.Model
             }
         }
 
-        private string _GuideUsername;
-        public string GuideUsername
+        private string? _GuideUsername;
+        public string? GuideUsername
         {
             get => _GuideUsername;
             set
@@ -156,7 +156,7 @@ namespace ProjectTourism.Model
             }
         }
 
-        private Guide _Guide;
+        private Guide? _Guide;
         public Guide? Guide
         {
             get => _Guide;
@@ -169,7 +169,7 @@ namespace ProjectTourism.Model
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -210,7 +210,7 @@ namespace ProjectTourism.Model
             StartDate = DateTime.Parse(values[6]);
             Duration = int.Parse(values[7]);
             GuideUsername = values[8];
-            LocationId= int.Parse(values[9]);
+            LocationId = int.Parse(values[9]);
         }
 
         public string[] ToCSV()

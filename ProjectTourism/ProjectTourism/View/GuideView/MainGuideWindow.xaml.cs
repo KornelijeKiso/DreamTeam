@@ -17,6 +17,7 @@ using ProjectTourism.Controller;
 using ProjectTourism.Model;
 using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
+using ProjectTourism.View.GuideView.RouteView;
 using ProjectTourism.View.RouteView;
 
 namespace ProjectTourism.View.GuideView
@@ -61,6 +62,12 @@ namespace ProjectTourism.View.GuideView
         {
             CreateRouteWindow createGuideWindow = new CreateRouteWindow(Guide);
             createGuideWindow.ShowDialog();
+        }
+
+        private void RoutesButton_Click(object sender, RoutedEventArgs e)
+        {
+            TrackRoutesWindow trackRoutesWindow = new TrackRoutesWindow(Guide.Username);
+            trackRoutesWindow.ShowDialog();
         }
     }
 }

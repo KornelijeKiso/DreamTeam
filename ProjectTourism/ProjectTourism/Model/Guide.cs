@@ -8,10 +8,23 @@ using System.Threading.Tasks;
 
 namespace ProjectTourism.Model
 {
-    public class Guide: Serializable, INotifyPropertyChanged
+    public class Guide : Serializable, INotifyPropertyChanged
     {
-        private string _Username;
-        public string Username
+        private bool? _IsSuperGuide;
+        public bool? IsSuperGuide
+        {
+            get => _IsSuperGuide;
+            set
+            {
+                if (_IsSuperGuide != value)
+                {
+                    _IsSuperGuide = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string? _Username;
+        public string? Username
         {
             get => _Username;
             set
@@ -23,8 +36,8 @@ namespace ProjectTourism.Model
                 }
             }
         }
-        private string _Name;
-        public string Name
+        private string? _Name;
+        public string? Name
         {
             get => _Name;
             set
@@ -36,21 +49,21 @@ namespace ProjectTourism.Model
                 }
             }
         }
-        private string _Surname;
-        public string Surname
+        private string? _Surname;
+        public string? Surname
         {
             get => _Surname;
             set
             {
-                if(_Surname != value)
+                if (_Surname != value)
                 {
                     _Surname = value;
                     OnPropertyChanged();
                 }
             }
         }
-        private string _Biography;
-        public string Biography
+        private string? _Biography;
+        public string? Biography
         {
             get => _Biography;
             set
@@ -63,10 +76,22 @@ namespace ProjectTourism.Model
             }
         }
 
-        private string _Language;
-
+        private string? _Language;
+        public string? Language
+        {
+            get => _Language;
+            set
+            {
+                if (_Language != value)
+                {
+                    _Language = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public Guide()
         {
+            IsSuperGuide = false;
             Username = "";
             Name = "";
             Surname = "";
@@ -75,6 +100,7 @@ namespace ProjectTourism.Model
         }
         public Guide(string username, string name, string surname, string biography, string language)
         {
+            IsSuperGuide = false;
             Username = Username;
             Name = name;
             Surname = surname;
@@ -82,18 +108,6 @@ namespace ProjectTourism.Model
             Language = language;
         }
 
-        public string Language
-        {
-            get=> _Language;
-            set
-            {
-                if (_Language != value)
-                {
-                    _Language= value;
-                    OnPropertyChanged();
-                }
-            }
-        }
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -101,9 +115,9 @@ namespace ProjectTourism.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public string[] ToCSV()
+        public string?[] ToCSV()
         {
-            string[] csvValues =
+            string?[] csvValues =
             {
                 Username, Name, Surname, Biography, Language
             };

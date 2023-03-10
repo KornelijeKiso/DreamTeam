@@ -39,7 +39,18 @@ namespace ProjectTourism.ModelDAO
                 RouteFileHandler.Save(Routes);
             }
         }
-
+        public List<Route> GetAll()
+        {
+            return Routes;
+        }
+        public Route? GetOne(int id)
+        {
+            foreach(var route in Routes)
+            {
+                if (route.Id == id) return route;
+            }
+            return null;
+        }
         public Route? Identify(Route route)
         {
             Routes = RouteFileHandler.Load();
