@@ -134,8 +134,8 @@ namespace ProjectTourism.Model
             }
         }
 
-        private List<Image>? _Images;
-        public List<Image>? Images
+        private string? _Images;
+        public string? Images
         {
             get => _Images;
             set
@@ -173,12 +173,9 @@ namespace ProjectTourism.Model
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public Route()
-        {
-            Images = new List<Image>();
-        }
+        public Route() { }
 
-        public Route(string name, Location location, string description, string language, int maxNumberOfGuests, string stops, DateTime startDate, double duration, List<Image> images, string guideUsername)
+        public Route(string name, Location location, string description, string language, int maxNumberOfGuests, string stops, DateTime startDate, double duration, string images, string guideUsername)
         {
             Name = name;
             Location = location;
@@ -208,9 +205,10 @@ namespace ProjectTourism.Model
             MaxNumberOfGuests = int.Parse(values[4]);
             Stops = values[5];
             StartDate = DateTime.Parse(values[6]);
-            Duration = int.Parse(values[7]);
-            GuideUsername = values[8];
-            LocationId = int.Parse(values[9]);
+            Duration = double.Parse(values[7]);
+            Images = values[8];
+            GuideUsername = values[9];
+            LocationId = int.Parse(values[10]);
         }
 
         public string[] ToCSV()
