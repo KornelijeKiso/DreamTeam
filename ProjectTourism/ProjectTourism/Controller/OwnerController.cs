@@ -37,6 +37,10 @@ namespace ProjectTourism.Controller
         {
             return OwnerDAO.GetOwnersAccomodations(username);
         }
+        public List<Reservation> GetOwnersReservations(string username)
+        {
+            return OwnerDAO.GetOwnersReservations(username);
+        }
         public void Subscribe(IObserver observer)
         {
             OwnerDAO.Subscribe(observer);
