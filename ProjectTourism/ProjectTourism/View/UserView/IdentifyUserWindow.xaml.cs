@@ -2,6 +2,7 @@
 using ProjectTourism.Model;
 using ProjectTourism.View.GuideView;
 using ProjectTourism.View.OwnerView;
+using ProjectTourism.View.Guest1View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -60,7 +61,13 @@ namespace ProjectTourism.View.UserView
                             mainGuideWindow.ShowDialog();
                             break;
                         }
-                    case USERTYPE.GUEST1: { MessageBox.Show("guest1"); break; }
+                    case USERTYPE.GUEST1:
+                        {
+                            /*MainGuest1Window mainGuest1Window = new MainGuest1Window(User.Username);
+                            mainGuest1Window.ShowDialog();*/
+                            MessageBox.Show("guest1");
+                            break;
+                        }
                     case USERTYPE.GUEST2: { MessageBox.Show("guest2"); break; }
                 }
             }
