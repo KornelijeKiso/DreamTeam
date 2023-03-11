@@ -28,6 +28,8 @@ namespace ProjectTourism.View.OwnerView
     {
         public Owner Owner { get; set; }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
+        public ObservableCollection<Reservation> Reservations { get; set; }
+        public Reservation Selectedreservation { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
         public OwnerController OwnerController { get; set; }
         public AccommodationController AccommodationController { get; set; }
@@ -42,6 +44,7 @@ namespace ProjectTourism.View.OwnerView
             Owner = OwnerController.GetOne(username);
             Accommodations = new ObservableCollection<Accommodation>(OwnerController.GetOwnersAccommodations(username));
             AccommodationController= new AccommodationController();
+            Reservations = new ObservableCollection<Reservation>(OwnerController.GetOwnersReservations(username));
             NewAccommodation= new Accommodation();
             NewAccommodation.Owner = Owner;
             NewAccommodation.OwnerUsername= username;
