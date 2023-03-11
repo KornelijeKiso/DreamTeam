@@ -57,6 +57,19 @@ namespace ProjectTourism.ModelDAO
             }
             return accommodations;
         }
+        public List<Reservation> GetOwnersReservations(string username)
+        {
+            List<Reservation> reservations = new List<Reservation>();
+            ReservationDAO reservationDAO = new ReservationDAO();
+            foreach (var reservation in reservationDAO.GetAll())
+            {
+                if (reservation.Accommodation.OwnerUsername.Equals(username))
+                {
+                    reservations.Add(reservation);
+                }
+            }
+            return reservations;
+        }
         public void Subscribe(IObserver observer)
         {
             Observers.Add(observer);
