@@ -209,6 +209,13 @@ namespace ProjectTourism.Model
             Images = values[8];
             GuideUsername = values[9];
             LocationId = int.Parse(values[10]);
+            Location = FindLocation(LocationId);
+        }
+
+        private Location? FindLocation(int? locationId)
+        {
+            LocationDAO locationDAO = new LocationDAO();
+            return locationDAO.GetOne((int)locationId);
         }
 
         public string[] ToCSV()

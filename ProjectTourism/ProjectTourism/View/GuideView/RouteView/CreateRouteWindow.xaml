@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.RouteView"
         mc:Ignorable="d"
-        Title="CreateRoute" Height="700
+        Title="Route creation" Height="700
         " Width="800"
         WindowStartupLocation="CenterScreen">
     <Grid>
