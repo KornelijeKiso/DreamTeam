@@ -2,6 +2,7 @@
 using ProjectTourism.Model;
 using ProjectTourism.View.GuideView;
 using ProjectTourism.View.OwnerView;
+using ProjectTourism.View.Guest2View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -77,6 +78,12 @@ namespace ProjectTourism.View.UserView
                 {
                     CreateGuideWindow createGuideWindow = new CreateGuideWindow(User);
                     createGuideWindow.ShowDialog();
+                    Close();
+                }
+                else if(User.Type == USERTYPE.GUEST2)
+                {
+                    CreateGuest2Window createGuest2Window = new CreateGuest2Window(User);
+                    createGuest2Window.ShowDialog();
                     Close();
                 }
             }
