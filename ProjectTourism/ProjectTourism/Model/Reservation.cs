@@ -143,6 +143,17 @@ namespace ProjectTourism.Model
         public Reservation()
         {
         }
+        public bool IsAbleToGrade()
+        {
+            if(DateOnly.FromDateTime(DateTime.Now) > EndDate && DateOnly.FromDateTime(DateTime.Now) < GradingDeadline)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public Guest1 FindGuest1(string username)
         {
             Guest1DAO guest1DAO = new Guest1DAO();
