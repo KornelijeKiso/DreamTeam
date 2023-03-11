@@ -10,7 +10,7 @@ namespace ProjectTourism.FileHandler
     public class Guest1FileHandler
     {
         private Serializer<Guest1> Serializer;
-        private readonly string Filename = "../../../References/owners.csv";
+        private readonly string Filename = "../../../References/guests1.csv";
         private List<Guest1> Guests1;
 
         public Guest1FileHandler()
