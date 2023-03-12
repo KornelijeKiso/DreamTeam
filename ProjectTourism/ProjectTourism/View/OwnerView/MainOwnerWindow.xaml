@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.OwnerView"
         mc:Ignorable="d"
-        Title="MainOwnerWindow" Height="570" Width="1000" HorizontalAlignment="Center" VerticalAlignment="Top">
+        Name="OwnerWindow"
+        Title="MainOwnerWindow" Height="570" Width="1000" HorizontalAlignment="Center" VerticalAlignment="Top" Loaded="AreAllGuestsGraded">
     <Grid>
         <DataGrid x:Name="DataGridAccommodations" ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
@@ -39,16 +40,18 @@
         <Label Content="Min days to reserve" HorizontalAlignment="Left" Margin="30,283,0,0" VerticalAlignment="Top" Width="152"/>
         <Label Content="Cancellation deadline" HorizontalAlignment="Left" Margin="30,343,0,0" VerticalAlignment="Top" Width="152"/>
         <Label Content="Accommodation type" HorizontalAlignment="Left" Margin="30,403,0,0" VerticalAlignment="Top" Width="152"/>
-        <DataGrid x:Name="DataGridAccommodations_Copy" ItemsSource="{Binding Reservations, UpdateSourceTrigger=PropertyChanged}"
+        <DataGrid x:Name="DataGridReservations" ItemsSource="{Binding Reservations, UpdateSourceTrigger=PropertyChanged}"
             SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
-            IsReadOnly="True" AutoGenerateColumns="False" Margin="270,285,10,68">
+            IsReadOnly="True" AutoGenerateColumns="False" Margin="270,285,10,68" SelectionChanged="SelectedReservationChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Width="100" Binding="{Binding Accommodation.Name}"/>
                 <DataGridTextColumn Header="Start" Width="80" Binding="{Binding StartDate}" />
                 <DataGridTextColumn Header="End" Width="80" Binding="{Binding EndDate}" />
                 <DataGridTextColumn Header="Guest" Width="200" Binding="{Binding Guest1.FirstName}"/>
+                <DataGridTextColumn Header="Graded" Width="200" Binding="{Binding IsGraded}"/>
             </DataGrid.Columns>
         </DataGrid>
+        <Button Name="gradeButton" IsEnabled="false" Content="Grade a guest" HorizontalAlignment="Left" IsDefault="True" Margin="718,495,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="GradeGuestClick"/>
 
     </Grid>
 </Window>

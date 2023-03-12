@@ -23,6 +23,7 @@ namespace ProjectTourism.ModelDAO
 
         public void Add(Guest1Grade guest1Grade)
         {
+            guest1Grade.Id = GenerateId();
             Guest1Grades.Add(guest1Grade);
             FileHandler.Save(Guest1Grades);
         }
@@ -34,6 +35,22 @@ namespace ProjectTourism.ModelDAO
         public List<Guest1Grade> GetAll()
         {
             return Guest1Grades;
+        }
+        public int GenerateId()
+        {
+            int id = 0;
+            if (Guest1Grades == null)
+            {
+                id = 0;
+            }
+            else
+            {
+                foreach (var grades in Guest1Grades)
+                {
+                    id = grades.Id + 1;
+                }
+            }
+            return id;
         }
         public List<Guest1Grade> GetAllByGuest1(string username)
         {

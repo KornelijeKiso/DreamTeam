@@ -29,7 +29,7 @@ namespace ProjectTourism.View.OwnerView
         public Owner Owner { get; set; }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public ObservableCollection<Reservation> Reservations { get; set; }
-        public Reservation Selectedreservation { get; set; }
+        public Reservation SelectedReservation { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
         public OwnerController OwnerController { get; set; }
         public AccommodationController AccommodationController { get; set; }
@@ -52,12 +52,24 @@ namespace ProjectTourism.View.OwnerView
             NewLocation = new Location();
             AccommodationController.Subscribe(this);
             LocationDAO.Subscribe(this);
+            
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        public void AreAllGuestsGraded(object sender, EventArgs e)
+        {
+            foreach (var reservation in Reservations)
+            {
+                if (reservation.IsAbleToGrade() && !reservation.IsGraded())
+                {
+                    MessageBox.Show("There are guests who are waiting to be graded.");
+                    break;
+                }
+            }
         }
         public void RegisterAccommodationClick(object sender, RoutedEventArgs e)
         {
@@ -83,6 +95,29 @@ namespace ProjectTourism.View.OwnerView
         public void Update()
         {
             Accommodations = new ObservableCollection<Accommodation>(OwnerController.GetOwnersAccommodations(Owner.Username));
+            Reservations = new ObservableCollection<Reservation>(OwnerController.GetOwnersReservations(Owner.Username));
+        }
+        public void SelectedReservationChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(SelectedReservation == null)
+            {
+                gradeButton.IsEnabled = false;
+            }
+            else if(SelectedReservation.IsGraded())
+            {
+                gradeButton.IsEnabled = false;
+            }
+            else if(SelectedReservation.IsAbleToGrade())
+            {
+                gradeButton.IsEnabled = true;
+            }
+        }
+
+        public void GradeGuestClick(object sender, RoutedEventArgs e)
+        {
+            GradeGuestWindow gradeGuestWindow = new GradeGuestWindow(SelectedReservation.Id);
+            gradeGuestWindow.ShowDialog();
+            gradeButton.IsEnabled=false;
         }
     }
 }

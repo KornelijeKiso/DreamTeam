@@ -38,7 +38,7 @@ namespace ProjectTourism.Model
                 }
             }
         }
-        private static readonly string[] CategoryNames = { "Cleanness","Communication", "Following the rules"};
+        public static readonly string[] CategoryNames = { "Cleanness","Communication", "Following the rules"};
         private string _Comment;
         public string Comment
         {
@@ -82,6 +82,7 @@ namespace ProjectTourism.Model
 
         public Guest1Grade()
         {
+            Grades = new Dictionary<string, int>();
             foreach(var category in CategoryNames)
             {
                 Grades.Add(category, 0);
