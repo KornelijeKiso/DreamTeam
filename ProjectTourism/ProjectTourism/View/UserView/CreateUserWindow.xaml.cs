@@ -69,29 +69,28 @@ namespace ProjectTourism.View.UserView
             }
             if (!error)
             {
-                if(User.Type == USERTYPE.OWNER)
+                if (User.Type == USERTYPE.OWNER)
                 {
                     CreateOwnerWindow CreateOwnerWindow = new CreateOwnerWindow(User);
                     CreateOwnerWindow.ShowDialog();
                     Close();
                 }
-                else if(User.Type == USERTYPE.GUIDE)
+                else if (User.Type == USERTYPE.GUIDE)
                 {
                     CreateGuideWindow createGuideWindow = new CreateGuideWindow(User);
                     createGuideWindow.ShowDialog();
                     Close();
                 }
-<<<<<<< HEAD
-                else if(User.Type == USERTYPE.GUEST2)
-                {
-                    CreateGuest2Window createGuest2Window = new CreateGuest2Window(User);
-                    createGuest2Window.ShowDialog();
-=======
-                else if(User.Type == USERTYPE.GUEST1)
+                else if (User.Type == USERTYPE.GUEST1)
                 {
                     CreateGuest1Window createGuest1Window = new CreateGuest1Window(User);
                     createGuest1Window.ShowDialog();
->>>>>>> 0fc3402dae10a15f9886d39364a97ef1b2549df3
+                    Close();
+                }
+                else if (User.Type == USERTYPE.GUEST2)
+                {
+                    CreateGuest2Window createGuest2Window = new CreateGuest2Window(User);
+                    createGuest2Window.ShowDialog();
                     Close();
                 }
             }
