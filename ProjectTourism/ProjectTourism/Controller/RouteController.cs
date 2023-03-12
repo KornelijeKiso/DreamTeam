@@ -18,7 +18,13 @@ namespace ProjectTourism.Controller
         }
         public List<Route> GetAll()
         {
-            return RouteDAO.Routes;
+            List<Route> routes= RouteDAO.Routes;
+            foreach (Route route in routes)
+            {
+                List<string> pom = RouteDAO.GetStops(route);
+                route.StopsList = pom;
+            }
+            return routes;
         }
         public Route? GetOne(int id)
         { 
@@ -30,6 +36,7 @@ namespace ProjectTourism.Controller
         }
         public void Add(Route route)
         {
+
             RouteDAO.Add(route);
         }
         public Route? Identify(Route route)

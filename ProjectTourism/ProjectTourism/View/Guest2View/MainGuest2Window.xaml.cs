@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ProjectTourism.View.Guest1View
+namespace ProjectTourism.View.Guest2View
 {
     /// <summary>
-    /// Interaction logic for MainGuest1Window.xaml
+    /// Interaction logic for MainGuest2Window.xaml
     /// </summary>
-    public partial class MainGuest1Window : Window
+    public partial class MainGuest2Window : Window
     {
-        public MainGuest1Window()
+        public MainGuest2Window()
         {
             InitializeComponent();
         }

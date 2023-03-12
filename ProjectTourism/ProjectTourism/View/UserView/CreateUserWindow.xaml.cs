@@ -3,6 +3,7 @@ using ProjectTourism.Model;
 using ProjectTourism.View.Guest1View;
 using ProjectTourism.View.GuideView;
 using ProjectTourism.View.OwnerView;
+using ProjectTourism.View.Guest2View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -68,22 +69,28 @@ namespace ProjectTourism.View.UserView
             }
             if (!error)
             {
-                if(User.Type == USERTYPE.OWNER)
+                if (User.Type == USERTYPE.OWNER)
                 {
                     CreateOwnerWindow CreateOwnerWindow = new CreateOwnerWindow(User);
                     CreateOwnerWindow.ShowDialog();
                     Close();
                 }
-                else if(User.Type == USERTYPE.GUIDE)
+                else if (User.Type == USERTYPE.GUIDE)
                 {
                     CreateGuideWindow createGuideWindow = new CreateGuideWindow(User);
                     createGuideWindow.ShowDialog();
                     Close();
                 }
-                else if(User.Type == USERTYPE.GUEST1)
+                else if (User.Type == USERTYPE.GUEST1)
                 {
                     CreateGuest1Window createGuest1Window = new CreateGuest1Window(User);
                     createGuest1Window.ShowDialog();
+                    Close();
+                }
+                else if (User.Type == USERTYPE.GUEST2)
+                {
+                    CreateGuest2Window createGuest2Window = new CreateGuest2Window(User);
+                    createGuest2Window.ShowDialog();
                     Close();
                 }
             }

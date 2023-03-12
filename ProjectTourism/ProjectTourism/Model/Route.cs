@@ -1,5 +1,6 @@
 ﻿using System;
 using System.CodeDom.Compiler;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -112,6 +113,34 @@ namespace ProjectTourism.Model
             }
         }
 
+        private string? _Start;
+        public string? Start
+        {
+            get => _Start;
+            set
+            {
+                if (_Start != value)
+                {
+                    _Start = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string? _Finish;
+        public string? Finish
+        {
+            get => _Finish;
+            set
+            {
+                if (_Finish != value)
+                {
+                    _Finish = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private DateTime _StartDate;
         public DateTime StartDate
         {
@@ -156,6 +185,8 @@ namespace ProjectTourism.Model
             }
         }
 
+        public List<string>? StopsList { get; set; }
+
         private Guide? _Guide;
         public Guide? Guide
         {
@@ -173,23 +204,29 @@ namespace ProjectTourism.Model
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public Route() { }
+        public Route()
+        {
+            StopsList = new List<string>();
+        }
 
-        public Route(string name, Location location, string description, string language, int maxNumberOfGuests, string stops, DateTime startDate, double duration, string images, string guideUsername)
+        public Route(string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
         {
             Name = name;
             Location = location;
             Description = description;
             Language = language;
             MaxNumberOfGuests = maxNumberOfGuests;
+            Start = start;
             Stops = stops;
+            Finish = finish;
             StartDate = startDate;
             Duration = duration;
             Images = images;
             GuideUsername = guideUsername;
             Guide = FindGuide(guideUsername);
+            StopsList = new List<string>();
         }
-        public Route(int id, string name, Location location, string description, string language, int maxNumberOfGuests, string stops, DateTime startDate, double duration, string images, string guideUsername)
+        public Route(int id, string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
         {
             Id = id;
             Name = name;
@@ -197,12 +234,15 @@ namespace ProjectTourism.Model
             Description = description;
             Language = language;
             MaxNumberOfGuests = maxNumberOfGuests;
+            Start = start;
             Stops = stops;
+            Finish = finish;
             StartDate = startDate;
             Duration = duration;
             Images = images;
             GuideUsername = guideUsername;
             Guide = FindGuide(guideUsername);
+            StopsList = new List<string>();
         }
 
         public Guide? FindGuide(string username)
@@ -218,12 +258,14 @@ namespace ProjectTourism.Model
             Description = values[2];
             Language = values[3];
             MaxNumberOfGuests = int.Parse(values[4]);
-            Stops = values[5];
-            StartDate = DateTime.Parse(values[6]);
-            Duration = double.Parse(values[7]);
-            Images = values[8];
-            GuideUsername = values[9];
-            LocationId = int.Parse(values[10]);
+            Start = values[5];
+            Stops = values[6];
+            Finish = values[7];
+            StartDate = DateTime.Parse(values[8]);
+            Duration = double.Parse(values[9]);
+            Images = values[10];
+            GuideUsername = values[11];
+            LocationId = int.Parse(values[12]);
             Location = FindLocation(LocationId);
         }
 
@@ -242,7 +284,9 @@ namespace ProjectTourism.Model
                 Description,
                 Language,
                 MaxNumberOfGuests.ToString(),
+                Start,
                 Stops,
+                Finish,
                 StartDate.ToString("dd.MM.yyyy HH:mm"),
                 Duration.ToString(),
                 Images,

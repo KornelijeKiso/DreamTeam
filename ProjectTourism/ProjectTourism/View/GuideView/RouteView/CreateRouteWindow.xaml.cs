@@ -66,5 +66,49 @@ namespace ProjectTourism.View.RouteView
             RouteController.Add(Route);
             Close();
         }
+
+        private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            switch (LanguageComboBox.SelectedItem.ToString())
+            {
+                    case "English":
+                        Route.Language = "English";
+                        break;
+                    case "Serbian":
+                        Route.Language = "Serbian";
+                        break;
+                    case "Spanish":
+                        Route.Language = "Spanish";
+                        break;
+                    case "French":
+                        Route.Language = "French";
+                        break;
+                    case "German":
+                        Route.Language = "German";
+                        break;
+                    case "Italian":
+                        Route.Language = "Italian";
+                        break;
+                    case "Portuguese":
+                        Route.Language = "Portuguese";
+                        break;
+                    case "Russian":
+                        Route.Language = "Russian";
+                        break;
+                    case "Arabic":
+                        Route.Language = "Arabic";
+                        break;
+                    case "Chinese":
+                        Route.Language = "Chinese";
+                        break;                    
+                    
+            }
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }
