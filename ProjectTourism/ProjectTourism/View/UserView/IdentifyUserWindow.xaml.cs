@@ -2,7 +2,11 @@
 using ProjectTourism.Model;
 using ProjectTourism.View.GuideView;
 using ProjectTourism.View.OwnerView;
+<<<<<<< HEAD
 using ProjectTourism.View.Guest2View;
+=======
+using ProjectTourism.View.Guest1View;
+>>>>>>> 0fc3402dae10a15f9886d39364a97ef1b2549df3
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -61,6 +65,7 @@ namespace ProjectTourism.View.UserView
                             mainGuideWindow.ShowDialog();
                             break;
                         }
+<<<<<<< HEAD
                     case USERTYPE.GUEST1: { MessageBox.Show("guest1"); break; }
                     case USERTYPE.GUEST2: 
                         {
@@ -69,6 +74,16 @@ namespace ProjectTourism.View.UserView
                             mainGuest2Window.ShowDialog();
                             break;
                         }
+=======
+                    case USERTYPE.GUEST1:
+                        {
+                            Guest1MainWindow guest1mainWindow = new Guest1MainWindow(User.Username);
+                            guest1mainWindow.ShowDialog();
+                            
+                            break;
+                        }
+                    case USERTYPE.GUEST2: { MessageBox.Show("guest2"); break; }
+>>>>>>> 0fc3402dae10a15f9886d39364a97ef1b2549df3
                 }
             }
             else

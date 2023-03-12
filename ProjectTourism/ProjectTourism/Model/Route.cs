@@ -189,6 +189,21 @@ namespace ProjectTourism.Model
             GuideUsername = guideUsername;
             Guide = FindGuide(guideUsername);
         }
+        public Route(int id, string name, Location location, string description, string language, int maxNumberOfGuests, string stops, DateTime startDate, double duration, string images, string guideUsername)
+        {
+            Id = id;
+            Name = name;
+            Location = location;
+            Description = description;
+            Language = language;
+            MaxNumberOfGuests = maxNumberOfGuests;
+            Stops = stops;
+            StartDate = startDate;
+            Duration = duration;
+            Images = images;
+            GuideUsername = guideUsername;
+            Guide = FindGuide(guideUsername);
+        }
 
         public Guide? FindGuide(string username)
         {
@@ -198,8 +213,8 @@ namespace ProjectTourism.Model
 
         public void FromCSV(string[] values)
         {
-            Name = values[0];
-            Id = int.Parse(values[1]);
+            Id = int.Parse(values[0]);
+            Name = values[1];
             Description = values[2];
             Language = values[3];
             MaxNumberOfGuests = int.Parse(values[4]);
@@ -222,8 +237,8 @@ namespace ProjectTourism.Model
         {
             string[] csvValues =
             {
-                Name,
                 Id.ToString(),
+                Name,
                 Description,
                 Language,
                 MaxNumberOfGuests.ToString(),

@@ -9,7 +9,7 @@
     <Grid>
         <DataGrid x:Name="DataGridAccommodations" ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
-                    IsReadOnly="True" AutoGenerateColumns="False" Height="327" Margin="270,39,10,168">
+                    IsReadOnly="True" AutoGenerateColumns="False" Margin="270,49,10,305">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Width="100" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="City" Width="80" Binding="{Binding Location.City}" />
@@ -39,6 +39,16 @@
         <Label Content="Min days to reserve" HorizontalAlignment="Left" Margin="30,283,0,0" VerticalAlignment="Top" Width="152"/>
         <Label Content="Cancellation deadline" HorizontalAlignment="Left" Margin="30,343,0,0" VerticalAlignment="Top" Width="152"/>
         <Label Content="Accommodation type" HorizontalAlignment="Left" Margin="30,403,0,0" VerticalAlignment="Top" Width="152"/>
+        <DataGrid x:Name="DataGridAccommodations_Copy" ItemsSource="{Binding Reservations, UpdateSourceTrigger=PropertyChanged}"
+            SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
+            IsReadOnly="True" AutoGenerateColumns="False" Margin="270,285,10,68">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Width="100" Binding="{Binding Accommodation.Name}"/>
+                <DataGridTextColumn Header="Start" Width="80" Binding="{Binding StartDate}" />
+                <DataGridTextColumn Header="End" Width="80" Binding="{Binding EndDate}" />
+                <DataGridTextColumn Header="Guest" Width="200" Binding="{Binding Guest1.FirstName}"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
 </Window>
