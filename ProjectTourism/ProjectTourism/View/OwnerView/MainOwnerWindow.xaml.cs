@@ -44,8 +44,9 @@ namespace ProjectTourism.View.OwnerView
             Owner = OwnerController.GetOne(username);
             Accommodations = new ObservableCollection<Accommodation>(OwnerController.GetOwnersAccommodations(username));
             AccommodationController= new AccommodationController();
-            Reservations = new ObservableCollection<Reservation>(OwnerController.GetOwnersReservations(username));
-            NewAccommodation= new Accommodation();
+            List<Reservation> sortedReservations = OwnerController.GetOwnersReservations(username);
+            sortedReservations.Sort((x, y) => y.StartDate.CompareTo(x.StartDate));
+            Reservations = new ObservableCollection<Reservation>(sortedReservations); NewAccommodation = new Accommodation();
             NewAccommodation.Owner = Owner;
             NewAccommodation.OwnerUsername= username;
             LocationDAO= new LocationDAO();
@@ -99,6 +100,7 @@ namespace ProjectTourism.View.OwnerView
         }
         public void SelectedReservationChanged(object sender, SelectionChangedEventArgs e)
         {
+            gradeButton.IsEnabled = false;
             if(SelectedReservation == null)
             {
                 gradeButton.IsEnabled = false;
