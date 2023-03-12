@@ -19,6 +19,6 @@
                 <DataGridTextColumn Header="Duration" Width="111" Binding="{Binding Duration}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Start" HorizontalAlignment="Left" Height="49" Margin="867,174,0,0" VerticalAlignment="Top" Width="123"/>
+        <Button x:Name="StartRouteButton" Content="Start" HorizontalAlignment="Left" Height="49" Margin="867,174,0,0" VerticalAlignment="Top" Width="123" Click="StartRouteButton_Click"/>
     </Grid>
 </Window>
