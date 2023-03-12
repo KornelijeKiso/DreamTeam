@@ -15,21 +15,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ProjectTourism.Controller;
 using ProjectTourism.Model;
-using ProjectTourism.Observer;
 
 namespace ProjectTourism.View.GuideView.RouteView
 {
     /// <summary>
-    /// Interaction logic for TrackRoutesWindow.xaml
+    /// Interaction logic for LiveRoutesTrackingWindow.xaml
     /// </summary>
-    public partial class TrackRoutesWindow : Window, INotifyPropertyChanged, IObserver
+    public partial class LiveRoutesTrackingWindow : Window
     {
         public Guide Guide { get; set; }
         public ObservableCollection<Route> Routes { get; set; }
         public Route SelectedRoute { get; set; }
         public GuideController GuideController { get; set; }
-
-        public TrackRoutesWindow(string username)
+        public LiveRoutesTrackingWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
@@ -37,7 +35,6 @@ namespace ProjectTourism.View.GuideView.RouteView
             Guide = GuideController.GetOne(username);
             Routes = new ObservableCollection<Route>(GuideController.GetGuidesRoutes(username));
         }
-
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public void Update()
