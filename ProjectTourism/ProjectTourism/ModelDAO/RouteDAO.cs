@@ -80,5 +80,17 @@ namespace ProjectTourism.ModelDAO
                 observer.Update();
             }
         }
+
+        public List<string> GetStops(Route route)
+        {
+            List<string> stops = new List<string>();
+            string[] str = route.Stops.Split(',');
+            foreach (string s in str) 
+            {   
+                stops.Add(s);
+            }
+
+            return stops;
+        }
     }
 }

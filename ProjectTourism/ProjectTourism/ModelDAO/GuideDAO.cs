@@ -57,6 +57,8 @@ namespace ProjectTourism.ModelDAO
             {
                 if (route.GuideUsername.Equals(username))
                 {
+                    List<string> pom = routeDAO.GetStops(route);
+                    route.StopsList = pom;
                     routes.Add(route);
                 }
             }
