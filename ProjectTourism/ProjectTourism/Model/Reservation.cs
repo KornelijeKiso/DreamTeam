@@ -154,6 +154,18 @@ namespace ProjectTourism.Model
                 return false;
             }
         }
+        public bool IsGraded()
+        {
+            Guest1GradeDAO guest1GradeDAO= new Guest1GradeDAO();
+            if (guest1GradeDAO.GetOneByReservation(Id) != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         public Guest1 FindGuest1(string username)
         {
             Guest1DAO guest1DAO = new Guest1DAO();
