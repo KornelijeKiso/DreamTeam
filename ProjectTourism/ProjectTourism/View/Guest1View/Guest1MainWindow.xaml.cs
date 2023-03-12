@@ -31,6 +31,7 @@ namespace ProjectTourism.View.Guest1View
     {
         public Guest1 Guest1 { get; set; }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
+        public ObservableCollection<Accommodation> FilteredAccommodations { get; set; }
         public Guest1Controller Guest1Controller { get; set; }
         public AccommodationController AccommodationController { get; set; }
 
@@ -43,7 +44,8 @@ namespace ProjectTourism.View.Guest1View
             Guest1 = Guest1Controller.GetOne(username);
             AccommodationController = new AccommodationController();
             Accommodations = new ObservableCollection<Accommodation>(AccommodationController.GetAll());
-            
+            FilteredAccommodations = new ObservableCollection<Accommodation>(Accommodations);
+
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -52,6 +54,44 @@ namespace ProjectTourism.View.Guest1View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
+        public void FilterAccommodationsClick(object sender, RoutedEventArgs e)
+        {
+            FilteredAccommodations = new ObservableCollection<Accommodation>();
+           
+             if (ComboType.SelectedIndex == 0)
+             {
+                foreach (Accommodation accommodation in Accommodations)
+                {
+                    if (accommodation.Type == ACCOMMODATIONTYPE.APARTMENT)
+                    {
+                        FilteredAccommodations.Add(accommodation);
+                    }
+                }
+             }
+             else if (ComboType.SelectedIndex == 1)
+             {
+                foreach (Accommodation accommodation in Accommodations)
+                {
+                    if (accommodation.Type == ACCOMMODATIONTYPE.HOUSE)
+                    {
+                        FilteredAccommodations.Add(accommodation);
+                    }
+                }
+             }
+             else
+             {
+                foreach (Accommodation accommodation in Accommodations)
+                {
+                    if (accommodation.Type == ACCOMMODATIONTYPE.HUT)
+                    {
+                        FilteredAccommodations.Add(accommodation);
+                    }
+                }
+             }
+        }
+        public void Update()
+        {
+            
+        }
     }
 }

@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.Guest1View"
         mc:Ignorable="d"
-        Title="MainGuest1Window" Height="450" Width="800">
-    <Grid>
-        <DataGrid x:Name="DataGridAccommodations" ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}"
+        Title="MainGuest1Window" Height="570" Width="1000">
+    <Grid Margin="0,0,0,-113">
+        <DataGrid x:Name="DataGridAccommodations" ItemsSource="{Binding FilteredAccommodations, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                     IsReadOnly="True" AutoGenerateColumns="False" Height="327" Margin="270,39,10,168">
             <DataGrid.Columns>
@@ -19,5 +19,14 @@
                 <DataGridTextColumn Header="Min number of days to reserve" Width="195" Binding="{Binding MinDaysForReservation}" />
             </DataGrid.Columns>
         </DataGrid>
+        <Button Content="Filter" HorizontalAlignment="Left" IsDefault="True" Margin="30,495,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="FilterAccommodationsClick"/>
+        <Rectangle HorizontalAlignment="Left" Height="451" Stroke="Blue" VerticalAlignment="Top" Width="235" Margin="10,39,0,0"/>
+        <ComboBox Name="ComboType" HorizontalAlignment="Left" Margin="30,429,0,0" VerticalAlignment="Top" Width="196" Height="30">
+            <ComboBoxItem Content="Apartment"/>
+            <ComboBoxItem Content="House"/>
+            <ComboBoxItem Content="Hut"/>
+        </ComboBox>
+        <Label Content="Accommodation type" HorizontalAlignment="Left" Margin="30,403,0,0" VerticalAlignment="Top" Width="152"/>
+
     </Grid>
 </Window>
