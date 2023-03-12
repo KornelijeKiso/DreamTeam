@@ -185,6 +185,8 @@ namespace ProjectTourism.Model
             }
         }
 
+        public List<string>? StopsList { get; set; }
+
         private Guide? _Guide;
         public Guide? Guide
         {
@@ -202,7 +204,10 @@ namespace ProjectTourism.Model
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public Route() { }
+        public Route()
+        {
+            StopsList = new List<string>();
+        }
 
         public Route(string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
         {
@@ -219,6 +224,7 @@ namespace ProjectTourism.Model
             Images = images;
             GuideUsername = guideUsername;
             Guide = FindGuide(guideUsername);
+            StopsList = new List<string>();
         }
         public Route(int id, string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
         {
@@ -236,6 +242,7 @@ namespace ProjectTourism.Model
             Images = images;
             GuideUsername = guideUsername;
             Guide = FindGuide(guideUsername);
+            StopsList = new List<string>();
         }
 
         public Guide? FindGuide(string username)
