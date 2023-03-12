@@ -190,8 +190,8 @@ namespace ProjectTourism.Model
             {
                 Id.ToString(),
                 AccommodationId.ToString(),
-                StartDate.ToString("dd.mm.yyyy"),
-                EndDate.ToString("dd.mm.yyyy"),
+                StartDate.ToString("dd.MM.yyyy"),
+                EndDate.ToString("dd.MM.yyyy"),
                 Guest1Username,       };
             return csvValues;
         }
