@@ -61,8 +61,6 @@ namespace ProjectTourism.View.GuideView.RouteView
                 //UpdateStudentsList();
                 RouteStopsWindow routeStopsWindow = new RouteStopsWindow();
                 routeStopsWindow.ShowDialog();
-               
-
             }
             else
             {
