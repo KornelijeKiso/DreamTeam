@@ -38,7 +38,20 @@ namespace ProjectTourism.Model
                 }
             }
         }
-        private string[] CategoryNames;
+        private static readonly string[] CategoryNames = { "Cleanness","Communication", "Following the rules"};
+        private string _Comment;
+        public string Comment
+        {
+            get => _Comment;
+            set
+            {
+                if(value!=_Comment)
+                {
+                    _Comment = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private Reservation _Reservation;
         public Reservation Reservation
         {
@@ -65,15 +78,14 @@ namespace ProjectTourism.Model
                 }
             }
         }
-        public Guest1Grade() { }
+        
 
-        public Guest1Grade(string[] categories)
+        public Guest1Grade()
         {
-            foreach(var category in categories)
+            foreach(var category in CategoryNames)
             {
                 Grades.Add(category, 0);
             }
-            CategoryNames = categories;
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -92,7 +104,8 @@ namespace ProjectTourism.Model
             List<string> csv = new List<string>();
             csv.Add(Id.ToString());
             csv.Add(ReservationId.ToString());
-            foreach(var category in CategoryNames)
+            csv.Add(Comment);
+            foreach (var category in CategoryNames)
             {
                 csv.Add(Grades[category].ToString());
             }
@@ -104,10 +117,11 @@ namespace ProjectTourism.Model
         {
             Id = int.Parse(values[0]);
             ReservationId = int.Parse(values[1]);
+            Comment = values[2];
             Reservation = FindReservation(ReservationId);
-            for(int i = 2; i < values.Length; i++)
+            for(int i = 3; i < values.Length; i++)
             {
-                Grades[CategoryNames[i - 2]] = int.Parse(values[i]);
+                Grades[CategoryNames[i - 3]] = int.Parse(values[i]);
             }
         }
     }
