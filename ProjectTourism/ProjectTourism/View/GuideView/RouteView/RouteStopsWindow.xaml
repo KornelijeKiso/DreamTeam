@@ -7,6 +7,13 @@
         mc:Ignorable="d"
         Title="RouteStopsWindow" Height="450" Width="800">
     <Grid>
-        
+        <DataGrid HorizontalAlignment="Left" Height="300" VerticalAlignment="Center" Width="231"
+              SelectedItem="{Binding SelectedSomething, UpdateSourceTrigger=PropertyChanged}"
+              ItemsSource="{Binding Routes, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="70,0,0,0">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Header="Selected" Width="80" Binding="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}" />
+                <DataGridTextColumn Header="Name" Width="600" Binding="{Binding Name}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </Window>
