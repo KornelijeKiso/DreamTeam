@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -189,8 +190,8 @@ namespace ProjectTourism.Model
             {
                 Id.ToString(),
                 AccommodationId.ToString(),
-                StartDate.ToString(),
-                EndDate.ToString(),
+                StartDate.ToString("dd.mm.yyyy"),
+                EndDate.ToString("dd.mm.yyyy"),
                 Guest1Username,       };
             return csvValues;
         }
@@ -200,8 +201,8 @@ namespace ProjectTourism.Model
             Id = int.Parse(values[0]);
             AccommodationId = int.Parse(values[1]);
             Accommodation = FindAccommodation(AccommodationId);
-            StartDate = DateOnly.Parse(values[2]);
-            EndDate = DateOnly.Parse(values[3]);
+            if(DateOnly.TryParse(values[2],new CultureInfo("en-GB"),DateTimeStyles.None,out var startDate)) StartDate = startDate;
+            if (DateOnly.TryParse(values[3], new CultureInfo("en-GB"), DateTimeStyles.None, out var endDate)) EndDate = endDate;
             Guest1Username = values[4];
             Guest1 = FindGuest1(Guest1Username);
             Accommodation = FindAccommodation(AccommodationId);
