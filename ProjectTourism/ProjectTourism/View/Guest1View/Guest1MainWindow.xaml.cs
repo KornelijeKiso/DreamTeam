@@ -56,7 +56,7 @@ namespace ProjectTourism.View.Guest1View
 
         public void FilterAccommodationsClick(object sender, RoutedEventArgs e)
         {
-            FilteredAccommodations = new ObservableCollection<Accommodation>();
+            FilteredAccommodations.Clear();
            
              if (ComboType.SelectedIndex == 0)
              {
