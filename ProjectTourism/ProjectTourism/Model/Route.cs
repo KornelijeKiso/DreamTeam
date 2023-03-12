@@ -3,6 +3,7 @@ using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -261,7 +262,7 @@ namespace ProjectTourism.Model
             Start = values[5];
             Stops = values[6];
             Finish = values[7];
-            StartDate = DateTime.Parse(values[8]);
+            if (DateTime.TryParse(values[8], new CultureInfo("en-GB"), DateTimeStyles.None, out var startDate)) StartDate = startDate;
             Duration = double.Parse(values[9]);
             Images = values[10];
             GuideUsername = values[11];
