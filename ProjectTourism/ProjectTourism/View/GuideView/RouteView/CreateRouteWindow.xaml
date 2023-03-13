@@ -23,18 +23,9 @@
         <TextBox HorizontalAlignment="Left" Height="30" Margin="352,42,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Name}" VerticalAlignment="Top" Width="293"/>
         <TextBox HorizontalAlignment="Left" Height="30" Margin="352,91,0,0" TextWrapping="Wrap" Text="{Binding Path = NewLocation.Country}" VerticalAlignment="Top" Width="293"/>
         <TextBox HorizontalAlignment="Left" Height="30" Margin="352,135,0,0" TextWrapping="Wrap" Text="{Binding Path = NewLocation.City}" VerticalAlignment="Top" Width="293"/>
-        <ComboBox HorizontalAlignment="Left" Height="30" Margin="352,182,0,0" Text="{Binding Path = Route.Language}" x:Name="LanguageComboBox" VerticalAlignment="Top" Width="293" SelectionChanged="LanguageComboBox_SelectionChanged">
-            <ComboBoxItem>English</ComboBoxItem>
-            <ComboBoxItem>Serbian</ComboBoxItem>
-            <ComboBoxItem>Spanish</ComboBoxItem>
-            <ComboBoxItem>French</ComboBoxItem>
-            <ComboBoxItem>German</ComboBoxItem>
-            <ComboBoxItem>Italian</ComboBoxItem>
-            <ComboBoxItem>Portuguese</ComboBoxItem>
-            <ComboBoxItem>Russian</ComboBoxItem>
-            <ComboBoxItem>Arabic</ComboBoxItem>
-            <ComboBoxItem>Chinese</ComboBoxItem>
-        </ComboBox>
+
+        <ComboBox HorizontalAlignment="Left" Height="30" Margin="352,182,0,0"   Text="{Binding Path = Route.Language}" x:Name="LanguageComboBox" VerticalAlignment="Top" Width="293" SelectionChanged="LanguageComboBox_SelectionChanged"></ComboBox>
+        
         <TextBox HorizontalAlignment="Left" Height="30" Margin="352,217,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.MaxNumberOfGuests}" VerticalAlignment="Top" Width="293"/>
         <TextBox HorizontalAlignment="Left" Height="30" Margin="352,263,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Start}" VerticalAlignment="Top" Width="293" TextChanged="TextBox_TextChanged"/>
         <TextBox HorizontalAlignment="Left" Height="30" Margin="352,438,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Duration}" VerticalAlignment="Top" Width="293"/>
@@ -47,6 +38,7 @@
         <TextBox HorizontalAlignment="Left" Height="30" Margin="352,298,0,0" TextWrapping="Wrap" Text="{Binding Route.Stops}" VerticalAlignment="Top" Width="293"/>
         <Label Content="Finish" HorizontalAlignment="Left" Height="30" Margin="83,333,0,0" VerticalAlignment="Top" Width="160"/>
         <TextBox HorizontalAlignment="Left" Height="30" Margin="352,333,0,0" TextWrapping="Wrap" Text="{Binding Route.Finish}" VerticalAlignment="Top" Width="293"/>
+        <Button x:Name="AddLanguageButton" Content="Add language" HorizontalAlignment="Left" Height="30" Margin="675,182,0,0" VerticalAlignment="Top" Width="90" Click="AddLanguageButton_Click"/>
 
 
     </Grid>

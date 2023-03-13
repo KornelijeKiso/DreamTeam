@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -17,6 +18,7 @@ using ProjectTourism.Controller;
 using ProjectTourism.Model;
 using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
+using ProjectTourism.View.GuideView.RouteView;
 
 namespace ProjectTourism.View.RouteView
 {
@@ -29,6 +31,9 @@ namespace ProjectTourism.View.RouteView
         public RouteController RouteController { get; set; }
         public Location NewLocation { get; set; }
         public LocationDAO NewLocationDAO { get; set; }
+        public List<string> Languages { get; set; }
+        public ObservableCollection<string> LanguagesObservable { get; set; }
+
         public CreateRouteWindow(Guide guide)
         {
             InitializeComponent();
@@ -40,6 +45,31 @@ namespace ProjectTourism.View.RouteView
             RouteController.Subscribe(this);
             NewLocation = new Location();
             NewLocationDAO = new LocationDAO();
+            Languages = new List<string>
+            {
+                "English",
+                "Spanish",
+                "French",
+                "German",
+                "Italian",
+                "Portuguese",
+                "Russian",
+                "Japanese",
+                "Korean",
+                "Chinese",
+                "Arabic",
+                "Hebrew",
+                "Dutch",
+                "Swedish",
+                "Norwegian",
+                "Danish",
+                "Finnish",
+                "Turkish",
+                "Greek",
+                "Polish"
+            };
+            LanguagesObservable = new ObservableCollection<string>(Languages);
+            LanguageComboBox.ItemsSource = LanguagesObservable;
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -66,47 +96,18 @@ namespace ProjectTourism.View.RouteView
             RouteController.Add(Route);
             Close();
         }
-
-        private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
-            switch (LanguageComboBox.SelectedItem.ToString())
-            {
-                    case "English":
-                        Route.Language = "English";
-                        break;
-                    case "Serbian":
-                        Route.Language = "Serbian";
-                        break;
-                    case "Spanish":
-                        Route.Language = "Spanish";
-                        break;
-                    case "French":
-                        Route.Language = "French";
-                        break;
-                    case "German":
-                        Route.Language = "German";
-                        break;
-                    case "Italian":
-                        Route.Language = "Italian";
-                        break;
-                    case "Portuguese":
-                        Route.Language = "Portuguese";
-                        break;
-                    case "Russian":
-                        Route.Language = "Russian";
-                        break;
-                    case "Arabic":
-                        Route.Language = "Arabic";
-                        break;
-                    case "Chinese":
-                        Route.Language = "Chinese";
-                        break;                    
-                    
-            }
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void AddLanguageButton_Click(object sender, RoutedEventArgs e)
+        {
+            LanguageAdditionWindow languageAdditionWindow = new LanguageAdditionWindow(LanguagesObservable);
+            languageAdditionWindow.ShowDialog();
+        }
+
+        private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
