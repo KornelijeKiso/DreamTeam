@@ -8,7 +8,7 @@
         Title="Routes" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid HorizontalAlignment="Center" Height="299" VerticalAlignment="Center" Width="780" ItemsSource="{Binding Routes, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
+        <DataGrid CanUserAddRows="False" HorizontalAlignment="Center" Height="299" VerticalAlignment="Center" Width="780" ItemsSource="{Binding Routes, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Width="111" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Country" Width="111" Binding="{Binding Location.Country}"></DataGridTextColumn>

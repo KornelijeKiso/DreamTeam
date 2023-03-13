@@ -37,7 +37,7 @@ namespace ProjectTourism.View.GuideView.RouteView
             GuideController = new GuideController();
             RouteController = new RouteController();
             Guide = GuideController.GetOne(username);
-            Routes = new ObservableCollection<Route>(GuideController.GetGuidesRoutes(username));
+            Routes = new ObservableCollection<Route>(GuideController.GetGuidesRoutesCurrent(username));
         }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -54,6 +54,7 @@ namespace ProjectTourism.View.GuideView.RouteView
             if (SelectedRoute != null)
             {
                 RouteStopsWindow routeStopsWindow = new RouteStopsWindow(SelectedRoute.Id);
+                SelectedRoute.State = ROUTESTATE.STARTED;
                 routeStopsWindow.ShowDialog();
             }
             else
