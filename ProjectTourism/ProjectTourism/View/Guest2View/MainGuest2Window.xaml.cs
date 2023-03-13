@@ -91,9 +91,9 @@ namespace ProjectTourism.View.Guest2View
                     {
                         string sss = searchQuery[0].ToLower().Trim();
                         // Language, Duration, MaxNumberOfGuests
-                        if ( r.Language.Equals(searchQuery[0], StringComparison.OrdinalIgnoreCase) || //r.Language.Equals(sss, StringComparison.OrdinalIgnoreCase) ||
-                             r.Duration == double.Parse(searchQuery[0]) ||
-                             r.MaxNumberOfGuests == int.Parse(searchQuery[0]))
+                        if (r.Language.Contains(searchQuery[0], StringComparison.OrdinalIgnoreCase) //r.Language.Contains(sss, StringComparison.OrdinalIgnoreCase) ||
+                            || r.Duration.ToString().Contains(searchQuery[0], StringComparison.OrdinalIgnoreCase)//|| r.Duration == double.Parse(searchQuery[0]) 
+                            || r.MaxNumberOfGuests.ToString().Contains(searchQuery[0], StringComparison.OrdinalIgnoreCase))//|| r.MaxNumberOfGuests == int.Parse(searchQuery[0])) 
                         {
                             routes.Add(r);
                         }
@@ -101,8 +101,8 @@ namespace ProjectTourism.View.Guest2View
                     else if (searchQuery.Length == 2)
                     {
                         // city, country   || country, city
-                        if ((r.Location.City.Equals(searchQuery[0], StringComparison.OrdinalIgnoreCase) && r.Location.Country.Equals(searchQuery[1], StringComparison.OrdinalIgnoreCase))
-                            || (r.Location.Country.Equals(searchQuery[0], StringComparison.OrdinalIgnoreCase) && r.Location.City.Equals(searchQuery[1], StringComparison.OrdinalIgnoreCase)))
+                        if ((r.Location.City.Contains(searchQuery[0], StringComparison.OrdinalIgnoreCase) && r.Location.Country.Contains(searchQuery[1], StringComparison.OrdinalIgnoreCase))
+                            || (r.Location.Country.Contains(searchQuery[0], StringComparison.OrdinalIgnoreCase) && r.Location.City.Contains(searchQuery[1], StringComparison.OrdinalIgnoreCase)))
                         {
                             routes.Add(r);
                         }
