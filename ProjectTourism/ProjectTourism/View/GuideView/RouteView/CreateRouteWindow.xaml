@@ -38,7 +38,7 @@
         <TextBox HorizontalAlignment="Left" Height="30" Margin="352,298,0,0" TextWrapping="Wrap" Text="{Binding Route.Stops}" VerticalAlignment="Top" Width="293"/>
         <Label Content="Finish" HorizontalAlignment="Left" Height="30" Margin="83,333,0,0" VerticalAlignment="Top" Width="160"/>
         <TextBox HorizontalAlignment="Left" Height="30" Margin="352,333,0,0" TextWrapping="Wrap" Text="{Binding Route.Finish}" VerticalAlignment="Top" Width="293"/>
-        <Button x:Name="AddLanguageButton" Content="Add language" HorizontalAlignment="Left" Height="30" Margin="675,182,0,0" VerticalAlignment="Top" Width="90" Click="AddLanguageButton_Click"/>
+        <Button IsDefault="True" x:Name="AddLanguageButton" Content="Add language" HorizontalAlignment="Left" Height="30" Margin="675,182,0,0" VerticalAlignment="Top" Width="90" Click="AddLanguageButton_Click"/>
 
 
     </Grid>
