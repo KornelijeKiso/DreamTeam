@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ProjectTourism.Controller;
+using ProjectTourism.Model;
 using ProjectTourism.Observer;
 
 namespace ProjectTourism.View.GuideView.RouteView
@@ -24,11 +25,13 @@ namespace ProjectTourism.View.GuideView.RouteView
     public partial class RouteStopsWindow : Window, INotifyPropertyChanged, IObserver
     {
         public RouteController RouteController { get; set; }
-        public RouteStopsWindow()
+        public Route Route { get; set; }
+        public RouteStopsWindow(int id)
         {
             InitializeComponent();
             DataContext = this;
             RouteController = new RouteController();
+            Route = RouteController.GetOne(id);
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 

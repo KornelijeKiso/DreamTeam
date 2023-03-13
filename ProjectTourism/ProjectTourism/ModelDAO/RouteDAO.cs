@@ -89,7 +89,8 @@ namespace ProjectTourism.ModelDAO
             {   
                 stops.Add(s);
             }
-
+            stops.Insert(0, route.Start);
+            stops.Add(route.Finish);
             return stops;
         }
     }

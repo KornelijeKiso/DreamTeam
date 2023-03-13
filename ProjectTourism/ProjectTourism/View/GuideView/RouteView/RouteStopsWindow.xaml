@@ -10,7 +10,7 @@
         <Button Content="Stop passed" HorizontalAlignment="Left" Height="47" Margin="628,72,0,0" VerticalAlignment="Top" Width="133"/>
         <Button Content="Emergency stop" HorizontalAlignment="Left" Height="47" Margin="628,139,0,0" VerticalAlignment="Top" Width="133" Background="#FFEF4343"/>
         <Label Content="Current route stop" HorizontalAlignment="Left" Margin="104,70,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <TextBox HorizontalAlignment="Left" Height="42" Margin="104,120,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="344" FontSize="14"/>
+        <TextBox HorizontalAlignment="Left" Height="42" Margin="104,120,0,0" TextWrapping="Wrap" Text="{Binding Path=Route.StopsList[0]}" VerticalAlignment="Top" Width="344" FontSize="14"/>
 
     </Grid>
 </Window>
