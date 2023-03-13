@@ -185,7 +185,7 @@ namespace ProjectTourism.Model
             }
         }
 
-        public List<string>? StopsList { get; set; }
+        public List<string> StopsList { get; set; }
 
         private Guide? _Guide;
         public Guide? Guide
