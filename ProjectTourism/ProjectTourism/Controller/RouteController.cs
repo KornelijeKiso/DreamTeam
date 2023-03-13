@@ -51,5 +51,14 @@ namespace ProjectTourism.Controller
         {
             RouteDAO.NotifyObservers();
         }
+        public string GetNextStop(Route route, int stopint)
+        {
+            if (stopint < 0 || stopint >= route.StopsList.Count - 1)
+            {
+                throw new ArgumentException("Invalid stop index");
+            }
+            return route.StopsList[stopint + 1];
+        }
+
     }
 }

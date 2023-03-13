@@ -66,8 +66,14 @@ namespace ProjectTourism.View.GuideView
 
         private void RoutesButton_Click(object sender, RoutedEventArgs e)
         {
-            TrackRoutesWindow trackRoutesWindow = new TrackRoutesWindow(Guide.Username);
-            trackRoutesWindow.ShowDialog();
+            ViewAllRoutesWindow viewAllRoutesWindow = new ViewAllRoutesWindow(Guide.Username);
+            viewAllRoutesWindow.ShowDialog();
+        }
+
+        private void LiveRouteMonitorButton_Click(object sender, RoutedEventArgs e)
+        {
+            LiveRoutesTrackingWindow liveRoutesTrackingWindow = new LiveRoutesTrackingWindow(Guide.Username);
+            liveRoutesTrackingWindow.ShowDialog();
         }
     }
 }

@@ -10,6 +10,7 @@
     <Grid>
         <Button x:Name="AddNewRouteButton" Content="Add a new route" HorizontalAlignment="Left" Height="48" Margin="646,353,0,0" VerticalAlignment="Top" Width="123" Click="AddNewRouteButton_Click"/>
         <Button x:Name="RoutesButton" Content="Routes" HorizontalAlignment="Left" Height="48" Margin="467,353,0,0" VerticalAlignment="Top" Width="123" Click="RoutesButton_Click"/>
+        <Button x:Name="LiveRouteMonitorButton" Content="Live routes monitor" HorizontalAlignment="Left" Height="48" Margin="277,353,0,0" VerticalAlignment="Top" Width="123" Click="LiveRouteMonitorButton_Click"/>
 
     </Grid>
 </Window>

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.UserView"
         mc:Ignorable="d"
-        Title="IdentifyUserWindow" Height="450" Width="800">
+        Title="IdentifyUserWindow" Height="450" Width="800"
+        WindowStartupLocation="CenterScreen">
     <Grid>
         <TextBox FontSize="15" Name="txtUsername" HorizontalAlignment="Left" Height="38" Margin="170,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256px" Text="{Binding Path=User.Username, UpdateSourceTrigger=PropertyChanged}" RenderTransformOrigin="0.5,0.514" />
         <PasswordBox FontSize="15" Name ="txtPassword" HorizontalAlignment="Left" Height="38" Margin="170,217,0,0" VerticalAlignment="Top" Width="256px" />
