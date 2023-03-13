@@ -45,5 +45,27 @@ namespace ProjectTourism.View.GuideView.RouteView
             //TODO
             throw new NotImplementedException();
         }
+        private void StopPassedButton_Click(object sender, RoutedEventArgs e)
+        {
+            int pom = 0;
+            if(StopTextBox.Equals(Route.Finish))
+            {
+                StopPassedButton.IsEnabled = true;
+            }
+            else
+            {
+                pom++;
+                StopTextBox.Text = RouteController.GetNextStop(Route, pom);
+            }
+        }
+        private void EmergencyStopButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

@@ -51,5 +51,9 @@ namespace ProjectTourism.Controller
         {
             RouteDAO.NotifyObservers();
         }
+        public string GetNextStop(Route route, int stopint)
+        {
+            return route.StopsList[stopint + 1];
+        }
     }
 }
