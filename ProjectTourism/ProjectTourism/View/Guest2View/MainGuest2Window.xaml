@@ -40,5 +40,14 @@
                 -->
             </DataGrid.Columns>
         </DataGrid>
+        
+        <TextBox Name="tb1" Text="{Binding Path=search, UpdateSourceTrigger=PropertyChanged}"
+                 Width="200" Height="30" Margin="460,10,120,370">
+        </TextBox>
+        <Button Name ="btn" IsDefault="True" Click="Search" ToolTip="search"
+                Width="30" Height="30" Margin="680,10,75,370"  >
+
+        </Button>
+
     </Grid>
 </Window>

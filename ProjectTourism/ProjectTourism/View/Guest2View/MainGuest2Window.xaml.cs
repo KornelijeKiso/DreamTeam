@@ -34,6 +34,7 @@ namespace ProjectTourism.View.Guest2View
         public ObservableCollection<Route> Routes { get; set; }
         //public GuideController GuideController { get; set; }
 
+        public string search { get; set; }
 
         public MainGuest2Window(string username)
         {
@@ -46,6 +47,7 @@ namespace ProjectTourism.View.Guest2View
             //GuideController = new GuideController();
             RouteController = new RouteController();
             Routes = new ObservableCollection<Route>(RouteController.GetAll());
+            search = "";
 
         }
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -55,10 +57,85 @@ namespace ProjectTourism.View.Guest2View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public void Update()
+        private string[] RemoveWhiteSpaces(string search)
         {
-            throw new NotImplementedException();
+            if (search != "")
+            {
+                //string lowerLetters = search.ToLower().Trim();
+                string[] searchQueryWhiteSpaces = search.ToLower().Split(',');
+                string[] searchQuery = searchQueryWhiteSpaces;
+                int i = 0;
+                foreach (string word in searchQueryWhiteSpaces)
+                {
+                    string noWhiteSpace = word.Trim();
+                    if (noWhiteSpace != "")
+                    {
+                        searchQuery[i] = noWhiteSpace;
+                        i++;
+                    }
+                }
+                return searchQuery;
+            }
+            return null;
+        }
+        private void Search(object sender, RoutedEventArgs e)
+        {
+            string[] searchQuery = RemoveWhiteSpaces(search);
+
+            List<Route> routes = new List<Route>();
+            if (search != "")
+            {
+                foreach (Route r in RouteController.GetAll())       //
+                {
+                    if (searchQuery.Length == 1)
+                    {
+                        string sss = searchQuery[0].ToLower().Trim();
+                        // Language, Duration, MaxNumberOfGuests
+                        if ( r.Language.Equals(searchQuery[0], StringComparison.OrdinalIgnoreCase) || //r.Language.Equals(sss, StringComparison.OrdinalIgnoreCase) ||
+                             r.Duration == double.Parse(searchQuery[0]) ||
+                             r.MaxNumberOfGuests == int.Parse(searchQuery[0]))
+                        {
+                            routes.Add(r);
+                        }
+                    }
+                    else if (searchQuery.Length == 2)
+                    {
+                        // city, country   || country, city
+                        if ((r.Location.City.Equals(searchQuery[0], StringComparison.OrdinalIgnoreCase) && r.Location.Country.Equals(searchQuery[1], StringComparison.OrdinalIgnoreCase))
+                            || (r.Location.Country.Equals(searchQuery[0], StringComparison.OrdinalIgnoreCase) && r.Location.City.Equals(searchQuery[1], StringComparison.OrdinalIgnoreCase)))
+                        {
+                            routes.Add(r);
+                        }
+                    }
+                    else routes.Clear();
+                }
+
+                Routes.Clear();
+                foreach (Route route in routes)
+                {
+                    Routes.Add(route);
+                }
+            }
+            else
+            {
+                UpdateRoutesList();
+            }
+            
         }
 
+        private void UpdateRoutesList()
+        {
+            Routes.Clear();
+            foreach (Route route in RouteController.GetAll())
+            {
+                Routes.Add(route);
+            }
+        }
+
+        public void Update()
+        {
+            //UpdateRoutesList();
+            throw new NotImplementedException();
+        }
     }
 }
