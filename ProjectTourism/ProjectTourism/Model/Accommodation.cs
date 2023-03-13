@@ -216,6 +216,11 @@ namespace ProjectTourism.Model
             Name = "";
             PictureURLs = "";
         }
+
+        public string[] GetPictureURLsFromCSV()
+        {
+            return PictureURLs.Split(',');
+        }
         public Owner FindOwner(string username)
         {
             OwnerDAO ownerDAO = new OwnerDAO();
