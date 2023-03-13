@@ -53,12 +53,6 @@ namespace ProjectTourism.View.GuideView.RouteView
         {
             if (SelectedRoute != null)
             {
-                //UpdateStudent updateStudent = new UpdateStudent(_controller, SelectedStudent);
-                //updateStudent.Show();
-                //_controller = updateStudent.Controller();
-                //SelectedStudent = updateStudent.getStudent();
-                //_controller.Update(SelectedStudent);
-                //UpdateStudentsList();
                 RouteStopsWindow routeStopsWindow = new RouteStopsWindow();
                 routeStopsWindow.ShowDialog();
             }
