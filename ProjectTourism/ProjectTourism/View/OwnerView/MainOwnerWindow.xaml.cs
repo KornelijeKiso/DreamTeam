@@ -92,11 +92,17 @@ namespace ProjectTourism.View.OwnerView
             {
                 NewAccommodation.Type = ACCOMMODATIONTYPE.HUT;
             }
-            NewLocation.Id = LocationDAO.AddAndReturnId(NewLocation);
+            Location location = new Location(NewLocation.City, NewLocation.Country);
+            NewLocation.Id = LocationDAO.AddAndReturnId(location);
+            location.Id = NewLocation.Id;
             NewAccommodation.LocationId = NewLocation.Id;
-            NewAccommodation.Location = NewLocation;
-            AccommodationController.Add(NewAccommodation);
-            Accommodations.Add(NewAccommodation);
+            NewAccommodation.Location = location;
+            Accommodation accommodation= new Accommodation(NewAccommodation);
+            AccommodationController.Add(accommodation);
+            Accommodations.Add(accommodation);
+            NewAccommodation.Reset();
+            NewLocation.City = "";
+            NewLocation.Country = "";
         }
 
         public void Update()

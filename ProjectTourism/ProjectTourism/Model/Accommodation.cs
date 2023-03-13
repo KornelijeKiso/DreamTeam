@@ -28,6 +28,19 @@ namespace ProjectTourism.Model
                 }
             }
         }
+        private string _PictureURLs;
+        public string PictureURLs
+        {
+            get => _PictureURLs;
+            set
+            {
+                if (value != _PictureURLs)
+                {
+                    _PictureURLs = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private string _Name;
         public string Name
         {
@@ -145,7 +158,6 @@ namespace ProjectTourism.Model
                 }
             }
         }
-        public List<Image> Images { get; set; }
 
         public Accommodation(int id, string name,  int locationId, ACCOMMODATIONTYPE type, int maxNumberOfGuests, int minDaysForReservation, int cancellationDeadline, string ownerUsername)
         {
@@ -157,7 +169,6 @@ namespace ProjectTourism.Model
             MaxNumberOfGuests = maxNumberOfGuests;
             MinDaysForReservation = minDaysForReservation;
             CancellationDeadline = cancellationDeadline;
-            Images = new List<Image>();
             OwnerUsername = ownerUsername;
             Owner = FindOwner(ownerUsername);
         }
@@ -170,19 +181,45 @@ namespace ProjectTourism.Model
             MaxNumberOfGuests = maxNumberOfGuests;
             MinDaysForReservation = minDaysForReservation;
             CancellationDeadline = cancellationDeadline;
-            Images = new List<Image>();
             OwnerUsername = ownerUsername;
             Owner = FindOwner(ownerUsername);
         }
         public Accommodation()
         {
             CancellationDeadline = 1;
-            Images = new List<Image>();
         }
+        public Accommodation(Accommodation accommodation)
+        {
+            Id = accommodation.Id;
+            Name = accommodation.Name;
+            Location = accommodation.Location;
+            LocationId= accommodation.LocationId;
+            Type = accommodation.Type;
+            PictureURLs= accommodation.PictureURLs;
+            Owner= accommodation.Owner;
+            OwnerUsername= accommodation.OwnerUsername;
+            MaxNumberOfGuests = accommodation.MaxNumberOfGuests;
+            MinDaysForReservation = accommodation.MinDaysForReservation;
+            CancellationDeadline= accommodation.CancellationDeadline;        }
         public Location FindLocation(int id)
         {
             LocationDAO locationDAO = new LocationDAO();
             return locationDAO.GetOne(id);
+        }
+        public void Reset()
+        {
+            Location = null;
+            CancellationDeadline= 1;
+            MaxNumberOfGuests= 0;
+            MinDaysForReservation= 0;
+            Type = ACCOMMODATIONTYPE.APARTMENT;
+            Name = "";
+            PictureURLs = "";
+        }
+
+        public string[] GetPictureURLsFromCSV()
+        {
+            return PictureURLs.Split(',');
         }
         public Owner FindOwner(string username)
         {
@@ -214,7 +251,8 @@ namespace ProjectTourism.Model
                 MinDaysForReservation.ToString(),
                 CancellationDeadline.ToString(),
                 OwnerUsername,
-                Name        };
+                Name,
+                PictureURLs     };
             return csvValues;
         }
 
@@ -235,6 +273,7 @@ namespace ProjectTourism.Model
             CancellationDeadline = int.Parse(values[5]);
             OwnerUsername = values[6];
             Name = values[7];
+            PictureURLs = values[8];
         }
     }
 }

@@ -28,6 +28,10 @@ namespace ProjectTourism.Controller
         {
             return GuideDAO.GetGuidesRoutes(username);
         }
+        public List<Route> GetGuidesRoutesCurrent(string username)
+        {
+            return GuideDAO.GetGuidesRoutesCurrent(username);
+        }
         public void Add(Guide guide)
         {
             GuideDAO.Add(guide);
