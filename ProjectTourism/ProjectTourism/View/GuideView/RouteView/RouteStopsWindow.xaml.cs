@@ -51,6 +51,7 @@ namespace ProjectTourism.View.GuideView.RouteView
             if(Route.StopsList.Count-1 == pom)
             {
                 pom = 0;
+                Route.State = ROUTESTATE.FINISHED;
             }
             else
             {

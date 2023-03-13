@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProjectTourism.Model
 {
-    public class Location:Serializable,INotifyPropertyChanged
+    public class Location: Serializable, INotifyPropertyChanged
     {
         private int _Id;
         public int Id

@@ -11,6 +11,8 @@ using System.Windows;
 using System.Windows.Controls;
 using ProjectTourism.ModelDAO;
 
+public enum ROUTESTATE {STARTED, FINISHED, STOPPED};
+
 namespace ProjectTourism.Model
 {
     public class Route : Serializable, INotifyPropertyChanged
@@ -25,6 +27,20 @@ namespace ProjectTourism.Model
                 if (_Name != value)
                 {
                     _Name = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private ROUTESTATE _State;
+        public ROUTESTATE State
+        {
+            get => _State;
+            set
+            {
+                if (_State != value)
+                {
+                    _State = value;
                     OnPropertyChanged();
                 }
             }

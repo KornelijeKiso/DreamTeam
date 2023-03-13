@@ -54,6 +54,7 @@ namespace ProjectTourism.View.GuideView.RouteView
             if (SelectedRoute != null)
             {
                 RouteStopsWindow routeStopsWindow = new RouteStopsWindow(SelectedRoute.Id);
+                SelectedRoute.State = ROUTESTATE.STARTED;
                 routeStopsWindow.ShowDialog();
             }
             else
