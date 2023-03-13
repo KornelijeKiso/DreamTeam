@@ -65,7 +65,8 @@ namespace ProjectTourism.View.GuideView.RouteView
         }
         private void EmergencyStopButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Route.State = ROUTESTATE.STOPPED;
+            Close();
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
