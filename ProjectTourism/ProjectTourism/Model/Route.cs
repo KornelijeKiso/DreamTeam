@@ -198,6 +198,20 @@ namespace ProjectTourism.Model
             }
         }
 
+        private int? _AvailableSeats;
+        public int? AvailableSeats
+        {
+            get => _AvailableSeats;
+            set
+            {
+                if (_AvailableSeats != value)
+                {
+                    _AvailableSeats = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
@@ -225,6 +239,7 @@ namespace ProjectTourism.Model
             GuideUsername = guideUsername;
             Guide = FindGuide(guideUsername);
             StopsList = new List<string>();
+            AvailableSeats = maxNumberOfGuests;
         }
         public Route(int id, string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
         {
@@ -242,6 +257,7 @@ namespace ProjectTourism.Model
             Images = images;
             GuideUsername = guideUsername;
             Guide = FindGuide(guideUsername);
+            AvailableSeats = maxNumberOfGuests;
             StopsList = new List<string>();
         }
 
