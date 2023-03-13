@@ -118,6 +118,32 @@ namespace ProjectTourism.Model
                 }
             }
         }
+        private bool _Graded;
+        public bool Graded
+        {
+            get => _Graded;
+            set
+            {
+                if (value != _Graded)
+                {
+                    _Graded = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _AbleToGrade;
+        public string AbleToGrade
+        {
+            get => _AbleToGrade;
+            set
+            {
+                if(value!=_AbleToGrade)
+                {
+                    _AbleToGrade = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public Reservation(int id, DateOnly startDate, DateOnly endDate, int accommodationId, string guest1Username)
         {
@@ -129,6 +155,14 @@ namespace ProjectTourism.Model
             Guest1 = FindGuest1(guest1Username);
             Accommodation = FindAccommodation(accommodationId);
             GradingDeadline = EndDate.AddDays(5);
+            if (IsAbleToGrade())
+            {
+                AbleToGrade = GradingDeadline.ToString();
+            }
+            else
+            {
+                AbleToGrade = "Expired";
+            }
         }
         public Reservation(DateOnly startDate, DateOnly endDate, int accommodationId, string guest1Username)
         {
@@ -139,6 +173,14 @@ namespace ProjectTourism.Model
             Guest1 = FindGuest1(guest1Username);
             Accommodation = FindAccommodation(accommodationId);
             GradingDeadline = EndDate.AddDays(5);
+            if (IsAbleToGrade())
+            {
+                AbleToGrade = GradingDeadline.ToString();
+            }
+            else
+            {
+                AbleToGrade = "Expired";
+            }
         }
 
         public Reservation()
@@ -160,10 +202,12 @@ namespace ProjectTourism.Model
             Guest1GradeDAO guest1GradeDAO= new Guest1GradeDAO();
             if (guest1GradeDAO.GetOneByReservation(Id) != null)
             {
+                Graded = true;
                 return true;
             }
             else
             {
+                Graded = false;
                 return false;
             }
         }
@@ -207,6 +251,14 @@ namespace ProjectTourism.Model
             Guest1 = FindGuest1(Guest1Username);
             Accommodation = FindAccommodation(AccommodationId);
             GradingDeadline = EndDate.AddDays(5);
+            if (IsAbleToGrade())
+            {
+                AbleToGrade = GradingDeadline.ToString();
+            }
+            else
+            {
+                AbleToGrade = "Expired";
+            }
         }
     }
 }

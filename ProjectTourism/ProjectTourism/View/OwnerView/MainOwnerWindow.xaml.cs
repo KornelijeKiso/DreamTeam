@@ -42,11 +42,10 @@ namespace ProjectTourism.View.OwnerView
             DataContext = this;
             OwnerController = new OwnerController();
             Owner = OwnerController.GetOne(username);
+            NewAccommodation = new Accommodation();
             Accommodations = new ObservableCollection<Accommodation>(OwnerController.GetOwnersAccommodations(username));
             AccommodationController= new AccommodationController();
-            List<Reservation> sortedReservations = OwnerController.GetOwnersReservations(username);
-            sortedReservations.Sort((x, y) => y.StartDate.CompareTo(x.StartDate));
-            Reservations = new ObservableCollection<Reservation>(sortedReservations); NewAccommodation = new Accommodation();
+            Reservations = SortReservations();
             NewAccommodation.Owner = Owner;
             NewAccommodation.OwnerUsername= username;
             LocationDAO= new LocationDAO();
@@ -60,6 +59,13 @@ namespace ProjectTourism.View.OwnerView
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private ObservableCollection<Reservation> SortReservations()
+        {
+            List<Reservation> sortedReservations = OwnerController.GetOwnersReservations(Owner.Username);
+            sortedReservations.Sort((x, y) => y.StartDate.CompareTo(x.StartDate));
+            return new ObservableCollection<Reservation>(sortedReservations);
         }
         public void AreAllGuestsGraded(object sender, EventArgs e)
         {
@@ -96,7 +102,10 @@ namespace ProjectTourism.View.OwnerView
         public void Update()
         {
             Accommodations = new ObservableCollection<Accommodation>(OwnerController.GetOwnersAccommodations(Owner.Username));
-            Reservations = new ObservableCollection<Reservation>(OwnerController.GetOwnersReservations(Owner.Username));
+            foreach(var reservation in Reservations)
+            {
+                reservation.IsGraded();
+            }
         }
         public void SelectedReservationChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -120,6 +129,7 @@ namespace ProjectTourism.View.OwnerView
             GradeGuestWindow gradeGuestWindow = new GradeGuestWindow(SelectedReservation.Id);
             gradeGuestWindow.ShowDialog();
             gradeButton.IsEnabled=false;
+            Update();
         }
     }
 }
