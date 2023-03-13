@@ -21,6 +21,10 @@
         </DataGrid>
         <Button Content="Filter" HorizontalAlignment="Left" IsDefault="True" Margin="30,495,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="FilterAccommodationsClick"/>
         <Rectangle HorizontalAlignment="Left" Height="451" Stroke="Blue" VerticalAlignment="Top" Width="235" Margin="10,39,0,0"/>
+        <TextBox HorizontalAlignment="Left" Margin="30,189,0,0" TextWrapping="Wrap" Text="{Binding Path=NameSearch, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="33"/>
+        <TextBox HorizontalAlignment="Left" Margin="30,249,0,0" TextWrapping="Wrap" Text="{Binding Path=LocationSearch, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="33"/>
+        <TextBox HorizontalAlignment="Left" Margin="30,309,0,0" TextWrapping="Wrap" Text="{Binding Path=GuestCountSearch, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="33"/>
+        <TextBox HorizontalAlignment="Left" Margin="30,369,0,0" TextWrapping="Wrap" Text="{Binding Path=ReservationDaysSearch, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="33"/>
         <ComboBox Name="ComboType" HorizontalAlignment="Left" Margin="30,429,0,0" VerticalAlignment="Top" Width="196" Height="30">
             <ComboBoxItem Content="Apartment"/>
             <ComboBoxItem Content="House"/>
