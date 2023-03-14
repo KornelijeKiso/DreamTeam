@@ -102,7 +102,7 @@ namespace ProjectTourism.Model
         public Ticket(int id, int routeId, string guest2Username, int numberOfGuests)
         {
             Id = id;
-            RouteId = routeId;                  // Lara mora ispraviti
+            RouteId = routeId;
             Route = FindRoute(routeId);
             Guest2Username = guest2Username;
             Guest2 = FindGuest2(guest2Username);
@@ -112,7 +112,7 @@ namespace ProjectTourism.Model
         public Ticket(int routeId, string guest2Username, int numberOfGuests)
         {
             
-            RouteId = routeId;                  // Lara mora ispraviti
+            RouteId = routeId;
             Route = FindRoute(routeId);
             Guest2Username = guest2Username;
             Guest2 = FindGuest2(guest2Username);

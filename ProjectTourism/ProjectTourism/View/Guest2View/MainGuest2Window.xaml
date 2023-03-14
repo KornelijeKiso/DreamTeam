@@ -44,9 +44,13 @@
         <TextBox Name="tb1" Text="{Binding Path=search, UpdateSourceTrigger=PropertyChanged}"
                  Width="200" Height="30" Margin="460,10,120,370">
         </TextBox>
-        <Button Name ="btn" IsDefault="True" Click="Search" ToolTip="search"
+        <Button Name ="buttonSearch" IsDefault="True" Click="Search" ToolTip="search"
                 Width="30" Height="30" Margin="680,10,75,370"  >
 
+        </Button>
+
+        <Button Name ="buttonTicket" Content="Buy Ticket" IsDefault="True" Click="BuyTicket" ToolTip="Buy ticket"
+                Width="100" Height="30" Margin="100,10,300,370"  >
         </Button>
 
     </Grid>

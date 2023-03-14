@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using ProjectTourism.Controller;
 using ProjectTourism.Model;
 using ProjectTourism.Observer;
+using ProjectTourism.ModelDAO;          /// OBRISI kad namestis BuyTicket kako treba
 
 namespace ProjectTourism.View.Guest2View
 {
@@ -31,6 +32,7 @@ namespace ProjectTourism.View.Guest2View
         public Guest2Controller GuestController { get; set; }
         public RouteController RouteController { get; set; }
         public Route? SelectedRoute { get; set; }
+        public TicketController TicketController { get; set; }
         public ObservableCollection<Route> Routes { get; set; }
         //public GuideController GuideController { get; set; }
 
@@ -48,6 +50,8 @@ namespace ProjectTourism.View.Guest2View
             RouteController = new RouteController();
             Routes = new ObservableCollection<Route>(RouteController.GetAll());
             search = "";
+
+            TicketController = new TicketController();
 
         }
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -141,6 +145,19 @@ namespace ProjectTourism.View.Guest2View
         {
             //UpdateRoutesList();
             throw new NotImplementedException();
+        }
+
+        private void BuyTicket(object sender, RoutedEventArgs e)
+        {   //
+            if (SelectedRoute != null)
+            {
+                int NumberOfGuests = 1;
+                Ticket ticket = new Ticket(SelectedRoute.Id, Guest.Username, NumberOfGuests);
+                
+                TicketDAO ticketDAO = new TicketDAO();
+                ticketDAO.Add(ticket);
+
+            }
         }
     }
 }
