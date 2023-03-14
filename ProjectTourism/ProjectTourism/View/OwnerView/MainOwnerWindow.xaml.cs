@@ -98,6 +98,7 @@ namespace ProjectTourism.View.OwnerView
             location.Id = NewLocation.Id;
             NewAccommodation.LocationId = NewLocation.Id;
             NewAccommodation.Location = location;
+            NewAccommodation.CityAndCountry = location.City + ", " + location.Country;
             Accommodation accommodation= new Accommodation(NewAccommodation);
             AccommodationController.Add(accommodation);
             Accommodations.Add(accommodation);
@@ -139,6 +140,7 @@ namespace ProjectTourism.View.OwnerView
             GradeGuestWindow gradeGuestWindow = new GradeGuestWindow(SelectedReservation.Id);
             gradeGuestWindow.ShowDialog();
             gradeButton.IsEnabled=false;
+
             Update();
         }
         //Process.Start(new ProcessStartInfo { FileName = @e.Value.ToString(), UseShellExecute = true });

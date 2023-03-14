@@ -81,6 +81,19 @@ namespace ProjectTourism.Model
                 }
             }
         }
+        private string _CityAndCountry;
+        public string CityAndCountry
+        {
+            get => _CityAndCountry;
+            set
+            {
+                if(value!=_CityAndCountry)
+                {
+                    _CityAndCountry = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private ACCOMMODATIONTYPE _Type;
         public ACCOMMODATIONTYPE Type
         {
@@ -201,11 +214,16 @@ namespace ProjectTourism.Model
             OwnerUsername= accommodation.OwnerUsername;
             MaxNumberOfGuests = accommodation.MaxNumberOfGuests;
             MinDaysForReservation = accommodation.MinDaysForReservation;
-            CancellationDeadline= accommodation.CancellationDeadline;        }
+            CancellationDeadline= accommodation.CancellationDeadline;  
+            CityAndCountry = accommodation.CityAndCountry;
+        }
         public Location FindLocation(int id)
         {
             LocationDAO locationDAO = new LocationDAO();
-            return locationDAO.GetOne(id);
+            Location location = locationDAO.GetOne(id);
+            CityAndCountry = location.City + ", " + location.Country;
+            return location;
+            
         }
         public void Reset()
         {
