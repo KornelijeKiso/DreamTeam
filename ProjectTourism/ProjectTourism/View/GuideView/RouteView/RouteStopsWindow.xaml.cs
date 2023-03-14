@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -78,7 +79,8 @@ namespace ProjectTourism.View.GuideView.RouteView
 
         private void TicketStatusButton_Click(object sender, RoutedEventArgs e)
         {
-
+            Button button = (Button)sender;
+            button.Background = Brushes.IndianRed;
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
