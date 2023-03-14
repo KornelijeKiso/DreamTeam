@@ -9,6 +9,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace ProjectTourism.Model
 {
@@ -76,6 +77,19 @@ namespace ProjectTourism.Model
                 if (value != _LocationId)
                 {
                     _LocationId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _CityAndCountry;
+        public string CityAndCountry
+        {
+            get => _CityAndCountry;
+            set
+            {
+                if(value!=_CityAndCountry)
+                {
+                    _CityAndCountry = value;
                     OnPropertyChanged();
                 }
             }
@@ -200,11 +214,16 @@ namespace ProjectTourism.Model
             OwnerUsername= accommodation.OwnerUsername;
             MaxNumberOfGuests = accommodation.MaxNumberOfGuests;
             MinDaysForReservation = accommodation.MinDaysForReservation;
-            CancellationDeadline= accommodation.CancellationDeadline;        }
+            CancellationDeadline= accommodation.CancellationDeadline;  
+            CityAndCountry = accommodation.CityAndCountry;
+        }
         public Location FindLocation(int id)
         {
             LocationDAO locationDAO = new LocationDAO();
-            return locationDAO.GetOne(id);
+            Location location = locationDAO.GetOne(id);
+            CityAndCountry = location.City + ", " + location.Country;
+            return location;
+            
         }
         public void Reset()
         {
@@ -219,7 +238,12 @@ namespace ProjectTourism.Model
 
         public string[] GetPictureURLsFromCSV()
         {
-            return PictureURLs.Split(',');
+            string[] pictures = PictureURLs.Split(',');
+            foreach(var picture in pictures)
+            {
+                picture.Trim();
+            }
+            return pictures;
         }
         public Owner FindOwner(string username)
         {
