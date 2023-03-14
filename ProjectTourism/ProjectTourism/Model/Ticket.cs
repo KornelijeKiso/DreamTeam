@@ -53,6 +53,24 @@ namespace ProjectTourism.Model
                 }
             }
         }
+        
+        /*
+        // namestiti da default bude Start
+        private Route _RouteStop;
+        public Route RouteStop
+        {
+            get => _RouteStop;
+            set
+            {
+                if (value != _RouteStop)
+                {
+                    _RouteStop = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        */
+
         private string _Guest2Username;
         public string Guest2Username
         {

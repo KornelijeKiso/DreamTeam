@@ -150,14 +150,19 @@ namespace ProjectTourism.View.Guest2View
         private void BuyTicket(object sender, RoutedEventArgs e)
         {   //
             if (SelectedRoute != null)
-            {
+            {/*
                 int NumberOfGuests = 1;
                 Ticket ticket = new Ticket(SelectedRoute.Id, Guest.Username, NumberOfGuests);
                 
                 TicketDAO ticketDAO = new TicketDAO();
                 ticketDAO.Add(ticket);
+                */
+                CreateTicketWindow createTicketWindow = new CreateTicketWindow(Guest.Username, SelectedRoute.Id);
+                createTicketWindow.ShowDialog();
 
             }
+
+           
         }
     }
 }

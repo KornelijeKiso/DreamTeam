@@ -1,0 +1,109 @@
+﻿<Window x:Class="ProjectTourism.View.Guest2View.CreateTicketWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectTourism.View.Guest2View"
+        mc:Ignorable="d"
+        Title="Buy Ticket" Height="650" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="200*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+
+        <Label x:Name="Name" Content="Route Name" 
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="120" Margin="20 0 0 0"
+               Grid.Row="1" Grid.Column="1"
+        />
+        <Label x:Name="Description" Content="Route Description" 
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="120" Margin="20 0 0 0"
+               Grid.Row="2" Grid.Column="1"
+        />
+        <Label x:Name="Location" Content="Route Location" 
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="120" Margin="20 0 0 0"
+               Grid.Row="3" Grid.Column="1"
+        />
+        <Label x:Name="Language" Content="Language" 
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="120" Margin="20 0 0 0"
+               Grid.Row="4" Grid.Column="1"
+        />
+        <Label x:Name="AvailableTickets" Content="Available Tickets" 
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="120" Margin="20 0 0 0"
+               Grid.Row="5" Grid.Column="1"
+        />
+        <Label x:Name="Stops" Content="Stops" 
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="120" Margin="20 0 0 0"
+               Grid.Row="6" Grid.Column="1"
+        />
+
+        <TextBox 
+            Text = "{Binding Path=SelectedRoute.Name}"
+            HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="200" IsReadOnly="True"
+               Grid.Row="1" Grid.Column="2" 
+        />
+        <TextBox 
+            Text = "{Binding Path=SelectedRoute.Description}"
+            HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="100" Width="200" IsReadOnly="True"
+               Grid.Row="2" Grid.Column="2" 
+        />
+        <TextBox 
+            Text = "{Binding Path=SelectedRoute.Location.City}"
+            HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="200" IsReadOnly="True"
+               Grid.Row="3" Grid.Column="2" 
+        />
+        <TextBox 
+            Text = "{Binding Path=SelectedRoute.Language}"
+            HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="200" IsReadOnly="True"
+               Grid.Row="4" Grid.Column="2" 
+        />
+        
+        <!--    slider od 1 do max slobodnih mesta    -->
+        <TextBox 
+            Text = "{Binding Path=Ticket.NumberOfGuests}"
+            HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="200"
+               Grid.Row="5" Grid.Column="2" 
+        />
+
+        <ComboBox x:Name="StopsComboBox"
+               ItemsSource="{Binding Path = StopsList}"   
+               SelectionChanged="StopsComboBox_SelectionChanged"
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="200"
+               Grid.Row="6" Grid.Column="2" >
+        </ComboBox>
+        
+        <Button Content="Create" 
+                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50 0 0 0"
+                Height="50" Width="100" 
+                IsDefault="True" Click="CreateTicket"
+                Grid.Row="7" Grid.Column="3"
+        />
+
+    </Grid>
+</Window>
