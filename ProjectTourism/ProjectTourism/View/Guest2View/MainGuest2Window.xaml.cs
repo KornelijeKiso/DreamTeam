@@ -89,20 +89,14 @@ namespace ProjectTourism.View.Guest2View
                 {
                     if (searchQuery.Length == 1)
                     {
-                        string sss = searchQuery[0].ToLower().Trim();
-                        // Language, Duration, MaxNumberOfGuests
-                        if (r.Language.Contains(searchQuery[0], StringComparison.OrdinalIgnoreCase) //r.Language.Contains(sss, StringComparison.OrdinalIgnoreCase) ||
-                            || r.Duration.ToString().Contains(searchQuery[0], StringComparison.OrdinalIgnoreCase)//|| r.Duration == double.Parse(searchQuery[0]) 
-                            || r.MaxNumberOfGuests.ToString().Contains(searchQuery[0], StringComparison.OrdinalIgnoreCase))//|| r.MaxNumberOfGuests == int.Parse(searchQuery[0])) 
+                        if (IsOneWordSearch(r, searchQuery[0]))         // Language, Duration, MaxNumberOfGuests
                         {
                             routes.Add(r);
                         }
                     }
                     else if (searchQuery.Length == 2)
                     {
-                        // city, country   || country, city
-                        if ((r.Location.City.Contains(searchQuery[0], StringComparison.OrdinalIgnoreCase) && r.Location.Country.Contains(searchQuery[1], StringComparison.OrdinalIgnoreCase))
-                            || (r.Location.Country.Contains(searchQuery[0], StringComparison.OrdinalIgnoreCase) && r.Location.City.Contains(searchQuery[1], StringComparison.OrdinalIgnoreCase)))
+                        if (IsTwoWordsSearch(r, searchQuery[0], searchQuery[1]))    // City, Country   || Country, City
                         {
                             routes.Add(r);
                         }
@@ -120,7 +114,18 @@ namespace ProjectTourism.View.Guest2View
             {
                 UpdateRoutesList();
             }
-            
+
+        }
+
+        private bool IsOneWordSearch(Route r, string search)
+        {   // Language, Duration, MaxNumberOfGuests
+            return (r.Language.Contains(search, StringComparison.OrdinalIgnoreCase) || r.Duration.ToString().Contains(search, StringComparison.OrdinalIgnoreCase)
+                            || r.MaxNumberOfGuests.ToString().Contains(search, StringComparison.OrdinalIgnoreCase));
+        }
+        private bool IsTwoWordsSearch(Route r, string searchFirst, string searchSecond)
+        {   // City, Country   || Country, City
+            return ((r.Location.City.Contains(searchFirst, StringComparison.OrdinalIgnoreCase) && r.Location.Country.Contains(searchSecond, StringComparison.OrdinalIgnoreCase))
+                || (r.Location.Country.Contains(searchFirst, StringComparison.OrdinalIgnoreCase) && r.Location.City.Contains(searchSecond, StringComparison.OrdinalIgnoreCase)));
         }
 
         private void UpdateRoutesList()
