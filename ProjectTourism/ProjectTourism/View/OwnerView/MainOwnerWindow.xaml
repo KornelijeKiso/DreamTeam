@@ -19,7 +19,7 @@
                 <DataGridTextColumn Header="Max number of guests" Width="135" Binding="{Binding MaxNumberOfGuests}" />
                 <DataGridTextColumn Header="Cancellation deadline" Width="130" Binding="{Binding CancellationDeadline}" />
                 <DataGridTextColumn Header="Min number of days to reserve" Width="195" Binding="{Binding MinDaysForReservation}" />
-                <DataGridHyperlinkColumn Header="Pictures" IsReadOnly="True" 
+                <DataGridHyperlinkColumn Header="Picture" IsReadOnly="True" 
            Binding="{Binding PictureURLs}">
                     <DataGridHyperlinkColumn.ElementStyle>
                         <Style TargetType="TextBlock">
