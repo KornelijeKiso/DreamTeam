@@ -56,6 +56,10 @@ namespace ProjectTourism.View.GuideView.RouteView
         public int pom = 0;
         private void StopPassedButton_Click(object sender, RoutedEventArgs e)
         {
+            if(StopPassedButton.Content.Equals("Finish route"))
+            {
+                Close();
+            }
             if(Route.StopsList.Count-1 == pom)
             {
                 pom = 0;
@@ -67,7 +71,7 @@ namespace ProjectTourism.View.GuideView.RouteView
                 pom++;
                 if(pom == Route.StopsList.Count-1)
                 {
-                    StopPassedButton.IsEnabled = false;
+                    StopPassedButton.Content = "Finish route";
                 }
             }
         }
