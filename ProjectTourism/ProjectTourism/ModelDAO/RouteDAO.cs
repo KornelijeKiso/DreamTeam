@@ -87,7 +87,7 @@ namespace ProjectTourism.ModelDAO
             string[] str = route.Stops.Split(',');
             foreach (string s in str) 
             {   
-                stops.Add(s);
+                stops.Add(s.Trim());
             }
             stops.Insert(0, route.Start);
             stops.Add(route.Finish);

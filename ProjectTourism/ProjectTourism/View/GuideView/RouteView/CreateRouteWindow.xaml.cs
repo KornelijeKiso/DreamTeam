@@ -105,6 +105,8 @@ namespace ProjectTourism.View.RouteView
         {
             LanguageAdditionWindow languageAdditionWindow = new LanguageAdditionWindow(LanguagesObservable);
             languageAdditionWindow.ShowDialog();
+            if (LanguagesObservable.Count() > Languages.Count())
+                LanguageComboBox.SelectedItem = LanguagesObservable.Last().ToString();
         }
 
         private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)

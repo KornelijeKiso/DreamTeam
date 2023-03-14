@@ -30,12 +30,12 @@
 
         <TextBox HorizontalAlignment="Left" Height="30" Margin="352,182,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.MaxNumberOfGuests}" VerticalAlignment="Top" Width="293"/>
         <TextBox HorizontalAlignment="Left" Height="30" Margin="352,217,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Start}" VerticalAlignment="Top" Width="293" TextChanged="TextBox_TextChanged"/>
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,357,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Duration}" VerticalAlignment="Top" Width="293"/>
-        <TextBox HorizontalAlignment="Left" Height="114" Margin="352,427,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Description}" VerticalAlignment="Top" Width="293"/>
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,392,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Images}" VerticalAlignment="Top" Width="293"/>
-        <TextBox Text="{Binding Route.StartDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="30" Margin="352,322,0,0" VerticalAlignment="Top" Width="293"/>
         <TextBox HorizontalAlignment="Left" Height="30" Margin="352,252,0,0" TextWrapping="Wrap" Text="{Binding Route.Stops}" VerticalAlignment="Top" Width="293"/>
         <TextBox HorizontalAlignment="Left" Height="30" Margin="352,287,0,0" TextWrapping="Wrap" Text="{Binding Route.Finish}" VerticalAlignment="Top" Width="293"/>
+        <TextBox Text="{Binding Route.StartDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="30" Margin="352,322,0,0" VerticalAlignment="Top" Width="293"/>
+        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,357,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Duration}" VerticalAlignment="Top" Width="293"/>
+        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,392,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Images}" VerticalAlignment="Top" Width="293"/>
+        <TextBox HorizontalAlignment="Left" Height="114" Margin="352,427,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Description}" VerticalAlignment="Top" Width="293"/>
 
         <Button x:Name="SaveRoute" Content="Save" HorizontalAlignment="Left" Height="30" Margin="675,556,0,0" VerticalAlignment="Top" Width="90" Click="SaveRoute_Click"/>
         <Button IsDefault="True" x:Name="AddLanguageButton" Content="Add language" HorizontalAlignment="Left" Height="30" Margin="675,147,0,0" VerticalAlignment="Top" Width="90" Click="AddLanguageButton_Click"/>
