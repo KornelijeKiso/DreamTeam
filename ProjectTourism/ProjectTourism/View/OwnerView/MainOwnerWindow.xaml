@@ -12,12 +12,22 @@
                     SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                     IsReadOnly="True" AutoGenerateColumns="False" Margin="270,42,10,345">
             <DataGrid.Columns>
+                
                 <DataGridTextColumn Header="Name" Width="100" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="City" Width="80" Binding="{Binding Location.City}" />
                 <DataGridTextColumn Header="Country" Width="80" Binding="{Binding Location.Country}" />
                 <DataGridTextColumn Header="Max number of guests" Width="135" Binding="{Binding MaxNumberOfGuests}" />
                 <DataGridTextColumn Header="Cancellation deadline" Width="130" Binding="{Binding CancellationDeadline}" />
                 <DataGridTextColumn Header="Min number of days to reserve" Width="195" Binding="{Binding MinDaysForReservation}" />
+                <DataGridHyperlinkColumn Header="Pictures" IsReadOnly="True" 
+           Binding="{Binding PictureURLs}">
+                    <DataGridHyperlinkColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <EventSetter Event="Hyperlink.Click" Handler="EventSetter_OnHandler" />
+                            <Setter Property="Tag" Value="{Binding Path=PictureURLs}"></Setter>
+                        </Style>
+                    </DataGridHyperlinkColumn.ElementStyle>
+                </DataGridHyperlinkColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Register a new accommodation" HorizontalAlignment="Left" IsDefault="True" Margin="30,524,0,0" VerticalAlignment="Top" Height="30" Width="196" Click="RegisterAccommodationClick"/>

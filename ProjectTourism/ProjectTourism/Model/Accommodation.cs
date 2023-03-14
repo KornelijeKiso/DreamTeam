@@ -9,6 +9,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Documents;
 
 namespace ProjectTourism.Model
 {
@@ -219,7 +220,12 @@ namespace ProjectTourism.Model
 
         public string[] GetPictureURLsFromCSV()
         {
-            return PictureURLs.Split(',');
+            string[] pictures = PictureURLs.Split(',');
+            foreach(var picture in pictures)
+            {
+                picture.Trim();
+            }
+            return pictures;
         }
         public Owner FindOwner(string username)
         {

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -129,7 +130,10 @@ namespace ProjectTourism.View.OwnerView
                 gradeButton.IsEnabled = true;
             }
         }
-
+        public void EventSetter_OnHandler(object sender, EventArgs e)
+        {
+            Process.Start(new ProcessStartInfo { FileName = @SelectedAccommodation.PictureURLs, UseShellExecute = true });
+        }
         public void GradeGuestClick(object sender, RoutedEventArgs e)
         {
             GradeGuestWindow gradeGuestWindow = new GradeGuestWindow(SelectedReservation.Id);
@@ -137,5 +141,6 @@ namespace ProjectTourism.View.OwnerView
             gradeButton.IsEnabled=false;
             Update();
         }
+        //Process.Start(new ProcessStartInfo { FileName = @e.Value.ToString(), UseShellExecute = true });
     }
 }
