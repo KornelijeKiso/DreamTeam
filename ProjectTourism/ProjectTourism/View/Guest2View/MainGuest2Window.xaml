@@ -5,8 +5,49 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.Guest2View"
         mc:Ignorable="d"
-        Title="MainGuest2Window" Height="450" Width="800">
+        Title="Main Guest2 Window" Height="450" Width="800">
     <Grid>
+        <!--
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="100*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
+        -->
+        <DataGrid x:Name="DataGridRoutes" 
+                    ItemsSource="{Binding Routes, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding SelectedRoute, UpdateSourceTrigger=PropertyChanged}" 
+                    SelectionMode="Single"
+                    IsReadOnly="True" AutoGenerateColumns="False" Margin="50,80,50,100">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Width="100" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="City" Width="80" Binding="{Binding Location.City}" />
+                <DataGridTextColumn Header="Country" Width="80" Binding="{Binding Location.Country}" />
+                <DataGridTextColumn Header="Language" Width="80" Binding="{Binding Language}" />
+                <DataGridTextColumn Header="Duration" Width="80" Binding="{Binding Duration}" />
+                <DataGridTextColumn Header="Max number of guests" Width="120" Binding="{Binding MaxNumberOfGuests}" />
+                <!--
+                <DataGridTextColumn Header="Cancellation deadline" Width="120" Binding="{Binding CancellationDeadline}" />
+                <DataGridTextColumn Header="Min number of days to reserve" Width="120" Binding="{Binding MinDaysForReservation}" />
+                -->
+            </DataGrid.Columns>
+        </DataGrid>
         
+        <TextBox Name="tb1" Text="{Binding Path=search, UpdateSourceTrigger=PropertyChanged}"
+                 Width="200" Height="30" Margin="460,10,120,370">
+        </TextBox>
+        <Button Name ="btn" IsDefault="True" Click="Search" ToolTip="search"
+                Width="30" Height="30" Margin="680,10,75,370"  >
+
+        </Button>
+
     </Grid>
 </Window>
