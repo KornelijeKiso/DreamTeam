@@ -9,15 +9,26 @@
     <Grid>
         <Button x:Name="StopPassedButton" Content="Stop passed" HorizontalAlignment="Left" Height="47" Margin="628,72,0,0" VerticalAlignment="Top" Width="133" Click="StopPassedButton_Click"/>
         <Button IsCancel="True" x:Name="EmergencyStopButton" Content="Emergency stop" HorizontalAlignment="Left" Height="47" Margin="628,139,0,0" VerticalAlignment="Top" Width="133" Background="#FFEF4343" Click="EmergencyStopButton_Click"/>
-        <Label Content="Current route stop" HorizontalAlignment="Left" Margin="104,70,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <TextBox x:Name="StopTextBox" HorizontalAlignment="Left" Height="42" Margin="104,120,0,0" TextWrapping="Wrap" Text="{Binding Path=Route.StopsList[0]}" VerticalAlignment="Top" Width="344" FontSize="14" TextChanged="TextBox_TextChanged"/>
-        <DataGrid CanUserAddRows="False" HorizontalAlignment="Left" Height="240" VerticalAlignment="Top" Width="300" 
+        <Label Content="Current route stop" HorizontalAlignment="Left" Margin="104,52,0,0" VerticalAlignment="Top" FontSize="14"/>
+        <TextBox x:Name="StopTextBox" HorizontalAlignment="Left" Height="42" Margin="104,104,0,0" TextWrapping="Wrap" Text="{Binding Path=Route.StopsList[0]}" VerticalAlignment="Top" Width="408" FontSize="14" TextChanged="TextBox_TextChanged"/>
+        <DataGrid CanUserAddRows="False" HorizontalAlignment="Left" Height="240" VerticalAlignment="Top" Width="408" 
                   SelectedItem="{Binding SelectedTicket, UpdateSourceTrigger=PropertyChanged}" 
                   ItemsSource="{Binding tickets, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="104,177,0,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="FirstName" Width="150" Binding="{Binding Guest2.FirstName}"></DataGridTextColumn>
-                <DataGridTextColumn Header="LastName" Width="150" Binding="{Binding Guest2.LastName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="FirstName" Width="150" Binding="{Binding Guest2.FirstName}"/>
+                <DataGridTextColumn Header="LastName" Width="150" Binding="{Binding Guest2.LastName}"/>
+                <DataGridTemplateColumn x:Name="TicketStatusButton" Width="100">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="Status"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="Click"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
+
         </DataGrid>
     </Grid>
 </Window>

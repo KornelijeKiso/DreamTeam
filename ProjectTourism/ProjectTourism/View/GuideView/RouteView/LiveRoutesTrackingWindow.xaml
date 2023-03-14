@@ -8,7 +8,7 @@
         Title="Routes tracking window" Height="630" Width="1022"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid CanUserAddRows="False" HorizontalAlignment="Left" Height="299" VerticalAlignment="Top" Width="780" SelectedItem="{Binding SelectedRoute, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Routes, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="37,174,0,0">
+        <DataGrid CanUserAddRows="False" HorizontalAlignment="Left" Height="299" VerticalAlignment="Top" Width="785" SelectedItem="{Binding SelectedRoute, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Routes, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="37,174,0,0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Width="111" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Country" Width="111" Binding="{Binding Location.Country}"></DataGridTextColumn>

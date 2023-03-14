@@ -76,6 +76,11 @@ namespace ProjectTourism.View.GuideView.RouteView
             Close();
         }
 
+        private void TicketStatusButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
