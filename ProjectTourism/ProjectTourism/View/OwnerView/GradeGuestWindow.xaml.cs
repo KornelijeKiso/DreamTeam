@@ -25,6 +25,7 @@ namespace ProjectTourism.View.OwnerView
         public ReservationController ReservationController { get; set; }  
         public List<Guest1Grade> Guest1Grades { get; set; }
         public Guest1Grade GuestGrade { get; set; }
+        public bool Graded;
         public GradeGuestWindow(int reservationId)
         {
             InitializeComponent();
@@ -34,6 +35,7 @@ namespace ProjectTourism.View.OwnerView
             Guest1Grades = Guest1GradeCotroller.GetAll();
             GuestGrade = new Guest1Grade();
             GuestGrade.ReservationId = reservationId;
+            
         }
 
         private void GradeClick(object sender, RoutedEventArgs e)
@@ -43,6 +45,7 @@ namespace ProjectTourism.View.OwnerView
             GuestGrade.Grades["Cleanness"] = int.Parse(Cleanness.Text);
             GuestGrade.Comment = Comment.Text;
             Guest1GradeCotroller.Add(GuestGrade);
+            Graded = true;
             Close();
         }
     }

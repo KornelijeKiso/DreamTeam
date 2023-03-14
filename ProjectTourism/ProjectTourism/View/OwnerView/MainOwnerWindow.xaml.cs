@@ -45,15 +45,16 @@ namespace ProjectTourism.View.OwnerView
             Owner = OwnerController.GetOne(username);
             NewAccommodation = new Accommodation();
             Accommodations = new ObservableCollection<Accommodation>(OwnerController.GetOwnersAccommodations(username));
+            
             AccommodationController= new AccommodationController();
             Reservations = SortReservations();
+            SetButtons();
             NewAccommodation.Owner = Owner;
             NewAccommodation.OwnerUsername= username;
             LocationDAO= new LocationDAO();
             NewLocation = new Location();
             AccommodationController.Subscribe(this);
             LocationDAO.Subscribe(this);
-            
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -67,6 +68,25 @@ namespace ProjectTourism.View.OwnerView
             List<Reservation> sortedReservations = OwnerController.GetOwnersReservations(Owner.Username);
             sortedReservations.Sort((x, y) => y.StartDate.CompareTo(x.StartDate));
             return new ObservableCollection<Reservation>(sortedReservations);
+        }
+
+        private void SetButtons()
+        {
+            foreach(var reservation in Reservations)
+            {
+                if (reservation.IsGraded())
+                {
+                    reservation.CanBeGraded = false;
+                }
+                else if (reservation.IsAbleToGrade())
+                {
+                    reservation.CanBeGraded = true;
+                }
+                else
+                {
+                    reservation.CanBeGraded = false;
+                }
+            }
         }
         public void AreAllGuestsGraded(object sender, EventArgs e)
         {
@@ -115,34 +135,53 @@ namespace ProjectTourism.View.OwnerView
                 reservation.IsGraded();
             }
         }
-        public void SelectedReservationChanged(object sender, SelectionChangedEventArgs e)
-        {
-            gradeButton.IsEnabled = false;
-            if(SelectedReservation == null)
-            {
-                gradeButton.IsEnabled = false;
-            }
-            else if(SelectedReservation.IsGraded())
-            {
-                gradeButton.IsEnabled = false;
-            }
-            else if(SelectedReservation.IsAbleToGrade())
-            {
-                gradeButton.IsEnabled = true;
-            }
-        }
+        //public void SelectedReservationChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    Button button = (Button)sender;
+        //    button.IsEnabled = false;
+        //    if(SelectedReservation == null)
+        //    {
+        //        button.IsEnabled = false;
+        //    }
+        //    else if(SelectedReservation.IsGraded())
+        //    {
+        //        button.IsEnabled = false;
+        //    }
+        //    else if(SelectedReservation.IsAbleToGrade())
+        //    {
+        //        button.IsEnabled = true;
+        //    }
+        //}
         public void EventSetter_OnHandler(object sender, EventArgs e)
         {
             Process.Start(new ProcessStartInfo { FileName = @SelectedAccommodation.PictureURLs, UseShellExecute = true });
         }
         public void GradeGuestClick(object sender, RoutedEventArgs e)
         {
-            GradeGuestWindow gradeGuestWindow = new GradeGuestWindow(SelectedReservation.Id);
-            gradeGuestWindow.ShowDialog();
-            gradeButton.IsEnabled=false;
+            Button button = (Button)sender;
+            if (SelectedReservation == null)
+            {
+                button.IsEnabled = false;
+            }
+            else if (SelectedReservation.IsGraded())
+            {
+                button.IsEnabled = false;
+            }
+            else if (SelectedReservation.IsAbleToGrade())
+            {
+                button.IsEnabled = true;
+                GradeGuestWindow gradeGuestWindow = new GradeGuestWindow(SelectedReservation.Id);
+                gradeGuestWindow.ShowDialog();
+                if (gradeGuestWindow.Graded)
+                {
+                    button.IsEnabled = false;
+                }
+                
+            }
+            
 
             Update();
         }
-        //Process.Start(new ProcessStartInfo { FileName = @e.Value.ToString(), UseShellExecute = true });
+        
     }
 }

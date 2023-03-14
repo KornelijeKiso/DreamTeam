@@ -131,6 +131,19 @@ namespace ProjectTourism.Model
                 }
             }
         }
+        private bool _CanBeGraded;
+        public bool CanBeGraded
+        {
+            get => _CanBeGraded;
+            set
+            {
+                if (value != _CanBeGraded)
+                {
+                    _CanBeGraded = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private string _AbleToGrade;
         public string AbleToGrade
         {
