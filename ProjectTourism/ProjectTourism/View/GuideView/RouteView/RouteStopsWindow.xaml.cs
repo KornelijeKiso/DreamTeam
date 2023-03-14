@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -26,12 +27,18 @@ namespace ProjectTourism.View.GuideView.RouteView
     {
         public RouteController RouteController { get; set; }
         public Route Route { get; set; }
+        public ObservableCollection<Ticket> tickets { get; set; }
+        public TicketController TicketController { get; set; }
+        public Ticket SelectedTicket { get; set; }  
+        
         public RouteStopsWindow(int id)
         {
             InitializeComponent();
             DataContext = this;
             RouteController = new RouteController();
+            TicketController = new TicketController();
             Route = RouteController.GetOne(id);
+            tickets = new ObservableCollection<Ticket>(TicketController.GetAll());
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
