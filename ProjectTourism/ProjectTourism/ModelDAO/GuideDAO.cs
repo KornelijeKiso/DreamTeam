@@ -64,6 +64,22 @@ namespace ProjectTourism.ModelDAO
             }
             return routes;
         }
+
+        public List<Route> GetGuidesRoutesCurrent(string username)
+        {
+            List<Route> routes = new List<Route>();
+            RouteDAO routeDAO = new RouteDAO();
+            foreach (var route in routeDAO.GetAll())
+            {
+                if (route.GuideUsername.Equals(username) && route.StartDate.Date.Equals(DateTime.Now.Date))
+                {
+                    //List<string> pom = routeDAO.GetStops(route);
+                    //route.StopsList = pom;
+                    routes.Add(route);
+                }
+            }
+            return routes;
+        }
         public void Subscribe(IObserver observer)
         {
             Observers.Add(observer);
