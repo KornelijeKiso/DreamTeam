@@ -108,7 +108,7 @@
 
         <ComboBox x:Name="StopsComboBox"
                ItemsSource="{Binding Path = StopsList}"
-               SelectedItem="{Binding Path=Ticket.RouteStop}"
+               SelectedItem="{Binding Path=Ticket.RouteStop, UpdateSourceTrigger=PropertyChanged}"
                SelectionChanged="StopsComboBox_SelectionChanged"
                HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="200"

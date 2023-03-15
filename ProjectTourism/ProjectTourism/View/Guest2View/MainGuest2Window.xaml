@@ -87,5 +87,10 @@
                 Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" >
         </Button>
 
+        <Button Name ="ShowTicket" Content="Show Tickets" IsDefault="True" Click="ShowTickets" ToolTip="Show tickets"
+                Width="150" Height="50" Margin="5,5,15,5"
+                Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" >
+        </Button>
+
     </Grid>
 </Window>

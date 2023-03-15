@@ -74,8 +74,7 @@ namespace ProjectTourism.View.Guest2View.TicketView
 
         private void UpdateTicket(object sender, RoutedEventArgs e)
         {
-            Ticket ticket = new Ticket(SelectedRoute.Id, Ticket.RouteStop, Guest2.Username, Ticket.NumberOfGuests);
-            TicketController.Update(ticket);
+            TicketController.Update(Ticket);
             Close();
         }
 

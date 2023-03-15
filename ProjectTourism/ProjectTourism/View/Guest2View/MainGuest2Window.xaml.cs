@@ -198,6 +198,12 @@ namespace ProjectTourism.View.Guest2View
                 MessageBox.Show("Please select the route.");
         }
 
+        private void ShowTickets(object sender, RoutedEventArgs e)
+        {
+            TicketOverviewWindow ticketOverviewWindow = new TicketOverviewWindow(Guest.Username);
+            ticketOverviewWindow.ShowDialog();
+        }
+
         //private void ResetSearch(object sender, RoutedEventArgs e)
         //{
         //    UpdateRoutesList(RouteController.GetAll());
