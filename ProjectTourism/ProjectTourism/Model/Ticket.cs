@@ -184,9 +184,9 @@ namespace ProjectTourism.Model
             {
                 Id.ToString(),
                 RouteId.ToString(),
-                RouteStop,
                 Guest2Username,
                 NumberOfGuests.ToString(),
+                RouteStop,
                 HasGuideChecked.ToString(),
                 HasGuestConfirmed.ToString()
             };
@@ -198,10 +198,10 @@ namespace ProjectTourism.Model
             Id = int.Parse(values[0]);
             RouteId = int.Parse(values[1]);
             Route = FindRoute(RouteId);
-            RouteStop = values[2];
-            Guest2Username = values[3];
+            Guest2Username = values[2];
+            NumberOfGuests = int.Parse(values[3]);
+            RouteStop = values[4];
             Guest2 = FindGuest2(Guest2Username);
-            NumberOfGuests = int.Parse(values[4]);
             HasGuideChecked = bool.Parse(values[5]);
             HasGuestConfirmed = bool.Parse(values[6]);
         }

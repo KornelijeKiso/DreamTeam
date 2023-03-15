@@ -17,24 +17,24 @@ using ProjectTourism.Controller;
 using ProjectTourism.Model;
 using ProjectTourism.Observer;
 
-namespace ProjectTourism.View.Guest2View
+namespace ProjectTourism.View.Guest2View.TicketView
 {
     /// <summary>
-    /// Interaction logic for CreateTicketWindow.xaml
+    /// Interaction logic for UpdateTicketWindow.xaml
     /// </summary>
-    public partial class CreateTicketWindow : Window, INotifyPropertyChanged, IObserver
+    public partial class UpdateTicketWindow : Window, INotifyPropertyChanged, IObserver
     {
         public Ticket Ticket { get; set; }
-        public TicketController TicketController {get; set;} 
+        public TicketController TicketController { get; set; }
         public Route SelectedRoute { get; set; }
         public RouteController RouteController { get; set; }
         public Guest2 Guest2 { get; set; }
         public Guest2Controller Guest2Controller { get; set; }
         public List<string> StopsList { get; set; }
         public int AvailableTickets { get; set; }
-        
 
-        public CreateTicketWindow(string username, int routeId)
+
+        public UpdateTicketWindow(string username, int routeId)
         {
             InitializeComponent();
             DataContext = this;
@@ -43,31 +43,21 @@ namespace ProjectTourism.View.Guest2View
             SelectedRoute = RouteController.GetOne(routeId);
             Guest2Controller = new Guest2Controller();
             Guest2 = Guest2Controller.GetOne(username);
-            Ticket = new Ticket();
-            
+            Ticket = TicketController.GetGuest2Ticket(Guest2, SelectedRoute);
+
             // transfer to Route -> StopsList
             StopsList = new List<string>();
             foreach (string stop in SelectedRoute.StopsList)
             {
                 StopsList.Add(stop.Trim());
             }
-            
+
             StopsList.RemoveAt(StopsList.Count - 1); // Guest can't chose Finish stop to join the Route
 
             AvailableTickets = GetAvailableTickets();
-            
-            // no available tickets, temp solution
             if (AvailableTickets <= 0)
-            {
-                MessageBox.Show("No available seats for this Route.");
-                //sliderText.Visibility = Visibility.Collapsed;
-                sliderText.Clear();
-                sliderText.IsEnabled = false;
-                slider.Visibility = Visibility.Collapsed;
-                StopsComboBox.Visibility = Visibility.Collapsed;
-                
-                CreateTicketButton.IsEnabled = false;
-            }
+                AvailableTickets = Ticket.NumberOfGuests;
+            
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -82,10 +72,10 @@ namespace ProjectTourism.View.Guest2View
             throw new NotImplementedException();
         }
 
-        private void CreateTicket(object sender, RoutedEventArgs e)
+        private void UpdateTicket(object sender, RoutedEventArgs e)
         {
             Ticket ticket = new Ticket(SelectedRoute.Id, Ticket.RouteStop, Guest2.Username, Ticket.NumberOfGuests);
-            TicketController.Add(ticket);
+            TicketController.Update(ticket);
             Close();
         }
 
@@ -104,13 +94,13 @@ namespace ProjectTourism.View.Guest2View
                 availableCount = availableCount.Value;
                 foreach (Ticket ticket in available)
                 {
-                    availableCount = availableCount - ticket.NumberOfGuests;
+                    if (ticket.Id != Ticket.Id) // doesn't count for selected Ticket that should be updated
+                        availableCount = availableCount - ticket.NumberOfGuests;
                 }
 
                 if (availableCount >= 1) return availableCount.Value;
                 return -1;
             }
-            
             return -1;
         }
     }

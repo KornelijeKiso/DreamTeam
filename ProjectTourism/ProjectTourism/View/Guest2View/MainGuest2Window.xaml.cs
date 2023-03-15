@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using ProjectTourism.Controller;
 using ProjectTourism.Model;
 using ProjectTourism.Observer;
+using ProjectTourism.View.Guest2View.TicketView;
 
 namespace ProjectTourism.View.Guest2View
 {
@@ -179,9 +180,22 @@ namespace ProjectTourism.View.Guest2View
         {
             if (SelectedRoute != null)
             {
-                CreateTicketWindow createTicketWindow = new CreateTicketWindow(Guest.Username, SelectedRoute.Id);
-                createTicketWindow.ShowDialog();
+                Ticket ticket = TicketController.GetGuest2Ticket(Guest, SelectedRoute);
+
+                if (ticket == null)
+                {
+                    CreateTicketWindow createTicketWindow = new CreateTicketWindow(Guest.Username, SelectedRoute.Id);
+                    createTicketWindow.ShowDialog();
+                }
+                else
+                {
+                    UpdateTicketWindow updateTicketWindow = new UpdateTicketWindow(Guest.Username, SelectedRoute.Id);
+                    updateTicketWindow.ShowDialog();
+                }
+                
             }
+            else
+                MessageBox.Show("Please select the route.");
         }
 
         //private void ResetSearch(object sender, RoutedEventArgs e)

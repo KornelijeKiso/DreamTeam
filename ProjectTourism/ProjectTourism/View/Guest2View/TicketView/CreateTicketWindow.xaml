@@ -5,12 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.Guest2View"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="Buy Ticket" Height="650" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="100*"/>
             <RowDefinition Height="200*"/>
+            <RowDefinition Height="100*"/>
             <RowDefinition Height="100*"/>
             <RowDefinition Height="100*"/>
             <RowDefinition Height="100*"/>
@@ -55,6 +57,11 @@
                HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="120" Margin="20 0 0 0"
                Grid.Row="6" Grid.Column="1"
+        />
+        <Label x:Name="LastStop" Content="Last Stop" 
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="120" Margin="20 0 0 0"
+               Grid.Row="7" Grid.Column="1"
         />
 
         <TextBox 
@@ -107,12 +114,19 @@
                Height="30" Width="200"
                Grid.Row="6" Grid.Column="2" >
         </ComboBox>
+        <TextBox 
+            Text = "{Binding Path=SelectedRoute.Finish}"
+            TextWrapping="Wrap"
+            HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="200" IsReadOnly="True"
+               Grid.Row="7" Grid.Column="2" 
+        />
         
         <Button x:Name="CreateTicketButton" Content="Create" 
                 HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50 0 0 0"
                 Height="50" Width="100" 
                 IsDefault="True" Click="CreateTicket"
-                Grid.Row="7" Grid.Column="3"
+                Grid.Row="8" Grid.Column="3"
         />
 
     </Grid>

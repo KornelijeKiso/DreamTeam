@@ -20,6 +20,11 @@ namespace ProjectTourism.Controller
         {
             TicketDAO.Add(ticket);
         }
+
+        public void Update(Ticket ticket)
+        {
+            TicketDAO.Update(ticket);
+        }
         public void Delete(Ticket ticket)
         {
             TicketDAO.Delete(ticket);
@@ -33,6 +38,17 @@ namespace ProjectTourism.Controller
         {
             return TicketDAO.GetByRoute(route);
         }
+
+        public List<Ticket> GetByGuest(Guest2 guest2)
+        {
+            return TicketDAO.GetByGuest(guest2);
+        }
+
+        public Ticket GetGuest2Ticket(Guest2 guest2, Route route)
+        {
+            return TicketDAO.GetGuest2Ticket(guest2, route);
+        }
+
         public List<Ticket> GetAll()
         {
             return TicketDAO.GetAll();

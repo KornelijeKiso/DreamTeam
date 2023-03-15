@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.Guest2View"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="Main Guest2 Window" Height="550" Width="850">
     <Grid>
         
