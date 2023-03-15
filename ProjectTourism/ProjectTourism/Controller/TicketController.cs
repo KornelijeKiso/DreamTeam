@@ -28,6 +28,11 @@ namespace ProjectTourism.Controller
         {
             return TicketDAO.GetOne(id);
         }
+
+        public List<Ticket> GetByRoute(Route route)
+        {
+            return TicketDAO.GetByRoute(route);
+        }
         public List<Ticket> GetAll()
         {
             return TicketDAO.GetAll();

@@ -5,13 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.Guest2View"
         mc:Ignorable="d"
-        Title="Main Guest2 Window" Height="450" Width="850">
+        Title="Main Guest2 Window" Height="550" Width="850">
     <Grid>
         
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="350*"/>
+            <RowDefinition Height="100*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -26,7 +27,7 @@
                     ItemsSource="{Binding Routes, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedRoute, UpdateSourceTrigger=PropertyChanged}" 
                     SelectionMode="Single"
-                    IsReadOnly="True" AutoGenerateColumns="False" Margin="50,10,50,50"
+                    IsReadOnly="True" AutoGenerateColumns="False" Margin="50,10,50,20"
                     Grid.Row="2" Grid.ColumnSpan="5">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Width="100" Binding="{Binding Name}"/>
@@ -34,7 +35,8 @@
                 <DataGridTextColumn Header="Country" Width="80" Binding="{Binding Location.Country}" />
                 <DataGridTextColumn Header="Language" Width="80" Binding="{Binding Language}" />
                 <DataGridTextColumn Header="Duration" Width="80" Binding="{Binding Duration}" />
-                <DataGridTextColumn Header="Max number of guests" Width="120" Binding="{Binding MaxNumberOfGuests}" />
+                <DataGridTextColumn Header="Max number of guests" Width="150" Binding="{Binding MaxNumberOfGuests}" />
+                <!-- <DataGridTextColumn Header="Available Tickets" Width="150" Binding="{Binding AvailableSeats}" /> -->
             </DataGrid.Columns>
         </DataGrid>
 
@@ -77,6 +79,11 @@
         <Button x:Name ="SearchButton" IsDefault="True" Click="SearchClick" ToolTip="Search" Content="Search"
                 Width="80" Height="50" Margin="5,5,15,5"
                 Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center"    >
+        </Button>
+        
+        <Button Name ="buttonTicket" Content="Buy Ticket" IsDefault="True" Click="BuyTicket" ToolTip="Buy ticket"
+                Width="150" Height="50" Margin="5,5,15,5"
+                Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" >
         </Button>
 
     </Grid>
