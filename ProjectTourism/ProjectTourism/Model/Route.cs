@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using ProjectTourism.ModelDAO;
 
 public enum ROUTESTATE {STARTED, FINISHED, STOPPED};
@@ -33,7 +34,7 @@ namespace ProjectTourism.Model
                 }
             }
         }
-
+        
         private ROUTESTATE _State;
         public ROUTESTATE State
         {
@@ -301,6 +302,7 @@ namespace ProjectTourism.Model
             GuideUsername = values[11];
             LocationId = int.Parse(values[12]);
             Location = FindLocation(LocationId);
+
         }
 
         private Location? FindLocation(int? locationId)

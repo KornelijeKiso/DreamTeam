@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace ProjectTourism.Model
 {
@@ -25,7 +26,19 @@ namespace ProjectTourism.Model
                 }
             }
         }
-
+        private SolidColorBrush _ButtonColor;
+        public SolidColorBrush ButtonColor
+        {
+            get => _ButtonColor;
+            set
+            {
+                if (value != _ButtonColor)
+                {
+                    _ButtonColor = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private int _RouteId;
         public int RouteId
         {
@@ -204,6 +217,13 @@ namespace ProjectTourism.Model
             NumberOfGuests = int.Parse(values[4]);
             HasGuideChecked = bool.Parse(values[5]);
             HasGuestConfirmed = bool.Parse(values[6]);
+            if (HasGuestConfirmed)
+            {
+                ButtonColor = Brushes.Green;
+            }else if(HasGuideChecked)
+            {
+                ButtonColor = Brushes.IndianRed;
+            }
         }
 
 

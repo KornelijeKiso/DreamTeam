@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -48,11 +49,6 @@ namespace ProjectTourism.View.GuideView.RouteView
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public void Update()
-        {
-           
-        }
-
         public int pom = 0;
         private void StopPassedButton_Click(object sender, RoutedEventArgs e)
         {
@@ -83,14 +79,21 @@ namespace ProjectTourism.View.GuideView.RouteView
 
         private void TicketStatusButton_Click(object sender, RoutedEventArgs e)
         {
-            Button button = (Button)sender;
-            button.Background = Brushes.IndianRed;
-            TicketController.GuideCheck(SelectedTicket);
+            if(SelectedTicket.ButtonColor!=Brushes.Green)
+            {
+                SelectedTicket.ButtonColor = Brushes.IndianRed;
+                TicketController.GuideCheck(SelectedTicket);
+            }
+            
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+        public void Update()
+        {
+            tickets = new ObservableCollection<Ticket>((IEnumerable<Ticket>)TicketController.GetByRoute(Route));
         }
 
     }

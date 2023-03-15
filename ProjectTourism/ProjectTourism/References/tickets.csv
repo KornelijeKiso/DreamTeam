@@ -1,12 +1,12 @@
 0|0|hgf|jel|1|False|False
-1|0|hgf|jel|2|True|False
+1|0|hgf|jel|2|False|False
 2|0|Bas carsija|jel|7|False|False
-3|0|Sarajevo center|jel|0|True|False
-4|3|Soko station|jel|17|True|False
-7|3|Soko station|jel|1|True|False
+3|0|Sarajevo center|jel|0|False|False
+4|3|Soko station|jel|17|False|False
+7|3|Soko station|jel|1|False|False
 8|3|Soko station|jel|46|False|False
 9|4|Nevesinje Center|jel|51|False|False
 10|4|Nevesinje Center|jel|49|False|False
-11|12|Moshi|jel|5|True|False
+11|12|Moshi|jel|5|False|False
 12|1|Harare Center|jel|2|True|False
-13|1|Harare Center|dzoni|2|True|False
+13|1|Harare Center|dzoni|2|True|True
