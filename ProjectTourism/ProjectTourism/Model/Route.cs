@@ -17,7 +17,7 @@ public enum ROUTESTATE {STARTED, FINISHED, STOPPED};
 
 namespace ProjectTourism.Model
 {
-    public class Route : Serializable, INotifyPropertyChanged
+    public class Route : Serializable, INotifyPropertyChanged, IDataErrorInfo
     {
         public int Id;
         private string? _Name;
