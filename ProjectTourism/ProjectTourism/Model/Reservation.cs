@@ -207,7 +207,14 @@ namespace ProjectTourism.Model
             }
             else
             {
-                return "Expired";
+                if(DateOnly.FromDateTime(DateTime.Now) > EndDate)
+                {
+                    return "Expired.";
+                }
+                else
+                {
+                    return "Visit not ended yet.";
+                }
             }
         }
         public void FromCSV(string[] values)

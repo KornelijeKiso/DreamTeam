@@ -76,8 +76,8 @@
                 <DataGridTextColumn Header="Start" Width="80" Binding="{Binding StartDate}" />
                 <DataGridTextColumn Header="End" Width="80" Binding="{Binding EndDate}" />
                 <DataGridTextColumn Header="Guest" Width="135" Binding="{Binding Guest1.FirstName}"/>
-                <DataGridTextColumn Header="Graded" Width="100" Binding="{Binding Graded}"/>
-                <DataGridTextColumn Header="Grading deadline" Width="100" Binding="{Binding GradingDeadlineMessage}"/>
+                <DataGridTextColumn Header="Graded" Width="60" Binding="{Binding Graded}"/>
+                <DataGridTextColumn Header="Grading deadline" Width="120" Binding="{Binding GradingDeadlineMessage}"/>
                 <DataGridTemplateColumn Width="100" x:Name="Buttons">
                     <DataGridTemplateColumn.Header>
                         <TextBlock Text="Grade a guest"/>
