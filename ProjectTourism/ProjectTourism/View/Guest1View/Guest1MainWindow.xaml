@@ -9,28 +9,59 @@
     <Grid Margin="0,0,0,-113">
         <DataGrid x:Name="DataGridAccommodations" ItemsSource="{Binding FilteredAccommodations, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
-                    IsReadOnly="True" AutoGenerateColumns="False" Height="327" Margin="270,39,10,168">
+                    IsReadOnly="True" AutoGenerateColumns="False" Height="324" Margin="270,66,10,168">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="100" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="City" Width="80" Binding="{Binding Location.City}" />
-                <DataGridTextColumn Header="Country" Width="80" Binding="{Binding Location.Country}" />
-                <DataGridTextColumn Header="Max number of guests" Width="135" Binding="{Binding MaxNumberOfGuests}" />
-                <DataGridTextColumn Header="Cancellation deadline" Width="130" Binding="{Binding CancellationDeadline}" />
-                <DataGridTextColumn Header="Min number of days to reserve" Width="195" Binding="{Binding MinDaysForReservation}" />
+
+                <DataGridTemplateColumn Width="100">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="Picture"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Stretch="Fill" Source="{Binding Path=PictureURLs}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="577">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="Info"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" >
+                                <Label Content="{Binding Path=Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
+                                <Label Content="{Binding Path=CityAndCountry}" Margin="0,0,0,-7"></Label>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                    <Label Content="Number of guests :" Margin="0,0,-7,-7" ></Label>
+                                    <Label Content="{Binding Path=MaxNumberOfGuests}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                    <Label Content="Minimal number of days for reservation :" Margin="0,0,-7,-7" ></Label>
+                                    <Label Content="{Binding Path=MinDaysForReservation}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Filter" HorizontalAlignment="Left" IsDefault="True" Margin="30,495,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="FilterAccommodationsClick"/>
-        <Rectangle HorizontalAlignment="Left" Height="451" Stroke="Blue" VerticalAlignment="Top" Width="235" Margin="10,39,0,0"/>
-        <TextBox HorizontalAlignment="Left" Margin="30,189,0,0" TextWrapping="Wrap" Text="{Binding Path=NameSearch, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="33"/>
-        <TextBox HorizontalAlignment="Left" Margin="30,249,0,0" TextWrapping="Wrap" Text="{Binding Path=LocationSearch, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="33"/>
-        <TextBox HorizontalAlignment="Left" Margin="30,309,0,0" TextWrapping="Wrap" Text="{Binding Path=GuestCountSearch, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="33"/>
-        <TextBox HorizontalAlignment="Left" Margin="30,369,0,0" TextWrapping="Wrap" Text="{Binding Path=ReservationDaysSearch, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="33"/>
-        <ComboBox Name="ComboType" HorizontalAlignment="Left" Margin="30,429,0,0" VerticalAlignment="Top" Width="196" Height="30">
+        <Button Content="Filter" HorizontalAlignment="Left" IsDefault="True" Margin="30,455,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="FilterAccommodationsClick"/>
+        <Rectangle HorizontalAlignment="Left" Height="325" Stroke="Blue" VerticalAlignment="Top" Width="235" Margin="10,109,0,0"/>
+        <TextBox HorizontalAlignment="Left" Margin="30,150,0,0" TextWrapping="Wrap" Text="{Binding Path=NameSearch, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="33"/>
+        <TextBox HorizontalAlignment="Left" Margin="30,210,0,0" TextWrapping="Wrap" Text="{Binding Path=LocationSearch, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="33"/>
+        <TextBox HorizontalAlignment="Left" Margin="30,270,0,0" TextWrapping="Wrap" Text="{Binding Path=GuestCountSearch, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="33"/>
+        <TextBox HorizontalAlignment="Left" Margin="30,330,0,0" TextWrapping="Wrap" Text="{Binding Path=ReservationDaysSearch, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="33"/>
+        <ComboBox Name="ComboType" HorizontalAlignment="Left" Margin="30,390,0,0" VerticalAlignment="Top" Width="196" Height="30">
+            <ComboBoxItem Content="All Accommodations" IsSelected="True"/>
             <ComboBoxItem Content="Apartment"/>
             <ComboBoxItem Content="House"/>
             <ComboBoxItem Content="Hut"/>
         </ComboBox>
-        <Label Content="Accommodation type" HorizontalAlignment="Left" Margin="30,403,0,0" VerticalAlignment="Top" Width="152"/>
+        <Label Content="Accommodation Name:" HorizontalAlignment="Left" Margin="30,125,0,0" VerticalAlignment="Top" Width="152"/>
+        <Label Content="Location:" HorizontalAlignment="Left" Margin="30,185,0,0" VerticalAlignment="Top" Width="152"/>
+        <Label Content="Number of Guests:" HorizontalAlignment="Left" Margin="30,245,0,0" VerticalAlignment="Top" Width="152"/>
+        <Label Content="Days for Reservation:" HorizontalAlignment="Left" Margin="30,305,0,0" VerticalAlignment="Top" Width="152"/>
+        <Label Content="Accommodation type:" HorizontalAlignment="Left" Margin="30,365,0,0" VerticalAlignment="Top" Width="152"/>
 
     </Grid>
 </Window>

@@ -53,6 +53,21 @@ namespace ProjectTourism.Model
                 }
             }
         }
+        
+        private string _RouteStop;
+        public string RouteStop
+        {
+            get => _RouteStop;
+            set
+            {
+                if (value != _RouteStop)
+                {
+                    _RouteStop = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private string _Guest2Username;
         public string Guest2Username
         {
@@ -99,21 +114,23 @@ namespace ProjectTourism.Model
         public Ticket()
         {  }
 
-        public Ticket(int id, int routeId, string guest2Username, int numberOfGuests)
+        public Ticket(int id, int routeId, string RouteStop, string guest2Username, int numberOfGuests)
         {
             Id = id;
-            RouteId = routeId;                  // Lara mora ispraviti
+            RouteId = routeId;
             Route = FindRoute(routeId);
+            this.RouteStop = RouteStop;
             Guest2Username = guest2Username;
             Guest2 = FindGuest2(guest2Username);
             NumberOfGuests = numberOfGuests;
         }
 
-        public Ticket(int routeId, string guest2Username, int numberOfGuests)
+        public Ticket(int routeId, string RouteStop, string guest2Username, int numberOfGuests)
         {
             
-            RouteId = routeId;                  // Lara mora ispraviti
+            RouteId = routeId;
             Route = FindRoute(routeId);
+            this.RouteStop = RouteStop;
             Guest2Username = guest2Username;
             Guest2 = FindGuest2(guest2Username);
             NumberOfGuests = numberOfGuests;
@@ -138,6 +155,7 @@ namespace ProjectTourism.Model
             {
                 Id.ToString(),
                 RouteId.ToString(),
+                RouteStop,
                 Guest2Username,
                 NumberOfGuests.ToString()   };
             return csvValues;
@@ -148,9 +166,10 @@ namespace ProjectTourism.Model
             Id = int.Parse(values[0]);
             RouteId = int.Parse(values[1]);
             Route = FindRoute(RouteId);
-            Guest2Username = values[2];
+            RouteStop = values[2];
+            Guest2Username = values[3];
             Guest2 = FindGuest2(Guest2Username);
-            NumberOfGuests = int.Parse(values[3]);
+            NumberOfGuests = int.Parse(values[4]);
         }
 
 

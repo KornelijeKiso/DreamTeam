@@ -5,48 +5,85 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.Guest2View"
         mc:Ignorable="d"
-        Title="Main Guest2 Window" Height="450" Width="800">
+        Title="Main Guest2 Window" Height="550" Width="850">
     <Grid>
-        <!--
+        
         <Grid.RowDefinitions>
-            <RowDefinition Height="100*"/>
-            <RowDefinition Height="100*"/>
-            <RowDefinition Height="100*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="350*"/>
             <RowDefinition Height="100*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="320"/>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="320"/>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="90"/>
         </Grid.ColumnDefinitions>
-        -->
+
         <DataGrid x:Name="DataGridRoutes" 
                     ItemsSource="{Binding Routes, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedRoute, UpdateSourceTrigger=PropertyChanged}" 
                     SelectionMode="Single"
-                    IsReadOnly="True" AutoGenerateColumns="False" Margin="50,80,50,100">
+                    IsReadOnly="True" AutoGenerateColumns="False" Margin="50,10,50,20"
+                    Grid.Row="2" Grid.ColumnSpan="5">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Width="100" Binding="{Binding Name}"/>
                 <DataGridTextColumn Header="City" Width="80" Binding="{Binding Location.City}" />
                 <DataGridTextColumn Header="Country" Width="80" Binding="{Binding Location.Country}" />
                 <DataGridTextColumn Header="Language" Width="80" Binding="{Binding Language}" />
                 <DataGridTextColumn Header="Duration" Width="80" Binding="{Binding Duration}" />
-                <DataGridTextColumn Header="Max number of guests" Width="120" Binding="{Binding MaxNumberOfGuests}" />
-                <!--
-                <DataGridTextColumn Header="Cancellation deadline" Width="120" Binding="{Binding CancellationDeadline}" />
-                <DataGridTextColumn Header="Min number of days to reserve" Width="120" Binding="{Binding MinDaysForReservation}" />
-                -->
+                <DataGridTextColumn Header="Max number of guests" Width="150" Binding="{Binding MaxNumberOfGuests}" />
+                <!-- <DataGridTextColumn Header="Available Tickets" Width="150" Binding="{Binding AvailableSeats}" /> -->
             </DataGrid.Columns>
         </DataGrid>
-        
-        <TextBox Name="tb1" Text="{Binding Path=search, UpdateSourceTrigger=PropertyChanged}"
-                 Width="200" Height="30" Margin="460,10,120,370">
-        </TextBox>
-        <Button Name ="btn" IsDefault="True" Click="Search" ToolTip="search"
-                Width="30" Height="30" Margin="680,10,75,370"  >
 
+        <Label x:Name="LabelLocation" Content="Location" 
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="auto" Margin="0 0 0 0"
+               Grid.Row="0" Grid.Column="0"     />
+        <TextBox x:Name="tbLocation" Text="{Binding Path=searchLocation, UpdateSourceTrigger=PropertyChanged}"
+                 Width="250" Height="30" Margin="5,5,5,5" HorizontalAlignment="Right"
+                 Grid.Row="0" Grid.Column="0"   >
+        </TextBox>
+    
+        <Label x:Name="LabelLanguage" Content="Language" 
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="auto" Margin="0 0 0 0"
+               Grid.Row="1" Grid.Column="0"     />
+        <TextBox x:Name="tbLanguage" Text="{Binding Path=searchLanguage, UpdateSourceTrigger=PropertyChanged}"
+                 Width="250" Height="30" Margin="5,5,5,5" HorizontalAlignment="Right"
+                 Grid.Row="1" Grid.Column="0"   >
+        </TextBox>
+        
+        <Label x:Name="LabelDuration" Content="Duration" 
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="auto" Margin="0 0 0 0"
+               Grid.Row="0" Grid.Column="2"     />
+        <TextBox x:Name="tbDuration" Text="{Binding Path=searchDuration, UpdateSourceTrigger=PropertyChanged}"
+                 Width="250" Height="30" Margin="5,5,5,5" HorizontalAlignment="Right"
+                 Grid.Row="0" Grid.Column="2"   >
+        </TextBox>
+        
+        <Label x:Name="LabelMaxNumberOfGuests" Content="Max Number Of Guests" 
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="auto" Margin="0 0 0 0"
+               Grid.Row="1" Grid.Column="2"     />
+        <TextBox x:Name ="tbMaxNumberOfGuests" Text="{Binding Path=searchMaxNumberOfGuests, UpdateSourceTrigger=PropertyChanged}"
+                 Width="170" Height="30" Margin="5,5,5,5" HorizontalAlignment="Right"
+                 Grid.Row="1" Grid.Column="2"   >
+        </TextBox>
+        
+        <Button x:Name ="SearchButton" IsDefault="True" Click="SearchClick" ToolTip="Search" Content="Search"
+                Width="80" Height="50" Margin="5,5,15,5"
+                Grid.Row="0" Grid.Column="3" Grid.RowSpan="2" Grid.ColumnSpan="2" HorizontalAlignment="Center"    >
+        </Button>
+        
+        <Button Name ="buttonTicket" Content="Buy Ticket" IsDefault="True" Click="BuyTicket" ToolTip="Buy ticket"
+                Width="150" Height="50" Margin="5,5,15,5"
+                Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" >
         </Button>
 
     </Grid>
