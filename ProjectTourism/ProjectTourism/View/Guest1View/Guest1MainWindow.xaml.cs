@@ -58,13 +58,13 @@ namespace ProjectTourism.View.Guest1View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private bool ReservationDaysMatch(string ReservationDaysSearchQuery, Accommodation accommodation)
+        private bool ReservationDaysMatch(string ReservationDaysQuery, Accommodation accommodation)
         {
-            if (ReservationDaysSearchQuery != null)
+            if (ReservationDaysQuery != null)
             {
-                if (!ReservationDaysSearchQuery.Equals(""))
+                if (!ReservationDaysQuery.Equals(""))
                 {
-                    int search = int.Parse(ReservationDaysSearchQuery);
+                    int search = int.Parse(ReservationDaysQuery);
                     int minReservationDaysCount = accommodation.MinDaysForReservation;
 
                     if (search >= minReservationDaysCount)
@@ -84,13 +84,13 @@ namespace ProjectTourism.View.Guest1View
             }
         }
 
-        private bool GuestNumberMatch(string GuestNumberSearchQuery, Accommodation accommodation)
+        private bool GuestNumberMatch(string GuestNumberQuery, Accommodation accommodation)
         {
-            if (GuestNumberSearchQuery != null)
+            if (GuestNumberQuery != null)
             {
-                if (!GuestNumberSearchQuery.Equals(""))
+                if (!GuestNumberQuery.Equals(""))
                 {
-                    int search = int.Parse(GuestNumberSearchQuery);
+                    int search = int.Parse(GuestNumberQuery);
                     int maxGuestCount = accommodation.MaxNumberOfGuests;
 
                     if (search <= maxGuestCount)
