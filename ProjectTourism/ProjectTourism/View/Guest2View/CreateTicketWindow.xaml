@@ -86,7 +86,14 @@
                Grid.Row="4" Grid.Column="2" 
         />
         
-        <!--    slider od 1 do max slobodnih mesta    -->
+        <!--    slider od 1 do max slobodnih mesta   
+        
+        
+        
+        -->
+
+        
+        <!-- 
         <TextBox 
             Text = "{Binding Path=Ticket.NumberOfGuests}"
             TextWrapping="Wrap"
@@ -94,7 +101,20 @@
                Height="30" Width="200"
                Grid.Row="5" Grid.Column="2" 
         />
-
+        -->
+        <TextBox Text="{Binding ElementName=slider,Path=Value,UpdateSourceTrigger=PropertyChanged}"
+                HorizontalAlignment="Left" VerticalAlignment="Center"
+                Height="30" Width="30"
+                Grid.Row="5" Grid.Column="2"    >
+        </TextBox>
+        <Slider x:Name="slider" Minimum="1" Maximum="100"
+                Value="{Binding Path=Ticket.NumberOfGuests}"
+                HorizontalAlignment="Right" VerticalAlignment="Center"
+                Height="30" Width="160" Margin="0 0 10 0"
+                Grid.Row="5" Grid.Column="2"    >
+        </Slider>
+        
+        
         <ComboBox x:Name="StopsComboBox"
                ItemsSource="{Binding Path = StopsList}"
                SelectedIndex="0"
