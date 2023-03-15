@@ -11,12 +11,38 @@
                     SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                     IsReadOnly="True" AutoGenerateColumns="False" Height="324" Margin="270,66,10,168">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="100" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="City" Width="80" Binding="{Binding Location.City}" />
-                <DataGridTextColumn Header="Country" Width="80" Binding="{Binding Location.Country}" />
-                <DataGridTextColumn Header="Max number of guests" Width="135" Binding="{Binding MaxNumberOfGuests}" />
-                <DataGridTextColumn Header="Cancellation deadline" Width="130" Binding="{Binding CancellationDeadline}" />
-                <DataGridTextColumn Header="Min number of days to reserve" Width="195" Binding="{Binding MinDaysForReservation}" />
+
+                <DataGridTemplateColumn Width="100">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="Picture"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Stretch="Fill" Source="{Binding Path=PictureURLs}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="577">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="Info"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" >
+                                <Label Content="{Binding Path=Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
+                                <Label Content="{Binding Path=CityAndCountry}" Margin="0,0,0,-7"></Label>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                    <Label Content="Number of guests :" Margin="0,0,-7,-7" ></Label>
+                                    <Label Content="{Binding Path=MaxNumberOfGuests}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                    <Label Content="Minimal number of days for reservation :" Margin="0,0,-7,-7" ></Label>
+                                    <Label Content="{Binding Path=MinDaysForReservation}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
         <Button Content="Filter" HorizontalAlignment="Left" IsDefault="True" Margin="30,455,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="FilterAccommodationsClick"/>
