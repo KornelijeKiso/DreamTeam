@@ -120,6 +120,7 @@ namespace ProjectTourism.View.OwnerView
             NewAccommodation.Location = location;
             NewAccommodation.CityAndCountry = location.City + ", " + location.Country;
             Accommodation accommodation= new Accommodation(NewAccommodation);
+            accommodation.Pictures = accommodation.GetPictureURLsFromCSV();
             AccommodationController.Add(accommodation);
             Accommodations.Add(accommodation);
             NewAccommodation.Reset();

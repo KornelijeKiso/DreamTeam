@@ -49,12 +49,6 @@ namespace ProjectTourism.Model
                 }
             }
         }
-        public Location(int id, string city, string country)
-        {
-            Id = id;
-            City = city;
-            Country = country;
-        }
         public Location(string city, string country)
         {
             City = city;

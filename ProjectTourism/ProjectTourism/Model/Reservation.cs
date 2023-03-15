@@ -144,55 +144,17 @@ namespace ProjectTourism.Model
                 }
             }
         }
-        private string _AbleToGrade;
-        public string AbleToGrade
+        private string _GradingDeadlineMessage;
+        public string GradingDeadlineMessage
         {
-            get => _AbleToGrade;
+            get => _GradingDeadlineMessage;
             set
             {
-                if(value!=_AbleToGrade)
+                if(value!=_GradingDeadlineMessage)
                 {
-                    _AbleToGrade = value;
+                    _GradingDeadlineMessage = value;
                     OnPropertyChanged();
                 }
-            }
-        }
-
-        public Reservation(int id, DateOnly startDate, DateOnly endDate, int accommodationId, string guest1Username)
-        {
-            Id = id;
-            StartDate = startDate;
-            EndDate = endDate;
-            AccommodationId = accommodationId;
-            Guest1Username = guest1Username;
-            Guest1 = FindGuest1(guest1Username);
-            Accommodation = FindAccommodation(accommodationId);
-            GradingDeadline = EndDate.AddDays(5);
-            if (IsAbleToGrade())
-            {
-                AbleToGrade = GradingDeadline.ToString();
-            }
-            else
-            {
-                AbleToGrade = "Expired";
-            }
-        }
-        public Reservation(DateOnly startDate, DateOnly endDate, int accommodationId, string guest1Username)
-        {
-            StartDate = startDate;
-            EndDate = endDate;
-            AccommodationId = accommodationId;
-            Guest1Username = guest1Username;
-            Guest1 = FindGuest1(guest1Username);
-            Accommodation = FindAccommodation(accommodationId);
-            GradingDeadline = EndDate.AddDays(5);
-            if (IsAbleToGrade())
-            {
-                AbleToGrade = GradingDeadline.ToString();
-            }
-            else
-            {
-                AbleToGrade = "Expired";
             }
         }
 
@@ -201,28 +163,13 @@ namespace ProjectTourism.Model
         }
         public bool IsAbleToGrade()
         {
-            if(DateOnly.FromDateTime(DateTime.Now) > EndDate && DateOnly.FromDateTime(DateTime.Now) < GradingDeadline)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return DateOnly.FromDateTime(DateTime.Now) > EndDate && DateOnly.FromDateTime(DateTime.Now) < GradingDeadline; 
         }
         public bool IsGraded()
         {
             Guest1GradeDAO guest1GradeDAO= new Guest1GradeDAO();
-            if (guest1GradeDAO.GetOneByReservation(Id) != null)
-            {
-                Graded = true;
-                return true;
-            }
-            else
-            {
-                Graded = false;
-                return false;
-            }
+            Graded = guest1GradeDAO.GetOneByReservation(Id) != null;
+            return Graded;
         }
         public Guest1 FindGuest1(string username)
         {
@@ -252,7 +199,17 @@ namespace ProjectTourism.Model
                 Guest1Username,       };
             return csvValues;
         }
-
+        public string GenerateGradingDeadlineMessage()
+        {
+            if (IsAbleToGrade())
+            {
+                return GradingDeadline.ToString();
+            }
+            else
+            {
+                return "Expired";
+            }
+        }
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
@@ -264,14 +221,7 @@ namespace ProjectTourism.Model
             Guest1 = FindGuest1(Guest1Username);
             Accommodation = FindAccommodation(AccommodationId);
             GradingDeadline = EndDate.AddDays(5);
-            if (IsAbleToGrade())
-            {
-                AbleToGrade = GradingDeadline.ToString();
-            }
-            else
-            {
-                AbleToGrade = "Expired";
-            }
+            GradingDeadlineMessage = GenerateGradingDeadlineMessage();
         }
     }
 }

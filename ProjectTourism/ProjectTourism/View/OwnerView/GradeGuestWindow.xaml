@@ -14,7 +14,7 @@
         <Label Content="Communication" HorizontalAlignment="Left" Margin="138,110,0,0" VerticalAlignment="Top" Width="168"/>
         <Label Content="Following the rules" HorizontalAlignment="Left" Margin="138,182,0,0" VerticalAlignment="Top" Width="168"/>
         <TextBox  Name="Comment" HorizontalAlignment="Left" Margin="138,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="88" Width="168"/>
-        <Label Content="Commet" HorizontalAlignment="Left" Margin="138,254,0,0" VerticalAlignment="Top" Width="168"/>
+        <Label Content="Comment" HorizontalAlignment="Left" Margin="138,254,0,0" VerticalAlignment="Top" Width="168"/>
         <Button Content="Grade" HorizontalAlignment="Left" Margin="354,368,0,0" VerticalAlignment="Top" Height="33" Width="70" Click="GradeClick"/>
 
 
