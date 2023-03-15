@@ -59,6 +59,21 @@ namespace ProjectTourism.ModelDAO
             }
             return null;
         }
+
+        public List<Ticket> GetByRoute(Route route)
+        {
+            List<Ticket> ticketsByRoute = new List<Ticket>();
+
+            foreach (var ticket in Tickets)
+            {
+                if (route.Id == ticket.RouteId)
+                {
+                    ticketsByRoute.Add(ticket);
+                }
+            }
+
+            return ticketsByRoute;
+        }
         public void Subscribe(IObserver observer)
         {
             Observers.Add(observer);

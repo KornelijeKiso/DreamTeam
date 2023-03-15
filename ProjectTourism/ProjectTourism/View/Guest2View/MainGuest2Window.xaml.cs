@@ -31,6 +31,7 @@ namespace ProjectTourism.View.Guest2View
         public Guest2Controller GuestController { get; set; }
         public RouteController RouteController { get; set; }
         public Route? SelectedRoute { get; set; }
+        public TicketController TicketController { get; set; }
         public ObservableCollection<Route> Routes { get; set; }
         //public GuideController GuideController { get; set; }
 
@@ -56,6 +57,8 @@ namespace ProjectTourism.View.Guest2View
             searchLanguage = "";
             searchDuration = "";
             searchMaxNumberOfGuests = "";
+
+            TicketController = new TicketController();
 
         }
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -172,6 +175,15 @@ namespace ProjectTourism.View.Guest2View
             SearchOne();
         }
 
+        private void BuyTicket(object sender, RoutedEventArgs e)
+        {
+            if (SelectedRoute != null)
+            {
+                CreateTicketWindow createTicketWindow = new CreateTicketWindow(Guest.Username, SelectedRoute.Id);
+                createTicketWindow.ShowDialog();
+            }
+        }
+
         //private void ResetSearch(object sender, RoutedEventArgs e)
         //{
         //    UpdateRoutesList(RouteController.GetAll());
@@ -184,5 +196,6 @@ namespace ProjectTourism.View.Guest2View
         //    tbDuration.Clear();
         //    tbMaxNumberOfGuests.Clear();
         //}
+
     }
 }
