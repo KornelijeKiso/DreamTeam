@@ -85,6 +85,7 @@ namespace ProjectTourism.View.GuideView.RouteView
         {
             Button button = (Button)sender;
             button.Background = Brushes.IndianRed;
+            TicketController.GuideCheck(SelectedTicket);
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

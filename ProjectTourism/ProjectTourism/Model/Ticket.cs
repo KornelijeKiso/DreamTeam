@@ -111,6 +111,33 @@ namespace ProjectTourism.Model
             }
         }
 
+        private bool _HasGuideChecked;
+        public bool HasGuideChecked
+        {
+            get => _HasGuideChecked;
+            set
+            {
+                if (value != _HasGuideChecked)
+                {
+                    _HasGuideChecked = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool _HasGuestConfirmed;
+        public bool HasGuestConfirmed
+        {
+            get => _HasGuestConfirmed;
+            set
+            {
+                if (value != _HasGuestConfirmed)
+                {
+                    _HasGuestConfirmed = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public Ticket()
         {  }
 
@@ -123,17 +150,20 @@ namespace ProjectTourism.Model
             Guest2Username = guest2Username;
             Guest2 = FindGuest2(guest2Username);
             NumberOfGuests = numberOfGuests;
+            HasGuideChecked = false;
+            HasGuestConfirmed = false;
         }
 
         public Ticket(int routeId, string RouteStop, string guest2Username, int numberOfGuests)
-        {
-            
+        {            
             RouteId = routeId;
             Route = FindRoute(routeId);
             this.RouteStop = RouteStop;
             Guest2Username = guest2Username;
             Guest2 = FindGuest2(guest2Username);
             NumberOfGuests = numberOfGuests;
+            HasGuideChecked = false;
+            HasGuestConfirmed = false;
         }
 
 
@@ -150,14 +180,16 @@ namespace ProjectTourism.Model
 
         public string[] ToCSV()
         {
-
             string[] csvValues =
             {
                 Id.ToString(),
                 RouteId.ToString(),
                 RouteStop,
                 Guest2Username,
-                NumberOfGuests.ToString()   };
+                NumberOfGuests.ToString(),
+                HasGuideChecked.ToString(),
+                HasGuestConfirmed.ToString()
+            };
             return csvValues;
         }
 
@@ -170,12 +202,14 @@ namespace ProjectTourism.Model
             Guest2Username = values[3];
             Guest2 = FindGuest2(Guest2Username);
             NumberOfGuests = int.Parse(values[4]);
+            HasGuideChecked = bool.Parse(values[5]);
+            HasGuestConfirmed = bool.Parse(values[6]);
         }
 
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
