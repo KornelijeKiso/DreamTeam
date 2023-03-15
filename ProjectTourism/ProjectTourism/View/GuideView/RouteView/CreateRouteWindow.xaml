@@ -8,37 +8,71 @@
         Title="Route creation" Height="660
         " Width="800"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <!-- Placeholder for the TextBox itself -->
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+            </StackPanel>
+
+        </ControlTemplate>
+    </Window.Resources>
     <Grid>
-        <Label Content="Name" HorizontalAlignment="Left" Height="30" Margin="83,42,0,0" VerticalAlignment="Top" Width="160"/>
-        <Label Content="Country" HorizontalAlignment="Left" Height="30" Margin="83,77,0,0" VerticalAlignment="Top" Width="160"/>
-        <Label Content="City" HorizontalAlignment="Left" Height="30" Margin="83,112,0,0" VerticalAlignment="Top" Width="160"/>
-        <Label Content="Language" HorizontalAlignment="Left" Height="30" Margin="83,147,0,0" VerticalAlignment="Top" Width="160"/>
-        <Label Content="Maximum number of guests" HorizontalAlignment="Left" Height="30" Margin="83,182,0,0" VerticalAlignment="Top" Width="160"/>
-        <Label Content="Start" HorizontalAlignment="Left" Height="30" Margin="83,217,0,0" VerticalAlignment="Top" Width="160"/>
-        <Label Content="Date and time" HorizontalAlignment="Left" Height="30" Margin="83,322,0,0" VerticalAlignment="Top" Width="160"/>
-        <Label Content="Duration" HorizontalAlignment="Left" Height="30" Margin="83,357,0,0" VerticalAlignment="Top" Width="160"/>
-        <Label Content="Route description" HorizontalAlignment="Left" Height="30" Margin="83,427,0,0" VerticalAlignment="Top" Width="160"/>
-        <Label Content="Images" HorizontalAlignment="Left" Height="30" Margin="83,392,0,0" VerticalAlignment="Top" Width="160"/>
-        <Label Content="Stops" HorizontalAlignment="Left" Height="30" Margin="83,252,0,0" VerticalAlignment="Top" Width="160"/>
-        <Label Content="Finish" HorizontalAlignment="Left" Height="30" Margin="83,287,0,0" VerticalAlignment="Top" Width="160"/>
+        <Grid  Margin="140,50,152,81" Width="480">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
 
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,42,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Name}" VerticalAlignment="Top" Width="293"/>
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,77,0,0" TextWrapping="Wrap" Text="{Binding Path = NewLocation.Country}" VerticalAlignment="Top" Width="293"/>
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,112,0,0" TextWrapping="Wrap" Text="{Binding Path = NewLocation.City}" VerticalAlignment="Top" Width="293"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250*"></ColumnDefinition>
+                <ColumnDefinition Width="247*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Name" Margin="0,6,0,7"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="Country" Margin="0,6,0,7"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="City" Margin="0,6,0,6"/>
+            <Label Grid.Row="3" Grid.Column="0" Content="Language" Margin="0,7,0,6"/>
+            <Label Grid.Row="4" Grid.Column="0" Content="Maximum number of guests" Margin="0,6,0,7"/>
+            <Label Grid.Row="5" Grid.Column="0" Content="Start" Margin="0,6,0,7"/>
+            <Label Grid.Row="6" Grid.Column="0" Content="Stops" Margin="0,6,0,6"/>
+            <Label Grid.Row="7" Grid.Column="0" Content="Finish" Margin="0,7,0,6"/>
+            <Label Grid.Row="8" Grid.Column="0" Content="Date and time" Margin="0,6,0,7"/>
+            <Label Grid.Row="9" Grid.Column="0" Content="Durtion" Margin="0,6,0,7"/>
+            <Label Grid.Row="10" Grid.Column="0" Content="Images" Margin="0,6,0,6"/>
+            <Label Grid.Row="11" Grid.Column="0" Content="Route description" Margin="0,7,0,6"/>
 
-        <ComboBox HorizontalAlignment="Left" Height="30" Margin="352,147,0,0"   Text="{Binding Path = Route.Language}" x:Name="LanguageComboBox" VerticalAlignment="Top" Width="293" SelectionChanged="LanguageComboBox_SelectionChanged"></ComboBox>
 
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,182,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.MaxNumberOfGuests}" VerticalAlignment="Top" Width="293"/>
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,217,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Start}" VerticalAlignment="Top" Width="293" TextChanged="TextBox_TextChanged"/>
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,252,0,0" TextWrapping="Wrap" Text="{Binding Route.Stops}" VerticalAlignment="Top" Width="293"/>
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,287,0,0" TextWrapping="Wrap" Text="{Binding Route.Finish}" VerticalAlignment="Top" Width="293"/>
-        <TextBox Text="{Binding Route.StartDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Height="30" Margin="352,322,0,0" VerticalAlignment="Top" Width="293"/>
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,357,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Duration}" VerticalAlignment="Top" Width="293"/>
-        <TextBox HorizontalAlignment="Left" Height="30" Margin="352,392,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Images}" VerticalAlignment="Top" Width="293"/>
-        <TextBox HorizontalAlignment="Left" Height="114" Margin="352,427,0,0" TextWrapping="Wrap" Text="{Binding Path = Route.Description}" VerticalAlignment="Top" Width="293"/>
-
-        <Button x:Name="SaveRoute" Content="Save" HorizontalAlignment="Left" Height="30" Margin="675,556,0,0" VerticalAlignment="Top" Width="90" Click="SaveRoute_Click"/>
-        <Button IsDefault="True" x:Name="AddLanguageButton" Content="Add language" HorizontalAlignment="Left" Height="30" Margin="675,147,0,0" VerticalAlignment="Top" Width="90" Click="AddLanguageButton_Click"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path = Route.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,6,0,7"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path = NewLocation.Country}" Margin="0,6,0,7"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path = NewLocation.City}" Margin="0,6,0,6"/>
+            <ComboBox Grid.Row="3" Grid.Column="1" Text="{Binding Path = Route.Language}" x:Name="LanguageComboBox" SelectionChanged="LanguageComboBox_SelectionChanged" Margin="0,7,0,6"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Height="30" TextWrapping="Wrap" Text="{Binding Path = Route.MaxNumberOfGuests}" VerticalAlignment="Top" Margin="0,43,0,0" Grid.RowSpan="2"/>
+            <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path = Route.Start}" TextChanged="TextBox_TextChanged" Margin="0,6,0,7"/>
+            <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Route.Stops}" Margin="0,6,0,6"/>
+            <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding Route.Finish}" Margin="0,7,0,6"/>
+            <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding Route.StartDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="0,6,0,7"/>
+            <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding Path = Route.Duration}" Margin="0,6,0,7"/>
+            <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding Path = Route.Images}" Margin="0,6,0,6"/>
+            <TextBox Grid.Row="11" Grid.Column="1" Text="{Binding Path = Route.Description}" Margin="0,7,0,6"/>
+        </Grid>
+        <WrapPanel>
+            <Button IsDefault="True" x:Name="AddLanguageButton" Content="Add language" HorizontalAlignment="Left" Height="30" Margin="680,178,0,0" VerticalAlignment="Top" Width="90" Click="AddLanguageButton_Click"/>
+        </WrapPanel>
+        <WrapPanel>
+            <Button Content="Save" Click="SaveRoute_Click" HorizontalAlignment="Left" Height="43" Margin="680,570,0,0" VerticalAlignment="Top" Width="95"/>
+        </WrapPanel>
 
     </Grid>
+
 </Window>

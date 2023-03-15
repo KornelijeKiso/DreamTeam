@@ -7,6 +7,7 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -327,6 +328,46 @@ namespace ProjectTourism.Model
                 LocationId.ToString()
             };
             return csvValues;
+        }
+
+        private Regex _NameRegex = new Regex("[A-Z a-z]+");
+        //private Regex _MaxNumberOfGuestsRegex = new Regex("0|^[0-9]+$");
+        //private Regex _StartRegex = new Regex("^.*[a-zA-Z]+.*$");
+        public string Error => null;
+        public string? this[string columnName]
+        {
+            get
+            {
+                if (columnName == "Name")
+                {
+                    if (string.IsNullOrEmpty(Name))
+                        return "Name is required";
+                    Match match1 = _NameRegex.Match(Name);
+                    if (!match1.Success)
+                        return "Enter name";
+                }
+              
+                else
+                {
+                    return "Error";
+                }
+                return null;
+            }
+        }
+        private readonly string[] _validatedProperties = { "Name" };
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+
+                return true;
+            }
         }
     }
 }
