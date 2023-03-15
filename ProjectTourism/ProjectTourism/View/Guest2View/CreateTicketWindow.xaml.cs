@@ -31,7 +31,7 @@ namespace ProjectTourism.View.Guest2View
         public Guest2 Guest2 { get; set; }
         public Guest2Controller Guest2Controller { get; set; }
         public List<string> StopsList { get; set; }
-
+        
 
         public CreateTicketWindow(string username, int routeId)
         {
@@ -43,7 +43,7 @@ namespace ProjectTourism.View.Guest2View
             Guest2Controller = new Guest2Controller();
             Guest2 = Guest2Controller.GetOne(username);
             Ticket = new Ticket();
-
+            
             // transfer to Route -> StopsList
             StopsList = new List<string>();
             foreach (string stop in SelectedRoute.StopsList)
@@ -52,8 +52,7 @@ namespace ProjectTourism.View.Guest2View
             }
             
             StopsList.RemoveAt(StopsList.Count - 1); // Guest can't chose Finish stop to join the Route
-
-
+            
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -70,14 +69,14 @@ namespace ProjectTourism.View.Guest2View
 
         private void CreateTicket(object sender, RoutedEventArgs e)
         {
-            Ticket ticket = new Ticket(SelectedRoute.Id, Guest2.Username, Ticket.NumberOfGuests);
+            Ticket ticket = new Ticket(SelectedRoute.Id, Ticket.RouteStop, Guest2.Username, Ticket.NumberOfGuests);
             TicketController.Add(ticket);
             Close();
         }
 
         private void StopsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            Ticket.RouteStop = StopsList[StopsComboBox.SelectedIndex];
         }
     }
 }
