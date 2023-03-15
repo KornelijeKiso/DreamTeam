@@ -36,6 +36,12 @@ namespace ProjectTourism.View.Guest2View
 
         public string search { get; set; }
 
+        public string searchLocation { get; set; }
+        public string searchLanguage { get; set; }
+        public string searchDuration { get; set; }
+        public string searchMaxNumberOfGuests { get; set; }
+
+
         public MainGuest2Window(string username)
         {
             InitializeComponent();
@@ -49,6 +55,11 @@ namespace ProjectTourism.View.Guest2View
             Routes = new ObservableCollection<Route>(RouteController.GetAll());
             search = "";
 
+            searchLocation = "";
+            searchLanguage = "";
+            searchDuration = "";
+            searchMaxNumberOfGuests = "";
+
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -57,77 +68,7 @@ namespace ProjectTourism.View.Guest2View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private string[] RemoveWhiteSpaces(string search)
-        {
-            if (search != "")
-            {
-                //string lowerLetters = search.ToLower().Trim();
-                string[] searchQueryWhiteSpaces = search.ToLower().Split(',');
-                string[] searchQuery = searchQueryWhiteSpaces;
-                int i = 0;
-                foreach (string word in searchQueryWhiteSpaces)
-                {
-                    string noWhiteSpace = word.Trim();
-                    if (noWhiteSpace != "")
-                    {
-                        searchQuery[i] = noWhiteSpace;
-                        i++;
-                    }
-                }
-                return searchQuery;
-            }
-            return null;
-        }
-        private void Search(object sender, RoutedEventArgs e)
-        {
-            string[] searchQuery = RemoveWhiteSpaces(search);
-
-            List<Route> routes = new List<Route>();
-            if (search != "")
-            {
-                foreach (Route r in RouteController.GetAll())       //
-                {
-                    if (searchQuery.Length == 1)
-                    {
-                        if (IsOneWordSearch(r, searchQuery[0]))         // Language, Duration, MaxNumberOfGuests
-                        {
-                            routes.Add(r);
-                        }
-                    }
-                    else if (searchQuery.Length == 2)
-                    {
-                        if (IsTwoWordsSearch(r, searchQuery[0], searchQuery[1]))    // City, Country   || Country, City
-                        {
-                            routes.Add(r);
-                        }
-                    }
-                    else routes.Clear();
-                }
-
-                Routes.Clear();
-                foreach (Route route in routes)
-                {
-                    Routes.Add(route);
-                }
-            }
-            else
-            {
-                UpdateRoutesList();
-            }
-
-        }
-
-        private bool IsOneWordSearch(Route r, string search)
-        {   // Language, Duration, MaxNumberOfGuests
-            return (r.Language.Contains(search, StringComparison.OrdinalIgnoreCase) || r.Duration.ToString().Contains(search, StringComparison.OrdinalIgnoreCase)
-                            || r.MaxNumberOfGuests.ToString().Contains(search, StringComparison.OrdinalIgnoreCase));
-        }
-        private bool IsTwoWordsSearch(Route r, string searchFirst, string searchSecond)
-        {   // City, Country   || Country, City
-            return ((r.Location.City.Contains(searchFirst, StringComparison.OrdinalIgnoreCase) && r.Location.Country.Contains(searchSecond, StringComparison.OrdinalIgnoreCase))
-                || (r.Location.Country.Contains(searchFirst, StringComparison.OrdinalIgnoreCase) && r.Location.City.Contains(searchSecond, StringComparison.OrdinalIgnoreCase)));
-        }
-
+       
         private void UpdateRoutesList()
         {
             Routes.Clear();
@@ -139,8 +80,108 @@ namespace ProjectTourism.View.Guest2View
 
         public void Update()
         {
-            //UpdateRoutesList();
+            UpdateRoutesList();
             throw new NotImplementedException();
+        }
+        
+        public void UpdateRoutesList(List<Route> routes)
+        {
+            Routes.Clear();
+            foreach (Route route in routes)
+            {
+                Routes.Add(route);
+            }
+        }
+
+        
+        private void SearchLocation(object sender, RoutedEventArgs e)
+        {
+            List<Route> routes = new List<Route>();
+            if (searchLocation != "")
+            {
+                string[] searchQuery = searchLocation.ToLower().Split(',');
+                string searchFirst = searchQuery[0].Trim();
+                string searchSecond = searchQuery[1].Trim();
+                foreach (Route r in Routes) 
+                {
+                    if ((r.Location.City.Contains(searchFirst, StringComparison.OrdinalIgnoreCase) && r.Location.Country.Contains(searchSecond, StringComparison.OrdinalIgnoreCase))
+                || (r.Location.Country.Contains(searchFirst, StringComparison.OrdinalIgnoreCase) && r.Location.City.Contains(searchSecond, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        routes.Add(r);
+                    }
+                }
+
+                UpdateRoutesList(routes);
+            }
+            else UpdateRoutesList(RouteController.GetAll());
+        }
+
+        private void SearchLanguage(object sender, RoutedEventArgs e)
+        {
+            List<Route> routes = new List<Route>();
+            if (searchLanguage != "")
+            {
+                foreach (Route r in Routes) 
+                {
+                    if (r.Language.Contains(searchLanguage, StringComparison.OrdinalIgnoreCase))
+                    {
+                        routes.Add(r);
+                    }
+                }
+
+                UpdateRoutesList(routes);
+            }
+            else UpdateRoutesList(RouteController.GetAll());
+        }
+
+        private void SearchDuration(object sender, RoutedEventArgs e)
+        {
+            List<Route> routes = new List<Route>();
+            if (searchDuration != "")
+            {
+                foreach (Route r in Routes) 
+                {
+                    if (r.Duration.ToString().Contains(searchDuration, StringComparison.OrdinalIgnoreCase))
+                    {
+                        routes.Add(r);
+                    }
+                }
+
+                UpdateRoutesList(routes);
+            }
+            else UpdateRoutesList(RouteController.GetAll());
+        }
+
+        private void SearchMaxNumberOfGuests(object sender, RoutedEventArgs e)
+        {
+            List<Route> routes = new List<Route>();
+            if (searchMaxNumberOfGuests != "")
+            {
+                foreach (Route r in Routes) 
+                {
+                    if (r.MaxNumberOfGuests.ToString().Contains(searchMaxNumberOfGuests, StringComparison.OrdinalIgnoreCase))
+                    {
+                        routes.Add(r);
+                    }
+                }
+
+                UpdateRoutesList(routes);
+            }
+            else UpdateRoutesList(RouteController.GetAll());
+        }
+
+        private void ResetSearch(object sender, RoutedEventArgs e)
+        {
+            UpdateRoutesList(RouteController.GetAll());
+            searchLocation = "";
+            searchLanguage = "";
+            searchDuration = "";
+            searchMaxNumberOfGuests = "";
+            
+            tbLocation.Clear();
+            tbLanguage.Clear();
+            tbDuration.Clear();
+            tbMaxNumberOfGuests.Clear();
         }
     }
 }
