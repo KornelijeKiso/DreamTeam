@@ -34,8 +34,6 @@ namespace ProjectTourism.View.Guest2View
         public ObservableCollection<Route> Routes { get; set; }
         //public GuideController GuideController { get; set; }
 
-        public string search { get; set; }
-
         public string searchLocation { get; set; }
         public string searchLanguage { get; set; }
         public string searchDuration { get; set; }
@@ -53,7 +51,6 @@ namespace ProjectTourism.View.Guest2View
             //GuideController = new GuideController();
             RouteController = new RouteController();
             Routes = new ObservableCollection<Route>(RouteController.GetAll());
-            search = "";
 
             searchLocation = "";
             searchLanguage = "";
@@ -68,7 +65,7 @@ namespace ProjectTourism.View.Guest2View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-       
+
         private void UpdateRoutesList()
         {
             Routes.Clear();
@@ -83,7 +80,7 @@ namespace ProjectTourism.View.Guest2View
             UpdateRoutesList();
             throw new NotImplementedException();
         }
-        
+
         public void UpdateRoutesList(List<Route> routes)
         {
             Routes.Clear();
@@ -93,95 +90,99 @@ namespace ProjectTourism.View.Guest2View
             }
         }
 
-        
-        private void SearchLocation(object sender, RoutedEventArgs e)
+        private void SearchLocation(ObservableCollection<Route> routes)
         {
-            List<Route> routes = new List<Route>();
+            List<Route> routesList = new List<Route>();
             if (searchLocation != "")
             {
                 string[] searchQuery = searchLocation.ToLower().Split(',');
-                string searchFirst = searchQuery[0].Trim();
-                string searchSecond = searchQuery[1].Trim();
-                foreach (Route r in Routes) 
+                if (searchQuery.Length == 2)
                 {
-                    if ((r.Location.City.Contains(searchFirst, StringComparison.OrdinalIgnoreCase) && r.Location.Country.Contains(searchSecond, StringComparison.OrdinalIgnoreCase))
-                || (r.Location.Country.Contains(searchFirst, StringComparison.OrdinalIgnoreCase) && r.Location.City.Contains(searchSecond, StringComparison.OrdinalIgnoreCase)))
+                    foreach (Route r in routes)
                     {
-                        routes.Add(r);
+                        if ((r.Location.City.Contains(searchQuery[0].Trim(), StringComparison.OrdinalIgnoreCase)
+                                && r.Location.Country.Contains(searchQuery[1].Trim(), StringComparison.OrdinalIgnoreCase))
+                            || (r.Location.Country.Contains(searchQuery[0].Trim(), StringComparison.OrdinalIgnoreCase)
+                                && r.Location.City.Contains(searchQuery[1].Trim(), StringComparison.OrdinalIgnoreCase))) 
+                                routesList.Add(r);
                     }
                 }
-
-                UpdateRoutesList(routes);
+                foreach (Route r in routes)
+                {
+                    if ((r.Location.City.Contains(searchLocation, StringComparison.OrdinalIgnoreCase) 
+                        || (r.Location.Country.Contains(searchLocation, StringComparison.OrdinalIgnoreCase)))   )
+                        routesList.Add(r);
+                }
+                UpdateRoutesList(routesList);
             }
-            else UpdateRoutesList(RouteController.GetAll());
         }
-
-        private void SearchLanguage(object sender, RoutedEventArgs e)
+        private void SearchLanguage(ObservableCollection<Route> routes)
         {
-            List<Route> routes = new List<Route>();
+            List<Route> routesList = new List<Route>();
             if (searchLanguage != "")
             {
-                foreach (Route r in Routes) 
+                foreach (Route r in routes)
                 {
                     if (r.Language.Contains(searchLanguage, StringComparison.OrdinalIgnoreCase))
-                    {
-                        routes.Add(r);
-                    }
+                        routesList.Add(r);
                 }
-
-                UpdateRoutesList(routes);
+                UpdateRoutesList(routesList);
             }
-            else UpdateRoutesList(RouteController.GetAll());
         }
 
-        private void SearchDuration(object sender, RoutedEventArgs e)
+        private void SearchDuration(ObservableCollection<Route> routes)
         {
-            List<Route> routes = new List<Route>();
+            List<Route> routesList = new List<Route>();
             if (searchDuration != "")
             {
-                foreach (Route r in Routes) 
+                foreach (Route r in routes)
                 {
                     if (r.Duration.ToString().Contains(searchDuration, StringComparison.OrdinalIgnoreCase))
-                    {
-                        routes.Add(r);
-                    }
+                        routesList.Add(r);
                 }
-
-                UpdateRoutesList(routes);
+                UpdateRoutesList(routesList);
             }
-            else UpdateRoutesList(RouteController.GetAll());
         }
 
-        private void SearchMaxNumberOfGuests(object sender, RoutedEventArgs e)
+        private void SearchMaxNumberOfGuests(ObservableCollection<Route> routes)
         {
-            List<Route> routes = new List<Route>();
+            List<Route> routesList = new List<Route>();
             if (searchMaxNumberOfGuests != "")
             {
-                foreach (Route r in Routes) 
+                foreach (Route r in routes)
                 {
                     if (r.MaxNumberOfGuests.ToString().Contains(searchMaxNumberOfGuests, StringComparison.OrdinalIgnoreCase))
-                    {
-                        routes.Add(r);
-                    }
+                        routesList.Add(r);
                 }
-
-                UpdateRoutesList(routes);
+                UpdateRoutesList(routesList);
             }
-            else UpdateRoutesList(RouteController.GetAll());
         }
 
-        private void ResetSearch(object sender, RoutedEventArgs e)
+        private void SearchOne()
+        {
+            SearchLocation(Routes);
+            SearchDuration(Routes);
+            SearchLanguage(Routes);
+            SearchMaxNumberOfGuests(Routes);
+        }
+
+        private void SearchClick(object sender, RoutedEventArgs e)
         {
             UpdateRoutesList(RouteController.GetAll());
-            searchLocation = "";
-            searchLanguage = "";
-            searchDuration = "";
-            searchMaxNumberOfGuests = "";
-            
-            tbLocation.Clear();
-            tbLanguage.Clear();
-            tbDuration.Clear();
-            tbMaxNumberOfGuests.Clear();
+            SearchOne();
         }
+
+        //private void ResetSearch(object sender, RoutedEventArgs e)
+        //{
+        //    UpdateRoutesList(RouteController.GetAll());
+        //    searchLocation = "";
+        //    searchLanguage = "";
+        //    searchDuration = "";
+        //    searchMaxNumberOfGuests = "";
+        //    tbLocation.Clear();
+        //    tbLanguage.Clear();
+        //    tbDuration.Clear();
+        //    tbMaxNumberOfGuests.Clear();
+        //}
     }
 }
