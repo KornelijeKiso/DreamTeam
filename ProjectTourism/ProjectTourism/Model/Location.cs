@@ -49,12 +49,6 @@ namespace ProjectTourism.Model
                 }
             }
         }
-        public Location(int id, string city, string country)
-        {
-            Id = id;
-            City = city;
-            Country = country;
-        }
         public Location(string city, string country)
         {
             City = city;
@@ -72,6 +66,11 @@ namespace ProjectTourism.Model
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        public void Reset()
+        {
+            City = "";
+            Country = "";
+        }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
