@@ -31,6 +31,7 @@ namespace ProjectTourism.View.Guest2View
         public Guest2 Guest2 { get; set; }
         public Guest2Controller Guest2Controller { get; set; }
         public List<string> StopsList { get; set; }
+        public int AvailableTickets { get; set; }
         
 
         public CreateTicketWindow(string username, int routeId)
@@ -52,7 +53,21 @@ namespace ProjectTourism.View.Guest2View
             }
             
             StopsList.RemoveAt(StopsList.Count - 1); // Guest can't chose Finish stop to join the Route
+
+            AvailableTickets = GetAvailableTickets();
             
+            // no available tickets, temp solution
+            if (AvailableTickets <= 0)
+            {
+                MessageBox.Show("No available seats for this Route.");
+                //sliderText.Visibility = Visibility.Collapsed;
+                sliderText.Clear();
+                sliderText.IsEnabled = false;
+                slider.Visibility = Visibility.Collapsed;
+                StopsComboBox.Visibility = Visibility.Collapsed;
+                
+                CreateTicketButton.IsEnabled = false;
+            }
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -77,6 +92,26 @@ namespace ProjectTourism.View.Guest2View
         private void StopsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Ticket.RouteStop = StopsList[StopsComboBox.SelectedIndex];
+        }
+
+        public int GetAvailableTickets()
+        {
+            List<Ticket> available = TicketController.GetByRoute(SelectedRoute);
+            int? availableCount = SelectedRoute.MaxNumberOfGuests;
+
+            if (availableCount != null)
+            {
+                availableCount = availableCount.Value;
+                foreach (Ticket ticket in available)
+                {
+                    availableCount = availableCount - ticket.NumberOfGuests;
+                }
+
+                if (availableCount >= 1) return availableCount.Value;
+                return -1;
+            }
+            
+            return -1;
         }
     }
 }
