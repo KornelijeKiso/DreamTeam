@@ -39,20 +39,20 @@ namespace ProjectTourism.View.GuideView.RouteView
             RouteController = new RouteController();
             TicketController = new TicketController();
             Route = RouteController.GetOne(id);
-            tickets = new ObservableCollection<Ticket>(TicketController.GetAll());
+            tickets = new ObservableCollection<Ticket>(TicketController.GetByRoute(Route));
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public void Update()
         {
-            //TODO
-            throw new NotImplementedException();
+           
         }
+
         public int pom = 0;
         private void StopPassedButton_Click(object sender, RoutedEventArgs e)
         {
@@ -92,5 +92,6 @@ namespace ProjectTourism.View.GuideView.RouteView
         {
 
         }
+
     }
 }
