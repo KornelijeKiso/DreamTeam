@@ -204,7 +204,13 @@ namespace ProjectTourism.Model
             MinDaysForReservation = accommodation.MinDaysForReservation;
             CancellationDeadline= accommodation.CancellationDeadline;  
             CityAndCountry = accommodation.CityAndCountry;
-            Pictures = accommodation.Pictures;
+            Pictures = accommodation.GetPictureURLsFromCSV();
+        }
+        public void SetLocation(Location location)
+        {
+            Location = location;
+            LocationId = location.Id;
+            CityAndCountry = location.City + ", " + location.Country;
         }
         public Location FindLocation(int id)
         {

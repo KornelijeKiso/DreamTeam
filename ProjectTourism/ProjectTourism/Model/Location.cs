@@ -66,6 +66,11 @@ namespace ProjectTourism.Model
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        public void Reset()
+        {
+            City = "";
+            Country = "";
+        }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
