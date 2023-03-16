@@ -58,6 +58,8 @@ namespace ProjectTourism.View.GuideView.RouteView
                 Route.State = ROUTESTATE.FINISHED;
                 Route.IsNotFinished = false;
                 RouteController.ChangeState(Route);
+                Route.CurrentRouteStop = Route.StopsList.Last();
+                RouteController.ChangeCurrentStop(Route);
             }
             
             else
