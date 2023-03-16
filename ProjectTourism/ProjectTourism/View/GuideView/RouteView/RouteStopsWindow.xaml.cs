@@ -66,32 +66,32 @@ namespace ProjectTourism.View.GuideView.RouteView
         {
             return route.StopsList.Last().Equals(route.CurrentStop);
         }
+
+        public void FinishRoute(Route route)
+        {
+            StopPassedButton.Content = "Finish route";
+            route.IsNotFinished = false;
+            route.State = ROUTESTATE.FINISHED;
+            RouteController.ChangeState(route);
+            StopPassedButton.IsEnabled = false;
+            EmergencyStopButton.IsEnabled = false;
+        }
+
+        public void NextStop(Route route)
+        {
+            StopTextBox.Text = RouteController.GetNextStop(route, PassedButtonClicks(route));
+            StopPassedButton.Content = "Stop passed";
+            route.CurrentStop = route.StopsList[PassedButtonClicks(route) + 1];
+            RouteController.ChangeCurrentStop(route);
+            route.State = ROUTESTATE.STARTED;
+            RouteController.ChangeState(route);
+        }
         private void StopPassedButton_Click(object sender, RoutedEventArgs e)
         {
-            //if(IsLastStop(Route))
-            //{
-            //    Route.State = ROUTESTATE.FINISHED;
-            //    Route.IsNotFinished = false;
-            //    RouteController.ChangeState(Route);
-            //}
-            
-            //else
+            NextStop(Route);
+            if (IsLastStop(Route))
             {
-                StopTextBox.Text = RouteController.GetNextStop(Route, PassedButtonClicks(Route));
-                StopPassedButton.Content = "Stop passed";
-                Route.CurrentStop = Route.StopsList[PassedButtonClicks(Route) + 1];
-                RouteController.ChangeCurrentStop(Route);
-                Route.State = ROUTESTATE.STARTED;
-                RouteController.ChangeState(Route);
-                if (IsLastStop(Route))
-                {
-                    StopPassedButton.Content = "Finish route";
-                    Route.IsNotFinished = false;
-                    Route.State = ROUTESTATE.FINISHED;
-                    RouteController.ChangeState(Route);
-                    StopPassedButton.IsEnabled = false;
-                    EmergencyStopButton.IsEnabled = false;
-                }
+                FinishRoute(Route);
             }
         }
         private void EmergencyStopButton_Click(object sender, RoutedEventArgs e)
@@ -108,7 +108,6 @@ namespace ProjectTourism.View.GuideView.RouteView
                 SelectedTicket.ButtonColor = Brushes.IndianRed;
                 TicketController.GuideCheck(SelectedTicket);
             }
-            
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
