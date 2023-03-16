@@ -32,7 +32,10 @@ namespace ProjectTourism.Controller
         {
             return ReservationDAO.GetAll();
         }
-
+        public bool IsPossible(Reservation reservation)
+        {
+            return ReservationDAO.IsPossible(reservation);
+        }
         public void Subscribe(IObserver observer)
         {
             ReservationDAO.Subscribe(observer);

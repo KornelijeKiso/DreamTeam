@@ -45,7 +45,7 @@ namespace ProjectTourism.View.OwnerView
             LocationDAO = new LocationDAO();
             OwnerController = new OwnerController();
             AccommodationController = new AccommodationController();
-            
+
             NewAccommodation = new Accommodation();
             NewLocation = new Location();
 
@@ -59,8 +59,7 @@ namespace ProjectTourism.View.OwnerView
             AccommodationController.Subscribe(this);
             LocationDAO.Subscribe(this);
             SetButtons();
-        }
-        
+        }        
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
