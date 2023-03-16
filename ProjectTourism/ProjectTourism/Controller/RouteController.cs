@@ -62,6 +62,9 @@ namespace ProjectTourism.Controller
         {
             RouteDAO.ChangeState(route);
         }
-
+        public void ChangeCurrentStop(Route route)
+        {
+            RouteDAO.ChangeCurrentStop(route);
+        }
     }
 }

@@ -32,7 +32,7 @@ namespace ProjectTourism.View.GuideView.RouteView
         public ObservableCollection<Ticket> tickets { get; set; }
         public TicketController TicketController { get; set; }
         public Ticket SelectedTicket { get; set; }  
-        
+
         public RouteStopsWindow(int id)
         {
             InitializeComponent();
@@ -49,25 +49,34 @@ namespace ProjectTourism.View.GuideView.RouteView
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public int pom = 0;
+        public int PassedButtonClicked = 0;
+
+        public int GetNumberOfStations(Route route)
+        {
+            return route.StopsList.Count;
+        }
         private void StopPassedButton_Click(object sender, RoutedEventArgs e)
         {
-            if(Route.StopsList.Count-1 == pom)
+            if(GetNumberOfStations(Route)-1 == PassedButtonClicked)
             {
-                pom = 0;
+                PassedButtonClicked = 0;
                 Route.State = ROUTESTATE.FINISHED;
                 Route.IsNotFinished = false;
                 RouteController.ChangeState(Route);
+                Route.CurrentRouteStop = Route.StopsList.Last();
+                RouteController.ChangeCurrentStop(Route);
             }
             
             else
             {
-                StopTextBox.Text = RouteController.GetNextStop(Route, pom);
-                pom++;
+                StopTextBox.Text = RouteController.GetNextStop(Route, PassedButtonClicked);
+                PassedButtonClicked++;
                 StopPassedButton.Content = "Stop passed";
+                Route.CurrentRouteStop = Route.StopsList[PassedButtonClicked];
+                RouteController.ChangeCurrentStop(Route);
                 Route.State = ROUTESTATE.STARTED;
                 RouteController.ChangeState(Route);
-                if (pom == Route.StopsList.Count-1)
+                if (PassedButtonClicked == Route.StopsList.Count-1)
                 {
                     StopPassedButton.Content = "Finish route";
                     Route.IsNotFinished = false;
@@ -91,7 +100,8 @@ namespace ProjectTourism.View.GuideView.RouteView
             {
                 SelectedTicket.ButtonColor = Brushes.IndianRed;
                 TicketController.GuideCheck(SelectedTicket);
-            } 
+            }
+            
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

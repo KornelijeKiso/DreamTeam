@@ -105,6 +105,17 @@ namespace ProjectTourism.ModelDAO
             }
             RouteFileHandler.Save(Routes);
         }
+        public void ChangeCurrentStop(Route route)
+        {
+            foreach(var route1 in Routes)
+            {
+                if(route1.Id == route.Id)
+                {
+                    route1.CurrentRouteStop = route.CurrentRouteStop;
+                }
+            }
+            RouteFileHandler.Save(Routes);
+        }
 
     }
 }
