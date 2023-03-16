@@ -245,6 +245,20 @@ namespace ProjectTourism.Model
             }
         }
 
+        private string _CurrentRouteStop;
+        public string CurrentRouteStop
+        {
+            get => _CurrentRouteStop;
+            set
+            {
+                if (value != _CurrentRouteStop)
+                {
+                    _CurrentRouteStop = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
@@ -258,7 +272,7 @@ namespace ProjectTourism.Model
             IsNotFinished = true;
         }
 
-        public Route(string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
+        public Route(string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername, string currentRouteStop)
         {
             Name = name;
             Location = location;
@@ -277,8 +291,9 @@ namespace ProjectTourism.Model
             AvailableSeats = maxNumberOfGuests;
             State = ROUTESTATE.INITIALIZED;
             IsNotFinished = true;
+            CurrentRouteStop = currentRouteStop;
         }
-        public Route(int id, string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
+        public Route(int id, string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername, string currentRouteStop)
         {
             Id = id;
             Name = name;
@@ -298,6 +313,7 @@ namespace ProjectTourism.Model
             StopsList = new List<string>();
             State = ROUTESTATE.INITIALIZED;
             IsNotFinished = true;
+            CurrentRouteStop = currentRouteStop;
         }
 
         public Guide? FindGuide(string username)
@@ -335,7 +351,7 @@ namespace ProjectTourism.Model
                     { State = ROUTESTATE.INITIALIZED; break; }
             }
             Location = FindLocation(LocationId);
-
+            CurrentRouteStop = values[14];
         }
 
         private Location? FindLocation(int? locationId)
@@ -361,7 +377,8 @@ namespace ProjectTourism.Model
                 Images,
                 GuideUsername,
                 LocationId.ToString(),
-                State.ToString()
+                State.ToString(),
+                CurrentRouteStop
             };
             return csvValues;
         }

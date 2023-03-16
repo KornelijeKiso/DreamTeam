@@ -32,7 +32,7 @@ namespace ProjectTourism.View.GuideView.RouteView
         public ObservableCollection<Ticket> tickets { get; set; }
         public TicketController TicketController { get; set; }
         public Ticket SelectedTicket { get; set; }  
-        
+
         public RouteStopsWindow(int id)
         {
             InitializeComponent();
@@ -65,6 +65,8 @@ namespace ProjectTourism.View.GuideView.RouteView
                 StopTextBox.Text = RouteController.GetNextStop(Route, pom);
                 pom++;
                 StopPassedButton.Content = "Stop passed";
+                Route.CurrentRouteStop = Route.StopsList[pom];
+                RouteController.ChangeCurrentStop(Route);
                 Route.State = ROUTESTATE.STARTED;
                 RouteController.ChangeState(Route);
                 if (pom == Route.StopsList.Count-1)
@@ -92,7 +94,6 @@ namespace ProjectTourism.View.GuideView.RouteView
                 SelectedTicket.ButtonColor = Brushes.IndianRed;
                 TicketController.GuideCheck(SelectedTicket);
             }
-            
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
