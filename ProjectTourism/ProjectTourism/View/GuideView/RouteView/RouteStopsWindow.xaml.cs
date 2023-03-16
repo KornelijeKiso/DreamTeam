@@ -91,8 +91,7 @@ namespace ProjectTourism.View.GuideView.RouteView
             {
                 SelectedTicket.ButtonColor = Brushes.IndianRed;
                 TicketController.GuideCheck(SelectedTicket);
-            }
-            
+            } 
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
