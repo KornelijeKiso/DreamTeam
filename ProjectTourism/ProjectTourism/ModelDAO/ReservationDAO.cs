@@ -3,6 +3,7 @@ using ProjectTourism.Model;
 using ProjectTourism.Observer;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -58,6 +59,17 @@ namespace ProjectTourism.ModelDAO
                 if (reservation.Id == id) return reservation;
             }
             return null;
+        }
+
+        public bool IsPossible(Reservation reservation)
+        {
+            List<Reservation> ReservationsForSameAccommodation = Reservations.FindAll(res=>res.AccommodationId== reservation.AccommodationId);
+            Reservation existingReservation = ReservationsForSameAccommodation.Find(res => Conflict(reservation, res));
+            return existingReservation == null;
+        }
+        private bool Conflict(Reservation reservation, Reservation existingReservation)
+        {
+            return !(reservation.StartDate>existingReservation.EndDate || reservation.EndDate<existingReservation.StartDate);
         }
         public void Subscribe(IObserver observer)
         {
