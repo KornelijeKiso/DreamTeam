@@ -34,6 +34,7 @@ namespace ProjectTourism.View.RouteView
         public List<string> Languages { get; set; }
         public ObservableCollection<string> LanguagesObservable { get; set; }
 
+
         public CreateRouteWindow(Guide guide)
         {
             InitializeComponent();

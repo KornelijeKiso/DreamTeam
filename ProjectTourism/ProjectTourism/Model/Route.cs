@@ -267,6 +267,7 @@ namespace ProjectTourism.Model
         }
         public Route()
         {
+            StartDate = DateTime.Now;
             StopsList = new List<string>();
             State = ROUTESTATE.INITIALIZED;
             IsNotFinished = true;
