@@ -69,7 +69,8 @@
         </WrapPanel>
         <WrapPanel>
             <Button Content="Save" Click="SaveRoute_Click" HorizontalAlignment="Left" Height="43" Margin="680,570,0,0" VerticalAlignment="Top" Width="95"/>
-            <Label Content="Date needs to be&#xD;&#xA;in format&#xD;&#xA;dd.MM.yyyy HH:mm" Height="139" Width="140" Margin="650,-270,0,0" FontWeight="DemiBold"/>
+            <Label Content="Date needs to be&#xD;&#xA;in format&#xD;&#xA;dd.MM.yyyy HH:mm" Height="273" Width="140" Margin="650,-270,0,0" FontWeight="DemiBold"/>
+            <Button Height="30" Width="40" Margin="700, -340, 0, 0"></Button>
         </WrapPanel>
 
     </Grid>
