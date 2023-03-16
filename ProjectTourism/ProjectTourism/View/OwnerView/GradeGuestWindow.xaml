@@ -5,17 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.OwnerView"
         mc:Ignorable="d"
-        Title="GradeGuestWindow" Height="450" Width="479">
+        Title="GradeGuestWindow" Height="340" Width="340" WindowStartupLocation="CenterScreen">
     <Grid >
-        <TextBox Name="Cleanness" HorizontalAlignment="Left" Margin="138,64,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" Height="33"/>
-        <Label Content="Cleanness" HorizontalAlignment="Left" Margin="138,38,0,0" VerticalAlignment="Top" Width="168"/>
-        <TextBox Name="Communication" HorizontalAlignment="Left" Margin="138,136,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" Height="33"/>
-        <TextBox Name="FollowingTheRules" HorizontalAlignment="Left" Margin="138,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" Height="33"/>
-        <Label Content="Communication" HorizontalAlignment="Left" Margin="138,110,0,0" VerticalAlignment="Top" Width="168"/>
-        <Label Content="Following the rules" HorizontalAlignment="Left" Margin="138,182,0,0" VerticalAlignment="Top" Width="168"/>
-        <TextBox  Name="Comment" HorizontalAlignment="Left" Margin="138,280,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="88" Width="168"/>
-        <Label Content="Comment" HorizontalAlignment="Left" Margin="138,254,0,0" VerticalAlignment="Top" Width="168"/>
-        <Button Content="Grade" HorizontalAlignment="Left" Margin="354,368,0,0" VerticalAlignment="Top" Height="33" Width="70" Click="GradeClick"/>
+        <StackPanel>
+            <Label Content="Cleanness :"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30" Name="Cleanness">
+                <RadioButton Content="1" GroupName="GradeGroup" Width="45" IsChecked="True"/>
+                <RadioButton Content="2" GroupName="GradeGroup" Width="45"/>
+                <RadioButton Content="3" GroupName="GradeGroup" Width="45"/>
+                <RadioButton Content="4" GroupName="GradeGroup" Width="45"/>
+                <RadioButton Content="5" GroupName="GradeGroup" Width="45"/>
+            </StackPanel>
+            <Label Content="Communication :"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30" Name="Communication">
+                <RadioButton Content="1" GroupName="GradeGroup1" Width="45" IsChecked="True"/>
+                <RadioButton Content="2" GroupName="GradeGroup1" Width="45"/>
+                <RadioButton Content="3" GroupName="GradeGroup1" Width="45"/>
+                <RadioButton Content="4" GroupName="GradeGroup1" Width="45"/>
+                <RadioButton Content="5" GroupName="GradeGroup1" Width="45"/>
+            </StackPanel>
+            <Label Content="Following the rules :"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30" Name="FollowingTheRules">
+                <RadioButton Content="1" GroupName="GradeGroup2" Width="45" IsChecked="True"/>
+                <RadioButton Content="2" GroupName="GradeGroup2" Width="45"/>
+                <RadioButton Content="3" GroupName="GradeGroup2" Width="45"/>
+                <RadioButton Content="4" GroupName="GradeGroup2" Width="45"/>
+                <RadioButton Content="5" GroupName="GradeGroup2" Width="45"/>
+            </StackPanel>
+            <Label Content="Comment :"></Label>
+            <TextBox Height="70" Width="300" HorizontalAlignment="Center" Text="{Binding GuestGrade.Comment}"></TextBox>
+            <Button Content="Submit" Click="GradeClick" IsDefault="True" Margin="0 10 0 0"/>
+        </StackPanel>
+        
+
+        
+        
 
 
     </Grid>

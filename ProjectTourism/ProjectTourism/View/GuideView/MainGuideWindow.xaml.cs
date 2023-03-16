@@ -43,7 +43,6 @@ namespace ProjectTourism.View.GuideView
             User = UserController.GetOne(username);
             LocationDAO= new LocationDAO();
             NewLocation = new Location();
-            //TODO
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.RouteView"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Route creation" Height="720" Width="800"
         WindowStartupLocation="CenterScreen">
@@ -58,7 +59,7 @@
             <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path = Route.Start, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" TextChanged="TextBox_TextChanged" Margin="0,8,0,8"/>
             <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Route.Stops}" Margin="0,8,0,8"/>
             <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding Route.Finish, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>
-            <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding Route.StartDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>
+            <DatePicker x:Name="dateTimePicker" Grid.Row="8" Grid.Column="1" SelectedDate="{Binding Path=Route.StartDate, Mode=TwoWay}" Margin="0,8,0,8" FirstDayOfWeek="Monday"/>
             <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding Path = Route.Duration, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>
             <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding Path = Route.Images}" Margin="0,8,0,8"/>
             <TextBox Grid.Row="11" Grid.Column="1" Text="{Binding Path = Route.Description}" Margin="0,8,0,8"/>
@@ -68,6 +69,7 @@
         </WrapPanel>
         <WrapPanel>
             <Button Content="Save" Click="SaveRoute_Click" HorizontalAlignment="Left" Height="43" Margin="680,570,0,0" VerticalAlignment="Top" Width="95"/>
+            <Label Content="Date needs to be&#xD;&#xA;in format&#xD;&#xA;dd.MM.yyyy HH:mm" Height="139" Width="140" Margin="650,-270,0,0" FontWeight="DemiBold"/>
         </WrapPanel>
 
     </Grid>

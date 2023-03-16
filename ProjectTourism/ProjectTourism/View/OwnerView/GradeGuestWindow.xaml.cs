@@ -40,13 +40,48 @@ namespace ProjectTourism.View.OwnerView
 
         private void GradeClick(object sender, RoutedEventArgs e)
         {
-            GuestGrade.Grades["Communication"] = int.Parse(Communication.Text);
-            GuestGrade.Grades["Following the rules"] = int.Parse(FollowingTheRules.Text);
-            GuestGrade.Grades["Cleanness"] = int.Parse(Cleanness.Text);
-            GuestGrade.Comment = Comment.Text;
+            GradeCleanness();
+            GradeCommunication();
+            GradeFollowingTheRules();
             Guest1GradeCotroller.Add(GuestGrade);
             Graded = true;
             Close();
+        }
+
+        private void GradeFollowingTheRules()
+        {
+            foreach (RadioButton radioButton in FollowingTheRules.Children)
+            {
+                if (radioButton.IsChecked == true)
+                {
+                    GuestGrade.Grades["Following the rules"] = Convert.ToInt32(radioButton.Content);
+                    break;
+                }
+            }
+        }
+
+        private void GradeCommunication()
+        {
+            foreach (RadioButton radioButton in Communication.Children)
+            {
+                if (radioButton.IsChecked == true)
+                {
+                    GuestGrade.Grades["Communication"] = Convert.ToInt32(radioButton.Content);
+                    break;
+                }
+            }
+        }
+
+        private void GradeCleanness()
+        {
+            foreach (RadioButton radioButton in Cleanness.Children)
+            {
+                if (radioButton.IsChecked == true)
+                {
+                    GuestGrade.Grades["Cleanness"] = Convert.ToInt32(radioButton.Content);
+                    break;
+                }
+            }
         }
     }
 }
