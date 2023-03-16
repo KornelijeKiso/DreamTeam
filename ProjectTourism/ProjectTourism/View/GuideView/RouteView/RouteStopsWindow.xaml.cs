@@ -52,29 +52,37 @@ namespace ProjectTourism.View.GuideView.RouteView
         public int pom = 0;
         private void StopPassedButton_Click(object sender, RoutedEventArgs e)
         {
-            if(StopPassedButton.Content.Equals("Finish route"))
-            {
-                Close();
-            }
             if(Route.StopsList.Count-1 == pom)
             {
                 pom = 0;
                 Route.State = ROUTESTATE.FINISHED;
+                Route.IsNotFinished = false;
+                RouteController.ChangeState(Route);
             }
+            
             else
             {
                 StopTextBox.Text = RouteController.GetNextStop(Route, pom);
                 pom++;
-                if(pom == Route.StopsList.Count-1)
+                StopPassedButton.Content = "Stop passed";
+                Route.State = ROUTESTATE.STARTED;
+                RouteController.ChangeState(Route);
+                if (pom == Route.StopsList.Count-1)
                 {
                     StopPassedButton.Content = "Finish route";
+                    Route.IsNotFinished = false;
+                    Route.State = ROUTESTATE.FINISHED;
+                    RouteController.ChangeState(Route);
+                    StopPassedButton.IsEnabled = false;
+                    EmergencyStopButton.IsEnabled = false;
                 }
             }
         }
         private void EmergencyStopButton_Click(object sender, RoutedEventArgs e)
         {
             Route.State = ROUTESTATE.STOPPED;
-            Close();
+            RouteController.ChangeState(Route);
+            Route.IsNotFinished = false;
         }
 
         private void TicketStatusButton_Click(object sender, RoutedEventArgs e)

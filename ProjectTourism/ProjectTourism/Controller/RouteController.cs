@@ -36,7 +36,6 @@ namespace ProjectTourism.Controller
         }
         public void Add(Route route)
         {
-
             RouteDAO.Add(route);
         }
         public Route? Identify(Route route)
@@ -58,6 +57,10 @@ namespace ProjectTourism.Controller
                 throw new ArgumentException("Invalid stop index");
             }
             return route.StopsList[stopint + 1];
+        }
+        public void ChangeState(Route route)
+        {
+            RouteDAO.ChangeState(route);
         }
 
     }

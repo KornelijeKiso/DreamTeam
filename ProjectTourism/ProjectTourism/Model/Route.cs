@@ -14,7 +14,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using ProjectTourism.ModelDAO;
 
-public enum ROUTESTATE {STARTED, FINISHED, STOPPED};
+public enum ROUTESTATE {INITIALIZED, STARTED, FINISHED, STOPPED};
 
 namespace ProjectTourism.Model
 {
@@ -34,7 +34,21 @@ namespace ProjectTourism.Model
                 }
             }
         }
-        
+
+        private bool _IsNotFinished;
+        public bool IsNotFinished
+        {
+            get => _IsNotFinished;
+            set
+            {
+                if (_IsNotFinished != value)
+                {
+                    _IsNotFinished = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private ROUTESTATE _State;
         public ROUTESTATE State
         {
@@ -240,6 +254,8 @@ namespace ProjectTourism.Model
         public Route()
         {
             StopsList = new List<string>();
+            State = ROUTESTATE.INITIALIZED;
+            IsNotFinished = true;
         }
 
         public Route(string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
@@ -259,6 +275,8 @@ namespace ProjectTourism.Model
             Guide = FindGuide(guideUsername);
             StopsList = new List<string>();
             AvailableSeats = maxNumberOfGuests;
+            State = ROUTESTATE.INITIALIZED;
+            IsNotFinished = true;
         }
         public Route(int id, string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
         {
@@ -278,6 +296,8 @@ namespace ProjectTourism.Model
             Guide = FindGuide(guideUsername);
             AvailableSeats = maxNumberOfGuests;
             StopsList = new List<string>();
+            State = ROUTESTATE.INITIALIZED;
+            IsNotFinished = true;
         }
 
         public Guide? FindGuide(string username)
@@ -301,6 +321,19 @@ namespace ProjectTourism.Model
             Images = values[10];
             GuideUsername = values[11];
             LocationId = int.Parse(values[12]);
+            switch (values[13])
+            {
+                case "INITIALIZED":
+                    { State = ROUTESTATE.INITIALIZED; IsNotFinished = true; break; }
+                case "STARTED":
+                    { State = ROUTESTATE.STARTED; IsNotFinished = true; break; }
+                case "FINISHED":
+                    { State = ROUTESTATE.FINISHED; IsNotFinished = false; break; }
+                case "STOPPED":
+                    { State = ROUTESTATE.STOPPED; IsNotFinished = false; break; }
+                default:
+                    { State = ROUTESTATE.INITIALIZED; break; }
+            }
             Location = FindLocation(LocationId);
 
         }
@@ -327,7 +360,8 @@ namespace ProjectTourism.Model
                 Duration.ToString(),
                 Images,
                 GuideUsername,
-                LocationId.ToString()
+                LocationId.ToString(),
+                State.ToString()
             };
             return csvValues;
         }
