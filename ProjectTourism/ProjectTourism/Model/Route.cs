@@ -246,7 +246,7 @@ namespace ProjectTourism.Model
         }
 
         private string _CurrentRouteStop;
-        public string CurrentRouteStop
+        public string CurrentStop
         {
             get => _CurrentRouteStop;
             set
@@ -291,9 +291,9 @@ namespace ProjectTourism.Model
             AvailableSeats = maxNumberOfGuests;
             State = ROUTESTATE.INITIALIZED;
             IsNotFinished = true;
-            CurrentRouteStop = currentRouteStop;
+            CurrentStop = currentRouteStop;
         }
-        public Route(int id, string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername, string currentRouteStop)
+        public Route(int id, string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername, string currentStop)
         {
             Id = id;
             Name = name;
@@ -313,7 +313,7 @@ namespace ProjectTourism.Model
             StopsList = new List<string>();
             State = ROUTESTATE.INITIALIZED;
             IsNotFinished = true;
-            CurrentRouteStop = currentRouteStop;
+            CurrentStop = currentStop;
         }
 
         public Guide? FindGuide(string username)
@@ -348,10 +348,10 @@ namespace ProjectTourism.Model
                 case "STOPPED":
                     { State = ROUTESTATE.STOPPED; IsNotFinished = false; break; }
                 default:
-                    { State = ROUTESTATE.INITIALIZED; break; }
+                    { State = ROUTESTATE.INITIALIZED; IsNotFinished = true; break; }
             }
             Location = FindLocation(LocationId);
-            CurrentRouteStop = values[14];
+            CurrentStop = values[14];
         }
 
         private Location? FindLocation(int? locationId)
@@ -378,7 +378,7 @@ namespace ProjectTourism.Model
                 GuideUsername,
                 LocationId.ToString(),
                 State.ToString(),
-                CurrentRouteStop
+                CurrentStop
             };
             return csvValues;
         }
