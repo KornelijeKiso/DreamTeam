@@ -111,7 +111,7 @@ namespace ProjectTourism.ModelDAO
             {
                 if(route1.Id == route.Id)
                 {
-                    route1.CurrentRouteStop = route.CurrentRouteStop;
+                    route1.CurrentStop = route.CurrentStop;
                 }
             }
             RouteFileHandler.Save(Routes);

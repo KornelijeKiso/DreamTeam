@@ -11,7 +11,7 @@
         <Button x:Name="StopPassedButton" IsEnabled="{Binding Route.IsNotFinished}" Content="Start" HorizontalAlignment="Left" Height="47" Margin="628,297,0,0" VerticalAlignment="Top" Width="133" Click="StopPassedButton_Click"/>
         <Button IsCancel="True" x:Name="EmergencyStopButton" IsEnabled="{Binding Route.IsNotFinished}" Content="Emergency stop" HorizontalAlignment="Left" Height="47" Margin="628,370,0,0" VerticalAlignment="Top" Width="133" Background="#FFEF4343" Click="EmergencyStopButton_Click"/>
         <Label Content="Current route stop" HorizontalAlignment="Left" Margin="104,52,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <TextBox x:Name="StopTextBox" HorizontalAlignment="Left" Height="42" Margin="104,104,0,0" TextWrapping="Wrap" Text="{Binding Path=Route.CurrentRouteStop}" VerticalAlignment="Top" Width="408" FontSize="14" TextChanged="TextBox_TextChanged" IsEnabled="False"/>
+        <TextBox x:Name="StopTextBox" HorizontalAlignment="Left" Height="42" Margin="104,104,0,0" TextWrapping="Wrap" Text="{Binding Path=Route.CurrentStop}" VerticalAlignment="Top" Width="408" FontSize="14" TextChanged="TextBox_TextChanged" IsEnabled="False"/>
         <TextBox x:Name="RouteStatusComboBox" HorizontalAlignment="Left" Height="42" Margin="583,104,0,0" TextWrapping="Wrap" Text="{Binding Path=Route.State}" VerticalAlignment="Top" Width="178" TextChanged="TextBox_TextChanged" FontSize="13" IsEnabled="False"/>
         <DataGrid CanUserAddRows="False" HorizontalAlignment="Left" Height="240" VerticalAlignment="Top" Width="368" 
                   SelectedItem="{Binding SelectedTicket, UpdateSourceTrigger=PropertyChanged}" 

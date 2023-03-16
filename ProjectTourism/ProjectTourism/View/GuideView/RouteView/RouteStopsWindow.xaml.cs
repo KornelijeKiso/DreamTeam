@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -49,34 +50,40 @@ namespace ProjectTourism.View.GuideView.RouteView
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public int PassedButtonClicked = 0;
-
-        public int GetNumberOfStations(Route route)
+        public int PassedButtonClicks(Route route)
         {
-            return route.StopsList.Count;
+            int number = 0;
+            foreach(var stop in route.StopsList)
+            {
+                if (stop.Equals(route.CurrentStop))
+                    break;
+                number++;
+            }
+            return number;
+        }
+
+        public bool IsLastStop(Route route)
+        {
+            return route.StopsList.Last().Equals(route.CurrentStop);
         }
         private void StopPassedButton_Click(object sender, RoutedEventArgs e)
         {
-            if(GetNumberOfStations(Route)-1 == PassedButtonClicked)
-            {
-                PassedButtonClicked = 0;
-                Route.State = ROUTESTATE.FINISHED;
-                Route.IsNotFinished = false;
-                RouteController.ChangeState(Route);
-                Route.CurrentRouteStop = Route.StopsList.Last();
-                RouteController.ChangeCurrentStop(Route);
-            }
+            //if(IsLastStop(Route))
+            //{
+            //    Route.State = ROUTESTATE.FINISHED;
+            //    Route.IsNotFinished = false;
+            //    RouteController.ChangeState(Route);
+            //}
             
-            else
+            //else
             {
-                StopTextBox.Text = RouteController.GetNextStop(Route, PassedButtonClicked);
-                PassedButtonClicked++;
+                StopTextBox.Text = RouteController.GetNextStop(Route, PassedButtonClicks(Route));
                 StopPassedButton.Content = "Stop passed";
-                Route.CurrentRouteStop = Route.StopsList[PassedButtonClicked];
+                Route.CurrentStop = Route.StopsList[PassedButtonClicks(Route) + 1];
                 RouteController.ChangeCurrentStop(Route);
                 Route.State = ROUTESTATE.STARTED;
                 RouteController.ChangeState(Route);
-                if (PassedButtonClicked == Route.StopsList.Count-1)
+                if (IsLastStop(Route))
                 {
                     StopPassedButton.Content = "Finish route";
                     Route.IsNotFinished = false;
