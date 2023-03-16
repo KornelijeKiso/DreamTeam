@@ -33,7 +33,7 @@
                 <RadioButton Content="5" GroupName="GradeGroup2" Width="45"/>
             </StackPanel>
             <Label Content="Comment :"></Label>
-            <TextBox Height="70" Width="300" HorizontalAlignment="Center" Text="{Binding GuestGrade.Comment}"></TextBox>
+            <TextBox Height="70" Width="300" HorizontalAlignment="Center" Text="{Binding GuestGrade.Comment,UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <Button Content="Submit" Click="GradeClick" IsDefault="True" Margin="0 10 0 0"/>
         </StackPanel>
         
