@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.Guest2View"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="Main Guest2 Window" Height="550" Width="850">
     <Grid>
         
@@ -27,17 +28,58 @@
                     ItemsSource="{Binding Routes, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedRoute, UpdateSourceTrigger=PropertyChanged}" 
                     SelectionMode="Single"
+                    VerticalScrollBarVisibility="Visible" 
                     IsReadOnly="True" AutoGenerateColumns="False" Margin="50,10,50,20"
-                    Grid.Row="2" Grid.ColumnSpan="5">
+                    Grid.Row="2" Grid.ColumnSpan="5" RowHeight="100" >
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                   Color="#FFFFFF9D"/>
+            </DataGrid.Resources>
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Style>
+            </DataGrid.CellStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="100" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="City" Width="80" Binding="{Binding Location.City}" />
-                <DataGridTextColumn Header="Country" Width="80" Binding="{Binding Location.Country}" />
-                <DataGridTextColumn Header="Language" Width="80" Binding="{Binding Language}" />
-                <DataGridTextColumn Header="Duration" Width="80" Binding="{Binding Duration}" />
-                <DataGridTextColumn Header="Max number of guests" Width="150" Binding="{Binding MaxNumberOfGuests}" />
-                <!-- <DataGridTextColumn Header="Available Tickets" Width="150" Binding="{Binding AvailableSeats}" /> -->
+
+                <DataGridTemplateColumn Width="120" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Stretch="Fill" 
+                                   Source="{Binding Path=Pictures[0]}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" >
+                                <Label Content="{Binding Path=Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                    <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
+                                    <Label Content="{Binding Path=Location.Country}" Margin="0,0,0,-7"></Label>
+                                    <Label Content="," Margin="0,0,0,-7"></Label>
+                                    <Label Content="{Binding Path=Location.City}" Margin="0,0,0,-7"></Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                    <Label Content="Language :" Margin="0,0,-7,-7" ></Label>
+                                    <Label Content="{Binding Path=Language}" Margin="0,0,0,-7"></Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                    <Label Content="Duration :" Margin="0,0,-7,-7" ></Label>
+                                    <Label Content="{Binding Path=Duration}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                    <Label Content="Max number of guests :" Margin="0,0,-7,-7" ></Label>
+                                    <Label Content="{Binding Path=MaxNumberOfGuests}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                    <!-- <DataGridTextColumn Header="Available Tickets" Width="150" Binding="{Binding AvailableSeats}" /> -->
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
+
         </DataGrid>
 
         <Label x:Name="LabelLocation" Content="Location" 
@@ -84,6 +126,11 @@
         <Button Name ="buttonTicket" Content="Buy Ticket" IsDefault="True" Click="BuyTicket" ToolTip="Buy ticket"
                 Width="150" Height="50" Margin="5,5,15,5"
                 Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" HorizontalAlignment="Center" >
+        </Button>
+
+        <Button Name ="ShowTicket" Content="Show Tickets" IsDefault="True" Click="ShowTickets" ToolTip="Show tickets"
+                Width="150" Height="50" Margin="5,5,15,5"
+                Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" HorizontalAlignment="Center" >
         </Button>
 
     </Grid>

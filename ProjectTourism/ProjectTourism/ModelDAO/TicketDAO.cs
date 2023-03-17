@@ -42,9 +42,19 @@ namespace ProjectTourism.ModelDAO
             Tickets.Add(tickets);
             FileHandler.Save(Tickets);
         }
-        public void Delete(Ticket tickets)
+
+        public void Update(Ticket ticket)
         {
-            Tickets.Remove(tickets);
+            Ticket updated = GetOne(ticket.Id);
+            updated = ticket;
+            //Delete(GetOne(ticket.Id));
+            //Add(updated);
+            FileHandler.Save(Tickets);
+            NotifyObservers();
+        }
+        public void Delete(Ticket ticket)
+        {
+            Tickets.Remove(ticket);
             FileHandler.Save(Tickets);
         }
         public List<Ticket> GetAll()
@@ -71,9 +81,39 @@ namespace ProjectTourism.ModelDAO
                     ticketsByRoute.Add(ticket);
                 }
             }
-
             return ticketsByRoute;
         }
+        
+        // returns all guest's tickets
+        public List<Ticket> GetByGuest(Guest2 guest2)
+        {
+            List<Ticket> ticketsByGuest = new List<Ticket>();
+
+            foreach (var ticket in Tickets)
+            {
+                if (guest2.Username == ticket.Guest2Username)
+                {
+                    ticketsByGuest.Add(ticket);
+                }
+            }
+            return ticketsByGuest;
+        }
+        
+        // returns guest's ticket that should be updated
+        public Ticket GetGuest2Ticket(Guest2 guest2, Route route)
+        {
+            List<Ticket> ticketsByGuest = GetByGuest(guest2);
+
+            foreach (var ticket in ticketsByGuest)
+            {
+                if (ticket.RouteId == route.Id)
+                {
+                    return ticket;
+                }
+            }
+            return null;
+        }
+
         public void Subscribe(IObserver observer)
         {
             Observers.Add(observer);
