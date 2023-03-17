@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -33,7 +34,7 @@ namespace ProjectTourism.View.RouteView
         public LocationDAO NewLocationDAO { get; set; }
         public List<string> Languages { get; set; }
         public ObservableCollection<string> LanguagesObservable { get; set; }
-
+        public TourAppointment TourAppointment { get; set; }
 
         public CreateRouteWindow(Guide guide)
         {
@@ -121,96 +122,59 @@ namespace ProjectTourism.View.RouteView
         {
 
         }
-        // calendar - multiple selection
-        /*
-        private List<DateTime> selectedDates = new List<DateTime>();
-        private Dictionary<DateTime, TimeSpan> selectedDateTimes = new Dictionary<DateTime, TimeSpan>();
-        //private ObservableCollection<DateTime> selectedDateTimesObservable = new ObservableCollection<DateTime>(selectedDates);
-        private DateTime? selectedDate { get; set; }
+        //-calendar - multiple selection-------------------------------------------------------------------------------------------------
+
+        private Dictionary<DateTime, List<TimeSpan>> appointments = new Dictionary<DateTime, List<TimeSpan>>();
+
+        private void AddTimeButton_Click(object sender, RoutedEventArgs e)
+        {
+            int hours, minutes;
+            if (int.TryParse(hoursTextBox.Text, out hours) && int.TryParse(minutesTextBox.Text, out minutes))
+            {
+                foreach (DateTime date in calendar.SelectedDates)
+                {
+                    TimeSpan time = new TimeSpan(hours, minutes, 0);
+                    if (!appointments.ContainsKey(date))
+                    {
+                        appointments[date] = new List<TimeSpan>();
+                    }
+                    appointments[date].Add(time);
+                }
+                UpdateAppointmentsListBox();
+            }
+            else
+            {
+                MessageBox.Show("Invalid time entered.");
+            }
+        }
+
+
+        private void UpdateAppointmentsListBox()
+        {
+            appointmentsListBox.Items.Clear();
+            foreach (KeyValuePair<DateTime, List<TimeSpan>> appointment in appointments)
+            {
+                string appointmentText = appointment.Key.ToShortDateString() + " ";
+                foreach (TimeSpan time in appointment.Value)
+                {
+                    appointmentText += time.ToString("hh\\:mm") + ", ";
+                }
+                appointmentsListBox.Items.Add(appointmentText.TrimEnd(',', ' '));
+            //    TourAppointment.TourDateTime = DateTime.Parse(appointmentText);   //this needs a fix!
+            }
+        }
+
+        private void SaveAppointmentsButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Save the appointments
+            MessageBox.Show("Appointments saved successfully. BTW I need to save this to TourAppointment");
+        }
+
         private void Calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Clear the previous selection
-            selectedDates.Clear();
-            selectedDateTimes.Clear();
-
-            // Add the selected dates to the list
-            foreach (DateTime date in calendar.SelectedDates)
-            {
-                selectedDates.Add(date);
-                selectedDateTimes.Add(date, new TimeSpan(0, 0, 0));
-            }
-
-            // Update the list box with the selected dates and times
-            UpdateSelectedDatesListBox();
+            hoursTextBox.Text = "";
+            minutesTextBox.Text = "";
         }
-
-        private void HoursTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            if (selectedDate != null)
-            {
-                // Update the selected dates and times dictionary with the hours entered
-                if (int.TryParse(hoursTextBox.Text, out int hours))
-                {
-                    foreach (DateTime date in selectedDates)
-                    {
-                        if (selectedDate.Equals(date))
-                        {
-                            selectedDateTimes[date] = new TimeSpan(hours, selectedDateTimes[date].Minutes, 0);
-                     //       UpdateSelectedDatesListBox();
-                        }
-                            
-                    }
-                }
-
-                // Update the list box with the selected dates and times
-                UpdateSelectedDatesListBox();
-            }
-            
-        }
-
-        private void MinutesTextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            //if (selectedDate != null)
-            {
-                // Update the selected dates and times dictionary with the minutes entered
-                if (int.TryParse(minutesTextBox.Text, out int minutes))
-                {
-                    foreach (DateTime date in selectedDates)
-                    {
-                       // if (selectedDate.Equals(date))
-                        {
-                            selectedDateTimes[date] = new TimeSpan(selectedDateTimes[date].Hours, minutes, 0);
-                        //    UpdateSelectedDatesListBox();
-                        }
-                    }
-                }
-
-                // Update the list box with the selected dates and times
-                UpdateSelectedDatesListBox();
-            }
-                
-        }
-
-        private void UpdateSelectedDatesListBox()
-        {
-            selectedDatesListBox.Items.Clear();
-            foreach (KeyValuePair<DateTime, TimeSpan> kvp in selectedDateTimes)
-            {
-                selectedDatesListBox.Items.Add(kvp.Key.ToShortDateString() + " " + kvp.Value.ToString(@"hh\:mm"));
-            }
-        }
-
-        private void SaveCalendarButton_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (KeyValuePair<DateTime, TimeSpan> kvp in selectedDateTimes)
-            {
-                //I need to save the SelectedDateTimes
-            }
-
-            // Clear the selection and update the list box
-            selectedDates.Clear();
-            selectedDateTimes.Clear();
-            UpdateSelectedDatesListBox();
-        }*/
     }
 }
+

@@ -18,7 +18,7 @@
         </ControlTemplate>
     </Window.Resources>
     <Grid>
-        <!--<Grid Margin="580,-80,152,81" Height="370" Width="220">
+        <Grid Margin="580,-80,152,81" Height="370" Width="220">
             <Rectangle Stroke="Black" Margin="0,-15,0,-20" Fill="#FFEAEAEA" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="4">
                 <Rectangle.RenderTransform>
                     <TransformGroup>
@@ -29,28 +29,20 @@
                     </TransformGroup>
                 </Rectangle.RenderTransform>
             </Rectangle>
-            
-            <Calendar x:Name="calendar" SelectionMode="MultipleRange"
-                  SelectedDatesChanged="Calendar_SelectedDatesChanged" />
-            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">
-                <TextBlock Text="Hours:" VerticalAlignment="Center"/>
-                <TextBox x:Name="hoursTextBox" Width="50" Margin="5" TextChanged="HoursTextBox_TextChanged" />
-                <TextBlock Text="Minutes:" VerticalAlignment="Center"/>
-                <TextBox x:Name="minutesTextBox" Width="50" Margin="5" TextChanged="MinutesTextBox_TextChanged" />
+
+            <StackPanel>
+                <Calendar x:Name="calendar" SelectionMode="MultipleRange" SelectedDatesChanged="Calendar_SelectedDatesChanged"/>
+                <StackPanel Orientation="Horizontal" Height="34">
+                    <TextBlock Text="Hours: " Margin="2, 5" FontSize="11" Height="19"/>
+                    <TextBox x:Name="hoursTextBox" Width="28" Margin="5"/>
+                    <TextBlock Text="Minutes: " Margin="0,5" FontSize="11" Height="17"/>
+                    <TextBox x:Name="minutesTextBox" Width="28" Margin="5"/>
+                    <Button Content="Add Time" Click="AddTimeButton_Click" Margin="0,5" Height="23"/>
+                </StackPanel>
+                <ListBox x:Name="appointmentsListBox" Margin="5"/>
+                <Button Content="Save Appointments" Click="SaveAppointmentsButton_Click" Margin="5"/>
             </StackPanel>
-            
-            <DataGrid Grid.Row="2" x:Name="selectedDatesListBox" Margin="10" ItemsSource="{Binding Path=selectedDateTimesObservable, UpdateSourceTrigger=PropertyChanged}"
-                      SelectionMode="Single" SelectedItem="{Binding selectedDate, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False"
-                  />
-            --><!--ScrollViewer.VerticalScrollBarVisibility="Auto"--><!--
-                <Button Grid.Row="3" Margin="10" Padding="5" Width="100" Content="Save calendar" Click="SaveCalendarButton_Click" />
-            <Grid.RowDefinitions>
-                <RowDefinition Height="170"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="100"/>
-                <RowDefinition Height="50"/>
-            </Grid.RowDefinitions>
-        </Grid>-->
+        </Grid>
         <Grid Margin="-200,50,152,81" Height="550" Width="430">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
