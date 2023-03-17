@@ -94,5 +94,28 @@ namespace ProjectTourism.ModelDAO
             return stops;
         }
 
+        public void ChangeState(Route route)
+        {
+            foreach(var route1 in Routes)
+            {
+                if(route1.Id == route.Id)
+                {
+                    route1.State = route.State;
+                }
+            }
+            RouteFileHandler.Save(Routes);
+        }
+        public void ChangeCurrentStop(Route route)
+        {
+            foreach(var route1 in Routes)
+            {
+                if(route1.Id == route.Id)
+                {
+                    route1.CurrentStop = route.CurrentStop;
+                }
+            }
+            RouteFileHandler.Save(Routes);
+        }
+
     }
 }

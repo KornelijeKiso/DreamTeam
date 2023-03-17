@@ -41,21 +41,25 @@ namespace ProjectTourism.View.OwnerView
         {
             InitializeComponent();
             DataContext = this;
+
+            LocationDAO = new LocationDAO();
             OwnerController = new OwnerController();
-            Owner = OwnerController.GetOne(username);
+            AccommodationController = new AccommodationController();
+
             NewAccommodation = new Accommodation();
-            Accommodations = new ObservableCollection<Accommodation>(OwnerController.GetOwnersAccommodations(username));
-            
-            AccommodationController= new AccommodationController();
-            Reservations = SortReservations();
-            SetButtons();
-            NewAccommodation.Owner = Owner;
-            NewAccommodation.OwnerUsername= username;
-            LocationDAO= new LocationDAO();
             NewLocation = new Location();
+
+            Owner = OwnerController.GetOne(username);
+            NewAccommodation.Owner = Owner;
+            NewAccommodation.OwnerUsername = username;
+
+            Accommodations = new ObservableCollection<Accommodation>(OwnerController.GetOwnersAccommodations(username));
+            Reservations = SortReservations();
+
             AccommodationController.Subscribe(this);
             LocationDAO.Subscribe(this);
-        }
+            SetButtons();
+        }        
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -99,13 +103,13 @@ namespace ProjectTourism.View.OwnerView
                 }
             }
         }
-        public void RegisterAccommodationClick(object sender, RoutedEventArgs e)
+        private void HandleTypeCombobox()
         {
-            if(ComboType.SelectedIndex== 0)
+            if (ComboType.SelectedIndex == 0)
             {
                 NewAccommodation.Type = ACCOMMODATIONTYPE.APARTMENT;
             }
-            else if(ComboType.SelectedIndex== 1)
+            else if (ComboType.SelectedIndex == 1)
             {
                 NewAccommodation.Type = ACCOMMODATIONTYPE.HOUSE;
             }
@@ -113,18 +117,21 @@ namespace ProjectTourism.View.OwnerView
             {
                 NewAccommodation.Type = ACCOMMODATIONTYPE.HUT;
             }
+        }
+        public void RegisterAccommodationClick(object sender, RoutedEventArgs e)
+        {
+            HandleTypeCombobox();
             Location location = new Location(NewLocation.City, NewLocation.Country);
-            NewLocation.Id = LocationDAO.AddAndReturnId(location);
-            location.Id = NewLocation.Id;
-            NewAccommodation.LocationId = NewLocation.Id;
-            NewAccommodation.Location = location;
-            NewAccommodation.CityAndCountry = location.City + ", " + location.Country;
+            location.Id = LocationDAO.AddAndReturnId(location);
+            NewLocation.Id = location.Id;
+            NewAccommodation.SetLocation(location);
+
             Accommodation accommodation= new Accommodation(NewAccommodation);
+
             AccommodationController.Add(accommodation);
             Accommodations.Add(accommodation);
             NewAccommodation.Reset();
-            NewLocation.City = "";
-            NewLocation.Country = "";
+            NewLocation.Reset();
         }
 
         public void Update()
@@ -135,23 +142,6 @@ namespace ProjectTourism.View.OwnerView
                 reservation.IsGraded();
             }
         }
-        //public void SelectedReservationChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    Button button = (Button)sender;
-        //    button.IsEnabled = false;
-        //    if(SelectedReservation == null)
-        //    {
-        //        button.IsEnabled = false;
-        //    }
-        //    else if(SelectedReservation.IsGraded())
-        //    {
-        //        button.IsEnabled = false;
-        //    }
-        //    else if(SelectedReservation.IsAbleToGrade())
-        //    {
-        //        button.IsEnabled = true;
-        //    }
-        //}
         public void EventSetter_OnHandler(object sender, EventArgs e)
         {
             Process.Start(new ProcessStartInfo { FileName = @SelectedAccommodation.PictureURLs, UseShellExecute = true });
@@ -178,8 +168,6 @@ namespace ProjectTourism.View.OwnerView
                 }
                 
             }
-            
-
             Update();
         }
         

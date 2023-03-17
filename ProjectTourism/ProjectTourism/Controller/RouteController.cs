@@ -36,7 +36,6 @@ namespace ProjectTourism.Controller
         }
         public void Add(Route route)
         {
-
             RouteDAO.Add(route);
         }
         public Route? Identify(Route route)
@@ -59,6 +58,13 @@ namespace ProjectTourism.Controller
             }
             return route.StopsList[stopint + 1];
         }
-
+        public void ChangeState(Route route)
+        {
+            RouteDAO.ChangeState(route);
+        }
+        public void ChangeCurrentStop(Route route)
+        {
+            RouteDAO.ChangeCurrentStop(route);
+        }
     }
 }
