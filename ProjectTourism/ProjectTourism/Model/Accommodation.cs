@@ -189,6 +189,9 @@ namespace ProjectTourism.Model
         public Accommodation()
         {
             CancellationDeadline = 1;
+            MaxNumberOfGuests= 1;
+            MinDaysForReservation= 1;
+            PictureURLs = "";
         }
         public Accommodation(Accommodation accommodation)
         {
@@ -223,8 +226,8 @@ namespace ProjectTourism.Model
         {
             Location = null;
             CancellationDeadline= 1;
-            MaxNumberOfGuests= 0;
-            MinDaysForReservation= 0;
+            MaxNumberOfGuests= 1;
+            MinDaysForReservation= 1;
             Type = ACCOMMODATIONTYPE.APARTMENT;
             Name = "";
             PictureURLs = "";
@@ -233,7 +236,7 @@ namespace ProjectTourism.Model
         public string[] GetPictureURLsFromCSV()
         {
             string[] pictures = PictureURLs.Split(',');
-            foreach(var picture in pictures)
+            foreach (var picture in pictures)
             {
                 picture.Trim();
             }

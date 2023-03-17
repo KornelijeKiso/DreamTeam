@@ -142,6 +142,49 @@ namespace ProjectTourism.View.OwnerView
                 reservation.IsGraded();
             }
         }
+
+        public void IncreaseMaxNumberOfGuestsClick(object sender, RoutedEventArgs e)
+        {
+            if (NewAccommodation.MaxNumberOfGuests < 15)
+            {
+                NewAccommodation.MaxNumberOfGuests++;
+            }
+        }
+        public void DecreaseMaxNumberOfGuestsClick(object sender, RoutedEventArgs e)
+        {
+            if (NewAccommodation.MaxNumberOfGuests > 1)
+            {
+                NewAccommodation.MaxNumberOfGuests--;
+            }
+        }
+        public void IncreaseMinDaysForReservationClick(object sender, RoutedEventArgs e)
+        {
+            if (NewAccommodation.MinDaysForReservation < 7)
+            {
+                NewAccommodation.MinDaysForReservation++;
+            }
+        }
+        public void DecreaseMinDaysForReservationClick(object sender, RoutedEventArgs e)
+        {
+            if (NewAccommodation.MinDaysForReservation > 1)
+            {
+                NewAccommodation.MinDaysForReservation--;
+            }
+        }
+        public void IncreaseCancellationDeadlineClick(object sender, RoutedEventArgs e)
+        {
+            if (NewAccommodation.CancellationDeadline < 30)
+            {
+                NewAccommodation.CancellationDeadline++;
+            }
+        }
+        public void DecreaseCancellationDeadlineClick(object sender, RoutedEventArgs e)
+        {
+            if (NewAccommodation.CancellationDeadline > 1)
+            {
+                NewAccommodation.CancellationDeadline--;
+            }
+        }
         public void EventSetter_OnHandler(object sender, EventArgs e)
         {
             Process.Start(new ProcessStartInfo { FileName = @SelectedAccommodation.PictureURLs, UseShellExecute = true });
