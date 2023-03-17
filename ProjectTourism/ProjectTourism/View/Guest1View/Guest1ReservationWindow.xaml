@@ -5,8 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.Guest1View"
         mc:Ignorable="d"
-        Title="Guest1ReservationWindow" Height="450" Width="800">
+        Title="Guest1ReservationWindow" Height="400" Width="300" WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <StackPanel>
+            <Label Content="Starting Date :" HorizontalAlignment="Left" Margin="40,40,0,0"/>
+            <StackPanel>
+                <DatePicker HorizontalAlignment="Center" Margin="0,5,0,0" IsTodayHighlighted="True" Name="StartDatePicker" SelectedDateChanged="StartDateChanged"
+                     VerticalAlignment="Top" Width="230" Height="33">
+                    <DatePicker.BlackoutDates>
+                        <CalendarDateRange End="01/01/1900 23:59:59" Start="01/01/0001 23:59:59"/>
+                    </DatePicker.BlackoutDates>
+                </DatePicker>
+            </StackPanel>
+            <Label Content="Ending Date :" HorizontalAlignment="Left" Margin="40,20,0,0"/>
+            <StackPanel>
+                <DatePicker HorizontalAlignment="Center" Margin="0,5,0,0" IsTodayHighlighted="True" Name="EndDatePicker" SelectedDateChanged="EndDateChanged"
+                     VerticalAlignment="Top" Width="230" Height="33">
+                    <DatePicker.BlackoutDates>
+                        <CalendarDateRange End="01/01/1900 23:59:59" Start="01/01/0001 23:59:59"/>
+                    </DatePicker.BlackoutDates>
+                </DatePicker>
+            </StackPanel>
+            <Label Content="Number of Guests :" HorizontalAlignment="Left" Margin="40,20,0,0"/>
+            <StackPanel>
+                <TextBox HorizontalAlignment="Center" Margin="0,5,0,0" TextWrapping="Wrap" Text="{Binding Path = GuestCount, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="230" Height="33"/>
+            </StackPanel>
+
+            <Button HorizontalAlignment="Center" Width="100" Height="33" Content="Confirm" Click="ConfirmReservationClick" IsDefault="True" Margin="0 40 0 0"/>
+        </StackPanel>
     </Grid>
 </Window>

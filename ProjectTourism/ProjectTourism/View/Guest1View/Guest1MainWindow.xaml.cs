@@ -41,12 +41,11 @@ namespace ProjectTourism.View.Guest1View
         public string NameSearch { get; set; }
         public string LocationSearch { get; set; }
         public string GuestCountSearch { get; set; }
+        public DateOnly startingDate { get; set; }
+        public DateOnly endingDate { get; set; }
 
-        public DateOnly startingDate;
-        public DateOnly endingDate;
 
-
-        public Guest1MainWindow(string username)
+public Guest1MainWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
@@ -238,40 +237,48 @@ namespace ProjectTourism.View.Guest1View
 
             foreach (Accommodation accommodation in Accommodations)
             {
-                
-                    if (ReservationAvailable(startingDate, endingDate, accommodation)
-                    && GuestNumberMatch(GuestCountSearch, accommodation)
-                    && NameMatch(NameSearch, accommodation)
-                    && LocationMatch(LocationSearch, accommodation)
-                    && TypeMatch(accommodation))
-                    {
-                        FilteredAccommodations.Add(accommodation);
-                    }
-                
+
+                if (Fits(accommodation))
+                {
+                    FilteredAccommodations.Add(accommodation);
+                }
+
             }
+        }
+
+        private bool Fits(Accommodation accommodation)
+        {
+            return ReservationAvailable(startingDate, endingDate, accommodation)
+                                && GuestNumberMatch(GuestCountSearch, accommodation)
+                                && NameMatch(NameSearch, accommodation)
+                                && LocationMatch(LocationSearch, accommodation)
+                                && TypeMatch(accommodation);
         }
 
         public void ReserveAccommodationClick(object sender, RoutedEventArgs e)
         {
-            Reservation reservation = new Reservation();
-            ReservationController reservationController = new ReservationController();
+            Button button = (Button)sender;
 
+            Reservation reservation;
+            Accommodation accommodation;
+            PrepareReservation(out reservation, out accommodation);
+
+            Guest1ReservationWindow guest1ReservationWindow = new Guest1ReservationWindow(reservation, accommodation);
+            guest1ReservationWindow.ShowDialog();
+            Update();
+        }
+
+        private void PrepareReservation(out Reservation reservation, out Accommodation accommodation)
+        {
+            reservation = new Reservation();
+            ReservationController reservationController = new ReservationController();
             reservation.StartDate = startingDate;
             reservation.EndDate = endingDate;
             reservation.AccommodationId = SelectedAccommodation.Id;
             reservation.Guest1Username = Guest1.Username;
-
-            if (reservationController.IsPossible(reservation)) 
-            {
-                reservationController.Add(reservation);
-            }
-            
-
-            /*Button button = (Button)sender;
-            Guest1ReservationWindow guest1ReservationWindow = new Guest1ReservationWindow();
-            guest1ReservationWindow.ShowDialog();
-            Update();*/
+            accommodation = AccommodationController.GetOne(reservation.AccommodationId);
         }
+
         public void Update()
         {
 
