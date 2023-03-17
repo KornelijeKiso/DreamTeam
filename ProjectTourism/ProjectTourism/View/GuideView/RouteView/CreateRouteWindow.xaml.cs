@@ -72,7 +72,7 @@ namespace ProjectTourism.View.RouteView
             LanguagesObservable = new ObservableCollection<string>(Languages);
             LanguageComboBox.ItemsSource = LanguagesObservable;
         }
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
@@ -120,6 +120,97 @@ namespace ProjectTourism.View.RouteView
         private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        
+        private List<DateTime> selectedDates = new List<DateTime>();
+        private Dictionary<DateTime, TimeSpan> selectedDateTimes = new Dictionary<DateTime, TimeSpan>();
+        private ObservableCollection<DateTime> selectedDateTimesObservable = new ObservableCollection<DateTime>(selectedDates);
+        private DateTime? selectedDate { get; set; }
+        private void Calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Clear the previous selection
+            selectedDates.Clear();
+            selectedDateTimes.Clear();
+
+            // Add the selected dates to the list
+            foreach (DateTime date in calendar.SelectedDates)
+            {
+                selectedDates.Add(date);
+                selectedDateTimes.Add(date, new TimeSpan(0, 0, 0));
+            }
+
+            // Update the list box with the selected dates and times
+            UpdateSelectedDatesListBox();
+        }
+
+        private void HoursTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (selectedDate != null)
+            {
+                // Update the selected dates and times dictionary with the hours entered
+                if (int.TryParse(hoursTextBox.Text, out int hours))
+                {
+                    foreach (DateTime date in selectedDates)
+                    {
+                        if (selectedDate.Equals(date))
+                        {
+                            selectedDateTimes[date] = new TimeSpan(hours, selectedDateTimes[date].Minutes, 0);
+                     //       UpdateSelectedDatesListBox();
+                        }
+                            
+                    }
+                }
+
+                // Update the list box with the selected dates and times
+                UpdateSelectedDatesListBox();
+            }
+            
+        }
+
+        private void MinutesTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            //if (selectedDate != null)
+            {
+                // Update the selected dates and times dictionary with the minutes entered
+                if (int.TryParse(minutesTextBox.Text, out int minutes))
+                {
+                    foreach (DateTime date in selectedDates)
+                    {
+                       // if (selectedDate.Equals(date))
+                        {
+                            selectedDateTimes[date] = new TimeSpan(selectedDateTimes[date].Hours, minutes, 0);
+                        //    UpdateSelectedDatesListBox();
+                        }
+                    }
+                }
+
+                // Update the list box with the selected dates and times
+                UpdateSelectedDatesListBox();
+            }
+                
+        }
+
+        private void UpdateSelectedDatesListBox()
+        {
+            selectedDatesListBox.Items.Clear();
+            foreach (KeyValuePair<DateTime, TimeSpan> kvp in selectedDateTimes)
+            {
+                selectedDatesListBox.Items.Add(kvp.Key.ToShortDateString() + " " + kvp.Value.ToString(@"hh\:mm"));
+            }
+        }
+
+        private void SaveCalendarButton_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (KeyValuePair<DateTime, TimeSpan> kvp in selectedDateTimes)
+            {
+                //I need to save the SelectedDateTimes
+            }
+
+            // Clear the selection and update the list box
+            selectedDates.Clear();
+            selectedDateTimes.Clear();
+            UpdateSelectedDatesListBox();
         }
     }
 }

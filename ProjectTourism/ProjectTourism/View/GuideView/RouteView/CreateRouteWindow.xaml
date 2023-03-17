@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProjectTourism.View.RouteView"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="Route creation" Height="720" Width="800"
+        Title="Route creation" Height="720" Width="1000"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
@@ -18,7 +18,39 @@
         </ControlTemplate>
     </Window.Resources>
     <Grid>
-        <Grid Margin="140,50,152,81" Height="550" Width="480">
+        <Grid Margin="580,-80,152,81" Height="370" Width="220">
+            <Rectangle Stroke="Black" Margin="0,-15,0,-20" Fill="#FFEAEAEA" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="4">
+                <Rectangle.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="-1"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+            <Calendar x:Name="calendar" SelectionMode="MultipleRange"
+                  SelectedDatesChanged="Calendar_SelectedDatesChanged" />
+            <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10">
+                <TextBlock Text="Hours:" VerticalAlignment="Center"/>
+                <TextBox x:Name="hoursTextBox" Width="50" Margin="5" TextChanged="HoursTextBox_TextChanged" />
+                <TextBlock Text="Minutes:" VerticalAlignment="Center"/>
+                <TextBox x:Name="minutesTextBox" Width="50" Margin="5" TextChanged="MinutesTextBox_TextChanged" />
+            </StackPanel>
+
+            <DataGrid Grid.Row="2" x:Name="selectedDatesListBox" Margin="10" ItemsSource="{Binding Path=selectedDateTimesObservable, UpdateSourceTrigger=PropertyChanged}"
+                      SelectionMode="Single" SelectedItem="{Binding selectedDate, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False"
+                  />
+            <!--ScrollViewer.VerticalScrollBarVisibility="Auto"-->
+                <Button Grid.Row="3" Margin="10" Padding="5" Width="100" Content="Save calendar" Click="SaveCalendarButton_Click" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="170"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+        </Grid>
+        <Grid Margin="-200,50,152,81" Height="550" Width="430">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -65,14 +97,14 @@
             <TextBox Grid.Row="11" Grid.Column="1" Text="{Binding Path = Route.Description}" Margin="0,8,0,8"/>
         </Grid>
         <WrapPanel>
-            <Button IsDefault="True" x:Name="AddLanguageButton" Content="Add language" HorizontalAlignment="Left" Height="28" Margin="540,196,0,0" VerticalAlignment="Top" Width="86" Click="AddLanguageButton_Click"/>
+            <Button IsDefault="True" x:Name="AddLanguageButton" Content="Add language" HorizontalAlignment="Left" Height="28" Margin="445,196,0,0" VerticalAlignment="Top" Width="86" Click="AddLanguageButton_Click"/>
         </WrapPanel>
         <WrapPanel>
-            <Button Content="Save" Click="SaveRoute_Click" HorizontalAlignment="Left" Height="43" Margin="680,570,0,0" VerticalAlignment="Top" Width="95"/>
-            <Label Content="Date needs to be&#xD;&#xA;in format&#xD;&#xA;dd.MM.yyyy HH:mm" Height="273" Width="140" Margin="650,-270,0,0" FontWeight="DemiBold"/>
-            <Button Height="30" Width="40" Margin="700, -340, 0, 0"></Button>
+            <Button Content="Save" Click="SaveRoute_Click" HorizontalAlignment="Left" Height="43" Margin="680,600,0,0" VerticalAlignment="Top" Width="95"/>
         </WrapPanel>
-
     </Grid>
+
+
+
 
 </Window>
