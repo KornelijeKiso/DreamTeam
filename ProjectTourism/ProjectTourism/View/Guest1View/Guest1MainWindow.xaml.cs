@@ -31,6 +31,7 @@ namespace ProjectTourism.View.Guest1View
     {
         public Guest1 Guest1 { get; set; }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
+        public Accommodation SelectedAccommodation { get; set; }
         public ObservableCollection<Accommodation> FilteredAccommodations { get; set; }
         public Guest1Controller Guest1Controller { get; set; }
         public AccommodationController AccommodationController { get; set; }
@@ -252,8 +253,19 @@ namespace ProjectTourism.View.Guest1View
 
         public void ReserveAccommodationClick(object sender, RoutedEventArgs e)
         {
+            Reservation reservation = new Reservation();
+            ReservationController reservationController = new ReservationController();
 
+            reservation.StartDate = startingDate;
+            reservation.EndDate = endingDate;
+            reservation.AccommodationId = SelectedAccommodation.Id;
+            reservation.Guest1Username = Guest1.Username;
 
+            if (reservationController.IsPossible(reservation)) 
+            {
+                reservationController.Add(reservation);
+            }
+            
 
             /*Button button = (Button)sender;
             Guest1ReservationWindow guest1ReservationWindow = new Guest1ReservationWindow();
