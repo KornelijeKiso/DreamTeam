@@ -7,16 +7,18 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using ProjectTourism.ModelDAO;
 
-public enum ROUTESTATE {STARTED, FINISHED, STOPPED};
+public enum ROUTESTATE {INITIALIZED, STARTED, FINISHED, STOPPED};
 
 namespace ProjectTourism.Model
 {
-    public class Route : Serializable, INotifyPropertyChanged
+    public class Route : Serializable, INotifyPropertyChanged, IDataErrorInfo
     {
         public int Id;
         private string? _Name;
@@ -28,6 +30,20 @@ namespace ProjectTourism.Model
                 if (_Name != value)
                 {
                     _Name = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool _IsNotFinished;
+        public bool IsNotFinished
+        {
+            get => _IsNotFinished;
+            set
+            {
+                if (_IsNotFinished != value)
+                {
+                    _IsNotFinished = value;
                     OnPropertyChanged();
                 }
             }
@@ -229,6 +245,20 @@ namespace ProjectTourism.Model
             }
         }
 
+        private string _CurrentRouteStop;
+        public string CurrentStop
+        {
+            get => _CurrentRouteStop;
+            set
+            {
+                if (value != _CurrentRouteStop)
+                {
+                    _CurrentRouteStop = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
@@ -237,10 +267,13 @@ namespace ProjectTourism.Model
         }
         public Route()
         {
+            StartDate = DateTime.Now;
             StopsList = new List<string>();
+            State = ROUTESTATE.INITIALIZED;
+            IsNotFinished = true;
         }
 
-        public Route(string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
+        public Route(string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername, string currentRouteStop)
         {
             Name = name;
             Location = location;
@@ -257,8 +290,11 @@ namespace ProjectTourism.Model
             Guide = FindGuide(guideUsername);
             StopsList = new List<string>();
             AvailableSeats = maxNumberOfGuests;
+            State = ROUTESTATE.INITIALIZED;
+            IsNotFinished = true;
+            CurrentStop = currentRouteStop;
         }
-        public Route(int id, string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
+        public Route(int id, string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername, string currentStop)
         {
             Id = id;
             Name = name;
@@ -276,6 +312,9 @@ namespace ProjectTourism.Model
             Guide = FindGuide(guideUsername);
             AvailableSeats = maxNumberOfGuests;
             StopsList = new List<string>();
+            State = ROUTESTATE.INITIALIZED;
+            IsNotFinished = true;
+            CurrentStop = currentStop;
         }
 
         public Guide? FindGuide(string username)
@@ -299,7 +338,21 @@ namespace ProjectTourism.Model
             Images = values[10];
             GuideUsername = values[11];
             LocationId = int.Parse(values[12]);
+            switch (values[13])
+            {
+                case "INITIALIZED":
+                    { State = ROUTESTATE.INITIALIZED; IsNotFinished = true; break; }
+                case "STARTED":
+                    { State = ROUTESTATE.STARTED; IsNotFinished = true; break; }
+                case "FINISHED":
+                    { State = ROUTESTATE.FINISHED; IsNotFinished = false; break; }
+                case "STOPPED":
+                    { State = ROUTESTATE.STOPPED; IsNotFinished = false; break; }
+                default:
+                    { State = ROUTESTATE.INITIALIZED; IsNotFinished = true; break; }
+            }
             Location = FindLocation(LocationId);
+            CurrentStop = values[14];
         }
 
         private Location? FindLocation(int? locationId)
@@ -324,9 +377,92 @@ namespace ProjectTourism.Model
                 Duration.ToString(),
                 Images,
                 GuideUsername,
-                LocationId.ToString()
+                LocationId.ToString(),
+                State.ToString(),
+                CurrentStop
             };
             return csvValues;
+        }
+
+        private Regex _NameRegex = new Regex("[A-Z a-z]+");
+        private Regex _PositiveNumberRegex = new Regex("0|^[0-9]+$");
+        private Regex _StartRegex = new Regex("^.*[a-zA-Z]+.*$");
+        private Regex _DateTimeRegex = new Regex("^(0?[1-9]|1[012])\\/(0?[1-9]|[12][0-9]|3[01])\\/\\d{4}\\s(0?[1-9]|1[012]):([0-5][0-9]):([0-5][0-9])\\s(AM|PM)$\r\n");
+
+        public string Error => null;
+        public string? this[string columnName]
+        {
+            get
+            {
+                if (columnName == "Name")
+                {
+                    if (string.IsNullOrEmpty(Name))
+                        return "Name is required";
+                    Match match = _NameRegex.Match(Name);
+                    if (!match.Success)
+                        return "Enter name";
+                }
+                else if (columnName == "MaxNumberOfGuests")
+                {
+                    if (string.IsNullOrEmpty(MaxNumberOfGuests.ToString()))
+                        return "Number must be positive";
+                    Match match = _PositiveNumberRegex.Match(MaxNumberOfGuests.ToString());
+                    if (!match.Success)
+                        return "Enter positive number";
+                }
+                else if (columnName == "Start")
+                {
+                    if (string.IsNullOrEmpty(Start))
+                        return "Start point required";
+                    Match match = _StartRegex.Match(Start);
+                    if (!match.Success)
+                        return "Enter start";
+                }
+                else if (columnName == "Finish")
+                {
+                    if (string.IsNullOrEmpty(Finish))
+                        return "Finish point is required";
+                    Match match = _StartRegex.Match(Finish);
+                    if (!match.Success)
+                        return "Enter finish";
+                }
+                else if (columnName == "StartDate")
+                {
+                    if (string.IsNullOrEmpty(StartDate.ToString("MM/dd/yyyy HH:mm:ss")))
+                        return "Start date is required";
+                    Match match = _DateTimeRegex.Match(StartDate.ToString("MM/dd/yyyy HH:mm:ss"));
+                    //if (!match.Success)
+                    //    return "Enter start date";
+                }
+                else if (columnName == "Duration")
+                {
+                    if (string.IsNullOrEmpty(Duration.ToString()))
+                        return "Number must be positive";
+                    Match match = _PositiveNumberRegex.Match(Duration.ToString());
+                    if (!match.Success)
+                        return "Enter positive number";
+                }
+                else
+                {
+                    return "Error";
+                }
+                return null;
+            }
+        }
+        private readonly string[] _validatedProperties = {"Name", "MaxNumberOfGuests", "Start", "Finish", "StartDate", "Duration"};
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+
+                return true;
+            }
         }
     }
 }

@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,7 +33,7 @@ namespace ProjectTourism.View.GuideView.RouteView
         public ObservableCollection<Ticket> tickets { get; set; }
         public TicketController TicketController { get; set; }
         public Ticket SelectedTicket { get; set; }  
-        
+
         public RouteStopsWindow(int id)
         {
             InitializeComponent();
@@ -39,57 +41,83 @@ namespace ProjectTourism.View.GuideView.RouteView
             RouteController = new RouteController();
             TicketController = new TicketController();
             Route = RouteController.GetOne(id);
-            tickets = new ObservableCollection<Ticket>(TicketController.GetAll());
+            tickets = new ObservableCollection<Ticket>(TicketController.GetByRoute(Route));
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public void Update()
+        public int PassedButtonClicks(Route route)
         {
-            //TODO
-            throw new NotImplementedException();
+            int number = 0;
+            foreach(var stop in route.StopsList)
+            {
+                if (stop.Equals(route.CurrentStop))
+                    break;
+                number++;
+            }
+            return number;
         }
-        public int pom = 0;
+
+        public bool IsLastStop(Route route)
+        {
+            return route.StopsList.Last().Equals(route.CurrentStop);
+        }
+
+        public void FinishRoute(Route route)
+        {
+            StopPassedButton.Content = "Finish route";
+            route.IsNotFinished = false;
+            route.State = ROUTESTATE.FINISHED;
+            RouteController.ChangeState(route);
+            StopPassedButton.IsEnabled = false;
+            EmergencyStopButton.IsEnabled = false;
+        }
+
+        public void NextStop(Route route)
+        {
+            StopTextBox.Text = RouteController.GetNextStop(route, PassedButtonClicks(route));
+            StopPassedButton.Content = "Stop passed";
+            route.CurrentStop = route.StopsList[PassedButtonClicks(route) + 1];
+            RouteController.ChangeCurrentStop(route);
+            route.State = ROUTESTATE.STARTED;
+            RouteController.ChangeState(route);
+        }
         private void StopPassedButton_Click(object sender, RoutedEventArgs e)
         {
-            if(StopPassedButton.Content.Equals("Finish route"))
+            NextStop(Route);
+            if (IsLastStop(Route))
             {
-                Close();
-            }
-            if(Route.StopsList.Count-1 == pom)
-            {
-                pom = 0;
-                Route.State = ROUTESTATE.FINISHED;
-            }
-            else
-            {
-                StopTextBox.Text = RouteController.GetNextStop(Route, pom);
-                pom++;
-                if(pom == Route.StopsList.Count-1)
-                {
-                    StopPassedButton.Content = "Finish route";
-                }
+                FinishRoute(Route);
             }
         }
         private void EmergencyStopButton_Click(object sender, RoutedEventArgs e)
         {
             Route.State = ROUTESTATE.STOPPED;
-            Close();
+            RouteController.ChangeState(Route);
+            Route.IsNotFinished = false;
         }
 
         private void TicketStatusButton_Click(object sender, RoutedEventArgs e)
         {
-            Button button = (Button)sender;
-            button.Background = Brushes.IndianRed;
+            if(SelectedTicket.ButtonColor!=Brushes.Green)
+            {
+                SelectedTicket.ButtonColor = Brushes.IndianRed;
+                TicketController.GuideCheck(SelectedTicket);
+            }
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
+        public void Update()
+        {
+            tickets = new ObservableCollection<Ticket>((IEnumerable<Ticket>)TicketController.GetByRoute(Route));
+        }
+
     }
 }

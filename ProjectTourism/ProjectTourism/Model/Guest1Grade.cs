@@ -78,7 +78,6 @@ namespace ProjectTourism.Model
                 }
             }
         }
-        
 
         public Guest1Grade()
         {

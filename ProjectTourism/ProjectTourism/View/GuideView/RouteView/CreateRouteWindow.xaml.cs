@@ -34,6 +34,7 @@ namespace ProjectTourism.View.RouteView
         public List<string> Languages { get; set; }
         public ObservableCollection<string> LanguagesObservable { get; set; }
 
+
         public CreateRouteWindow(Guide guide)
         {
             InitializeComponent();
@@ -90,11 +91,18 @@ namespace ProjectTourism.View.RouteView
 
         private void SaveRoute_Click(object sender, RoutedEventArgs e)
         {
-            NewLocation.Id = NewLocationDAO.AddAndReturnId(NewLocation);
-            Route.Location = NewLocation;
-            Route.LocationId = NewLocation.Id;
-            RouteController.Add(Route);
-            Close();
+            if(Route.IsValid)
+            {
+                NewLocation.Id = NewLocationDAO.AddAndReturnId(NewLocation);
+                Route.Location = NewLocation;
+                Route.LocationId = NewLocation.Id;
+                RouteController.Add(Route);
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Route can not be made because the fields were not correctly entered.");
+            }
         }
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {

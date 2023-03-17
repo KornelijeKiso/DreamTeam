@@ -79,13 +79,6 @@ namespace ProjectTourism.Model
         {
             AverageGrade = 0;
         }
-        public Owner(string username, string firstName, string lastName, string email)
-        {
-            Username = username;
-            FirstName = firstName;
-            LastName = lastName;
-            Email = email;
-        }
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

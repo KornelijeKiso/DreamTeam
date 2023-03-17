@@ -42,6 +42,19 @@ namespace ProjectTourism.Model
                 }
             }
         }
+        private string[] _Pictures;
+        public string[] Pictures
+        {
+            get => _Pictures;
+            set
+            {
+                if (value != _Pictures)
+                {
+                    _Pictures = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private string _Name;
         public string Name
         {
@@ -173,31 +186,6 @@ namespace ProjectTourism.Model
             }
         }
 
-        public Accommodation(int id, string name,  int locationId, ACCOMMODATIONTYPE type, int maxNumberOfGuests, int minDaysForReservation, int cancellationDeadline, string ownerUsername)
-        {
-            Id = id;
-            Name = name;
-            LocationId = locationId;
-            Location = FindLocation(locationId);
-            Type = type;
-            MaxNumberOfGuests = maxNumberOfGuests;
-            MinDaysForReservation = minDaysForReservation;
-            CancellationDeadline = cancellationDeadline;
-            OwnerUsername = ownerUsername;
-            Owner = FindOwner(ownerUsername);
-        }
-        public Accommodation(string name, int locationId, ACCOMMODATIONTYPE type, int maxNumberOfGuests, int minDaysForReservation, int cancellationDeadline, string ownerUsername)
-        {
-            Name = name;
-            Location = FindLocation(locationId);
-            LocationId = locationId;
-            Type = type;
-            MaxNumberOfGuests = maxNumberOfGuests;
-            MinDaysForReservation = minDaysForReservation;
-            CancellationDeadline = cancellationDeadline;
-            OwnerUsername = ownerUsername;
-            Owner = FindOwner(ownerUsername);
-        }
         public Accommodation()
         {
             CancellationDeadline = 1;
@@ -216,6 +204,13 @@ namespace ProjectTourism.Model
             MinDaysForReservation = accommodation.MinDaysForReservation;
             CancellationDeadline= accommodation.CancellationDeadline;  
             CityAndCountry = accommodation.CityAndCountry;
+            Pictures = accommodation.GetPictureURLsFromCSV();
+        }
+        public void SetLocation(Location location)
+        {
+            Location = location;
+            LocationId = location.Id;
+            CityAndCountry = location.City + ", " + location.Country;
         }
         public Location FindLocation(int id)
         {
@@ -223,7 +218,6 @@ namespace ProjectTourism.Model
             Location location = locationDAO.GetOne(id);
             CityAndCountry = location.City + ", " + location.Country;
             return location;
-            
         }
         public void Reset()
         {
@@ -256,21 +250,33 @@ namespace ProjectTourism.Model
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public string[] ToCSV()
+        private int GenerateCSVType()
         {
-            int type;
             switch (Type)
             {
-                case ACCOMMODATIONTYPE.APARTMENT: { type = 0; break; }
-                case ACCOMMODATIONTYPE.HOUSE: { type = 1; break; }
-                case ACCOMMODATIONTYPE.HUT: { type = 2; break; }
-                default: { type = 2; break; }
+                case ACCOMMODATIONTYPE.APARTMENT: { return 0; }
+                case ACCOMMODATIONTYPE.HOUSE: { return 1; }
+                case ACCOMMODATIONTYPE.HUT: { return 2; }
+                default: { return 2; }
             }
+        }
+        private ACCOMMODATIONTYPE ReadTypeFromCSV(int type)
+        {
+            switch (type)
+            {
+                case 0:return ACCOMMODATIONTYPE.APARTMENT;
+                case 1: return ACCOMMODATIONTYPE.HOUSE;
+                case 2: return ACCOMMODATIONTYPE.HUT;
+                default: return ACCOMMODATIONTYPE.HUT;
+            }
+        }
+        public string[] ToCSV()
+        {         
             string[] csvValues =
             {
                 Id.ToString(),
                 LocationId.ToString(),
-                type.ToString(),
+                GenerateCSVType().ToString(),
                 MaxNumberOfGuests.ToString(),
                 MinDaysForReservation.ToString(),
                 CancellationDeadline.ToString(),
@@ -285,19 +291,14 @@ namespace ProjectTourism.Model
             Id = int.Parse(values[0]);
             LocationId = int.Parse(values[1]);
             Location = FindLocation(LocationId);
-            int type = int.Parse(values[2]);
-            switch (type)
-            {
-                case 0: { Type = ACCOMMODATIONTYPE.APARTMENT; break; }
-                case 1: { Type = ACCOMMODATIONTYPE.HOUSE; break; }
-                case 2: { Type = ACCOMMODATIONTYPE.HUT; break; }
-            }
+            Type = ReadTypeFromCSV(int.Parse(values[2]));
             MaxNumberOfGuests = int.Parse(values[3]);
             MinDaysForReservation = int.Parse(values[4]);
             CancellationDeadline = int.Parse(values[5]);
             OwnerUsername = values[6];
             Name = values[7];
             PictureURLs = values[8];
+            Pictures = GetPictureURLsFromCSV();
         }
     }
 }
