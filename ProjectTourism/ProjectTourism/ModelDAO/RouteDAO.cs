@@ -39,6 +39,8 @@ namespace ProjectTourism.ModelDAO
                 RouteFileHandler.Save(Routes);
             }
         }
+
+        
         public List<Route> GetAll()
         {
             return Routes;
@@ -93,29 +95,5 @@ namespace ProjectTourism.ModelDAO
             stops.Add(route.Finish);
             return stops;
         }
-
-        public void ChangeState(Route route)
-        {
-            foreach(var route1 in Routes)
-            {
-                if(route1.Id == route.Id)
-                {
-                    route1.State = route.State;
-                }
-            }
-            RouteFileHandler.Save(Routes);
-        }
-        public void ChangeCurrentStop(Route route)
-        {
-            foreach(var route1 in Routes)
-            {
-                if(route1.Id == route.Id)
-                {
-                    route1.CurrentStop = route.CurrentStop;
-                }
-            }
-            RouteFileHandler.Save(Routes);
-        }
-
     }
 }

@@ -14,7 +14,6 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using ProjectTourism.ModelDAO;
 
-public enum ROUTESTATE {INITIALIZED, STARTED, FINISHED, STOPPED};
 
 namespace ProjectTourism.Model
 {
@@ -35,33 +34,6 @@ namespace ProjectTourism.Model
             }
         }
 
-        private bool _IsNotFinished;
-        public bool IsNotFinished
-        {
-            get => _IsNotFinished;
-            set
-            {
-                if (_IsNotFinished != value)
-                {
-                    _IsNotFinished = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private ROUTESTATE _State;
-        public ROUTESTATE State
-        {
-            get => _State;
-            set
-            {
-                if (_State != value)
-                {
-                    _State = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
 
         private int? _LocationId;
         public int? LocationId
@@ -184,6 +156,7 @@ namespace ProjectTourism.Model
                 OnPropertyChanged(nameof(StartDate));
             }
         }
+        public List<DateTime> dates { get; set; }
 
         private double? _Duration;
         public double? Duration
@@ -245,34 +218,6 @@ namespace ProjectTourism.Model
             }
         }
 
-        private int? _AvailableSeats;
-        public int? AvailableSeats
-        {
-            get => _AvailableSeats;
-            set
-            {
-                if (_AvailableSeats != value)
-                {
-                    _AvailableSeats = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string _CurrentRouteStop;
-        public string CurrentStop
-        {
-            get => _CurrentRouteStop;
-            set
-            {
-                if (value != _CurrentRouteStop)
-                {
-                    _CurrentRouteStop = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
@@ -283,11 +228,11 @@ namespace ProjectTourism.Model
         {
             StartDate = DateTime.Now;
             StopsList = new List<string>();
-            State = ROUTESTATE.INITIALIZED;
-            IsNotFinished = true;
+            
         }
+            
 
-        public Route(string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername, string currentRouteStop)
+        public Route(string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
         {
             Name = name;
             Location = location;
@@ -303,13 +248,11 @@ namespace ProjectTourism.Model
             GuideUsername = guideUsername;
             Guide = FindGuide(guideUsername);
             StopsList = new List<string>();
-            AvailableSeats = maxNumberOfGuests;
-            State = ROUTESTATE.INITIALIZED;
-            IsNotFinished = true;
-            CurrentStop = currentRouteStop;
-            Pictures = GetPictureURLsFromCSV();
+
+            dates = new List<DateTime>();           // temporary solution
+            dates.Add(StartDate);
         }
-        public Route(int id, string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername, string currentStop)
+        public Route(int id, string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
         {
             Id = id;
             Name = name;
@@ -325,12 +268,11 @@ namespace ProjectTourism.Model
             PictureURLs = images;
             GuideUsername = guideUsername;
             Guide = FindGuide(guideUsername);
-            AvailableSeats = maxNumberOfGuests;
-            StopsList = new List<string>();
-            State = ROUTESTATE.INITIALIZED;
-            IsNotFinished = true;
-            CurrentStop = currentStop;
             Pictures = GetPictureURLsFromCSV();
+            StopsList = new List<string>();
+
+            dates = new List<DateTime>();           // temporary solution
+            dates.Add(StartDate);
         }
 
         public Guide? FindGuide(string username)
@@ -360,26 +302,18 @@ namespace ProjectTourism.Model
             Stops = values[6];
             Finish = values[7];
             if (DateTime.TryParse(values[8], new CultureInfo("en-GB"), DateTimeStyles.None, out var startDate)) StartDate = startDate;
+            //StartDate = DateTime.Parse(values[8]);
             Duration = double.Parse(values[9]);
             PictureURLs = values[10];
             GuideUsername = values[11];
             LocationId = int.Parse(values[12]);
-            switch (values[13])
-            {
-                case "INITIALIZED":
-                    { State = ROUTESTATE.INITIALIZED; IsNotFinished = true; break; }
-                case "STARTED":
-                    { State = ROUTESTATE.STARTED; IsNotFinished = true; break; }
-                case "FINISHED":
-                    { State = ROUTESTATE.FINISHED; IsNotFinished = false; break; }
-                case "STOPPED":
-                    { State = ROUTESTATE.STOPPED; IsNotFinished = false; break; }
-                default:
-                    { State = ROUTESTATE.INITIALIZED; IsNotFinished = true; break; }
-            }
             Location = FindLocation(LocationId);
             Pictures = GetPictureURLsFromCSV();
-            CurrentStop = values[14];
+
+            dates = new List<DateTime>();           // temporary solution
+            dates.Add(StartDate);
+            
+            //MakeTourAppointment(Route route);           ///////////////////////////////////
         }
 
         private Location? FindLocation(int? locationId)
@@ -404,9 +338,7 @@ namespace ProjectTourism.Model
                 Duration.ToString(),
                 PictureURLs,
                 GuideUsername,
-                LocationId.ToString(),
-                State.ToString(),
-                CurrentStop
+                LocationId.ToString()
             };
             return csvValues;
         }

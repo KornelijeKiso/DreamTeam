@@ -131,16 +131,5 @@ namespace ProjectTourism.ModelDAO
                 observer.Update();
             }
         }
-        public void GuideCheck(Ticket ticket)
-        {
-            foreach(Ticket t in Tickets)
-            {
-                if(t.Id== ticket.Id)
-                {
-                    t.HasGuideChecked= true;
-                }
-            }
-            FileHandler.Save(Tickets);
-        }
     }
 }

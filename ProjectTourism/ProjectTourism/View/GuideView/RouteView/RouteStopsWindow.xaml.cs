@@ -28,20 +28,20 @@ namespace ProjectTourism.View.GuideView.RouteView
     /// </summary>
     public partial class RouteStopsWindow : Window, INotifyPropertyChanged, IObserver
     {
-        public RouteController RouteController { get; set; }
-        public Route Route { get; set; }
-        public ObservableCollection<Ticket> tickets { get; set; }
-        public TicketController TicketController { get; set; }
-        public Ticket SelectedTicket { get; set; }  
+        public TourAppointmentController TourAppointmentController { get; set; }
+        public TourAppointment TourAppointment { get; set; }
+        public ObservableCollection<TourAppointment> TourAppointments { get; set; }
+        public ObservableCollection<Guest2> Guests { get; set; }
+        public Guest2 SelectedGuest { get; set; }  
 
         public RouteStopsWindow(int id)
         {
             InitializeComponent();
             DataContext = this;
-            RouteController = new RouteController();
-            TicketController = new TicketController();
-            Route = RouteController.GetOne(id);
-            tickets = new ObservableCollection<Ticket>(TicketController.GetByRoute(Route));
+            TourAppointmentController = new TourAppointmentController();
+            TourAppointment = TourAppointmentController.GetOne(id);
+            TourAppointments = new ObservableCollection<TourAppointment>(TourAppointmentController.GetByRoute(TourAppointment.Route.Id));
+            Guests = new ObservableCollection<Guest2>(TourAppointmentController.GetGuests(TourAppointment.Tickets));
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -50,64 +50,66 @@ namespace ProjectTourism.View.GuideView.RouteView
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public int PassedButtonClicks(Route route)
+        public int PassedButtonClicks(TourAppointment tour)
         {
             int number = 0;
-            foreach(var stop in route.StopsList)
+            foreach(var stop in tour.Route.StopsList)
             {
-                if (stop.Equals(route.CurrentStop))
+                if (stop.Equals(tour.CurrentTourStop))
                     break;
                 number++;
             }
             return number;
         }
 
-        public bool IsLastStop(Route route)
+        public bool IsLastStop(TourAppointment tour)
         {
-            return route.StopsList.Last().Equals(route.CurrentStop);
+            return tour.Route.StopsList.Last().Equals(tour.CurrentTourStop);
         }
 
-        public void FinishRoute(Route route)
+        public void FinishRoute(TourAppointment tour)
         {
             StopPassedButton.Content = "Finish route";
-            route.IsNotFinished = false;
-            route.State = ROUTESTATE.FINISHED;
-            RouteController.ChangeState(route);
+            tour.IsNotFinished = false;
+            tour.State = TOURSTATE.FINISHED;
+            TourAppointmentController.ChangeState(tour);
             StopPassedButton.IsEnabled = false;
             EmergencyStopButton.IsEnabled = false;
         }
 
-        public void NextStop(Route route)
+        public void NextStop(TourAppointment tour)
         {
-            StopTextBox.Text = RouteController.GetNextStop(route, PassedButtonClicks(route));
+            StopTextBox.Text = TourAppointmentController.GetNextStop(tour.Route, PassedButtonClicks(tour));
             StopPassedButton.Content = "Stop passed";
-            route.CurrentStop = route.StopsList[PassedButtonClicks(route) + 1];
-            RouteController.ChangeCurrentStop(route);
-            route.State = ROUTESTATE.STARTED;
-            RouteController.ChangeState(route);
+            tour.CurrentTourStop = tour.Route.StopsList[PassedButtonClicks(tour) + 1];
+            TourAppointmentController.ChangeCurrentStop(tour);
+            tour.State = TOURSTATE.STARTED;
+            TourAppointmentController.ChangeState(tour);
         }
         private void StopPassedButton_Click(object sender, RoutedEventArgs e)
         {
-            NextStop(Route);
-            if (IsLastStop(Route))
+            NextStop(TourAppointment);
+            if (IsLastStop(TourAppointment))
             {
-                FinishRoute(Route);
+                FinishRoute(TourAppointment);
             }
         }
         private void EmergencyStopButton_Click(object sender, RoutedEventArgs e)
         {
-            Route.State = ROUTESTATE.STOPPED;
-            RouteController.ChangeState(Route);
-            Route.IsNotFinished = false;
+            TourAppointment.State = TOURSTATE.STOPPED;
+            TourAppointmentController.ChangeState(TourAppointment);
+            TourAppointment.IsNotFinished = false;
         }
 
         private void TicketStatusButton_Click(object sender, RoutedEventArgs e)
         {
-            if(SelectedTicket.ButtonColor!=Brushes.Green)
+            /*
+            if(TourAppointment.ButtonColor!=Brushes.Green)
             {
-                SelectedTicket.ButtonColor = Brushes.IndianRed;
-                TicketController.GuideCheck(SelectedTicket);
+                TourAppointment.ButtonColor = Brushes.IndianRed;
+                TicketController.GuideCheck(TourAppointment);
             }
+            */
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -116,7 +118,9 @@ namespace ProjectTourism.View.GuideView.RouteView
         }
         public void Update()
         {
-            tickets = new ObservableCollection<Ticket>((IEnumerable<Ticket>)TicketController.GetByRoute(Route));
+            TourAppointments = new ObservableCollection<TourAppointment>(TourAppointmentController.GetByRoute(TourAppointment.Route.Id));
+            Guests = new ObservableCollection<Guest2>(TourAppointmentController.GetGuests(TourAppointment.Tickets));
+            //tickets = new ObservableCollection<Ticket>((IEnumerable<Ticket>)TicketController.GetByRoute(TourAppointment));
         }
 
     }
