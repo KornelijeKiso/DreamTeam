@@ -59,23 +59,20 @@
         <StackPanel HorizontalAlignment="Left" Margin="30,231,0,0" Width="196" Height="28" VerticalAlignment="Top" Orientation="Horizontal">
             <TextBox IsReadOnly="True" Text="{Binding Path=NewAccommodation.MaxNumberOfGuests}" Width="178"></TextBox>
             <StackPanel Orientation="Vertical" Width="18">
-                <Button Height="14" Content="+" FontSize="9" FontWeight="Bold" Click="IncreaseMaxNumberOfGuestsClick"></Button>
-                <Button Height="14" Content="-" FontSize="9" FontWeight="Bold" Click="DecreaseMaxNumberOfGuestsClick"></Button>
+                <Button IsEnabled="{Binding IncDecButtons[0], UpdateSourceTrigger=PropertyChanged}" Height="14" Content="+" FontSize="9" FontWeight="Bold" Click="IncreaseMaxNumberOfGuestsClick"></Button>
+                <Button IsEnabled="{Binding IncDecButtons[1], UpdateSourceTrigger=PropertyChanged}" Height="14" Content="-" FontSize="9" FontWeight="Bold" Click="DecreaseMaxNumberOfGuestsClick"></Button>
             </StackPanel>
         </StackPanel>
         <StackPanel HorizontalAlignment="Left" Margin="30,285,0,0" Width="196" Height="28" VerticalAlignment="Top" Orientation="Horizontal">
             <TextBox IsReadOnly="True" Text="{Binding Path=NewAccommodation.MinDaysForReservation}" Width="178"></TextBox>
             <StackPanel Orientation="Vertical" Width="18">
-                <Button Height="14" Content="+" FontSize="9" FontWeight="Bold" Click="IncreaseMinDaysForReservationClick"></Button>
-                <Button Height="14" Content="-" FontSize="9" FontWeight="Bold" Click="DecreaseMinDaysForReservationClick"></Button>
+                <Button IsEnabled="{Binding IncDecButtons[2], UpdateSourceTrigger=PropertyChanged}" Height="14" Content="+" FontSize="9" FontWeight="Bold" Click="IncreaseMinDaysForReservationClick"></Button>
+                <Button IsEnabled="{Binding IncDecButtons[3], UpdateSourceTrigger=PropertyChanged}" Height="14" Content="-" FontSize="9" FontWeight="Bold" Click="DecreaseMinDaysForReservationClick"></Button>
             </StackPanel>
         </StackPanel>
         <ComboBox Name="ComboDeadline" HorizontalAlignment="Left" Margin="30,339,0,0" Width="196" Height="28" VerticalAlignment="Top" ItemsSource="{Binding Deadlines}"></ComboBox>
         <TextBox HorizontalAlignment="Left" Margin="30,447,0,0" TextWrapping="Wrap" Text="{Binding Path =NewAccommodation.PictureURLs, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="91"/>
-        <ComboBox Name="ComboType" HorizontalAlignment="Left" Margin="30,393,0,0" VerticalAlignment="Top" Width="196" Height="29">
-            <ComboBoxItem Content="Apartment" IsSelected="True"/>
-            <ComboBoxItem Content="House"/>
-            <ComboBoxItem Content="Hut"/>
+        <ComboBox Name="ComboType" HorizontalAlignment="Left" Margin="30,393,0,0" VerticalAlignment="Top" Width="196" Height="29" ItemsSource="{Binding Types}">
         </ComboBox>
         <Label Content="Name" HorizontalAlignment="Left" Margin="30,43,0,0" VerticalAlignment="Top" Width="152"/>
         <Label Content="City" HorizontalAlignment="Left" Margin="30,97,0,0" VerticalAlignment="Top" Width="152"/>

@@ -38,33 +38,67 @@ namespace ProjectTourism.View.OwnerView
         public Location NewLocation { get; set; }
         public LocationDAO LocationDAO { get; set; }
         public List<string> Deadlines { get; set; } 
+        public List<string> Types { get; set; }
         public Dictionary<string, int> Days { get; set; }
+        public ObservableCollection<bool> IncDecButtons { get; set; }
+
         public MainOwnerWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
+            IncDecButtons = new ObservableCollection<bool> { true, false, true, false };
+
             InitializeDays();
-            ComboDeadline.SelectedItem = Deadlines[0];
+            InitializeTypes();
 
-            LocationDAO = new LocationDAO();
-            OwnerController = new OwnerController();
-            AccommodationController = new AccommodationController();
+            InitializeControllers();
+            InitializeNewEntities();
 
-            NewAccommodation = new Accommodation();
-            NewLocation = new Location();
+            SetOwner(username);
 
-            Owner = OwnerController.GetOne(username);
-            NewAccommodation.Owner = Owner;
-            NewAccommodation.OwnerUsername = username;
+            LoadDataGrids(username);
 
-            Accommodations = new ObservableCollection<Accommodation>(OwnerController.GetOwnersAccommodations(username));
-            Reservations = SortReservations();
-
-            AccommodationController.Subscribe(this);
-            LocationDAO.Subscribe(this);
+            Subscribe();
             SetButtons();
         }
 
+        private void Subscribe()
+        {
+            AccommodationController.Subscribe(this);
+            LocationDAO.Subscribe(this);
+        }
+
+        private void LoadDataGrids(string username)
+        {
+            Accommodations = new ObservableCollection<Accommodation>(OwnerController.GetOwnersAccommodations(username));
+            Reservations = SortReservations();
+        }
+
+        private void SetOwner(string username)
+        {
+            Owner = OwnerController.GetOne(username);
+            NewAccommodation.Owner = Owner;
+            NewAccommodation.OwnerUsername = username;
+        }
+
+        private void InitializeNewEntities()
+        {
+            NewAccommodation = new Accommodation();
+            NewLocation = new Location();
+        }
+
+        private void InitializeControllers()
+        {
+            LocationDAO = new LocationDAO();
+            OwnerController = new OwnerController();
+            AccommodationController = new AccommodationController();
+        }
+
+        private void InitializeTypes()
+        {
+            Types = new List<string>() { "Apartment", "House", "Hut" };
+            ComboType.SelectedItem = Types[0];
+        }
         private void InitializeDays()
         {
             Deadlines = new List<String>() { "1 day", "3 days", "7 days", "14 days", "1 month", "3 months", "6 months" };
@@ -73,6 +107,7 @@ namespace ProjectTourism.View.OwnerView
             {
                 Days.Add(item, InDays(item));
             }
+            ComboDeadline.SelectedItem = Deadlines[0];
         }
 
         private int InDays(string deadline)
@@ -132,11 +167,11 @@ namespace ProjectTourism.View.OwnerView
         }
         private void HandleTypeCombobox()
         {
-            if (ComboType.SelectedIndex == 0)
+            if ((string)ComboType.SelectedItem == "Apartment")
             {
                 NewAccommodation.Type = ACCOMMODATIONTYPE.APARTMENT;
             }
-            else if (ComboType.SelectedIndex == 1)
+            else if ((string)ComboType.SelectedItem == "House")
             {
                 NewAccommodation.Type = ACCOMMODATIONTYPE.HOUSE;
             }
@@ -154,12 +189,19 @@ namespace ProjectTourism.View.OwnerView
             NewAccommodation.SetLocation(location);
             NewAccommodation.CancellationDeadline = Days[(string)ComboDeadline.SelectedValue];
 
-            Accommodation accommodation= new Accommodation(NewAccommodation);
+            Accommodation accommodation = new Accommodation(NewAccommodation);
 
             AccommodationController.Add(accommodation);
             Accommodations.Add(accommodation);
+            Reset();
+        }
+
+        private void Reset()
+        {
             NewAccommodation.Reset();
             NewLocation.Reset();
+            ComboDeadline.SelectedItem = Deadlines[0];
+            ComboType.SelectedItem = Types[0];
         }
 
         public void Update()
@@ -176,6 +218,12 @@ namespace ProjectTourism.View.OwnerView
             if (NewAccommodation.MaxNumberOfGuests < 15)
             {
                 NewAccommodation.MaxNumberOfGuests++;
+                if(NewAccommodation.MaxNumberOfGuests==15) IncDecButtons[0] = false;
+                IncDecButtons[1] = true;
+            }
+            else
+            {
+                IncDecButtons[0] = false;
             }
         }
         public void DecreaseMaxNumberOfGuestsClick(object sender, RoutedEventArgs e)
@@ -183,6 +231,12 @@ namespace ProjectTourism.View.OwnerView
             if (NewAccommodation.MaxNumberOfGuests > 1)
             {
                 NewAccommodation.MaxNumberOfGuests--;
+                if (NewAccommodation.MaxNumberOfGuests == 1) IncDecButtons[1] = false;
+                IncDecButtons[0] = true;
+            }
+            else
+            {
+                IncDecButtons[1] = false;
             }
         }
         public void IncreaseMinDaysForReservationClick(object sender, RoutedEventArgs e)
@@ -190,6 +244,12 @@ namespace ProjectTourism.View.OwnerView
             if (NewAccommodation.MinDaysForReservation < 7)
             {
                 NewAccommodation.MinDaysForReservation++;
+                if (NewAccommodation.MinDaysForReservation == 7) IncDecButtons[2] = false;
+                IncDecButtons[3] = true;
+            }
+            else
+            {
+                IncDecButtons[2] = false;
             }
         }
         public void DecreaseMinDaysForReservationClick(object sender, RoutedEventArgs e)
@@ -197,6 +257,12 @@ namespace ProjectTourism.View.OwnerView
             if (NewAccommodation.MinDaysForReservation > 1)
             {
                 NewAccommodation.MinDaysForReservation--;
+                if (NewAccommodation.MinDaysForReservation == 1) IncDecButtons[3] = false;
+                IncDecButtons[2] = true;
+            }
+            else
+            {
+                IncDecButtons[3] = false;
             }
         }
         public void EventSetter_OnHandler(object sender, EventArgs e)
