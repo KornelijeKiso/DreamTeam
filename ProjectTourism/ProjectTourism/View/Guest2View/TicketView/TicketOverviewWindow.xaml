@@ -25,19 +25,60 @@
                     ItemsSource="{Binding Path=Tickets, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding Path=SelectedTicket, UpdateSourceTrigger=PropertyChanged}" 
                     SelectionMode="Single"
+                    VerticalScrollBarVisibility="Visible" 
                     IsReadOnly="True" AutoGenerateColumns="False" Margin="10,10,10,10"
-                    Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+                    Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"   RowHeight="100" Width="500" >
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                   Color="#FFFFFF9D"/>
+            </DataGrid.Resources>
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Style>
+            </DataGrid.CellStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Route Name" Width="100" Binding="{Binding Route.Name}"/>
-                <DataGridTextColumn Header="City" Width="80" Binding="{Binding Route.Location.City}" />
-                <DataGridTextColumn Header="Country" Width="80" Binding="{Binding Route.Location.Country}" />
-                <DataGridTextColumn Header="Language" Width="50" Binding="{Binding Route.Language}" />
-                <DataGridTextColumn Header="Duration" Width="80" Binding="{Binding Route.Duration}" />
-                <DataGridTextColumn Header="Number of seats" Width="100" Binding="{Binding NumberOfGuests}" />
-                <DataGridTextColumn Header="Your stop" Width="120" Binding="{Binding RouteStop}" />
-                <!-- <DataGridTextColumn Header="Available Tickets" Width="150" Binding="{Binding Route.AvailableSeats}" /> -->
+
+                <DataGridTemplateColumn Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Stretch="Fill" 
+                                   Source="{Binding Path=Route.Pictures[0]}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="500">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" >
+                                <Label Content="{Binding Path=Route.Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                    <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
+                                    <Label Content="{Binding Path=Route.Location.Country}" Margin="0,0,0,-7"></Label>
+                                    <Label Content="," Margin="0,0,0,-7"></Label>
+                                    <Label Content="{Binding Path=Route.Location.City}" Margin="0,0,0,-7"></Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                    <Label Content="Language :" Margin="0,0,-7,-7" ></Label>
+                                    <Label Content="{Binding Path=Route.Language}" Margin="0,0,0,-7"></Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                    <Label Content="Number of Tickets :" Margin="0,0,-7,-7" ></Label>
+                                    <Label Content="{Binding Path=NumberOfGuests}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                    <Label Content="Your starting stop :" Margin="0,0,-7,-7" ></Label>
+                                    <Label Content="{Binding Path=RouteStop}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
+
         </DataGrid>
+        
+           
 
         <Button Name ="buttonReturnTicket" Content="Return Ticket" IsDefault="True" Click="ReturnTicket" 
                 Width="150" Height="50" Margin="10,10,10,10" ToolTip="Return ticket"

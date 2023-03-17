@@ -181,14 +181,28 @@ namespace ProjectTourism.Model
             }
         }
 
-        private string? _Images;
-        public string? Images
+        private string? _PictureURLs;
+        public string? PictureURLs
         {
-            get => _Images;
+            get => _PictureURLs;
             set
             {
-                _Images = value;
+                _PictureURLs = value;
                 OnPropertyChanged();
+            }
+        }
+
+        private string[] _Pictures;
+        public string[] Pictures
+        {
+            get => _Pictures;
+            set
+            {
+                if (value != _Pictures)
+                {
+                    _Pictures = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -253,11 +267,12 @@ namespace ProjectTourism.Model
             Finish = finish;
             StartDate = startDate;
             Duration = duration;
-            Images = images;
+            PictureURLs = images;
             GuideUsername = guideUsername;
             Guide = FindGuide(guideUsername);
             StopsList = new List<string>();
             AvailableSeats = maxNumberOfGuests;
+            Pictures = GetPictureURLsFromCSV();
         }
         public Route(int id, string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
         {
@@ -272,17 +287,28 @@ namespace ProjectTourism.Model
             Finish = finish;
             StartDate = startDate;
             Duration = duration;
-            Images = images;
+            PictureURLs = images;
             GuideUsername = guideUsername;
             Guide = FindGuide(guideUsername);
             AvailableSeats = maxNumberOfGuests;
             StopsList = new List<string>();
+            Pictures = GetPictureURLsFromCSV();
         }
 
         public Guide? FindGuide(string username)
         {
             GuideDAO guideDAO = new GuideDAO();
             return guideDAO.GetOne(username);
+        }
+
+        public string[] GetPictureURLsFromCSV()
+        {
+            string[] pictures = PictureURLs.Split(',');
+            foreach (var picture in pictures)
+            {
+                picture.Trim();
+            }
+            return pictures;
         }
 
         public void FromCSV(string[] values)
@@ -297,10 +323,11 @@ namespace ProjectTourism.Model
             Finish = values[7];
             if (DateTime.TryParse(values[8], new CultureInfo("en-GB"), DateTimeStyles.None, out var startDate)) StartDate = startDate;
             Duration = double.Parse(values[9]);
-            Images = values[10];
+            PictureURLs = values[10];
             GuideUsername = values[11];
             LocationId = int.Parse(values[12]);
             Location = FindLocation(LocationId);
+            Pictures = GetPictureURLsFromCSV();
         }
 
         private Location? FindLocation(int? locationId)
@@ -323,7 +350,7 @@ namespace ProjectTourism.Model
                 Finish,
                 StartDate.ToString("dd.MM.yyyy HH:mm"),
                 Duration.ToString(),
-                Images,
+                PictureURLs,
                 GuideUsername,
                 LocationId.ToString()
             };

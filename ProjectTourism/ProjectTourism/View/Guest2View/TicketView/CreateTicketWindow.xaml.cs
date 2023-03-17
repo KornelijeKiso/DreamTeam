@@ -44,7 +44,8 @@ namespace ProjectTourism.View.Guest2View
             Guest2Controller = new Guest2Controller();
             Guest2 = Guest2Controller.GetOne(username);
             Ticket = new Ticket();
-            
+            Ticket.NumberOfGuests = 1;      // if slider isnt moved returns 0 , fix this
+                                            // 
             // transfer to Route -> StopsList
             StopsList = new List<string>();
             foreach (string stop in SelectedRoute.StopsList)
