@@ -1,16 +1,18 @@
-﻿<Window x:Class="ProjectTourism.View.Guest2View.CreateTicketWindow"
+﻿<Window x:Class="ProjectTourism.View.Guest2View.TicketView.UpdateTicketWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ProjectTourism.View.Guest2View"
+        xmlns:local="clr-namespace:ProjectTourism.View.Guest2View.TicketView"
         mc:Ignorable="d"
-        Title="Buy Ticket" Height="650" Width="800">
+        WindowStartupLocation="CenterScreen"
+        Title="Update Bought Ticket" Height="650" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="100*"/>
             <RowDefinition Height="200*"/>
+            <RowDefinition Height="100*"/>
             <RowDefinition Height="100*"/>
             <RowDefinition Height="100*"/>
             <RowDefinition Height="100*"/>
@@ -56,6 +58,11 @@
                Height="30" Width="120" Margin="20 0 0 0"
                Grid.Row="6" Grid.Column="1"
         />
+        <Label x:Name="LastStop" Content="Last Stop" 
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="120" Margin="20 0 0 0"
+               Grid.Row="7" Grid.Column="1"
+        />
 
         <TextBox 
             Text = "{Binding Path=SelectedRoute.Name}"
@@ -85,7 +92,7 @@
                Height="30" Width="200" IsReadOnly="True"
                Grid.Row="4" Grid.Column="2" 
         />
-        
+
         <TextBox x:Name="sliderText" Text="{Binding ElementName=slider,Path=Value,UpdateSourceTrigger=PropertyChanged}"
                 HorizontalAlignment="Left" VerticalAlignment="Center"
                 Height="30" Width="30"
@@ -97,23 +104,30 @@
                 Height="30" Width="160" Margin="0 0 10 0"
                 Grid.Row="5" Grid.Column="2"      >
         </Slider>
-        
-        
+
+
         <ComboBox x:Name="StopsComboBox"
                ItemsSource="{Binding Path = StopsList}"
-               SelectedIndex="0"
+               SelectedItem="{Binding Path=Ticket.RouteStop, UpdateSourceTrigger=PropertyChanged}"
                SelectionChanged="StopsComboBox_SelectionChanged"
                HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="200"
                Grid.Row="6" Grid.Column="2" >
         </ComboBox>
-        
-        <Button x:Name="CreateTicketButton" Content="Create" 
-                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50 0 0 0"
-                Height="50" Width="100" 
-                IsDefault="True" Click="CreateTicket"
-                Grid.Row="7" Grid.Column="3"
+        <TextBox 
+            Text = "{Binding Path=SelectedRoute.Finish}"
+            TextWrapping="Wrap"
+            HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="200" IsReadOnly="True"
+               Grid.Row="7" Grid.Column="2" 
         />
 
+        <Button x:Name="UpdateTicketButton" Content="Update" 
+                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50 0 0 0"
+                Height="50" Width="100" 
+                IsDefault="True" Click="UpdateTicket"
+                Grid.Row="8" Grid.Column="3"
+        />
+        
     </Grid>
 </Window>
