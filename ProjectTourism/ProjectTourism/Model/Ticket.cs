@@ -124,33 +124,6 @@ namespace ProjectTourism.Model
             }
         }
 
-        private bool _HasGuideChecked;
-        public bool HasGuideChecked
-        {
-            get => _HasGuideChecked;
-            set
-            {
-                if (value != _HasGuideChecked)
-                {
-                    _HasGuideChecked = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private bool _HasGuestConfirmed;
-        public bool HasGuestConfirmed
-        {
-            get => _HasGuestConfirmed;
-            set
-            {
-                if (value != _HasGuestConfirmed)
-                {
-                    _HasGuestConfirmed = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
         public Ticket()
         {  }
 
@@ -163,8 +136,6 @@ namespace ProjectTourism.Model
             Guest2Username = guest2Username;
             Guest2 = FindGuest2(guest2Username);
             NumberOfGuests = numberOfGuests;
-            HasGuideChecked = false;
-            HasGuestConfirmed = false;
         }
 
         public Ticket(int routeId, string RouteStop, string guest2Username, int numberOfGuests)
@@ -175,8 +146,6 @@ namespace ProjectTourism.Model
             Guest2Username = guest2Username;
             Guest2 = FindGuest2(guest2Username);
             NumberOfGuests = numberOfGuests;
-            HasGuideChecked = false;
-            HasGuestConfirmed = false;
         }
 
 
@@ -199,9 +168,7 @@ namespace ProjectTourism.Model
                 RouteId.ToString(),
                 RouteStop,
                 Guest2Username,
-                NumberOfGuests.ToString(),
-                HasGuideChecked.ToString(),
-                HasGuestConfirmed.ToString()
+                NumberOfGuests.ToString()
             };
             return csvValues;
         }
@@ -215,15 +182,7 @@ namespace ProjectTourism.Model
             Guest2Username = values[3];
             Guest2 = FindGuest2(Guest2Username);
             NumberOfGuests = int.Parse(values[4]);
-            HasGuideChecked = bool.Parse(values[5]);
-            HasGuestConfirmed = bool.Parse(values[6]);
-            if (HasGuestConfirmed)
-            {
-                ButtonColor = Brushes.Green;
-            }else if(HasGuideChecked)
-            {
-                ButtonColor = Brushes.IndianRed;
-            }
+           
         }
 
 

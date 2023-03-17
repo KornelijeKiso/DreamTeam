@@ -8,17 +8,17 @@
         Title="RouteStopsWindow" Height="500" Width="800"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        <Button x:Name="StopPassedButton" IsEnabled="{Binding Route.IsNotFinished}" Content="Start" HorizontalAlignment="Left" Height="47" Margin="628,297,0,0" VerticalAlignment="Top" Width="133" Click="StopPassedButton_Click"/>
-        <Button IsCancel="True" x:Name="EmergencyStopButton" IsEnabled="{Binding Route.IsNotFinished}" Content="Emergency stop" HorizontalAlignment="Left" Height="47" Margin="628,370,0,0" VerticalAlignment="Top" Width="133" Background="#FFEF4343" Click="EmergencyStopButton_Click"/>
+        <Button x:Name="StopPassedButton" IsEnabled="{Binding TourAppointment.IsNotFinished}" Content="Start" HorizontalAlignment="Left" Height="47" Margin="628,297,0,0" VerticalAlignment="Top" Width="133" Click="StopPassedButton_Click"/>
+        <Button IsCancel="True" x:Name="EmergencyStopButton" IsEnabled="{Binding TourAppointment.IsNotFinished}" Content="Emergency stop" HorizontalAlignment="Left" Height="47" Margin="628,370,0,0" VerticalAlignment="Top" Width="133" Background="#FFEF4343" Click="EmergencyStopButton_Click"/>
         <Label Content="Current route stop" HorizontalAlignment="Left" Margin="104,52,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <TextBox x:Name="StopTextBox" HorizontalAlignment="Left" Height="42" Margin="104,104,0,0" TextWrapping="Wrap" Text="{Binding Path=Route.CurrentStop}" VerticalAlignment="Top" Width="408" FontSize="14" TextChanged="TextBox_TextChanged" IsEnabled="False"/>
-        <TextBox x:Name="RouteStatusComboBox" HorizontalAlignment="Left" Height="42" Margin="583,104,0,0" TextWrapping="Wrap" Text="{Binding Path=Route.State}" VerticalAlignment="Top" Width="178" TextChanged="TextBox_TextChanged" FontSize="13" IsEnabled="False"/>
+        <TextBox x:Name="StopTextBox" HorizontalAlignment="Left" Height="42" Margin="104,104,0,0" TextWrapping="Wrap" Text="{Binding Path=TourAppointment.CurrentTourStop}" VerticalAlignment="Top" Width="408" FontSize="14" TextChanged="TextBox_TextChanged" IsEnabled="False"/>
+        <TextBox x:Name="RouteStatusComboBox" HorizontalAlignment="Left" Height="42" Margin="583,104,0,0" TextWrapping="Wrap" Text="{Binding Path=TourAppointment.State}" VerticalAlignment="Top" Width="178" TextChanged="TextBox_TextChanged" FontSize="13" IsEnabled="False"/>
         <DataGrid CanUserAddRows="False" HorizontalAlignment="Left" Height="240" VerticalAlignment="Top" Width="368" 
-                  SelectedItem="{Binding SelectedTicket, UpdateSourceTrigger=PropertyChanged}" 
-                  ItemsSource="{Binding tickets, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="104,177,0,0">
+                  SelectedItem="{Binding SelectedGuest, UpdateSourceTrigger=PropertyChanged}" 
+                  ItemsSource="{Binding Guests, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="104,177,0,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="FirstName" Width="150" Binding="{Binding Guest2.FirstName}"/>
-                <DataGridTextColumn Header="LastName" Width="150" Binding="{Binding Guest2.LastName}"/>
+                <DataGridTextColumn Header="FirstName" Width="150" Binding="{Binding FirstName}"/>
+                <DataGridTextColumn Header="LastName" Width="150" Binding="{Binding LastName}"/>
                 <DataGridTemplateColumn Width="60">
                     <DataGridTemplateColumn.Header>
                         <TextBlock Text="Status"/>

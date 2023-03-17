@@ -19,6 +19,7 @@ namespace ProjectTourism.Controller
         public List<Route> GetAll()
         {
             List<Route> routes= RouteDAO.Routes;
+            TourAppointmentController tourAppointmentController = new TourAppointmentController();
             foreach (Route route in routes)
             {
                 List<string> pom = RouteDAO.GetStops(route);
@@ -50,21 +51,6 @@ namespace ProjectTourism.Controller
         {
             RouteDAO.NotifyObservers();
         }
-        public string GetNextStop(Route route, int stopint)
-        {
-            if (stopint < 0 || stopint >= route.StopsList.Count - 1)
-            {
-                throw new ArgumentException("Invalid stop index");
-            }
-            return route.StopsList[stopint + 1];
-        }
-        public void ChangeState(Route route)
-        {
-            RouteDAO.ChangeState(route);
-        }
-        public void ChangeCurrentStop(Route route)
-        {
-            RouteDAO.ChangeCurrentStop(route);
-        }
+       
     }
 }

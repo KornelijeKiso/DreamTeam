@@ -121,11 +121,11 @@ namespace ProjectTourism.View.RouteView
         {
 
         }
-
-        
+        // calendar - multiple selection
+        /*
         private List<DateTime> selectedDates = new List<DateTime>();
         private Dictionary<DateTime, TimeSpan> selectedDateTimes = new Dictionary<DateTime, TimeSpan>();
-        private ObservableCollection<DateTime> selectedDateTimesObservable = new ObservableCollection<DateTime>(selectedDates);
+        //private ObservableCollection<DateTime> selectedDateTimesObservable = new ObservableCollection<DateTime>(selectedDates);
         private DateTime? selectedDate { get; set; }
         private void Calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -211,6 +211,6 @@ namespace ProjectTourism.View.RouteView
             selectedDates.Clear();
             selectedDateTimes.Clear();
             UpdateSelectedDatesListBox();
-        }
+        }*/
     }
 }

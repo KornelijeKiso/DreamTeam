@@ -26,18 +26,18 @@ namespace ProjectTourism.View.GuideView.RouteView
     public partial class LiveRoutesTrackingWindow : Window, INotifyPropertyChanged, IObserver
     {
         public Guide Guide { get; set; }
-        public ObservableCollection<Route> Routes { get; set; }
-        public Route SelectedRoute { get; set; }
+        public ObservableCollection<TourAppointment> TourAppointments { get; set; }
+        public TourAppointment SelectedTourAppointment { get; set; }
         public GuideController GuideController { get; set; }
-        public RouteController RouteController { get; set; }
+        public TourAppointmentController TourAppointmentController { get; set; }
         public LiveRoutesTrackingWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
             GuideController = new GuideController();
-            RouteController = new RouteController();
+            TourAppointmentController = new TourAppointmentController();
             Guide = GuideController.GetOne(username);
-            Routes = new ObservableCollection<Route>(GuideController.GetGuidesRoutesCurrent(username));
+            TourAppointments = new ObservableCollection<TourAppointment>(GuideController.GetGuidesCurrentAppointments(username));
         }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -51,10 +51,10 @@ namespace ProjectTourism.View.GuideView.RouteView
 
         private void StartRouteButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedRoute != null)
+            if (SelectedTourAppointment != null)
             {
-                RouteStopsWindow routeStopsWindow = new RouteStopsWindow(SelectedRoute.Id);
-                SelectedRoute.State = ROUTESTATE.STARTED;
+                RouteStopsWindow routeStopsWindow = new RouteStopsWindow(SelectedTourAppointment.Id);
+                SelectedTourAppointment.State = TOURSTATE.STARTED;
                 routeStopsWindow.ShowDialog();
             }
             else
