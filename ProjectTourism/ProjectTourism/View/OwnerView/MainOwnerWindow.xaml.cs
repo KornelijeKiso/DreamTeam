@@ -37,10 +37,14 @@ namespace ProjectTourism.View.OwnerView
         public Accommodation NewAccommodation { get; set; }
         public Location NewLocation { get; set; }
         public LocationDAO LocationDAO { get; set; }
+        public List<string> Deadlines { get; set; } 
+        public Dictionary<string, int> Days { get; set; }
         public MainOwnerWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
+            InitializeDays();
+            ComboDeadline.SelectedItem = Deadlines[0];
 
             LocationDAO = new LocationDAO();
             OwnerController = new OwnerController();
@@ -59,7 +63,30 @@ namespace ProjectTourism.View.OwnerView
             AccommodationController.Subscribe(this);
             LocationDAO.Subscribe(this);
             SetButtons();
-        }        
+        }
+
+        private void InitializeDays()
+        {
+            Deadlines = new List<String>() { "1 day", "3 days", "7 days", "14 days", "1 month", "3 months", "6 months" };
+            Days = new Dictionary<string, int>();
+            foreach (var item in Deadlines)
+            {
+                Days.Add(item, InDays(item));
+            }
+        }
+
+        private int InDays(string deadline)
+        {
+            int days = int.Parse(deadline.Split(' ')[0]);
+            string multiply_unit = deadline.Split(" ")[1];
+            int multiplyer = 1;
+            if(multiply_unit.Equals("month") || multiply_unit.Equals("months"))
+            {
+                multiplyer = 30;
+            }
+            return days * multiplyer;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -125,6 +152,7 @@ namespace ProjectTourism.View.OwnerView
             location.Id = LocationDAO.AddAndReturnId(location);
             NewLocation.Id = location.Id;
             NewAccommodation.SetLocation(location);
+            NewAccommodation.CancellationDeadline = Days[(string)ComboDeadline.SelectedValue];
 
             Accommodation accommodation= new Accommodation(NewAccommodation);
 
@@ -169,20 +197,6 @@ namespace ProjectTourism.View.OwnerView
             if (NewAccommodation.MinDaysForReservation > 1)
             {
                 NewAccommodation.MinDaysForReservation--;
-            }
-        }
-        public void IncreaseCancellationDeadlineClick(object sender, RoutedEventArgs e)
-        {
-            if (NewAccommodation.CancellationDeadline < 30)
-            {
-                NewAccommodation.CancellationDeadline++;
-            }
-        }
-        public void DecreaseCancellationDeadlineClick(object sender, RoutedEventArgs e)
-        {
-            if (NewAccommodation.CancellationDeadline > 1)
-            {
-                NewAccommodation.CancellationDeadline--;
             }
         }
         public void EventSetter_OnHandler(object sender, EventArgs e)
