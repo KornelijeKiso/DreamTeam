@@ -34,9 +34,9 @@ namespace ProjectTourism.Controller
             return TicketDAO.GetOne(id);
         }
 
-        public List<Ticket> GetByRoute(Route route)
+        public List<Ticket> GetByAppointment(TourAppointment tourApp)
         {
-            return TicketDAO.GetByRoute(route);
+            return TicketDAO.GetByAppointment(tourApp);
         }
 
         public List<Ticket> GetByGuest(Guest2 guest2)
@@ -44,9 +44,9 @@ namespace ProjectTourism.Controller
             return TicketDAO.GetByGuest(guest2);
         }
 
-        public Ticket GetGuest2Ticket(Guest2 guest2, Route route)
+        public Ticket GetGuest2Ticket(Guest2 guest2, TourAppointment tourApp)
         {
-            return TicketDAO.GetGuest2Ticket(guest2, route);
+            return TicketDAO.GetGuest2Ticket(guest2, tourApp);
         }
 
         public List<Ticket> GetAll()

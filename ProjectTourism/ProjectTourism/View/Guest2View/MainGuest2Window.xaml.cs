@@ -180,18 +180,14 @@ namespace ProjectTourism.View.Guest2View
         {
             if (SelectedRoute != null)
             {
-                Ticket ticket = TicketController.GetGuest2Ticket(Guest, SelectedRoute);
+                //Ticket ticket = TicketController.GetGuest2Ticket(Guest, SelectedRoute);
 
-                if (ticket == null)
+                //if (ticket == null)
                 {
                     CreateTicketWindow createTicketWindow = new CreateTicketWindow(Guest.Username, SelectedRoute.Id);
                     createTicketWindow.ShowDialog();
                 }
-                else
-                {
-                    UpdateTicketWindow updateTicketWindow = new UpdateTicketWindow(Guest.Username, SelectedRoute.Id);
-                    updateTicketWindow.ShowDialog();
-                }
+                
                 
             }
             else

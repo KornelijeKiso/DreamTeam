@@ -98,7 +98,7 @@ namespace ProjectTourism.View.Guest2View
 
         public int GetAvailableTickets()
         {
-            List<Ticket> available = TicketController.GetByRoute(SelectedRoute);
+            List<Ticket> available = TicketController.GetByAppointment(Ticket.TourAppointment);
             int? availableCount = SelectedRoute.MaxNumberOfGuests;
 
             if (availableCount != null)
@@ -114,6 +114,11 @@ namespace ProjectTourism.View.Guest2View
             }
             
             return -1;
+        }
+
+        private void DatesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //Ticket.TourAppointment.TourDateTime = Route.dates[DatesComboBox.SelectedIndex];
         }
     }
 }

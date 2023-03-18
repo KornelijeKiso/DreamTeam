@@ -55,7 +55,7 @@ namespace ProjectTourism.ModelDAO
         }
         public TourAppointment GetOne(int id)
         {
-            foreach (TourAppointment tours in GetAll())
+            foreach (TourAppointment tours in TourAppointments)
             {
                 if (tours.Id == id) return tours;
             }
