@@ -11,7 +11,7 @@
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
                 <AdornedElementPlaceholder x:Name="textBox" />
-                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="BlueViolet" HorizontalAlignment="Right"/>
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" HorizontalAlignment="Right"/>
             </StackPanel>
 
         </ControlTemplate>
@@ -88,9 +88,24 @@
         <TextBox HorizontalAlignment="Left" Margin="30,463,0,0" TextWrapping="Wrap" Text="{Binding Path =NewAccommodation.PictureURLs, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="91"/>
         <ComboBox Name="ComboType" HorizontalAlignment="Left" Margin="30,409,0,0" VerticalAlignment="Top" Width="196" Height="29" ItemsSource="{Binding Types}">
         </ComboBox>
-        <Label Content="Name *" HorizontalAlignment="Left" Margin="30,43,0,0" VerticalAlignment="Top" Width="152"/>
-        <Label Content="City *" HorizontalAlignment="Left" Margin="30,97,0,0" VerticalAlignment="Top" Width="152"/>
-        <Label Content="Country *" HorizontalAlignment="Left" Margin="30,151,0,0" VerticalAlignment="Top" Width="152"/>
+        <Label HorizontalAlignment="Left" Margin="30,43,0,0" VerticalAlignment="Top" Width="152">
+            <Span>
+                Name
+                <Span Foreground="Red">*</Span>
+            </Span>
+        </Label>
+        <Label HorizontalAlignment="Left" Margin="30,97,0,0" VerticalAlignment="Top" Width="152">
+            <Span>
+                City
+                <Span Foreground="Red">*</Span>
+            </Span>
+        </Label>
+        <Label HorizontalAlignment="Left" Margin="30,151,0,0" VerticalAlignment="Top" Width="152">
+            <Span>
+                Country
+                <Span Foreground="Red">*</Span>
+            </Span>
+        </Label>
         <Label Content="Number of guests" HorizontalAlignment="Left" Margin="30,221,0,0" VerticalAlignment="Top" Width="175"/>
         <Label Content="Min days to reserve" HorizontalAlignment="Left" Margin="30,275,0,0" VerticalAlignment="Top" Width="152"/>
         <Label Content="Cancellation deadline" HorizontalAlignment="Left" Margin="30,330,0,0" VerticalAlignment="Top" Width="152"/>
