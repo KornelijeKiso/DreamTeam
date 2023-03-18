@@ -14,11 +14,11 @@
         <TextBox x:Name="StopTextBox" HorizontalAlignment="Left" Height="42" Margin="104,104,0,0" TextWrapping="Wrap" Text="{Binding Path=TourAppointment.CurrentTourStop}" VerticalAlignment="Top" Width="408" FontSize="14" TextChanged="TextBox_TextChanged" IsEnabled="False"/>
         <TextBox x:Name="RouteStatusComboBox" HorizontalAlignment="Left" Height="42" Margin="583,104,0,0" TextWrapping="Wrap" Text="{Binding Path=TourAppointment.State}" VerticalAlignment="Top" Width="178" TextChanged="TextBox_TextChanged" FontSize="13" IsEnabled="False"/>
         <DataGrid CanUserAddRows="False" HorizontalAlignment="Left" Height="240" VerticalAlignment="Top" Width="368" 
-                  SelectedItem="{Binding SelectedGuest, UpdateSourceTrigger=PropertyChanged}" 
-                  ItemsSource="{Binding Guests, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="104,177,0,0">
+                  SelectedItem="{Binding SelectedTicket, UpdateSourceTrigger=PropertyChanged}" 
+                  ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="104,177,0,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="FirstName" Width="150" Binding="{Binding FirstName}"/>
-                <DataGridTextColumn Header="LastName" Width="150" Binding="{Binding LastName}"/>
+                <DataGridTextColumn Header="FirstName" Width="150" Binding="{Binding Path=Guest2.FirstName}"/>
+                <DataGridTextColumn Header="LastName" Width="150" Binding="{Binding Path=Guest2.LastName}"/>
                 <DataGridTemplateColumn Width="60">
                     <DataGridTemplateColumn.Header>
                         <TextBlock Text="Status"/>

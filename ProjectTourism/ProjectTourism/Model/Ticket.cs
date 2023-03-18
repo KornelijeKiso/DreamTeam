@@ -191,6 +191,10 @@ namespace ProjectTourism.Model
             TourAppointmentDAO tourAppointmentDAO = new TourAppointmentDAO();
             return tourAppointmentDAO.GetOne(id);
         }
+        private void AddTicketToAppointment(Ticket ticket)
+        {
+            ticket.TourAppointment.Tickets.Add(ticket);
+        }
 
         public string[] ToCSV()
         {
@@ -213,7 +217,9 @@ namespace ProjectTourism.Model
             Guest2Username = values[2];
             NumberOfGuests = int.Parse(values[3]);
             RouteStop = values[4];
-            Guest2 = FindGuest2(Guest2Username);            
+            Guest2 = FindGuest2(Guest2Username);
+
+            AddTicketToAppointment(this);
         }
 
 

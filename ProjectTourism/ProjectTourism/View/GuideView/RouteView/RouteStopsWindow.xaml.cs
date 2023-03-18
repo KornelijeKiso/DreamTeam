@@ -30,9 +30,10 @@ namespace ProjectTourism.View.GuideView.RouteView
     {
         public TourAppointmentController TourAppointmentController { get; set; }
         public TourAppointment TourAppointment { get; set; }
-        public ObservableCollection<TourAppointment> TourAppointments { get; set; }
-        public ObservableCollection<Guest2> Guests { get; set; }
-        public Guest2 SelectedGuest { get; set; }  
+        public TicketController TicketController { get; set; }
+
+        public ObservableCollection<Ticket> Tickets { get; set; }
+        public Ticket SelectedTicket { get; set; }  
 
         public RouteStopsWindow(int id)
         {
@@ -40,8 +41,10 @@ namespace ProjectTourism.View.GuideView.RouteView
             DataContext = this;
             TourAppointmentController = new TourAppointmentController();
             TourAppointment = TourAppointmentController.GetOne(id);
-            TourAppointments = new ObservableCollection<TourAppointment>(TourAppointmentController.GetByRoute(TourAppointment.Route.Id));
-            Guests = new ObservableCollection<Guest2>(TourAppointmentController.GetGuests(TourAppointment.Tickets));
+            TicketController = new TicketController();
+
+            List<Ticket> tickets = TicketController.GetByAppointment(TourAppointment);
+            Tickets = new ObservableCollection<Ticket>(tickets);
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -118,8 +121,7 @@ namespace ProjectTourism.View.GuideView.RouteView
         }
         public void Update()
         {
-            TourAppointments = new ObservableCollection<TourAppointment>(TourAppointmentController.GetByRoute(TourAppointment.Route.Id));
-            Guests = new ObservableCollection<Guest2>(TourAppointmentController.GetGuests(TourAppointment.Tickets));
+            Tickets = new ObservableCollection<Ticket>(TourAppointment.Tickets);
             //tickets = new ObservableCollection<Ticket>((IEnumerable<Ticket>)TicketController.GetByRoute(TourAppointment));
         }
 
