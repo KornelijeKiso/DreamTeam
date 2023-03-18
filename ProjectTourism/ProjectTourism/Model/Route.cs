@@ -294,8 +294,8 @@ namespace ProjectTourism.Model
             string[] oneDate = dateString.Split(',');
             foreach (var date in oneDate)
             {
-                if (DateTime.TryParse(date.Trim(), CultureInfo.CurrentCulture.DateTimeFormat, DateTimeStyles.None, out var dateTimeParsed))
-                    //if (DateTime.TryParse(date.Trim(), new CultureInfo("en-GB"), DateTimeStyles.None, out var dateTimeParsed))
+                //if (DateTime.TryParse(date.Trim(), CultureInfo.CurrentCulture.DateTimeFormat, DateTimeStyles.None, out var dateTimeParsed))
+                    if (DateTime.TryParse(date.Trim(), new CultureInfo("en-GB"), DateTimeStyles.None, out var dateTimeParsed))
                     dates.Add(dateTimeParsed);
             }
             return dates;
@@ -307,7 +307,7 @@ namespace ProjectTourism.Model
             for (i = 0; i < dates.Count(); i++)
             {
                 //dateString += dates[i].ToString("MM/dd/yyyy hh\\:mm") + ",";          //dateString += dates[i].ToString(DateTimeFormatInfo.CurrentInfo.ShortDatePattern) + ",";
-                dateString += dates[i].ToString() + ",";
+                dateString += dates[i].ToString("dd.MM.yyyy HH:mm") + ",";
             }
             return dateString;
         }
