@@ -56,11 +56,21 @@ public Guest1MainWindow(string username)
             ReservationController = new ReservationController();
             Reservations = new ObservableCollection<Reservation>(ReservationController.GetAll());
             FilteredAccommodations = new ObservableCollection<Accommodation>(Accommodations);
+
+            SetUpDatePicker();
+
+        }
+
+        private void SetUpDatePicker()
+        {
             StartDatePicker.DisplayDate = DateTime.Now;
             startingDate = DateOnly.FromDateTime(DateTime.Now);
+            StartDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1, 1, 1), DateTime.Now.AddDays(-1)));
             EndDatePicker.DisplayDate = DateTime.Now;
             endingDate = DateOnly.FromDateTime(DateTime.Now);
+            EndDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1, 1, 1), DateTime.Now.AddDays(-1)));
         }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

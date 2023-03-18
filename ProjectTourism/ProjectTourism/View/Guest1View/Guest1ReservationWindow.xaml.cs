@@ -54,11 +54,26 @@ namespace ProjectTourism.View.Guest1View
             Reservations = new ObservableCollection<Reservation>(ReservationController.GetAll());
 
 
+
+            SetUpDatePicker();
+        }
+        private void SetUpDatePicker()
+        {
             StartDatePicker.DisplayDate = DateTime.Now;
             startingDate = DateOnly.FromDateTime(DateTime.Now);
+            StartDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1, 1, 1), DateTime.Now.AddDays(-1)));
             EndDatePicker.DisplayDate = DateTime.Now;
             endingDate = DateOnly.FromDateTime(DateTime.Now);
+            EndDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1, 1, 1), DateTime.Now.AddDays(-1)));
 
+            foreach (Reservation reservation in Reservations)
+            {
+                if (Reservation.Accommodation.Id == reservation.AccommodationId)
+                {
+                    StartDatePicker.BlackoutDates.Add(new CalendarDateRange(reservation.StartDate.ToDateTime(TimeOnly.Parse("00:00")), reservation.EndDate.ToDateTime(TimeOnly.Parse("00:00"))));
+                    EndDatePicker.BlackoutDates.Add(new CalendarDateRange(reservation.StartDate.ToDateTime(TimeOnly.Parse("00:00")), reservation.EndDate.ToDateTime(TimeOnly.Parse("00:00"))));
+                }
+            }
         }
 
         private void SetReservation(Reservation reservation, Accommodation accommodation)
@@ -86,18 +101,32 @@ namespace ProjectTourism.View.Guest1View
             Reservation.EndDate = endingDate;
             
             var reservedDaysCount = Reservation.EndDate.DayNumber - Reservation.StartDate.DayNumber;
-
-            if (ReservationController.IsPossible(Reservation)
-                && reservedDaysCount >= Reservation.Accommodation.MinDaysForReservation
-                && GuestCount <= Reservation.Accommodation.MaxNumberOfGuests)
+            
+            if (reservedDaysCount > 0)
             {
-                ReservationController.Add(Reservation);
-                MessageBox.Show("Accommodation reserved successfully!");
-                Close();
+                if (ReservationController.IsPossible(Reservation)
+                    && reservedDaysCount >= Reservation.Accommodation.MinDaysForReservation
+                    && GuestCount <= Reservation.Accommodation.MaxNumberOfGuests)
+                {
+                    ReservationController.Add(Reservation);
+                    MessageBox.Show("Accommodation reserved successfully!");
+                    Close();
+                }
+
+                else
+                {
+                    MessageBox.Show("Selected Accommodation isn't available for the chosen date. \nTake a look at available dates?");
+                    while (!ReservationController.IsPossible(Reservation))
+                    {
+                        Reservation.StartDate = Reservation.StartDate.AddDays(1);
+                        Reservation.EndDate = Reservation.EndDate.AddDays(1);
+                    }
+                    MessageBox.Show("First available date is: " + Reservation.StartDate + " - " + Reservation.EndDate);
+                }
             }
-            else{
-                MessageBox.Show("Jebi se " + GuestCount + " jebi se");
-                MessageBox.Show("Jebi se " + GuestCount + " jebi se");
+            else
+            {
+                MessageBox.Show("Invalid date format");
             }
         }
     }
