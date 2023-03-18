@@ -1,5 +1,6 @@
 ﻿using ProjectTourism.ModelDAO;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics.Metrics;
@@ -7,14 +8,16 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 
 namespace ProjectTourism.Model
 {
     public enum ACCOMMODATIONTYPE { APARTMENT, HOUSE, HUT }
-    public class Accommodation:Serializable,INotifyPropertyChanged
+    public class Accommodation:Serializable,INotifyPropertyChanged, IDataErrorInfo
     {
         private int _Id;
         public int Id
@@ -302,6 +305,36 @@ namespace ProjectTourism.Model
             Name = values[7];
             PictureURLs = values[8];
             Pictures = GetPictureURLsFromCSV();
+        }
+
+        public string Error => null;
+        public string? this[string columnName]
+        {
+            get
+            {
+                if (columnName == "Name")
+                {
+                    if (string.IsNullOrEmpty(Name))
+                        return "Name is required!";
+                }
+                
+                return null;
+            }
+        }
+        private readonly string[] _validatedProperties = { "Name" };
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+
+                return true;
+            }
         }
     }
 }

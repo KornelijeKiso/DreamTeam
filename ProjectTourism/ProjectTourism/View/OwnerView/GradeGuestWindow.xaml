@@ -6,33 +6,35 @@
         xmlns:local="clr-namespace:ProjectTourism.View.OwnerView"
         mc:Ignorable="d"
         Title="GradeGuestWindow" Height="340" Width="340" WindowStartupLocation="CenterScreen">
+    
     <Grid >
+        
         <StackPanel>
-            <Label Content="Cleanness :"/>
+            <Label Content="Cleanness :" FontSize="14"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30" Name="Cleanness">
-                <RadioButton Content="1" GroupName="GradeGroup" Width="45" IsChecked="True"/>
-                <RadioButton Content="2" GroupName="GradeGroup" Width="45"/>
-                <RadioButton Content="3" GroupName="GradeGroup" Width="45"/>
-                <RadioButton Content="4" GroupName="GradeGroup" Width="45"/>
-                <RadioButton Content="5" GroupName="GradeGroup" Width="45"/>
+                <RadioButton Content="1" FontSize="14" GroupName="GradeGroup" Width="45" IsChecked="True" Background="LightYellow"/>
+                <RadioButton Content="2" FontSize="14" GroupName="GradeGroup" Width="45" Background="LightYellow"/>
+                <RadioButton Content="3" FontSize="14" GroupName="GradeGroup" Width="45" Background="LightYellow"/>
+                <RadioButton Content="4" FontSize="14" GroupName="GradeGroup" Width="45" Background="LightYellow"/>
+                <RadioButton Content="5" FontSize="14" GroupName="GradeGroup" Width="45" Background="LightYellow"/>
             </StackPanel>
-            <Label Content="Communication :"/>
+            <Label Content="Communication :" FontSize="14"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30" Name="Communication">
-                <RadioButton Content="1" GroupName="GradeGroup1" Width="45" IsChecked="True"/>
-                <RadioButton Content="2" GroupName="GradeGroup1" Width="45"/>
-                <RadioButton Content="3" GroupName="GradeGroup1" Width="45"/>
-                <RadioButton Content="4" GroupName="GradeGroup1" Width="45"/>
-                <RadioButton Content="5" GroupName="GradeGroup1" Width="45"/>
+                <RadioButton Content="1" FontSize="14" GroupName="GradeGroup1" Width="45" IsChecked="True" Background="LightYellow"/>
+                <RadioButton Content="2" FontSize="14" GroupName="GradeGroup1" Width="45" Background="LightYellow"/>
+                <RadioButton Content="3" FontSize="14" GroupName="GradeGroup1" Width="45" Background="LightYellow"/>
+                <RadioButton Content="4" FontSize="14" GroupName="GradeGroup1" Width="45" Background="LightYellow"/>
+                <RadioButton Content="5" FontSize="14" GroupName="GradeGroup1" Width="45" Background="LightYellow"/>
             </StackPanel>
-            <Label Content="Following the rules :"/>
+            <Label Content="Following the rules :" FontSize="14"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30" Name="FollowingTheRules">
-                <RadioButton Content="1" GroupName="GradeGroup2" Width="45" IsChecked="True"/>
-                <RadioButton Content="2" GroupName="GradeGroup2" Width="45"/>
-                <RadioButton Content="3" GroupName="GradeGroup2" Width="45"/>
-                <RadioButton Content="4" GroupName="GradeGroup2" Width="45"/>
-                <RadioButton Content="5" GroupName="GradeGroup2" Width="45"/>
+                <RadioButton Content="1" FontSize="14" GroupName="GradeGroup2" Width="45" IsChecked="True" Background="LightYellow"/>
+                <RadioButton Content="2" FontSize="14" GroupName="GradeGroup2" Width="45" Background="LightYellow"/>
+                <RadioButton Content="3" FontSize="14" GroupName="GradeGroup2" Width="45" Background="LightYellow"/>
+                <RadioButton Content="4" FontSize="14" GroupName="GradeGroup2" Width="45" Background="LightYellow"/>
+                <RadioButton Content="5" FontSize="14" GroupName="GradeGroup2" Width="45" Background="LightYellow"/>
             </StackPanel>
-            <Label Content="Comment :"></Label>
+            <Label Content="Comment :" FontSize="14"></Label>
             <TextBox Height="70" Width="300" HorizontalAlignment="Center" Text="{Binding GuestGrade.Comment,UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <Button Content="Submit" Click="GradeClick" IsDefault="True" Margin="0 10 0 0"/>
         </StackPanel>
