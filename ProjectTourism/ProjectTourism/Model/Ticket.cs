@@ -26,6 +26,7 @@ namespace ProjectTourism.Model
                 }
             }
         }
+        /*
         private SolidColorBrush _ButtonColor;
         public SolidColorBrush ButtonColor
         {
@@ -39,6 +40,7 @@ namespace ProjectTourism.Model
                 }
             }
         }
+        */
         private int _RouteId;
         public int RouteId
         {
@@ -66,7 +68,35 @@ namespace ProjectTourism.Model
                 }
             }
         }
-        
+
+        private int _TourAppointmentId;
+        public int TourAppointmentId
+        {
+            get => _TourAppointmentId;
+            set
+            {
+                if (value != _TourAppointmentId)
+                {
+                    _TourAppointmentId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private TourAppointment _TourAppointment;
+        public TourAppointment TourAppointment
+        {
+            get => _TourAppointment;
+            set
+            {
+                if (value != _TourAppointment)
+                {
+                    _TourAppointment = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private string _RouteStop;
         public string RouteStop
         {
@@ -127,21 +157,23 @@ namespace ProjectTourism.Model
         public Ticket()
         {  }
 
-        public Ticket(int id, int routeId, string RouteStop, string guest2Username, int numberOfGuests)
+        public Ticket(int id, int tourAppId, string RouteStop, string guest2Username, int numberOfGuests)
         {
             Id = id;
-            RouteId = routeId;
-            Route = FindRoute(routeId);
+            TourAppointmentId = tourAppId;
+            TourAppointmentDAO tourAppointmentDAO = new TourAppointmentDAO();
+            TourAppointment = tourAppointmentDAO.GetOne(tourAppId);
             this.RouteStop = RouteStop;
             Guest2Username = guest2Username;
             Guest2 = FindGuest2(guest2Username);
             NumberOfGuests = numberOfGuests;
         }
 
-        public Ticket(int routeId, string RouteStop, string guest2Username, int numberOfGuests)
-        {            
-            RouteId = routeId;
-            Route = FindRoute(routeId);
+        public Ticket(int tourAppId, string RouteStop, string guest2Username, int numberOfGuests)
+        {
+            TourAppointmentId = tourAppId;
+            TourAppointmentDAO tourAppointmentDAO = new TourAppointmentDAO();
+            TourAppointment = tourAppointmentDAO.GetOne(tourAppId);
             this.RouteStop = RouteStop;
             Guest2Username = guest2Username;
             Guest2 = FindGuest2(guest2Username);
@@ -154,10 +186,10 @@ namespace ProjectTourism.Model
             Guest2DAO guest2DAO = new Guest2DAO();
             return guest2DAO.GetOne(username);
         }
-        public Route FindRoute(int id)
+        public TourAppointment FindTourAppointment(int id)
         {
-            RouteDAO routeDAO = new RouteDAO();
-            return routeDAO.GetOne(id);
+            TourAppointmentDAO tourAppointmentDAO = new TourAppointmentDAO();
+            return tourAppointmentDAO.GetOne(id);
         }
 
         public string[] ToCSV()
@@ -165,7 +197,7 @@ namespace ProjectTourism.Model
             string[] csvValues =
             {
                 Id.ToString(),
-                RouteId.ToString(),
+                TourAppointmentId.ToString(),
                 Guest2Username,
                 NumberOfGuests.ToString(),
                 RouteStop
@@ -176,8 +208,8 @@ namespace ProjectTourism.Model
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            RouteId = int.Parse(values[1]);
-            Route = FindRoute(RouteId);
+            TourAppointmentId = int.Parse(values[1]);
+            TourAppointment = FindTourAppointment(TourAppointmentId);
             Guest2Username = values[2];
             NumberOfGuests = int.Parse(values[3]);
             RouteStop = values[4];

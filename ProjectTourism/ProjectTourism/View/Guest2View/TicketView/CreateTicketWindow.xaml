@@ -11,7 +11,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>
             <RowDefinition Height="100*"/>
-            <RowDefinition Height="200*"/>
+            <RowDefinition Height="150*"/>
+            <RowDefinition Height="100*"/>
             <RowDefinition Height="100*"/>
             <RowDefinition Height="100*"/>
             <RowDefinition Height="100*"/>
@@ -48,20 +49,25 @@
                Height="30" Width="120" Margin="20 0 0 0"
                Grid.Row="4" Grid.Column="1"
         />
-        <Label x:Name="AvailableTicketsSeats" Content="Available Tickets" 
+        <Label x:Name="Date" Content="Date" 
                HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="120" Margin="20 0 0 0"
                Grid.Row="5" Grid.Column="1"
         />
-        <Label x:Name="Stops" Content="Stops" 
+        <Label x:Name="AvailableTicketsSeats" Content="Available Tickets" 
                HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="120" Margin="20 0 0 0"
                Grid.Row="6" Grid.Column="1"
         />
-        <Label x:Name="LastStop" Content="Last Stop" 
+        <Label x:Name="Stops" Content="Stops" 
                HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="120" Margin="20 0 0 0"
                Grid.Row="7" Grid.Column="1"
+        />
+        <Label x:Name="LastStop" Content="Last Stop" 
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="120" Margin="20 0 0 0"
+               Grid.Row="8" Grid.Column="1"
         />
 
         <TextBox 
@@ -75,7 +81,7 @@
             Text = "{Binding Path=SelectedRoute.Description}"
             TextWrapping="Wrap"
             HorizontalAlignment="Left" VerticalAlignment="Center"
-               Height="100" Width="200" IsReadOnly="True"
+               Height="50" Width="200" IsReadOnly="True"
                Grid.Row="2" Grid.Column="2" 
         />
         <TextBox 
@@ -92,17 +98,24 @@
                Height="30" Width="200" IsReadOnly="True"
                Grid.Row="4" Grid.Column="2" 
         />
-        
+        <ComboBox x:Name="DatesComboBox"
+               ItemsSource="{Binding Path = SelectedRoute.dates}"
+               SelectedIndex="0"
+               SelectionChanged="DatesComboBox_SelectionChanged"
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="200"
+               Grid.Row="5" Grid.Column="2" >
+        </ComboBox>
         <TextBox x:Name="sliderText" Text="{Binding ElementName=slider,Path=Value,UpdateSourceTrigger=PropertyChanged}"
                 HorizontalAlignment="Left" VerticalAlignment="Center"
                 Height="30" Width="30"
-                Grid.Row="5" Grid.Column="2"    >
+                Grid.Row="6" Grid.Column="2"    >
         </TextBox>
         <Slider x:Name="slider" Minimum="1" Maximum="{Binding Path=AvailableTickets}" 
                 Value="{Binding Path=Ticket.NumberOfGuests}"
                 HorizontalAlignment="Right" VerticalAlignment="Center"
                 Height="30" Width="160" Margin="0 0 10 0"
-                Grid.Row="5" Grid.Column="2"      >
+                Grid.Row="6" Grid.Column="2"      >
         </Slider>
         
         
@@ -112,21 +125,21 @@
                SelectionChanged="StopsComboBox_SelectionChanged"
                HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="200"
-               Grid.Row="6" Grid.Column="2" >
+               Grid.Row="7" Grid.Column="2" >
         </ComboBox>
         <TextBox 
             Text = "{Binding Path=SelectedRoute.Finish}"
             TextWrapping="Wrap"
             HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="200" IsReadOnly="True"
-               Grid.Row="7" Grid.Column="2" 
+               Grid.Row="8" Grid.Column="2" 
         />
         
         <Button x:Name="CreateTicketButton" Content="Create" 
                 HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50 0 0 0"
                 Height="50" Width="100" 
                 IsDefault="True" Click="CreateTicket"
-                Grid.Row="8" Grid.Column="3"
+                Grid.Row="9" Grid.Column="3"
         />
 
     </Grid>

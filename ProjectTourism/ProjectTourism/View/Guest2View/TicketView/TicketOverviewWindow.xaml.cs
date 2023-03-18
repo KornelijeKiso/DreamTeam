@@ -29,7 +29,7 @@ namespace ProjectTourism.View.Guest2View.TicketView
         public UserController UserController { get; set; }
         public Guest2 Guest { get; set; }
         public Guest2Controller GuestController { get; set; }
-        public RouteController RouteController { get; set; }
+        public TourAppointmentController TourAppointmentController { get; set; }
         public Ticket? SelectedTicket { get; set; }
         public TicketController TicketController { get; set; }
         public ObservableCollection<Ticket> Tickets { get; set; }
@@ -42,8 +42,8 @@ namespace ProjectTourism.View.Guest2View.TicketView
             User = UserController.GetOne(username);
             GuestController = new Guest2Controller();
             Guest = GuestController.GetOne(username);
-            RouteController = new RouteController();
-            
+            TourAppointmentController = new TourAppointmentController();
+
             TicketController = new TicketController();
             TicketController.Subscribe(this);
             Tickets = new ObservableCollection<Ticket>(TicketController.GetByGuest(Guest));
@@ -76,7 +76,7 @@ namespace ProjectTourism.View.Guest2View.TicketView
 
         private MessageBoxResult ConfirmTicketDelete()
         {
-            string sMessageBoxText = $"Are you sure you want to return your Ticket?\n{SelectedTicket.Route.Name}";
+            string sMessageBoxText = $"Are you sure you want to return your Ticket?\n{SelectedTicket.TourAppointment.Route.Name}";
             string sCaption = "Return Ticket";
 
             MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
@@ -90,7 +90,7 @@ namespace ProjectTourism.View.Guest2View.TicketView
         {
             if (SelectedTicket != null)
             {
-                UpdateTicketWindow updateTicketWindow = new UpdateTicketWindow(Guest.Username, SelectedTicket.Route.Id);
+                UpdateTicketWindow updateTicketWindow = new UpdateTicketWindow(Guest.Username, SelectedTicket.TourAppointmentId, SelectedTicket.TourAppointment.Route.Id);
                 updateTicketWindow.ShowDialog();
                 TicketController = updateTicketWindow.TicketController;
                 TicketController.Update(SelectedTicket);

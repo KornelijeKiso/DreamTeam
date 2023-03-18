@@ -35,6 +35,7 @@ namespace ProjectTourism.View.RouteView
         public List<string> Languages { get; set; }
         public ObservableCollection<string> LanguagesObservable { get; set; }
         public TourAppointment TourAppointment { get; set; }
+        public TourAppointmentController TourAppointmentController { get; set; }
 
         public CreateRouteWindow(Guide guide)
         {
@@ -48,6 +49,7 @@ namespace ProjectTourism.View.RouteView
             RouteController.Subscribe(this);
             NewLocation = new Location();
             NewLocationDAO = new LocationDAO();
+            TourAppointmentController = new TourAppointmentController();
             Languages = new List<string>
             {
                 "English",
@@ -100,6 +102,7 @@ namespace ProjectTourism.View.RouteView
                 Route.LocationId = NewLocation.Id;
                 SaveDates();
                 RouteController.Add(Route);
+                TourAppointmentController.MakeTourAppointments(Route);
                 Close();
             }
             else

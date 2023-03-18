@@ -46,11 +46,30 @@ namespace ProjectTourism.ModelDAO
         public void Update(Ticket ticket)
         {
             Ticket updated = GetOne(ticket.Id);
-            updated = ticket;
+            updated.TourAppointmentId = ticket.TourAppointmentId;
+            updated.Guest2Username = ticket.Guest2Username;
+            updated.NumberOfGuests = ticket.NumberOfGuests;
+            updated.RouteStop = ticket.RouteStop;
+
             //Delete(GetOne(ticket.Id));
             //Add(updated);
             FileHandler.Save(Tickets);
             NotifyObservers();
+        }
+
+        public void ChangeAppointment(Ticket ticket)
+        {
+            TourAppointmentDAO tourAppointmentDAO = new TourAppointmentDAO();
+            //TourAppointment newAppointment = tourAppointmentDAO.GetByDate(ticket.TourAppointment.TourDateTime);
+            /*foreach (var ticket1 in Tickets)
+            {
+                if (ticket.Id == ticket1.Id)
+                {
+                    ticket1.TourAppointmentId = newAppointment.Id;
+                    ticket1.TourAppointment = newAppointment;
+                }
+            }
+            FileHandler.Save(Tickets);*/
         }
         public void Delete(Ticket ticket)
         {
@@ -61,7 +80,7 @@ namespace ProjectTourism.ModelDAO
         {
             return Tickets;
         }
-        public Ticket GetOne(int id)
+        public Ticket? GetOne(int id)
         {
             foreach (var ticket in Tickets)
             {
@@ -70,18 +89,18 @@ namespace ProjectTourism.ModelDAO
             return null;
         }
 
-        public List<Ticket> GetByRoute(Route route)
+        public List<Ticket> GetByAppointment(TourAppointment tourApp)
         {
-            List<Ticket> ticketsByRoute = new List<Ticket>();
+            List<Ticket> ticketsByApp = new List<Ticket>();
 
             foreach (var ticket in Tickets)
             {
-                if (route.Id == ticket.RouteId)
+                if (tourApp.Id == ticket.TourAppointmentId)
                 {
-                    ticketsByRoute.Add(ticket);
+                    ticketsByApp.Add(ticket);
                 }
             }
-            return ticketsByRoute;
+            return ticketsByApp;
         }
         
         // returns all guest's tickets
@@ -91,7 +110,7 @@ namespace ProjectTourism.ModelDAO
 
             foreach (var ticket in Tickets)
             {
-                if (guest2.Username == ticket.Guest2Username)
+                if (guest2.Username.Equals(ticket.Guest2Username))
                 {
                     ticketsByGuest.Add(ticket);
                 }
@@ -100,13 +119,13 @@ namespace ProjectTourism.ModelDAO
         }
         
         // returns guest's ticket that should be updated
-        public Ticket GetGuest2Ticket(Guest2 guest2, Route route)
+        public Ticket GetGuest2Ticket(Guest2 guest2, TourAppointment tourApp)
         {
             List<Ticket> ticketsByGuest = GetByGuest(guest2);
 
             foreach (var ticket in ticketsByGuest)
             {
-                if (ticket.RouteId == route.Id)
+                if (ticket.TourAppointmentId == tourApp.Id)
                 {
                     return ticket;
                 }
