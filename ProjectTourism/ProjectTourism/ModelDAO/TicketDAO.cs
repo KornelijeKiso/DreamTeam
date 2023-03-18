@@ -80,7 +80,7 @@ namespace ProjectTourism.ModelDAO
         {
             return Tickets;
         }
-        public Ticket? GetOne(int id)
+        public Ticket GetOne(int id)
         {
             foreach (var ticket in Tickets)
             {

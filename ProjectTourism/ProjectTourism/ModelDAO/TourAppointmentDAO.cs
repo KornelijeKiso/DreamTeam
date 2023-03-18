@@ -61,9 +61,9 @@ namespace ProjectTourism.ModelDAO
             }
             return null;
         }
-        public TourAppointment GetByDate(DateTime date)
+        public TourAppointment GetByDate(int tourId, DateTime date)
         {
-            foreach (TourAppointment tours in TourAppointments)
+            foreach (TourAppointment tours in GetByRoute(tourId))
             {
                 if (tours.TourDateTime == date) return tours;
             }
@@ -89,6 +89,53 @@ namespace ProjectTourism.ModelDAO
             }
 
             return guest;
+        }
+
+        public void UpdateAppointmentCreate(int tourAppointmentId, Ticket ticket)
+        {
+            TourAppointment tourAppointment = GetOne(tourAppointmentId);
+            tourAppointment.AvailableSeats -= ticket.NumberOfGuests;
+            tourAppointment.Tickets.Add(ticket);
+            tourAppointment.HasGuideChecked.Add(false);
+            tourAppointment.HasGuestConfirmed.Add(false);
+
+            FileHandler.Save(TourAppointments);
+            NotifyObservers();
+        }
+
+        public void UpdateAppointmentReturn(int tourAppointmentId, Ticket ReturnedTicket)
+        {
+            TourAppointment tourAppointment = GetOne(tourAppointmentId);
+            tourAppointment.AvailableSeats += ReturnedTicket.NumberOfGuests;
+            //UpdateAppointmentUpdate(tourAppointmentId, ReturnedTicket);
+            //foreach(var ticket in tourAppointment.Tickets)
+            for (int i = 0; i < tourAppointment.Tickets.Count(); i++)
+            {
+                if (tourAppointment.Tickets[i].Id == ReturnedTicket.Id)
+                {
+                    tourAppointment.Tickets.Remove(ReturnedTicket);
+                    tourAppointment.HasGuideChecked.RemoveAt(i);
+                    tourAppointment.HasGuestConfirmed.RemoveAt(i);
+                }
+            }
+
+            FileHandler.Save(TourAppointments);
+            NotifyObservers();
+        }
+
+        public void UpdateAppointmentUpdate(int tourAppointmentId, Ticket ReturnedTicket)
+        {
+            TourAppointment tourAppointment = GetOne(tourAppointmentId);
+            tourAppointment.AvailableSeats = tourAppointment.Route.MaxNumberOfGuests;
+            TicketDAO ticketDAO = new TicketDAO();
+            List<Ticket> tickets = ticketDAO.GetByAppointment(tourAppointment);
+            foreach (Ticket ticket in tickets)
+            {
+                tourAppointment.AvailableSeats -= ticket.NumberOfGuests;
+            }
+
+            FileHandler.Save(TourAppointments);
+            NotifyObservers();
         }
 
 
