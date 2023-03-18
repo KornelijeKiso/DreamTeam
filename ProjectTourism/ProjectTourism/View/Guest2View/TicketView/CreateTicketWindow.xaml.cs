@@ -25,7 +25,7 @@ namespace ProjectTourism.View.Guest2View
     public partial class CreateTicketWindow : Window, INotifyPropertyChanged, IObserver
     {
         public Ticket Ticket { get; set; }
-        public TicketController TicketController {get; set;}
+        public TicketController TicketController { get; set; }
         public TourAppointmentController TourAppointmentController { get; set; }
         public TourAppointment selectedAppointment { get; set; }
         public Route SelectedRoute { get; set; }
@@ -33,8 +33,8 @@ namespace ProjectTourism.View.Guest2View
         public Guest2 Guest2 { get; set; }
         public Guest2Controller Guest2Controller { get; set; }
         public List<string> StopsList { get; set; }
-        public int AvailableTickets { get; set; }
-        
+        public int? AvailableTickets { get; set; }
+
 
         public CreateTicketWindow(string username, int routeId)
         {
@@ -44,25 +44,25 @@ namespace ProjectTourism.View.Guest2View
             RouteController = new RouteController();
             TourAppointmentController = new TourAppointmentController();
             Guest2Controller = new Guest2Controller();
-            selectedAppointment = TourAppointmentController.GetOne(routeId);
-            SelectedRoute = selectedAppointment.Route;
-            //SelectedRoute = RouteController.GetOne(routeId);
+
+            SelectedRoute = RouteController.GetOne(routeId);
+            selectedAppointment = new TourAppointment();
 
             Guest2 = Guest2Controller.GetOne(username);
             Ticket = new Ticket();
             Ticket.NumberOfGuests = 1;      // if slider isnt moved returns 0 , fix this
                                             // 
-            // transfer to Route -> StopsList
+                                            // transfer to Route -> StopsList
             StopsList = new List<string>();
             foreach (string stop in SelectedRoute.StopsList)
             {
                 StopsList.Add(stop.Trim());
             }
-            
-            StopsList.RemoveAt(StopsList.Count - 1); // Guest can't chose Finish stop to join the Route
+
+            StopsList.RemoveAt(StopsList.Count() - 1); // Guest can't chose Finish stop to join the Route
 
             AvailableTickets = GetAvailableTickets();
-            
+
             // no available tickets, temp solution
             // should give suggestion for route that has available seats and same location
             if (AvailableTickets <= 0)
@@ -73,7 +73,7 @@ namespace ProjectTourism.View.Guest2View
                 sliderText.IsEnabled = false;
                 slider.Visibility = Visibility.Collapsed;
                 StopsComboBox.Visibility = Visibility.Collapsed;
-                
+
                 CreateTicketButton.IsEnabled = false;
             }
         }
@@ -92,7 +92,7 @@ namespace ProjectTourism.View.Guest2View
 
         private void CreateTicket(object sender, RoutedEventArgs e)
         {
-            Ticket ticket = new Ticket(SelectedRoute.Id, Ticket.RouteStop, Guest2.Username, Ticket.NumberOfGuests);
+            Ticket ticket = new Ticket(selectedAppointment.Id, Ticket.RouteStop, Guest2.Username, Ticket.NumberOfGuests);
             TicketController.Add(ticket);
             Close();
         }
@@ -102,8 +102,8 @@ namespace ProjectTourism.View.Guest2View
             Ticket.RouteStop = StopsList[StopsComboBox.SelectedIndex];
         }
 
-        public int GetAvailableTickets()
-        {
+        public int? GetAvailableTickets()
+        {/*
             List<Ticket> available = TicketController.GetByAppointment(Ticket.TourAppointment);
             int? availableCount = SelectedRoute.MaxNumberOfGuests;
 
@@ -119,12 +119,15 @@ namespace ProjectTourism.View.Guest2View
                 return -1;
             }
             
-            return -1;
+            return -1;*/
+            return SelectedRoute.MaxNumberOfGuests;
         }
 
         private void DatesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //Ticket.TourAppointment.TourDateTime = Route.dates[DatesComboBox.SelectedIndex];
+            DateTime date = SelectedRoute.dates[DatesComboBox.SelectedIndex];
+            //TourAppointment newSelected = TourAppointmentController.GetByDate(date);
+            selectedAppointment = TourAppointmentController.GetByDate(date);
         }
     }
 }
