@@ -15,7 +15,7 @@
                 <DataGridTextColumn Header="City" Width="91" Binding="{Binding Location.City}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Language" Width="81" Binding="{Binding Language}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Max guests" Width="71" Binding="{Binding MaxNumberOfGuests}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Date and time" Width="151" Binding="{Binding StartDate}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Date and time" Width="151" Binding="{Binding dates[0]}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Duration" Width="61" Binding="{Binding Duration}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>

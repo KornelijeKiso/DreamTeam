@@ -226,11 +226,10 @@ namespace ProjectTourism.Model
         }
         public Route()
         {
-            StartDate = DateTime.Now;
             StopsList = new List<string>();
-            
+
         }
-            
+
 
         public Route(string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
         {
@@ -249,8 +248,7 @@ namespace ProjectTourism.Model
             Guide = FindGuide(guideUsername);
             StopsList = new List<string>();
 
-            dates = new List<DateTime>();           // temporary solution
-            dates.Add(StartDate);
+            dates = new List<DateTime>();           
         }
         public Route(int id, string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
         {
@@ -271,8 +269,7 @@ namespace ProjectTourism.Model
             Pictures = GetPictureURLsFromCSV();
             StopsList = new List<string>();
 
-            dates = new List<DateTime>();           // temporary solution
-            dates.Add(StartDate);
+            dates = new List<DateTime>();
         }
 
         public Guide? FindGuide(string username)
@@ -291,6 +288,30 @@ namespace ProjectTourism.Model
             return pictures;
         }
 
+        public List<DateTime> FromString(string dateString)
+        {
+            List<DateTime> dates = new List<DateTime>();
+            string[] oneDate = dateString.Split(',');
+            foreach (var date in oneDate)
+            {
+                if (DateTime.TryParse(date.Trim(), CultureInfo.CurrentCulture.DateTimeFormat, DateTimeStyles.None, out var dateTimeParsed))
+                    //if (DateTime.TryParse(date.Trim(), new CultureInfo("en-GB"), DateTimeStyles.None, out var dateTimeParsed))
+                    dates.Add(dateTimeParsed);
+            }
+            return dates;
+        }
+        public string ToString(List<DateTime> dates)
+        {
+            string dateString = "";
+            int i;
+            for (i = 0; i < dates.Count(); i++)
+            {
+                //dateString += dates[i].ToString("MM/dd/yyyy hh\\:mm") + ",";          //dateString += dates[i].ToString(DateTimeFormatInfo.CurrentInfo.ShortDatePattern) + ",";
+                dateString += dates[i].ToString() + ",";
+            }
+            return dateString;
+        }
+
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
@@ -301,19 +322,15 @@ namespace ProjectTourism.Model
             Start = values[5];
             Stops = values[6];
             Finish = values[7];
-            if (DateTime.TryParse(values[8], new CultureInfo("en-GB"), DateTimeStyles.None, out var startDate)) StartDate = startDate;
-            //StartDate = DateTime.Parse(values[8]);
+            //if (DateTime.TryParse(values[8], new CultureInfo("en-GB"), DateTimeStyles.None, out var startDate)) StartDate = startDate;
+            //if (DateTime.TryParse(values[8], CultureInfo.CurrentCulture.DateTimeFormat, DateTimeStyles.None, out var startDate)) StartDate = startDate;
+            dates = FromString(values[8]);
             Duration = double.Parse(values[9]);
             PictureURLs = values[10];
             GuideUsername = values[11];
             LocationId = int.Parse(values[12]);
             Location = FindLocation(LocationId);
             Pictures = GetPictureURLsFromCSV();
-
-            dates = new List<DateTime>();           // temporary solution
-            dates.Add(StartDate);
-            
-            //MakeTourAppointment(Route route);           ///////////////////////////////////
         }
 
         private Location? FindLocation(int? locationId)
@@ -334,7 +351,7 @@ namespace ProjectTourism.Model
                 Start,
                 Stops,
                 Finish,
-                StartDate.ToString("dd.MM.yyyy HH:mm"),
+                ToString(dates),
                 Duration.ToString(),
                 PictureURLs,
                 GuideUsername,
@@ -408,7 +425,7 @@ namespace ProjectTourism.Model
                 return null;
             }
         }
-        private readonly string[] _validatedProperties = {"Name", "MaxNumberOfGuests", "Start", "Finish", "StartDate", "Duration"};
+        private readonly string[] _validatedProperties = { "Name", "MaxNumberOfGuests", "Start", "Finish", "StartDate", "Duration" };
 
         public bool IsValid
         {

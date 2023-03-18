@@ -41,8 +41,9 @@ namespace ProjectTourism.View.RouteView
             InitializeComponent();
             DataContext = this;
             Route = new Route();
-            Route.GuideUsername= guide.Username;
+            Route.GuideUsername = guide.Username;
             Route.Guide = guide;
+            Route.dates = new List<DateTime>();
             RouteController = new RouteController();
             RouteController.Subscribe(this);
             NewLocation = new Location();
@@ -82,7 +83,7 @@ namespace ProjectTourism.View.RouteView
 
         public void Update()
         {
-            
+
         }
 
         private void AttachRouteImagesButton_Click(object sender, RoutedEventArgs e)
@@ -92,11 +93,12 @@ namespace ProjectTourism.View.RouteView
 
         private void SaveRoute_Click(object sender, RoutedEventArgs e)
         {
-            if(Route.IsValid)
+            if (Route.IsValid)
             {
                 NewLocation.Id = NewLocationDAO.AddAndReturnId(NewLocation);
                 Route.Location = NewLocation;
                 Route.LocationId = NewLocation.Id;
+                SaveDates();
                 RouteController.Add(Route);
                 Close();
             }
@@ -149,6 +151,7 @@ namespace ProjectTourism.View.RouteView
         }
 
 
+
         private void UpdateAppointmentsListBox()
         {
             appointmentsListBox.Items.Clear();
@@ -160,14 +163,25 @@ namespace ProjectTourism.View.RouteView
                     appointmentText += time.ToString("hh\\:mm") + ", ";
                 }
                 appointmentsListBox.Items.Add(appointmentText.TrimEnd(',', ' '));
-            //    TourAppointment.TourDateTime = DateTime.Parse(appointmentText);   //this needs a fix!
             }
         }
-
-        private void SaveAppointmentsButton_Click(object sender, RoutedEventArgs e)
+        private void SaveDates()
         {
-            // Save the appointments
-            MessageBox.Show("Appointments saved successfully. BTW I need to save this to TourAppointment");
+            foreach (KeyValuePair<DateTime, List<TimeSpan>> appointment in appointments)
+            {
+                string appointmentText = "";
+                //appointmentText = appointment.Key.ToShortDateString() + " ";      //appointmentText = appointment.Key.ToString("dd.MM.yyyy") + " ";
+                //appointmentText = appointment.Key.ToString(DateTimeFormatInfo.CurrentInfo.ShortDatePattern) + " ";
+                foreach (TimeSpan time in appointment.Value)
+                {
+                    appointmentText = appointment.Key.ToString(DateTimeFormatInfo.CurrentInfo.ShortDatePattern) + " ";
+                    appointmentText += time.ToString("hh\\:mm");
+                    //appointmentText += time.ToString("HH:mm:ss");         //appointmentText += time.ToString("HH:mm");
+                    //if (DateTime.TryParse(appointmentText, CultureInfo.CurrentCulture.DateTimeFormat, DateTimeStyles.AssumeUniversal, out var dateTimeParsed))
+                    if (DateTime.TryParse(appointmentText, CultureInfo.CurrentCulture.DateTimeFormat, DateTimeStyles.None, out var dateTimeParsed))
+                        Route.dates.Add(dateTimeParsed);
+                }
+            }
         }
 
         private void Calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
