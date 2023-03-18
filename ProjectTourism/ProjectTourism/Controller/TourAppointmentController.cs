@@ -38,6 +38,11 @@ namespace ProjectTourism.Controller
         {
             TourAppointmentDAO.Add(addedTourApp);
         }
+
+        public void MakeTourAppointments(Route route)
+        {
+            TourAppointmentDAO.MakeTourAppointments(route);
+        }
         public TourAppointment GetOne(int id) 
         {
             return TourAppointmentDAO.GetOne(id);
@@ -70,11 +75,5 @@ namespace ProjectTourism.Controller
             
             return route.StopsList[stopint + 1];
         }
-
-        public void MakeTourAppointments(Route route)
-        {
-            TourAppointmentDAO.MakeTourAppointments(route);
-        }
     }
-    
 }

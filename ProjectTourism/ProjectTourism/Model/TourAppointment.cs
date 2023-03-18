@@ -174,19 +174,18 @@ namespace ProjectTourism.Model
         public TourAppointment()
         { 
             Tickets = new List<Ticket>();
-            IsNotFinished = true;
-            State = TOURSTATE.READY; 
             HasGuestConfirmed = new List<bool>();
             HasGuideChecked = new List<bool>();
+            //IsNotFinished = true;
+            //State = TOURSTATE.READY; 
         }
 
-        public TourAppointment(DateTime tourDateTime, int tourId)
+        public TourAppointment(DateTime tourDateTime, int tourId, Route route)
         {
             TourDateTime = tourDateTime;
             TourId = tourId;
+            Route = route;
 
-            RouteDAO tourDAO = new RouteDAO();
-            Route = tourDAO.GetOne(tourId);
             CurrentTourStop = Route.Start;
             AvailableSeats = Route.MaxNumberOfGuests;
             IsNotFinished = true;
@@ -238,7 +237,8 @@ namespace ProjectTourism.Model
         {
             Id = Convert.ToInt32(values[0]);
             TourId = Convert.ToInt32(values[1]);
-            TourDateTime = Convert.ToDateTime(values[2]);
+            if (DateTime.TryParse(values[2], new CultureInfo("en-GB"), DateTimeStyles.None, out var dateTimeParsed))
+                TourDateTime = dateTimeParsed;
             CurrentTourStop = values[3];
             AvailableSeats = Convert.ToInt32(values[4]);
             switch (values[5])

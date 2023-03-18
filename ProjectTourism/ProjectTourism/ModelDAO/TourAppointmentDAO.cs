@@ -25,6 +25,7 @@ namespace ProjectTourism.ModelDAO
             if (TourAppointments.Count == 0) return 0;
             return TourAppointments.Last<TourAppointment>().Id + 1;
         }
+
         public void Add(TourAppointment addedTourApp)
         {
             if (addedTourApp == null)
@@ -36,6 +37,15 @@ namespace ProjectTourism.ModelDAO
                 addedTourApp.Id = GenerateId();
                 TourAppointments.Add(addedTourApp);
                 FileHandler.Save(TourAppointments);
+            }
+        }
+
+        public void MakeTourAppointments(Route route)
+        {
+            foreach(var date in route.dates)
+            {
+                TourAppointment appointment = new TourAppointment(date, route.Id, route);
+                Add(appointment);
             }
         }
 
@@ -74,7 +84,7 @@ namespace ProjectTourism.ModelDAO
         }
 
 
-        public void MakeTourAppointments(Route route)
+        /*public void MakeTourAppointments(Route route)
         {
             foreach (DateTime date in route.dates)
             {
@@ -93,7 +103,7 @@ namespace ProjectTourism.ModelDAO
                 TourAppointments.Add(tourApp);
                 FileHandler.Save(TourAppointments);
             }
-        }
+        }*/
 
 
         public void ChangeState(TourAppointment tourAppointment)
