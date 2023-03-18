@@ -182,6 +182,18 @@ namespace ProjectTourism.View.OwnerView
         }
         public void RegisterAccommodationClick(object sender, RoutedEventArgs e)
         {
+            if (NewAccommodation.IsValid && NewLocation.IsValid) 
+            {
+                RegisterNewAccommodation();
+            }
+            else
+            {
+                MessageBox.Show("Not all fields are filled correctly.");
+            }
+        }
+
+        private void RegisterNewAccommodation()
+        {
             HandleTypeCombobox();
             Location location = new Location(NewLocation.City, NewLocation.Country);
             location.Id = LocationDAO.AddAndReturnId(location);

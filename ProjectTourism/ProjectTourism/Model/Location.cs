@@ -5,10 +5,11 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace ProjectTourism.Model
 {
-    public class Location: Serializable, INotifyPropertyChanged
+    public class Location: Serializable, INotifyPropertyChanged, IDataErrorInfo
     {
         private int _Id;
         public int Id
@@ -80,6 +81,40 @@ namespace ProjectTourism.Model
             Id = int.Parse(values[0]);
             City = values[1];
             Country = values[2];
+        }
+        public string Error => null;
+        public string? this[string columnName]
+        {
+            get
+            {
+                if (columnName == "City")
+                {
+                    if (string.IsNullOrEmpty(City))
+                        return "City is required!";
+                }
+                else if(columnName == "Country")
+                {
+                    if (string.IsNullOrEmpty(Country))
+                        return "Country is required!";
+                }
+
+                return null;
+            }
+        }
+        private readonly string[] _validatedProperties = { "City", "Country" };
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+
+                return true;
+            }
         }
     }
 }
