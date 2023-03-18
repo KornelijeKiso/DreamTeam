@@ -46,11 +46,30 @@ namespace ProjectTourism.ModelDAO
         public void Update(Ticket ticket)
         {
             Ticket updated = GetOne(ticket.Id);
-            updated = ticket;
+            updated.TourAppointmentId = ticket.TourAppointmentId;
+            updated.Guest2Username = ticket.Guest2Username;
+            updated.NumberOfGuests = ticket.NumberOfGuests;
+            updated.RouteStop = ticket.RouteStop;
+
             //Delete(GetOne(ticket.Id));
             //Add(updated);
             FileHandler.Save(Tickets);
             NotifyObservers();
+        }
+
+        public void ChangeAppointment(Ticket ticket)
+        {
+            TourAppointmentDAO tourAppointmentDAO = new TourAppointmentDAO();
+            //TourAppointment newAppointment = tourAppointmentDAO.GetByDate(ticket.TourAppointment.TourDateTime);
+            /*foreach (var ticket1 in Tickets)
+            {
+                if (ticket.Id == ticket1.Id)
+                {
+                    ticket1.TourAppointmentId = newAppointment.Id;
+                    ticket1.TourAppointment = newAppointment;
+                }
+            }
+            FileHandler.Save(Tickets);*/
         }
         public void Delete(Ticket ticket)
         {

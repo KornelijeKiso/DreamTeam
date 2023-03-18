@@ -25,7 +25,9 @@ namespace ProjectTourism.View.Guest2View
     public partial class CreateTicketWindow : Window, INotifyPropertyChanged, IObserver
     {
         public Ticket Ticket { get; set; }
-        public TicketController TicketController {get; set;} 
+        public TicketController TicketController {get; set;}
+        public TourAppointmentController TourAppointmentController { get; set; }
+        public TourAppointment selectedAppointment { get; set; }
         public Route SelectedRoute { get; set; }
         public RouteController RouteController { get; set; }
         public Guest2 Guest2 { get; set; }
@@ -40,8 +42,12 @@ namespace ProjectTourism.View.Guest2View
             DataContext = this;
             TicketController = new TicketController();
             RouteController = new RouteController();
-            SelectedRoute = RouteController.GetOne(routeId);
+            TourAppointmentController = new TourAppointmentController();
             Guest2Controller = new Guest2Controller();
+            selectedAppointment = TourAppointmentController.GetOne(routeId);
+            SelectedRoute = selectedAppointment.Route;
+            //SelectedRoute = RouteController.GetOne(routeId);
+
             Guest2 = Guest2Controller.GetOne(username);
             Ticket = new Ticket();
             Ticket.NumberOfGuests = 1;      // if slider isnt moved returns 0 , fix this

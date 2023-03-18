@@ -44,6 +44,11 @@ namespace ProjectTourism.Controller
             return TicketDAO.GetByGuest(guest2);
         }
 
+        public void ChangeAppointment(Ticket ticket)
+        {
+            TicketDAO.ChangeAppointment(ticket);
+        }
+
         public Ticket GetGuest2Ticket(Guest2 guest2, TourAppointment tourApp)
         {
             return TicketDAO.GetGuest2Ticket(guest2, tourApp);

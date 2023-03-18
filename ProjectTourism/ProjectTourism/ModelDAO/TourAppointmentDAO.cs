@@ -61,6 +61,14 @@ namespace ProjectTourism.ModelDAO
             }
             return null;
         }
+        public TourAppointment GetByDate(DateTime date)
+        {
+            foreach (TourAppointment tours in TourAppointments)
+            {
+                if (tours.TourDateTime == date) return tours;
+            }
+            return null;
+        }
         public List<TourAppointment> GetByRoute(int id)
         {
             List<TourAppointment> toursById= new List<TourAppointment>();

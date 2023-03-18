@@ -48,6 +48,11 @@ namespace ProjectTourism.Controller
             return TourAppointmentDAO.GetOne(id);
         }
 
+        public TourAppointment GetByDate(DateTime date)
+        {
+            return TourAppointmentDAO.GetByDate(date);
+        }
+
         public List<TourAppointment> GetAll()
         {
             return TourAppointmentDAO.GetAll();

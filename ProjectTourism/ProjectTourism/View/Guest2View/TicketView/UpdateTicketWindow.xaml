@@ -71,42 +71,48 @@
         />
 
         <TextBox 
-            Text = "{Binding Path=selectedAppointment.Route.Name}"
+            Text = "{Binding Path=selectedRoute.Name}"
             TextWrapping="Wrap"
             HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="200" IsReadOnly="True"
                Grid.Row="1" Grid.Column="2" 
         />
         <TextBox 
-            Text = "{Binding Path=selectedAppointment.Route.Description}"
+            Text = "{Binding Path=selectedRoute.Description}"
             TextWrapping="Wrap"
             HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="50" Width="200" IsReadOnly="True"
                Grid.Row="2" Grid.Column="2" 
         />
         <TextBox 
-            Text = "{Binding Path=selectedAppointment.Route.Location.City}"
+            Text = "{Binding Path=selectedRoute.Location.City}"
             TextWrapping="Wrap"
             HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="200" IsReadOnly="True"
                Grid.Row="3" Grid.Column="2" 
         />
         <TextBox 
-            Text = "{Binding Path=selectedAppointment.Route.Language}"
+            Text = "{Binding Path=selectedRoute.Language}"
             TextWrapping="Wrap"
             HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="200" IsReadOnly="True"
                Grid.Row="4" Grid.Column="2" 
         />
-        <ComboBox x:Name="DatesComboBox"
-               ItemsSource="{Binding Path = selectedAppointment.Route.dates}"
-               SelectedIndex="0"
+        <!--<ComboBox x:Name="DatesComboBox"
+               ItemsSource="{Binding Path = selectedRoute.dates}"
+               
                SelectionChanged="DatesComboBox_SelectionChanged"
                HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="200"
                Grid.Row="5" Grid.Column="2" >
-        </ComboBox>
-        
+        </ComboBox>-->
+        <TextBox 
+            Text = "{Binding Path=selectedAppointment.TourDateTime}"
+            TextWrapping="Wrap"
+            HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="200" IsReadOnly="True"
+               Grid.Row="5" Grid.Column="2" 
+        />
         
         
 
@@ -132,7 +138,7 @@
                Grid.Row="7" Grid.Column="2" >
         </ComboBox>
         <TextBox 
-            Text = "{Binding Path=selectedAppointment.Route.Finish}"
+            Text = "{Binding Path=selectedRoute.Finish}"
             TextWrapping="Wrap"
             HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="200" IsReadOnly="True"

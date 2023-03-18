@@ -90,7 +90,7 @@ namespace ProjectTourism.View.Guest2View.TicketView
         {
             if (SelectedTicket != null)
             {
-                UpdateTicketWindow updateTicketWindow = new UpdateTicketWindow(Guest.Username, SelectedTicket.TourAppointmentId);
+                UpdateTicketWindow updateTicketWindow = new UpdateTicketWindow(Guest.Username, SelectedTicket.TourAppointmentId, SelectedTicket.TourAppointment.Route.Id);
                 updateTicketWindow.ShowDialog();
                 TicketController = updateTicketWindow.TicketController;
                 TicketController.Update(SelectedTicket);

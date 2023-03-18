@@ -28,7 +28,7 @@ namespace ProjectTourism.View.Guest2View.TicketView
         public TicketController TicketController { get; set; }
         public TourAppointmentController TourAppointmentController { get; set; }
         public TourAppointment selectedAppointment { get; set; }
-        public Route SelectedRoute { get; set; }
+        public Route selectedRoute { get; set; }
         public RouteController RouteController { get; set; }
         public Guest2 Guest2 { get; set; }
         public Guest2Controller Guest2Controller { get; set; }
@@ -36,34 +36,34 @@ namespace ProjectTourism.View.Guest2View.TicketView
         public int? AvailableTickets { get; set; }
 
 
-        public UpdateTicketWindow(string username, int tourAppId)
+        public UpdateTicketWindow(string username, int tourAppId, int tourId)
         {
             InitializeComponent();
             DataContext = this;
             TicketController = new TicketController();
             TourAppointmentController = new TourAppointmentController();
-            RouteController = new RouteController();
-            selectedAppointment = TourAppointmentController.GetOne(tourAppId);
-            //SelectedRoute = Ticket.TourAppointment.Route;
-            //SelectedRoute = RouteController.GetOne(routeId);
             Guest2Controller = new Guest2Controller();
+            RouteController = new RouteController();
+
+            selectedAppointment = TourAppointmentController.GetOne(tourAppId);
+            selectedRoute = RouteController.GetOne(tourId);
             Guest2 = Guest2Controller.GetOne(username);
             Ticket = TicketController.GetGuest2Ticket(Guest2, selectedAppointment);
 
             // transfer to Route -> StopsList
             StopsList = new List<string>();
-            //foreach (string stop in selectedAppointment.Route.StopsList)
-            for (int i = 0; i < selectedAppointment.Route.StopsList.Count(); i++ )
+            //StopsList = selectedAppointment.Route.StopsList;
+            foreach (string stop in selectedAppointment.Route.StopsList)
+            //for (int i = 0; i < selectedAppointment.Route.StopsList.Count(); i++ )
             {
-                StopsList.Add(selectedAppointment.Route.StopsList[i].Trim());
+                StopsList.Add(stop.Trim());
+                //StopsList.Add(selectedAppointment.Route.StopsList[i].Trim());
             }
-
             //StopsList.RemoveAt(StopsList.Count()); // Guest can't chose Finish stop to join the Route
 
             AvailableTickets = GetAvailableTickets();
             if (AvailableTickets <= 0)
                 AvailableTickets = Ticket.NumberOfGuests;
-            
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -77,7 +77,7 @@ namespace ProjectTourism.View.Guest2View.TicketView
         {
             throw new NotImplementedException();
         }
-
+        
         private void UpdateTicket(object sender, RoutedEventArgs e)
         {
             TicketController.Update(Ticket);
@@ -110,10 +110,20 @@ namespace ProjectTourism.View.Guest2View.TicketView
             */
             return selectedAppointment.AvailableSeats;
         }
-
+        // doesn't work, finds newSelected appointment but can't change selectedAppointment
+        /*
         private void DatesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //Ticket.TourAppointment.TourDateTime = Route.dates[DatesComboBox.SelectedIndex];
-        }
+            DateTime date = selectedAppointment.Route.dates[DatesComboBox.SelectedIndex];
+            TourAppointment newSelected = TourAppointmentController.GetByDate(date);
+            //selectedAppointment = newSelected;
+            //selectedAppointment.Id = newSelected.Id;
+            selectedAppointment = TourAppointmentController.GetOne(newSelected.Id);
+
+            //selectedAppointment = selectedAppointment;
+            //Ticket = TicketController.GetGuest2Ticket(Guest2, selectedAppointment);
+            TicketController.Update(Ticket);
+            //TicketController.ChangeAppointment(Ticket);
+        }*/
     }
 }
