@@ -61,8 +61,6 @@ namespace ProjectTourism.View.Guest2View
 
             StopsList.RemoveAt(StopsList.Count() - 1); // Guest can't chose Finish stop to join the Route
 
-            AvailableTickets = GetAvailableTickets();
-
             // no available tickets, temp solution
             // should give suggestion for route that has available seats and same location
             if (AvailableTickets <= 0)
@@ -94,6 +92,7 @@ namespace ProjectTourism.View.Guest2View
         {
             Ticket ticket = new Ticket(selectedAppointment.Id, Ticket.RouteStop, Guest2.Username, Ticket.NumberOfGuests);
             TicketController.Add(ticket);
+            TourAppointmentController.UpdateAppointmentCreate(selectedAppointment.Id, Ticket);
             Close();
         }
 
@@ -102,32 +101,10 @@ namespace ProjectTourism.View.Guest2View
             Ticket.RouteStop = StopsList[StopsComboBox.SelectedIndex];
         }
 
-        public int? GetAvailableTickets()
-        {/*
-            List<Ticket> available = TicketController.GetByAppointment(Ticket.TourAppointment);
-            int? availableCount = SelectedRoute.MaxNumberOfGuests;
-
-            if (availableCount != null)
-            {
-                availableCount = availableCount.Value;
-                foreach (Ticket ticket in available)
-                {
-                    availableCount = availableCount - ticket.NumberOfGuests;
-                }
-
-                if (availableCount >= 1) return availableCount.Value;
-                return -1;
-            }
-            
-            return -1;*/
-            return SelectedRoute.MaxNumberOfGuests;
-        }
-
         private void DatesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DateTime date = SelectedRoute.dates[DatesComboBox.SelectedIndex];
-            //TourAppointment newSelected = TourAppointmentController.GetByDate(date);
-            selectedAppointment = TourAppointmentController.GetByDate(date);
+            selectedAppointment = TourAppointmentController.GetByDate(SelectedRoute.Id, date);
         }
     }
 }

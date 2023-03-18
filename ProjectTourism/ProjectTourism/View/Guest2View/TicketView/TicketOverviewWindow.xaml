@@ -51,16 +51,20 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" >
-                                <Label Content="{Binding Path=Route.Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
+                                <Label Content="{Binding Path=TourAppointment.Route.Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                    <Label Content="Name :" Margin="0,0,-7,-7" ></Label>
+                                    <Label Content="{Binding Path=TourAppointment.Route.Name}" Margin="0,0,0,-7"></Label>
+                                </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
                                     <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Content="{Binding Path=Route.Location.Country}" Margin="0,0,0,-7"></Label>
+                                    <Label Content="{Binding Path=TourAppointment.Route.Location.Country}" Margin="0,0,0,-7"></Label>
                                     <Label Content="," Margin="0,0,0,-7"></Label>
-                                    <Label Content="{Binding Path=Route.Location.City}" Margin="0,0,0,-7"></Label>
+                                    <Label Content="{Binding Path=TourAppointment.Route.Location.City}" Margin="0,0,0,-7"></Label>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
                                     <Label Content="Language :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Content="{Binding Path=Route.Language}" Margin="0,0,0,-7"></Label>
+                                    <Label Content="{Binding Path=TourAppointment.Route.Language}" Margin="0,0,0,-7"></Label>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
                                     <Label Content="Number of Tickets :" Margin="0,0,-7,-7" ></Label>

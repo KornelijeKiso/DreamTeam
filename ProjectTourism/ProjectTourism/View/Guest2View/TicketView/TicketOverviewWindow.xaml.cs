@@ -63,6 +63,7 @@ namespace ProjectTourism.View.Guest2View.TicketView
                 if (result == MessageBoxResult.Yes)
                 {
                     TicketController.Delete(SelectedTicket);
+                    TourAppointmentController.UpdateAppointmentReturn(SelectedTicket.TourAppointmentId, SelectedTicket);
                     UpdateTicketsList();
                 }
                 else
@@ -93,7 +94,6 @@ namespace ProjectTourism.View.Guest2View.TicketView
                 UpdateTicketWindow updateTicketWindow = new UpdateTicketWindow(Guest.Username, SelectedTicket.TourAppointmentId, SelectedTicket.TourAppointment.Route.Id);
                 updateTicketWindow.ShowDialog();
                 TicketController = updateTicketWindow.TicketController;
-                TicketController.Update(SelectedTicket);
                 SelectedTicket = updateTicketWindow.Ticket;           
                 UpdateTicketsList();
             }

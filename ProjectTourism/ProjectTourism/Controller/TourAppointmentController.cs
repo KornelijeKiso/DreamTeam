@@ -13,7 +13,7 @@ namespace ProjectTourism.Controller
     {
         public TourAppointmentDAO TourAppointmentDAO { get; set; }
         public TourAppointmentController()
-        { 
+        {
             TourAppointmentDAO = new TourAppointmentDAO();
         }
 
@@ -34,6 +34,21 @@ namespace ProjectTourism.Controller
             return TourAppointmentDAO.GetGuests(tickets);
         }
 
+        public void UpdateAppointmentCreate(int tourAppointmentId, Ticket ticket)
+        {
+            TourAppointmentDAO.UpdateAppointmentCreate(tourAppointmentId, ticket);
+        }
+
+        public void UpdateAppointmentReturn(int tourAppointmentId, Ticket ReturnedTicket)
+        {
+            TourAppointmentDAO.UpdateAppointmentReturn(tourAppointmentId, ReturnedTicket);
+        }
+
+        public void UpdateAppointmentUpdate(int tourAppointmentId, Ticket ReturnedTicket)
+        {
+            TourAppointmentDAO.UpdateAppointmentUpdate(tourAppointmentId, ReturnedTicket);
+        }
+
         public void Add(TourAppointment addedTourApp)
         {
             TourAppointmentDAO.Add(addedTourApp);
@@ -48,9 +63,9 @@ namespace ProjectTourism.Controller
             return TourAppointmentDAO.GetOne(id);
         }
 
-        public TourAppointment GetByDate(DateTime date)
+        public TourAppointment GetByDate(int tourId, DateTime date)
         {
-            return TourAppointmentDAO.GetByDate(date);
+            return TourAppointmentDAO.GetByDate(tourId, date);
         }
 
         public List<TourAppointment> GetAll()

@@ -50,6 +50,8 @@ namespace ProjectTourism.View.Guest2View.TicketView
             Guest2 = Guest2Controller.GetOne(username);
             Ticket = TicketController.GetGuest2Ticket(Guest2, selectedAppointment);
 
+            AvailableTickets = selectedAppointment.AvailableSeats + Ticket.NumberOfGuests;
+
             // transfer to Route -> StopsList
             StopsList = new List<string>();
             //StopsList = selectedAppointment.Route.StopsList;
@@ -61,7 +63,6 @@ namespace ProjectTourism.View.Guest2View.TicketView
             }
             //StopsList.RemoveAt(StopsList.Count()); // Guest can't chose Finish stop to join the Route
 
-            AvailableTickets = GetAvailableTickets();
             if (AvailableTickets <= 0)
                 AvailableTickets = Ticket.NumberOfGuests;
         }
@@ -81,6 +82,7 @@ namespace ProjectTourism.View.Guest2View.TicketView
         private void UpdateTicket(object sender, RoutedEventArgs e)
         {
             TicketController.Update(Ticket);
+            TourAppointmentController.UpdateAppointmentUpdate(selectedAppointment.Id, Ticket);
             Close();
         }
 
@@ -89,27 +91,6 @@ namespace ProjectTourism.View.Guest2View.TicketView
             Ticket.RouteStop = StopsList[StopsComboBox.SelectedIndex];
         }
 
-        public int? GetAvailableTickets()
-        {
-            /*
-            List<Ticket> available = TicketController.GetByAppointment(Ticket.TourAppointment);
-            int? availableCount = SelectedRoute.MaxNumberOfGuests;
-
-            if (availableCount != null)
-            {
-                availableCount = availableCount.Value;
-                foreach (Ticket ticket in available)
-                {
-                    if (ticket.Id != Ticket.Id) // doesn't count for selected Ticket that should be updated
-                        availableCount = availableCount - ticket.NumberOfGuests;
-                }
-
-                if (availableCount >= 1) return availableCount.Value;
-                return -1;
-            }
-            */
-            return selectedAppointment.AvailableSeats;
-        }
         // doesn't work, finds newSelected appointment but can't change selectedAppointment
         /*
         private void DatesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
