@@ -139,11 +139,11 @@ namespace ProjectTourism.ModelDAO
             TourAppointment TourAppointment = tourAppointmentDAO.GetOne(tourAppId);
 
             Ticket ticket = GetOne(ticketId);
-            if (TourAppointment.CurrentTourStop.Equals(ticket.TourStop))
+            if (TourAppointment.CurrentTourStop.Equals(ticket.TourStop) && TourAppointment.State == TOURSTATE.STARTED)
                 ticket.HasGuideChecked = true;
 
-            if (TourAppointment.CurrentTourStop.Equals(TourAppointment.Tour.Finish)) //This is a situation where guests confirmed their arrival at the last stop
-                ticket.HasGuestConfirmed = true;
+            //if (TourAppointment.CurrentTourStop.Equals(TourAppointment.Tour.Finish)) //This is a situation where guests confirmed their arrival at the last stop
+            //    ticket.HasGuestConfirmed = true;
 
             FileHandler.Save(Tickets);
             NotifyObservers();

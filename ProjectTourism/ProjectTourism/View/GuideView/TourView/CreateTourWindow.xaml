@@ -76,8 +76,8 @@
 
 
             <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path = Tour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path = NewLocation.Country}" Margin="0,8,0,8"/>
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path = NewLocation.City}" Margin="0,8,0,8"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path = NewLocation.Country, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path = NewLocation.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>
             <ComboBox Grid.Row="3" Grid.Column="1" Text="{Binding Path = Tour.Language}" x:Name="LanguageComboBox" SelectionChanged="LanguageComboBox_SelectionChanged" Margin="0,8,100,8"/>
             <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path = Tour.MaxNumberOfGuests, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>
             <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path = Tour.Start, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" TextChanged="TextBox_TextChanged" Margin="0,8,0,8"/>

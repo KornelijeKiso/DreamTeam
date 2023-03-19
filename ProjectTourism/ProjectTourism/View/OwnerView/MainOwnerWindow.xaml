@@ -130,10 +130,10 @@
                 
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="100" Binding="{Binding Accommodation.Name}" Foreground="Black"/>
+                <DataGridTextColumn Header="Name" Width="130" Binding="{Binding Accommodation.Name}" Foreground="Black"/>
                 <DataGridTextColumn Header="Start" Width="80" Binding="{Binding StartDate}" Foreground="Black"/>
                 <DataGridTextColumn Header="End" Width="80" Binding="{Binding EndDate}" Foreground="Black"/>
-                <DataGridTextColumn Header="Guest" Width="135" Binding="{Binding Guest1.FirstName}" Foreground="Black"/>
+                <DataGridTextColumn Header="Guest" Width="105" Binding="{Binding Guest1.FirstName}" Foreground="Black"/>
                 <DataGridTextColumn Header="Graded" Width="60" Binding="{Binding Graded}" Foreground="Black"/>
                 <DataGridTextColumn Header="Grading deadline" Width="120" Binding="{Binding GradingDeadlineMessage}" Foreground="Black"/>
                 <DataGridTemplateColumn Width="103" x:Name="Buttons">
