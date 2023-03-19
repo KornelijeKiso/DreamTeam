@@ -49,7 +49,12 @@ namespace ProjectTourism.View.GuideView.TourView
             TicketStatusButtonColor();
 
             if (TourStarted())
+            {
                 StopPassedButton.Content = "Stop passed";
+                EmergencyStopButton.IsEnabled = true;
+            }
+            else
+                EmergencyStopButton.IsEnabled = false;
         }
 
         private bool TourStarted()
@@ -106,7 +111,8 @@ namespace ProjectTourism.View.GuideView.TourView
         }
         private void StopPassedButton_Click(object sender, RoutedEventArgs e)
         {
-            if(!TourAppointment.Tour.Guide.HasTourStarted || TourAppointment.State == TOURSTATE.STARTED)
+
+            if (!TourAppointment.Tour.Guide.HasTourStarted || TourAppointment.State == TOURSTATE.STARTED)
             {
                 NextStop(TourAppointment);
                 if (IsLastStop(TourAppointment))
@@ -117,7 +123,17 @@ namespace ProjectTourism.View.GuideView.TourView
                 MessageBox.Show("Guide has already started a tour!");
                 Close();
             }
+            EmergencyButtonEnableStatus();
         }
+
+        private void EmergencyButtonEnableStatus()
+        {
+            if (TourStarted())
+                EmergencyStopButton.IsEnabled = true;
+            else
+                EmergencyStopButton.IsEnabled = false;
+        }
+
         private void EmergencyStopButton_Click(object sender, RoutedEventArgs e)
         {
             TourAppointment.State = TOURSTATE.STOPPED;
