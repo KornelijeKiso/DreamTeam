@@ -1,10 +1,18 @@
-0|0|jel|14|c|False|False
-1|1|jel|5|e|False|False
-2|5|jel|5|aaa|False|False
-3|7|jel|3|c|False|True
-4|6|jel|5|b|False|True
-5|6|pera|5|b|False|True
-6|6|mika|5|c|False|True
-7|4|jel|25|aa|True|False
-8|4|pera|20|aa|True|False
-9|3|mika|45|cc|False|False
+0|1|jel|15|Machame|False|False
+1|0|jel|25|Moshi|False|False
+2|3|jel|5|Nevesinje Center|False|False
+3|5|jel|30|WaterBelgrade|False|False
+4|8|jel|2|Lion and Cheetah Park|False|False
+5|12|jel|22|Sarajevo center|False|False
+6|15|jel|14|the Acropolis|False|False
+7|17|jel|6|the Acropolis|False|False
+8|0|pera|10|Rongai|False|False
+9|3|pera|4|Nevesinje Center|False|False
+10|5|pera|33|Soko station|False|False
+11|8|pera|13|Harare Center|False|False
+12|15|pera|24|the Acropolis|False|False
+13|12|pera|5|Sarajevo center|False|False
+14|0|mika|8|Marangu|False|False
+15|3|mika|9|Nevesinje Center|False|False
+16|14|mika|15|Sarajevo center|False|False
+17|15|mika|8|Erechtheum|False|False
