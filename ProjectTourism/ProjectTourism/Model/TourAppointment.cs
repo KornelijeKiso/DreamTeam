@@ -47,42 +47,42 @@ namespace ProjectTourism.Model
         }
 
 
-        private string _CurrentRouteStop;
+        private string _CurrentTourStop;
         public string CurrentTourStop
         {
-            get => _CurrentRouteStop;
+            get => _CurrentTourStop;
             set
             {
-                if (value != _CurrentRouteStop)
+                if (value != _CurrentTourStop)
                 {
-                    _CurrentRouteStop = value;
+                    _CurrentTourStop = value;
                     OnPropertyChanged();
                 }
             }
         }
-        private int _RouteId;
+        private int _TourId;
         public int TourId
         {
-            get => _RouteId;
+            get => _TourId;
             set
             {
-                if (_RouteId != value)
+                if (_TourId != value)
                 {
-                    _RouteId = value;
+                    _TourId = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        private Route _Route;
-        public Route Route
+        private Tour _Tour;
+        public Tour Tour
         {
-            get => _Route;
+            get => _Tour;
             set
             {
-                if (_Route != value)
+                if (_Tour != value)
                 {
-                    _Route = value;
+                    _Tour = value;
                     OnPropertyChanged();
                 }
             }
@@ -146,39 +146,20 @@ namespace ProjectTourism.Model
         public TourAppointment()
         { 
             Tickets = new List<Ticket>();
-            //IsNotFinished = true;
-            //State = TOURSTATE.READY; 
         }
 
-        public TourAppointment(DateTime tourDateTime, int tourId, Route route)
+        public TourAppointment(DateTime tourDateTime, int tourId, Tour route)
         {
             TourDateTime = tourDateTime;
             TourId = tourId;
-            Route = route;
+            Tour = route;
 
-            CurrentTourStop = Route.Start;
-            AvailableSeats = Route.MaxNumberOfGuests;
+            CurrentTourStop = Tour.Start;
+            AvailableSeats = Tour.MaxNumberOfGuests;
             IsNotFinished = true;
             State = TOURSTATE.READY;
             Tickets = new List<Ticket>();
         }
-
-        /*public TourAppointment(int id, DateTime tourDateTime, int tourId)
-        {
-            Id = id;
-            TourDateTime = tourDateTime;
-            TourId = tourId;
-            
-            RouteDAO tourDAO = new RouteDAO();
-            Route = tourDAO.GetOne(tourId);
-            CurrentTourStop = Route.Start;
-            AvailableSeats = Route.MaxNumberOfGuests;
-            IsNotFinished = true;
-            State = TOURSTATE.READY;
-            Tickets = new List<Ticket>();
-            HasGuestConfirmed = new List<bool>();
-            HasGuideChecked = new List<bool>();
-        }*/
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -223,8 +204,8 @@ namespace ProjectTourism.Model
                     { State = TOURSTATE.READY; IsNotFinished = true; break; }
             }
 
-            RouteDAO routeDAO = new RouteDAO();
-            Route = routeDAO.GetOne(TourId);
+            TourDAO routeDAO = new TourDAO();
+            Tour = routeDAO.GetOne(TourId);
         }
     }
 }

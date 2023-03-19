@@ -1,10 +1,10 @@
 0|0|jel|14|c|False|False
 1|1|jel|5|e|False|False
 2|5|jel|5|aaa|False|False
-3|7|jel|3|c|False|False
-4|6|jel|5|b|False|False
-5|6|pera|5|b|False|False
-6|6|mika|5|c|False|False
-7|4|jel|25|aa|False|False
-8|4|pera|20|aa|False|False
+3|7|jel|3|c|False|True
+4|6|jel|5|b|False|True
+5|6|pera|5|b|False|True
+6|6|mika|5|c|False|True
+7|4|jel|25|aa|True|False
+8|4|pera|20|aa|True|False
 9|3|mika|45|cc|False|False

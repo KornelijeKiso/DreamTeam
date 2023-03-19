@@ -17,8 +17,8 @@ using ProjectTourism.Controller;
 using ProjectTourism.Model;
 using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
-using ProjectTourism.View.GuideView.RouteView;
-using ProjectTourism.View.RouteView;
+using ProjectTourism.View.GuideView.TourView;
+using ProjectTourism.View.TourView;
 
 namespace ProjectTourism.View.GuideView
 {

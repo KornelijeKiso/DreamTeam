@@ -29,17 +29,17 @@
             <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
 
-        <Label x:Name="Name" Content="Route Name" 
+        <Label x:Name="Name" Content="Tour Name" 
                HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="120" Margin="20 0 0 0"
                Grid.Row="1" Grid.Column="1"
         />
-        <Label x:Name="Description" Content="Route Description" 
+        <Label x:Name="Description" Content="Tour Description" 
                HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="120" Margin="20 0 0 0"
                Grid.Row="2" Grid.Column="1"
         />
-        <Label x:Name="Location" Content="Route Location" 
+        <Label x:Name="Location" Content="Tour Location" 
                HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="120" Margin="20 0 0 0"
                Grid.Row="3" Grid.Column="1"
@@ -71,28 +71,28 @@
         />
 
         <TextBox 
-            Text = "{Binding Path=SelectedRoute.Name}"
+            Text = "{Binding Path=SelectedTour.Name}"
             TextWrapping="Wrap"
             HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="200" IsReadOnly="True"
                Grid.Row="1" Grid.Column="2" 
         />
         <TextBox 
-            Text = "{Binding Path=SelectedRoute.Description}"
+            Text = "{Binding Path=SelectedTour.Description}"
             TextWrapping="Wrap"
             HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="50" Width="200" IsReadOnly="True"
                Grid.Row="2" Grid.Column="2" 
         />
         <TextBox 
-            Text = "{Binding Path=SelectedRoute.Location.City}"
+            Text = "{Binding Path=SelectedTour.Location.City}"
             TextWrapping="Wrap"
             HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="200" IsReadOnly="True"
                Grid.Row="3" Grid.Column="2" 
         />
         <TextBox 
-            Text = "{Binding Path=SelectedRoute.Language}"
+            Text = "{Binding Path=SelectedTour.Language}"
             TextWrapping="Wrap"
             HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="200" IsReadOnly="True"
@@ -128,7 +128,7 @@
                Grid.Row="7" Grid.Column="2" >
         </ComboBox>
         <TextBox 
-            Text = "{Binding Path=SelectedRoute.Finish}"
+            Text = "{Binding Path=SelectedTour.Finish}"
             TextWrapping="Wrap"
             HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="200" IsReadOnly="True"

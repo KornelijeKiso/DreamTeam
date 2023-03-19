@@ -41,29 +41,29 @@ namespace ProjectTourism.Model
             }
         }
         
-        private int _RouteId;
-        public int RouteId
+        private int _TourId;
+        public int TourId
         {
-            get => _RouteId;
+            get => _TourId;
             set
             {
-                if (value != _RouteId)
+                if (value != _TourId)
                 {
-                    _RouteId = value;
+                    _TourId = value;
                     OnPropertyChanged();
                 }
             }
         }
 
-        private Route _Route;
-        public Route Route
+        private Tour _Tour;
+        public Tour Tour
         {
-            get => _Route;
+            get => _Tour;
             set
             {
-                if (value != _Route)
+                if (value != _Tour)
                 {
-                    _Route = value;
+                    _Tour = value;
                     OnPropertyChanged();
                 }
             }
@@ -97,15 +97,15 @@ namespace ProjectTourism.Model
             }
         }
 
-        private string _RouteStop;
-        public string RouteStop
+        private string _TourStop;
+        public string TourStop
         {
-            get => _RouteStop;
+            get => _TourStop;
             set
             {
-                if (value != _RouteStop)
+                if (value != _TourStop)
                 {
-                    _RouteStop = value;
+                    _TourStop = value;
                     OnPropertyChanged();
                 }
             }
@@ -183,13 +183,13 @@ namespace ProjectTourism.Model
         public Ticket()
         {  }
 
-        public Ticket(int id, int tourAppId, string RouteStop, string guest2Username, int numberOfGuests)
+        public Ticket(int id, int tourAppId, string tourStop, string guest2Username, int numberOfGuests)
         {
             Id = id;
             TourAppointmentId = tourAppId;
             TourAppointmentDAO tourAppointmentDAO = new TourAppointmentDAO();
             TourAppointment = tourAppointmentDAO.GetOne(tourAppId);
-            this.RouteStop = RouteStop;
+            this.TourStop = tourStop;
             Guest2Username = guest2Username;
             Guest2 = FindGuest2(guest2Username);
             NumberOfGuests = numberOfGuests;
@@ -197,12 +197,12 @@ namespace ProjectTourism.Model
             HasGuestConfirmed = false;
         }
 
-        public Ticket(int tourAppId, string RouteStop, string guest2Username, int numberOfGuests)
+        public Ticket(int tourAppId, string tourStop, string guest2Username, int numberOfGuests)
         {
             TourAppointmentId = tourAppId;
             TourAppointmentDAO tourAppointmentDAO = new TourAppointmentDAO();
             TourAppointment = tourAppointmentDAO.GetOne(tourAppId);
-            this.RouteStop = RouteStop;
+            this.TourStop = tourStop;
             Guest2Username = guest2Username;
             Guest2 = FindGuest2(guest2Username);
             NumberOfGuests = numberOfGuests;
@@ -225,7 +225,7 @@ namespace ProjectTourism.Model
         {
             ticket.TourAppointment.Tickets.Add(ticket);
 
-            if (ticket.TourAppointment.CurrentTourStop.Equals(ticket.RouteStop))
+            if (ticket.TourAppointment.CurrentTourStop.Equals(ticket.TourStop))
                 ticket.HasGuideChecked = true;
             else ticket.HasGuideChecked = false; 
         }
@@ -238,7 +238,7 @@ namespace ProjectTourism.Model
                 TourAppointmentId.ToString(),
                 Guest2Username,
                 NumberOfGuests.ToString(),
-                RouteStop,
+                TourStop,
                 HasGuideChecked.ToString(),
                 HasGuestConfirmed.ToString()
             };
@@ -252,7 +252,7 @@ namespace ProjectTourism.Model
             TourAppointment = FindTourAppointment(TourAppointmentId);
             Guest2Username = values[2];
             NumberOfGuests = int.Parse(values[3]);
-            RouteStop = values[4];
+            TourStop = values[4];
             HasGuideChecked = bool.Parse(values[5]);
             HasGuestConfirmed= bool.Parse(values[6]);
 

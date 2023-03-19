@@ -28,8 +28,8 @@ namespace ProjectTourism.View.Guest2View.TicketView
         public TicketController TicketController { get; set; }
         public TourAppointmentController TourAppointmentController { get; set; }
         public TourAppointment selectedAppointment { get; set; }
-        public Route selectedRoute { get; set; }
-        public RouteController RouteController { get; set; }
+        public Tour selectedTour { get; set; }
+        public TourController TourController { get; set; }
         public Guest2 Guest2 { get; set; }
         public Guest2Controller Guest2Controller { get; set; }
         public List<string> StopsList { get; set; }
@@ -41,22 +41,22 @@ namespace ProjectTourism.View.Guest2View.TicketView
             TicketController = new TicketController();
             TourAppointmentController = new TourAppointmentController();
             Guest2Controller = new Guest2Controller();
-            RouteController = new RouteController();
+            TourController = new TourController();
 
             selectedAppointment = TourAppointmentController.GetOne(tourAppId);
-            selectedRoute = RouteController.GetOne(tourId);
+            selectedTour = TourController.GetOne(tourId);
             Guest2 = Guest2Controller.GetOne(username);
             Ticket = TicketController.GetGuest2Ticket(Guest2, selectedAppointment);
 
             slider.Maximum = selectedAppointment.AvailableSeats + Ticket.NumberOfGuests;
 
-            // transfer to Route -> StopsList
+            // transfer to Tour -> StopsList
             StopsList = new List<string>();
-            foreach (string stop in selectedRoute.StopsList)
+            foreach (string stop in selectedTour.StopsList)
             {
                 StopsList.Add(stop.Trim());
             }
-            StopsList.RemoveAt(StopsList.Count() - 1);  // Guest can't chose Finish stop to join the Route
+            StopsList.RemoveAt(StopsList.Count() - 1);  // Guest can't chose Finish stop to join the Tour
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -80,14 +80,14 @@ namespace ProjectTourism.View.Guest2View.TicketView
 
         private void StopsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Ticket.RouteStop = StopsList[StopsComboBox.SelectedIndex];
+            Ticket.TourStop = StopsList[StopsComboBox.SelectedIndex];
         }
 
         // doesn't work, finds newSelected appointment but can't change selectedAppointment
         /*
         private void DatesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DateTime date = selectedAppointment.Route.dates[DatesComboBox.SelectedIndex];
+            DateTime date = selectedAppointment.Tour.dates[DatesComboBox.SelectedIndex];
             TourAppointment newSelected = TourAppointmentController.GetByDate(date);
             //selectedAppointment = newSelected;
             //selectedAppointment.Id = newSelected.Id;

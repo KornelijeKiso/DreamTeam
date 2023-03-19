@@ -49,7 +49,7 @@ namespace ProjectTourism.ModelDAO
             updated.TourAppointmentId = ticket.TourAppointmentId;
             updated.Guest2Username = ticket.Guest2Username;
             updated.NumberOfGuests = ticket.NumberOfGuests;
-            updated.RouteStop = ticket.RouteStop;
+            updated.TourStop = ticket.TourStop;
 
             //Delete(GetOne(ticket.Id));
             //Add(updated);
@@ -139,10 +139,10 @@ namespace ProjectTourism.ModelDAO
             TourAppointment TourAppointment = tourAppointmentDAO.GetOne(tourAppId);
 
             Ticket ticket = GetOne(ticketId);
-            if (TourAppointment.CurrentTourStop.Equals(ticket.RouteStop))
+            if (TourAppointment.CurrentTourStop.Equals(ticket.TourStop))
                 ticket.HasGuideChecked = true;
 
-            if (TourAppointment.CurrentTourStop.Equals(TourAppointment.Route.Finish)) //This is a situation where guests confirmed their arrival at the last stop
+            if (TourAppointment.CurrentTourStop.Equals(TourAppointment.Tour.Finish)) //This is a situation where guests confirmed their arrival at the last stop
                 ticket.HasGuestConfirmed = true;
 
             FileHandler.Save(Tickets);

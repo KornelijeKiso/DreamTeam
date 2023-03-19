@@ -17,16 +17,16 @@ using ProjectTourism.Controller;
 using ProjectTourism.Model;
 using ProjectTourism.Observer;
 
-namespace ProjectTourism.View.GuideView.RouteView
+namespace ProjectTourism.View.GuideView.TourView
 {
     /// <summary>
-    /// Interaction logic for TrackRoutesWindow.xaml
+    /// Interaction logic for TrackToursWindow.xaml
     /// </summary>
     public partial class ViewAllToursWindow : Window, INotifyPropertyChanged, IObserver
     {
         public Guide Guide { get; set; }
-        public ObservableCollection<Route> Routes { get; set; }
-        public Route SelectedRoute { get; set; }
+        public ObservableCollection<Tour> Tours { get; set; }
+        public Tour SelectedTour { get; set; }
         public GuideController GuideController { get; set; }
 
         public ViewAllToursWindow(string username)
@@ -35,14 +35,14 @@ namespace ProjectTourism.View.GuideView.RouteView
             DataContext = this;
             GuideController = new GuideController();
             Guide = GuideController.GetOne(username);
-            Routes = new ObservableCollection<Route>(GuideController.GetGuidesRoutes(username));
+            Tours = new ObservableCollection<Tour>(GuideController.GetGuidesTours(username));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public void Update()
         {
-            throw new NotImplementedException();
+
         }
     }
 }

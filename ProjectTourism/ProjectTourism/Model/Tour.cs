@@ -17,7 +17,7 @@ using ProjectTourism.ModelDAO;
 
 namespace ProjectTourism.Model
 {
-    public class Route : Serializable, INotifyPropertyChanged, IDataErrorInfo
+    public class Tour : Serializable, INotifyPropertyChanged, IDataErrorInfo
     {
         public int Id;
         private string? _Name;
@@ -224,14 +224,14 @@ namespace ProjectTourism.Model
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public Route()
+        public Tour()
         {
             StopsList = new List<string>();
 
         }
 
 
-        public Route(string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
+        public Tour(string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
         {
             Name = name;
             Location = location;
@@ -250,7 +250,7 @@ namespace ProjectTourism.Model
 
             dates = new List<DateTime>();           
         }
-        public Route(int id, string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
+        public Tour(int id, string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
         {
             Id = id;
             Name = name;

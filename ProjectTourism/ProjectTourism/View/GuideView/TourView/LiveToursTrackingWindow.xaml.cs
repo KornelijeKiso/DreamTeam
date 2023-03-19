@@ -18,7 +18,7 @@ using ProjectTourism.Controller;
 using ProjectTourism.Model;
 using ProjectTourism.Observer;
 
-namespace ProjectTourism.View.GuideView.RouteView
+namespace ProjectTourism.View.GuideView.TourView
 {
     /// <summary>
     /// Interaction logic for LiveToursTrackingWindow.xaml
@@ -49,7 +49,7 @@ namespace ProjectTourism.View.GuideView.RouteView
             throw new NotImplementedException();
         }
 
-        private void StartRouteButton_Click(object sender, RoutedEventArgs e)
+        private void StartTourButton_Click(object sender, RoutedEventArgs e)
         {
             if (SelectedTourAppointment != null)
             {

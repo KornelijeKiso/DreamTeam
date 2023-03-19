@@ -9,58 +9,58 @@ using ProjectTourism.Observer;
 
 namespace ProjectTourism.ModelDAO
 {
-    public class RouteDAO
+    public class TourDAO
     {
         public List<IObserver> Observers;
-        public RouteFileHandler RouteFileHandler { get; set; }
-        public List<Route> Routes { get; set; }
-        public RouteDAO()
+        public TourFileHandler TourFileHandler { get; set; }
+        public List<Tour> Tours { get; set; }
+        public TourDAO()
         {
-            RouteFileHandler = new RouteFileHandler();
-            Routes = RouteFileHandler.Load();
+            TourFileHandler = new TourFileHandler();
+            Tours = TourFileHandler.Load();
             Observers = new List<IObserver>();
         }
 
         public int GenerateId()
         {
-            if(Routes.Count == 0) return 0;
-            return Routes.Last<Route>().Id + 1;
+            if(Tours.Count == 0) return 0;
+            return Tours.Last<Tour>().Id + 1;
         }
-        public void Add(Route addedRoute)
+        public void Add(Tour addedTour)
         {
-            if (addedRoute == null)
+            if (addedTour == null)
             {
-                addedRoute.Id = 0;
+                addedTour.Id = 0;
             }
             else
             {
-                addedRoute.Id = GenerateId();
-                Routes.Add(addedRoute);
-                RouteFileHandler.Save(Routes);
+                addedTour.Id = GenerateId();
+                Tours.Add(addedTour);
+                TourFileHandler.Save(Tours);
             }
         }
 
         
-        public List<Route> GetAll()
+        public List<Tour> GetAll()
         {
-            return Routes;
+            return Tours;
         }
-        public Route? GetOne(int id)
+        public Tour? GetOne(int id)
         {
-            foreach(var route in Routes)
+            foreach(var tour in Tours)
             {
-                if (route.Id == id) return route;
+                if (tour.Id == id) return tour;
             }
             return null;
         }
-        public Route? Identify(Route route)
+        public Tour? Identify(Tour tour)
         {
-            Routes = RouteFileHandler.Load();
-            foreach(var existingRoute in Routes)
+            Tours = TourFileHandler.Load();
+            foreach(var existingTour in Tours)
             {
-                if(existingRoute.Id == route.Id)
+                if(existingTour.Id == tour.Id)
                 {
-                    return existingRoute;
+                    return existingTour;
                 }
             }
             return null;
@@ -83,16 +83,16 @@ namespace ProjectTourism.ModelDAO
             }
         }
 
-        public List<string> GetStops(Route route)
+        public List<string> GetStops(Tour tour)
         {
             List<string> stops = new List<string>();
-            string[] str = route.Stops.Split(',');
+            string[] str = tour.Stops.Split(',');
             foreach (string s in str) 
             {   
                 stops.Add(s.Trim());
             }
-            stops.Insert(0, route.Start);
-            stops.Add(route.Finish);
+            stops.Insert(0, tour.Start);
+            stops.Add(tour.Finish);
             return stops;
         }
     }

@@ -28,35 +28,35 @@ namespace ProjectTourism.View.Guest2View
         public TicketController TicketController { get; set; }
         public TourAppointmentController TourAppointmentController { get; set; }
         public TourAppointment selectedAppointment { get; set; }
-        public Route SelectedRoute { get; set; }
-        public RouteController RouteController { get; set; }
+        public Tour SelectedTour { get; set; }
+        public TourController TourController { get; set; }
         public Guest2 Guest2 { get; set; }
         public Guest2Controller Guest2Controller { get; set; }
         public List<string> StopsList { get; set; }
         public List<DateTime> dates { get; set; }
         
-        public CreateTicketWindow(string username, int routeId)
+        public CreateTicketWindow(string username, int tourId)
         {
             InitializeComponent();
             DataContext = this;
             TicketController = new TicketController();
-            RouteController = new RouteController();
+            TourController = new TourController();
             TourAppointmentController = new TourAppointmentController();
             Guest2Controller = new Guest2Controller();
-            SelectedRoute = RouteController.GetOne(routeId);
+            SelectedTour = TourController.GetOne(tourId);
             Guest2 = Guest2Controller.GetOne(username);
             Ticket = new Ticket();
 
-            // transfer to Route -> StopsList
+            // transfer to Tour -> StopsList
             StopsList = new List<string>();                     
-            foreach (string stop in SelectedRoute.StopsList)
+            foreach (string stop in SelectedTour.StopsList)
             {
                 StopsList.Add(stop.Trim());
             }
-            StopsList.RemoveAt(StopsList.Count() - 1);  // Guest can't chose Finish stop to join the Route
+            StopsList.RemoveAt(StopsList.Count() - 1);  // Guest can't chose Finish stop to join the Tour
 
             // so we can't see dates with no available tickets or one where Guest2 already has ticket
-            dates = FindDates(SelectedRoute.dates);
+            dates = FindDates(SelectedTour.dates);
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -73,7 +73,7 @@ namespace ProjectTourism.View.Guest2View
 
         private void CreateTicket(object sender, RoutedEventArgs e)
         {
-            Ticket ticket = new Ticket(selectedAppointment.Id, Ticket.RouteStop, Guest2.Username, Ticket.NumberOfGuests);
+            Ticket ticket = new Ticket(selectedAppointment.Id, Ticket.TourStop, Guest2.Username, Ticket.NumberOfGuests);
             TicketController.Add(ticket);
             TourAppointmentController.UpdateAppointmentCreate(selectedAppointment.Id, Ticket);
             Close();
@@ -81,7 +81,7 @@ namespace ProjectTourism.View.Guest2View
 
         private void StopsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Ticket.RouteStop = StopsList[StopsComboBox.SelectedIndex];
+            Ticket.TourStop = StopsList[StopsComboBox.SelectedIndex];
         }
 
         private List<DateTime> RemoveDatesWithNoAvailableSeats(List<DateTime> AllDates)
@@ -90,7 +90,7 @@ namespace ProjectTourism.View.Guest2View
             TourAppointment tourAppointment;
             foreach (var date in AllDates)
             {
-                tourAppointment = TourAppointmentController.GetByDate(SelectedRoute.Id, date);
+                tourAppointment = TourAppointmentController.GetByDate(SelectedTour.Id, date);
                 if (tourAppointment.AvailableSeats != 0)
                     NoFreeSeats.Add(date);
             }
@@ -108,7 +108,7 @@ namespace ProjectTourism.View.Guest2View
             List<Ticket> validTicket = new List<Ticket>();
             foreach (var ticket in allGuestsTickets)
             {
-                if (ticket.TourAppointment.State == TOURSTATE.READY && ticket.TourAppointment.TourId == SelectedRoute.Id)
+                if (ticket.TourAppointment.State == TOURSTATE.READY && ticket.TourAppointment.TourId == SelectedTour.Id)
                     validTicket.Add(ticket);
             }
 
@@ -127,17 +127,13 @@ namespace ProjectTourism.View.Guest2View
         {
             List<DateTime> noSeats = RemoveDatesWithNoAvailableSeats(dates);
             List<DateTime> available = RemoveDatesHasTicketsOrInvalidAppointmetn(noSeats);
-            foreach (var date in available)
-            {
-                
-            }
             return available;
         }
 
         private void DatesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DateTime date = dates[DatesComboBox.SelectedIndex];
-            selectedAppointment = TourAppointmentController.GetByDate(SelectedRoute.Id, date);
+            selectedAppointment = TourAppointmentController.GetByDate(SelectedTour.Id, date);
             slider.Maximum = selectedAppointment.AvailableSeats;
         }
     }

@@ -19,17 +19,17 @@ using ProjectTourism.Controller;
 using ProjectTourism.Model;
 using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
-using ProjectTourism.View.GuideView.RouteView;
+using ProjectTourism.View.GuideView.TourView;
 
-namespace ProjectTourism.View.RouteView
+namespace ProjectTourism.View.TourView
 {
     /// <summary>
-    /// Interaction logic for CreateRouteWindow.xaml
+    /// Interaction logic for CreateTourWindow.xaml
     /// </summary>
     public partial class CreateTourWindow : Window, INotifyPropertyChanged, IObserver
     {
-        public Route Route { get; set; }
-        public RouteController RouteController { get; set; }
+        public Tour Tour { get; set; }
+        public TourController TourController { get; set; }
         public Location NewLocation { get; set; }
         public LocationDAO NewLocationDAO { get; set; }
         public List<string> Languages { get; set; }
@@ -41,13 +41,13 @@ namespace ProjectTourism.View.RouteView
         {
             InitializeComponent();
             DataContext = this;
-            Route = new Route();
-            Route.GuideUsername = guide.Username;
-            Route.Guide = guide;
-            Route.dates = new List<DateTime>();
+            Tour = new Tour();
+            Tour.GuideUsername = guide.Username;
+            Tour.Guide = guide;
+            Tour.dates = new List<DateTime>();
 
-            RouteController = new RouteController();
-            RouteController.Subscribe(this);
+            TourController = new TourController();
+            TourController.Subscribe(this);
             NewLocation = new Location();
             NewLocationDAO = new LocationDAO();
             TourAppointmentController = new TourAppointmentController();
@@ -90,27 +90,27 @@ namespace ProjectTourism.View.RouteView
 
         }
 
-        private void AttachRouteImagesButton_Click(object sender, RoutedEventArgs e)
+        private void AttachTourImagesButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
-        private void SaveRoute_Click(object sender, RoutedEventArgs e)
+        private void SaveTour_Click(object sender, RoutedEventArgs e)
         {
-            if (Route.IsValid)
-                AddRoute();
+            if (Tour.IsValid)
+                AddTour();
             else
                 MessageBox.Show("Tour can not be made because the fields were not correctly entered.");
         }
 
-        private void AddRoute()
+        private void AddTour()
         {
             NewLocation.Id = NewLocationDAO.AddAndReturnId(NewLocation);
-            Route.Location = NewLocation;
-            Route.LocationId = NewLocation.Id;
+            Tour.Location = NewLocation;
+            Tour.LocationId = NewLocation.Id;
             SaveDates();
-            RouteController.Add(Route);
-            TourAppointmentController.MakeTourAppointments(Route);
+            TourController.Add(Tour);
+            TourAppointmentController.MakeTourAppointments(Tour);
             Close();
         }
 
@@ -183,7 +183,7 @@ namespace ProjectTourism.View.RouteView
                     appointmentText = appointment.Key.ToString(DateTimeFormatInfo.CurrentInfo.ShortDatePattern) + " ";
                     appointmentText += time.ToString("hh\\:mm");
                     if (DateTime.TryParse(appointmentText, CultureInfo.CurrentCulture.DateTimeFormat, DateTimeStyles.None, out var dateTimeParsed))
-                        Route.dates.Add(dateTimeParsed);
+                        Tour.dates.Add(dateTimeParsed);
                 }
             }
         }

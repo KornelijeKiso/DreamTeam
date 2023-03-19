@@ -30,10 +30,10 @@ namespace ProjectTourism.View.Guest2View
         public UserController UserController { get; set; }
         public Guest2 Guest { get; set; }
         public Guest2Controller GuestController { get; set; }
-        public RouteController RouteController { get; set; }
-        public Route? SelectedRoute { get; set; }
+        public TourController TourController { get; set; }
+        public Tour? SelectedTour { get; set; }
         public TicketController TicketController { get; set; }
-        public ObservableCollection<Route> Routes { get; set; }
+        public ObservableCollection<Tour> Tours { get; set; }
         //public GuideController GuideController { get; set; }
 
         public string searchLocation { get; set; }
@@ -51,8 +51,8 @@ namespace ProjectTourism.View.Guest2View
             GuestController = new Guest2Controller();
             Guest = GuestController.GetOne(username);
             //GuideController = new GuideController();
-            RouteController = new RouteController();
-            Routes = new ObservableCollection<Route>(RouteController.GetAll());
+            TourController = new TourController();
+            Tours = new ObservableCollection<Tour>(TourController.GetAll());
 
             searchLocation = "";
             searchLanguage = "";
@@ -70,124 +70,121 @@ namespace ProjectTourism.View.Guest2View
         }
 
 
-        private void UpdateRoutesList()
+        private void UpdateToursList()
         {
-            Routes.Clear();
-            foreach (Route route in RouteController.GetAll())
+            Tours.Clear();
+            foreach (Tour tour in TourController.GetAll())
             {
-                Routes.Add(route);
+                Tours.Add(tour);
             }
         }
 
         public void Update()
         {
-            UpdateRoutesList();
+            UpdateToursList();
             throw new NotImplementedException();
         }
 
-        public void UpdateRoutesList(List<Route> routes)
+        public void UpdateToursList(List<Tour> tours)
         {
-            Routes.Clear();
-            foreach (Route route in routes)
+            Tours.Clear();
+            foreach (Tour tour in tours)
             {
-                Routes.Add(route);
+                Tours.Add(tour);
             }
         }
 
-        private void SearchLocation(ObservableCollection<Route> routes)
+        private void SearchLocation(ObservableCollection<Tour> tours)
         {
-            List<Route> routesList = new List<Route>();
+            List<Tour> toursList = new List<Tour>();
             if (searchLocation != "")
             {
                 string[] searchQuery = searchLocation.ToLower().Split(',');
                 if (searchQuery.Length == 2)
                 {
-                    foreach (Route r in routes)
+                    foreach (Tour tour in tours)
                     {
-                        if ((r.Location.City.Contains(searchQuery[0].Trim(), StringComparison.OrdinalIgnoreCase)
-                                && r.Location.Country.Contains(searchQuery[1].Trim(), StringComparison.OrdinalIgnoreCase))
-                            || (r.Location.Country.Contains(searchQuery[0].Trim(), StringComparison.OrdinalIgnoreCase)
-                                && r.Location.City.Contains(searchQuery[1].Trim(), StringComparison.OrdinalIgnoreCase))) 
-                                routesList.Add(r);
+                        if ((tour.Location.City.Contains(searchQuery[0].Trim(), StringComparison.OrdinalIgnoreCase)
+                                && tour.Location.Country.Contains(searchQuery[1].Trim(), StringComparison.OrdinalIgnoreCase))
+                            || (tour.Location.Country.Contains(searchQuery[0].Trim(), StringComparison.OrdinalIgnoreCase)
+                                && tour.Location.City.Contains(searchQuery[1].Trim(), StringComparison.OrdinalIgnoreCase))) 
+                                toursList.Add(tour);
                     }
                 }
-                foreach (Route r in routes)
+                foreach (Tour tour in tours)
                 {
-                    if ((r.Location.City.Contains(searchLocation, StringComparison.OrdinalIgnoreCase) 
-                        || (r.Location.Country.Contains(searchLocation, StringComparison.OrdinalIgnoreCase)))   )
-                        routesList.Add(r);
+                    if ((tour.Location.City.Contains(searchLocation, StringComparison.OrdinalIgnoreCase) 
+                        || (tour.Location.Country.Contains(searchLocation, StringComparison.OrdinalIgnoreCase)))   )
+                        toursList.Add(tour);
                 }
-                UpdateRoutesList(routesList);
+                UpdateToursList(toursList);
             }
         }
-        private void SearchLanguage(ObservableCollection<Route> routes)
+        private void SearchLanguage(ObservableCollection<Tour> tours)
         {
-            List<Route> routesList = new List<Route>();
+            List<Tour> toursList = new List<Tour>();
             if (searchLanguage != "")
             {
-                foreach (Route r in routes)
+                foreach (Tour tour in tours)
                 {
-                    if (r.Language.Contains(searchLanguage, StringComparison.OrdinalIgnoreCase))
-                        routesList.Add(r);
+                    if (tour.Language.Contains(searchLanguage, StringComparison.OrdinalIgnoreCase))
+                        toursList.Add(tour);
                 }
-                UpdateRoutesList(routesList);
+                UpdateToursList(toursList);
             }
         }
 
-        private void SearchDuration(ObservableCollection<Route> routes)
+        private void SearchDuration(ObservableCollection<Tour> tours)
         {
-            List<Route> routesList = new List<Route>();
+            List<Tour> toursList = new List<Tour>();
             if (searchDuration != "")
             {
-                foreach (Route r in routes)
+                foreach (Tour tour in tours)
                 {
-                    if (r.Duration.ToString().Contains(searchDuration, StringComparison.OrdinalIgnoreCase))
-                        routesList.Add(r);
+                    if (tour.Duration.ToString().Contains(searchDuration, StringComparison.OrdinalIgnoreCase))
+                        toursList.Add(tour);
                 }
-                UpdateRoutesList(routesList);
+                UpdateToursList(toursList);
             }
         }
 
-        private void SearchMaxNumberOfGuests(ObservableCollection<Route> routes)
+        private void SearchMaxNumberOfGuests(ObservableCollection<Tour> tours)
         {
-            List<Route> routesList = new List<Route>();
+            List<Tour> toursList = new List<Tour>();
             if (searchMaxNumberOfGuests != "")
             {
-                foreach (Route r in routes)
+                foreach (Tour tour in tours)
                 {
-                    if (r.MaxNumberOfGuests.ToString().Contains(searchMaxNumberOfGuests, StringComparison.OrdinalIgnoreCase))
-                        routesList.Add(r);
+                    if (tour.MaxNumberOfGuests.ToString().Contains(searchMaxNumberOfGuests, StringComparison.OrdinalIgnoreCase))
+                        toursList.Add(tour);
                 }
-                UpdateRoutesList(routesList);
+                UpdateToursList(toursList);
             }
         }
 
         private void SearchOne()
         {
-            SearchLocation(Routes);
-            SearchDuration(Routes);
-            SearchLanguage(Routes);
-            SearchMaxNumberOfGuests(Routes);
+            SearchLocation(Tours);
+            SearchDuration(Tours);
+            SearchLanguage(Tours);
+            SearchMaxNumberOfGuests(Tours);
         }
 
         private void SearchClick(object sender, RoutedEventArgs e)
         {
-            UpdateRoutesList(RouteController.GetAll());
+            UpdateToursList(TourController.GetAll());
             SearchOne();
         }
 
         private void BuyTicket(object sender, RoutedEventArgs e)
         {
-            if (SelectedRoute != null)
+            if (SelectedTour != null)
             {
-                //Ticket ticket = TicketController.GetGuest2Ticket(Guest, SelectedRoute);
-
-                //if (ticket == null)
                 {
-                    CreateTicketWindow createTicketWindow = new CreateTicketWindow(Guest.Username, SelectedRoute.Id);
+                    CreateTicketWindow createTicketWindow = new CreateTicketWindow(Guest.Username, SelectedTour.Id);
                     if (createTicketWindow.dates.Count == 0)
                     {
-                        MessageBox.Show("No available seats for this Route.");
+                        MessageBox.Show("No available seats for this Tour.");
                     } else
                         createTicketWindow.ShowDialog();
                 }
@@ -195,7 +192,7 @@ namespace ProjectTourism.View.Guest2View
                 
             }
             else
-                MessageBox.Show("Please select the route.");
+                MessageBox.Show("Please select the tour.");
         }
 
         private void ShowTickets(object sender, RoutedEventArgs e)
@@ -206,7 +203,7 @@ namespace ProjectTourism.View.Guest2View
 
         //private void ResetSearch(object sender, RoutedEventArgs e)
         //{
-        //    UpdateRoutesList(RouteController.GetAll());
+        //    UpdateToursList(TourController.GetAll());
         //    searchLocation = "";
         //    searchLanguage = "";
         //    searchDuration = "";
