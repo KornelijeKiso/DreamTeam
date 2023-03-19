@@ -329,6 +329,7 @@ namespace ProjectTourism.Model
             PictureURLs = values[10];
             GuideUsername = values[11];
             LocationId = int.Parse(values[12]);
+            Guide = FindGuide(GuideUsername);
             Location = FindLocation(LocationId);
             Pictures = GetPictureURLsFromCSV();
         }

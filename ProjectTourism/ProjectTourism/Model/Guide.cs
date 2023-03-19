@@ -23,6 +23,21 @@ namespace ProjectTourism.Model
                 }
             }
         }
+
+        private bool _HasTourStarted;
+        public bool HasTourStarted
+        {
+            get => _HasTourStarted;
+            set
+            {
+                if (_HasTourStarted != value)
+                {
+                    _HasTourStarted = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private string? _Username;
         public string? Username
         {
@@ -97,6 +112,7 @@ namespace ProjectTourism.Model
             Surname = "";
             Biography = "";
             Language = "";
+            HasTourStarted = false;
         }
         public Guide(string username, string name, string surname, string biography, string language)
         {
@@ -106,6 +122,7 @@ namespace ProjectTourism.Model
             Surname = surname;
             Biography = biography;
             Language = language;
+            HasTourStarted = false;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -119,7 +136,7 @@ namespace ProjectTourism.Model
         {
             string?[] csvValues =
             {
-                Username, Name, Surname, Biography, Language
+                Username, Name, Surname, Biography, Language, HasTourStarted.ToString()
             };
             return csvValues;
         }
@@ -131,6 +148,7 @@ namespace ProjectTourism.Model
             Surname = values[2];
             Biography = values[3];
             Language = values[4];
+            HasTourStarted = bool.Parse(values[5]);
         }
     }
 }

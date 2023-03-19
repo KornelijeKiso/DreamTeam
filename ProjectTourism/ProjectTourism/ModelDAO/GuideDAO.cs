@@ -80,6 +80,14 @@ namespace ProjectTourism.ModelDAO
             }
             return appointments;
         }
+
+        public void Update(string username, bool hasTourStarted)
+        {
+            Guide Guide = GetOne(username);
+            Guide.HasTourStarted = hasTourStarted;
+            GuideFileHandler.Save(Guides);
+            NotifyObservers();
+        }
         public void Subscribe(IObserver observer)
         {
             Observers.Add(observer);

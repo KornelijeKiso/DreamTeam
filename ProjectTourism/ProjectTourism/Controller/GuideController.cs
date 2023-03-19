@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectTourism.FileHandler;
 using ProjectTourism.Model;
 using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
@@ -35,6 +36,10 @@ namespace ProjectTourism.Controller
         public void Add(Guide guide)
         {
             GuideDAO.Add(guide);
+        }
+        public void Update(string username, bool hasTourStarted)
+        {
+            GuideDAO.Update(username, hasTourStarted);
         }
         public Guide? Identify(string username)
         {

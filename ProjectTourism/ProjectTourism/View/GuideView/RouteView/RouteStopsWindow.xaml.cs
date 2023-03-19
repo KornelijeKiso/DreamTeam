@@ -31,6 +31,7 @@ namespace ProjectTourism.View.GuideView.RouteView
         public TourAppointmentController TourAppointmentController { get; set; }
         public TourAppointment TourAppointment { get; set; }
         public TicketController TicketController { get; set; }
+        public GuideController GuideController { get; set; }
 
         public ObservableCollection<Ticket> Tickets { get; set; }
         public Ticket SelectedTicket { get; set; }
@@ -43,10 +44,14 @@ namespace ProjectTourism.View.GuideView.RouteView
             TourAppointmentController = new TourAppointmentController();
             TourAppointment = TourAppointmentController.GetOne(id);
             TicketController = new TicketController();
+            GuideController = new GuideController();
             List<Ticket> tickets = TicketController.GetByAppointment(TourAppointment);
             Tickets = new ObservableCollection<Ticket>(tickets);
             
             TicketStatusButtonColor();
+
+            if (TourAppointment.State == TOURSTATE.STARTED)
+                StopPassedButton.Content = "Stop passed";
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -77,6 +82,7 @@ namespace ProjectTourism.View.GuideView.RouteView
             StopPassedButton.Content = "Finish route";
             tour.IsNotFinished = false;
             tour.State = TOURSTATE.FINISHED;
+            GuideController.Update(tour.Route.Guide.Username, false);
             TourAppointmentController.ChangeState(tour);
             StopPassedButton.IsEnabled = false;
             EmergencyStopButton.IsEnabled = false;
@@ -90,14 +96,25 @@ namespace ProjectTourism.View.GuideView.RouteView
             TourAppointmentController.ChangeCurrentStop(tour);
             tour.State = TOURSTATE.STARTED;
             TourAppointmentController.ChangeState(tour);
+            GuideController.Update(tour.Route.Guide.Username, true);
+
             TicketStatusButtonColor();
         }
         private void StopPassedButton_Click(object sender, RoutedEventArgs e)
         {
-            NextStop(TourAppointment);
-            if (IsLastStop(TourAppointment))
+            if(!TourAppointment.Route.Guide.HasTourStarted || TourAppointment.State == TOURSTATE.STARTED)
             {
-                FinishRoute(TourAppointment);
+                
+                NextStop(TourAppointment);
+                if (IsLastStop(TourAppointment))
+                {
+                    FinishRoute(TourAppointment);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Guide has already started a tour!");
+                Close();
             }
         }
         private void EmergencyStopButton_Click(object sender, RoutedEventArgs e)
