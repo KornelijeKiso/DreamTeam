@@ -62,8 +62,8 @@ namespace ProjectTourism.View.Guest2View.TicketView
                 MessageBoxResult result = ConfirmTicketDelete();
                 if (result == MessageBoxResult.Yes)
                 {
-                    TicketController.Delete(SelectedTicket);
                     TourAppointmentController.UpdateAppointmentReturn(SelectedTicket.TourAppointmentId, SelectedTicket);
+                    TicketController.Delete(SelectedTicket);
                     UpdateTicketsList();
                 }
                 else

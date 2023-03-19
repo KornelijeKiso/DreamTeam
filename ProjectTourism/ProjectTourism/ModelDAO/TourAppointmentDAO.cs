@@ -105,8 +105,6 @@ namespace ProjectTourism.ModelDAO
         {
             TourAppointment tourAppointment = GetOne(tourAppointmentId);
             tourAppointment.AvailableSeats += ReturnedTicket.NumberOfGuests;
-            //UpdateAppointmentUpdate(tourAppointmentId, ReturnedTicket);
-            //foreach(var ticket in tourAppointment.Tickets)
             for (int i = 0; i < tourAppointment.Tickets.Count(); i++)
             {
                 if (tourAppointment.Tickets[i].Id == ReturnedTicket.Id)

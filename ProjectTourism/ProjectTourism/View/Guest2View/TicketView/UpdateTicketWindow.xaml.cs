@@ -33,9 +33,7 @@ namespace ProjectTourism.View.Guest2View.TicketView
         public Guest2 Guest2 { get; set; }
         public Guest2Controller Guest2Controller { get; set; }
         public List<string> StopsList { get; set; }
-        public int? AvailableTickets { get; set; }
-
-
+        
         public UpdateTicketWindow(string username, int tourAppId, int tourId)
         {
             InitializeComponent();
@@ -50,21 +48,15 @@ namespace ProjectTourism.View.Guest2View.TicketView
             Guest2 = Guest2Controller.GetOne(username);
             Ticket = TicketController.GetGuest2Ticket(Guest2, selectedAppointment);
 
-            AvailableTickets = selectedAppointment.AvailableSeats + Ticket.NumberOfGuests;
+            slider.Maximum = selectedAppointment.AvailableSeats + Ticket.NumberOfGuests;
 
             // transfer to Route -> StopsList
             StopsList = new List<string>();
-            //StopsList = selectedAppointment.Route.StopsList;
-            foreach (string stop in selectedAppointment.Route.StopsList)
-            //for (int i = 0; i < selectedAppointment.Route.StopsList.Count(); i++ )
+            foreach (string stop in selectedRoute.StopsList)
             {
                 StopsList.Add(stop.Trim());
-                //StopsList.Add(selectedAppointment.Route.StopsList[i].Trim());
             }
-            //StopsList.RemoveAt(StopsList.Count()); // Guest can't chose Finish stop to join the Route
-
-            if (AvailableTickets <= 0)
-                AvailableTickets = Ticket.NumberOfGuests;
+            StopsList.RemoveAt(StopsList.Count() - 1);  // Guest can't chose Finish stop to join the Route
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

@@ -121,7 +121,7 @@
                 Height="30" Width="30"
                 Grid.Row="6" Grid.Column="2"    >
         </TextBox>
-        <Slider x:Name="slider" Minimum="1" Maximum="{Binding Path=AvailableTickets}" 
+        <Slider x:Name="slider" Minimum="1" Maximum="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" 
                 Value="{Binding Path=Ticket.NumberOfGuests}"
                 HorizontalAlignment="Right" VerticalAlignment="Center"
                 Height="30" Width="160" Margin="0 0 10 0"
@@ -130,8 +130,8 @@
 
 
         <ComboBox x:Name="StopsComboBox"
-               ItemsSource="{Binding Path = StopsList}"
-               SelectedItem="{Binding Path=Ticket.RouteStop, UpdateSourceTrigger=PropertyChanged}"
+               ItemsSource="{Binding Path=StopsList}"
+               SelectedItem="{Binding Path=Ticket.RouteStop}"
                SelectionChanged="StopsComboBox_SelectionChanged"
                HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="200"

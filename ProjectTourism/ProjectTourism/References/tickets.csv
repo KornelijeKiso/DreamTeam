@@ -5,6 +5,6 @@
 4|6|jel|5|b|False|False
 5|6|pera|5|b|False|False
 6|6|mika|5|c|False|False
-7|4|jel|25|aa|True|False
-8|4|pera|20|aa|True|False
-9|3|mika|45|aa|False|False
+7|4|jel|25|aa|False|False
+8|4|pera|20|aa|False|False
+9|3|mika|45|cc|False|False
