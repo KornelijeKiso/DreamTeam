@@ -26,21 +26,21 @@ namespace ProjectTourism.Model
                 }
             }
         }
-        /*
-        private SolidColorBrush _ButtonColor;
-        public SolidColorBrush ButtonColor
+        
+        private SolidColorBrush _GuestStatusColor;
+        public SolidColorBrush GuestStatusColor
         {
-            get => _ButtonColor;
+            get => _GuestStatusColor;
             set
             {
-                if (value != _ButtonColor)
+                if (value != _GuestStatusColor)
                 {
-                    _ButtonColor = value;
+                    _GuestStatusColor = value;
                     OnPropertyChanged();
                 }
             }
         }
-        */
+        
         private int _RouteId;
         public int RouteId
         {
@@ -154,6 +154,32 @@ namespace ProjectTourism.Model
             }
         }
 
+        private bool _HasGuideChecked;
+        public bool HasGuideChecked
+        {
+            get => _HasGuideChecked;
+            set
+            {
+                if (_HasGuideChecked != value)
+                {
+                    _HasGuideChecked = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private bool _HasGuestConfirmed;
+        public bool HasGuestConfirmed
+        {
+            get => _HasGuestConfirmed;
+            set
+            {
+                if (_HasGuestConfirmed != value)
+                {
+                    _HasGuestConfirmed = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public Ticket()
         {  }
 
@@ -167,6 +193,8 @@ namespace ProjectTourism.Model
             Guest2Username = guest2Username;
             Guest2 = FindGuest2(guest2Username);
             NumberOfGuests = numberOfGuests;
+            HasGuideChecked = false;
+            HasGuestConfirmed = false;
         }
 
         public Ticket(int tourAppId, string RouteStop, string guest2Username, int numberOfGuests)
@@ -178,6 +206,8 @@ namespace ProjectTourism.Model
             Guest2Username = guest2Username;
             Guest2 = FindGuest2(guest2Username);
             NumberOfGuests = numberOfGuests;
+            HasGuideChecked = false;
+            HasGuestConfirmed = false;
         }
 
 
@@ -194,6 +224,10 @@ namespace ProjectTourism.Model
         private void AddTicketToAppointment(Ticket ticket)
         {
             ticket.TourAppointment.Tickets.Add(ticket);
+
+            if (ticket.TourAppointment.CurrentTourStop.Equals(ticket.RouteStop))
+                ticket.HasGuideChecked = true;
+            else ticket.HasGuideChecked = false; 
         }
 
         public string[] ToCSV()
@@ -204,7 +238,9 @@ namespace ProjectTourism.Model
                 TourAppointmentId.ToString(),
                 Guest2Username,
                 NumberOfGuests.ToString(),
-                RouteStop
+                RouteStop,
+                HasGuideChecked.ToString(),
+                HasGuestConfirmed.ToString()
             };
             return csvValues;
         }
@@ -217,6 +253,9 @@ namespace ProjectTourism.Model
             Guest2Username = values[2];
             NumberOfGuests = int.Parse(values[3]);
             RouteStop = values[4];
+            HasGuideChecked = bool.Parse(values[5]);
+            HasGuestConfirmed= bool.Parse(values[6]);
+
             Guest2 = FindGuest2(Guest2Username);
 
             AddTicketToAppointment(this);

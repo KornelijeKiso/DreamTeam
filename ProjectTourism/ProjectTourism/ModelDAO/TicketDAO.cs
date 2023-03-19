@@ -133,6 +133,22 @@ namespace ProjectTourism.ModelDAO
             return null;
         }
 
+        public void CheckGuestStatus(int tourAppId, int ticketId)
+        {
+            TourAppointmentDAO tourAppointmentDAO = new TourAppointmentDAO();
+            TourAppointment TourAppointment = tourAppointmentDAO.GetOne(tourAppId);
+
+            Ticket ticket = GetOne(ticketId);
+            if (TourAppointment.CurrentTourStop.Equals(ticket.RouteStop))
+                ticket.HasGuideChecked = true;
+
+            if (TourAppointment.CurrentTourStop.Equals(TourAppointment.Route.Finish)) //This is a situation where guests confirmed their arrival at the last stop
+                ticket.HasGuestConfirmed = true;
+
+            FileHandler.Save(Tickets);
+            NotifyObservers();
+        }
+
         public void Subscribe(IObserver observer)
         {
             Observers.Add(observer);

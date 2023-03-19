@@ -103,34 +103,6 @@ namespace ProjectTourism.Model
             }
         }
 
-        private List<bool> _HasGuideChecked;
-        public List<bool> HasGuideChecked
-        {
-            get => _HasGuideChecked;
-            set
-            {
-                if (_HasGuideChecked != value)
-                {
-                    _HasGuideChecked = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private List<bool> _HasGuestConfirmed;
-        public List<bool> HasGuestConfirmed
-        {
-            get => _HasGuestConfirmed;
-            set
-            {
-                if (_HasGuestConfirmed != value)
-                {
-                    _HasGuestConfirmed = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         private int? _AvailableSeats;
         public int? AvailableSeats
         {
@@ -174,8 +146,6 @@ namespace ProjectTourism.Model
         public TourAppointment()
         { 
             Tickets = new List<Ticket>();
-            HasGuestConfirmed = new List<bool>();
-            HasGuideChecked = new List<bool>();
             //IsNotFinished = true;
             //State = TOURSTATE.READY; 
         }
@@ -191,8 +161,6 @@ namespace ProjectTourism.Model
             IsNotFinished = true;
             State = TOURSTATE.READY;
             Tickets = new List<Ticket>();
-            HasGuestConfirmed = new List<bool>();
-            HasGuideChecked = new List<bool>();
         }
 
         /*public TourAppointment(int id, DateTime tourDateTime, int tourId)
@@ -257,15 +225,6 @@ namespace ProjectTourism.Model
 
             RouteDAO routeDAO = new RouteDAO();
             Route = routeDAO.GetOne(TourId);
-
-            /*if (HasGuestConfirmed)
-            {
-                ButtonColor = Brushes.Green;
-            }
-            else if (HasGuideChecked)
-            {
-                ButtonColor = Brushes.IndianRed;
-            }*/
         }
     }
 }

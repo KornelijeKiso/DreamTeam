@@ -96,8 +96,6 @@ namespace ProjectTourism.ModelDAO
             TourAppointment tourAppointment = GetOne(tourAppointmentId);
             tourAppointment.AvailableSeats -= ticket.NumberOfGuests;
             tourAppointment.Tickets.Add(ticket);
-            tourAppointment.HasGuideChecked.Add(false);
-            tourAppointment.HasGuestConfirmed.Add(false);
 
             FileHandler.Save(TourAppointments);
             NotifyObservers();
@@ -114,8 +112,6 @@ namespace ProjectTourism.ModelDAO
                 if (tourAppointment.Tickets[i].Id == ReturnedTicket.Id)
                 {
                     tourAppointment.Tickets.Remove(ReturnedTicket);
-                    tourAppointment.HasGuideChecked.RemoveAt(i);
-                    tourAppointment.HasGuestConfirmed.RemoveAt(i);
                 }
             }
 

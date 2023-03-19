@@ -33,7 +33,8 @@ namespace ProjectTourism.View.GuideView.RouteView
         public TicketController TicketController { get; set; }
 
         public ObservableCollection<Ticket> Tickets { get; set; }
-        public Ticket SelectedTicket { get; set; }  
+        public Ticket SelectedTicket { get; set; }
+        //public SolidColorBrush GuestStatusColor { get; set; }
 
         public RouteStopsWindow(int id)
         {
@@ -42,9 +43,10 @@ namespace ProjectTourism.View.GuideView.RouteView
             TourAppointmentController = new TourAppointmentController();
             TourAppointment = TourAppointmentController.GetOne(id);
             TicketController = new TicketController();
-
             List<Ticket> tickets = TicketController.GetByAppointment(TourAppointment);
             Tickets = new ObservableCollection<Ticket>(tickets);
+            
+            TicketStatusButtonColor();
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -88,6 +90,7 @@ namespace ProjectTourism.View.GuideView.RouteView
             TourAppointmentController.ChangeCurrentStop(tour);
             tour.State = TOURSTATE.STARTED;
             TourAppointmentController.ChangeState(tour);
+            TicketStatusButtonColor();
         }
         private void StopPassedButton_Click(object sender, RoutedEventArgs e)
         {
@@ -103,16 +106,26 @@ namespace ProjectTourism.View.GuideView.RouteView
             TourAppointmentController.ChangeState(TourAppointment);
             TourAppointment.IsNotFinished = false;
         }
-
-        private void TicketStatusButton_Click(object sender, RoutedEventArgs e)
+        
+        private void TicketStatusButtonColor()
         {
-            /*
+            foreach (Ticket ticket in Tickets)
+            {
+                TicketController.CheckGuestStatus(TourAppointment.Id, ticket.Id);
+                if (ticket.HasGuideChecked && !ticket.HasGuestConfirmed)
+                    ticket.GuestStatusColor = Brushes.IndianRed;
+                else if (ticket.HasGuideChecked && ticket.HasGuestConfirmed)
+                    ticket.GuestStatusColor = Brushes.Green;
+                else ticket.GuestStatusColor = Brushes.Transparent;
+            }
+        }
+        private void TicketStatusButton_Click(object sender, RoutedEventArgs e)
+        {/*
             if(TourAppointment.ButtonColor!=Brushes.Green)
             {
                 TourAppointment.ButtonColor = Brushes.IndianRed;
                 TicketController.GuideCheck(TourAppointment);
-            }
-            */
+            }*/
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

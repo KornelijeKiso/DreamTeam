@@ -58,6 +58,10 @@ namespace ProjectTourism.Controller
         {
             return TicketDAO.GetAll();
         }
+        public void CheckGuestStatus(int tourAppId, int ticketId)
+        {
+            TicketDAO.CheckGuestStatus(tourAppId, ticketId);
+        }
 
         public void Subscribe(IObserver observer)
         {
