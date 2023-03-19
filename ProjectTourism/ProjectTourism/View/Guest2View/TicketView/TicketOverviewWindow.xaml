@@ -43,7 +43,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Image Stretch="Fill" 
-                                   Source="{Binding Path=Tour.Pictures[0]}"/>
+                                   Source="{Binding Path=TourAppointment.Tour.Pictures[0]}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
