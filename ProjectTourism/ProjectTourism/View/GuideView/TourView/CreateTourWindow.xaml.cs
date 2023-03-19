@@ -97,6 +97,11 @@ namespace ProjectTourism.View.TourView
 
         private void SaveTour_Click(object sender, RoutedEventArgs e)
         {
+            if(appointmentsListBox.Items.Count == 0)
+            {
+                MessageBox.Show("You have not choosed any dates for this tour!");
+                return;
+            }
             if (Tour.IsValid)
                 AddTour();
             else
