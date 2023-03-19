@@ -374,7 +374,7 @@ namespace ProjectTourism.Model
                 if (columnName == "Name")
                 {
                     if (string.IsNullOrEmpty(Name))
-                        return "Name is required";
+                        return "Name is required!";
                     Match match = _NameRegex.Match(Name);
                     if (!match.Success)
                         return "Enter name";
@@ -382,7 +382,7 @@ namespace ProjectTourism.Model
                 else if (columnName == "MaxNumberOfGuests")
                 {
                     if (string.IsNullOrEmpty(MaxNumberOfGuests.ToString()))
-                        return "Number must be positive";
+                        return "Number must be positive!";
                     Match match = _PositiveNumberRegex.Match(MaxNumberOfGuests.ToString());
                     if (!match.Success)
                         return "Enter positive number";
@@ -390,7 +390,7 @@ namespace ProjectTourism.Model
                 else if (columnName == "Start")
                 {
                     if (string.IsNullOrEmpty(Start))
-                        return "Start point required";
+                        return "Start point required!";
                     Match match = _StartRegex.Match(Start);
                     if (!match.Success)
                         return "Enter start";
@@ -398,7 +398,7 @@ namespace ProjectTourism.Model
                 else if (columnName == "Finish")
                 {
                     if (string.IsNullOrEmpty(Finish))
-                        return "Finish point is required";
+                        return "Finish point is required!";
                     Match match = _StartRegex.Match(Finish);
                     if (!match.Success)
                         return "Enter finish";
@@ -406,7 +406,7 @@ namespace ProjectTourism.Model
                 else if (columnName == "StartDate")
                 {
                     if (string.IsNullOrEmpty(StartDate.ToString("MM/dd/yyyy HH:mm:ss")))
-                        return "Start date is required";
+                        return "Start date is required!";
                     Match match = _DateTimeRegex.Match(StartDate.ToString("MM/dd/yyyy HH:mm:ss"));
                     //if (!match.Success)
                     //    return "Enter start date";
@@ -414,7 +414,7 @@ namespace ProjectTourism.Model
                 else if (columnName == "Duration")
                 {
                     if (string.IsNullOrEmpty(Duration.ToString()))
-                        return "Number must be positive";
+                        return "Number must be positive!";
                     Match match = _PositiveNumberRegex.Match(Duration.ToString());
                     if (!match.Success)
                         return "Enter positive number";
