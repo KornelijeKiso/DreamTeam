@@ -59,8 +59,8 @@ namespace ProjectTourism.View.GuideView
 
         private void AddNewTourButton_Click(object sender, RoutedEventArgs e)
         {
-            CreateRouteWindow createGuideWindow = new CreateRouteWindow(Guide);
-            createGuideWindow.ShowDialog();
+            CreateTourWindow createTourWindow = new CreateTourWindow(Guide);
+            createTourWindow.ShowDialog();
         }
 
         private void ToursButton_Click(object sender, RoutedEventArgs e)

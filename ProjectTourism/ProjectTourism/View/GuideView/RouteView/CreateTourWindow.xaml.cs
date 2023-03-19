@@ -26,7 +26,7 @@ namespace ProjectTourism.View.RouteView
     /// <summary>
     /// Interaction logic for CreateRouteWindow.xaml
     /// </summary>
-    public partial class CreateRouteWindow : Window, INotifyPropertyChanged, IObserver
+    public partial class CreateTourWindow : Window, INotifyPropertyChanged, IObserver
     {
         public Route Route { get; set; }
         public RouteController RouteController { get; set; }
@@ -37,7 +37,7 @@ namespace ProjectTourism.View.RouteView
         public TourAppointment TourAppointment { get; set; }
         public TourAppointmentController TourAppointmentController { get; set; }
         private Dictionary<DateTime, List<TimeSpan>> appointments = new Dictionary<DateTime, List<TimeSpan>>();
-        public CreateRouteWindow(Guide guide)
+        public CreateTourWindow(Guide guide)
         {
             InitializeComponent();
             DataContext = this;
