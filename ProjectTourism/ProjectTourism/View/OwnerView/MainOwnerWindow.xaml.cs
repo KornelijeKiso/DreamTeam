@@ -132,7 +132,7 @@ namespace ProjectTourism.View.OwnerView
         private ObservableCollection<Reservation> SortReservations()
         {
             List<Reservation> sortedReservations = OwnerController.GetOwnersReservations(Owner.Username);
-            sortedReservations.Sort((x, y) => y.StartDate.CompareTo(x.StartDate));
+            sortedReservations.Sort((x, y) => y.EndDate.CompareTo(x.EndDate));
             return new ObservableCollection<Reservation>(sortedReservations);
         }
 
