@@ -59,7 +59,7 @@ namespace ProjectTourism.View.OwnerView
             LoadDataGrids(username);
 
             Subscribe();
-            SetButtons();
+            SetGradingButtons();
         }
 
         private void Subscribe()
@@ -136,7 +136,7 @@ namespace ProjectTourism.View.OwnerView
             return new ObservableCollection<Reservation>(sortedReservations);
         }
 
-        private void SetButtons()
+        private void SetGradingButtons()
         {
             foreach(var reservation in Reservations)
             {
