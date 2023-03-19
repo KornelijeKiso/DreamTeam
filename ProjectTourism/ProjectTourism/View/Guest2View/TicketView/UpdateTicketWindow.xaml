@@ -29,17 +29,17 @@
             <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
 
-        <Label x:Name="Name" Content="Route Name" 
+        <Label x:Name="Name" Content="Tour Name" 
                HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="120" Margin="20 0 0 0"
                Grid.Row="1" Grid.Column="1"
         />
-        <Label x:Name="Description" Content="Route Description" 
+        <Label x:Name="Description" Content="Tour Description" 
                HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="120" Margin="20 0 0 0"
                Grid.Row="2" Grid.Column="1"
         />
-        <Label x:Name="Location" Content="Route Location" 
+        <Label x:Name="Location" Content="Tour Location" 
                HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="120" Margin="20 0 0 0"
                Grid.Row="3" Grid.Column="1"
@@ -71,35 +71,35 @@
         />
 
         <TextBox 
-            Text = "{Binding Path=selectedRoute.Name}"
+            Text = "{Binding Path=selectedTour.Name}"
             TextWrapping="Wrap"
             HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="200" IsReadOnly="True"
                Grid.Row="1" Grid.Column="2" 
         />
         <TextBox 
-            Text = "{Binding Path=selectedRoute.Description}"
+            Text = "{Binding Path=selectedTour.Description}"
             TextWrapping="Wrap"
             HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="50" Width="200" IsReadOnly="True"
                Grid.Row="2" Grid.Column="2" 
         />
         <TextBox 
-            Text = "{Binding Path=selectedRoute.Location.City}"
+            Text = "{Binding Path=selectedTour.Location.City}"
             TextWrapping="Wrap"
             HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="200" IsReadOnly="True"
                Grid.Row="3" Grid.Column="2" 
         />
         <TextBox 
-            Text = "{Binding Path=selectedRoute.Language}"
+            Text = "{Binding Path=selectedTour.Language}"
             TextWrapping="Wrap"
             HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="200" IsReadOnly="True"
                Grid.Row="4" Grid.Column="2" 
         />
         <!--<ComboBox x:Name="DatesComboBox"
-               ItemsSource="{Binding Path = selectedRoute.dates}"
+               ItemsSource="{Binding Path = selectedTour.dates}"
                
                SelectionChanged="DatesComboBox_SelectionChanged"
                HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -121,7 +121,7 @@
                 Height="30" Width="30"
                 Grid.Row="6" Grid.Column="2"    >
         </TextBox>
-        <Slider x:Name="slider" Minimum="1" Maximum="{Binding Path=AvailableTickets}" 
+        <Slider x:Name="slider" Minimum="1" Maximum="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" 
                 Value="{Binding Path=Ticket.NumberOfGuests}"
                 HorizontalAlignment="Right" VerticalAlignment="Center"
                 Height="30" Width="160" Margin="0 0 10 0"
@@ -130,15 +130,15 @@
 
 
         <ComboBox x:Name="StopsComboBox"
-               ItemsSource="{Binding Path = StopsList}"
-               SelectedItem="{Binding Path=Ticket.RouteStop, UpdateSourceTrigger=PropertyChanged}"
+               ItemsSource="{Binding Path=StopsList}"
+               SelectedItem="{Binding Path=Ticket.TourStop}"
                SelectionChanged="StopsComboBox_SelectionChanged"
                HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="200"
                Grid.Row="7" Grid.Column="2" >
         </ComboBox>
         <TextBox 
-            Text = "{Binding Path=selectedRoute.Finish}"
+            Text = "{Binding Path=selectedTour.Finish}"
             TextWrapping="Wrap"
             HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="200" IsReadOnly="True"

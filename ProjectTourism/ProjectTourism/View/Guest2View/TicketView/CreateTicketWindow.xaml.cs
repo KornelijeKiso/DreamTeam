@@ -28,52 +28,35 @@ namespace ProjectTourism.View.Guest2View
         public TicketController TicketController { get; set; }
         public TourAppointmentController TourAppointmentController { get; set; }
         public TourAppointment selectedAppointment { get; set; }
-        public Route SelectedRoute { get; set; }
-        public RouteController RouteController { get; set; }
+        public Tour SelectedTour { get; set; }
+        public TourController TourController { get; set; }
         public Guest2 Guest2 { get; set; }
         public Guest2Controller Guest2Controller { get; set; }
         public List<string> StopsList { get; set; }
-        public int? AvailableTickets { get; set; }
-
-
-        public CreateTicketWindow(string username, int routeId)
+        public List<DateTime> dates { get; set; }
+        
+        public CreateTicketWindow(string username, int tourId)
         {
             InitializeComponent();
             DataContext = this;
             TicketController = new TicketController();
-            RouteController = new RouteController();
+            TourController = new TourController();
             TourAppointmentController = new TourAppointmentController();
             Guest2Controller = new Guest2Controller();
-
-            SelectedRoute = RouteController.GetOne(routeId);
-            selectedAppointment = new TourAppointment();
-
+            SelectedTour = TourController.GetOne(tourId);
             Guest2 = Guest2Controller.GetOne(username);
             Ticket = new Ticket();
-            Ticket.NumberOfGuests = 1;      // if slider isnt moved returns 0 , fix this
-                                            // 
-                                            // transfer to Route -> StopsList
-            StopsList = new List<string>();
-            foreach (string stop in SelectedRoute.StopsList)
+
+            // transfer to Tour -> StopsList
+            StopsList = new List<string>();                     
+            foreach (string stop in SelectedTour.StopsList)
             {
                 StopsList.Add(stop.Trim());
             }
+            StopsList.RemoveAt(StopsList.Count() - 1);  // Guest can't chose Finish stop to join the Tour
 
-            StopsList.RemoveAt(StopsList.Count() - 1); // Guest can't chose Finish stop to join the Route
-
-            // no available tickets, temp solution
-            // should give suggestion for route that has available seats and same location
-            if (AvailableTickets <= 0)
-            {
-                MessageBox.Show("No available seats for this Route.");
-                //sliderText.Visibility = Visibility.Collapsed;
-                sliderText.Clear();
-                sliderText.IsEnabled = false;
-                slider.Visibility = Visibility.Collapsed;
-                StopsComboBox.Visibility = Visibility.Collapsed;
-
-                CreateTicketButton.IsEnabled = false;
-            }
+            // so we can't see dates with no available tickets or one where Guest2 already has ticket
+            dates = FindDates(SelectedTour.dates);
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -90,7 +73,7 @@ namespace ProjectTourism.View.Guest2View
 
         private void CreateTicket(object sender, RoutedEventArgs e)
         {
-            Ticket ticket = new Ticket(selectedAppointment.Id, Ticket.RouteStop, Guest2.Username, Ticket.NumberOfGuests);
+            Ticket ticket = new Ticket(selectedAppointment.Id, Ticket.TourStop, Guest2.Username, Ticket.NumberOfGuests);
             TicketController.Add(ticket);
             TourAppointmentController.UpdateAppointmentCreate(selectedAppointment.Id, Ticket);
             Close();
@@ -98,13 +81,60 @@ namespace ProjectTourism.View.Guest2View
 
         private void StopsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Ticket.RouteStop = StopsList[StopsComboBox.SelectedIndex];
+            Ticket.TourStop = StopsList[StopsComboBox.SelectedIndex];
+        }
+
+        private List<DateTime> RemoveDatesWithNoAvailableSeats(List<DateTime> AllDates)
+        {
+            List<DateTime> NoFreeSeats = new List<DateTime>();
+            TourAppointment tourAppointment;
+            foreach (var date in AllDates)
+            {
+                tourAppointment = TourAppointmentController.GetByDate(SelectedTour.Id, date);
+                if (tourAppointment.AvailableSeats != 0)
+                    NoFreeSeats.Add(date);
+            }
+            return NoFreeSeats;
+        }
+
+        private List<DateTime> RemoveDatesHasTicketsOrInvalidAppointmetn(List<DateTime> AllDates)
+        {
+            List<DateTime> TicketNotBought = new List<DateTime>();
+            foreach (var date in AllDates)
+                TicketNotBought.Add(date);
+
+            // checking if the state of appointment is valid and if the ticket is from that tour
+            List<Ticket> allGuestsTickets = TicketController.GetByGuest(Guest2);
+            List<Ticket> validTicket = new List<Ticket>();
+            foreach (var ticket in allGuestsTickets)
+            {
+                if (ticket.TourAppointment.State == TOURSTATE.READY && ticket.TourAppointment.TourId == SelectedTour.Id)
+                    validTicket.Add(ticket);
+            }
+
+            // if some ticket already has same date, remove that date
+            foreach (var ticket in validTicket) 
+            {
+                foreach (var date in AllDates)
+                {
+                    if (ticket.TourAppointment.TourDateTime.Equals(date) )
+                        TicketNotBought.Remove(date);
+                }
+            }
+            return TicketNotBought;
+        }
+        private List<DateTime> FindDates(List<DateTime> dates)
+        {
+            List<DateTime> noSeats = RemoveDatesWithNoAvailableSeats(dates);
+            List<DateTime> available = RemoveDatesHasTicketsOrInvalidAppointmetn(noSeats);
+            return available;
         }
 
         private void DatesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DateTime date = SelectedRoute.dates[DatesComboBox.SelectedIndex];
-            selectedAppointment = TourAppointmentController.GetByDate(SelectedRoute.Id, date);
+            DateTime date = dates[DatesComboBox.SelectedIndex];
+            selectedAppointment = TourAppointmentController.GetByDate(SelectedTour.Id, date);
+            slider.Maximum = selectedAppointment.AvailableSeats;
         }
     }
 }

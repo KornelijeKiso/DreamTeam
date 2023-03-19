@@ -49,7 +49,7 @@ namespace ProjectTourism.View.GuideView
 
         public void Update()
         {
-            throw new NotImplementedException();
+
         }
 
         private void CreateGuideButton_Click(object sender, RoutedEventArgs e)

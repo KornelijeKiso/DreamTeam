@@ -24,9 +24,9 @@
             <ColumnDefinition Width="90"/>
         </Grid.ColumnDefinitions>
 
-        <DataGrid x:Name="DataGridRoutes" 
-                    ItemsSource="{Binding Routes, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding SelectedRoute, UpdateSourceTrigger=PropertyChanged}" 
+        <DataGrid x:Name="DataGridTours" 
+                    ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}" 
                     SelectionMode="Single"
                     VerticalScrollBarVisibility="Visible" 
                     IsReadOnly="True" AutoGenerateColumns="False" Margin="50,10,50,20"

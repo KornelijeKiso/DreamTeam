@@ -49,10 +49,10 @@ namespace ProjectTourism.ModelDAO
             }
             return null;
         }
-        public List<Route> GetGuidesRoutes(string username)
+        public List<Tour> GetGuidesTours(string username)
         {
-            List<Route> routes = new List<Route>();
-            RouteDAO routeDAO = new RouteDAO();
+            List<Tour> routes = new List<Tour>();
+            TourDAO routeDAO = new TourDAO();
             foreach(var route in routeDAO.GetAll())
             {
                 if (route.GuideUsername.Equals(username))
@@ -71,7 +71,7 @@ namespace ProjectTourism.ModelDAO
             TourAppointmentDAO tourAppDAO = new TourAppointmentDAO();
             foreach (var tourAppointment in tourAppDAO.GetAll())
             {
-                if (tourAppointment.Route.GuideUsername.Equals(username) && tourAppointment.TourDateTime.Date.Equals(DateTime.Now.Date))
+                if (tourAppointment.Tour.GuideUsername.Equals(username) && tourAppointment.TourDateTime.Date.Equals(DateTime.Now.Date))
                 {
                     //List<string> pom = routeDAO.GetStops(route);
                     //route.StopsList = pom;

@@ -21,7 +21,7 @@
             <ColumnDefinition Width="50"/>
         </Grid.ColumnDefinitions>
 
-        <DataGrid x:Name="DataGridRoutes" 
+        <DataGrid x:Name="DataGridTours" 
                     ItemsSource="{Binding Path=Tickets, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding Path=SelectedTicket, UpdateSourceTrigger=PropertyChanged}" 
                     SelectionMode="Single"
@@ -43,7 +43,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Image Stretch="Fill" 
-                                   Source="{Binding Path=Route.Pictures[0]}"/>
+                                   Source="{Binding Path=Tour.Pictures[0]}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -51,20 +51,17 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" >
-                                <Label Content="{Binding Path=TourAppointment.Route.Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label Content="Name :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Content="{Binding Path=TourAppointment.Route.Name}" Margin="0,0,0,-7"></Label>
-                                </StackPanel>
+                                <Label Content="{Binding Path=TourAppointment.Tour.Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
+                                <Label Content="{Binding Path=TourAppointment.TourDateTime}" Margin="0,-3,0,-7" ></Label>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
                                     <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Content="{Binding Path=TourAppointment.Route.Location.Country}" Margin="0,0,0,-7"></Label>
+                                    <Label Content="{Binding Path=TourAppointment.Tour.Location.Country}" Margin="0,0,0,-7"></Label>
                                     <Label Content="," Margin="0,0,0,-7"></Label>
-                                    <Label Content="{Binding Path=TourAppointment.Route.Location.City}" Margin="0,0,0,-7"></Label>
+                                    <Label Content="{Binding Path=TourAppointment.Tour.Location.City}" Margin="0,0,0,-7"></Label>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
                                     <Label Content="Language :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Content="{Binding Path=TourAppointment.Route.Language}" Margin="0,0,0,-7"></Label>
+                                    <Label Content="{Binding Path=TourAppointment.Tour.Language}" Margin="0,0,0,-7"></Label>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
                                     <Label Content="Number of Tickets :" Margin="0,0,-7,-7" ></Label>
@@ -72,7 +69,7 @@
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
                                     <Label Content="Your starting stop :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Content="{Binding Path=RouteStop}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                    <Label Content="{Binding Path=TourStop}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>

@@ -25,9 +25,9 @@ namespace ProjectTourism.Controller
         {
             TourAppointmentDAO.NotifyObservers();
         }
-        public List<TourAppointment> GetByRoute(int id)
+        public List<TourAppointment> GetByTour(int id)
         {
-            return TourAppointmentDAO.GetByRoute(id);
+            return TourAppointmentDAO.GetByTour(id);
         }
         public List<Guest2> GetGuests(List<Ticket> tickets)
         {
@@ -54,7 +54,7 @@ namespace ProjectTourism.Controller
             TourAppointmentDAO.Add(addedTourApp);
         }
 
-        public void MakeTourAppointments(Route route)
+        public void MakeTourAppointments(Tour route)
         {
             TourAppointmentDAO.MakeTourAppointments(route);
         }
@@ -82,9 +82,9 @@ namespace ProjectTourism.Controller
             TourAppointmentDAO.ChangeState(tourAppointment);
         }
 
-        public string GetNextStop(Route route, int stopint)
+        public string GetNextStop(Tour route, int stopint)
         {
-            RouteDAO routeDAO = new RouteDAO();
+            TourDAO routeDAO = new TourDAO();
             List<string> pom = routeDAO.GetStops(route);
             route.StopsList = pom;
 

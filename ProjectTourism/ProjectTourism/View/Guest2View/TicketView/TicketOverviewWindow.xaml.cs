@@ -62,8 +62,8 @@ namespace ProjectTourism.View.Guest2View.TicketView
                 MessageBoxResult result = ConfirmTicketDelete();
                 if (result == MessageBoxResult.Yes)
                 {
-                    TicketController.Delete(SelectedTicket);
                     TourAppointmentController.UpdateAppointmentReturn(SelectedTicket.TourAppointmentId, SelectedTicket);
+                    TicketController.Delete(SelectedTicket);
                     UpdateTicketsList();
                 }
                 else
@@ -77,7 +77,7 @@ namespace ProjectTourism.View.Guest2View.TicketView
 
         private MessageBoxResult ConfirmTicketDelete()
         {
-            string sMessageBoxText = $"Are you sure you want to return your Ticket?\n{SelectedTicket.TourAppointment.Route.Name}";
+            string sMessageBoxText = $"Are you sure you want to return your Ticket?\n{SelectedTicket.TourAppointment.Tour.Name}";
             string sCaption = "Return Ticket";
 
             MessageBoxButton btnMessageBox = MessageBoxButton.YesNo;
@@ -91,7 +91,7 @@ namespace ProjectTourism.View.Guest2View.TicketView
         {
             if (SelectedTicket != null)
             {
-                UpdateTicketWindow updateTicketWindow = new UpdateTicketWindow(Guest.Username, SelectedTicket.TourAppointmentId, SelectedTicket.TourAppointment.Route.Id);
+                UpdateTicketWindow updateTicketWindow = new UpdateTicketWindow(Guest.Username, SelectedTicket.TourAppointmentId, SelectedTicket.TourAppointment.Tour.Id);
                 updateTicketWindow.ShowDialog();
                 TicketController = updateTicketWindow.TicketController;
                 SelectedTicket = updateTicketWindow.Ticket;           

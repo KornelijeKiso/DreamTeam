@@ -18,7 +18,7 @@ using ProjectTourism.Controller;
 using ProjectTourism.Model;
 using ProjectTourism.Observer;
 
-namespace ProjectTourism.View.GuideView.RouteView
+namespace ProjectTourism.View.GuideView.TourView
 {
     /// <summary>
     /// Interaction logic for LanguageAdditionWindow.xaml
@@ -26,13 +26,13 @@ namespace ProjectTourism.View.GuideView.RouteView
     public partial class LanguageAdditionWindow : Window, INotifyPropertyChanged, IObserver
     {
         public ObservableCollection<string> ObserverLanguages = new ObservableCollection<string>();
-        public RouteController RouteController { get; set; }
+        public TourController TourController { get; set; }
         public LanguageAdditionWindow(ObservableCollection<string> observerLanguages)
         {
             InitializeComponent();
             DataContext = this;
-            RouteController = new RouteController();
-            RouteController.Subscribe(this);
+            TourController = new TourController();
+            TourController.Subscribe(this);
             ObserverLanguages = observerLanguages;
         }
 

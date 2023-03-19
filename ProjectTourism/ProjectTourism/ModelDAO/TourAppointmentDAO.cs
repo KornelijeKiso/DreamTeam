@@ -40,12 +40,12 @@ namespace ProjectTourism.ModelDAO
             }
         }
 
-        public void MakeTourAppointments(Route route)
+        public void MakeTourAppointments(Tour route)
         {
             foreach(var date in route.dates)
             {
-                TourAppointment appointment = new TourAppointment(date, route.Id, route);
-                Add(appointment);
+                TourAppointment tourAppointment = new TourAppointment(date, route.Id, route);
+                Add(tourAppointment);
             }
         }
 
@@ -63,18 +63,18 @@ namespace ProjectTourism.ModelDAO
         }
         public TourAppointment GetByDate(int tourId, DateTime date)
         {
-            foreach (TourAppointment tours in GetByRoute(tourId))
+            foreach (TourAppointment tours in GetByTour(tourId))
             {
-                if (tours.TourDateTime == date) return tours;
+                if (tours.TourDateTime.Equals(date)) return tours;
             }
             return null;
         }
-        public List<TourAppointment> GetByRoute(int id)
+        public List<TourAppointment> GetByTour(int id)
         {
             List<TourAppointment> toursById= new List<TourAppointment>();
             foreach (var tourApp in TourAppointments)
             {
-                if (tourApp.Id == id)
+                if (tourApp.TourId == id)
                     toursById.Add(tourApp);
             }
             return toursById;
@@ -105,8 +105,6 @@ namespace ProjectTourism.ModelDAO
         {
             TourAppointment tourAppointment = GetOne(tourAppointmentId);
             tourAppointment.AvailableSeats += ReturnedTicket.NumberOfGuests;
-            //UpdateAppointmentUpdate(tourAppointmentId, ReturnedTicket);
-            //foreach(var ticket in tourAppointment.Tickets)
             for (int i = 0; i < tourAppointment.Tickets.Count(); i++)
             {
                 if (tourAppointment.Tickets[i].Id == ReturnedTicket.Id)
@@ -122,7 +120,7 @@ namespace ProjectTourism.ModelDAO
         public void UpdateAppointmentUpdate(int tourAppointmentId, Ticket ReturnedTicket)
         {
             TourAppointment tourAppointment = GetOne(tourAppointmentId);
-            tourAppointment.AvailableSeats = tourAppointment.Route.MaxNumberOfGuests;
+            tourAppointment.AvailableSeats = tourAppointment.Tour.MaxNumberOfGuests;
             TicketDAO ticketDAO = new TicketDAO();
             List<Ticket> tickets = ticketDAO.GetByAppointment(tourAppointment);
             foreach (Ticket ticket in tickets)
