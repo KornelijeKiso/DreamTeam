@@ -57,22 +57,22 @@ namespace ProjectTourism.View.GuideView
             throw new NotImplementedException();
         }
 
-        private void AddNewRouteButton_Click(object sender, RoutedEventArgs e)
+        private void AddNewTourButton_Click(object sender, RoutedEventArgs e)
         {
-            CreateRouteWindow createGuideWindow = new CreateRouteWindow(Guide);
-            createGuideWindow.ShowDialog();
+            CreateTourWindow createTourWindow = new CreateTourWindow(Guide);
+            createTourWindow.ShowDialog();
         }
 
-        private void RoutesButton_Click(object sender, RoutedEventArgs e)
+        private void ToursButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewAllRoutesWindow viewAllRoutesWindow = new ViewAllRoutesWindow(Guide.Username);
-            viewAllRoutesWindow.ShowDialog();
+            ViewAllToursWindow viewAllToursWindow = new ViewAllToursWindow(Guide.Username);
+            viewAllToursWindow.ShowDialog();
         }
 
-        private void LiveRouteMonitorButton_Click(object sender, RoutedEventArgs e)
+        private void LiveTourMonitorButton_Click(object sender, RoutedEventArgs e)
         {
-            LiveRoutesTrackingWindow liveRoutesTrackingWindow = new LiveRoutesTrackingWindow(Guide.Username);
-            liveRoutesTrackingWindow.ShowDialog();
+            LiveToursTrackingWindow liveToursTrackingWindow = new LiveToursTrackingWindow(Guide.Username);
+            liveToursTrackingWindow.ShowDialog();
         }
     }
 }

@@ -44,8 +44,8 @@ namespace ProjectTourism.ModelDAO
         {
             foreach(var date in route.dates)
             {
-                TourAppointment appointment = new TourAppointment(date, route.Id, route);
-                Add(appointment);
+                TourAppointment tourAppointment = new TourAppointment(date, route.Id, route);
+                Add(tourAppointment);
             }
         }
 

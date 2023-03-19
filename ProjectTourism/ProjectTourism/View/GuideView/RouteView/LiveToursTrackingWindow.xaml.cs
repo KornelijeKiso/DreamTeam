@@ -21,16 +21,16 @@ using ProjectTourism.Observer;
 namespace ProjectTourism.View.GuideView.RouteView
 {
     /// <summary>
-    /// Interaction logic for LiveRoutesTrackingWindow.xaml
+    /// Interaction logic for LiveToursTrackingWindow.xaml
     /// </summary>
-    public partial class LiveRoutesTrackingWindow : Window, INotifyPropertyChanged, IObserver
+    public partial class LiveToursTrackingWindow : Window, INotifyPropertyChanged, IObserver
     {
         public Guide Guide { get; set; }
         public ObservableCollection<TourAppointment> TourAppointments { get; set; }
         public TourAppointment SelectedTourAppointment { get; set; }
         public GuideController GuideController { get; set; }
         public TourAppointmentController TourAppointmentController { get; set; }
-        public LiveRoutesTrackingWindow(string username)
+        public LiveToursTrackingWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
@@ -53,9 +53,9 @@ namespace ProjectTourism.View.GuideView.RouteView
         {
             if (SelectedTourAppointment != null)
             {
-                RouteStopsWindow routeStopsWindow = new RouteStopsWindow(SelectedTourAppointment.Id);
+                TourStopsWindow tourStopsWindow = new TourStopsWindow(SelectedTourAppointment.Id);
                 SelectedTourAppointment.State = TOURSTATE.STARTED;
-                routeStopsWindow.ShowDialog();
+                tourStopsWindow.ShowDialog();
             }
             else
             {

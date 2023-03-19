@@ -22,14 +22,14 @@ namespace ProjectTourism.View.GuideView.RouteView
     /// <summary>
     /// Interaction logic for TrackRoutesWindow.xaml
     /// </summary>
-    public partial class ViewAllRoutesWindow : Window, INotifyPropertyChanged, IObserver
+    public partial class ViewAllToursWindow : Window, INotifyPropertyChanged, IObserver
     {
         public Guide Guide { get; set; }
         public ObservableCollection<Route> Routes { get; set; }
         public Route SelectedRoute { get; set; }
         public GuideController GuideController { get; set; }
 
-        public ViewAllRoutesWindow(string username)
+        public ViewAllToursWindow(string username)
         {
             InitializeComponent();
             DataContext = this;

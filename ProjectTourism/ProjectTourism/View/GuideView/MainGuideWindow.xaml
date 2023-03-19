@@ -8,9 +8,8 @@
         Title="Guide window" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        <Button x:Name="AddNewRouteButton" Content="Add a new route" HorizontalAlignment="Left" Height="48" Margin="646,353,0,0" VerticalAlignment="Top" Width="123" Click="AddNewRouteButton_Click"/>
-        <Button x:Name="RoutesButton" Content="Routes" HorizontalAlignment="Left" Height="48" Margin="467,353,0,0" VerticalAlignment="Top" Width="123" Click="RoutesButton_Click"/>
-        <Button x:Name="LiveRouteMonitorButton" Content="Live routes monitor" HorizontalAlignment="Left" Height="48" Margin="277,353,0,0" VerticalAlignment="Top" Width="123" Click="LiveRouteMonitorButton_Click"/>
-
+        <Button x:Name="AddNewTourButton" Content="Add a new tour" HorizontalAlignment="Left" Height="48" Margin="646,353,0,0" VerticalAlignment="Top" Width="123" Click="AddNewTourButton_Click"/>
+        <Button x:Name="ToursButton" Content="Tours" HorizontalAlignment="Left" Height="48" Margin="467,353,0,0" VerticalAlignment="Top" Width="123" Click="ToursButton_Click"/>
+        <Button x:Name="LiveTourMonitorButton" Content="Live tours monitor" HorizontalAlignment="Left" Height="48" Margin="277,353,0,0" VerticalAlignment="Top" Width="123" Click="LiveTourMonitorButton_Click"/>
     </Grid>
 </Window>
