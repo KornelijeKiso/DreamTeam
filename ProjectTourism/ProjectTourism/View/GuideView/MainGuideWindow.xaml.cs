@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -33,6 +34,9 @@ namespace ProjectTourism.View.GuideView
         public GuideController GuideController { get; set; }
         public Location NewLocation { get; set; }
         public LocationDAO LocationDAO { get; set; }
+        public ObservableCollection<Tour> Tours { get; set; }
+        public Tour SelectedTour { get; set; }
+
         public MainGuideWindow(string username)
         {
             InitializeComponent();
@@ -42,6 +46,9 @@ namespace ProjectTourism.View.GuideView
             GetModels(username);
             LocationDAO = new LocationDAO();
             NewLocation = new Location();
+            GuideController = new GuideController();
+            Guide = GuideController.GetOne(username);
+            Tours = new ObservableCollection<Tour>(GuideController.GetGuidesTours(username));
         }
 
         private void GetModels(string username)
@@ -72,12 +79,6 @@ namespace ProjectTourism.View.GuideView
         {
             CreateTourWindow createTourWindow = new CreateTourWindow(Guide);
             createTourWindow.ShowDialog();
-        }
-
-        private void ToursButton_Click(object sender, RoutedEventArgs e)
-        {
-            ViewAllToursWindow viewAllToursWindow = new ViewAllToursWindow(Guide.Username);
-            viewAllToursWindow.ShowDialog();
         }
 
         private void LiveTourMonitorButton_Click(object sender, RoutedEventArgs e)
