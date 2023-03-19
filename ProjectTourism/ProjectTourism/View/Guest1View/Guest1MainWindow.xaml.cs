@@ -90,7 +90,7 @@ public Guest1MainWindow(string username)
         {
             if (!reservationStart.Equals(""))
             {
-                ReservationController rc = new ReservationController();
+                ReservationController reservationController = new ReservationController();
                 Reservation reservation = new Reservation();
                 reservation.StartDate = reservationStart;
                 reservation.EndDate = reservationEnd;
@@ -99,7 +99,7 @@ public Guest1MainWindow(string username)
 
                 var reservedDaysCount = reservationEnd.DayNumber - reservationStart.DayNumber;
 
-                if (rc.IsPossible(reservation) && reservedDaysCount >= accommodation.MinDaysForReservation)
+                if (reservationController.IsPossible(reservation) && reservedDaysCount >= accommodation.MinDaysForReservation)
                 {
                     return true;
                 }
@@ -171,28 +171,9 @@ public Guest1MainWindow(string username)
             {
                 if (LocationQuery != "")
                 {
-
-                    string Search = LocationQuery.ToLower().Trim();
-                    string[] Query = Search.ToLower().Split(',');
-                        int i = 0;
-                        foreach (string query in Query)
-                        {
-                            string currentString;
-                            currentString = query.Trim();
-                            if (currentString == "")
-                            {
-
-                            }
-                            else
-                            {
-                                Query[i] = currentString;
-                                i++;
-                            }
-                        }
-                    string country = accommodation.Location.Country;
-                    string city = accommodation.Location.City;
-                    country = country.ToLower();
-                    city = city.ToLower();
+                    string Search, country, city;
+                    string[] Query;
+                    PrepareSearch(LocationQuery, accommodation, out Search, out Query, out country, out city);
                     if (Query.Length == 1 && (country.Contains(Search) || city.Contains(Search)))
                     {
                         return true;
@@ -215,6 +196,31 @@ public Guest1MainWindow(string username)
             {
                 return true;
             }
+        }
+
+        private static void PrepareSearch(string LocationQuery, Accommodation accommodation, out string Search, out string[] Query, out string country, out string city)
+        {
+            Search = LocationQuery.ToLower().Trim();
+            Query = Search.ToLower().Split(',');
+            int i = 0;
+            foreach (string query in Query)
+            {
+                string currentString;
+                currentString = query.Trim();
+                if (currentString == "")
+                {
+
+                }
+                else
+                {
+                    Query[i] = currentString;
+                    i++;
+                }
+            }
+            country = accommodation.Location.Country;
+            city = accommodation.Location.City;
+            country = country.ToLower();
+            city = city.ToLower();
         }
 
         private bool TypeMatch (Accommodation accommodation)
@@ -247,7 +253,6 @@ public Guest1MainWindow(string username)
 
             foreach (Accommodation accommodation in Accommodations)
             {
-
                 if (Fits(accommodation))
                 {
                     FilteredAccommodations.Add(accommodation);
