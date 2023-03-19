@@ -229,8 +229,6 @@ namespace ProjectTourism.Model
             StopsList = new List<string>();
 
         }
-
-
         public Tour(string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
         {
             Name = name;
@@ -247,7 +245,6 @@ namespace ProjectTourism.Model
             GuideUsername = guideUsername;
             Guide = FindGuide(guideUsername);
             StopsList = new List<string>();
-
             dates = new List<DateTime>();           
         }
         public Tour(int id, string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
@@ -268,7 +265,6 @@ namespace ProjectTourism.Model
             Guide = FindGuide(guideUsername);
             Pictures = GetPictureURLsFromCSV();
             StopsList = new List<string>();
-
             dates = new List<DateTime>();
         }
 
@@ -294,8 +290,7 @@ namespace ProjectTourism.Model
             string[] oneDate = dateString.Split(',');
             foreach (var date in oneDate)
             {
-                //if (DateTime.TryParse(date.Trim(), CultureInfo.CurrentCulture.DateTimeFormat, DateTimeStyles.None, out var dateTimeParsed))
-                    if (DateTime.TryParse(date.Trim(), new CultureInfo("en-GB"), DateTimeStyles.None, out var dateTimeParsed))
+                if (DateTime.TryParse(date.Trim(), new CultureInfo("en-GB"), DateTimeStyles.None, out var dateTimeParsed))
                     dates.Add(dateTimeParsed);
             }
             return dates;
@@ -306,7 +301,6 @@ namespace ProjectTourism.Model
             int i;
             for (i = 0; i < dates.Count(); i++)
             {
-                //dateString += dates[i].ToString("MM/dd/yyyy hh\\:mm") + ",";          //dateString += dates[i].ToString(DateTimeFormatInfo.CurrentInfo.ShortDatePattern) + ",";
                 dateString += dates[i].ToString("dd.MM.yyyy HH:mm") + ",";
             }
             return dateString;
@@ -322,8 +316,6 @@ namespace ProjectTourism.Model
             Start = values[5];
             Stops = values[6];
             Finish = values[7];
-            //if (DateTime.TryParse(values[8], new CultureInfo("en-GB"), DateTimeStyles.None, out var startDate)) StartDate = startDate;
-            //if (DateTime.TryParse(values[8], CultureInfo.CurrentCulture.DateTimeFormat, DateTimeStyles.None, out var startDate)) StartDate = startDate;
             dates = FromString(values[8]);
             Duration = double.Parse(values[9]);
             PictureURLs = values[10];
@@ -408,8 +400,6 @@ namespace ProjectTourism.Model
                     if (string.IsNullOrEmpty(StartDate.ToString("MM/dd/yyyy HH:mm:ss")))
                         return "Start date is required!";
                     Match match = _DateTimeRegex.Match(StartDate.ToString("MM/dd/yyyy HH:mm:ss"));
-                    //if (!match.Success)
-                    //    return "Enter start date";
                 }
                 else if (columnName == "Duration")
                 {
@@ -427,7 +417,6 @@ namespace ProjectTourism.Model
             }
         }
         private readonly string[] _validatedProperties = { "Name", "MaxNumberOfGuests", "Start", "Finish", "StartDate", "Duration" };
-
         public bool IsValid
         {
             get

@@ -20,7 +20,6 @@ namespace ProjectTourism.ModelDAO
             Tours = TourFileHandler.Load();
             Observers = new List<IObserver>();
         }
-
         public int GenerateId()
         {
             if(Tours.Count == 0) return 0;
@@ -39,8 +38,6 @@ namespace ProjectTourism.ModelDAO
                 TourFileHandler.Save(Tours);
             }
         }
-
-        
         public List<Tour> GetAll()
         {
             return Tours;

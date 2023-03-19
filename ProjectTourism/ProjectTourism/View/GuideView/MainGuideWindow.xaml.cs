@@ -36,14 +36,26 @@ namespace ProjectTourism.View.GuideView
         public MainGuideWindow(string username)
         {
             InitializeComponent();
-            DataContext= this;
-            GuideController = new GuideController();
-            UserController = new UserController();
-            Guide = GuideController.GetOne(username);
-            User = UserController.GetOne(username);
-            LocationDAO= new LocationDAO();
+            DataContext = this;
+
+            MakeControllers();
+            GetModels(username);
+            LocationDAO = new LocationDAO();
             NewLocation = new Location();
         }
+
+        private void GetModels(string username)
+        {
+            Guide = GuideController.GetOne(username);
+            User = UserController.GetOne(username);
+        }
+
+        private void MakeControllers()
+        {
+            GuideController = new GuideController();
+            UserController = new UserController();
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -53,8 +65,7 @@ namespace ProjectTourism.View.GuideView
 
         public void Update()
         {
-            //TODO
-            throw new NotImplementedException();
+
         }
 
         private void AddNewTourButton_Click(object sender, RoutedEventArgs e)

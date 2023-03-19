@@ -16,7 +16,6 @@ namespace ProjectTourism.Controller
         {
             TourAppointmentDAO = new TourAppointmentDAO();
         }
-
         public void Subscribe(IObserver observer)
         {
             TourAppointmentDAO.Subscribe(observer);
@@ -33,27 +32,22 @@ namespace ProjectTourism.Controller
         {
             return TourAppointmentDAO.GetGuests(tickets);
         }
-
         public void UpdateAppointmentCreate(int tourAppointmentId, Ticket ticket)
         {
             TourAppointmentDAO.UpdateAppointmentCreate(tourAppointmentId, ticket);
         }
-
         public void UpdateAppointmentReturn(int tourAppointmentId, Ticket ReturnedTicket)
         {
             TourAppointmentDAO.UpdateAppointmentReturn(tourAppointmentId, ReturnedTicket);
         }
-
         public void UpdateAppointmentUpdate(int tourAppointmentId, Ticket ReturnedTicket)
         {
             TourAppointmentDAO.UpdateAppointmentUpdate(tourAppointmentId, ReturnedTicket);
         }
-
         public void Add(TourAppointment addedTourApp)
         {
             TourAppointmentDAO.Add(addedTourApp);
         }
-
         public void MakeTourAppointments(Tour route)
         {
             TourAppointmentDAO.MakeTourAppointments(route);
@@ -62,12 +56,10 @@ namespace ProjectTourism.Controller
         {
             return TourAppointmentDAO.GetOne(id);
         }
-
         public TourAppointment GetByDate(int tourId, DateTime date)
         {
             return TourAppointmentDAO.GetByDate(tourId, date);
         }
-
         public List<TourAppointment> GetAll()
         {
             return TourAppointmentDAO.GetAll();
@@ -76,24 +68,14 @@ namespace ProjectTourism.Controller
         {
             TourAppointmentDAO.ChangeState(tourAppointment);
         }
-
         public void ChangeCurrentStop(TourAppointment tourAppointment)
         {
             TourAppointmentDAO.ChangeState(tourAppointment);
         }
-
-        public string GetNextStop(Tour route, int stopint)
+        public string GetNextStop(Tour tour, int stopint)
         {
-            TourDAO routeDAO = new TourDAO();
-            List<string> pom = routeDAO.GetStops(route);
-            route.StopsList = pom;
-
-            if (stopint < 0 || stopint >= route.StopsList.Count - 1)
-            {
-                throw new ArgumentException("Invalid stop index");
-            }
-            
-            return route.StopsList[stopint + 1];
+            return TourAppointmentDAO.GetNextStop(tour, stopint);
         }
+        
     }
 }

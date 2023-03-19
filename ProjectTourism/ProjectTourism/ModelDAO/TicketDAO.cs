@@ -50,27 +50,10 @@ namespace ProjectTourism.ModelDAO
             updated.Guest2Username = ticket.Guest2Username;
             updated.NumberOfGuests = ticket.NumberOfGuests;
             updated.TourStop = ticket.TourStop;
-
-            //Delete(GetOne(ticket.Id));
-            //Add(updated);
             FileHandler.Save(Tickets);
             NotifyObservers();
         }
 
-        public void ChangeAppointment(Ticket ticket)
-        {
-            TourAppointmentDAO tourAppointmentDAO = new TourAppointmentDAO();
-            //TourAppointment newAppointment = tourAppointmentDAO.GetByDate(ticket.TourAppointment.TourDateTime);
-            /*foreach (var ticket1 in Tickets)
-            {
-                if (ticket.Id == ticket1.Id)
-                {
-                    ticket1.TourAppointmentId = newAppointment.Id;
-                    ticket1.TourAppointment = newAppointment;
-                }
-            }
-            FileHandler.Save(Tickets);*/
-        }
         public void Delete(Ticket ticket)
         {
             Tickets.Remove(ticket);
@@ -102,8 +85,6 @@ namespace ProjectTourism.ModelDAO
             }
             return ticketsByApp;
         }
-        
-        // returns all guest's tickets
         public List<Ticket> GetByGuest(Guest2 guest2)
         {
             List<Ticket> ticketsByGuest = new List<Ticket>();
@@ -117,8 +98,6 @@ namespace ProjectTourism.ModelDAO
             }
             return ticketsByGuest;
         }
-        
-        // returns guest's ticket that should be updated
         public Ticket GetGuest2Ticket(Guest2 guest2, TourAppointment tourApp)
         {
             List<Ticket> ticketsByGuest = GetByGuest(guest2);
@@ -141,9 +120,6 @@ namespace ProjectTourism.ModelDAO
             Ticket ticket = GetOne(ticketId);
             if (TourAppointment.CurrentTourStop.Equals(ticket.TourStop) && TourAppointment.State == TOURSTATE.STARTED)
                 ticket.HasGuideChecked = true;
-
-            //if (TourAppointment.CurrentTourStop.Equals(TourAppointment.Tour.Finish)) //This is a situation where guests confirmed their arrival at the last stop
-            //    ticket.HasGuestConfirmed = true;
 
             FileHandler.Save(Tickets);
             NotifyObservers();

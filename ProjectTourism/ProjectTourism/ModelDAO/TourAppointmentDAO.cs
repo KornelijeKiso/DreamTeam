@@ -39,7 +39,6 @@ namespace ProjectTourism.ModelDAO
                 FileHandler.Save(TourAppointments);
             }
         }
-
         public void MakeTourAppointments(Tour route)
         {
             foreach(var date in route.dates)
@@ -48,7 +47,6 @@ namespace ProjectTourism.ModelDAO
                 Add(tourAppointment);
             }
         }
-
         public List<TourAppointment> GetAll()
         {
             return TourAppointments;
@@ -79,7 +77,6 @@ namespace ProjectTourism.ModelDAO
             }
             return toursById;
         }
-
         public List<Guest2> GetGuests(List<Ticket> tickets)
         {
             List<Guest2> guest = new List<Guest2>();
@@ -90,7 +87,6 @@ namespace ProjectTourism.ModelDAO
 
             return guest;
         }
-
         public void UpdateAppointmentCreate(int tourAppointmentId, Ticket ticket)
         {
             TourAppointment tourAppointment = GetOne(tourAppointmentId);
@@ -100,7 +96,6 @@ namespace ProjectTourism.ModelDAO
             FileHandler.Save(TourAppointments);
             NotifyObservers();
         }
-
         public void UpdateAppointmentReturn(int tourAppointmentId, Ticket ReturnedTicket)
         {
             TourAppointment tourAppointment = GetOne(tourAppointmentId);
@@ -112,11 +107,9 @@ namespace ProjectTourism.ModelDAO
                     tourAppointment.Tickets.Remove(ReturnedTicket);
                 }
             }
-
             FileHandler.Save(TourAppointments);
             NotifyObservers();
         }
-
         public void UpdateAppointmentUpdate(int tourAppointmentId, Ticket ReturnedTicket)
         {
             TourAppointment tourAppointment = GetOne(tourAppointmentId);
@@ -127,34 +120,9 @@ namespace ProjectTourism.ModelDAO
             {
                 tourAppointment.AvailableSeats -= ticket.NumberOfGuests;
             }
-
             FileHandler.Save(TourAppointments);
             NotifyObservers();
         }
-
-
-        /*public void MakeTourAppointments(Route route)
-        {
-            foreach (DateTime date in route.dates)
-            {
-                TourAppointment tourApp = new TourAppointment();
-                tourApp.Id = GenerateId();
-                tourApp.TourDateTime = route.StartDate;
-                RouteDAO tourDAO = new RouteDAO();
-                tourApp.Route = route;
-                tourApp.CurrentTourStop = route.Start;
-                tourApp.AvailableSeats = route.MaxNumberOfGuests;
-                tourApp.IsNotFinished = true;
-                tourApp.State = TOURSTATE.READY;
-                tourApp.Tickets = new List<Ticket>();
-                tourApp.HasGuestConfirmed = new List<bool>();
-                tourApp.HasGuideChecked = new List<bool>();
-                TourAppointments.Add(tourApp);
-                FileHandler.Save(TourAppointments);
-            }
-        }*/
-
-
         public void ChangeState(TourAppointment tourAppointment)
         {
             foreach (var tourApp in TourAppointments)
@@ -176,6 +144,19 @@ namespace ProjectTourism.ModelDAO
                 }
             }
             FileHandler.Save(TourAppointments);
+        }
+        public string GetNextStop(Tour tour, int stopint)
+        {
+            TourDAO tourDAO = new TourDAO();
+            List<string> stops = tourDAO.GetStops(tour);
+            tour.StopsList = stops;
+
+            if (stopint < 0 || stopint >= tour.StopsList.Count - 1)
+            {
+                throw new ArgumentException("Invalid stop index");
+            }
+
+            return tour.StopsList[stopint + 1];
         }
         public void Subscribe(IObserver observer)
         {

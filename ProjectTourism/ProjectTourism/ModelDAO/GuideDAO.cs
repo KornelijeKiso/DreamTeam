@@ -71,14 +71,17 @@ namespace ProjectTourism.ModelDAO
             TourAppointmentDAO tourAppDAO = new TourAppointmentDAO();
             foreach (var tourAppointment in tourAppDAO.GetAll())
             {
-                if (tourAppointment.Tour.GuideUsername.Equals(username) && tourAppointment.TourDateTime.Date.Equals(DateTime.Now.Date))
+                if (AppointmentAdditionIsValid(username, tourAppointment))
                 {
-                    //List<string> pom = routeDAO.GetStops(route);
-                    //route.StopsList = pom;
                     appointments.Add(tourAppointment);
                 }
             }
             return appointments;
+        }
+
+        private static bool AppointmentAdditionIsValid(string username, TourAppointment tourAppointment)
+        {
+            return tourAppointment.Tour.GuideUsername.Equals(username) && tourAppointment.TourDateTime.Date.Equals(DateTime.Now.Date);
         }
 
         public void Update(string username, bool hasTourStarted)

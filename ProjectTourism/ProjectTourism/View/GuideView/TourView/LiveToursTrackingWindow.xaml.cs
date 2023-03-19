@@ -46,7 +46,7 @@ namespace ProjectTourism.View.GuideView.TourView
         }
         public void Update()
         {
-            throw new NotImplementedException();
+
         }
 
         private void StartTourButton_Click(object sender, RoutedEventArgs e)
