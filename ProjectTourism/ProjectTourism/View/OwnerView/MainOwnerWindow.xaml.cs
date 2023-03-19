@@ -41,6 +41,8 @@ namespace ProjectTourism.View.OwnerView
         public List<string> Types { get; set; }
         public Dictionary<string, int> Days { get; set; }
         public ObservableCollection<bool> IncDecButtons { get; set; }
+        public List<Guest1Grade> Grades { get; set; }
+        public Guest1GradeCotroller Guest1GradeController { get; set; }
 
         public MainOwnerWindow(string username)
         {
@@ -85,6 +87,7 @@ namespace ProjectTourism.View.OwnerView
         {
             NewAccommodation = new Accommodation();
             NewLocation = new Location();
+            Grades = Guest1GradeController.GetAll();
         }
 
         private void InitializeControllers()
@@ -92,6 +95,7 @@ namespace ProjectTourism.View.OwnerView
             LocationDAO = new LocationDAO();
             OwnerController = new OwnerController();
             AccommodationController = new AccommodationController();
+            Guest1GradeController = new Guest1GradeCotroller();
         }
 
         private void InitializeTypes()
@@ -140,17 +144,19 @@ namespace ProjectTourism.View.OwnerView
         {
             foreach(var reservation in Reservations)
             {
-                if (reservation.IsGraded())
-                {
-                    reservation.CanBeGraded = false;
-                }
-                else if (reservation.IsAbleToGrade())
+                reservation.CanBeGraded = false;
+                if (reservation.IsAbleToGrade())
                 {
                     reservation.CanBeGraded = true;
                 }
-                else
+                foreach (var grade in Grades)
                 {
-                    reservation.CanBeGraded = false;
+                    if (grade.ReservationId == reservation.Id)
+                    {
+                        reservation.CanBeGraded = false;
+                        reservation.Graded = true;
+                        break;
+                    }
                 }
             }
         }
@@ -158,7 +164,7 @@ namespace ProjectTourism.View.OwnerView
         {
             foreach (var reservation in Reservations)
             {
-                if (reservation.IsAbleToGrade() && !reservation.IsGraded())
+                if (reservation.IsAbleToGrade() && !reservation.Graded)
                 {
                     MessageBox.Show("There are guests who are waiting to be graded.");
                     break;
@@ -219,10 +225,7 @@ namespace ProjectTourism.View.OwnerView
         public void Update()
         {
             Accommodations = new ObservableCollection<Accommodation>(OwnerController.GetOwnersAccommodations(Owner.Username));
-            foreach(var reservation in Reservations)
-            {
-                reservation.IsGraded();
-            }
+            SetGradingButtons();
         }
 
         public void IncreaseMaxNumberOfGuestsClick(object sender, RoutedEventArgs e)
@@ -277,31 +280,14 @@ namespace ProjectTourism.View.OwnerView
                 IncDecButtons[3] = false;
             }
         }
-        public void EventSetter_OnHandler(object sender, EventArgs e)
-        {
-            Process.Start(new ProcessStartInfo { FileName = @SelectedAccommodation.PictureURLs, UseShellExecute = true });
-        }
         public void GradeGuestClick(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
-            if (SelectedReservation == null)
+            GradeGuestWindow gradeGuestWindow = new GradeGuestWindow(SelectedReservation.Id);
+            gradeGuestWindow.ShowDialog();
+            if (gradeGuestWindow.Graded)
             {
                 button.IsEnabled = false;
-            }
-            else if (SelectedReservation.IsGraded())
-            {
-                button.IsEnabled = false;
-            }
-            else if (SelectedReservation.IsAbleToGrade())
-            {
-                button.IsEnabled = true;
-                GradeGuestWindow gradeGuestWindow = new GradeGuestWindow(SelectedReservation.Id);
-                gradeGuestWindow.ShowDialog();
-                if (gradeGuestWindow.Graded)
-                {
-                    button.IsEnabled = false;
-                }
-                
             }
             Update();
         }
