@@ -123,6 +123,7 @@ namespace ProjectTourism.View.GuideView.TourView
             TourAppointment.State = TOURSTATE.STOPPED;
             TourAppointmentController.ChangeState(TourAppointment);
             TourAppointment.IsNotFinished = false;
+            GuideController.Update(TourAppointment.Tour.Guide.Username, false);
         }
         
         private void TicketStatusButtonColor()

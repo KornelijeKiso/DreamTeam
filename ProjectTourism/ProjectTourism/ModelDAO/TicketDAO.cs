@@ -142,8 +142,8 @@ namespace ProjectTourism.ModelDAO
             if (TourAppointment.CurrentTourStop.Equals(ticket.TourStop))
                 ticket.HasGuideChecked = true;
 
-            if (TourAppointment.CurrentTourStop.Equals(TourAppointment.Tour.Finish)) //This is a situation where guests confirmed their arrival at the last stop
-                ticket.HasGuestConfirmed = true;
+            //if (TourAppointment.CurrentTourStop.Equals(TourAppointment.Tour.Finish)) //This is a situation where guests confirmed their arrival at the last stop
+            //    ticket.HasGuestConfirmed = true;
 
             FileHandler.Save(Tickets);
             NotifyObservers();
