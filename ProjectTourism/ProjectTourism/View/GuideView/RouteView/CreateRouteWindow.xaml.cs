@@ -36,7 +36,7 @@ namespace ProjectTourism.View.RouteView
         public ObservableCollection<string> LanguagesObservable { get; set; }
         public TourAppointment TourAppointment { get; set; }
         public TourAppointmentController TourAppointmentController { get; set; }
-
+        private Dictionary<DateTime, List<TimeSpan>> appointments = new Dictionary<DateTime, List<TimeSpan>>();
         public CreateRouteWindow(Guide guide)
         {
             InitializeComponent();
@@ -45,11 +45,13 @@ namespace ProjectTourism.View.RouteView
             Route.GuideUsername = guide.Username;
             Route.Guide = guide;
             Route.dates = new List<DateTime>();
+
             RouteController = new RouteController();
             RouteController.Subscribe(this);
             NewLocation = new Location();
             NewLocationDAO = new LocationDAO();
             TourAppointmentController = new TourAppointmentController();
+
             Languages = new List<string>
             {
                 "English",
@@ -96,20 +98,22 @@ namespace ProjectTourism.View.RouteView
         private void SaveRoute_Click(object sender, RoutedEventArgs e)
         {
             if (Route.IsValid)
-            {
-                NewLocation.Id = NewLocationDAO.AddAndReturnId(NewLocation);
-                Route.Location = NewLocation;
-                Route.LocationId = NewLocation.Id;
-                SaveDates();
-                RouteController.Add(Route);
-                TourAppointmentController.MakeTourAppointments(Route);
-                Close();
-            }
+                AddRoute();
             else
-            {
-                MessageBox.Show("Route can not be made because the fields were not correctly entered.");
-            }
+                MessageBox.Show("Tour can not be made because the fields were not correctly entered.");
         }
+
+        private void AddRoute()
+        {
+            NewLocation.Id = NewLocationDAO.AddAndReturnId(NewLocation);
+            Route.Location = NewLocation;
+            Route.LocationId = NewLocation.Id;
+            SaveDates();
+            RouteController.Add(Route);
+            TourAppointmentController.MakeTourAppointments(Route);
+            Close();
+        }
+
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -119,17 +123,19 @@ namespace ProjectTourism.View.RouteView
         {
             LanguageAdditionWindow languageAdditionWindow = new LanguageAdditionWindow(LanguagesObservable);
             languageAdditionWindow.ShowDialog();
-            if (LanguagesObservable.Count() > Languages.Count())
+            if (LanguageAdded())
                 LanguageComboBox.SelectedItem = LanguagesObservable.Last().ToString();
+        }
+
+        private bool LanguageAdded()
+        {
+            return LanguagesObservable.Count() > Languages.Count();
         }
 
         private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
-        //-calendar - multiple selection-------------------------------------------------------------------------------------------------
-
-        private Dictionary<DateTime, List<TimeSpan>> appointments = new Dictionary<DateTime, List<TimeSpan>>();
 
         private void AddTimeButton_Click(object sender, RoutedEventArgs e)
         {
@@ -153,8 +159,6 @@ namespace ProjectTourism.View.RouteView
             }
         }
 
-
-
         private void UpdateAppointmentsListBox()
         {
             appointmentsListBox.Items.Clear();
@@ -168,19 +172,16 @@ namespace ProjectTourism.View.RouteView
                 appointmentsListBox.Items.Add(appointmentText.TrimEnd(',', ' '));
             }
         }
+
         private void SaveDates()
         {
             foreach (KeyValuePair<DateTime, List<TimeSpan>> appointment in appointments)
             {
                 string appointmentText = "";
-                //appointmentText = appointment.Key.ToShortDateString() + " ";      //appointmentText = appointment.Key.ToString("dd.MM.yyyy") + " ";
-                //appointmentText = appointment.Key.ToString(DateTimeFormatInfo.CurrentInfo.ShortDatePattern) + " ";
                 foreach (TimeSpan time in appointment.Value)
                 {
                     appointmentText = appointment.Key.ToString(DateTimeFormatInfo.CurrentInfo.ShortDatePattern) + " ";
                     appointmentText += time.ToString("hh\\:mm");
-                    //appointmentText += time.ToString("HH:mm:ss");         //appointmentText += time.ToString("HH:mm");
-                    //if (DateTime.TryParse(appointmentText, CultureInfo.CurrentCulture.DateTimeFormat, DateTimeStyles.AssumeUniversal, out var dateTimeParsed))
                     if (DateTime.TryParse(appointmentText, CultureInfo.CurrentCulture.DateTimeFormat, DateTimeStyles.None, out var dateTimeParsed))
                         Route.dates.Add(dateTimeParsed);
                 }
