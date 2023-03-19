@@ -98,13 +98,13 @@ namespace ProjectTourism.View.Guest1View
             
             var reservedDaysCount = Reservation.EndDate.DayNumber - Reservation.StartDate.DayNumber;
 
-            if (reservedDaysCount >= Reservation.Accommodation.MinDaysForReservation || reservedDaysCount <= 0)
+            if (reservedDaysCount >= (Reservation.Accommodation.MinDaysForReservation - 1) || reservedDaysCount < 0)
             {
                 if (GuestCount <= Reservation.Accommodation.MaxNumberOfGuests)
                 {
                     if (GuestCount > 0)
                     {
-                        if (reservedDaysCount > 0)
+                        if (reservedDaysCount >= 0)
                         {
                             if (ReservationController.IsPossible(Reservation))
                             {
