@@ -90,8 +90,8 @@ namespace ProjectTourism.Model
             }
         }
 
-        private int? _MaxNumberOfGuests;
-        public int? MaxNumberOfGuests
+        private int _MaxNumberOfGuests;
+        public int MaxNumberOfGuests
         {
             get => _MaxNumberOfGuests;
             set

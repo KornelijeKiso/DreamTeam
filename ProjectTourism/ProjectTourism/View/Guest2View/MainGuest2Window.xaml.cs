@@ -185,7 +185,11 @@ namespace ProjectTourism.View.Guest2View
                 //if (ticket == null)
                 {
                     CreateTicketWindow createTicketWindow = new CreateTicketWindow(Guest.Username, SelectedRoute.Id);
-                    createTicketWindow.ShowDialog();
+                    if (createTicketWindow.dates.Count == 0)
+                    {
+                        MessageBox.Show("No available seats for this Route.");
+                    } else
+                        createTicketWindow.ShowDialog();
                 }
                 
                 

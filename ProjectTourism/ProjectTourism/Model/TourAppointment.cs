@@ -103,8 +103,8 @@ namespace ProjectTourism.Model
             }
         }
 
-        private int? _AvailableSeats;
-        public int? AvailableSeats
+        private int _AvailableSeats;
+        public int AvailableSeats
         {
             get => _AvailableSeats;
             set

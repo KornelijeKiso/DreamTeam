@@ -65,7 +65,7 @@ namespace ProjectTourism.ModelDAO
         {
             foreach (TourAppointment tours in GetByRoute(tourId))
             {
-                if (tours.TourDateTime == date) return tours;
+                if (tours.TourDateTime.Equals(date)) return tours;
             }
             return null;
         }
@@ -74,7 +74,7 @@ namespace ProjectTourism.ModelDAO
             List<TourAppointment> toursById= new List<TourAppointment>();
             foreach (var tourApp in TourAppointments)
             {
-                if (tourApp.Id == id)
+                if (tourApp.TourId == id)
                     toursById.Add(tourApp);
             }
             return toursById;

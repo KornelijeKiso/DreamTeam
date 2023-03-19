@@ -99,7 +99,7 @@
                Grid.Row="4" Grid.Column="2" 
         />
         <ComboBox x:Name="DatesComboBox"
-               ItemsSource="{Binding Path = SelectedRoute.dates}"
+               ItemsSource="{Binding Path = dates}"
                SelectedIndex="0"
                SelectionChanged="DatesComboBox_SelectionChanged"
                HorizontalAlignment="Left" VerticalAlignment="Center"
@@ -111,7 +111,7 @@
                 Height="30" Width="30"
                 Grid.Row="6" Grid.Column="2"    >
         </TextBox>
-        <Slider x:Name="slider" Minimum="1" Maximum="{Binding Path=selectedAppointment.AvailableSeats}" 
+        <Slider x:Name="slider" Minimum="1" Maximum="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" 
                 Value="{Binding Path=Ticket.NumberOfGuests}"
                 HorizontalAlignment="Right" VerticalAlignment="Center"
                 Height="30" Width="160" Margin="0 0 10 0"
