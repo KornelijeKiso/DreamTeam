@@ -39,15 +39,26 @@ namespace ProjectTourism.View.GuideView.TourView
         {
             InitializeComponent();
             DataContext = this;
-            TourAppointmentController = new TourAppointmentController();
+            MakeControllers();
+
             TourAppointment = TourAppointmentController.GetOne(id);
-            TicketController = new TicketController();
-            GuideController = new GuideController();
+
             List<Ticket> tickets = TicketController.GetByAppointment(TourAppointment);
             Tickets = new ObservableCollection<Ticket>(tickets);
 
-            TicketStatusButtonColor();
+            ControlTicketStatusColor();
+            EmergencyButtonSet();
+        }
 
+        private void MakeControllers()
+        {
+            TourAppointmentController = new TourAppointmentController();
+            TicketController = new TicketController();
+            GuideController = new GuideController();
+        }
+
+        private void EmergencyButtonSet()
+        {
             if (TourStarted())
             {
                 StopPassedButton.Content = "Stop passed";
@@ -89,30 +100,39 @@ namespace ProjectTourism.View.GuideView.TourView
         public void FinishTour(TourAppointment tour)
         {
             StopPassedButton.Content = "Finish tour";
-            tour.IsNotFinished = false;
-            tour.State = TOURSTATE.FINISHED;
-            GuideController.Update(tour.Tour.Guide.Username, false);
-            TourAppointmentController.ChangeState(tour);
+            UpdateFinishTour(tour);
             StopPassedButton.IsEnabled = false;
             EmergencyStopButton.IsEnabled = false;
         }
 
+        private void UpdateFinishTour(TourAppointment tour)
+        {
+            tour.IsNotFinished = false;
+            tour.State = TOURSTATE.FINISHED;
+            GuideController.Update(tour.Tour.Guide.Username, false);
+            TourAppointmentController.ChangeState(tour);
+        }
+
         public void NextStop(TourAppointment tour)
         {
-            StopTextBox.Text = TourAppointmentController.GetNextStop(tour.Tour, PassedButtonClicks(tour));
             StopPassedButton.Content = "Stop passed";
+            UpdateNextStop(tour);
+            ControlTicketStatusColor();
+        }
+
+        private void UpdateNextStop(TourAppointment tour)
+        {
+            StopTextBox.Text = TourAppointmentController.GetNextStop(tour.Tour, PassedButtonClicks(tour));
             tour.CurrentTourStop = tour.Tour.StopsList[PassedButtonClicks(tour) + 1];
             TourAppointmentController.ChangeCurrentStop(tour);
             tour.State = TOURSTATE.STARTED;
             TourAppointmentController.ChangeState(tour);
             GuideController.Update(tour.Tour.Guide.Username, true);
-
-            TicketStatusButtonColor();
         }
+
         private void StopPassedButton_Click(object sender, RoutedEventArgs e)
         {
-
-            if (!TourAppointment.Tour.Guide.HasTourStarted || TourAppointment.State == TOURSTATE.STARTED)
+            if (CanGoNextStop())
             {
                 NextStop(TourAppointment);
                 if (IsLastStop(TourAppointment))
@@ -123,15 +143,12 @@ namespace ProjectTourism.View.GuideView.TourView
                 MessageBox.Show("Guide has already started a tour!");
                 Close();
             }
-            EmergencyButtonEnableStatus();
+            EmergencyButtonSet();
         }
 
-        private void EmergencyButtonEnableStatus()
+        private bool CanGoNextStop()
         {
-            if (TourStarted())
-                EmergencyStopButton.IsEnabled = true;
-            else
-                EmergencyStopButton.IsEnabled = false;
+            return !TourAppointment.Tour.Guide.HasTourStarted || TourAppointment.State == TOURSTATE.STARTED;
         }
 
         private void EmergencyStopButton_Click(object sender, RoutedEventArgs e)
@@ -142,7 +159,7 @@ namespace ProjectTourism.View.GuideView.TourView
             GuideController.Update(TourAppointment.Tour.Guide.Username, false);
         }
         
-        private void TicketStatusButtonColor()
+        private void ControlTicketStatusColor()
         {
             foreach (Ticket ticket in Tickets)
             {
@@ -158,7 +175,6 @@ namespace ProjectTourism.View.GuideView.TourView
         {   
 
         }
-
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 

@@ -54,7 +54,7 @@ namespace ProjectTourism.View.GuideView
 
         private void CreateGuideButton_Click(object sender, RoutedEventArgs e)
         {
-            if(Guide.Name != null && Guide.Surname!=null)
+            if (NameSurnameNotNull())
             {
                 UserController.Add(User);
                 GuideController.Add(Guide);
@@ -64,6 +64,11 @@ namespace ProjectTourism.View.GuideView
             {
                 MessageBox.Show("You have not entered the data correctly.");
             }
+        }
+
+        private bool NameSurnameNotNull()
+        {
+            return Guide.Name != null && Guide.Surname != null;
         }
     }
 }

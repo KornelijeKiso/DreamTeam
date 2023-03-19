@@ -33,7 +33,6 @@ namespace ProjectTourism.Controller
         {
             return TicketDAO.GetOne(id);
         }
-
         public List<Ticket> GetByAppointment(TourAppointment tourApp)
         {
             return TicketDAO.GetByAppointment(tourApp);
@@ -42,11 +41,6 @@ namespace ProjectTourism.Controller
         public List<Ticket> GetByGuest(Guest2 guest2)
         {
             return TicketDAO.GetByGuest(guest2);
-        }
-
-        public void ChangeAppointment(Ticket ticket)
-        {
-            TicketDAO.ChangeAppointment(ticket);
         }
 
         public Ticket GetGuest2Ticket(Guest2 guest2, TourAppointment tourApp)
@@ -62,7 +56,6 @@ namespace ProjectTourism.Controller
         {
             TicketDAO.CheckGuestStatus(tourAppId, ticketId);
         }
-
         public void Subscribe(IObserver observer)
         {
             TicketDAO.Subscribe(observer);

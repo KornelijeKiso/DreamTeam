@@ -189,7 +189,7 @@ namespace ProjectTourism.Model
             TourAppointmentId = tourAppId;
             TourAppointmentDAO tourAppointmentDAO = new TourAppointmentDAO();
             TourAppointment = tourAppointmentDAO.GetOne(tourAppId);
-            this.TourStop = tourStop;
+            TourStop = tourStop;
             Guest2Username = guest2Username;
             Guest2 = FindGuest2(guest2Username);
             NumberOfGuests = numberOfGuests;
@@ -202,14 +202,13 @@ namespace ProjectTourism.Model
             TourAppointmentId = tourAppId;
             TourAppointmentDAO tourAppointmentDAO = new TourAppointmentDAO();
             TourAppointment = tourAppointmentDAO.GetOne(tourAppId);
-            this.TourStop = tourStop;
+            TourStop = tourStop;
             Guest2Username = guest2Username;
             Guest2 = FindGuest2(guest2Username);
             NumberOfGuests = numberOfGuests;
             HasGuideChecked = false;
             HasGuestConfirmed = false;
         }
-
 
         public Guest2 FindGuest2(string username)
         {
@@ -257,7 +256,6 @@ namespace ProjectTourism.Model
             HasGuestConfirmed= bool.Parse(values[6]);
 
             Guest2 = FindGuest2(Guest2Username);
-
             AddTicketToAppointment(this);
         }
 

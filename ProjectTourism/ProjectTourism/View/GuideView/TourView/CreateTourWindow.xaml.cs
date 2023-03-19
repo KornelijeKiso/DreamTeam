@@ -149,12 +149,7 @@ namespace ProjectTourism.View.TourView
             {
                 foreach (DateTime date in calendar.SelectedDates)
                 {
-                    TimeSpan time = new TimeSpan(hours, minutes, 0);
-                    if (!appointments.ContainsKey(date))
-                    {
-                        appointments[date] = new List<TimeSpan>();
-                    }
-                    appointments[date].Add(time);
+                    AddTimeToDate(hours, minutes, date);
                 }
                 UpdateAppointmentsListBox();
             }
@@ -164,18 +159,33 @@ namespace ProjectTourism.View.TourView
             }
         }
 
+        private void AddTimeToDate(int hours, int minutes, DateTime date)
+        {
+            TimeSpan time = new TimeSpan(hours, minutes, 0);
+            if (!appointments.ContainsKey(date))
+            {
+                appointments[date] = new List<TimeSpan>();
+            }
+            appointments[date].Add(time);
+        }
+
         private void UpdateAppointmentsListBox()
         {
             appointmentsListBox.Items.Clear();
             foreach (KeyValuePair<DateTime, List<TimeSpan>> appointment in appointments)
             {
-                string appointmentText = appointment.Key.ToShortDateString() + " ";
-                foreach (TimeSpan time in appointment.Value)
-                {
-                    appointmentText += time.ToString("hh\\:mm") + ", ";
-                }
-                appointmentsListBox.Items.Add(appointmentText.TrimEnd(',', ' '));
+                AddDateToList(appointment);
             }
+        }
+
+        private void AddDateToList(KeyValuePair<DateTime, List<TimeSpan>> appointment)
+        {
+            string appointmentText = appointment.Key.ToShortDateString() + " ";
+            foreach (TimeSpan time in appointment.Value)
+            {
+                appointmentText += time.ToString("hh\\:mm") + ", ";
+            }
+            appointmentsListBox.Items.Add(appointmentText.TrimEnd(',', ' '));
         }
 
         private void SaveDates()
