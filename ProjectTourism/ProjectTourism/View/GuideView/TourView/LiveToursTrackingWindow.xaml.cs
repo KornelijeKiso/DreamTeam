@@ -54,7 +54,6 @@ namespace ProjectTourism.View.GuideView.TourView
             if (SelectedTourAppointment != null)
             {
                 TourStopsWindow tourStopsWindow = new TourStopsWindow(SelectedTourAppointment.Id);
-                SelectedTourAppointment.State = TOURSTATE.STARTED;
                 tourStopsWindow.ShowDialog();
             }
             else
