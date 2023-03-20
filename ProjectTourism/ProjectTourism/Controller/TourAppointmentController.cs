@@ -28,6 +28,10 @@ namespace ProjectTourism.Controller
         {
             return TourAppointmentDAO.GetOne(id);
         }
+        public List<TourAppointment> GetByTour(int id)
+        {
+            return TourAppointmentDAO.GetByTour(id);
+        }
         public TourAppointment GetByDate(int tourId, DateTime date)
         {
             return TourAppointmentDAO.GetByDate(tourId, date);

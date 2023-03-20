@@ -31,6 +31,8 @@ namespace ProjectTourism.View.Guest2View
         public TourController TourController { get; set; }
         public Tour? SelectedTour { get; set; }
         public ObservableCollection<Tour> Tours { get; set; }
+
+        public TourAppointmentController TourAppointmentController { get; set; }    //
         
         public string searchLocation { get; set; }
         public string searchLanguage { get; set; }
@@ -52,6 +54,8 @@ namespace ProjectTourism.View.Guest2View
             searchLanguage = "";
             searchDuration = "";
             searchMaxNumberOfGuests = "";
+
+            TourAppointmentController = new TourAppointmentController();
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -165,12 +169,37 @@ namespace ProjectTourism.View.Guest2View
                     if (createTicketWindow.dates.Count == 0)
                     {
                         MessageBox.Show("No available seats for this Tour.");
+                        List<TourAppointment> suggestions = SameLocationSuggestion(SelectedTour);
+                        int i = 0;
+                        foreach (TourAppointment tourApp in suggestions)
+                        {
+                            MessageBox.Show($"Tour Suggestion!!!\n\nTour: {tourApp.Tour.Name}\nLocation: {tourApp.Tour.Location.City}\nDate: {tourApp.TourDateTime.ToString()}\nAvailable seats: {tourApp.AvailableSeats}");
+                        }
                     } else
                         createTicketWindow.ShowDialog();
                 }
             }
             else
                 MessageBox.Show("Please select the tour.");
+        }
+
+        public List<TourAppointment> SameLocationSuggestion(Tour tour)
+        {
+            List<TourAppointment> suggestions = new List<TourAppointment>();
+            List<TourAppointment> appointments = TourAppointmentController.GetAll();
+            
+            foreach (TourAppointment TourAppointment in appointments)
+            {
+                if (IsAvailableToBuy(tour, TourAppointment))
+                    suggestions.Add(TourAppointment);
+            }
+            return suggestions;
+        }
+
+        private bool IsAvailableToBuy(Tour tour, TourAppointment TourAppointment)
+        {
+            return TourAppointment.AvailableSeats != 0 && TourAppointment.Tour.LocationId == tour.LocationId
+                      && TourAppointment.State == TOURSTATE.READY && TourAppointment.TourDateTime >= DateTime.Today;
         }
 
         private void ShowTickets(object sender, RoutedEventArgs e)

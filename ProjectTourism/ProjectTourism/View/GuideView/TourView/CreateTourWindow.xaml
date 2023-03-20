@@ -83,7 +83,7 @@
             <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding Tour.Finish, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>
             <!--<DatePicker x:Name="dateTimePicker" Grid.Row="8" Grid.Column="1" SelectedDate="{Binding Path=Tour.StartDate, Mode=TwoWay}" Margin="0,8,0,8" FirstDayOfWeek="Monday"/>-->
             <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding Path = Tour.Duration, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>
-            <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding Path = Tour.Images}" Margin="0,8,0,8"/>
+            <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding Path = Tour.PictureURLs}" Margin="0,8,0,8"/>
             <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding Path = Tour.Description}" Margin="0,8,0,8"/>
         </Grid>
         <WrapPanel>
