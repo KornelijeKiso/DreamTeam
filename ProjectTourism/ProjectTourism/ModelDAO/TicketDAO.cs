@@ -88,13 +88,14 @@ namespace ProjectTourism.ModelDAO
             }
             return ticketsByApp;
         }
-        public List<Ticket> GetByGuest(Guest2 guest2)
+        public List<Ticket> GetByGuest(string guest2Username)
+            //public List<Ticket> GetByGuest(Guest2 guest2)
         {
             List<Ticket> ticketsByGuest = new List<Ticket>();
 
             foreach (var ticket in Tickets)
             {
-                if (guest2.Username.Equals(ticket.Guest2Username))
+                if (guest2Username.Equals(ticket.Guest2Username))
                 {
                     ticketsByGuest.Add(ticket);
                 }

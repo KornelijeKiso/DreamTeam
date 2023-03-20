@@ -104,7 +104,7 @@ namespace ProjectTourism.View.Guest2View
                 TicketNotBought.Add(date);
 
             // checking if the state of appointment is valid and if the ticket is from that tour
-            List<Ticket> allGuestsTickets = TicketController.GetByGuest(Guest2);
+            List<Ticket> allGuestsTickets = TicketController.GetByGuest(Guest2.Username);
             List<Ticket> validTicket = new List<Ticket>();
             foreach (var ticket in allGuestsTickets)
             {

@@ -26,16 +26,12 @@ namespace ProjectTourism.View.Guest2View
     /// </summary>
     public partial class MainGuest2Window : Window, INotifyPropertyChanged, IObserver
     {
-        public User User { get; set; }
-        public UserController UserController { get; set; }
         public Guest2 Guest { get; set; }
         public Guest2Controller GuestController { get; set; }
         public TourController TourController { get; set; }
         public Tour? SelectedTour { get; set; }
-        public TicketController TicketController { get; set; }
         public ObservableCollection<Tour> Tours { get; set; }
-        //public GuideController GuideController { get; set; }
-
+        
         public string searchLocation { get; set; }
         public string searchLanguage { get; set; }
         public string searchDuration { get; set; }
@@ -46,11 +42,9 @@ namespace ProjectTourism.View.Guest2View
         {
             InitializeComponent();
             DataContext = this;
-            UserController = new UserController();
-            User = UserController.GetOne(username);
+            
             GuestController = new Guest2Controller();
             Guest = GuestController.GetOne(username);
-            //GuideController = new GuideController();
             TourController = new TourController();
             Tours = new ObservableCollection<Tour>(TourController.GetAll());
 
@@ -58,9 +52,6 @@ namespace ProjectTourism.View.Guest2View
             searchLanguage = "";
             searchDuration = "";
             searchMaxNumberOfGuests = "";
-
-            TicketController = new TicketController();
-
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -69,19 +60,8 @@ namespace ProjectTourism.View.Guest2View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
-        private void UpdateToursList()
-        {
-            Tours.Clear();
-            foreach (Tour tour in TourController.GetAll())
-            {
-                Tours.Add(tour);
-            }
-        }
-
         public void Update()
         {
-            UpdateToursList();
             throw new NotImplementedException();
         }
 
@@ -188,8 +168,6 @@ namespace ProjectTourism.View.Guest2View
                     } else
                         createTicketWindow.ShowDialog();
                 }
-                
-                
             }
             else
                 MessageBox.Show("Please select the tour.");
