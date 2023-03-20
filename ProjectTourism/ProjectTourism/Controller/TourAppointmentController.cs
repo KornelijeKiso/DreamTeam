@@ -16,21 +16,21 @@ namespace ProjectTourism.Controller
         {
             TourAppointmentDAO = new TourAppointmentDAO();
         }
-        public void Subscribe(IObserver observer)
+        public void MakeTourAppointments(Tour route)
         {
-            TourAppointmentDAO.Subscribe(observer);
+            TourAppointmentDAO.MakeTourAppointments(route);
         }
-        public void NotifyObservers()
+        public List<TourAppointment> GetAll()
         {
-            TourAppointmentDAO.NotifyObservers();
+            return TourAppointmentDAO.GetAll();
         }
-        public List<TourAppointment> GetByTour(int id)
+        public TourAppointment GetOne(int id)
         {
-            return TourAppointmentDAO.GetByTour(id);
+            return TourAppointmentDAO.GetOne(id);
         }
-        public List<Guest2> GetGuests(List<Ticket> tickets)
+        public TourAppointment GetByDate(int tourId, DateTime date)
         {
-            return TourAppointmentDAO.GetGuests(tickets);
+            return TourAppointmentDAO.GetByDate(tourId, date);
         }
         public void UpdateAppointmentCreate(int tourAppointmentId, Ticket ticket)
         {
@@ -44,26 +44,6 @@ namespace ProjectTourism.Controller
         {
             TourAppointmentDAO.UpdateAppointmentUpdate(tourAppointmentId, ReturnedTicket);
         }
-        public void Add(TourAppointment addedTourApp)
-        {
-            TourAppointmentDAO.Add(addedTourApp);
-        }
-        public void MakeTourAppointments(Tour route)
-        {
-            TourAppointmentDAO.MakeTourAppointments(route);
-        }
-        public TourAppointment GetOne(int id) 
-        {
-            return TourAppointmentDAO.GetOne(id);
-        }
-        public TourAppointment GetByDate(int tourId, DateTime date)
-        {
-            return TourAppointmentDAO.GetByDate(tourId, date);
-        }
-        public List<TourAppointment> GetAll()
-        {
-            return TourAppointmentDAO.GetAll();
-        }
         public void ChangeState(TourAppointment tourAppointment)
         {
             TourAppointmentDAO.ChangeState(tourAppointment);
@@ -76,6 +56,13 @@ namespace ProjectTourism.Controller
         {
             return TourAppointmentDAO.GetNextStop(tour, stopint);
         }
-        
+        public void Subscribe(IObserver observer)
+        {
+            TourAppointmentDAO.Subscribe(observer);
+        }
+        public void NotifyObservers()
+        {
+            TourAppointmentDAO.NotifyObservers();
+        }
     }
 }

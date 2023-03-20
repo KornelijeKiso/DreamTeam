@@ -29,13 +29,19 @@ namespace ProjectTourism.Controller
         {
             TicketDAO.Delete(ticket);
         }
+        public List<Ticket> GetAll()
+        {
+            return TicketDAO.GetAll();
+        }
+
         public Ticket GetOne(int id)
         {
             return TicketDAO.GetOne(id);
         }
-        public List<Ticket> GetByAppointment(TourAppointment tourApp)
+        //public List<Ticket> GetByAppointment(TourAppointment tourApp)
+        public List<Ticket> GetByAppointment(int tourAppId)
         {
-            return TicketDAO.GetByAppointment(tourApp);
+            return TicketDAO.GetByAppointment(tourAppId);
         }
 
         public List<Ticket> GetByGuest(Guest2 guest2)
@@ -48,10 +54,6 @@ namespace ProjectTourism.Controller
             return TicketDAO.GetGuest2Ticket(guest2, tourApp);
         }
 
-        public List<Ticket> GetAll()
-        {
-            return TicketDAO.GetAll();
-        }
         public void CheckGuestStatus(int tourAppId, int ticketId)
         {
             TicketDAO.CheckGuestStatus(tourAppId, ticketId);

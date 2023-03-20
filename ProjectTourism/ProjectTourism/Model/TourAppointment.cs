@@ -46,7 +46,6 @@ namespace ProjectTourism.Model
             }
         }
 
-
         private string _CurrentTourStop;
         public string CurrentTourStop
         {
