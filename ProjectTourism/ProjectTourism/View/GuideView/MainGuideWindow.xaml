@@ -5,21 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.GuideView"
         mc:Ignorable="d"
-        Title="Guide window" Height="500" Width="900"
+        Title="Guide window" Height="450" Width="800"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        <Button x:Name="AddNewTourButton" Content="Add a new tour" HorizontalAlignment="Left" Height="48" Margin="719,391,0,0" VerticalAlignment="Top" Width="123" Click="AddNewTourButton_Click"/>
-        <Button x:Name="LiveTourMonitorButton" Content="Live tours monitor" HorizontalAlignment="Left" Height="48" Margin="529,391,0,0" VerticalAlignment="Top" Width="123" Click="LiveTourMonitorButton_Click"/>
-        <DataGrid CanUserDeleteRows="False" IsReadOnly="True" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserAddRows="False" HorizontalAlignment="Center" Height="299" VerticalAlignment="Top" Width="784" ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="0,49,0,0">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="186" Binding="{Binding Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Country" Width="136" Binding="{Binding Location.Country}"></DataGridTextColumn>
-                <DataGridTextColumn Header="City" Width="91" Binding="{Binding Location.City}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Language" Width="81" Binding="{Binding Language}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Max guests" Width="71" Binding="{Binding MaxNumberOfGuests}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Date and time" Width="151" Binding="{Binding dates[0]}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Duration" Width="*" Binding="{Binding Duration}"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+        <Button x:Name="AddNewTourButton" Content="Add a new tour" HorizontalAlignment="Left" Height="48" Margin="646,353,0,0" VerticalAlignment="Top" Width="123" Click="AddNewTourButton_Click"/>
+        <Button x:Name="ToursButton" Content="Tours" HorizontalAlignment="Left" Height="48" Margin="467,353,0,0" VerticalAlignment="Top" Width="123" Click="ToursButton_Click"/>
+        <Button x:Name="LiveTourMonitorButton" Content="Live tours monitor" HorizontalAlignment="Left" Height="48" Margin="277,353,0,0" VerticalAlignment="Top" Width="123" Click="LiveTourMonitorButton_Click"/>
     </Grid>
 </Window>
