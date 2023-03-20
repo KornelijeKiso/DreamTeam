@@ -43,7 +43,7 @@ namespace ProjectTourism.View.GuideView.TourView
 
             TourAppointment = TourAppointmentController.GetOne(id);
 
-            List<Ticket> tickets = TicketController.GetByAppointment(TourAppointment);
+            List<Ticket> tickets = TicketController.GetByAppointment(id);
             Tickets = new ObservableCollection<Ticket>(tickets);
 
          //   ControlTicketStatusColor();

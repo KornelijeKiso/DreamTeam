@@ -72,42 +72,41 @@ namespace ProjectTourism.ModelDAO
             return null;
         }
 
-        public List<Ticket> GetByAppointment(TourAppointment tourApp)
+        public List<Ticket> GetByAppointment(int tourAppointmentId)   // same as tourAppointment.Tickets
         {
+            TourAppointmentDAO tourAppointmentDAO = new TourAppointmentDAO();
+            TourAppointment tourAppointment = tourAppointmentDAO.GetOne(tourAppointmentId);     //
             List<Ticket> ticketsByApp = new List<Ticket>();
 
             foreach (var ticket in Tickets)
             {
-                if (tourApp.Id == ticket.TourAppointmentId)
+                if (tourAppointment.Id == ticket.TourAppointmentId)
                 {
                     ticketsByApp.Add(ticket);
                 }
             }
             return ticketsByApp;
         }
-        public List<Ticket> GetByGuest(Guest2 guest2)
+        public List<Ticket> GetByGuest(string guest2Username)
         {
             List<Ticket> ticketsByGuest = new List<Ticket>();
 
             foreach (var ticket in Tickets)
             {
-                if (guest2.Username.Equals(ticket.Guest2Username))
+                if (guest2Username.Equals(ticket.Guest2Username))
                 {
                     ticketsByGuest.Add(ticket);
                 }
             }
             return ticketsByGuest;
         }
-        public Ticket GetGuest2Ticket(Guest2 guest2, TourAppointment tourApp)
+        
+        public Ticket GetGuest2Ticket(string guest2Username, int tourAppId)
         {
-            List<Ticket> ticketsByGuest = GetByGuest(guest2);
-
-            foreach (var ticket in ticketsByGuest)
+            foreach (var ticket in Tickets)
             {
-                if (ticket.TourAppointmentId == tourApp.Id)
-                {
+                if ((ticket.TourAppointmentId == tourAppId) && (guest2Username.Equals(ticket.Guest2Username)))
                     return ticket;
-                }
             }
             return null;
         }
@@ -116,9 +115,8 @@ namespace ProjectTourism.ModelDAO
         {
             TourAppointmentDAO tourAppointmentDAO = new TourAppointmentDAO();
             TourAppointment TourAppointment = tourAppointmentDAO.GetOne(tourAppId);
-
             Ticket ticket = GetOne(ticketId);
-            if (TourAppointment.CurrentTourStop.Equals(ticket.TourStop) && TourAppointment.State == TOURSTATE.STARTED)
+            if ((TourAppointment.CurrentTourStop.Equals(ticket.TourStop)) && (TourAppointment.State == TOURSTATE.STARTED))
                 ticket.HasGuideChecked = true;
 
             FileHandler.Save(Tickets);

@@ -29,29 +29,31 @@ namespace ProjectTourism.Controller
         {
             TicketDAO.Delete(ticket);
         }
-        public Ticket GetOne(int id)
-        {
-            return TicketDAO.GetOne(id);
-        }
-        public List<Ticket> GetByAppointment(TourAppointment tourApp)
-        {
-            return TicketDAO.GetByAppointment(tourApp);
-        }
-
-        public List<Ticket> GetByGuest(Guest2 guest2)
-        {
-            return TicketDAO.GetByGuest(guest2);
-        }
-
-        public Ticket GetGuest2Ticket(Guest2 guest2, TourAppointment tourApp)
-        {
-            return TicketDAO.GetGuest2Ticket(guest2, tourApp);
-        }
-
         public List<Ticket> GetAll()
         {
             return TicketDAO.GetAll();
         }
+
+        public Ticket GetOne(int id)
+        {
+            return TicketDAO.GetOne(id);
+        }
+        //public List<Ticket> GetByAppointment(TourAppointment tourApp)
+        public List<Ticket> GetByAppointment(int tourAppId)
+        {
+            return TicketDAO.GetByAppointment(tourAppId);
+        }
+
+        public List<Ticket> GetByGuest(string guest2Username)
+        {
+            return TicketDAO.GetByGuest(guest2Username);
+        }
+
+        public Ticket GetGuest2Ticket(string guest2Username, int tourAppId)
+        {
+            return TicketDAO.GetGuest2Ticket(guest2Username, tourAppId);
+        }
+
         public void CheckGuestStatus(int tourAppId, int ticketId)
         {
             TicketDAO.CheckGuestStatus(tourAppId, ticketId);

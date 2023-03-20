@@ -39,35 +39,7 @@ namespace ProjectTourism.Model
                     OnPropertyChanged();
                 }
             }
-        }
-        
-        private int _TourId;
-        public int TourId
-        {
-            get => _TourId;
-            set
-            {
-                if (value != _TourId)
-                {
-                    _TourId = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private Tour _Tour;
-        public Tour Tour
-        {
-            get => _Tour;
-            set
-            {
-                if (value != _Tour)
-                {
-                    _Tour = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        }               
 
         private int _TourAppointmentId;
         public int TourAppointmentId
@@ -187,8 +159,7 @@ namespace ProjectTourism.Model
         {
             Id = id;
             TourAppointmentId = tourAppId;
-            TourAppointmentDAO tourAppointmentDAO = new TourAppointmentDAO();
-            TourAppointment = tourAppointmentDAO.GetOne(tourAppId);
+            TourAppointment = FindTourAppointment(tourAppId);
             TourStop = tourStop;
             Guest2Username = guest2Username;
             Guest2 = FindGuest2(guest2Username);
@@ -200,8 +171,7 @@ namespace ProjectTourism.Model
         public Ticket(int tourAppId, string tourStop, string guest2Username, int numberOfGuests)
         {
             TourAppointmentId = tourAppId;
-            TourAppointmentDAO tourAppointmentDAO = new TourAppointmentDAO();
-            TourAppointment = tourAppointmentDAO.GetOne(tourAppId);
+            TourAppointment = FindTourAppointment(tourAppId);
             TourStop = tourStop;
             Guest2Username = guest2Username;
             Guest2 = FindGuest2(guest2Username);
@@ -220,10 +190,12 @@ namespace ProjectTourism.Model
             TourAppointmentDAO tourAppointmentDAO = new TourAppointmentDAO();
             return tourAppointmentDAO.GetOne(id);
         }
-        private void AddTicketToAppointment(Ticket ticket)
+        private void AddTicketToAppointment(Ticket ticket)  // possible problem
         {
             ticket.TourAppointment.Tickets.Add(ticket);
- 
+            if (ticket.TourAppointment.CurrentTourStop.Equals(ticket.TourStop))
+                ticket.HasGuideChecked = true;
+            else ticket.HasGuideChecked = false; 
         }
 
         public string[] ToCSV()
@@ -257,7 +229,7 @@ namespace ProjectTourism.Model
             else if (HasGuideChecked)
                 ButtonColor = Brushes.IndianRed;
             Guest2 = FindGuest2(Guest2Username);
-            AddTicketToAppointment(this);
+            //AddTicketToAppointment(this);
         }
 
 

@@ -49,17 +49,17 @@
                Height="30" Width="120" Margin="20 0 0 0"
                Grid.Row="4" Grid.Column="1"
         />
-        <Label x:Name="Date" Content="Date" 
+        <Label x:Name="Date" Content="Tour Date" 
                HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="120" Margin="20 0 0 0"
                Grid.Row="5" Grid.Column="1"
         />
-        <Label x:Name="AvailableTicketsSeats" Content="Available Tickets" 
+        <Label x:Name="AvailableTicketsSeats" Content="Number of Tickets" 
                HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="120" Margin="20 0 0 0"
                Grid.Row="6" Grid.Column="1"
         />
-        <Label x:Name="Stops" Content="Stops" 
+        <Label x:Name="Stops" Content="Your Starting Stop" 
                HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="120" Margin="20 0 0 0"
                Grid.Row="7" Grid.Column="1"

@@ -26,16 +26,13 @@ namespace ProjectTourism.View.Guest2View
     /// </summary>
     public partial class MainGuest2Window : Window, INotifyPropertyChanged, IObserver
     {
-        public User User { get; set; }
-        public UserController UserController { get; set; }
         public Guest2 Guest { get; set; }
         public Guest2Controller GuestController { get; set; }
         public TourController TourController { get; set; }
         public Tour? SelectedTour { get; set; }
-        public TicketController TicketController { get; set; }
         public ObservableCollection<Tour> Tours { get; set; }
-        //public GuideController GuideController { get; set; }
-
+        public TourAppointmentController TourAppointmentController { get; set; }
+        
         public string searchLocation { get; set; }
         public string searchLanguage { get; set; }
         public string searchDuration { get; set; }
@@ -46,11 +43,9 @@ namespace ProjectTourism.View.Guest2View
         {
             InitializeComponent();
             DataContext = this;
-            UserController = new UserController();
-            User = UserController.GetOne(username);
+            
             GuestController = new Guest2Controller();
             Guest = GuestController.GetOne(username);
-            //GuideController = new GuideController();
             TourController = new TourController();
             Tours = new ObservableCollection<Tour>(TourController.GetAll());
 
@@ -59,8 +54,7 @@ namespace ProjectTourism.View.Guest2View
             searchDuration = "";
             searchMaxNumberOfGuests = "";
 
-            TicketController = new TicketController();
-
+            TourAppointmentController = new TourAppointmentController();
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -69,19 +63,8 @@ namespace ProjectTourism.View.Guest2View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-
-        private void UpdateToursList()
-        {
-            Tours.Clear();
-            foreach (Tour tour in TourController.GetAll())
-            {
-                Tours.Add(tour);
-            }
-        }
-
         public void Update()
         {
-            UpdateToursList();
             throw new NotImplementedException();
         }
 
@@ -139,9 +122,10 @@ namespace ProjectTourism.View.Guest2View
             List<Tour> toursList = new List<Tour>();
             if (searchDuration != "")
             {
+                double WantedDuration = double.Parse(searchDuration);
                 foreach (Tour tour in tours)
                 {
-                    if (tour.Duration.ToString().Contains(searchDuration, StringComparison.OrdinalIgnoreCase))
+                    if (tour.Duration <= WantedDuration)
                         toursList.Add(tour);
                 }
                 UpdateToursList(toursList);
@@ -153,9 +137,10 @@ namespace ProjectTourism.View.Guest2View
             List<Tour> toursList = new List<Tour>();
             if (searchMaxNumberOfGuests != "")
             {
+                int WantedMaxNumberOfGuests = int.Parse(searchMaxNumberOfGuests);
                 foreach (Tour tour in tours)
                 {
-                    if (tour.MaxNumberOfGuests.ToString().Contains(searchMaxNumberOfGuests, StringComparison.OrdinalIgnoreCase))
+                    if (tour.MaxNumberOfGuests <= WantedMaxNumberOfGuests)
                         toursList.Add(tour);
                 }
                 UpdateToursList(toursList);
@@ -185,14 +170,37 @@ namespace ProjectTourism.View.Guest2View
                     if (createTicketWindow.dates.Count == 0)
                     {
                         MessageBox.Show("No available seats for this Tour.");
+                        List<TourAppointment> suggestions = SameLocationSuggestion(SelectedTour);
+                        int i = 0;
+                        foreach (TourAppointment tourApp in suggestions)
+                        {
+                            MessageBox.Show($"Tour Suggestion!!!\n\nTour: {tourApp.Tour.Name}\nLocation: {tourApp.Tour.Location.City}\nDate: {tourApp.TourDateTime.ToString()}\nAvailable seats: {tourApp.AvailableSeats}");
+                        }
                     } else
                         createTicketWindow.ShowDialog();
                 }
-                
-                
             }
             else
                 MessageBox.Show("Please select the tour.");
+        }
+
+        public List<TourAppointment> SameLocationSuggestion(Tour tour)
+        {
+            List<TourAppointment> suggestions = new List<TourAppointment>();
+            List<TourAppointment> appointments = TourAppointmentController.GetAll();
+            
+            foreach (TourAppointment TourAppointment in appointments)
+            {
+                if (IsAvailableToBuy(tour, TourAppointment))
+                    suggestions.Add(TourAppointment);
+            }
+            return suggestions;
+        }
+
+        private bool IsAvailableToBuy(Tour tour, TourAppointment TourAppointment)
+        {
+            return TourAppointment.AvailableSeats != 0 && TourAppointment.Tour.LocationId == tour.LocationId
+                      && TourAppointment.State == TOURSTATE.READY && TourAppointment.TourDateTime >= DateTime.Today;
         }
 
         private void ShowTickets(object sender, RoutedEventArgs e)
@@ -213,6 +221,5 @@ namespace ProjectTourism.View.Guest2View
         //    tbDuration.Clear();
         //    tbMaxNumberOfGuests.Clear();
         //}
-
     }
 }

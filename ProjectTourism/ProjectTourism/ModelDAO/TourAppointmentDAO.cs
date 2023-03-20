@@ -55,9 +55,20 @@ namespace ProjectTourism.ModelDAO
         {
             foreach (TourAppointment tours in TourAppointments)
             {
-                if (tours.Id == id) return tours;
+                if (tours.Id == id) 
+                    return tours;
             }
             return null;
+        }
+        public List<TourAppointment> GetByTour(int id)
+        {
+            List<TourAppointment> toursById = new List<TourAppointment>();
+            foreach (var tourApp in TourAppointments)
+            {
+                if (tourApp.TourId == id)
+                    toursById.Add(tourApp);
+            }
+            return toursById;
         }
         public TourAppointment GetByDate(int tourId, DateTime date)
         {
@@ -67,26 +78,7 @@ namespace ProjectTourism.ModelDAO
             }
             return null;
         }
-        public List<TourAppointment> GetByTour(int id)
-        {
-            List<TourAppointment> toursById= new List<TourAppointment>();
-            foreach (var tourApp in TourAppointments)
-            {
-                if (tourApp.TourId == id)
-                    toursById.Add(tourApp);
-            }
-            return toursById;
-        }
-        public List<Guest2> GetGuests(List<Ticket> tickets)
-        {
-            List<Guest2> guest = new List<Guest2>();
-            foreach(Ticket ticket in tickets)
-            {
-                guest.Add(ticket.Guest2);
-            }
-
-            return guest;
-        }
+        
         public void UpdateAppointmentCreate(int tourAppointmentId, Ticket ticket)
         {
             TourAppointment tourAppointment = GetOne(tourAppointmentId);
@@ -115,7 +107,7 @@ namespace ProjectTourism.ModelDAO
             TourAppointment tourAppointment = GetOne(tourAppointmentId);
             tourAppointment.AvailableSeats = tourAppointment.Tour.MaxNumberOfGuests;
             TicketDAO ticketDAO = new TicketDAO();
-            List<Ticket> tickets = ticketDAO.GetByAppointment(tourAppointment);
+            List<Ticket> tickets = ticketDAO.GetByAppointment(tourAppointment.Id); // same as tourAppointment.Tickets
             foreach (Ticket ticket in tickets)
             {
                 tourAppointment.AvailableSeats -= ticket.NumberOfGuests;
