@@ -31,8 +31,7 @@ namespace ProjectTourism.View.Guest2View
         public TourController TourController { get; set; }
         public Tour? SelectedTour { get; set; }
         public ObservableCollection<Tour> Tours { get; set; }
-
-        public TourAppointmentController TourAppointmentController { get; set; }    //
+        public TourAppointmentController TourAppointmentController { get; set; }
         
         public string searchLocation { get; set; }
         public string searchLanguage { get; set; }
@@ -123,9 +122,10 @@ namespace ProjectTourism.View.Guest2View
             List<Tour> toursList = new List<Tour>();
             if (searchDuration != "")
             {
+                double WantedDuration = double.Parse(searchDuration);
                 foreach (Tour tour in tours)
                 {
-                    if (tour.Duration.ToString().Contains(searchDuration, StringComparison.OrdinalIgnoreCase))
+                    if (tour.Duration <= WantedDuration)
                         toursList.Add(tour);
                 }
                 UpdateToursList(toursList);
@@ -137,9 +137,10 @@ namespace ProjectTourism.View.Guest2View
             List<Tour> toursList = new List<Tour>();
             if (searchMaxNumberOfGuests != "")
             {
+                int WantedMaxNumberOfGuests = int.Parse(searchMaxNumberOfGuests);
                 foreach (Tour tour in tours)
                 {
-                    if (tour.MaxNumberOfGuests.ToString().Contains(searchMaxNumberOfGuests, StringComparison.OrdinalIgnoreCase))
+                    if (tour.MaxNumberOfGuests <= WantedMaxNumberOfGuests)
                         toursList.Add(tour);
                 }
                 UpdateToursList(toursList);
@@ -220,6 +221,5 @@ namespace ProjectTourism.View.Guest2View
         //    tbDuration.Clear();
         //    tbMaxNumberOfGuests.Clear();
         //}
-
     }
 }
