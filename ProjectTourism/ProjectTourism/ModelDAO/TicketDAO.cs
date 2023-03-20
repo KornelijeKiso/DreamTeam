@@ -73,7 +73,6 @@ namespace ProjectTourism.ModelDAO
         }
 
         public List<Ticket> GetByAppointment(int tourAppointmentId)   // same as tourAppointment.Tickets
-            //public List<Ticket> GetByAppointment(TourAppointment tourAppointment)
         {
             TourAppointmentDAO tourAppointmentDAO = new TourAppointmentDAO();
             TourAppointment tourAppointment = tourAppointmentDAO.GetOne(tourAppointmentId);     //
@@ -89,7 +88,6 @@ namespace ProjectTourism.ModelDAO
             return ticketsByApp;
         }
         public List<Ticket> GetByGuest(string guest2Username)
-            //public List<Ticket> GetByGuest(Guest2 guest2)
         {
             List<Ticket> ticketsByGuest = new List<Ticket>();
 
@@ -102,11 +100,12 @@ namespace ProjectTourism.ModelDAO
             }
             return ticketsByGuest;
         }
-        public Ticket GetGuest2Ticket(Guest2 guest2, TourAppointment tourApp)
+        
+        public Ticket GetGuest2Ticket(string guest2Username, int tourAppId)
         {
             foreach (var ticket in Tickets)
             {
-                if ((ticket.TourAppointmentId == tourApp.Id) && (guest2.Username.Equals(ticket.Guest2Username)))
+                if ((ticket.TourAppointmentId == tourAppId) && (guest2Username.Equals(ticket.Guest2Username)))
                     return ticket;
             }
             return null;

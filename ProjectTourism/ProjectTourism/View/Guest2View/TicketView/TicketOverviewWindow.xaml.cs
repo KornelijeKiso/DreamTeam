@@ -52,16 +52,22 @@ namespace ProjectTourism.View.Guest2View.TicketView
         {
             if (SelectedTicket != null)
             {
-                MessageBoxResult result = ConfirmTicketDelete();
-                if (result == MessageBoxResult.Yes)
+                if ((SelectedTicket.TourAppointment.State != TOURSTATE.READY) || (SelectedTicket.TourAppointment.TourDateTime < DateTime.Now))
                 {
-                    TourAppointmentController.UpdateAppointmentReturn(SelectedTicket.TourAppointmentId, SelectedTicket);
-                    TicketController.Delete(SelectedTicket);
-                    UpdateTicketsList();
-                }
-                else
+                    MessageBox.Show("Ticket can't be returned.\nExpired or already used!");
+                } else
                 {
-                    MessageBox.Show("Ticket not returned!");
+                    MessageBoxResult result = ConfirmTicketDelete();
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        TourAppointmentController.UpdateAppointmentReturn(SelectedTicket.TourAppointmentId, SelectedTicket);
+                        TicketController.Delete(SelectedTicket);
+                        UpdateTicketsList();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ticket not returned!");
+                    }
                 }
             }
             else
@@ -84,13 +90,18 @@ namespace ProjectTourism.View.Guest2View.TicketView
         {
             if (SelectedTicket != null)
             {
-                UpdateTicketWindow updateTicketWindow = new UpdateTicketWindow(SelectedTicket.Guest2Username, SelectedTicket.TourAppointmentId, SelectedTicket.TourAppointment.Tour.Id);
-                updateTicketWindow.ShowDialog();
-                TicketController = updateTicketWindow.TicketController;
-                SelectedTicket = updateTicketWindow.Ticket;           
-                UpdateTicketsList();
-            }
-            else
+                if ((SelectedTicket.TourAppointment.State != TOURSTATE.READY) || (SelectedTicket.TourAppointment.TourDateTime < DateTime.Now))
+                {
+                    MessageBox.Show("Ticket isn't updatable.\nExpired or already used!");
+                } else
+                {
+                    UpdateTicketWindow updateTicketWindow = new UpdateTicketWindow(SelectedTicket.Guest2Username, SelectedTicket.TourAppointmentId, SelectedTicket.TourAppointment.Tour.Id);
+                    updateTicketWindow.ShowDialog();
+                    TicketController = updateTicketWindow.TicketController;
+                    SelectedTicket = updateTicketWindow.Ticket;
+                    UpdateTicketsList();
+                }
+            } else
                 MessageBox.Show("Please select the ticket you would like to update.");
         }
 
