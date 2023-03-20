@@ -26,7 +26,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button x:Name="TicketStatusButton" Content="Here" Click="TicketStatusButton_Click" IsEnabled="True"
-                                    Background="{Binding Path=GuestStatusColor , UpdateSourceTrigger=PropertyChanged}"/>
+                                    Background="{Binding Path=ButtonColor , UpdateSourceTrigger=PropertyChanged}"/>
                             <!--<TextBox x:Name="GuestStatus" Text="Here" IsEnabled="True" Background="{Binding GuestStatusColor}"/>-->
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

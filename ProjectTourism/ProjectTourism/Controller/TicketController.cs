@@ -64,5 +64,9 @@ namespace ProjectTourism.Controller
         {
             TicketDAO.NotifyObservers();
         }
+        public void GuideCheck(Ticket ticket)
+        {
+            TicketDAO.GuideCheck(ticket);
+        }
     }
 }

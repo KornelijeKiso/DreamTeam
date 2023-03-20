@@ -27,15 +27,15 @@ namespace ProjectTourism.Model
             }
         }
         
-        private SolidColorBrush _GuestStatusColor;
-        public SolidColorBrush GuestStatusColor
+        private SolidColorBrush _ButtonColor;
+        public SolidColorBrush ButtonColor
         {
-            get => _GuestStatusColor;
+            get => _ButtonColor;
             set
             {
-                if (value != _GuestStatusColor)
+                if (value != _ButtonColor)
                 {
-                    _GuestStatusColor = value;
+                    _ButtonColor = value;
                     OnPropertyChanged();
                 }
             }
@@ -223,10 +223,7 @@ namespace ProjectTourism.Model
         private void AddTicketToAppointment(Ticket ticket)
         {
             ticket.TourAppointment.Tickets.Add(ticket);
-
-            if (ticket.TourAppointment.CurrentTourStop.Equals(ticket.TourStop))
-                ticket.HasGuideChecked = true;
-            else ticket.HasGuideChecked = false; 
+ 
         }
 
         public string[] ToCSV()
@@ -255,6 +252,10 @@ namespace ProjectTourism.Model
             HasGuideChecked = bool.Parse(values[5]);
             HasGuestConfirmed= bool.Parse(values[6]);
 
+            if (HasGuestConfirmed)
+                ButtonColor = Brushes.Green;
+            else if (HasGuideChecked)
+                ButtonColor = Brushes.IndianRed;
             Guest2 = FindGuest2(Guest2Username);
             AddTicketToAppointment(this);
         }
