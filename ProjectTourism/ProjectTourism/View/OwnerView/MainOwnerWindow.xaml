@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProjectTourism.View.OwnerView"
         mc:Ignorable="d"
         Name="OwnerWindow"
-        Title="MainOwnerWindow" Height="680" WindowStartupLocation="CenterScreen" Width="1000" HorizontalAlignment="Center" VerticalAlignment="Top" Loaded="AreAllGuestsGraded">
+        Title="MainOwnerWindow" Height="720" WindowStartupLocation="CenterScreen" Width="1000" HorizontalAlignment="Center" VerticalAlignment="Top" Loaded="AreAllGuestsGraded">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -16,11 +16,17 @@
 
         </ControlTemplate>
     </Window.Resources>
-    <Grid Margin="0,0,0,0">
+    <Grid Margin="0,0,0,0" RenderTransformOrigin="0.748,0.03">
 
+        <Menu Width="1000" Margin="0,0,0,633" Background="LightYellow">
+            <MenuItem Width="150" Height="50" Header="YOUR ACCOMMODATIONS" Foreground="BlueViolet" FontWeight="Bold" FontSize="10" ></MenuItem>
+            <MenuItem Width="150" Height="50" Header="RESERVATIONS" Foreground="BlueViolet" FontWeight="Bold" FontSize="10" ></MenuItem>
+            <MenuItem Width="150" Height="50" Header="NOTIFICATIONS" Foreground="BlueViolet" FontWeight="Bold" FontSize="10" ></MenuItem>
+        </Menu>
         <DataGrid x:Name="DataGridAccommodations" ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
-                    IsReadOnly="True" VerticalScrollBarVisibility="Visible" AutoGenerateColumns="False"  BorderBrush="BlueViolet" BorderThickness="2" Margin="270,39,10,229" RowHeight="100" RowBackground="LightYellow" Background="LightYellow">
+                    IsReadOnly="True" VerticalScrollBarVisibility="Visible" AutoGenerateColumns="False"  BorderBrush="BlueViolet" BorderThickness="2"
+                    Margin="270,79,10,229" RowHeight="130" RowBackground="LightYellow" Background="LightYellow" HorizontalScrollBarVisibility="Disabled">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
                    Color="#FFFFFF9D"/>
@@ -32,7 +38,7 @@
             </DataGrid.CellStyle>
             <DataGrid.Columns>
 
-                <DataGridTemplateColumn Width="100">
+                <DataGridTemplateColumn Width="130">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Image Stretch="Fill" Source="{Binding Path=Pictures[0]}"/>
@@ -53,67 +59,72 @@
                                     <Label Content="Minimal number of days for reservation :" Margin="0,0,-7,-7" ></Label>
                                     <Label Content="{Binding Path=MinDaysForReservation}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
                                 </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                    <Label Content="Cancellation deadline :" Margin="0,0,-7,-7" ></Label>
+                                    <Label Content="{Binding Path=CancellationDeadline}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                </StackPanel>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button Content="Register a new accommodation" BorderBrush="BlueViolet" BorderThickness="2" HorizontalAlignment="Left" IsDefault="True" Margin="30,577,0,0" VerticalAlignment="Top" Height="30" Width="196" Click="RegisterAccommodationClick">
+        <Button Content="Register a new accommodation" BorderBrush="BlueViolet" BorderThickness="2" HorizontalAlignment="Left" IsDefault="True" Margin="30,620,0,0" VerticalAlignment="Top" Height="30" Width="196" Click="RegisterAccommodationClick">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Rectangle HorizontalAlignment="Left" StrokeThickness="2" Height="527" Fill="LightYellow" Stroke="BlueViolet" VerticalAlignment="Top" Width="235" Margin="10,39,0,0"/>
-        <TextBox HorizontalAlignment="Left" Margin="30,69,0,0" TextWrapping="Wrap" Text="{Binding Path=NewAccommodation.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Top" Width="196" Height="29"/>
-        <TextBox HorizontalAlignment="Left" Margin="30,123,0,0" TextWrapping="Wrap" Text="{Binding Path=NewLocation.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Top" Width="196" Height="29"/>
-        <TextBox HorizontalAlignment="Left" Margin="30,177,0,0" TextWrapping="Wrap" Text="{Binding Path=NewLocation.Country, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Top" Width="196" Height="29"/>
-        <StackPanel HorizontalAlignment="Left" Margin="30,247,0,0" Width="196" Height="28" VerticalAlignment="Top" Orientation="Horizontal">
+
+        <Rectangle HorizontalAlignment="Left" StrokeThickness="2" Height="527" Fill="LightYellow" Stroke="BlueViolet" VerticalAlignment="Top" Width="235" Margin="10,79,0,0"/>
+        <TextBox HorizontalAlignment="Left" Margin="30,109,0,0" TextWrapping="Wrap" Text="{Binding Path=NewAccommodation.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Top" Width="196" Height="29"/>
+        <TextBox HorizontalAlignment="Left" Margin="30,163,0,0" TextWrapping="Wrap" Text="{Binding Path=NewLocation.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Top" Width="196" Height="29"/>
+        <TextBox HorizontalAlignment="Left" Margin="30,217,0,0" TextWrapping="Wrap" Text="{Binding Path=NewLocation.Country, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Top" Width="196" Height="29"/>
+        <StackPanel HorizontalAlignment="Left" Margin="30,287,0,0" Width="196" Height="28" VerticalAlignment="Top" Orientation="Horizontal">
             <TextBox IsReadOnly="True" Text="{Binding Path=NewAccommodation.MaxNumberOfGuests}" Width="178"></TextBox>
             <StackPanel Orientation="Vertical" Width="18">
                 <Button IsEnabled="{Binding IncDecButtons[0], UpdateSourceTrigger=PropertyChanged}" Height="14" Content="+" FontSize="9" FontWeight="Bold" Click="IncreaseMaxNumberOfGuestsClick"></Button>
                 <Button IsEnabled="{Binding IncDecButtons[1], UpdateSourceTrigger=PropertyChanged}" Height="14" Content="-" FontSize="9" FontWeight="Bold" Click="DecreaseMaxNumberOfGuestsClick"></Button>
             </StackPanel>
         </StackPanel>
-        <StackPanel HorizontalAlignment="Left" Margin="30,301,0,0" Width="196" Height="28" VerticalAlignment="Top" Orientation="Horizontal">
+        <StackPanel HorizontalAlignment="Left" Margin="30,341,0,0" Width="196" Height="28" VerticalAlignment="Top" Orientation="Horizontal">
             <TextBox IsReadOnly="True" Text="{Binding Path=NewAccommodation.MinDaysForReservation}" Width="178"></TextBox>
             <StackPanel Orientation="Vertical" Width="18">
                 <Button IsEnabled="{Binding IncDecButtons[2], UpdateSourceTrigger=PropertyChanged}" Height="14" Content="+" FontSize="9" FontWeight="Bold" Click="IncreaseMinDaysForReservationClick"></Button>
                 <Button IsEnabled="{Binding IncDecButtons[3], UpdateSourceTrigger=PropertyChanged}" Height="14" Content="-" FontSize="9" FontWeight="Bold" Click="DecreaseMinDaysForReservationClick"></Button>
             </StackPanel>
         </StackPanel>
-        <ComboBox Name="ComboDeadline" HorizontalAlignment="Left" Margin="30,355,0,0" Width="196" Height="28" VerticalAlignment="Top" ItemsSource="{Binding Deadlines}"></ComboBox>
-        <TextBox HorizontalAlignment="Left" Margin="30,463,0,0" TextWrapping="Wrap" Text="{Binding Path =NewAccommodation.PictureURLs, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="91"/>
-        <ComboBox Name="ComboType" HorizontalAlignment="Left" Margin="30,409,0,0" VerticalAlignment="Top" Width="196" Height="29" ItemsSource="{Binding Types}">
+        <ComboBox Name="ComboDeadline" HorizontalAlignment="Left" Margin="30,395,0,0" Width="196" Height="28" VerticalAlignment="Top" ItemsSource="{Binding Deadlines}"></ComboBox>
+        <TextBox HorizontalAlignment="Left" Margin="30,503,0,0" TextWrapping="Wrap" Text="{Binding Path =NewAccommodation.PictureURLs, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="91"/>
+        <ComboBox Name="ComboType" HorizontalAlignment="Left" Margin="30,449,0,0" VerticalAlignment="Top" Width="196" Height="29" ItemsSource="{Binding Types}">
         </ComboBox>
-        <Label HorizontalAlignment="Left" Margin="30,43,0,0" VerticalAlignment="Top" Width="152">
+        <Label HorizontalAlignment="Left" Margin="30,83,0,0" VerticalAlignment="Top" Width="152">
             <Span>
                 Name
                 <Span Foreground="Red">*</Span>
             </Span>
         </Label>
-        <Label HorizontalAlignment="Left" Margin="30,97,0,0" VerticalAlignment="Top" Width="152">
+        <Label HorizontalAlignment="Left" Margin="30,137,0,0" VerticalAlignment="Top" Width="152">
             <Span>
                 City
                 <Span Foreground="Red">*</Span>
             </Span>
         </Label>
-        <Label HorizontalAlignment="Left" Margin="30,151,0,0" VerticalAlignment="Top" Width="152">
+        <Label HorizontalAlignment="Left" Margin="30,191,0,0" VerticalAlignment="Top" Width="152">
             <Span>
                 Country
                 <Span Foreground="Red">*</Span>
             </Span>
         </Label>
-        <Label Content="Number of guests" HorizontalAlignment="Left" Margin="30,221,0,0" VerticalAlignment="Top" Width="175"/>
-        <Label Content="Min days to reserve" HorizontalAlignment="Left" Margin="30,275,0,0" VerticalAlignment="Top" Width="152"/>
-        <Label Content="Cancellation deadline" HorizontalAlignment="Left" Margin="30,330,0,0" VerticalAlignment="Top" Width="152"/>
-        <Label Content="Accommodation type" HorizontalAlignment="Left" Margin="30,384,0,0" VerticalAlignment="Top" Width="152"/>
-        <Label Content="Pictures" HorizontalAlignment="Left" Margin="30,438,0,0" VerticalAlignment="Top" Width="152"/>
+        <Label Content="Number of guests" HorizontalAlignment="Left" Margin="30,261,0,0" VerticalAlignment="Top" Width="175"/>
+        <Label Content="Min days to reserve" HorizontalAlignment="Left" Margin="30,315,0,0" VerticalAlignment="Top" Width="152"/>
+        <Label Content="Cancellation deadline" HorizontalAlignment="Left" Margin="30,370,0,0" VerticalAlignment="Top" Width="152"/>
+        <Label Content="Accommodation type" HorizontalAlignment="Left" Margin="30,424,0,0" VerticalAlignment="Top" Width="152"/>
+        <Label Content="Pictures" HorizontalAlignment="Left" Margin="30,478,0,0" VerticalAlignment="Top" Width="152"/>
         <DataGrid x:Name="DataGridReservations" ItemsSource="{Binding Reservations, UpdateSourceTrigger=PropertyChanged}"
             SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" RowHeight="30" 
-            IsReadOnly="True" VerticalScrollBarVisibility="Visible" AutoGenerateColumns="False" Margin="270,447,10,35" BorderThickness="2" BorderBrush="BlueViolet" Background="LightYellow" RowBackground="LightYellow">
+            IsReadOnly="True" VerticalScrollBarVisibility="Visible" AutoGenerateColumns="False" Margin="270,487,10,35" BorderThickness="2" BorderBrush="BlueViolet" Background="LightYellow" RowBackground="LightYellow">
             <DataGrid.CellStyle>
                 <Style TargetType="DataGridCell">
                     <Setter Property="BorderThickness" Value="0"/>
@@ -127,7 +138,7 @@
                 <Style TargetType="DataGridCell">
                     <Setter Property="HorizontalAlignment" Value="Right"/>
                 </Style>
-                
+
             </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Width="130" Binding="{Binding Accommodation.Name}" Foreground="Black"/>
@@ -156,8 +167,9 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="  REGISTER A NEW ACCOMMODATION" FontSize="12" Foreground="BlueViolet" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,8,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,0.708" Width="235"/>
-        <Label Content="  YOUR ACCOMMODATIONS" FontSize="12" Foreground="BlueViolet" FontWeight="Bold" HorizontalAlignment="Left" Margin="270,17,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,0.708" Width="176"/>
-        <Label Content="  YOUR RESERVATIONS" FontSize="12" Foreground="BlueViolet" FontWeight="Bold" HorizontalAlignment="Left" Margin="270,424,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,0.708" Width="148"/>
+        <Label Content="REGISTER A NEW ACCOMMODATION" FontSize="12" Foreground="BlueViolet" FontWeight="Bold" HorizontalAlignment="Left" Margin="10,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,0.708" Width="235"/>
+        <Label Content="YOUR ACCOMMODATIONS" FontSize="12" Foreground="BlueViolet" FontWeight="Bold" HorizontalAlignment="Left" Margin="270,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,0.708" Width="176"/>
+        <Label Content="YOUR RESERVATIONS" FontSize="12" Foreground="BlueViolet" FontWeight="Bold" HorizontalAlignment="Left" Margin="270,464,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,0.708" Width="148"/>
+
     </Grid>
 </Window>
