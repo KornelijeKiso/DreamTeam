@@ -18,10 +18,12 @@
     </Window.Resources>
     <Grid Margin="0,0,0,0" RenderTransformOrigin="0.748,0.03">
 
-        <Menu Width="1000" Margin="0,0,0,633" Background="LightYellow">
-            <MenuItem Width="150" Height="50" Header="YOUR ACCOMMODATIONS" Foreground="BlueViolet" FontWeight="Bold" FontSize="10" ></MenuItem>
-            <MenuItem Width="150" Height="50" Header="RESERVATIONS" Foreground="BlueViolet" FontWeight="Bold" FontSize="10" ></MenuItem>
-            <MenuItem Width="150" Height="50" Header="NOTIFICATIONS" Foreground="BlueViolet" FontWeight="Bold" FontSize="10" ></MenuItem>
+        <Menu Width="1000" Margin="0,0,0,633" BorderThickness="1" BorderBrush="Black">
+            <MenuItem Width="150" Height="50" Header="Your accommodations" FontSize="14"></MenuItem>
+            <MenuItem Width="150" Height="50" Header="Reservations" FontSize="14"></MenuItem>
+            <MenuItem Width="150" Height="50" Header="Notifications" FontSize="14"></MenuItem>
+            <MenuItem Width="150" Height="50" Header="Forum" FontSize="14" ></MenuItem>
+            <MenuItem Width="150" Height="50" Header="Help" FontSize="14" ></MenuItem>
         </Menu>
         <DataGrid x:Name="DataGridAccommodations" ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
@@ -173,3 +175,4 @@
 
     </Grid>
 </Window>
+
