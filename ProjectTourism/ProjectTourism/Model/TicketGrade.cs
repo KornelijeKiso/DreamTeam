@@ -11,7 +11,7 @@ using System.Xml.Linq;
 
 namespace ProjectTourism.Model
 {
-    public class TourAppointmentGrade : Serializable, INotifyPropertyChanged
+    public class TicketGrade : Serializable, INotifyPropertyChanged
     {
         private int _Id;
         public int Id
@@ -27,29 +27,29 @@ namespace ProjectTourism.Model
             }
         }
 
-        private int _TourAppointmentId;
-        public int TourAppointmentId
+        private int _TicketId;
+        public int TicketId
         {
-            get => _TourAppointmentId;
+            get => _TicketId;
             set
             {
-                if (value != _TourAppointmentId)
+                if (value != _TicketId)
                 {
-                    _TourAppointmentId = value;
+                    _TicketId = value;
                     OnPropertyChanged();
                 }
             }
         }
         
-        private TourAppointment _TourAppointment;
-        public TourAppointment TourAppointment
+        private Ticket _Ticket;
+        public Ticket Ticket
         {
-            get => _TourAppointment;
+            get => _Ticket;
             set
             {
-                if (value != _TourAppointment)
+                if (value != _Ticket)
                 {
-                    _TourAppointment = value;
+                    _Ticket = value;
                     OnPropertyChanged();
                 }
             }
@@ -110,7 +110,7 @@ namespace ProjectTourism.Model
             }
         }
 
-        public TourAppointmentGrade()
+        public TicketGrade()
         {
             Grades = new Dictionary<string, int>();
             foreach (var category in CategoryNames)
@@ -126,11 +126,11 @@ namespace ProjectTourism.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private TourAppointment FindTourAppointment(int tourAppointmentId)
+        private Ticket FindTicket(int ticketId)
         {
-            TourAppointmentDAO tourAppointmentDAO = new TourAppointmentDAO();
-            TourAppointment tourApp = tourAppointmentDAO.GetOne(tourAppointmentId);
-            return tourApp;
+            TicketDAO ticketDAO = new TicketDAO();
+            Ticket ticket = ticketDAO.GetOne(ticketId);
+            return ticket;
         }
 
         public string[] GetPictureURLsFromCSV()
@@ -147,7 +147,7 @@ namespace ProjectTourism.Model
         {
             List<string> csv = new List<string>();
             csv.Add(Id.ToString());
-            csv.Add(TourAppointmentId.ToString());
+            csv.Add(TicketId.ToString());
             foreach (var category in CategoryNames)
             {
                 csv.Add(Grades[category].ToString());
@@ -161,8 +161,8 @@ namespace ProjectTourism.Model
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            TourAppointmentId = int.Parse(values[1]);
-            TourAppointment = FindTourAppointment(TourAppointmentId);
+            TicketId = int.Parse(values[1]);
+            Ticket = FindTicket(TicketId);
             for (int i = 2; i < 5; i++)
             {
                 Grades[CategoryNames[i - 3]] = int.Parse(values[i]);
