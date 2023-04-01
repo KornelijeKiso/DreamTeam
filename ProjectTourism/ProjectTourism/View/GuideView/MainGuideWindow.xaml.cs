@@ -12,6 +12,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ProjectTourism.Controller;
 using ProjectTourism.Model;
@@ -91,5 +92,12 @@ namespace ProjectTourism.View.GuideView
             ViewAllToursWindow viewAllToursWindow = new ViewAllToursWindow(Guide.Username);
             viewAllToursWindow.ShowDialog();
         }
+        private void AllAppointmentsLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Window viewAllAppointmentsWindow = new ViewAllAppointmentsWindow(Guide.Username);
+            viewAllAppointmentsWindow.Show();
+            e.Handled = true;
+        }
+
     }
 }
