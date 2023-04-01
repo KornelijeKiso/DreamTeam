@@ -64,7 +64,16 @@ namespace ProjectTourism.ModelDAO
             }
             return routes;
         }
-
+        public List<TourAppointment> GetGuidesAppointments(string username)
+        {
+            List<TourAppointment> appointments = new List<TourAppointment>();
+            TourAppointmentDAO tourAppDAO = new TourAppointmentDAO();
+            foreach (var tourAppointment in tourAppDAO.GetAll())
+            {
+                appointments.Add(tourAppointment);
+            }
+            return appointments;
+        }
         public List<TourAppointment> GetGuidesCurrentAppointments(string username)
         {
             List<TourAppointment> appointments = new List<TourAppointment>();

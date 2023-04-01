@@ -24,9 +24,8 @@ namespace ProjectTourism.View.GuideView.TourView
     /// </summary>
     public partial class ViewAllAppointmentsWindow : Window, INotifyPropertyChanged, IObserver
     {
-        public Guide Guide { get; set; }
-        public ObservableCollection<Tour> Tours { get; set; }
-        public Tour SelectedTour { get; set; }
+        public ObservableCollection<TourAppointment> Appointments { get; set; }
+        public TourAppointment SelectedAppointment { get; set; }
         public GuideController GuideController { get; set; }
 
         public ViewAllAppointmentsWindow(string username)
@@ -34,8 +33,7 @@ namespace ProjectTourism.View.GuideView.TourView
             InitializeComponent();
             DataContext = this;
             GuideController = new GuideController();
-            Guide = GuideController.GetOne(username);
-            Tours = new ObservableCollection<Tour>(GuideController.GetGuidesTours(username));
+            Appointments = new ObservableCollection<TourAppointment>(GuideController.GetGuidesAppointments(username));
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -43,6 +41,22 @@ namespace ProjectTourism.View.GuideView.TourView
         public void Update()
         {
 
+        }
+        private void QuitTourButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedAppointment != null)
+            {
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel this appointment?", "Delete appointment", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    //Deleting an appointment
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("You must choose a tour which you want to quit.");
+            }
         }
     }
 }
