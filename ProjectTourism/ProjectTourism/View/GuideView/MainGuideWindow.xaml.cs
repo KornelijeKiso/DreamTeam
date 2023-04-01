@@ -85,5 +85,11 @@ namespace ProjectTourism.View.GuideView
             LiveToursTrackingWindow liveToursTrackingWindow = new LiveToursTrackingWindow(Guide.Username);
             liveToursTrackingWindow.ShowDialog();
         }
+
+        private void AllToursButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewAllToursWindow viewAllToursWindow = new ViewAllToursWindow(Guide.Username);
+            viewAllToursWindow.ShowDialog();
+        }
     }
 }
