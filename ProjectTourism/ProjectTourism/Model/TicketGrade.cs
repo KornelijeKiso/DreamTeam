@@ -165,7 +165,7 @@ namespace ProjectTourism.Model
             Ticket = FindTicket(TicketId);
             for (int i = 2; i < 5; i++)
             {
-                Grades[CategoryNames[i - 3]] = int.Parse(values[i]);
+                Grades[CategoryNames[i - 2]] = int.Parse(values[i]);
             }
             Comment = values[5];
             PictureURLs = values[6];

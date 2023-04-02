@@ -72,8 +72,8 @@ namespace ProjectTourism.View.Guest2View.TicketView
                     //MessageBox.Show("Ticket already has a grade!");
                 //else
                 {
-                    //GradeTicketWindow gradeTicketWindow = new GradeTicketWindow();
-                    //gradeTicketWindow.ShowDialog();
+                    GradeTicketWindow gradeTicketWindow = new GradeTicketWindow(SelectedTicket.Id);
+                    gradeTicketWindow.ShowDialog();
                 }
             }
             else
