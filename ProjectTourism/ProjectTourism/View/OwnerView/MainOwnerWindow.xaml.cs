@@ -288,8 +288,15 @@ namespace ProjectTourism.View.OwnerView
             if (gradeGuestWindow.Graded)
             {
                 button.IsEnabled = false;
+                SelectedReservation.VisibleReview = SelectedReservation.AccommodationGraded;
             }
             Update();
+        }
+
+        public void SeeReviewClick(object sender, RoutedEventArgs e)
+        {
+            Guest1ReviewWindow guestsReviewWindow = new Guest1ReviewWindow(SelectedReservation.AccommodationGrade);
+            guestsReviewWindow.ShowDialog();
         }
         
     }

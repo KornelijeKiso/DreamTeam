@@ -50,6 +50,21 @@ namespace ProjectTourism.ModelDAO
         }
         public List<Reservation> GetAll()
         {
+            AccommodationGradeDAO accommodationGradeDAO= new AccommodationGradeDAO();
+            foreach(var ag in accommodationGradeDAO.GetAll())
+            {
+                Reservation reservation = Reservations.Find(r=>r.Id == ag.ReservationId);
+                foreach (var r in Reservations)
+                {
+                    if (r.Id == reservation.Id)
+                    {
+                        r.VisibleReview = r.IsGraded();
+                        r.AccommodationGraded = true;
+                        ag.Reservation = r;
+                        r.AccommodationGrade = ag;
+                    }
+                }
+            }
             return Reservations;
         }
         public Reservation GetOne(int id)

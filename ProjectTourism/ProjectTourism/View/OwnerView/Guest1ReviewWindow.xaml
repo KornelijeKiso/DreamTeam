@@ -1,0 +1,75 @@
+﻿<Window x:Class="ProjectTourism.View.OwnerView.Guest1ReviewWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectTourism.View.OwnerView"
+        mc:Ignorable="d"
+        Title="Guests Review" Height="515" Width="450" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Grid>
+        
+        <GroupBox Header="Reservation info" Background="LightGreen" FontSize="14" Height="124" Width="418" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,3,0,0" BorderThickness="2" BorderBrush="Black"/>
+        <GroupBox Header="Accommodation" Background="White" FontSize="14" Height="92" Width="195" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="220,25,0,0" BorderThickness="2" BorderBrush="Black"/>
+        <GroupBox Header="Guest" Background="White" FontSize="14" Height="92" Width="195" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,25,0,0" BorderThickness="2" BorderBrush="Black"/>
+        <Label FontWeight="Bold" Foreground="Gray" FontSize="13" ContentStringFormat = "@{0}" Content= "{Binding Path=Review.Reservation.Guest1Username}" HorizontalAlignment="Left" Margin="30,40,0,0" VerticalAlignment="Top" Width="175" Height="29"/>
+        <Label FontWeight="Bold" FontSize="13" HorizontalAlignment="Left" Margin="30,60,0,0" VerticalAlignment="Top" Width="175" Height="29">
+            <Label.Content>
+                <TextBlock>
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="Review.Reservation.Guest1.FirstName"/>
+                            <Binding Path="Review.Reservation.Guest1.LastName"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Label.Content>
+        </Label>
+        <Label FontWeight="Bold" FontSize="13" Content= "{Binding Path=Review.Reservation.Guest1.Email}" HorizontalAlignment="Left" Margin="30,80,0,0" VerticalAlignment="Top" Width="175" Height="29"/>
+        <Label FontWeight="Bold" Foreground="Gray" FontSize="13" Content= "{Binding Path=Review.Reservation.Accommodation.Name}" HorizontalAlignment="Left" Margin="230,40,0,0" VerticalAlignment="Top" Width="175" Height="29"/>
+        <Label FontWeight="Bold" FontSize="13" HorizontalAlignment="Left" Margin="230,60,0,0" VerticalAlignment="Top" Width="175" Height="29">
+            <Label.Content>
+                <TextBlock>
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0}, {1}">
+                            <Binding Path="Review.Reservation.Accommodation.Location.City"/>
+                            <Binding Path="Review.Reservation.Accommodation.Location.Country"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Label.Content>
+        </Label>
+        <Label FontWeight="Bold" FontSize="13" HorizontalAlignment="Left" Margin="230,80,0,0" VerticalAlignment="Top" Width="175" Height="29">
+            <Label.Content>
+                <TextBlock>
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} - {1}">
+                            <Binding Path="Review.Reservation.StartDate"/>
+                            <Binding Path="Review.Reservation.EndDate"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Label.Content>
+        </Label>
+        <GroupBox Header="Grades" Background="LightGreen" FontSize="14" Height="179" Width="418" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,123,0,0" BorderThickness="2" BorderBrush="Black"/>
+        
+        <Rectangle Height="141" Width="390" Fill="White" Margin="3,-45,0,0"></Rectangle>
+        <Label FontSize="16" FontWeight="Medium" ContentStringFormat="Price and quality ratio: {0}"  Content="{Binding PriceQuality}" HorizontalAlignment="Left" Margin="30,150,0,0" VerticalAlignment="Top" Width="195"/>
+        <Label FontSize="16" FontWeight="Medium" ContentStringFormat="Comfort: {0}"  Content="{Binding Comfort}" HorizontalAlignment="Left" Margin="30,175,0,0" VerticalAlignment="Top" Width="195"/>
+        <Label FontSize="16" FontWeight="Medium" ContentStringFormat="Location: {0}"  Content="{Binding Location}" HorizontalAlignment="Left" Margin="30,200,0,0" VerticalAlignment="Top" Width="195"/>
+        <Label FontSize="16" FontWeight="Medium" ContentStringFormat="Hospitality: {0}"  Content="{Binding Hospitality}" HorizontalAlignment="Left" Margin="30,225,0,0" VerticalAlignment="Top" Width="195"/>
+        <Label FontSize="16" FontWeight="Medium" ContentStringFormat="Cleanness: {0}"  Content="{Binding Cleanness}" HorizontalAlignment="Left" Margin="30,250,0,0" VerticalAlignment="Top" Width="195"/>
+        <Image Height="130" Width="130" Stretch="UniformToFill" Margin="220,-45,0,0" Source="{Binding Picture, UpdateSourceTrigger=PropertyChanged}"></Image>
+        <Button Height="30" Width="25" Margin="67,-45,0,0" BorderBrush="Transparent" Background="Transparent" Click="BackwardsClick">
+            <Image Source="https://img.icons8.com/fluency/512/double-left.png"></Image>
+        </Button>
+        <Button Height="30" Width="25" Margin="373,-45,0,0" BorderBrush="Transparent" Background="Transparent" Click="ForwardClick">
+            <Image Source="https://img.icons8.com/fluency/2x/double-right.png"></Image>
+        </Button>
+        <Label Height="30" Width="150" Margin="-260,150,0,0" Content="Comment" FontSize="14" FontWeight="Medium"></Label>
+        <TextBox Text="{Binding Review.Comment}" IsEnabled="False" AcceptsReturn="True" TextWrapping="Wrap" Height="100" Width="300" Margin="-110,270,0,0" BorderBrush="Black" BorderThickness="2"></TextBox>
+        <Rectangle Height="80" Width="80" Margin="315,250,0,0" Stroke="Green" Fill="White" StrokeThickness="3" ></Rectangle>
+        <TextBlock Height="58" Width="80" Text="{Binding Path=Average, UpdateSourceTrigger=PropertyChanged}" FontSize="40" FontWeight="Bold" TextAlignment="Center" Foreground="Green" Margin="315,248,0,0"></TextBlock>
+        <CheckBox Content="Recommended renovation" IsChecked="True" FontSize="14" IsEnabled="False" Margin="15,430,0,0"></CheckBox>
+        <Button Content="Cancel" Foreground="Green" FontSize="15" Background="Transparent" Height="30" Width="70" Margin="315,390,0,0" IsCancel="True"></Button>
+    </Grid>
+</Window>
