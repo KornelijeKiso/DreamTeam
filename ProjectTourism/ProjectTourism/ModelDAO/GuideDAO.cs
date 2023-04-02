@@ -52,18 +52,18 @@ namespace ProjectTourism.ModelDAO
         }
         public List<Tour> GetGuidesTours(string username)
         {
-            List<Tour> routes = new List<Tour>();
-            TourDAO routeDAO = new TourDAO();
-            foreach(var route in routeDAO.GetAll())
+            List<Tour> tours = new List<Tour>();
+            TourDAO tourDAO = new TourDAO();
+            foreach(var tour in tourDAO.GetAll())
             {
-                if (route.GuideUsername.Equals(username))
+                if (tour.GuideUsername.Equals(username))
                 {
-                    List<string> pom = routeDAO.GetStops(route);
-                    route.StopsList = pom;
-                    routes.Add(route);
+                    List<string> pom = tourDAO.GetStops(tour);
+                    tour.StopsList = pom;
+                    tours.Add(tour);
                 }
             }
-            return routes;
+            return tours;
         }
         public List<TourAppointment> GetGuidesAppointments(string username)
         {
