@@ -90,7 +90,20 @@ namespace ProjectTourism.Model
                 }
             }
         }
-        
+        private bool _AccommodationGraded;
+        public bool AccommodationGraded
+        {
+            get => _AccommodationGraded;
+            set
+            {
+                if (value != _AccommodationGraded)
+                {
+                    _AccommodationGraded = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private string _Guest1Username;
         public string Guest1Username
         {
@@ -144,6 +157,19 @@ namespace ProjectTourism.Model
                 }
             }
         }
+        private bool _VisibleReview;
+        public bool VisibleReview
+        {
+            get => _VisibleReview;
+            set
+            {
+                if (value != _VisibleReview)
+                {
+                    _VisibleReview = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private string _GradingDeadlineMessage;
         public string GradingDeadlineMessage
         {
@@ -153,6 +179,19 @@ namespace ProjectTourism.Model
                 if(value!=_GradingDeadlineMessage)
                 {
                     _GradingDeadlineMessage = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private AccommodationGrade _AccommodationGrade;
+        public AccommodationGrade AccommodationGrade
+        {
+            get=> _AccommodationGrade;
+            set
+            {
+                if (value != _AccommodationGrade)
+                {
+                    _AccommodationGrade = value;
                     OnPropertyChanged();
                 }
             }

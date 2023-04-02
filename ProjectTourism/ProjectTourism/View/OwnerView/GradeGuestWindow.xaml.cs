@@ -43,6 +43,14 @@ namespace ProjectTourism.View.OwnerView
             GradeCleanness();
             GradeCommunication();
             GradeFollowingTheRules();
+            foreach(var category in Guest1Grade.CategoryNames)
+            {
+                if (GuestGrade.Grades[category] == 0)
+                {
+                    MessageBox.Show("You have to grade each of listed categories.");
+                    return;
+                }
+            }
             Guest1GradeCotroller.Add(GuestGrade);
             Graded = true;
             Close();

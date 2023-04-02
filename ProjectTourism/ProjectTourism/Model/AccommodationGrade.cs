@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace ProjectTourism.Model
 {
-    internal class AccommodationGrade : Serializable, INotifyPropertyChanged
+    public class AccommodationGrade : Serializable, INotifyPropertyChanged
     {
         private int _Id;
         public int Id
@@ -38,7 +38,7 @@ namespace ProjectTourism.Model
                 }
             }
         }
-        public static readonly string[] CategoryNames = { "Cleanness", "Communication", "Hospitality" };
+        public static readonly string[] CategoryNames = { "Cleanness", "Comfort", "Hospitality", "Price and quality ratio", "Location" };
         private string _Comment;
         public string Comment
         {
@@ -48,6 +48,19 @@ namespace ProjectTourism.Model
                 if (value != _Comment)
                 {
                     _Comment = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private double _AverageGrade;
+        public double AverageGrade
+        {
+            get => _AverageGrade;
+            set
+            {
+                if (value != _AverageGrade)
+                {
+                    _AverageGrade = value;
                     OnPropertyChanged();
                 }
             }
@@ -78,7 +91,32 @@ namespace ProjectTourism.Model
                 }
             }
         }
-
+        private string[] _Pictures;
+        public string[] Pictures
+        {
+            get => _Pictures;
+            set
+            {
+                if (value != _Pictures)
+                {
+                    _Pictures = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _PictureURLs;
+        public string PictureURLs
+        {
+            get => _PictureURLs;
+            set
+            {
+                if (value != _PictureURLs)
+                {
+                    _PictureURLs = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public AccommodationGrade()
         {
             Grades = new Dictionary<string, int>();
@@ -99,12 +137,31 @@ namespace ProjectTourism.Model
             Reservation reservation = reservationDAO.GetOne(reservationId);
             return reservation;
         }
+        public void CalculateAverageGrade()
+        {
+            double sum = 0;
+            foreach(var category in CategoryNames)
+            {
+                sum += Grades[category];
+            }
+            AverageGrade = sum / CategoryNames.Length;
+        }
+        public string[] GetPictureURLsFromCSV()
+        {
+            string[] pictures = PictureURLs.Split(',');
+            foreach (var picture in pictures)
+            {
+                picture.Trim();
+            }
+            return pictures;
+        }
         public string[] ToCSV()
         {
             List<string> csv = new List<string>();
             csv.Add(Id.ToString());
             csv.Add(ReservationId.ToString());
             csv.Add(Comment);
+            csv.Add(PictureURLs);
             foreach (var category in CategoryNames)
             {
                 csv.Add(Grades[category].ToString());
@@ -118,11 +175,13 @@ namespace ProjectTourism.Model
             Id = int.Parse(values[0]);
             ReservationId = int.Parse(values[1]);
             Comment = values[2];
-            Reservation = FindReservation(ReservationId);
-            for (int i = 3; i < values.Length; i++)
+            PictureURLs = values[3];
+            Pictures = GetPictureURLsFromCSV();
+            for (int i = 4; i < values.Length; i++)
             {
-                Grades[CategoryNames[i - 3]] = int.Parse(values[i]);
+                Grades[CategoryNames[i - 4]] = int.Parse(values[i]);
             }
+            CalculateAverageGrade();
         }
     }
 }

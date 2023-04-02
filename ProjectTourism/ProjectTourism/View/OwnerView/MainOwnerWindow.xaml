@@ -149,15 +149,33 @@
                 <DataGridTextColumn Header="Guest" Width="105" Binding="{Binding Guest1.FirstName}" Foreground="Black"/>
                 <DataGridTextColumn Header="Graded" Width="60" Binding="{Binding Graded}" Foreground="Black"/>
                 <DataGridTextColumn Header="Grading deadline" Width="120" Binding="{Binding GradingDeadlineMessage}" Foreground="Black"/>
-                <DataGridTemplateColumn Width="103" x:Name="Buttons">
+                <DataGridTemplateColumn Width="50" x:Name="Buttons">
                     <DataGridTemplateColumn.Header>
                         <TextBlock Text="Grade a guest"/>
                     </DataGridTemplateColumn.Header>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Height="24" Width="90" BorderBrush="BlueViolet" 
+                            <Button Height="24" Width="45" BorderBrush="BlueViolet" 
                                     BorderThickness="2" IsEnabled="{Binding CanBeGraded}" Click="GradeGuestClick" 
-                                    Content="Grade a guest">
+                                    Content="Grade">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="103" x:Name="Reviews">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="Review"/>
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Height="24" Width="90" BorderBrush="BlueViolet" 
+                                    BorderThickness="2" IsEnabled="{Binding VisibleReview}" Click="SeeReviewClick" 
+                                    Content="See review">
                                 <Button.Resources>
                                     <Style TargetType="Border">
                                         <Setter Property="CornerRadius" Value="5"/>
