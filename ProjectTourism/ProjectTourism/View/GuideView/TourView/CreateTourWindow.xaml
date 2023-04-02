@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProjectTourism.View.TourView"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="Tour creation" Height="720" Width="1000"
+        Title="Tour creation" Height="720" Width="1280"
         WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
@@ -86,11 +86,11 @@
             <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding Path = Tour.PictureURLs}" Margin="0,8,0,8"/>
             <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding Path = Tour.Description}" Margin="0,8,0,8"/>
         </Grid>
-        <WrapPanel>
-            <Button IsDefault="True" x:Name="AddLanguageButton" Content="Add language" HorizontalAlignment="Left" Height="33" Margin="445,208,0,0" VerticalAlignment="Top" Width="86" Click="AddLanguageButton_Click"/>
+        <WrapPanel Margin="561,210,587,432">
+            <Button IsDefault="True" x:Name="AddLanguageButton" Content="Add language" HorizontalAlignment="Left" Margin="25, 0, 0, 0" Height="33"  VerticalAlignment="Top" Width="86" Click="AddLanguageButton_Click"/>
         </WrapPanel>
-        <WrapPanel>
-            <Button Content="Save" Click="SaveTour_Click" HorizontalAlignment="Left" Height="43" Margin="680,600,0,0" VerticalAlignment="Top" Width="95"/>
+        <WrapPanel Margin="1114,608,27,24">
+            <Button Content="Save" Click="SaveTour_Click" HorizontalAlignment="Center" Height="43" Margin="25, 0, 0, 0" VerticalAlignment="Center" Width="95"/>
         </WrapPanel>
     </Grid>
 
