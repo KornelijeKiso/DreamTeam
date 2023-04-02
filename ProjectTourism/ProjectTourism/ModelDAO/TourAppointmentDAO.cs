@@ -51,12 +51,12 @@ namespace ProjectTourism.ModelDAO
         {
             return TourAppointments;
         }
-        public TourAppointment GetOne(int id)
+        public TourAppointment? GetOne(int id)
         {
-            foreach (TourAppointment tours in TourAppointments)
+            foreach (TourAppointment appointment in TourAppointments)
             {
-                if (tours.Id == id) 
-                    return tours;
+                if (appointment.Id == id) 
+                    return appointment;
             }
             return null;
         }
@@ -107,7 +107,7 @@ namespace ProjectTourism.ModelDAO
             TourAppointment tourAppointment = GetOne(tourAppointmentId);
             tourAppointment.AvailableSeats = tourAppointment.Tour.MaxNumberOfGuests;
             TicketDAO ticketDAO = new TicketDAO();
-            List<Ticket> tickets = ticketDAO.GetByAppointment(tourAppointment.Id); // same as tourAppointment.Tickets
+            List<Ticket> tickets = ticketDAO.GetByAppointment(tourAppointment.Id);
             foreach (Ticket ticket in tickets)
             {
                 tourAppointment.AvailableSeats -= ticket.NumberOfGuests;

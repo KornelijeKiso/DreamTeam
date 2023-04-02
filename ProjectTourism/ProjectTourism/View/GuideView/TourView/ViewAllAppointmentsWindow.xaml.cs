@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ProjectTourism.Controller;
 using ProjectTourism.Model;
+using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
 
 namespace ProjectTourism.View.GuideView.TourView
@@ -29,6 +30,7 @@ namespace ProjectTourism.View.GuideView.TourView
         public GuideController GuideController { get; set; }
         public TourAppointmentController TourAppointmentController { get; set; }
         public string GuideUsername { get; set; }
+        public CanceledTourAppointmentsDAO CanceledTourAppointmentsDAO { get; set; }
 
         public ViewAllAppointmentsWindow(string username)
         {
@@ -38,6 +40,7 @@ namespace ProjectTourism.View.GuideView.TourView
             GuideController = new GuideController();
             Appointments = new ObservableCollection<TourAppointment>(GuideController.GetGuidesAppointments(username));
             TourAppointmentController = new TourAppointmentController();
+            CanceledTourAppointmentsDAO = new CanceledTourAppointmentsDAO();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -50,17 +53,22 @@ namespace ProjectTourism.View.GuideView.TourView
         {
             if (SelectedAppointment != null)
             {
-                MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel this appointment?", "Delete appointment", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                if (result == MessageBoxResult.Yes)
-                {
-                    TourAppointmentController.Delete(SelectedAppointment.Id);
-                    UpdateAppointments();
+                if(SelectedAppointment.TourDateTime > DateTime.Now.AddHours(48)) {
+                    MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel this appointment?", "Delete appointment", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        CanceledTourAppointmentsDAO.Add(SelectedAppointment);
+                        TourAppointmentController.Delete(SelectedAppointment.Id);
+                        Appointments.Remove(SelectedAppointment);
+                        UpdateAppointments();
+                    }
                 }
-
+                else
+                    MessageBox.Show("The tour can not be canceled because the cancelation time is at least 48 hours before start.");
             }
             else
             {
-                MessageBox.Show("You must choose a tour which you want to quit.");
+                
             }
         }
         private void UpdateAppointments()
