@@ -44,9 +44,13 @@ namespace ProjectTourism.Controller
         {
             TourAppointmentDAO.UpdateAppointmentReturn(tourAppointmentId, ReturnedTicket);
         }
-        public void UpdateAppointmentUpdate(int tourAppointmentId, Ticket ReturnedTicket)
+        public void Delete(int tourAppointmentId)
         {
-            TourAppointmentDAO.UpdateAppointmentUpdate(tourAppointmentId, ReturnedTicket);
+            TourAppointmentDAO.Delete(tourAppointmentId);
+        }
+        public void UpdateAppointmentTicket(int tourAppointmentId, Ticket ReturnedTicket)
+        {
+            TourAppointmentDAO.UpdateAppointmentTicket(tourAppointmentId, ReturnedTicket);
         }
         public void ChangeState(TourAppointment tourAppointment)
         {

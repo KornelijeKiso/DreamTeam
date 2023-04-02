@@ -102,7 +102,7 @@ namespace ProjectTourism.ModelDAO
             FileHandler.Save(TourAppointments);
             NotifyObservers();
         }
-        public void UpdateAppointmentUpdate(int tourAppointmentId, Ticket ReturnedTicket)
+        public void UpdateAppointmentTicket(int tourAppointmentId, Ticket ReturnedTicket)
         {
             TourAppointment tourAppointment = GetOne(tourAppointmentId);
             tourAppointment.AvailableSeats = tourAppointment.Tour.MaxNumberOfGuests;
@@ -112,6 +112,15 @@ namespace ProjectTourism.ModelDAO
             {
                 tourAppointment.AvailableSeats -= ticket.NumberOfGuests;
             }
+            FileHandler.Save(TourAppointments);
+            NotifyObservers();
+        }
+
+        public void Delete(int tourAppointmentId)
+        {
+            TourAppointment tourAppointment = GetOne(tourAppointmentId);
+            if (tourAppointment == null) return;
+            TourAppointments.Remove(tourAppointment);
             FileHandler.Save(TourAppointments);
             NotifyObservers();
         }

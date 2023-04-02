@@ -27,13 +27,17 @@ namespace ProjectTourism.View.GuideView.TourView
         public ObservableCollection<TourAppointment> Appointments { get; set; }
         public TourAppointment SelectedAppointment { get; set; }
         public GuideController GuideController { get; set; }
+        public TourAppointmentController TourAppointmentController { get; set; }
+        public string GuideUsername { get; set; }
 
         public ViewAllAppointmentsWindow(string username)
         {
             InitializeComponent();
+            GuideUsername = username;
             DataContext = this;
             GuideController = new GuideController();
             Appointments = new ObservableCollection<TourAppointment>(GuideController.GetGuidesAppointments(username));
+            TourAppointmentController = new TourAppointmentController();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -42,20 +46,29 @@ namespace ProjectTourism.View.GuideView.TourView
         {
 
         }
-        private void QuitTourButton_Click(object sender, RoutedEventArgs e)
+        private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
             if (SelectedAppointment != null)
             {
                 MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel this appointment?", "Delete appointment", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
-                    //Deleting an appointment
+                    TourAppointmentController.Delete(SelectedAppointment.Id);
+                    UpdateAppointments();
                 }
 
             }
             else
             {
                 MessageBox.Show("You must choose a tour which you want to quit.");
+            }
+        }
+        private void UpdateAppointments()
+        {
+            Appointments.Clear();
+            foreach(var appointment in GuideController.GetGuidesAppointments(GuideUsername))
+            {
+                Appointments.Add(appointment);
             }
         }
     }

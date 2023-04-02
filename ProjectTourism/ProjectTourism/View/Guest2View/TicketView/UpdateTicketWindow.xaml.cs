@@ -65,7 +65,7 @@ namespace ProjectTourism.View.Guest2View.TicketView
         private void UpdateTicket(object sender, RoutedEventArgs e)
         {
             TicketController.Update(Ticket);
-            TourAppointmentController.UpdateAppointmentUpdate(selectedAppointment.Id, Ticket);
+            TourAppointmentController.UpdateAppointmentTicket(selectedAppointment.Id, Ticket);
             Close();
         }
 

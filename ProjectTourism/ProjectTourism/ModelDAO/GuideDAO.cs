@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using ProjectTourism.FileHandler;
 using ProjectTourism.Model;
 using ProjectTourism.Observer;
@@ -70,7 +71,8 @@ namespace ProjectTourism.ModelDAO
             TourAppointmentDAO tourAppDAO = new TourAppointmentDAO();
             foreach (var tourAppointment in tourAppDAO.GetAll())
             {
-                appointments.Add(tourAppointment);
+                if(tourAppointment.Tour.Guide.Username.Equals(username))
+                    appointments.Add(tourAppointment);
             }
             return appointments;
         }
