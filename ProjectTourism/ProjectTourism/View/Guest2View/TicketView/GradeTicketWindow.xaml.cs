@@ -22,20 +22,19 @@ namespace ProjectTourism.View.Guest2View.TicketView
     public partial class GradeTicketWindow : Window
     {
         public TicketGradeController TicketGradeController { get; set; }
-        public List<TicketGrade> ticketGrades { get; set; }
         public TicketGrade TicketGrade { get; set; }
         public TicketController TicketController { get; set; }
-        bool Graded;        
+        public bool Graded;
         public GradeTicketWindow(int ticketId)
         {
             InitializeComponent();
             DataContext = this;
             TicketGradeController = new TicketGradeController();
-            ticketGrades = TicketGradeController.GetAll();
             TicketGrade = new TicketGrade();
             TicketController = new TicketController();
 
             TicketGrade.TicketId = ticketId;
+            //Graded = IsAlreadyGraded(ticketId);
         }
 
         private void GradeTicketClick(object sender, RoutedEventArgs e)
@@ -80,6 +79,16 @@ namespace ProjectTourism.View.Guest2View.TicketView
                     break;
                 }
             }
+        }
+
+        private bool IsAlreadyGraded(int ticketId)
+        {
+            List<TicketGrade> ticketGrades = TicketGradeController.GetAll();
+            foreach (TicketGrade ticketGrade in ticketGrades)
+            {
+                if (ticketGrade.TicketId == ticketId) return true;
+            }
+            return false;
         }
     }
 }

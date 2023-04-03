@@ -28,6 +28,7 @@ namespace ProjectTourism.View.Guest2View.TicketView
         public TourAppointmentController TourAppointmentController { get; set; }
         public Ticket? SelectedTicket { get; set; }
         public TicketController TicketController { get; set; }
+        public TicketGradeController TicketGradeController { get; set; }
         public ObservableCollection<Ticket> UsedTickets { get; set; }
         public string Username { get; set; }
 
@@ -38,6 +39,9 @@ namespace ProjectTourism.View.Guest2View.TicketView
             Username = username;
             TourAppointmentController = new TourAppointmentController();
             TicketController = new TicketController();
+
+            TicketGradeController = new TicketGradeController();
+
             UsedTickets = FilterTickets(TicketController.GetByGuest(username));     // only used tickets
             TicketController.Subscribe(this);
         }
@@ -68,20 +72,41 @@ namespace ProjectTourism.View.Guest2View.TicketView
         {
             if (SelectedTicket != null)
             {
-                //if () // already has a grade
-                    //MessageBox.Show("Ticket already has a grade!");
-                //else
+                if (IsAlreadyGraded(SelectedTicket.Id)) // already has a grade
+                {
+                    MessageBox.Show("Ticket already has a grade!");
+                }
+                else
                 {
                     GradeTicketWindow gradeTicketWindow = new GradeTicketWindow(SelectedTicket.Id);
                     gradeTicketWindow.ShowDialog();
                 }
+                /*
+                GradeTicketWindow gradeTicketWindow = new GradeTicketWindow(SelectedTicket.Id);
+                if (gradeTicketWindow.Graded) // already has a grade
+                    MessageBox.Show("Ticket already has a grade!");
+                else
+                {
+                    gradeTicketWindow.ShowDialog();
+                }*/
             }
             else
                 MessageBox.Show("Please select the ticket for the tour you would like to grade.");
         }
 
+        private bool IsAlreadyGraded(int ticketId)
+        {
+            List<TicketGrade> ticketGrades = TicketGradeController.GetAll();
+            foreach (TicketGrade ticketGrade in ticketGrades)
+            {
+                if (ticketGrade.TicketId == ticketId) return true;
+            }
+            return false;
+        }
+
         public void Update()
         {
+            //TicketGradeController = new TicketGradeController();
             throw new NotImplementedException();
         }
     }
