@@ -266,7 +266,7 @@ namespace ProjectTourism.View.OwnerView
         public void GradeGuestClick(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
-            GradeGuestWindow gradeGuestWindow = new GradeGuestWindow(SelectedReservation.Id, Owner);
+            GradeGuestWindow gradeGuestWindow = new GradeGuestWindow(SelectedReservation, Owner);
             gradeGuestWindow.ShowDialog();
             if (gradeGuestWindow.Graded)
             {
