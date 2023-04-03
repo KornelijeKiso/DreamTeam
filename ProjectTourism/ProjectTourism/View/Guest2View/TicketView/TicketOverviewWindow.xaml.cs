@@ -105,6 +105,12 @@ namespace ProjectTourism.View.Guest2View.TicketView
                 MessageBox.Show("Please select the ticket you would like to update.");
         }
 
+        private void UsedTickets(object sender, RoutedEventArgs e)
+        {
+            UsedTicketOverviewWindow usedTicketOverviewWindow = new UsedTicketOverviewWindow(Username);
+            usedTicketOverviewWindow.ShowDialog();
+        }
+
         private void UpdateTicketsList()
         {
             Tickets.Clear();

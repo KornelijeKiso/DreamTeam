@@ -1,0 +1,58 @@
+﻿<Window x:Class="ProjectTourism.View.Guest2View.TicketView.GradeTicketWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectTourism.View.Guest2View.TicketView"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Grade Ticket" Height="500" Width="400">
+    <Grid>
+        <StackPanel>
+            <Label Content="Guide's knoweledge :" FontSize="14"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30" Name="Knoweledge">
+                <RadioButton Content="1" FontSize="14" GroupName="GradeGroup0" Width="45" IsChecked="True" Background="LightYellow"/>
+                <RadioButton Content="2" FontSize="14" GroupName="GradeGroup0" Width="45" Background="LightYellow"/>
+                <RadioButton Content="3" FontSize="14" GroupName="GradeGroup0" Width="45" Background="LightYellow"/>
+                <RadioButton Content="4" FontSize="14" GroupName="GradeGroup0" Width="45" Background="LightYellow"/>
+                <RadioButton Content="5" FontSize="14" GroupName="GradeGroup0" Width="45" Background="LightYellow"/>
+            </StackPanel>
+            
+            <Label Content="Guide's language :" FontSize="14"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30" Name="Language">
+                <RadioButton Content="1" FontSize="14" GroupName="GradeGroup1" Width="45" IsChecked="True" Background="LightYellow"/>
+                <RadioButton Content="2" FontSize="14" GroupName="GradeGroup1" Width="45" Background="LightYellow"/>
+                <RadioButton Content="3" FontSize="14" GroupName="GradeGroup1" Width="45" Background="LightYellow"/>
+                <RadioButton Content="4" FontSize="14" GroupName="GradeGroup1" Width="45" Background="LightYellow"/>
+                <RadioButton Content="5" FontSize="14" GroupName="GradeGroup1" Width="45" Background="LightYellow"/>
+            </StackPanel>
+
+            <Label Content="Interesting :" FontSize="14"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30" Name="Interesting">
+                <RadioButton Content="1" FontSize="14" GroupName="GradeGroup2" Width="45" IsChecked="True" Background="LightYellow"/>
+                <RadioButton Content="2" FontSize="14" GroupName="GradeGroup2" Width="45" Background="LightYellow"/>
+                <RadioButton Content="3" FontSize="14" GroupName="GradeGroup2" Width="45" Background="LightYellow"/>
+                <RadioButton Content="4" FontSize="14" GroupName="GradeGroup2" Width="45" Background="LightYellow"/>
+                <RadioButton Content="5" FontSize="14" GroupName="GradeGroup2" Width="45" Background="LightYellow"/>
+            </StackPanel>
+            
+            <Label Content="Comment :" FontSize="14"></Label>
+            <TextBox 
+            Height="70" Width="300" 
+            HorizontalAlignment="Center" 
+            Text="{Binding TicketGrade.Comment,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+            <Label Content="Pictures :" FontSize="14"></Label>
+            <TextBox Height="70" 
+            Width="300" 
+            HorizontalAlignment="Center" 
+            Text="{Binding TicketGrade.PictureURLs,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+            <Button Content="Submit" Click="GradeTicketClick" 
+                    IsDefault="True"
+                    Width="100" Height="40" Margin="0 10 0 0" >
+            </Button>
+
+        </StackPanel>
+    </Grid>
+</Window>
