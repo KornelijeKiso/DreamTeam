@@ -25,7 +25,7 @@
             <MenuItem Width="150" Height="50" Header="Forum" FontSize="14" ></MenuItem>
             <MenuItem Width="150" Height="50" Header="Help" FontSize="14" ></MenuItem>
         </Menu>
-        <DataGrid x:Name="DataGridAccommodations" ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}"
+        <DataGrid x:Name="DataGridAccommodations" ItemsSource="{Binding AccommodationsVM, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                     IsReadOnly="True" VerticalScrollBarVisibility="Visible" AutoGenerateColumns="False"  BorderBrush="BlueViolet" BorderThickness="2"
                     Margin="270,79,10,229" RowHeight="130" RowBackground="LightYellow" Background="LightYellow" HorizontalScrollBarVisibility="Disabled">

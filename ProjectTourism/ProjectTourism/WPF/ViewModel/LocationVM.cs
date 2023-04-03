@@ -1,69 +1,60 @@
-﻿using System;
+﻿using ProjectTourism.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
-namespace ProjectTourism.Model
+namespace ProjectTourism.WPF.ViewModel
 {
-    public class Location: Serializable, INotifyPropertyChanged, IDataErrorInfo
+    public class LocationVM:INotifyPropertyChanged,IDataErrorInfo
     {
-        private int _Id;
+        private Location _location;
+        public LocationVM(Location location)
+        {
+            _location = location;
+        }
+        public Location GetLocation()
+        {
+            return _location;
+        }
         public int Id
         {
-            get => _Id;
+            get => _location.Id;
             set
             {
-                if (value != _Id)
+                if (value != _location.Id)
                 {
-                    _Id = value;
+                    _location.Id = value;
                     OnPropertyChanged();
                 }
             }
         }
-        private string _City;
         public string City
         {
-            get => _City;
+            get => _location.City;
             set
             {
-                if (value != _City)
+                if (value != _location.City)
                 {
-                    _City = value;
+                    _location.City = value;
                     OnPropertyChanged();
                 }
             }
         }
-        private string _Country;
         public string Country
         {
-            get => _Country;
+            get => _location.Country;
             set
             {
-                if (value != _Country)
+                if (value != _location.Country)
                 {
-                    _Country = value;
+                    _location.Country = value;
                     OnPropertyChanged();
                 }
             }
-        }
-        public Location(string city, string country)
-        {
-            City = city;
-            Country = country;
-        }
-        public Location() { }
-        public string[] ToCSV()
-        {
-            string[] csvValues =
-            {
-                Id.ToString(),
-                City,
-                Country          };
-            return csvValues;
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -76,12 +67,6 @@ namespace ProjectTourism.Model
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public void FromCSV(string[] values)
-        {
-            Id = int.Parse(values[0]);
-            City = values[1];
-            Country = values[2];
-        }
         public string Error => null;
         public string? this[string columnName]
         {
@@ -92,7 +77,7 @@ namespace ProjectTourism.Model
                     if (string.IsNullOrEmpty(City))
                         return "City is required!";
                 }
-                else if(columnName == "Country")
+                else if (columnName == "Country")
                 {
                     if (string.IsNullOrEmpty(Country))
                         return "Country is required!";

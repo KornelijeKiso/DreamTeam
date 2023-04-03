@@ -20,6 +20,7 @@ using ProjectTourism.Model;
 using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
 using ProjectTourism.View.GuideView.TourView;
+using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.TourView
 {
@@ -102,7 +103,8 @@ namespace ProjectTourism.View.TourView
                 MessageBox.Show("You have not choosed any dates for this tour!");
                 return;
             }
-            if (Tour.IsValid && NewLocation.IsValid)
+            LocationVM locationVM = new LocationVM(NewLocation);
+            if (Tour.IsValid && locationVM.IsValid)
                 AddTour();
             else
                 MessageBox.Show("Tour can not be made because the fields were not correctly entered.");

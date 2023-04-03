@@ -1,0 +1,247 @@
+﻿using ProjectTourism.Model;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ProjectTourism.WPF.ViewModel
+{
+    public class AccommodationVM:INotifyPropertyChanged, IDataErrorInfo
+    {
+        private Accommodation _accommodation;
+        public AccommodationVM(Accommodation accommodation)
+        {
+            _accommodation= accommodation;
+        }
+        public Accommodation GetAccommodation()
+        {
+            return _accommodation;
+        }
+        public int Id
+        {
+            get => _accommodation.Id;
+            set
+            {
+                if (value != _accommodation.Id)
+                {
+                    _accommodation.Id = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string PictureURLs
+        {
+            get => _accommodation.PictureURLs;
+            set
+            {
+                if (value != _accommodation.PictureURLs)
+                {
+                    _accommodation.PictureURLs = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string[] Pictures
+        {
+            get => _accommodation.Pictures;
+            set
+            {
+                if (value != _accommodation.Pictures)
+                {
+                    _accommodation.Pictures = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string Name
+        {
+            get => _accommodation.Name;
+            set
+            {
+                if (value != _accommodation.Name)
+                {
+                    _accommodation.Name = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public Location Location
+        {
+            get => _accommodation.Location;
+            set
+            {
+                if (value != _accommodation.Location)
+                {
+                    _accommodation.Location = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public int LocationId
+        {
+            get => _accommodation.LocationId;
+            set
+            {
+                if (value != _accommodation.LocationId)
+                {
+                    _accommodation.LocationId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string CityAndCountry
+        {
+            get => _accommodation.CityAndCountry;
+            set
+            {
+                if (value != _accommodation.CityAndCountry)
+                {
+                    _accommodation.CityAndCountry = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public ACCOMMODATIONTYPE Type
+        {
+            get => _accommodation.Type;
+            set
+            {
+                if (value != _accommodation.Type)
+                {
+                    _accommodation.Type = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public int MaxNumberOfGuests
+        {
+            get => _accommodation.MaxNumberOfGuests;
+            set
+            {
+                if (value != _accommodation.MaxNumberOfGuests)
+                {
+                    _accommodation.MaxNumberOfGuests = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public int MinDaysForReservation
+        {
+            get => _accommodation.MinDaysForReservation;
+            set
+            {
+                if (value != _accommodation.MinDaysForReservation)
+                {
+                    _accommodation.MinDaysForReservation = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public int CancellationDeadline
+        {
+            get => _accommodation.CancellationDeadline;
+            set
+            {
+                if (value != _accommodation.CancellationDeadline)
+                {
+                    _accommodation.CancellationDeadline = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string OwnerUsername
+        {
+            get => _accommodation.OwnerUsername;
+            set
+            {
+                if (value != _accommodation.OwnerUsername)
+                {
+                    _accommodation.OwnerUsername = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public Owner Owner
+        {
+            get => _accommodation.Owner;
+            set
+            {
+                if (value != _accommodation.Owner)
+                {
+                    _accommodation.Owner = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public List<Reservation> Reservations
+        {
+            get => _accommodation.Reservations;
+            set
+            {
+                if (!value.Equals(_accommodation.Reservations))
+                {
+                    _accommodation.Reservations = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        
+        public void SetLocation(Location location)
+        {
+            Location = location;
+            LocationId = location.Id;
+            CityAndCountry = location.City + ", " + location.Country;
+        }
+        public void Reset()
+        {
+            Location = null;
+            CancellationDeadline = 1;
+            MaxNumberOfGuests = 1;
+            MinDaysForReservation = 1;
+            Type = ACCOMMODATIONTYPE.APARTMENT;
+            Name = "";
+            PictureURLs = "";
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        
+
+        public string Error => null;
+        public string? this[string columnName]
+        {
+            get
+            {
+                if (columnName == "Name")
+                {
+                    if (string.IsNullOrEmpty(Name))
+                        return "Name is required!";
+                }
+
+                return null;
+            }
+        }
+        private readonly string[] _validatedProperties = { "Name" };
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+
+                return true;
+            }
+        }
+    }
+}

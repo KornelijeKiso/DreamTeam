@@ -33,10 +33,6 @@ namespace ProjectTourism.Controller
             return Guest1GradeDAO.GetAll();
         }
 
-        public List<Guest1Grade> GetAllByGuest1(string username)
-        {
-            return Guest1GradeDAO.GetAllByGuest1(username);
-        }
         public void Subscribe(IObserver observer)
         {
             Guest1GradeDAO.Subscribe(observer);

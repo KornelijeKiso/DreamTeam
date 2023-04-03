@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProjectTourism.FileHandler
 {
-    internal class AccommodationGradeFileHandler
+    public class AccommodationGradeFileHandler
     {
         private Serializer<AccommodationGrade> Serializer;
         private readonly string Filename = "../../../References/accommodationGrades.csv";

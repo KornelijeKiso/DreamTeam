@@ -1,4 +1,5 @@
-﻿using ProjectTourism.Controller;
+﻿using ProjectTourism.Services;
+using ProjectTourism.Controller;
 using ProjectTourism.Model;
 using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
@@ -19,6 +20,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProjectTourism.Repositories;
+using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.OwnerView
 {
@@ -29,10 +32,11 @@ namespace ProjectTourism.View.OwnerView
     {
         public Owner Owner { get; set; }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
+        public ObservableCollection<AccommodationVM> AccommodationsVM { get; set; }
         public ObservableCollection<Reservation> Reservations { get; set; }
         public Reservation SelectedReservation { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
-        public OwnerController OwnerController { get; set; }
+        public OwnerService OwnerService { get; set; }
         public AccommodationController AccommodationController { get; set; }
         public Accommodation NewAccommodation { get; set; }
         public Location NewLocation { get; set; }
@@ -71,7 +75,12 @@ namespace ProjectTourism.View.OwnerView
 
         private void LoadDataGrids(string username)
         {
+            AccommodationsVM = new ObservableCollection<AccommodationVM>();
             Accommodations = new ObservableCollection<Accommodation>(Owner.Accommodations);
+            foreach(var a in Accommodations)
+            {
+                AccommodationsVM.Add(new AccommodationVM(a));
+            }
             Reservations = SortReservations();
             Grades = new List<Guest1Grade>();
             foreach(Reservation reservation in Reservations)
@@ -82,7 +91,7 @@ namespace ProjectTourism.View.OwnerView
 
         private void SetOwner(string username)
         {
-            Owner = OwnerController.GetOne(username);
+            Owner = OwnerService.GetOne(username);
             NewAccommodation.Owner = Owner;
             NewAccommodation.OwnerUsername = username;
         }
@@ -96,7 +105,7 @@ namespace ProjectTourism.View.OwnerView
         private void InitializeControllers()
         {
             LocationDAO = new LocationDAO();
-            OwnerController = new OwnerController();
+            OwnerService = new OwnerService(new OwnerRepository());
             AccommodationController = new AccommodationController();
             Guest1GradeController = new Guest1GradeCotroller();
         }
@@ -147,7 +156,8 @@ namespace ProjectTourism.View.OwnerView
         {
             foreach (var reservation in Reservations)
             {
-                if (reservation.IsAbleToGrade() && !reservation.Graded)
+                ReservationVM reservationVM = new ReservationVM(reservation);
+                if (reservationVM.IsAbleToGrade() && !reservation.Graded)
                 {
                     MessageBox.Show("There are guests who are waiting to be graded.");
                     break;
@@ -171,7 +181,9 @@ namespace ProjectTourism.View.OwnerView
         }
         public void RegisterAccommodationClick(object sender, RoutedEventArgs e)
         {
-            if (NewAccommodation.IsValid && NewLocation.IsValid) 
+            AccommodationVM accommodationVM = new AccommodationVM(NewAccommodation);
+            LocationVM locationVM = new LocationVM(NewLocation);
+            if (accommodationVM.IsValid && locationVM.IsValid) 
             {
                 RegisterNewAccommodation();
             }
