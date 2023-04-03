@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Automation;
 
 namespace ProjectTourism.ModelDAO
 {
@@ -20,6 +21,43 @@ namespace ProjectTourism.ModelDAO
             Observers = new List<IObserver>();
             FileHandler = new ReservationFileHandler();
             Reservations = FileHandler.Load();
+            Synchronize();
+        }
+
+        public void Synchronize()
+        {
+            AccommodationGradeDAO accommodationGradeDAO= new AccommodationGradeDAO();
+            Guest1GradeDAO guest1GradeDAO= new Guest1GradeDAO();
+            Guest1DAO guest1DAO = new Guest1DAO();
+            AccommodationGrade accommodationGrade;
+            Guest1Grade guest1Grade;
+            foreach(Reservation reservation in Reservations)
+            {
+                accommodationGrade = accommodationGradeDAO.GetOneByReservation(reservation.Id);
+                guest1Grade = guest1GradeDAO.GetOneByReservation(reservation.Id);
+                reservation.Guest1 = guest1DAO.GetOne(reservation.Guest1Username);
+                if(guest1Grade != null)
+                {
+                    guest1Grade.Reservation = reservation;
+                    reservation.Guest1Grade = guest1Grade;
+                    reservation.Graded= true;
+                }
+                if(accommodationGrade!= null)
+                {
+                    accommodationGrade.Reservation = reservation;
+                    reservation.AccommodationGrade = accommodationGrade;
+                    reservation.AccommodationGraded = true;
+                }  
+                if(reservation.Graded && reservation.AccommodationGraded)
+                {
+                    reservation.VisibleReview = true;
+                }
+                reservation.CanBeGraded = false;
+                if (reservation.IsAbleToGrade() && !reservation.Graded)
+                {
+                    reservation.CanBeGraded = true;
+                }
+            }
         }
         public int GenerateId()
         {
@@ -50,21 +88,6 @@ namespace ProjectTourism.ModelDAO
         }
         public List<Reservation> GetAll()
         {
-            AccommodationGradeDAO accommodationGradeDAO= new AccommodationGradeDAO();
-            foreach(var ag in accommodationGradeDAO.GetAll())
-            {
-                Reservation reservation = Reservations.Find(r=>r.Id == ag.ReservationId);
-                foreach (var r in Reservations)
-                {
-                    if (r.Id == reservation.Id)
-                    {
-                        r.VisibleReview = r.IsGraded();
-                        r.AccommodationGraded = true;
-                        ag.Reservation = r;
-                        r.AccommodationGrade = ag;
-                    }
-                }
-            }
             return Reservations;
         }
         public Reservation GetOne(int id)
@@ -79,8 +102,7 @@ namespace ProjectTourism.ModelDAO
         public bool IsPossible(Reservation reservation)
         {
             List<Reservation> ReservationsForSameAccommodation = Reservations.FindAll(res=>res.AccommodationId== reservation.AccommodationId);
-            Reservation existingReservation = ReservationsForSameAccommodation.Find(res => Conflict(reservation, res));
-            return existingReservation == null;
+            return ReservationsForSameAccommodation.Find(res => Conflict(reservation, res)) == null;
         }
         private bool Conflict(Reservation reservation, Reservation existingReservation)
         {

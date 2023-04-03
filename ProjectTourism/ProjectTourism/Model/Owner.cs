@@ -75,9 +75,13 @@ namespace ProjectTourism.Model
                 }
             }
         }
+        public List<Accommodation> Accommodations;
+        public List<Reservation> Reservations;
         public Owner()
         {
             AverageGrade = 0;
+            Accommodations = new List<Accommodation>();
+            Reservations = new List<Reservation>();
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -104,6 +108,8 @@ namespace ProjectTourism.Model
             LastName = values[2];
             Email = values[3];
             AverageGrade = double.Parse(values[4]);
+            Accommodations = new List<Accommodation>();
+            Reservations = new List<Reservation>();
         }
     }
 }

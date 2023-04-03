@@ -188,13 +188,14 @@ namespace ProjectTourism.Model
                 }
             }
         }
-
+        public List<Reservation> Reservations { get; set; }
         public Accommodation()
         {
             CancellationDeadline = 1;
             MaxNumberOfGuests= 1;
             MinDaysForReservation= 1;
             PictureURLs = "";
+            Reservations = new List<Reservation>();
         }
         public Accommodation(Accommodation accommodation)
         {
@@ -211,19 +212,14 @@ namespace ProjectTourism.Model
             CancellationDeadline= accommodation.CancellationDeadline;  
             CityAndCountry = accommodation.CityAndCountry;
             Pictures = accommodation.GetPictureURLsFromCSV();
+            Reservations = new List<Reservation>();
+
         }
         public void SetLocation(Location location)
         {
             Location = location;
             LocationId = location.Id;
             CityAndCountry = location.City + ", " + location.Country;
-        }
-        public Location FindLocation(int id)
-        {
-            LocationDAO locationDAO = new LocationDAO();
-            Location location = locationDAO.GetOne(id);
-            CityAndCountry = location.City + ", " + location.Country;
-            return location;
         }
         public void Reset()
         {
@@ -244,11 +240,6 @@ namespace ProjectTourism.Model
                 picture.Trim();
             }
             return pictures;
-        }
-        public Owner FindOwner(string username)
-        {
-            OwnerDAO ownerDAO = new OwnerDAO();
-            return ownerDAO.GetOne(username);
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -296,7 +287,6 @@ namespace ProjectTourism.Model
         {
             Id = int.Parse(values[0]);
             LocationId = int.Parse(values[1]);
-            Location = FindLocation(LocationId);
             Type = ReadTypeFromCSV(int.Parse(values[2]));
             MaxNumberOfGuests = int.Parse(values[3]);
             MinDaysForReservation = int.Parse(values[4]);
@@ -305,6 +295,7 @@ namespace ProjectTourism.Model
             Name = values[7];
             PictureURLs = values[8];
             Pictures = GetPictureURLsFromCSV();
+            Reservations = new List<Reservation>();
         }
 
         public string Error => null;

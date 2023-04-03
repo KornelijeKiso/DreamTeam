@@ -197,6 +197,20 @@ namespace ProjectTourism.Model
             }
         }
 
+        private Guest1Grade _Guest1Grade;
+        public Guest1Grade Guest1Grade
+        {
+            get => _Guest1Grade;
+            set
+            {
+                if (value != _Guest1Grade)
+                {
+                    _Guest1Grade = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public Reservation()
         {
         }
@@ -204,22 +218,7 @@ namespace ProjectTourism.Model
         {
             return DateOnly.FromDateTime(DateTime.Now) > EndDate && DateOnly.FromDateTime(DateTime.Now) < GradingDeadline; 
         }
-        public bool IsGraded()
-        {
-            Guest1GradeDAO guest1GradeDAO= new Guest1GradeDAO();
-            Graded = guest1GradeDAO.GetOneByReservation(Id) != null;
-            return Graded;
-        }
-        public Guest1 FindGuest1(string username)
-        {
-            Guest1DAO guest1DAO = new Guest1DAO();
-            return guest1DAO.GetOne(username);
-        }
-        public Accommodation FindAccommodation(int id)
-        {
-            AccommodationDAO accommodationDAO = new AccommodationDAO();
-            return accommodationDAO.GetOne(id);
-        }
+        
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -260,12 +259,9 @@ namespace ProjectTourism.Model
         {
             Id = int.Parse(values[0]);
             AccommodationId = int.Parse(values[1]);
-            Accommodation = FindAccommodation(AccommodationId);
             if(DateOnly.TryParse(values[2],new CultureInfo("en-GB"),DateTimeStyles.None,out var startDate)) StartDate = startDate;
             if (DateOnly.TryParse(values[3], new CultureInfo("en-GB"), DateTimeStyles.None, out var endDate)) EndDate = endDate;
             Guest1Username = values[4];
-            Guest1 = FindGuest1(Guest1Username);
-            Accommodation = FindAccommodation(AccommodationId);
             GradingDeadline = EndDate.AddDays(5);
             GradingDeadlineMessage = GenerateGradingDeadlineMessage();
         }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Automation;
 
 namespace ProjectTourism.ModelDAO
 {
@@ -19,8 +20,26 @@ namespace ProjectTourism.ModelDAO
             Observers = new List<IObserver>();
             FileHandler = new OwnerFileHandler();
             Owners = FileHandler.Load();
+            Synchronize();
         }
         
+        public void Synchronize()
+        {
+            AccommodationDAO accommodationDAO = new AccommodationDAO();
+            foreach(var owner in Owners)
+            {
+                foreach (var accommodation in accommodationDAO.GetAll())
+                {
+                    if (accommodation.OwnerUsername == owner.Username)
+                    {
+                        accommodation.Owner = owner;
+                        owner.Accommodations.Add(accommodation);
+                        owner.Reservations.AddRange(accommodation.Reservations);
+                    }
+                }
+            }
+        }
+
         public void Add(Owner owner)
         {
             Owners.Add(owner);
@@ -42,33 +61,6 @@ namespace ProjectTourism.ModelDAO
                 if (owner.Username.Equals(username)) return owner;
             }
             return null;
-        }
-
-        public List<Accommodation> GetOwnersAccomodations(string username)
-        {
-            List<Accommodation> accommodations= new List<Accommodation>();
-            AccommodationDAO accommodationDAO= new AccommodationDAO();
-            foreach(var accommodation in accommodationDAO.GetAll())
-            {
-                if (accommodation.OwnerUsername.Equals(username))
-                {
-                    accommodations.Add(accommodation);
-                }
-            }
-            return accommodations;
-        }
-        public List<Reservation> GetOwnersReservations(string username)
-        {
-            List<Reservation> reservations = new List<Reservation>();
-            ReservationDAO reservationDAO = new ReservationDAO();
-            foreach (var reservation in reservationDAO.GetAll())
-            {
-                if (reservation.Accommodation.OwnerUsername.Equals(username))
-                {
-                    reservations.Add(reservation);
-                }
-            }
-            return reservations;
         }
         public void Subscribe(IObserver observer)
         {

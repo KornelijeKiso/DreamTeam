@@ -131,12 +131,6 @@ namespace ProjectTourism.Model
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        private Reservation FindReservation(int reservationId)
-        {
-            ReservationDAO reservationDAO = new ReservationDAO();
-            Reservation reservation = reservationDAO.GetOne(reservationId);
-            return reservation;
-        }
         public void CalculateAverageGrade()
         {
             double sum = 0;

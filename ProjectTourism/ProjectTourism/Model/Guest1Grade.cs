@@ -93,12 +93,6 @@ namespace ProjectTourism.Model
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        private Reservation FindReservation(int reservationId)
-        {
-            ReservationDAO reservationDAO= new ReservationDAO();
-            Reservation reservation = reservationDAO.GetOne(reservationId);
-            return reservation;
-        }
         public string[] ToCSV()
         {
             List<string> csv = new List<string>();
@@ -118,7 +112,6 @@ namespace ProjectTourism.Model
             Id = int.Parse(values[0]);
             ReservationId = int.Parse(values[1]);
             Comment = values[2];
-            Reservation = FindReservation(ReservationId);
             for(int i = 3; i < values.Length; i++)
             {
                 Grades[CategoryNames[i - 3]] = int.Parse(values[i]);

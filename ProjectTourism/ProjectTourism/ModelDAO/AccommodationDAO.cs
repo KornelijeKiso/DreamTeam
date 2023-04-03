@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Automation;
 
 namespace ProjectTourism.ModelDAO
 {
@@ -19,6 +20,24 @@ namespace ProjectTourism.ModelDAO
             Observers = new List<IObserver>();
             FileHandler = new AccommodationFileHandler();
             Accommodations = FileHandler.Load();
+            Synchronize();
+        }
+        public void Synchronize()
+        {
+            LocationDAO locationDAO = new LocationDAO();
+            ReservationDAO reservationDAO = new ReservationDAO();
+            foreach(Accommodation accommodation in Accommodations)
+            {
+                accommodation.Location = locationDAO.GetOne(accommodation.LocationId);
+                foreach(Reservation reservation in reservationDAO.GetAll())
+                {
+                    if(reservation.AccommodationId == accommodation.Id)
+                    {
+                        reservation.Accommodation = accommodation;
+                        accommodation.Reservations.Add(reservation);
+                    }
+                }
+            }
         }
         public int GenerateId()
         {

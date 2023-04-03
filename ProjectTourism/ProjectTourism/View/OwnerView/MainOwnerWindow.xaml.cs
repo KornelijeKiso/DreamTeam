@@ -61,7 +61,6 @@ namespace ProjectTourism.View.OwnerView
             LoadDataGrids(username);
 
             Subscribe();
-            SetGradingButtons();
         }
 
         private void Subscribe()
@@ -72,8 +71,13 @@ namespace ProjectTourism.View.OwnerView
 
         private void LoadDataGrids(string username)
         {
-            Accommodations = new ObservableCollection<Accommodation>(OwnerController.GetOwnersAccommodations(username));
+            Accommodations = new ObservableCollection<Accommodation>(Owner.Accommodations);
             Reservations = SortReservations();
+            Grades = new List<Guest1Grade>();
+            foreach(Reservation reservation in Reservations)
+            {
+                Grades.Add(reservation.Guest1Grade);
+            }
         }
 
         private void SetOwner(string username)
@@ -87,7 +91,6 @@ namespace ProjectTourism.View.OwnerView
         {
             NewAccommodation = new Accommodation();
             NewLocation = new Location();
-            Grades = Guest1GradeController.GetAll();
         }
 
         private void InitializeControllers()
@@ -135,31 +138,11 @@ namespace ProjectTourism.View.OwnerView
 
         private ObservableCollection<Reservation> SortReservations()
         {
-            List<Reservation> sortedReservations = OwnerController.GetOwnersReservations(Owner.Username);
+            List<Reservation> sortedReservations = Owner.Reservations;
             sortedReservations.Sort((x, y) => y.EndDate.CompareTo(x.EndDate));
             return new ObservableCollection<Reservation>(sortedReservations);
         }
 
-        private void SetGradingButtons()
-        {
-            foreach(var reservation in Reservations)
-            {
-                reservation.CanBeGraded = false;
-                if (reservation.IsAbleToGrade())
-                {
-                    reservation.CanBeGraded = true;
-                }
-                foreach (var grade in Grades)
-                {
-                    if (grade.ReservationId == reservation.Id)
-                    {
-                        reservation.CanBeGraded = false;
-                        reservation.Graded = true;
-                        break;
-                    }
-                }
-            }
-        }
         public void AreAllGuestsGraded(object sender, EventArgs e)
         {
             foreach (var reservation in Reservations)
@@ -210,6 +193,7 @@ namespace ProjectTourism.View.OwnerView
             Accommodation accommodation = new Accommodation(NewAccommodation);
 
             AccommodationController.Add(accommodation);
+            Owner.Accommodations.Add(accommodation);
             Accommodations.Add(accommodation);
             Reset();
         }
@@ -224,8 +208,7 @@ namespace ProjectTourism.View.OwnerView
 
         public void Update()
         {
-            Accommodations = new ObservableCollection<Accommodation>(OwnerController.GetOwnersAccommodations(Owner.Username));
-            SetGradingButtons();
+            Accommodations = new ObservableCollection<Accommodation>(Owner.Accommodations);
         }
 
         public void IncreaseMaxNumberOfGuestsClick(object sender, RoutedEventArgs e)
@@ -283,10 +266,11 @@ namespace ProjectTourism.View.OwnerView
         public void GradeGuestClick(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
-            GradeGuestWindow gradeGuestWindow = new GradeGuestWindow(SelectedReservation.Id);
+            GradeGuestWindow gradeGuestWindow = new GradeGuestWindow(SelectedReservation.Id, Owner);
             gradeGuestWindow.ShowDialog();
             if (gradeGuestWindow.Graded)
             {
+                Owner = gradeGuestWindow.Owner;
                 button.IsEnabled = false;
                 SelectedReservation.VisibleReview = SelectedReservation.AccommodationGraded;
             }

@@ -21,18 +21,24 @@ namespace ProjectTourism.View.OwnerView
     /// </summary>
     public partial class GradeGuestWindow : Window
     {
+        public Owner Owner { get; set; }
         public Guest1GradeCotroller Guest1GradeCotroller { get; set; }
         public ReservationController ReservationController { get; set; }  
         public List<Guest1Grade> Guest1Grades { get; set; }
         public Guest1Grade GuestGrade { get; set; }
         public bool Graded;
-        public GradeGuestWindow(int reservationId)
+        public GradeGuestWindow(int reservationId, Owner owner)
         {
             InitializeComponent();
             DataContext = this;
+            Owner = owner;
             ReservationController= new ReservationController();
             Guest1GradeCotroller = new Guest1GradeCotroller();
-            Guest1Grades = Guest1GradeCotroller.GetAll();
+            Guest1Grades = new List<Guest1Grade>();
+            foreach(var reservation in Owner.Reservations)
+            {
+                Guest1Grades.Add(reservation.Guest1Grade);
+            }
             GuestGrade = new Guest1Grade();
             GuestGrade.ReservationId = reservationId;
             
@@ -52,6 +58,13 @@ namespace ProjectTourism.View.OwnerView
                 }
             }
             Guest1GradeCotroller.Add(GuestGrade);
+            foreach (var reservation in Owner.Reservations)
+            {
+                if (reservation.Id == GuestGrade.ReservationId)
+                {
+                    reservation.Guest1Grade= GuestGrade;
+                }
+            }
             Graded = true;
             Close();
         }
