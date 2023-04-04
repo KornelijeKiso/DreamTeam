@@ -26,7 +26,9 @@ namespace ProjectTourism.Repositories
             IReservationRepository reservationRepo = new ReservationRepository();
             foreach (Accommodation accommodation in Accommodations)
             {
-                accommodation.Location = locationRepo.GetOne(accommodation.LocationId);
+                Location loc = locationRepo.GetOne(accommodation.LocationId);
+                accommodation.Location = loc;
+                accommodation.CityAndCountry = loc.City + ", " + loc.Country;
                 foreach (Reservation reservation in reservationRepo.GetAll())
                 {
                     if (reservation.AccommodationId == accommodation.Id)

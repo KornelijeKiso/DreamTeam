@@ -17,6 +17,10 @@ namespace ProjectTourism.WPF.ViewModel
             _accommodation= accommodation;
             Reservations = _accommodation.Reservations.Select(r => new ReservationVM(r)).ToList();
         }
+        public AccommodationVM(AccommodationVM accommodation)
+        {
+            _accommodation = new Accommodation(accommodation.GetAccommodation());
+        }
         public Accommodation GetAccommodation()
         {
             return _accommodation;
@@ -187,6 +191,13 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public void Reset()
         {
+            Name = "";
+            CityAndCountry = "";    
+            MaxNumberOfGuests= 1;
+            MinDaysForReservation = 1;
+            CancellationDeadline = 1;
+            PictureURLs = "";
+            Pictures = GetPictureURLsFromCSV(PictureURLs);
             _accommodation.Reset();
         }
 
@@ -196,8 +207,16 @@ namespace ProjectTourism.WPF.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        
 
+        public string[] GetPictureURLsFromCSV(string source)
+        {
+            string[] pictures = source.Split(',');
+            foreach (var picture in pictures)
+            {
+                picture.Trim();
+            }
+            return pictures;
+        }
         public string Error => null;
         public string? this[string columnName]
         {
