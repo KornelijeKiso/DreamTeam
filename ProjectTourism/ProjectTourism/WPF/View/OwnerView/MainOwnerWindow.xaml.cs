@@ -30,23 +30,22 @@ namespace ProjectTourism.View.OwnerView
     /// </summary>
     public partial class MainOwnerWindow : Window, INotifyPropertyChanged, IObserver
     {
-        public Owner Owner { get; set; }
-        public ObservableCollection<Accommodation> Accommodations { get; set; }
-        public ObservableCollection<AccommodationVM> AccommodationsVM { get; set; }
-        public ObservableCollection<Reservation> Reservations { get; set; }
-        public Reservation SelectedReservation { get; set; }
-        public Accommodation SelectedAccommodation { get; set; }
+        public OwnerVM Owner { get; set; }
+        public ObservableCollection<AccommodationVM> Accommodations { get; set; }
+        public ObservableCollection<ReservationVM> Reservations { get; set; }
+        public ReservationVM SelectedReservation { get; set; }
+        public AccommodationVM SelectedAccommodation { get; set; }
         public OwnerService OwnerService { get; set; }
-        public AccommodationController AccommodationController { get; set; }
-        public Accommodation NewAccommodation { get; set; }
-        public Location NewLocation { get; set; }
-        public LocationDAO LocationDAO { get; set; }
+        public AccommodationService AccommodationService { get; set; }
+        public AccommodationVM NewAccommodation { get; set; }
+        public LocationVM NewLocation { get; set; }
+        public LocationService LocationService { get; set; }
         public List<string> Deadlines { get; set; } 
         public List<string> Types { get; set; }
         public Dictionary<string, int> Days { get; set; }
         public ObservableCollection<bool> IncDecButtons { get; set; }
-        public List<Guest1Grade> Grades { get; set; }
-        public Guest1GradeCotroller Guest1GradeController { get; set; }
+        public List<Guest1GradeVM> Grades { get; set; }
+        public Guest1GradeService Guest1GradeService { get; set; }
 
         public MainOwnerWindow(string username)
         {
@@ -69,21 +68,16 @@ namespace ProjectTourism.View.OwnerView
 
         private void Subscribe()
         {
-            AccommodationController.Subscribe(this);
-            LocationDAO.Subscribe(this);
+            AccommodationService.Subscribe(this);
+            LocationService.Subscribe(this);
         }
 
         private void LoadDataGrids(string username)
         {
-            AccommodationsVM = new ObservableCollection<AccommodationVM>();
-            Accommodations = new ObservableCollection<Accommodation>(Owner.Accommodations);
-            foreach(var a in Accommodations)
-            {
-                AccommodationsVM.Add(new AccommodationVM(a));
-            }
+            Accommodations = new ObservableCollection<AccommodationVM>(Owner.Accommodations);
             Reservations = SortReservations();
-            Grades = new List<Guest1Grade>();
-            foreach(Reservation reservation in Reservations)
+            Grades = new List<Guest1GradeVM>();
+            foreach(ReservationVM reservation in Reservations)
             {
                 Grades.Add(reservation.Guest1Grade);
             }
@@ -98,16 +92,16 @@ namespace ProjectTourism.View.OwnerView
 
         private void InitializeNewEntities()
         {
-            NewAccommodation = new Accommodation();
-            NewLocation = new Location();
+            NewAccommodation = new AccommodationVM(new Accommodation());
+            NewLocation = new LocationVM(new Location());
         }
 
         private void InitializeControllers()
         {
-            LocationDAO = new LocationDAO();
+            LocationService = new LocationService(new LocationRepository());
             OwnerService = new OwnerService(new OwnerRepository());
-            AccommodationController = new AccommodationController();
-            Guest1GradeController = new Guest1GradeCotroller();
+            AccommodationService = new AccommodationService(new AccommodationRepository());
+            Guest1GradeService = new Guest1GradeService(new Guest1GradeRepository());
         }
 
         private void InitializeTypes()
@@ -145,19 +139,18 @@ namespace ProjectTourism.View.OwnerView
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private ObservableCollection<Reservation> SortReservations()
+        private ObservableCollection<ReservationVM> SortReservations()
         {
-            List<Reservation> sortedReservations = Owner.Reservations;
+            List<ReservationVM> sortedReservations = Owner.Reservations;
             sortedReservations.Sort((x, y) => y.EndDate.CompareTo(x.EndDate));
-            return new ObservableCollection<Reservation>(sortedReservations);
+            return new ObservableCollection<ReservationVM>(sortedReservations);
         }
 
         public void AreAllGuestsGraded(object sender, EventArgs e)
         {
             foreach (var reservation in Reservations)
             {
-                ReservationVM reservationVM = new ReservationVM(reservation);
-                if (reservationVM.IsAbleToGrade() && !reservation.Graded)
+                if (reservation.IsAbleToGrade() && !reservation.Graded)
                 {
                     MessageBox.Show("There are guests who are waiting to be graded.");
                     break;
@@ -181,9 +174,7 @@ namespace ProjectTourism.View.OwnerView
         }
         public void RegisterAccommodationClick(object sender, RoutedEventArgs e)
         {
-            AccommodationVM accommodationVM = new AccommodationVM(NewAccommodation);
-            LocationVM locationVM = new LocationVM(NewLocation);
-            if (accommodationVM.IsValid && locationVM.IsValid) 
+            if (NewAccommodation.IsValid && NewLocation.IsValid) 
             {
                 RegisterNewAccommodation();
             }
@@ -196,15 +187,15 @@ namespace ProjectTourism.View.OwnerView
         private void RegisterNewAccommodation()
         {
             HandleTypeCombobox();
-            Location location = new Location(NewLocation.City, NewLocation.Country);
-            location.Id = LocationDAO.AddAndReturnId(location);
+            LocationVM location = new LocationVM(NewLocation.City, NewLocation.Country);
+            location.Id = LocationService.AddAndReturnId(location);
             NewLocation.Id = location.Id;
             NewAccommodation.SetLocation(location);
             NewAccommodation.CancellationDeadline = Days[(string)ComboDeadline.SelectedValue];
 
-            Accommodation accommodation = new Accommodation(NewAccommodation);
+            AccommodationVM accommodation = new AccommodationVM(NewAccommodation.GetAccommodation());
 
-            AccommodationController.Add(accommodation);
+            AccommodationService.Add(accommodation);
             Owner.Accommodations.Add(accommodation);
             Accommodations.Add(accommodation);
             Reset();
@@ -220,7 +211,7 @@ namespace ProjectTourism.View.OwnerView
 
         public void Update()
         {
-            Accommodations = new ObservableCollection<Accommodation>(Owner.Accommodations);
+            Accommodations = new ObservableCollection<AccommodationVM>(Owner.Accommodations);
         }
 
         public void IncreaseMaxNumberOfGuestsClick(object sender, RoutedEventArgs e)

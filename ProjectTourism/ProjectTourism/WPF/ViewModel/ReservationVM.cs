@@ -68,14 +68,14 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public Accommodation Accommodation
+        public AccommodationVM Accommodation
         {
-            get => _reservation.Accommodation;
+            get => new AccommodationVM(_reservation.Accommodation);
             set
             {
-                if (value != _reservation.Accommodation)
+                if (value.GetAccommodation() != _reservation.Accommodation)
                 {
-                    _reservation.Accommodation = value;
+                    _reservation.Accommodation = value.GetAccommodation();
                     OnPropertyChanged();
                 }
             }
@@ -116,15 +116,15 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public Guest1 Guest1
+        public Guest1VM Guest1
 
         {
-            get => _reservation.Guest1;
+            get => new Guest1VM(_reservation.Guest1);
             set
             {
-                if (value != _reservation.Guest1)
+                if (value.GetGuest1() != _reservation.Guest1)
                 {
-                    _reservation.Guest1 = value;
+                    _reservation.Guest1 = value.GetGuest1();
                     OnPropertyChanged();
                 }
             }
@@ -177,26 +177,26 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public AccommodationGrade AccommodationGrade
+        public AccommodationGradeVM AccommodationGrade
         {
-            get => _reservation.AccommodationGrade;
+            get => new AccommodationGradeVM(_reservation.AccommodationGrade);
             set
             {
-                if (value != _reservation.AccommodationGrade)
+                if (value.GetAccommodationGrade() != _reservation.AccommodationGrade)
                 {
-                    _reservation.AccommodationGrade = value;
+                    _reservation.AccommodationGrade = value.GetAccommodationGrade();
                     OnPropertyChanged();
                 }
             }
         }
-        public Guest1Grade Guest1Grade
+        public Guest1GradeVM Guest1Grade
         {
-            get => _reservation.Guest1Grade;
+            get => new Guest1GradeVM(_reservation.Guest1Grade);
             set
             {
-                if (value != _reservation.Guest1Grade)
+                if (value.GetGuest1Grade() != _reservation.Guest1Grade)
                 {
-                    _reservation.Guest1Grade = value;
+                    _reservation.Guest1Grade = value.GetGuest1Grade();
                     OnPropertyChanged();
                 }
             }

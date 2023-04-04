@@ -1,5 +1,8 @@
 ﻿using ProjectTourism.Controller;
 using ProjectTourism.Model;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
+using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,26 +24,26 @@ namespace ProjectTourism.View.OwnerView
     /// </summary>
     public partial class GradeGuestWindow : Window
     {
-        public Owner Owner { get; set; }
-        public Reservation Reservation { get; set; }
-        public Guest1GradeCotroller Guest1GradeCotroller { get; set; }
-        public ReservationController ReservationController { get; set; }  
-        public List<Guest1Grade> Guest1Grades { get; set; }
-        public Guest1Grade GuestGrade { get; set; }
+        public OwnerVM Owner { get; set; }
+        public ReservationVM Reservation { get; set; }
+        public Guest1GradeService Guest1GradeService { get; set; }
+        public ReservationService ReservationService { get; set; }  
+        public List<Guest1GradeVM> Guest1Grades { get; set; }
+        public Guest1GradeVM GuestGrade { get; set; }
         public bool Graded;
-        public GradeGuestWindow(Reservation reservation, Owner owner)
+        public GradeGuestWindow(ReservationVM reservation, OwnerVM owner)
         {
             InitializeComponent();
             DataContext = this;
             Owner = owner;
-            ReservationController= new ReservationController();
-            Guest1GradeCotroller = new Guest1GradeCotroller();
-            Guest1Grades = new List<Guest1Grade>();
+            ReservationService= new ReservationService(new ReservationRepository());
+            Guest1GradeService = new Guest1GradeService(new Guest1GradeRepository());
+            Guest1Grades = new List<Guest1GradeVM>();
             foreach(var res in Owner.Reservations)
             {
                 Guest1Grades.Add(res.Guest1Grade);
             }
-            GuestGrade = new Guest1Grade();
+            GuestGrade = new Guest1GradeVM();
             GuestGrade.ReservationId = reservation.Id;
             Reservation = reservation;
         }
@@ -58,7 +61,7 @@ namespace ProjectTourism.View.OwnerView
                     return;
                 }
             }
-            Guest1GradeCotroller.Add(GuestGrade);
+            Guest1GradeService.Add(GuestGrade);
             foreach (var reservation in Owner.Reservations)
             {
                 if (reservation.Id == GuestGrade.ReservationId)

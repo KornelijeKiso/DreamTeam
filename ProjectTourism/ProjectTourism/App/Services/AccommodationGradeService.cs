@@ -3,6 +3,7 @@ using ProjectTourism.Model;
 using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
+using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,21 +21,26 @@ namespace ProjectTourism.Services
             Observers = new List<IObserver>();
             AccommodationGradeRepo = iagr;
         }
-        public void Add(AccommodationGrade accommodationGrade)
+        public void Add(AccommodationGradeVM accommodationGrade)
         {
-            AccommodationGradeRepo.Add(accommodationGrade);
+            AccommodationGradeRepo.Add(accommodationGrade.GetAccommodationGrade());
         }
-        public void Delete(AccommodationGrade accommodationGrade)
+        public void Delete(AccommodationGradeVM accommodationGrade)
         {
-            AccommodationGradeRepo.Delete(accommodationGrade);
+            AccommodationGradeRepo.Delete(accommodationGrade.GetAccommodationGrade());
         }
-        public AccommodationGrade GetOneByReservation(int reservationId)
+        public AccommodationGradeVM GetOneByReservation(int reservationId)
         {
-            return AccommodationGradeRepo.GetOneByReservation(reservationId);
+            return new AccommodationGradeVM( AccommodationGradeRepo.GetOneByReservation(reservationId));
         }
-        public List<AccommodationGrade> GetAll()
+        public List<AccommodationGradeVM> GetAll()
         {
-            return AccommodationGradeRepo.GetAll();
+            List<AccommodationGradeVM> accommodationsGrade = new List<AccommodationGradeVM>();
+            foreach (var accommodationGrade in AccommodationGradeRepo.GetAll())
+            {
+                accommodationsGrade.Add(new AccommodationGradeVM(accommodationGrade));
+            }
+            return accommodationsGrade;
         }
         public void Subscribe(IObserver observer)
         {

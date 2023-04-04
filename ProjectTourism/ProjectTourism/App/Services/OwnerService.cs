@@ -3,6 +3,7 @@ using ProjectTourism.Model;
 using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
+using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,21 +21,26 @@ namespace ProjectTourism.Services
             OwnerRepo = ior;
             Observers = new List<IObserver>();
         }
-        public void Add(Owner owner)
+        public void Add(OwnerVM owner)
         {
-            OwnerRepo.Add(owner);
+            OwnerRepo.Add(owner.GetOwner());
         }
-        public void Delete(Owner owner)
+        public void Delete(OwnerVM owner)
         {
-            OwnerRepo.Delete(owner);
+            OwnerRepo.Delete(owner.GetOwner());
         }
-        public Owner GetOne(string username)
+        public OwnerVM GetOne(string username)
         {
-            return OwnerRepo.GetOne(username);
+            return new OwnerVM(OwnerRepo.GetOne(username));
         }
-        public List<Owner> GetAll()
+        public List<OwnerVM> GetAll()
         {
-            return OwnerRepo.GetAll();
+            List<OwnerVM> owners= new List<OwnerVM>();
+            foreach(var owner in OwnerRepo.GetAll())
+            {
+                owners.Add(new OwnerVM(owner));
+            }
+            return owners;
         }
         public void Subscribe(IObserver observer)
         {

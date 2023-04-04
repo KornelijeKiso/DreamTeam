@@ -1,4 +1,5 @@
 ﻿using ProjectTourism.Model;
+using ProjectTourism.Observer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +17,8 @@ namespace ProjectTourism.WPF.ViewModel
         public OwnerVM(Owner owner)
         {
             _owner = owner;
+            Reservations = _owner.Reservations.Select(r => new ReservationVM(r)).ToList();
+            Accommodations = _owner.Accommodations.Select(r => new AccommodationVM(r)).ToList();
         }
         public Owner GetOwner()
         {
@@ -81,30 +84,8 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public List<Accommodation> Accommodations
-        {
-            get => _owner.Accommodations;
-            set
-            {
-                if (!value.Equals(_owner.Accommodations))
-                {
-                    _owner.Accommodations = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public List<Reservation> Reservations
-        {
-            get => _owner.Reservations;
-            set
-            {
-                if (!value.Equals(_owner.Reservations))
-                {
-                    _owner.Reservations = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public List<AccommodationVM> Accommodations;
+        public List<ReservationVM> Reservations;
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

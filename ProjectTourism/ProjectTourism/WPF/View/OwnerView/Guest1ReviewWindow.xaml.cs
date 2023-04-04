@@ -1,4 +1,5 @@
 ﻿using ProjectTourism.Model;
+using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,7 +23,7 @@ namespace ProjectTourism.View.OwnerView
     /// </summary>
     public partial class Guest1ReviewWindow : Window, INotifyPropertyChanged
     {
-        public AccommodationGrade Review { get; set; }
+        public AccommodationGradeVM Review { get; set; }
         public int Hospitality { get; set; }
         public int Cleanness { get; set; }
         public int Location { get; set; }
@@ -67,7 +68,7 @@ namespace ProjectTourism.View.OwnerView
                 }
             }
         }
-        public Guest1ReviewWindow(AccommodationGrade review)
+        public Guest1ReviewWindow(AccommodationGradeVM review)
         {
             InitializeComponent();
             DataContext = this;

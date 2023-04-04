@@ -16,6 +16,10 @@ namespace ProjectTourism.WPF.ViewModel
         {
             _location = location;
         }
+        public LocationVM(string city, string country)
+        {
+            _location = new Location(city,country);
+        }
         public Location GetLocation()
         {
             return _location;
@@ -60,8 +64,7 @@ namespace ProjectTourism.WPF.ViewModel
 
         public void Reset()
         {
-            City = "";
-            Country = "";
+            _location.Reset();
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ProjectTourism.Repositories.IRepositories
 {
-    interface ILocationRepository
+    public interface ILocationRepository
     {
         public Location GetOne(int locationId);
         public List<Location> GetAll();

@@ -16,6 +16,10 @@ namespace ProjectTourism.WPF.ViewModel
         {
             _guest1Grade= guest1Grade;
         }
+        public Guest1GradeVM()
+        {
+            _guest1Grade = new Guest1Grade();
+        }
         public Guest1Grade GetGuest1Grade()
         {
             return _guest1Grade;
@@ -57,14 +61,14 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public Reservation Reservation
+        public ReservationVM Reservation
         {
-            get => _guest1Grade.Reservation;
+            get => new ReservationVM(_guest1Grade.Reservation);
             set
             {
-                if (value != _guest1Grade.Reservation)
+                if (value.GetReservation() != _guest1Grade.Reservation)
                 {
-                    _guest1Grade.Reservation = value;
+                    _guest1Grade.Reservation = value.GetReservation();
                     OnPropertyChanged();
                 }
             }

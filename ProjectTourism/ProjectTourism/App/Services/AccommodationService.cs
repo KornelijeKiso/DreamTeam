@@ -3,6 +3,7 @@ using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Repositories.IRepositories;
+using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,30 +15,32 @@ namespace ProjectTourism.Services
     public class AccommodationService
     {
         private IAccommodationRepository AccommodationRepo;
-        private ILocationRepository LocationRepo;
         public List<IObserver> Observers;
         public AccommodationService(IAccommodationRepository iar)
         {
             AccommodationRepo= iar;
-            LocationRepo= new LocationRepository();
             Observers = new List<IObserver>();
         }
-        public void Add(Accommodation accommodation)
+        public void Add(AccommodationVM accommodation)
         {
-            accommodation.LocationId = LocationRepo.AddAndReturnId(accommodation.Location);
-            AccommodationRepo.Add(accommodation);
+            AccommodationRepo.Add(accommodation.GetAccommodation());
         }
-        public void Delete(Accommodation accommodation)
+        public void Delete(AccommodationVM accommodation)
         {
-            AccommodationRepo.Delete(accommodation);
+            AccommodationRepo.Delete(accommodation.GetAccommodation());
         }
-        public Accommodation GetOne(int id)
+        public AccommodationVM GetOne(int id)
         {
-            return AccommodationRepo.GetOne(id);
+            return new AccommodationVM(AccommodationRepo.GetOne(id));
         }
-        public List<Accommodation> GetAll()
+        public List<AccommodationVM> GetAll()
         {
-            return AccommodationRepo.GetAll();
+            List<AccommodationVM> accommodations = new List<AccommodationVM>();
+            foreach (var accommodation in AccommodationRepo.GetAll())
+            {
+                accommodations.Add(new AccommodationVM(accommodation));
+            }
+            return accommodations;
         }
         public void Subscribe(IObserver observer)
         {

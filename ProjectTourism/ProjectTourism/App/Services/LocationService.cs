@@ -1,8 +1,6 @@
 ﻿using ProjectTourism.Domain.IRepositories;
-using ProjectTourism.Model;
-using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
-using ProjectTourism.Repositories;
+using ProjectTourism.Repositories.IRepositories;
 using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -12,35 +10,35 @@ using System.Threading.Tasks;
 
 namespace ProjectTourism.Services
 {
-    public class Guest1Service
+    public class LocationService
     {
         public List<IObserver> Observers;
-        private IGuest1Repository Guest1Repo;
-        public Guest1Service(IGuest1Repository ig1r)
+        private ILocationRepository LocationRepo;
+        public LocationService(ILocationRepository ilr)
         {
-            Guest1Repo = ig1r;
+            LocationRepo = ilr;
             Observers = new List<IObserver>();
         }
-        public void Add(Guest1VM guest1)
+        public int AddAndReturnId(LocationVM location)
         {
-            Guest1Repo.Add(guest1.GetGuest1());
+            return LocationRepo.AddAndReturnId(location.GetLocation());
         }
-        public void Delete(Guest1VM guest1)
+        public void Delete(LocationVM location)
         {
-            Guest1Repo.Delete(guest1.GetGuest1());
+            LocationRepo.Delete(location.GetLocation());
         }
-        public Guest1VM GetOne(string username)
+        public LocationVM GetOne(int id)
         {
-            return new Guest1VM(Guest1Repo.GetOne(username));
+            return new LocationVM(LocationRepo.GetOne(id));
         }
-        public List<Guest1VM> GetAll()
+        public List<LocationVM> GetAll()
         {
-            List<Guest1VM> guests = new List<Guest1VM>();
-            foreach (var guest1 in Guest1Repo.GetAll())
+            List<LocationVM> locations = new List<LocationVM>();
+            foreach (var location in LocationRepo.GetAll())
             {
-                guests.Add(new Guest1VM(guest1));
+                locations.Add(new LocationVM(location));
             }
-            return guests;
+            return locations;
         }
         public void Subscribe(IObserver observer)
         {

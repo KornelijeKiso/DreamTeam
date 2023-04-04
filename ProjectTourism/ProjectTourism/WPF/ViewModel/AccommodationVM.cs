@@ -15,6 +15,7 @@ namespace ProjectTourism.WPF.ViewModel
         public AccommodationVM(Accommodation accommodation)
         {
             _accommodation= accommodation;
+            Reservations = _accommodation.Reservations.Select(r => new ReservationVM(r)).ToList();
         }
         public Accommodation GetAccommodation()
         {
@@ -68,14 +69,14 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public Location Location
+        public LocationVM Location
         {
-            get => _accommodation.Location;
+            get => new LocationVM(_accommodation.Location);
             set
             {
-                if (value != _accommodation.Location)
+                if (value.GetLocation() != _accommodation.Location)
                 {
-                    _accommodation.Location = value;
+                    _accommodation.Location = value.GetLocation();
                     OnPropertyChanged();
                 }
             }
@@ -164,32 +165,21 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public Owner Owner
+        public OwnerVM Owner
         {
-            get => _accommodation.Owner;
+            get => new OwnerVM(_accommodation.Owner);
             set
             {
-                if (value != _accommodation.Owner)
+                if (value.GetOwner() != _accommodation.Owner)
                 {
-                    _accommodation.Owner = value;
+                    _accommodation.Owner = value.GetOwner();
                     OnPropertyChanged();
                 }
             }
         }
-        public List<Reservation> Reservations
-        {
-            get => _accommodation.Reservations;
-            set
-            {
-                if (!value.Equals(_accommodation.Reservations))
-                {
-                    _accommodation.Reservations = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public List<ReservationVM> Reservations;
         
-        public void SetLocation(Location location)
+        public void SetLocation(LocationVM location)
         {
             Location = location;
             LocationId = location.Id;
@@ -197,13 +187,7 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public void Reset()
         {
-            Location = null;
-            CancellationDeadline = 1;
-            MaxNumberOfGuests = 1;
-            MinDaysForReservation = 1;
-            Type = ACCOMMODATIONTYPE.APARTMENT;
-            Name = "";
-            PictureURLs = "";
+            _accommodation.Reset();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

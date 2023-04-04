@@ -69,14 +69,14 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public Reservation Reservation
+        public ReservationVM Reservation
         {
-            get => _accommodationGrade.Reservation;
+            get => new ReservationVM(_accommodationGrade.Reservation);
             set
             {
-                if (value != _accommodationGrade.Reservation)
+                if (value.GetReservation() != _accommodationGrade.Reservation)
                 {
-                    _accommodationGrade.Reservation = value;
+                    _accommodationGrade.Reservation = value.GetReservation();
                     OnPropertyChanged();
                 }
             }
