@@ -64,6 +64,8 @@ namespace ProjectTourism.WPF.ViewModel
 
         public void Reset()
         {
+            City = "";
+            Country = "";
             _location.Reset();
         }
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

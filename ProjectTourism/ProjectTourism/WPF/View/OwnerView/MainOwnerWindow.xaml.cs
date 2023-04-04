@@ -193,9 +193,8 @@ namespace ProjectTourism.View.OwnerView
             NewAccommodation.SetLocation(location);
             NewAccommodation.CancellationDeadline = Days[(string)ComboDeadline.SelectedValue];
 
-            AccommodationVM accommodation = new AccommodationVM(NewAccommodation.GetAccommodation());
-
-            AccommodationService.Add(accommodation);
+            AccommodationService.Add(NewAccommodation);
+            AccommodationVM accommodation = new AccommodationVM(NewAccommodation);
             Owner.Accommodations.Add(accommodation);
             Accommodations.Add(accommodation);
             Reset();
@@ -271,6 +270,7 @@ namespace ProjectTourism.View.OwnerView
             Button button = (Button)sender;
             GradeGuestWindow gradeGuestWindow = new GradeGuestWindow(SelectedReservation, Owner);
             gradeGuestWindow.ShowDialog();
+            SelectedReservation.Graded = gradeGuestWindow.Graded;
             if (gradeGuestWindow.Graded)
             {
                 Owner = gradeGuestWindow.Owner;
