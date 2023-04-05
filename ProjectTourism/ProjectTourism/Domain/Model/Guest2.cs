@@ -8,98 +8,25 @@ using System.Threading.Tasks;
 
 namespace ProjectTourism.Model
 {
-    public class Guest2 : Serializable, INotifyPropertyChanged
+    public class Guest2 : Serializable
     {
-        private string _username;
-        public string Username
-        {
-            get => _username;
-            set
-            {
-                if (value != _username)
-                {
-                    _username = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string _firstName;
-        public string FirstName
-        {
-            get => _firstName;
-            set
-            {
-                if (value != _firstName)
-                {
-                    _firstName = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string _lastName;
-        public string LastName
-        {
-            get => _lastName;
-            set
-            {
-                if (value != _lastName)
-                {
-                    _lastName = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string _email;
-        public string Email
-        {
-            get => _email;
-            set
-            {
-                if (value != _email)
-                {
-                    _email = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string _phoneNumber;
-        public string PhoneNumber
-        {
-            get => _phoneNumber;
-            set
-            {
-                if (value != _phoneNumber)
-                {
-                    _phoneNumber = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
+        public string Username;
+        public string FirstName;
+        public string LastName;
+        public int Age;
+        public string Email;
+        public string PhoneNumber;
         public Guest2()
-        {
+        { }
 
-        }
-
-        public Guest2(string username, string firstName, string lastName, string email, string phoneNumber)
+        public Guest2(string username, string firstName, string lastName, int age, string email, string phoneNumber)
         {
             this.Username = username;
             this.FirstName = firstName;
             this.LastName = lastName;
+            this.Age = age;
             this.Email = email;
             this.PhoneNumber = phoneNumber;
-
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public string[] ToCSV()
@@ -109,6 +36,7 @@ namespace ProjectTourism.Model
                 Username,
                 FirstName,
                 LastName,
+                Age.ToString(),
                 Email,
                 PhoneNumber     };
             return csvValues;
@@ -119,8 +47,9 @@ namespace ProjectTourism.Model
             Username = values[0];
             FirstName = values[1];
             LastName = values[2];
-            Email = values[3];
-            PhoneNumber = values[4];
+            Age = int.Parse(values[3]);
+            Email = values[4];
+            PhoneNumber = values[5];
         }
     }
 }
