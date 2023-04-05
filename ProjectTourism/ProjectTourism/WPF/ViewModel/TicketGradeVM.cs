@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProjectTourism.WPF.ViewModel
 {
-    public class TicketGradeVM : INotifyPropertyChanged
+    public class TicketGradeVM : INotifyPropertyChanged, IDataErrorInfo
     {
         private TicketGrade _ticketGrade;
         public TicketGradeVM(TicketGrade ticketGrade)
@@ -117,6 +117,37 @@ namespace ProjectTourism.WPF.ViewModel
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        // validation
+        public string Error => null;
+        public string? this[string columnName]
+        {
+            get
+            {
+                if (columnName == "Grades")
+                {
+                    //if (string.IsNullOrEmpty(Grades))
+                    //    return "Grades are required!";
+                }
+                
+
+                return null;
+            }
+        }
+        private readonly string[] _validatedProperties = { "Grades" };
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+                return true;
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ using System.Windows.Media;
 
 namespace ProjectTourism.WPF.ViewModel
 {
-    public class TicketVM : INotifyPropertyChanged
+    public class TicketVM : INotifyPropertyChanged, IDataErrorInfo
     {
         private Ticket _ticket;
 
@@ -161,6 +161,37 @@ namespace ProjectTourism.WPF.ViewModel
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        // validation
+        public string Error => null;
+        public string? this[string columnName]
+        {
+            get
+            {
+                if (columnName == "NumberOfGuests")
+                {
+                    if (string.IsNullOrEmpty(NumberOfGuests.ToString()))
+                        return "Number Of Tickets is required!";
+                }
+               
+
+                return null;
+            }
+        }
+        private readonly string[] _validatedProperties = { "NumberOfGuests" };
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+                return true;
+            }
         }
     }
 }
