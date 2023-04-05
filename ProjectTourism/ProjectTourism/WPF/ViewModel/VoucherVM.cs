@@ -52,14 +52,14 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
-        public Guest2 Guest2
+        public Guest2VM Guest2
         {
-            get => _voucher.Guest2;
+            get => new Guest2VM(_voucher.Guest2);
             set
             {
-                if (value != _voucher.Guest2)
+                if (value.GetGuest2() != _voucher.Guest2)
                 {
-                    _voucher.Guest2 = value;
+                    _voucher.Guest2 = value.GetGuest2();
                     OnPropertyChanged();
                 }
             }

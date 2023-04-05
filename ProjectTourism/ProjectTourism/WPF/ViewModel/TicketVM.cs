@@ -65,6 +65,7 @@ namespace ProjectTourism.WPF.ViewModel
         }
 
         public TourAppointment TourAppointment
+        //public TourAppointmentVM TourAppointment
         {
             get => _ticket.TourAppointment;
             set
@@ -103,15 +104,14 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
-        public Guest2 Guest2
-
+        public Guest2VM Guest2
         {
-            get => _ticket.Guest2;
+            get => new Guest2VM(_ticket.Guest2);
             set
             {
-                if (value != _ticket.Guest2)
+                if (value.GetGuest2() != _ticket.Guest2)
                 {
-                    _ticket.Guest2 = value;
+                    _ticket.Guest2 = value.GetGuest2();
                     OnPropertyChanged();
                 }
             }
