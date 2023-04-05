@@ -37,6 +37,33 @@ namespace ProjectTourism.Repositories
                         owner.Reservations.AddRange(accommodation.Reservations);
                     }
                 }
+                double sum = 0;
+                int counter = 0;
+                foreach (Reservation reservation in owner.Reservations)
+                {
+                    if (reservation.AccommodationGraded)
+                    {
+                        sum += reservation.AccommodationGrade.AverageGrade;
+                        counter++;
+                    }
+                }
+                if (counter > 0)
+                {
+                    owner.AverageGrade = sum / counter;
+                    if (owner.AverageGrade > 4.5)
+                    {
+                        owner.IsSuperHost = true;
+                    }
+                    else
+                    {
+                        owner.IsSuperHost = false;
+                    }
+                }
+                else
+                {
+                    owner.AverageGrade = 0;
+                    owner.IsSuperHost = false;
+                }
             }
         }
 

@@ -17,11 +17,13 @@ namespace ProjectTourism.Model
         public double AverageGrade;
         public List<Accommodation> Accommodations;
         public List<Reservation> Reservations;
+        public bool IsSuperHost;
         public Owner()
         {
             AverageGrade = 0;
             Accommodations = new List<Accommodation>();
             Reservations = new List<Reservation>();
+            IsSuperHost = false;
         }
         public string[] ToCSV()
         {

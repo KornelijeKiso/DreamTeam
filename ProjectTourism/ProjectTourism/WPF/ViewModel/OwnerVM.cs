@@ -36,6 +36,19 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+
+        public bool IsSuperHost
+        {
+            get => _owner.IsSuperHost;
+            set
+            {
+                if(value!= _owner.IsSuperHost)
+                {
+                    _owner.IsSuperHost = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public string FirstName
         {
             get => _owner.FirstName;

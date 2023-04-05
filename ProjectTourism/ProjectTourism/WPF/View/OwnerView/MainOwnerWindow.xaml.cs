@@ -64,6 +64,16 @@ namespace ProjectTourism.View.OwnerView
             LoadDataGrids(username);
 
             Subscribe();
+            if (Owner.IsSuperHost)
+            {
+                SuperHostIcon.Visibility = Visibility.Visible;
+                SuperHostLabel.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                SuperHostIcon.Visibility = Visibility.Collapsed;
+                SuperHostLabel.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void Subscribe()
