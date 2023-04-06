@@ -1,0 +1,103 @@
+﻿using ProjectTourism.FileHandler;
+using ProjectTourism.Model;
+using ProjectTourism.ModelDAO;
+using ProjectTourism.Domain.IRepositories;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ProjectTourism.Repositories
+{
+    public class VoucherRepository : IVoucherRepository
+    {
+        public VoucherFileHandler FileHandler { get; set; }
+        public List<Voucher> Vouchers { get; set; }
+        public VoucherRepository()
+        {
+            FileHandler = new VoucherFileHandler();
+            Vouchers = FileHandler.Load();
+            Synchronize();
+        }
+
+        public void Synchronize()
+        {
+            IGuest2Repository guest2Repository = new Guest2Repository();
+            foreach (var voucher in Vouchers)
+            {
+                Guest2 guest2 = guest2Repository.GetOne(voucher.Guest2Username);
+                voucher.Guest2 = guest2;
+            }
+        }
+
+        public int GenerateId()
+        {
+            int id = 0;
+            if (Vouchers == null)
+            {
+                id = 0;
+            }
+            else
+            {
+                foreach (var voucher in Vouchers)
+                {
+                    id = voucher.Id + 1;
+                }
+            }
+            return id;
+        }
+
+        public void Add(Voucher addedVoucher)
+        {
+            addedVoucher.Id = GenerateId();
+            Vouchers.Add(addedVoucher);
+            FileHandler.Save(Vouchers);
+        }
+
+        public void Delete(Voucher voucher)
+        {
+            Vouchers.Remove(voucher);
+            FileHandler.Save(Vouchers);
+        }
+
+        public void Update(Voucher voucher)
+        {
+            foreach (var existingVoucher in Vouchers)
+            {
+                if (existingVoucher.Id == voucher.Id)
+                {
+                    existingVoucher.Status = voucher.Status;
+                }
+            }
+        }
+
+        public Voucher GetOne(int Id)
+        {
+            foreach (var voucher in Vouchers)
+            {
+                if (voucher.Id == Id) return voucher;
+            }
+            return null;
+        }
+
+        public List<Voucher> GetAll()
+        {
+            return Vouchers;
+        }
+
+        public List<Voucher> GetByGuest2(string guest2username)
+        {
+            List<Voucher> guest2Vouchers = new List<Voucher>();
+
+            foreach (var voucher in Vouchers)
+            {
+                if (voucher.Guest2Username == guest2username)
+                {
+                    guest2Vouchers.Add(voucher);
+                }
+            }
+            return guest2Vouchers;
+        }
+    }
+}
