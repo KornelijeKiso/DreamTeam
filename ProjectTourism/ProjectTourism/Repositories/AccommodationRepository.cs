@@ -1,4 +1,5 @@
-﻿using ProjectTourism.FileHandler;
+﻿using ProjectTourism.Domain.IRepositories;
+using ProjectTourism.FileHandler;
 using ProjectTourism.Model;
 using ProjectTourism.ModelDAO;
 using ProjectTourism.Repositories.IRepositories;
@@ -70,6 +71,11 @@ namespace ProjectTourism.Repositories
 
         public List<Accommodation> GetAll()
         {
+            IOwnerRepository ownerRepository= new OwnerRepository();
+            foreach(Accommodation accommodation in Accommodations)
+            {
+                accommodation.Owner = ownerRepository.GetOne(accommodation.OwnerUsername);
+            }
             return Accommodations;
         }
 

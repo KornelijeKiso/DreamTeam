@@ -15,6 +15,7 @@ namespace ProjectTourism.WPF.ViewModel
         public Guest1VM(Guest1 guest1)
         {
             _guest1 = guest1;
+            Reservations = _guest1.Reservations.Select(r => new ReservationVM(r)).ToList();
         }
         public Guest1 GetGuest1()
         {
@@ -80,6 +81,7 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+        public List<ReservationVM> Reservations;
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

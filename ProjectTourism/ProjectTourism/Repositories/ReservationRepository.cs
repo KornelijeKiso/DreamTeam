@@ -109,24 +109,24 @@ namespace ProjectTourism.Repositories
                 }
             }
         }
-        public List<Reservation> GetAllByOwner(string ownerUsername)
-        {
-            List<Reservation> ownersReservations = new List<Reservation>();
-            foreach (var reservation in Reservations)
-            {
-                if (reservation.Accommodation.OwnerUsername == ownerUsername)
-                {
-                    ownersReservations.Add(reservation);
-                }
-            }
-            return ownersReservations;
-        }
         public List<Reservation> GetAllByAccommodation(int accommodationId)
         {
             List<Reservation> accommodationReservations = new List<Reservation>();
             foreach (var reservation in Reservations)
             {
                 if (reservation.AccommodationId == accommodationId)
+                {
+                    accommodationReservations.Add(reservation);
+                }
+            }
+            return accommodationReservations;
+        }
+        public List<Reservation> GetAllByGuest1(string username)
+        {
+            List<Reservation> accommodationReservations = new List<Reservation>();
+            foreach (var reservation in Reservations)
+            {
+                if (reservation.Guest1Username == username)
                 {
                     accommodationReservations.Add(reservation);
                 }

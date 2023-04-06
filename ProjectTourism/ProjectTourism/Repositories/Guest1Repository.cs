@@ -3,6 +3,7 @@ using ProjectTourism.FileHandler;
 using ProjectTourism.Model;
 using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
+using ProjectTourism.Repositories.IRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +35,12 @@ namespace ProjectTourism.Repositories
         public List<Guest1> GetAll()
         {
             return Guests1;
+        }
+
+        public List<Reservation> GetReservationsByGuest(string guestUsername)
+        {
+            IReservationRepository reservationRepository = new ReservationRepository();
+            return reservationRepository.GetAllByGuest1(guestUsername);
         }
         public Guest1 GetOne(string username)
         {

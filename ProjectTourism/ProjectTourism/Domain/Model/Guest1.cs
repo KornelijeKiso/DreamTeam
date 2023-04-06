@@ -15,9 +15,11 @@ namespace ProjectTourism.Model
         public string LastName;
         public string Email;
         public double AverageGrade;
+        public List<Reservation> Reservations;
         public Guest1()
         {
             AverageGrade = 0;
+            Reservations = new List<Reservation>();
         }
         public Guest1(string username, string firstName, string lastName, string email)
         {
@@ -25,6 +27,7 @@ namespace ProjectTourism.Model
             FirstName = firstName;
             LastName = lastName;
             Email = email;
+            Reservations = new List<Reservation>();
         }
         public string[] ToCSV()
         {

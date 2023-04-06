@@ -14,5 +14,6 @@ namespace ProjectTourism.Repositories.IRepositories
         void Add(Accommodation accommodation);
         void Delete(Accommodation accommodation);
         void Update(Accommodation accommodation);
+        List<Accommodation> GetAllByOwner(string owner);
     }
 }

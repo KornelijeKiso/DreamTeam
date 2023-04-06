@@ -28,14 +28,11 @@ namespace ProjectTourism.Repositories
             IAccommodationRepository accommodationRepo = new AccommodationRepository();
             foreach (var owner in Owners)
             {
-                foreach (var accommodation in accommodationRepo.GetAll())
+                foreach (var accommodation in accommodationRepo.GetAllByOwner(owner.Username))
                 {
-                    if (accommodation.OwnerUsername == owner.Username)
-                    {
                         accommodation.Owner = owner;
                         owner.Accommodations.Add(accommodation);
                         owner.Reservations.AddRange(accommodation.Reservations);
-                    }
                 }
                 double sum = 0;
                 int counter = 0;

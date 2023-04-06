@@ -31,7 +31,9 @@ namespace ProjectTourism.Services
         }
         public Guest1VM GetOne(string username)
         {
-            return new Guest1VM(Guest1Repo.GetOne(username));
+            Guest1 guest = Guest1Repo.GetOne(username);
+            guest.Reservations = Guest1Repo.GetReservationsByGuest(username);
+            return new Guest1VM(guest);
         }
         public List<Guest1VM> GetAll()
         {
