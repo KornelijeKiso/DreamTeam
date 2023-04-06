@@ -22,6 +22,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ProjectTourism.Repositories;
 using ProjectTourism.WPF.ViewModel;
+using ProjectTourism.WPF.View.OwnerView;
 
 namespace ProjectTourism.View.OwnerView
 {
@@ -53,12 +54,9 @@ namespace ProjectTourism.View.OwnerView
             DataContext = this;
             IncDecButtons = new ObservableCollection<bool> { true, false, true, false };
 
-            InitializeDays();
-            InitializeTypes();
-
             InitializeControllers();
             InitializeNewEntities();
-
+            Content.Content = new YourAccommodationsMenuItem(username);
             SetOwner(username);
 
             LoadDataGrids(username);
@@ -75,7 +73,14 @@ namespace ProjectTourism.View.OwnerView
                 SuperHostLabel.Visibility = Visibility.Collapsed;
             }
         }
-
+        public void SwitchToMyAccommodations(object sender, EventArgs e)
+        {
+            Content.Content = new YourAccommodationsMenuItem(Owner.Username);
+        }
+        public void SwitchToReservations(object sender, EventArgs e)
+        {
+            Content.Content = new ReservationsMenuItem();
+        }
         private void Subscribe()
         {
             AccommodationService.Subscribe(this);
@@ -114,33 +119,7 @@ namespace ProjectTourism.View.OwnerView
             Guest1GradeService = new Guest1GradeService(new Guest1GradeRepository());
         }
 
-        private void InitializeTypes()
-        {
-            Types = new List<string>() { "Apartment", "House", "Hut" };
-            ComboType.SelectedItem = Types[0];
-        }
-        private void InitializeDays()
-        {
-            Deadlines = new List<String>() { "1 day", "3 days", "7 days", "14 days", "1 month", "3 months", "6 months" };
-            Days = new Dictionary<string, int>();
-            foreach (var item in Deadlines)
-            {
-                Days.Add(item, InDays(item));
-            }
-            ComboDeadline.SelectedItem = Deadlines[0];
-        }
-
-        private int InDays(string deadline)
-        {
-            int days = int.Parse(deadline.Split(' ')[0]);
-            string multiply_unit = deadline.Split(" ")[1];
-            int multiplyer = 1;
-            if(multiply_unit.Equals("month") || multiply_unit.Equals("months"))
-            {
-                multiplyer = 30;
-            }
-            return days * multiplyer;
-        }
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -167,134 +146,13 @@ namespace ProjectTourism.View.OwnerView
                 }
             }
         }
-        private void HandleTypeCombobox()
-        {
-            if ((string)ComboType.SelectedItem == "Apartment")
-            {
-                NewAccommodation.Type = ACCOMMODATIONTYPE.APARTMENT;
-            }
-            else if ((string)ComboType.SelectedItem == "House")
-            {
-                NewAccommodation.Type = ACCOMMODATIONTYPE.HOUSE;
-            }
-            else
-            {
-                NewAccommodation.Type = ACCOMMODATIONTYPE.HUT;
-            }
-        }
-        public void RegisterAccommodationClick(object sender, RoutedEventArgs e)
-        {
-            if (NewAccommodation.IsValid && NewLocation.IsValid) 
-            {
-                RegisterNewAccommodation();
-            }
-            else
-            {
-                MessageBox.Show("Not all fields are filled correctly.");
-            }
-        }
-
-        private void RegisterNewAccommodation()
-        {
-            HandleTypeCombobox();
-            LocationVM location = new LocationVM(NewLocation.City, NewLocation.Country);
-            location.Id = LocationService.AddAndReturnId(location);
-            NewLocation.Id = location.Id;
-            NewAccommodation.SetLocation(location);
-            NewAccommodation.CancellationDeadline = Days[(string)ComboDeadline.SelectedValue];
-
-            AccommodationService.Add(NewAccommodation);
-            AccommodationVM accommodation = new AccommodationVM(NewAccommodation);
-            Owner.Accommodations.Add(accommodation);
-            Accommodations.Add(accommodation);
-            Reset();
-        }
-
-        private void Reset()
-        {
-            NewAccommodation.Reset();
-            NewLocation.Reset();
-            ComboDeadline.SelectedItem = Deadlines[0];
-            ComboType.SelectedItem = Types[0];
-        }
 
         public void Update()
         {
             Accommodations = new ObservableCollection<AccommodationVM>(Owner.Accommodations);
         }
 
-        public void IncreaseMaxNumberOfGuestsClick(object sender, RoutedEventArgs e)
-        {
-            if (NewAccommodation.MaxNumberOfGuests < 15)
-            {
-                NewAccommodation.MaxNumberOfGuests++;
-                if(NewAccommodation.MaxNumberOfGuests==15) IncDecButtons[0] = false;
-                IncDecButtons[1] = true;
-            }
-            else
-            {
-                IncDecButtons[0] = false;
-            }
-        }
-        public void DecreaseMaxNumberOfGuestsClick(object sender, RoutedEventArgs e)
-        {
-            if (NewAccommodation.MaxNumberOfGuests > 1)
-            {
-                NewAccommodation.MaxNumberOfGuests--;
-                if (NewAccommodation.MaxNumberOfGuests == 1) IncDecButtons[1] = false;
-                IncDecButtons[0] = true;
-            }
-            else
-            {
-                IncDecButtons[1] = false;
-            }
-        }
-        public void IncreaseMinDaysForReservationClick(object sender, RoutedEventArgs e)
-        {
-            if (NewAccommodation.MinDaysForReservation < 7)
-            {
-                NewAccommodation.MinDaysForReservation++;
-                if (NewAccommodation.MinDaysForReservation == 7) IncDecButtons[2] = false;
-                IncDecButtons[3] = true;
-            }
-            else
-            {
-                IncDecButtons[2] = false;
-            }
-        }
-        public void DecreaseMinDaysForReservationClick(object sender, RoutedEventArgs e)
-        {
-            if (NewAccommodation.MinDaysForReservation > 1)
-            {
-                NewAccommodation.MinDaysForReservation--;
-                if (NewAccommodation.MinDaysForReservation == 1) IncDecButtons[3] = false;
-                IncDecButtons[2] = true;
-            }
-            else
-            {
-                IncDecButtons[3] = false;
-            }
-        }
-        public void GradeGuestClick(object sender, RoutedEventArgs e)
-        {
-            Button button = (Button)sender;
-            GradeGuestWindow gradeGuestWindow = new GradeGuestWindow(SelectedReservation, Owner);
-            gradeGuestWindow.ShowDialog();
-            SelectedReservation.Graded = gradeGuestWindow.Graded;
-            if (gradeGuestWindow.Graded)
-            {
-                Owner = gradeGuestWindow.Owner;
-                button.IsEnabled = false;
-                SelectedReservation.VisibleReview = SelectedReservation.AccommodationGraded;
-            }
-            Update();
-        }
-
-        public void SeeReviewClick(object sender, RoutedEventArgs e)
-        {
-            Guest1ReviewWindow guestsReviewWindow = new Guest1ReviewWindow(SelectedReservation.AccommodationGrade);
-            guestsReviewWindow.ShowDialog();
-        }
+        
         
     }
 }
