@@ -209,7 +209,11 @@ namespace ProjectTourism.WPF.ViewModel
             }
             else
             {
-                if (DateOnly.FromDateTime(DateTime.Now) > EndDate)
+                if (Graded)
+                {
+                    return "Already graded.";
+                }
+                else if(DateOnly.FromDateTime(DateTime.Now) > EndDate)
                 {
                     return "Expired.";
                 }

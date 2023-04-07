@@ -63,16 +63,7 @@ namespace ProjectTourism.View.OwnerView
             LoadDataGrids(username);
 
             Subscribe();
-            if (Owner.IsSuperHost)
-            {
-                SuperHostIcon.Visibility = Visibility.Visible;
-                SuperHostLabel.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                SuperHostIcon.Visibility = Visibility.Collapsed;
-                SuperHostLabel.Visibility = Visibility.Collapsed;
-            }
+            
         }
         public void SwitchToMyAccommodations(object sender, EventArgs e)
         {
@@ -93,6 +84,16 @@ namespace ProjectTourism.View.OwnerView
             ForumsItem.Background = Brushes.Transparent;
             NotificationsItem.Background = Brushes.Transparent;
             ProfileItem.Background = Brushes.Transparent;
+        }
+        public void SwitchToYourProfile(object sender, EventArgs e)
+        {
+            Content.Content = new YourProfileMenuItem(Owner);
+            AccommodationsItem.Background = Brushes.Transparent;
+            ReservationsItem.Background = Brushes.Transparent;
+            HelpItem.Background = Brushes.Transparent;
+            ForumsItem.Background = Brushes.Transparent;
+            NotificationsItem.Background = Brushes.Transparent;
+            ProfileItem.Background = Brushes.LightGreen;
         }
         private void Subscribe()
         {

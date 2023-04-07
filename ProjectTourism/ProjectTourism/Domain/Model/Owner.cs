@@ -18,6 +18,7 @@ namespace ProjectTourism.Model
         public List<Accommodation> Accommodations;
         public List<Reservation> Reservations;
         public bool IsSuperHost;
+        public int NumberOfReviews;
         public Owner()
         {
             AverageGrade = 0;

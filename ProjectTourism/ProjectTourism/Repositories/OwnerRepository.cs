@@ -38,7 +38,7 @@ namespace ProjectTourism.Repositories
                 int counter = 0;
                 foreach (Reservation reservation in owner.Reservations)
                 {
-                    if (reservation.AccommodationGraded)
+                    if (reservation.AccommodationGraded && reservation.EndDate.AddYears(1)>DateOnly.FromDateTime(DateTime.Now))
                     {
                         sum += reservation.AccommodationGrade.AverageGrade;
                         counter++;
@@ -61,6 +61,7 @@ namespace ProjectTourism.Repositories
                     owner.AverageGrade = 0;
                     owner.IsSuperHost = false;
                 }
+                owner.NumberOfReviews = counter;
             }
         }
 

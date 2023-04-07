@@ -73,6 +73,27 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+
+        public int NumberOfReviews
+        {
+            get => _owner.NumberOfReviews;
+            set
+            {
+                if (value != _owner.NumberOfReviews)
+                {
+                    _owner.NumberOfReviews = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public int NumberOfReservations
+        {
+            get => _owner.Reservations.Count();
+        }
+        public int NumberOfAccommodations
+        {
+            get => _owner.Accommodations.Count();
+        }
         public string Email
         {
             get => _owner.Email;

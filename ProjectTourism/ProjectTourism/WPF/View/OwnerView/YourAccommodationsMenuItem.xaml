@@ -10,7 +10,7 @@
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
                 <AdornedElementPlaceholder x:Name="textBox" />
-                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="BlueViolet" HorizontalAlignment="Right"/>
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" HorizontalAlignment="Right"/>
             </StackPanel>
 
         </ControlTemplate>
@@ -19,7 +19,7 @@
     <Grid>
         <DataGrid x:Name="DataGridAccommodations" HeadersVisibility="None" ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
-                    IsReadOnly="True" VerticalScrollBarVisibility="Visible" AutoGenerateColumns="False"  BorderBrush="BlueViolet" BorderThickness="2"
+                    IsReadOnly="True" VerticalScrollBarVisibility="Visible" AutoGenerateColumns="False"  BorderBrush="Green" BorderThickness="2"
                     Margin="276,79,20,34" RowHeight="130" RowBackground="LightYellow" Background="LightYellow" HorizontalScrollBarVisibility="Disabled">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
@@ -65,8 +65,8 @@
         </DataGrid>
 
 
-        <Rectangle HorizontalAlignment="Left" StrokeThickness="2" Height="571" Fill="LightYellow" Stroke="BlueViolet" VerticalAlignment="Top" Width="235" Margin="20,79,0,0"/>
-        <Button Content="Submit" BorderBrush="BlueViolet" BorderThickness="2" HorizontalAlignment="Left" IsDefault="True" Margin="90,610,0,0" VerticalAlignment="Top" Height="30" Width="96" Click="RegisterAccommodationClick">
+        <Rectangle HorizontalAlignment="Left" StrokeThickness="2" Height="571" Fill="LightYellow" Stroke="Green" VerticalAlignment="Top" Width="235" Margin="20,79,0,0"/>
+        <Button Content="Submit" BorderBrush="Green" BorderThickness="2" HorizontalAlignment="Left" IsDefault="True" Margin="90,610,0,0" VerticalAlignment="Top" Height="30" Width="96" Click="RegisterAccommodationClick">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -79,15 +79,31 @@
         <StackPanel HorizontalAlignment="Left" Margin="40,287,0,0" Width="196" Height="28" VerticalAlignment="Top" Orientation="Horizontal">
             <TextBox IsReadOnly="True" Text="{Binding Path=NewAccommodation.MaxNumberOfGuests}" Width="178"></TextBox>
             <StackPanel Orientation="Vertical" Width="18">
-                <Button IsEnabled="{Binding IncDecButtons[0], UpdateSourceTrigger=PropertyChanged}" Height="14" Content="+" FontSize="9" FontWeight="Bold" Click="IncreaseMaxNumberOfGuestsClick"></Button>
-                <Button IsEnabled="{Binding IncDecButtons[1], UpdateSourceTrigger=PropertyChanged}" Height="14" Content="-" FontSize="9" FontWeight="Bold" Click="DecreaseMaxNumberOfGuestsClick"></Button>
+                <Button IsEnabled="{Binding IncDecButtons[0], UpdateSourceTrigger=PropertyChanged}" Height="14" Click="IncreaseMaxNumberOfGuestsClick">
+                    <Button.Content>
+                        <Image Source="https://img.icons8.com/ios/512/collapse-arrow.png"></Image>
+                    </Button.Content>
+                </Button>
+                <Button IsEnabled="{Binding IncDecButtons[1], UpdateSourceTrigger=PropertyChanged}" Height="14" Click="DecreaseMaxNumberOfGuestsClick">
+                    <Button.Content>
+                        <Image Source="https://img.icons8.com/ios/512/expand-arrow.png"></Image>
+                    </Button.Content>
+                </Button>
             </StackPanel>
         </StackPanel>
         <StackPanel HorizontalAlignment="Left" Margin="40,341,0,0" Width="196" Height="28" VerticalAlignment="Top" Orientation="Horizontal">
             <TextBox IsReadOnly="True" Text="{Binding Path=NewAccommodation.MinDaysForReservation}" Width="178"></TextBox>
             <StackPanel Orientation="Vertical" Width="18">
-                <Button IsEnabled="{Binding IncDecButtons[2], UpdateSourceTrigger=PropertyChanged}" Height="14" Content="+" FontSize="9" FontWeight="Bold" Click="IncreaseMinDaysForReservationClick"></Button>
-                <Button IsEnabled="{Binding IncDecButtons[3], UpdateSourceTrigger=PropertyChanged}" Height="14" Content="-" FontSize="9" FontWeight="Bold" Click="DecreaseMinDaysForReservationClick"></Button>
+                <Button IsEnabled="{Binding IncDecButtons[2], UpdateSourceTrigger=PropertyChanged}" Height="14" Click="IncreaseMinDaysForReservationClick">
+                    <Button.Content>
+                        <Image Source="https://img.icons8.com/ios/512/collapse-arrow.png"></Image>
+                    </Button.Content>
+                </Button>
+                <Button IsEnabled="{Binding IncDecButtons[3], UpdateSourceTrigger=PropertyChanged}" Height="14" Click="DecreaseMinDaysForReservationClick">
+                    <Button.Content>
+                        <Image Source="https://img.icons8.com/ios/512/expand-arrow.png"></Image>
+                    </Button.Content>
+                </Button>
             </StackPanel>
         </StackPanel>
         <ComboBox Name="ComboDeadline" HorizontalAlignment="Left" Margin="40,395,0,0" Width="196" Height="28" VerticalAlignment="Top" ItemsSource="{Binding Deadlines}"></ComboBox>
@@ -118,8 +134,8 @@
         <Label Content="Accommodation type" HorizontalAlignment="Left" Margin="40,424,0,0" VerticalAlignment="Top" Width="152"/>
         <Label Content="Pictures" HorizontalAlignment="Left" Margin="40,478,0,0" VerticalAlignment="Top" Width="152"/>
 
-        <Label Content="REGISTER A NEW ACCOMMODATION" FontSize="12" Foreground="BlueViolet" FontWeight="Bold" HorizontalAlignment="Left" Margin="20,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,0.708" Width="235"/>
-        <Label Content="YOUR ACCOMMODATIONS" FontSize="12" Foreground="BlueViolet" FontWeight="Bold" HorizontalAlignment="Left" Margin="276,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,0.708" Width="176"/>
+        <Label Content="REGISTER A NEW ACCOMMODATION" FontSize="12" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Left" Margin="20,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,0.708" Width="235"/>
+        <Label Content="YOUR ACCOMMODATIONS" FontSize="12" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Left" Margin="276,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,0.708" Width="176"/>
 
     </Grid>
 </UserControl>

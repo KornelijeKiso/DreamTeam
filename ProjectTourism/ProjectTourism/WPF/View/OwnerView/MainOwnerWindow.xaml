@@ -27,7 +27,7 @@
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
             
-            <MenuItem Name="ProfileItem" FontSize="14" Click="SwitchToMyAccommodations" BorderBrush="Green">
+            <MenuItem Name="ProfileItem" FontSize="14" Click="SwitchToYourProfile" BorderBrush="Green">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="       Your Profile   " HorizontalAlignment="Center" Margin="0 3 0 0"/>
@@ -76,8 +76,6 @@
                 </MenuItem.Header>
             </MenuItem>
         </Menu>
-        <Image Name="SuperHostIcon" Stretch="Fill" Margin="800,0,0,650" Width="30" Height="30" Source="https://img.icons8.com/fluency/512/prize.png"></Image>
-        <Label Name="SuperHostLabel" VerticalAlignment="Top" Margin="865,29,35,632" Width="90" FontSize="9" Height="30" Content="Super host" Visibility="{Binding Path=Owner.IsSuperHost, Converter={StaticResource BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"></Label>
         <ContentControl x:Name="Content"/>
 
     </Grid>
