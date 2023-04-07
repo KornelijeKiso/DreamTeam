@@ -38,18 +38,6 @@ namespace ProjectTourism.ModelDAO
             }
             return null;
         }
-        public Guide? Identify(string username)
-        {
-            Guides = GuideFileHandler.Load();
-            foreach(Guide guide in Guides)
-            {
-                if(guide.Surname.Equals(username))
-                {
-                    return guide;
-                }
-            }
-            return null;
-        }
         public List<Tour> GetGuidesTours(string username)
         {
             List<Tour> tours = new List<Tour>();

@@ -45,10 +45,6 @@ namespace ProjectTourism.Controller
         {
             GuideDAO.Update(username, hasTourStarted);
         }
-        public Guide? Identify(string username)
-        {
-            return GuideDAO.Identify(username);
-        }
         public void Subscribe(IObserver observer)
         {
             GuideDAO.Subscribe(observer);

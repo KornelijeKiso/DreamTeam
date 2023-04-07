@@ -98,16 +98,16 @@ namespace ProjectTourism.View.TourView
 
         private void SaveTour_Click(object sender, RoutedEventArgs e)
         {
-            if(appointmentsListBox.Items.Count == 0)
-            {
-                MessageBox.Show("You have not choosed any dates for this tour!");
-                return;
-            }
-            LocationVM locationVM = new LocationVM(NewLocation);
-            if (Tour.IsValid && locationVM.IsValid)
+            //if(appointmentsListBox.Items.Count == 0)
+            //{
+            //    MessageBox.Show("You have not choosed any dates for this tour!");
+            //    return;
+            //}
+            //LocationVM locationVM = new LocationVM(NewLocation);
+            //if (Tour.IsValid && locationVM.IsValid)
                 AddTour();
-            else
-                MessageBox.Show("Tour can not be made because the fields were not correctly entered.");
+            //else
+            //    MessageBox.Show("Tour can not be made because the fields were not correctly entered.");
         }
 
         private void AddTour()

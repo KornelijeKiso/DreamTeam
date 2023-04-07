@@ -20,203 +20,24 @@ namespace ProjectTourism.Model
     public class Tour : Serializable, INotifyPropertyChanged, IDataErrorInfo
     {
         public int Id;
-        private string? _Name;
-        public string? Name
-        {
-            get => _Name;
-            set
-            {
-                if (_Name != value)
-                {
-                    _Name = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-
-        private int? _LocationId;
-        public int? LocationId
-        {
-            get => _LocationId;
-            set
-            {
-                if (_LocationId != value)
-                {
-                    _LocationId = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private Location? _Location;
-        public Location? Location
-        {
-            get => _Location;
-            set
-            {
-                if (_Location != value)
-                {
-                    _Location = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string? _Description;
-        public string? Description
-        {
-            get => _Description;
-            set
-            {
-                if (_Description != value)
-                {
-                    _Description = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string? _Language;
-        public string? Language
-        {
-            get => _Language;
-            set
-            {
-                if (_Language != value)
-                {
-                    _Language = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private int _MaxNumberOfGuests;
-        public int MaxNumberOfGuests
-        {
-            get => _MaxNumberOfGuests;
-            set
-            {
-                if (_MaxNumberOfGuests != value)
-                {
-                    _MaxNumberOfGuests = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string? _Stops;
-        public string? Stops
-        {
-            get => _Stops;
-            set
-            {
-                if (_Stops != value)
-                {
-                    _Stops = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string? _Start;
-        public string? Start
-        {
-            get => _Start;
-            set
-            {
-                if (_Start != value)
-                {
-                    _Start = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string? _Finish;
-        public string? Finish
-        {
-            get => _Finish;
-            set
-            {
-                if (_Finish != value)
-                {
-                    _Finish = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private DateTime _StartDate;
-        public DateTime StartDate
-        {
-            get => _StartDate;
-            set
-            {
-                _StartDate = value;
-                OnPropertyChanged(nameof(StartDate));
-            }
-        }
+        public string? Name;
+        public int? LocationId;
+        public Location? Location;
+        public string? Description;
+        public string? Language;
+        public int MaxNumberOfGuests;
+        public string? Stops;
+        public string? Start;
+        public string? Finish;
+        public DateTime StartDate;
         public List<DateTime> dates { get; set; }
-
-        private double? _Duration;
-        public double? Duration
-        {
-            get => _Duration;
-            set
-            {
-                _Duration = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string? _PictureURLs;
-        public string? PictureURLs
-        {
-            get => _PictureURLs;
-            set
-            {
-                _PictureURLs = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private string[] _Pictures;
-        public string[] Pictures
-        {
-            get => _Pictures;
-            set
-            {
-                if (value != _Pictures)
-                {
-                    _Pictures = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private string? _GuideUsername;
-        public string? GuideUsername
-        {
-            get => _GuideUsername;
-            set
-            {
-                _GuideUsername = value;
-                OnPropertyChanged();
-            }
-        }
-
+        public double? Duration;
+        public string? PictureURLs;
+        public string[] Pictures;
+        public string? GuideUsername;
         public List<string> StopsList { get; set; }
-
-        private Guide? _Guide;
-        public Guide? Guide
-        {
-            get => _Guide;
-            set
-            {
-                _Guide = value;
-                OnPropertyChanged();
-            }
-        }
+        public Guide? Guide;
+        
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

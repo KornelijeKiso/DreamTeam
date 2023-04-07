@@ -14,133 +14,22 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using ProjectTourism.ModelDAO;
 
-public enum TOURSTATE { READY, STARTED, FINISHED, STOPPED };
+
 
 namespace ProjectTourism.Model
 {
-    public class TourAppointment: Serializable, INotifyPropertyChanged
+    public class TourAppointment: Serializable
     {
-        private int _Id;
-        public int Id
-        {
-            get => _Id;
-            set
-            {
-                if (_Id != value)
-                {
-                    _Id = value;
-                }
-            }
-        }
-
-        private DateTime _TourDateTime;
-        public DateTime TourDateTime
-        {
-            get => _TourDateTime;
-            set
-            {
-                if (_TourDateTime != value)
-                {
-                    _TourDateTime = value;
-                }
-            }
-        }
-
-        private string _CurrentTourStop;
-        public string CurrentTourStop
-        {
-            get => _CurrentTourStop;
-            set
-            {
-                if (value != _CurrentTourStop)
-                {
-                    _CurrentTourStop = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private int _TourId;
-        public int TourId
-        {
-            get => _TourId;
-            set
-            {
-                if (_TourId != value)
-                {
-                    _TourId = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private Tour _Tour;
-        public Tour Tour
-        {
-            get => _Tour;
-            set
-            {
-                if (_Tour != value)
-                {
-                    _Tour = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
+        public int Id;
+        public DateTime TourDateTime;
+        public string CurrentTourStop;
+        public int TourId;
+        public Tour Tour;
+        public List<Ticket> Tickets;
+        public int AvailableSeats;
+        public TOURSTATE State;
+        public bool IsNotFinished;
         
-        private List<Ticket> _Tickets;
-        public List<Ticket> Tickets
-        {
-            get => _Tickets;
-            set
-            {
-                if (_Tickets != value)
-                {
-                    _Tickets = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        private int _AvailableSeats;
-        public int AvailableSeats
-        {
-            get => _AvailableSeats;
-            set
-            {
-                if (_AvailableSeats != value)
-                {
-                    _AvailableSeats = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private TOURSTATE _State;
-        public TOURSTATE State
-        {
-            get => _State;
-            set
-            {
-                if (_State != value)
-                {
-                    _State = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private bool _IsNotFinished;
-        public bool IsNotFinished
-        {
-            get => _IsNotFinished;
-            set
-            {
-                if (_IsNotFinished != value)
-                {
-                    _IsNotFinished = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
 
         public TourAppointment()
         { 
@@ -152,19 +41,11 @@ namespace ProjectTourism.Model
             TourDateTime = tourDateTime;
             TourId = tourId;
             Tour = route;
-
             CurrentTourStop = Tour.Start;
             AvailableSeats = Tour.MaxNumberOfGuests;
             IsNotFinished = true;
             State = TOURSTATE.READY;
             Tickets = new List<Ticket>();
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public string[] ToCSV()
