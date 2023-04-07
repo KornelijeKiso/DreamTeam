@@ -18,6 +18,17 @@ namespace ProjectTourism.Repositories
         {
             FileHandler = new TicketGradeFileHandler();
             TicketGrades = FileHandler.Load();
+            Synchronize();
+        }
+
+        public void Synchronize()
+        {
+            ITicketRepository ticketRepository = new TicketRepository();
+            foreach (var ticketGrade in TicketGrades)
+            {
+                Ticket ticket = ticketRepository.GetOne(ticketGrade.Id);
+                ticketGrade.Ticket = ticket;
+            }
         }
 
         public TicketGrade GetOne(int id)
