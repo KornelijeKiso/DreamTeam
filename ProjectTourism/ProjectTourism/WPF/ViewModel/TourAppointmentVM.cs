@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,10 @@ namespace ProjectTourism.WPF.ViewModel
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public TourAppointment GetTourAppointment()
         {
@@ -33,6 +38,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_tourAppointment.Id != value)
                 {
                     _tourAppointment.Id = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -44,6 +50,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_tourAppointment.TourDateTime != value)
                 {
                     _tourAppointment.TourDateTime = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -55,6 +62,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (value != _tourAppointment.CurrentTourStop)
                 {
                     _tourAppointment.CurrentTourStop = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -66,6 +74,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_tourAppointment.TourId != value)
                 {
                     _tourAppointment.TourId = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -77,6 +86,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_tourAppointment.Tour != value)
                 {
                     _tourAppointment.Tour = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -88,6 +98,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_tourAppointment.Tickets != value)
                 {
                     _tourAppointment.Tickets = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -99,6 +110,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_tourAppointment.AvailableSeats != value)
                 {
                     _tourAppointment.AvailableSeats = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -110,6 +122,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_tourAppointment.State != value)
                 {
                     _tourAppointment.State = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -120,7 +133,9 @@ namespace ProjectTourism.WPF.ViewModel
             {
                 if (_tourAppointment.IsNotFinished != value)
                 {
-                    _tourAppointment.IsNotFinished = value;                }
+                    _tourAppointment.IsNotFinished = value;
+                    OnPropertyChanged();
+                }
             }
         }
     }

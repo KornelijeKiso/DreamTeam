@@ -36,11 +36,11 @@ namespace ProjectTourism.Model
             Tickets = new List<Ticket>();
         }
 
-        public TourAppointment(DateTime tourDateTime, int tourId, Tour route)
+        public TourAppointment(DateTime tourDateTime, int tourId, Tour tour)
         {
             TourDateTime = tourDateTime;
             TourId = tourId;
-            Tour = route;
+            Tour = tour;
             CurrentTourStop = Tour.Start;
             AvailableSeats = Tour.MaxNumberOfGuests;
             IsNotFinished = true;

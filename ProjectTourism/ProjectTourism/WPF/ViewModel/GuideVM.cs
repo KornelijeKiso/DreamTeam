@@ -29,6 +29,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_guide.IsSuperGuide != value)
                 {
                     _guide.IsSuperGuide = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -40,6 +41,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_guide.HasTourStarted != value)
                 {
                     _guide.HasTourStarted = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -51,6 +53,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_guide.Username != value)
                 {
                     _guide.Username = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -62,6 +65,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_guide.Name != value)
                 {
                     _guide.Name = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -73,6 +77,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_guide.Surname != value)
                 {
                     _guide.Surname = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -84,6 +89,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_guide.Biography != value)
                 {
                     _guide.Biography = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -95,6 +101,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_guide.Language != value)
                 {
                     _guide.Language = value;
+                    OnPropertyChanged();
                 }
             }
         }

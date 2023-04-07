@@ -39,11 +39,11 @@ namespace ProjectTourism.ModelDAO
                 FileHandler.Save(TourAppointments);
             }
         }
-        public void MakeTourAppointments(Tour route)
+        public void MakeTourAppointments(Tour tour)
         {
-            foreach(var date in route.dates)
+            foreach(var date in tour.dates)
             {
-                TourAppointment tourAppointment = new TourAppointment(date, route.Id, route);
+                TourAppointment tourAppointment = new TourAppointment(date, tour.Id, tour);
                 Add(tourAppointment);
             }
         }

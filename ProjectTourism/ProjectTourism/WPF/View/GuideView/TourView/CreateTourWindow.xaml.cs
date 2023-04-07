@@ -19,6 +19,8 @@ using ProjectTourism.Controller;
 using ProjectTourism.Model;
 using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
 using ProjectTourism.View.GuideView.TourView;
 using ProjectTourism.WPF.ViewModel;
 
@@ -29,29 +31,30 @@ namespace ProjectTourism.View.TourView
     /// </summary>
     public partial class CreateTourWindow : Window, INotifyPropertyChanged, IObserver
     {
-        public Tour Tour { get; set; }
-        public TourController TourController { get; set; }
-        public Location NewLocation { get; set; }
-        public LocationDAO NewLocationDAO { get; set; }
+        public TourVM Tour { get; set; }
+        public TourService TourService { get; set; }
+        public LocationVM NewLocation { get; set; }
+        public LocationService NewLocationService { get; set; }
         public List<string> Languages { get; set; }
         public ObservableCollection<string> LanguagesObservable { get; set; }
-        public TourAppointment TourAppointment { get; set; }
-        public TourAppointmentController TourAppointmentController { get; set; }
+        public TourAppointmentVM TourAppointment { get; set; }
+        public TourAppointmentService TourAppointmentService { get; set; }
         private Dictionary<DateTime, List<TimeSpan>> appointments = new Dictionary<DateTime, List<TimeSpan>>();
-        public CreateTourWindow(Guide guide)
+        public CreateTourWindow(GuideVM guide)
         {
             InitializeComponent();
             DataContext = this;
-            Tour = new Tour();
+
+            Tour = new TourVM(new Tour());
             Tour.GuideUsername = guide.Username;
             Tour.Guide = guide;
-            Tour.dates = new List<DateTime>();
+            //Tour.dates = new List<DateTime>();
 
-            TourController = new TourController();
-            TourController.Subscribe(this);
-            NewLocation = new Location();
-            NewLocationDAO = new LocationDAO();
-            TourAppointmentController = new TourAppointmentController();
+            TourService = new TourService(new TourRepository());
+            TourService.Subscribe(this);
+            NewLocation = new LocationVM(new Location());
+            NewLocationService = new LocationService(new LocationRepository());
+            TourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
 
             Languages = new List<string>
             {
@@ -98,26 +101,25 @@ namespace ProjectTourism.View.TourView
 
         private void SaveTour_Click(object sender, RoutedEventArgs e)
         {
-            //if(appointmentsListBox.Items.Count == 0)
-            //{
-            //    MessageBox.Show("You have not choosed any dates for this tour!");
-            //    return;
-            //}
-            //LocationVM locationVM = new LocationVM(NewLocation);
-            //if (Tour.IsValid && locationVM.IsValid)
+            if (appointmentsListBox.Items.Count == 0)
+            {
+                MessageBox.Show("You have not choosed any dates for this tour!");
+                return;
+            }
+            if (Tour.IsValid && NewLocation.IsValid)
                 AddTour();
-            //else
-            //    MessageBox.Show("Tour can not be made because the fields were not correctly entered.");
+            else
+                MessageBox.Show("Tour can not be made because the fields were not correctly entered.");
         }
 
         private void AddTour()
         {
-            NewLocation.Id = NewLocationDAO.AddAndReturnId(NewLocation);
+            NewLocation.Id = NewLocationService.AddAndReturnId(NewLocation);
             Tour.Location = NewLocation;
             Tour.LocationId = NewLocation.Id;
             SaveDates();
-            TourController.Add(Tour);
-            TourAppointmentController.MakeTourAppointments(Tour);
+            TourService.Add(Tour);
+            TourAppointmentService.MakeTourAppointments(Tour);
             Close();
         }
 

@@ -13,7 +13,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using ProjectTourism.ModelDAO;
-
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
+using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.Model
 {
@@ -22,7 +24,7 @@ namespace ProjectTourism.Model
         public int Id;
         public string? Name;
         public int? LocationId;
-        public Location? Location;
+        public LocationVM? Location;
         public string? Description;
         public string? Language;
         public int MaxNumberOfGuests;
@@ -36,7 +38,8 @@ namespace ProjectTourism.Model
         public string[] Pictures;
         public string? GuideUsername;
         public List<string> StopsList { get; set; }
-        public Guide? Guide;
+        public GuideVM Guide;
+        public bool IsValid;
         
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -48,9 +51,9 @@ namespace ProjectTourism.Model
         public Tour()
         {
             StopsList = new List<string>();
-
+            dates = new List<DateTime>();
         }
-        public Tour(string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
+        public Tour(string name, LocationVM location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
         {
             Name = name;
             Location = location;
@@ -68,7 +71,7 @@ namespace ProjectTourism.Model
             StopsList = new List<string>();
             dates = new List<DateTime>();           
         }
-        public Tour(int id, string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
+        public Tour(int id, string name, LocationVM location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
         {
             Id = id;
             Name = name;
@@ -89,10 +92,10 @@ namespace ProjectTourism.Model
             dates = new List<DateTime>();
         }
 
-        public Guide? FindGuide(string username)
+        public GuideVM? FindGuide(string username)
         {
-            GuideDAO guideDAO = new GuideDAO();
-            return guideDAO.GetOne(username);
+            GuideService guideService = new GuideService(new GuideRepository());
+            return guideService.GetOne(username);
         }
 
         public string[] GetPictureURLsFromCSV()
@@ -147,9 +150,9 @@ namespace ProjectTourism.Model
             Pictures = GetPictureURLsFromCSV();
         }
 
-        private Location? FindLocation(int? locationId)
+        private LocationVM? FindLocation(int? locationId)
         {
-            LocationDAO locationDAO = new LocationDAO();
+            LocationService locationDAO = new LocationService(new LocationRepository());
             return locationDAO.GetOne((int)locationId);
         }
 
@@ -237,19 +240,6 @@ namespace ProjectTourism.Model
                 return null;
             }
         }
-        private readonly string[] _validatedProperties = { "Name", "MaxNumberOfGuests", "Start", "Finish", "StartDate", "Duration" };
-        public bool IsValid
-        {
-            get
-            {
-                foreach (var property in _validatedProperties)
-                {
-                    if (this[property] != null)
-                        return false;
-                }
-
-                return true;
-            }
-        }
+        
     }
 }

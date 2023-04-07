@@ -18,8 +18,11 @@ using ProjectTourism.Controller;
 using ProjectTourism.Model;
 using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
 using ProjectTourism.View.GuideView.TourView;
 using ProjectTourism.View.TourView;
+using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.GuideView
 {
@@ -28,42 +31,27 @@ namespace ProjectTourism.View.GuideView
     /// </summary>
     public partial class MainGuideWindow : Window, INotifyPropertyChanged, IObserver
     {
-        public User User { get; set; }
-        public Guide Guide { get; set; }
-        public UserController UserController { get; set; }
-        public GuideController GuideController { get; set; }
-        public Location NewLocation { get; set; }
-        public LocationDAO LocationDAO { get; set; }
+        public GuideVM Guide { get; set; }
+        public GuideService GuideService { get; set; }
+        public LocationVM NewLocation { get; set; }
+        public LocationService LocationService { get; set; }
         public MainGuideWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
 
-            MakeControllers();
-            GetModels(username);
-            LocationDAO = new LocationDAO();
-            NewLocation = new Location();
+            SetServices();
+            Guide = GuideService.GetOne(username);
+            NewLocation = new LocationVM(new Location());
         }
 
-        private void GetModels(string username)
+        private void SetServices()
         {
-            Guide = GuideController.GetOne(username);
-            User = UserController.GetOne(username);
+            LocationService = new LocationService(new LocationRepository());
+            GuideService = new GuideService(new GuideRepository());
         }
 
-        private void MakeControllers()
-        {
-            GuideController = new GuideController();
-            UserController = new UserController();
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
+        
         public void Update()
         {
 
@@ -98,6 +86,11 @@ namespace ProjectTourism.View.GuideView
             viewAllAppointmentsWindow.Show();
             e.Handled = true;
         }
+        public event PropertyChangedEventHandler? PropertyChanged;
 
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

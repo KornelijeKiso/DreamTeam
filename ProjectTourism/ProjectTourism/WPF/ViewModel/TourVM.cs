@@ -13,10 +13,24 @@ namespace ProjectTourism.WPF.ViewModel
     public class TourVM : INotifyPropertyChanged
     {
         private Tour _tour;
+
         public Tour GetTour() { return _tour; }
         public TourVM(Tour tour)
         {
             _tour = tour;
+        }
+        public List<DateTime> dates { get; set; }
+        public int Id
+        {
+            get => _tour.Id;
+            set
+            {
+                if (value != _tour.Id)
+                {
+                    _tour.Id = value;
+                    OnPropertyChanged();
+                }
+            }
         }
         public string? Name
         {
@@ -26,6 +40,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_tour.Name != value)
                 {
                     _tour.Name = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -37,10 +52,11 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_tour.LocationId != value)
                 {
                     _tour.LocationId = value;
+                    OnPropertyChanged();
                 }
             }
         }
-        public Location? Location
+        public LocationVM? Location
         {
             get => _tour.Location;
             set
@@ -48,6 +64,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_tour.Location != value)
                 {
                     _tour.Location = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -59,6 +76,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_tour.Description != value)
                 {
                     _tour.Description = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -71,6 +89,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_tour.Language != value)
                 {
                     _tour.Language = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -83,6 +102,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_tour.MaxNumberOfGuests != value)
                 {
                     _tour.MaxNumberOfGuests = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -95,6 +115,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_tour.Stops != value)
                 {
                     _tour.Stops = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -106,6 +127,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_tour.Start != value)
                 {
                     _tour.Start = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -117,6 +139,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_tour.Finish != value)
                 {
                     _tour.Finish = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -126,6 +149,7 @@ namespace ProjectTourism.WPF.ViewModel
             set
             {
                 _tour.StartDate = value;
+                OnPropertyChanged();
             }
         }
         public double? Duration
@@ -134,6 +158,7 @@ namespace ProjectTourism.WPF.ViewModel
             set
             {
                 _tour.Duration = value;
+                OnPropertyChanged();
             }
         }
         public string? PictureURLs
@@ -142,6 +167,7 @@ namespace ProjectTourism.WPF.ViewModel
             set
             {
                 _tour.PictureURLs = value;
+                OnPropertyChanged();
             }
         }
         public string[] Pictures
@@ -152,6 +178,7 @@ namespace ProjectTourism.WPF.ViewModel
                 if (value != _tour.Pictures)
                 {
                     _tour.Pictures = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -161,17 +188,36 @@ namespace ProjectTourism.WPF.ViewModel
             set
             {
                 _tour.GuideUsername = value;
+                OnPropertyChanged();
             }
         }
 
-        public Guide? Guide
+        public GuideVM Guide
         {
             get => _tour.Guide;
             set
             {
                 _tour.Guide = value;
+                OnPropertyChanged();
             }
         }
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (property != null)
+                        return false;
+                }
+
+                return true;
+            }
+        }
+
+        
+
+        private readonly string[] _validatedProperties = {"Name", "MaxNumberOfGuests", "Start", "Finish", "StartDate", "Duration" };
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
