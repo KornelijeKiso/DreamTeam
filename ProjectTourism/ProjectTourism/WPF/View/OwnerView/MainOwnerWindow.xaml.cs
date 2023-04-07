@@ -57,6 +57,7 @@ namespace ProjectTourism.View.OwnerView
             InitializeControllers();
             InitializeNewEntities();
             Content.Content = new YourAccommodationsMenuItem(username);
+            AccommodationsItem.Background = Brushes.LightGreen;
             SetOwner(username);
 
             LoadDataGrids(username);
@@ -76,10 +77,22 @@ namespace ProjectTourism.View.OwnerView
         public void SwitchToMyAccommodations(object sender, EventArgs e)
         {
             Content.Content = new YourAccommodationsMenuItem(Owner.Username);
+            AccommodationsItem.Background = Brushes.LightGreen;
+            ReservationsItem.Background = Brushes.Transparent;
+            HelpItem.Background = Brushes.Transparent;
+            ForumsItem.Background = Brushes.Transparent;
+            NotificationsItem.Background = Brushes.Transparent;
+            ProfileItem.Background = Brushes.Transparent;
         }
         public void SwitchToReservations(object sender, EventArgs e)
         {
-            Content.Content = new ReservationsMenuItem();
+            Content.Content = new ReservationsMenuItem(Owner.Username);
+            AccommodationsItem.Background = Brushes.Transparent;
+            ReservationsItem.Background = Brushes.LightGreen;
+            HelpItem.Background = Brushes.Transparent;
+            ForumsItem.Background = Brushes.Transparent;
+            NotificationsItem.Background = Brushes.Transparent;
+            ProfileItem.Background = Brushes.Transparent;
         }
         private void Subscribe()
         {

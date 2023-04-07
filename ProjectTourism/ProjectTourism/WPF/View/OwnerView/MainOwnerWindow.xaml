@@ -20,12 +20,61 @@
     
     <Grid Margin="0,0,0,0">
 
-        <Menu Margin="0,0,240,640" BorderThickness="1" BorderBrush="Black">
-            <MenuItem Width="150" Height="50" Header="Your accommodations" FontSize="14" Click="SwitchToMyAccommodations"></MenuItem>
-            <MenuItem Width="150" Height="50" Header="Reservations" FontSize="14" Click="SwitchToReservations"></MenuItem>
-            <MenuItem Width="150" Height="50" Header="Notifications" FontSize="14"></MenuItem>
-            <MenuItem Width="150" Height="50" Header="Forum" FontSize="14" ></MenuItem>
-            <MenuItem Width="150" Height="50" Header="Help" FontSize="14" ></MenuItem>
+        <Menu Margin="15,0,15,640" BorderThickness="1" BorderBrush="Green">
+            <Menu.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Rows="1" HorizontalAlignment="Center"/>
+                </ItemsPanelTemplate>
+            </Menu.ItemsPanel>
+            
+            <MenuItem Name="ProfileItem" FontSize="14" Click="SwitchToMyAccommodations" BorderBrush="Green">
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="       Your Profile   " HorizontalAlignment="Center" Margin="0 3 0 0"/>
+                        <Image Width="25" Height="25" Source="https://img.icons8.com/fluency/512/guest-male.png" HorizontalAlignment="Right"></Image>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem Name="AccommodationsItem" FontSize="14" Click="SwitchToMyAccommodations" BorderBrush="Green">
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text=" Accommodations  " HorizontalAlignment="Center" Margin="0 3 0 0"/>
+                        <Image Width="25" Height="25" Source="https://img.icons8.com/external-xnimrodx-lineal-color-xnimrodx/512/external-hotel-holiday-xnimrodx-lineal-color-xnimrodx.png" HorizontalAlignment="Right"></Image>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem Name="ReservationsItem" FontSize="14" Click="SwitchToReservations" BorderBrush="Green">
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="     Reservations    " HorizontalAlignment="Center" Margin="0 3 0 0"/>
+                        <Image Width="25" Height="25" Source="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/512/external-calendar-logistic-delivery-kiranshastry-lineal-color-kiranshastry.png" HorizontalAlignment="Right"></Image>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem Name="NotificationsItem" FontSize="14" BorderBrush="Green">
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="    Notifications    " HorizontalAlignment="Center" Margin="0 3 0 0"/>
+                        <Image Width="25" Height="25" Source="https://img.icons8.com/fluency/512/appointment-reminders.png" HorizontalAlignment="Right"></Image>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem Name="ForumsItem" FontSize="14" BorderBrush="Green">
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="        Forums    " HorizontalAlignment="Center" Margin="0 3 0 0"/>
+                        <Image Width="25" Height="25" Source="https://img.icons8.com/external-inipagistudio-mixed-inipagistudio/512/external-forum-coaching-and-mentoring-inipagistudio-mixed-inipagistudio.png" HorizontalAlignment="Right"></Image>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
+            <MenuItem Name="HelpItem" FontSize="14" BorderBrush="Green">
+                <MenuItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="         Help    " HorizontalAlignment="Center" Margin="0 3 0 0"/>
+                        <Image Width="25" Height="25" Source="https://img.icons8.com/office/512/help.png" HorizontalAlignment="Right"></Image>
+                    </StackPanel>
+                </MenuItem.Header>
+            </MenuItem>
         </Menu>
         <Image Name="SuperHostIcon" Stretch="Fill" Margin="800,0,0,650" Width="30" Height="30" Source="https://img.icons8.com/fluency/512/prize.png"></Image>
         <Label Name="SuperHostLabel" VerticalAlignment="Top" Margin="865,29,35,632" Width="90" FontSize="9" Height="30" Content="Super host" Visibility="{Binding Path=Owner.IsSuperHost, Converter={StaticResource BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"></Label>
