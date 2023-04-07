@@ -27,16 +27,6 @@ namespace ProjectTourism.WPF.View.OwnerView
             InitializeComponent();
             DataContext = this;
             Owner = owner;
-            if (Owner.IsSuperHost)
-            {
-                SuperHostIcon.Visibility = Visibility.Visible;
-                SuperHostLabel.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                SuperHostIcon.Visibility = Visibility.Collapsed;
-                SuperHostLabel.Visibility = Visibility.Collapsed;
-            }
         }
     }
 }

@@ -4,12 +4,18 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProjectTourism.WPF.View.OwnerView"
+             xmlns:conv="clr-namespace:ProjectTourism.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <Image VerticalAlignment="Top" HorizontalAlignment="Left" Source="https://img.icons8.com/stickers/512/user-male-circle.png" Width="128" Height="128" Margin="51 103 0 0"></Image>
         <Label VerticalAlignment="Top" HorizontalAlignment="Left" Margin="180 103 0 0" Content="{Binding Owner.NumberOfReservations}"></Label>
-        <Image Name="SuperHostIcon" Stretch="Fill" Margin="800, 100, 0, 0" VerticalAlignment="Top" Width="70" Height="70" Source="https://img.icons8.com/fluency/512/prize.png"></Image>
-        <Label Name="SuperHostLabel" VerticalAlignment="Top" Margin="820,170,0,0" Width="90" FontSize="13" Height="30" Content="Super host" ></Label>
+        <Image Name="SuperHostIcon" Stretch="Fill" Margin="800, 100, 0, 0" VerticalAlignment="Top" Width="70" Height="70" Source="https://img.icons8.com/fluency/512/prize.png" Visibility="{Binding Path=Owner.IsSuperHost, Converter={conv:BoolToVisibilityConverter}}"></Image>
+        <Label Name="SuperHostLabel" VerticalAlignment="Top" Margin="820,170,0,0" Width="90" FontSize="13" Height="30" Content="Super host" Visibility="{Binding Path=Owner.IsSuperHost, Converter={conv:BoolToVisibilityConverter}}"></Label>
     </Grid>
 </UserControl>
