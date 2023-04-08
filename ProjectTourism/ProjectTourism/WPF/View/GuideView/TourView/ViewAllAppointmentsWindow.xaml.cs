@@ -17,6 +17,9 @@ using ProjectTourism.Controller;
 using ProjectTourism.Model;
 using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
+using ProjectTourism.Services;
+using ProjectTourism.WPF.ViewModel;
+using ProjectTourism.Repositories;
 
 namespace ProjectTourism.View.GuideView.TourView
 {
@@ -25,22 +28,27 @@ namespace ProjectTourism.View.GuideView.TourView
     /// </summary>
     public partial class ViewAllAppointmentsWindow : Window, INotifyPropertyChanged, IObserver
     {
-        public ObservableCollection<TourAppointment> Appointments { get; set; }
-        public TourAppointment SelectedAppointment { get; set; }
-        public GuideController GuideController { get; set; }
-        public TourAppointmentController TourAppointmentController { get; set; }
+        public ObservableCollection<TourAppointmentVM> Appointments { get; set; }
+        public TourAppointmentVM SelectedAppointment { get; set; }
+        public GuideService GuideService { get; set; }
+        public TourAppointmentService TourAppointmentService { get; set; }
         public string GuideUsername { get; set; }
-        public CanceledTourAppointmentsDAO CanceledTourAppointmentsDAO { get; set; }
+        public CanceledTourAppointmentsRepository CanceledTourAppointmentsRepo { get; set; }
 
         public ViewAllAppointmentsWindow(string username)
         {
             InitializeComponent();
             GuideUsername = username;
             DataContext = this;
-            GuideController = new GuideController();
-            Appointments = new ObservableCollection<TourAppointment>(GuideController.GetGuidesAppointments(username));
-            TourAppointmentController = new TourAppointmentController();
-            CanceledTourAppointmentsDAO = new CanceledTourAppointmentsDAO();
+            GuideService = new GuideService(new GuideRepository());
+            List<TourAppointmentVM> TourApps = new List<TourAppointmentVM>();
+            foreach (var tourApp in GuideService.GetGuidesCurrentAppointments(username))
+            {
+                TourApps.Add(new TourAppointmentVM(tourApp));
+            }
+            Appointments = new ObservableCollection<TourAppointmentVM>(TourApps);
+            TourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
+            CanceledTourAppointmentsRepo = new CanceledTourAppointmentsRepository();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -57,8 +65,8 @@ namespace ProjectTourism.View.GuideView.TourView
                     MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel this appointment?", "Delete appointment", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Yes)
                     {
-                        CanceledTourAppointmentsDAO.Add(SelectedAppointment);
-                        TourAppointmentController.Delete(SelectedAppointment.Id);
+                        CanceledTourAppointmentsRepo.Add(SelectedAppointment.GetTourAppointment());
+                        TourAppointmentService.Delete(SelectedAppointment);
                         Appointments.Remove(SelectedAppointment);
                         UpdateAppointments();
                     }
@@ -74,9 +82,9 @@ namespace ProjectTourism.View.GuideView.TourView
         private void UpdateAppointments()
         {
             Appointments.Clear();
-            foreach(var appointment in GuideController.GetGuidesAppointments(GuideUsername))
+            foreach (var tourApp in GuideService.GetGuidesAppointments(GuideUsername))
             {
-                Appointments.Add(appointment);
+                Appointments.Add(new TourAppointmentVM(tourApp));
             }
         }
     }

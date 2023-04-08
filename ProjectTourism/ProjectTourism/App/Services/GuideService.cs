@@ -66,5 +66,14 @@ namespace ProjectTourism.Services
         {
             return GuideRepository.GetGuidesCurrentAppointments(username);
         }
+        public List<TourAppointment> GetGuidesAppointments(string username)
+        {
+            return GuideRepository.GetGuidesAppointments(username);
+        }
+
+        public List<Tour> GetGuidesTours(string username)
+        {
+            return GuideRepository.GetGuidesTours(username);
+        }
     }
 }

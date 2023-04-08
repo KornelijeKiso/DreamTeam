@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectTourism.Model;
+using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.Domain.IRepositories
 {
@@ -15,6 +16,8 @@ namespace ProjectTourism.Domain.IRepositories
         void Update(Guide guide);
         void Delete(Guide guide);
         List<TourAppointment> GetGuidesCurrentAppointments(string username);
+        List<TourAppointment> GetGuidesAppointments(string username);
         void UpdateHasTourStarted(string username, bool hasTourStarted);
+        List<Tour> GetGuidesTours(string username);
     }
 }

@@ -16,6 +16,9 @@ using System.Windows.Shapes;
 using ProjectTourism.Controller;
 using ProjectTourism.Model;
 using ProjectTourism.Observer;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
+using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.GuideView.TourView
 {
@@ -24,18 +27,23 @@ namespace ProjectTourism.View.GuideView.TourView
     /// </summary>
     public partial class ViewAllToursWindow : Window, INotifyPropertyChanged, IObserver
     {
-        public Guide Guide { get; set; }
-        public ObservableCollection<Tour> Tours { get; set; }
-        public Tour SelectedTour { get; set; }
-        public GuideController GuideController { get; set; }
+        public GuideVM Guide { get; set; }
+        public ObservableCollection<TourVM> Tours { get; set; }
+        public TourVM SelectedTour { get; set; }
+        public GuideService GuideService { get; set; }
 
         public ViewAllToursWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
-            GuideController = new GuideController();
-            Guide = GuideController.GetOne(username);
-            Tours = new ObservableCollection<Tour>(GuideController.GetGuidesTours(username));
+            GuideService = new GuideService(new GuideRepository());
+            Guide = GuideService.GetOne(username);
+            List<TourVM> ToursVM = new List<TourVM>();
+            foreach(var tour in GuideService.GetGuidesTours(username))
+            {
+                ToursVM.Add(new TourVM(tour));
+            }
+            Tours = new ObservableCollection<TourVM>(ToursVM);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

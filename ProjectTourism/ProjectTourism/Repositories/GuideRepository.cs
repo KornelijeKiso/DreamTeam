@@ -59,7 +59,6 @@ namespace ProjectTourism.Repositories
             Guide Guide = GetOne(username);
             Guide.HasTourStarted = hasTourStarted;
             FileHandler.Save(Guides);
-        //    NotifyObservers();
         }
 
         public void Update(Guide guide)
@@ -82,6 +81,31 @@ namespace ProjectTourism.Repositories
                 }
             }
             return appointments;
+        }
+        public List<TourAppointment> GetGuidesAppointments(string username)
+        {
+            List<TourAppointment> appointments = new List<TourAppointment>();
+            TourAppointmentDAO tourAppDAO = new TourAppointmentDAO();
+            foreach (var tourAppointment in tourAppDAO.GetAll())
+            {
+                appointments.Add(tourAppointment);
+            }
+            return appointments;
+        }
+        public List<Tour> GetGuidesTours(string username)
+        {
+            List<Tour> tours = new List<Tour>();
+            TourDAO tourDAO = new TourDAO();
+            foreach (var tour in tourDAO.GetAll())
+            {
+                if (tour.GuideUsername.Equals(username))
+                {
+                    List<string> pom = tourDAO.GetStops(tour);
+                    tour.StopsList = pom;
+                    tours.Add(tour);
+                }
+            }
+            return tours;
         }
     }
 }

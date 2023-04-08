@@ -16,6 +16,8 @@ using System.Windows.Shapes;
 using ProjectTourism.Controller;
 using ProjectTourism.Model;
 using ProjectTourism.Observer;
+using ProjectTourism.Services;
+using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.GuideView
 {
@@ -24,9 +26,9 @@ namespace ProjectTourism.View.GuideView
     /// </summary>
     public partial class CreateGuideWindow : Window, INotifyPropertyChanged, IObserver
     {
-        public Guide Guide { get; set; }
+        public GuideVM Guide { get; set; }
         public User User { get; set; }
-        public GuideController GuideController { get; set; }
+        public GuideService GuideController { get; set; }
         public UserController UserController { get; set; }
         public CreateGuideWindow(User user)
         {
