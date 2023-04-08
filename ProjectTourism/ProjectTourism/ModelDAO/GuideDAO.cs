@@ -83,7 +83,7 @@ namespace ProjectTourism.ModelDAO
             return tourAppointment.Tour.GuideUsername.Equals(username) && tourAppointment.TourDateTime.Date.Equals(DateTime.Now.Date);
         }
 
-        public void Update(string username, bool hasTourStarted)
+        public void Update(string username, bool hasTourStarted)  //UpdateHasTourStarted
         {
             Guide Guide = GetOne(username);
             Guide.HasTourStarted = hasTourStarted;

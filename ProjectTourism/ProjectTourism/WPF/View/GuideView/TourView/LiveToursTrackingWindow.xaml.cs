@@ -40,7 +40,12 @@ namespace ProjectTourism.View.GuideView.TourView
             GuideService = new GuideService(new GuideRepository());
             TourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
             Guide = GuideService.GetOne(username);
-            TourAppointments = new ObservableCollection<TourAppointmentVM>((IEnumerable<TourAppointmentVM>)GuideService.GetGuidesCurrentAppointments(username));
+            List<TourAppointmentVM> TourApps = new List<TourAppointmentVM>();
+            foreach(var tourApp in GuideService.GetGuidesCurrentAppointments(username))
+            {
+                TourApps.Add(new TourAppointmentVM(tourApp));
+            }
+            TourAppointments = new ObservableCollection<TourAppointmentVM>(TourApps);
         }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

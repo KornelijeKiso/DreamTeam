@@ -58,6 +58,10 @@ namespace ProjectTourism.Services
                 observer.Update();
             }
         }
+        public void UpdateHasTourStarted(string username, bool hasTourStarted)
+        {
+            GuideRepository.UpdateHasTourStarted(username, hasTourStarted);
+        }
         public List<TourAppointment> GetGuidesCurrentAppointments(string username)
         {
             return GuideRepository.GetGuidesCurrentAppointments(username);

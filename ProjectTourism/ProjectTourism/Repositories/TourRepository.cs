@@ -24,17 +24,21 @@ namespace ProjectTourism.Repositories
         public void Synchronize()
         {
         }
+        public Tour? Identify(Tour tour)
+        {
+            foreach (var existingTour in Tours)
+            {
+                if (existingTour.Id == tour.Id)
+                {
+                    return existingTour;
+                }
+            }
+            return null;
+        }
         public int GenerateId()
         {
-            int id = 0;
-            if (Tours == null)
-                id = 0;
-            else
-                foreach (var tour in Tours)
-                {
-                    id = tour.Id + 1;
-                }
-            return id;
+            if (Tours.Count == 0) return 0;
+            return Tours.Last<Tour>().Id + 1;
         }
         public void Add(Tour tour)
         {
@@ -73,6 +77,31 @@ namespace ProjectTourism.Repositories
                     existingTour.Name = tour.Name;
                 }
             }
+        }
+        public List<string> GetStops(Tour tour)
+        {
+            List<string> stops = new List<string>();
+            string[] str = tour.Stops.Split(',');
+            foreach (string s in str)
+            {
+                stops.Add(s.Trim());
+            }
+            stops.Insert(0, tour.Start);
+            stops.Add(tour.Finish);
+            return stops;
+        }
+
+        public List<string> GetStops(TourVM tour)
+        {
+            List<string> stops = new List<string>();
+            string[] str = tour.Stops.Split(',');
+            foreach (string s in str)
+            {
+                stops.Add(s.Trim());
+            }
+            stops.Insert(0, tour.Start);
+            stops.Add(tour.Finish);
+            return stops;
         }
     }
 }

@@ -20,6 +20,7 @@ namespace ProjectTourism.WPF.ViewModel
             _tour = tour;
         }
         public List<DateTime> dates { get; set; }
+        public List<string> StopsList { get; set; }
         public int Id
         {
             get => _tour.Id;

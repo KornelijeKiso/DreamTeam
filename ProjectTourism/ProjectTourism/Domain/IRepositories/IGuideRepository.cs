@@ -15,5 +15,6 @@ namespace ProjectTourism.Domain.IRepositories
         void Update(Guide guide);
         void Delete(Guide guide);
         List<TourAppointment> GetGuidesCurrentAppointments(string username);
+        void UpdateHasTourStarted(string username, bool hasTourStarted);
     }
 }

@@ -57,5 +57,9 @@ namespace ProjectTourism.Services
                 observer.Update();
             }
         }
+        public List<string> GetStops(TourVM tour)
+        {
+            return TourRepository.GetStops(tour);
+        }
     }
 }

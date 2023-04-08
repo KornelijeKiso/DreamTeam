@@ -54,6 +54,14 @@ namespace ProjectTourism.Repositories
             return null;
         }
 
+        public void UpdateHasTourStarted(string username, bool hasTourStarted)
+        {
+            Guide Guide = GetOne(username);
+            Guide.HasTourStarted = hasTourStarted;
+            FileHandler.Save(Guides);
+        //    NotifyObservers();
+        }
+
         public void Update(Guide guide)
         {
             throw new NotImplementedException();

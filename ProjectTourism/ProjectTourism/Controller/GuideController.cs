@@ -41,7 +41,7 @@ namespace ProjectTourism.Controller
         {
             GuideDAO.Add(guide);
         }
-        public void Update(string username, bool hasTourStarted)
+        public void Update(string username, bool hasTourStarted) //UpdateHasTourStarted
         {
             GuideDAO.Update(username, hasTourStarted);
         }

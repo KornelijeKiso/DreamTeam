@@ -70,5 +70,20 @@ namespace ProjectTourism.Services
                 observer.Update();
             }
         }
+        public List<TicketVM> GetByAppointment(int tourAppointmentId)
+        {
+            List<Ticket> ticketsByApp = TicketRepository.GetByAppointment(tourAppointmentId);
+            List<TicketVM> ticketsVM= new List<TicketVM>();
+            foreach(var ticket in ticketsByApp)
+            {
+                ticketsVM.Add(new TicketVM(ticket));
+            }
+            return ticketsVM;
+        }
+
+        public void GuideCheck(TicketVM selectedTicket)
+        {
+            TicketRepository.GuideCheck(selectedTicket.GetTicket());
+        }
     }
 }

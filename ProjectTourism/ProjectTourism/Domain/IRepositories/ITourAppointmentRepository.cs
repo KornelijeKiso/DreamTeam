@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectTourism.Model;
+using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.Domain.IRepositories
 {
@@ -14,5 +15,9 @@ namespace ProjectTourism.Domain.IRepositories
         void Add(TourAppointment tourAppointment);
         void Delete(TourAppointment tourAppointment);
         void Update(TourAppointment tourAppointment);
+        void ChangeState(TourAppointment tourAppointment);
+        string GetNextStop(TourVM tour, int checkpointIndex);
+        void ChangeCurrentStop(TourAppointmentVM tourAppVM);
+        void MakeTourAppointments(TourVM tour);
     }
 }

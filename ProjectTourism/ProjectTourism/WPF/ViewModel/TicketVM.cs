@@ -19,7 +19,6 @@ namespace ProjectTourism.WPF.ViewModel
         {
             _ticket = ticket;
         }
-
         public Ticket GetTicket()
         {
             return _ticket;
