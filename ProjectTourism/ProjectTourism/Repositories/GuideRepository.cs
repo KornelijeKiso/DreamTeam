@@ -7,6 +7,7 @@ using System.Windows.Automation;
 using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.FileHandler;
 using ProjectTourism.Model;
+using ProjectTourism.ModelDAO;
 using ProjectTourism.Repositories.IRepositories;
 using ProjectTourism.WPF.ViewModel;
 
@@ -56,6 +57,23 @@ namespace ProjectTourism.Repositories
         public void Update(Guide guide)
         {
             throw new NotImplementedException();
+        }
+        private static bool AppointmentAdditionIsValid(string username, TourAppointment tourAppointment)
+        {
+            return tourAppointment.Tour.GuideUsername.Equals(username) && tourAppointment.TourDateTime.Date.Equals(DateTime.Now.Date);
+        }
+        public List<TourAppointment> GetGuidesCurrentAppointments(string username)
+        {
+            List<TourAppointment> appointments = new List<TourAppointment>();
+            TourAppointmentDAO tourAppDAO = new TourAppointmentDAO();
+            foreach (var tourAppointment in tourAppDAO.GetAll())
+            {
+                if (AppointmentAdditionIsValid(username, tourAppointment))
+                {
+                    appointments.Add(tourAppointment);
+                }
+            }
+            return appointments;
         }
     }
 }

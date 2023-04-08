@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.Model;
+using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
 using ProjectTourism.WPF.ViewModel;
 
@@ -56,6 +57,10 @@ namespace ProjectTourism.Services
             {
                 observer.Update();
             }
+        }
+        public List<TourAppointment> GetGuidesCurrentAppointments(string username)
+        {
+            return GuideRepository.GetGuidesCurrentAppointments(username);
         }
     }
 }

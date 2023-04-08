@@ -14,5 +14,11 @@ namespace ProjectTourism.Domain.IRepositories
         void Add(Ticket ticket);
         void Delete(Ticket ticket); 
         void Update(Ticket ticket);
+        List<Ticket> GetByAppointment(int tourAppId);
+        List<Ticket> GetByGuest(string guest2Username);
+        Ticket GetGuest2Ticket(string guest2Username, int tourAppId);
+        void CheckGuestStatus(int tourAppId, int ticketId);
+        void GuideCheck(Ticket ticket);
+        public int GenerateId();
     }
 }

@@ -17,6 +17,8 @@ using System.Windows.Shapes;
 using ProjectTourism.Controller;
 using ProjectTourism.Model;
 using ProjectTourism.Observer;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
 
 namespace ProjectTourism.View.GuideView.TourView
 {
@@ -26,13 +28,13 @@ namespace ProjectTourism.View.GuideView.TourView
     public partial class LanguageAdditionWindow : Window, INotifyPropertyChanged, IObserver
     {
         public ObservableCollection<string> ObserverLanguages = new ObservableCollection<string>();
-        public TourController TourController { get; set; }
+        public TourService TourService { get; set; }
         public LanguageAdditionWindow(ObservableCollection<string> observerLanguages)
         {
             InitializeComponent();
             DataContext = this;
-            TourController = new TourController();
-            TourController.Subscribe(this);
+            TourService = new TourService(new TourRepository());
+            TourService.Subscribe(this);
             ObserverLanguages = observerLanguages;
         }
 

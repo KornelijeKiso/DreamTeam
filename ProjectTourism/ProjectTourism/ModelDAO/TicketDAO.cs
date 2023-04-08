@@ -72,10 +72,10 @@ namespace ProjectTourism.ModelDAO
             return null;
         }
 
-        public List<Ticket> GetByAppointment(int tourAppointmentId)   // same as tourAppointment.Tickets
+        public List<Ticket> GetByAppointment(int tourAppointmentId)
         {
             TourAppointmentDAO tourAppointmentDAO = new TourAppointmentDAO();
-            TourAppointment tourAppointment = tourAppointmentDAO.GetOne(tourAppointmentId);     //
+            TourAppointment tourAppointment = tourAppointmentDAO.GetOne(tourAppointmentId);
             List<Ticket> ticketsByApp = new List<Ticket>();
 
             foreach (var ticket in Tickets)

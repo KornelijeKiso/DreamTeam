@@ -17,6 +17,9 @@ using System.Windows.Shapes;
 using ProjectTourism.Controller;
 using ProjectTourism.Model;
 using ProjectTourism.Observer;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
+using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.GuideView.TourView
 {
@@ -25,19 +28,19 @@ namespace ProjectTourism.View.GuideView.TourView
     /// </summary>
     public partial class LiveToursTrackingWindow : Window, INotifyPropertyChanged, IObserver
     {
-        public Guide Guide { get; set; }
-        public ObservableCollection<TourAppointment> TourAppointments { get; set; }
-        public TourAppointment SelectedTourAppointment { get; set; }
-        public GuideController GuideController { get; set; }
-        public TourAppointmentController TourAppointmentController { get; set; }
+        public GuideVM Guide { get; set; }
+        public ObservableCollection<TourAppointmentVM> TourAppointments { get; set; }
+        public TourAppointmentVM SelectedTourAppointment { get; set; }
+        public GuideService GuideService { get; set; }
+        public TourAppointmentService TourAppointmentService { get; set; }
         public LiveToursTrackingWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
-            GuideController = new GuideController();
-            TourAppointmentController = new TourAppointmentController();
-            Guide = GuideController.GetOne(username);
-            TourAppointments = new ObservableCollection<TourAppointment>(GuideController.GetGuidesCurrentAppointments(username));
+            GuideService = new GuideService(new GuideRepository());
+            TourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
+            Guide = GuideService.GetOne(username);
+            TourAppointments = new ObservableCollection<TourAppointmentVM>((IEnumerable<TourAppointmentVM>)GuideService.GetGuidesCurrentAppointments(username));
         }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
