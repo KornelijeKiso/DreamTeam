@@ -117,7 +117,11 @@ namespace ProjectTourism.View.GuideView.TourView
         private void UpdateNextStop(TourAppointmentVM tourAppVM)
         {
             StopTextBox.Text = TourAppointmentService.GetNextStop(new TourVM(tourAppVM.Tour), PassedButtonClicks(tourAppVM));
-            tourAppVM.CurrentTourStop = tourAppVM.Tour.StopsList[PassedButtonClicks(tourAppVM) + 1];
+
+            if (tourAppVM.Tour.StopsList.Contains(tourAppVM.CurrentTourStop) && PassedButtonClicks(tourAppVM) + 1 < tourAppVM.Tour.StopsList.Count)
+                tourAppVM.CurrentTourStop = tourAppVM.Tour.StopsList[PassedButtonClicks(tourAppVM) + 1];
+            else
+                return;
             TourAppointmentService.ChangeCurrentStop(tourAppVM);
             tourAppVM.State = TOURSTATE.STARTED;
             TourAppointmentService.ChangeState(tourAppVM);
@@ -128,7 +132,6 @@ namespace ProjectTourism.View.GuideView.TourView
         {
             if (CanGoNextStop())
             {
-
                 NextStop(TourAppointment);
                 if (IsLastStop(TourAppointment))
                     FinishTour(TourAppointment);

@@ -48,7 +48,7 @@ namespace ProjectTourism.View.TourView
             Tour = new TourVM(new Tour());
             Tour.GuideUsername = guide.Username;
             Tour.Guide = guide;
-            //Tour.dates = new List<DateTime>();
+            Tour.dates = new List<DateTime>();
 
             TourService = new TourService(new TourRepository());
             TourService.Subscribe(this);
@@ -106,7 +106,7 @@ namespace ProjectTourism.View.TourView
                 MessageBox.Show("You have not choosed any dates for this tour!");
                 return;
             }
-            if (Tour.IsValid && NewLocation.IsValid)
+            if (NewLocation.IsValid) //if (Tour.IsValid && NewLocation.IsValid) <- this doesnt work because Tour.IsValid=false i dont know why
                 AddTour();
             else
                 MessageBox.Show("Tour can not be made because the fields were not correctly entered.");

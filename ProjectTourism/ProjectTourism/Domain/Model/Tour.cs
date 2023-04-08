@@ -52,6 +52,7 @@ namespace ProjectTourism.Model
         {
             StopsList = new List<string>();
             dates = new List<DateTime>();
+            IsValid = false;
         }
         public Tour(string name, LocationVM location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
         {
@@ -69,7 +70,7 @@ namespace ProjectTourism.Model
             GuideUsername = guideUsername;
             Guide = FindGuide(guideUsername);
             StopsList = new List<string>();
-            dates = new List<DateTime>();           
+            dates = new List<DateTime>();
         }
         public Tour(int id, string name, LocationVM location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
         {

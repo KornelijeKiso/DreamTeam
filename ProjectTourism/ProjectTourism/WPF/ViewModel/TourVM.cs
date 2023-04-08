@@ -216,7 +216,7 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
-        
+
 
         private readonly string[] _validatedProperties = {"Name", "MaxNumberOfGuests", "Start", "Finish", "StartDate", "Duration" };
 
