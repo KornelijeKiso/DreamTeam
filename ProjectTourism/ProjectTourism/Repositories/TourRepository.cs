@@ -23,6 +23,7 @@ namespace ProjectTourism.Repositories
 
         public void Synchronize()
         {
+
         }
         public Tour? Identify(Tour tour)
         {
@@ -43,6 +44,8 @@ namespace ProjectTourism.Repositories
         public void Add(Tour tour)
         {
             tour.Id = GenerateId();
+            List<string> pom = GetStops(tour);
+            tour.StopsList = pom;
             Tours.Add(tour);
             FileHandler.Save(Tours);
         }
@@ -63,7 +66,7 @@ namespace ProjectTourism.Repositories
             foreach(var tour in Tours)
             {
                 if(tour.Id == tourId)
-                    return tour;
+                    return tour; 
             }
             return null;
         }

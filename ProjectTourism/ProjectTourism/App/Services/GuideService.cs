@@ -62,13 +62,23 @@ namespace ProjectTourism.Services
         {
             GuideRepository.UpdateHasTourStarted(username, hasTourStarted);
         }
-        public List<TourAppointment> GetGuidesCurrentAppointments(string username)
+        public List<TourAppointmentVM> GetGuidesCurrentAppointments(string username)
         {
-            return GuideRepository.GetGuidesCurrentAppointments(username);
+            List<TourAppointmentVM> tourApps = new List<TourAppointmentVM>();
+            foreach (var tourApp in GuideRepository.GetGuidesCurrentAppointments(username))
+            {
+                tourApps.Add(new TourAppointmentVM(tourApp));
+            }
+            return tourApps;
         }
-        public List<TourAppointment> GetGuidesAppointments(string username)
+        public List<TourAppointmentVM> GetGuidesAppointments(string username)
         {
-            return GuideRepository.GetGuidesAppointments(username);
+            List<TourAppointmentVM> tourApps = new List<TourAppointmentVM>();
+            foreach (var tourApp in GuideRepository.GetGuidesAppointments(username))
+            {
+                tourApps.Add(new TourAppointmentVM(tourApp));
+            }
+            return tourApps;
         }
 
         public List<Tour> GetGuidesTours(string username)

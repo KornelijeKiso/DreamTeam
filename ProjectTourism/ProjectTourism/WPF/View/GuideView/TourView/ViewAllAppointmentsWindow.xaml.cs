@@ -20,6 +20,7 @@ using ProjectTourism.Observer;
 using ProjectTourism.Services;
 using ProjectTourism.WPF.ViewModel;
 using ProjectTourism.Repositories;
+using System.Runtime.CompilerServices;
 
 namespace ProjectTourism.View.GuideView.TourView
 {
@@ -41,18 +42,16 @@ namespace ProjectTourism.View.GuideView.TourView
             GuideUsername = username;
             DataContext = this;
             GuideService = new GuideService(new GuideRepository());
-            List<TourAppointmentVM> TourApps = new List<TourAppointmentVM>();
-            foreach (var tourApp in GuideService.GetGuidesCurrentAppointments(username))
-            {
-                TourApps.Add(new TourAppointmentVM(tourApp));
-            }
-            Appointments = new ObservableCollection<TourAppointmentVM>(TourApps);
+            Appointments = new ObservableCollection<TourAppointmentVM>(GuideService.GetGuidesCurrentAppointments(username));
             TourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
             CanceledTourAppointmentsRepo = new CanceledTourAppointmentsRepository();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
         public void Update()
         {
 
@@ -84,7 +83,7 @@ namespace ProjectTourism.View.GuideView.TourView
             Appointments.Clear();
             foreach (var tourApp in GuideService.GetGuidesAppointments(GuideUsername))
             {
-                Appointments.Add(new TourAppointmentVM(tourApp));
+                Appointments.Add(tourApp);
             }
         }
     }
