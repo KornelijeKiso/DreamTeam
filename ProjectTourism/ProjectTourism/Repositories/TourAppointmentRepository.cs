@@ -179,10 +179,6 @@ namespace ProjectTourism.Repositories
 
             return tour.StopsList[checkpointIndex + 1];
         }
-        public void Update(TourAppointment tourAppointment)
-        {
-            throw new NotImplementedException();
-        }
         public void ChangeCurrentStop(TourAppointmentVM tourAppVM)
         {
             foreach (var tourApp in TourAppointments)
@@ -193,6 +189,10 @@ namespace ProjectTourism.Repositories
                 }
             }
             FileHandler.Save(TourAppointments);
+        }
+        public void Update(TourAppointment tourAppointment)
+        {
+            throw new NotImplementedException();
         }
     }
 }
