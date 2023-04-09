@@ -1,7 +1,9 @@
 ﻿using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,14 +21,34 @@ namespace ProjectTourism.WPF.View.OwnerView
     /// <summary>
     /// Interaction logic for YourProfileMenuItem.xaml
     /// </summary>
-    public partial class YourProfileMenuItem : UserControl
+    public partial class YourProfileMenuItem : UserControl, INotifyPropertyChanged
     {
         public OwnerVM Owner { get; set; }
+        private string _Average;
+        public string Average
+        {
+            get => _Average;
+            set
+            {
+                if (value != _Average)
+                {
+                    _Average = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public YourProfileMenuItem(OwnerVM owner)
         {
             InitializeComponent();
             DataContext = this;
             Owner = owner;
+            Average = owner.AverageGrade.ToString("0.0");
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
