@@ -19,42 +19,36 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.Model
 {
-    public class Tour : Serializable, INotifyPropertyChanged
+    public class Tour : Serializable
     {
         public int Id;
-        public string? Name;
-        public int? LocationId;
-        public LocationVM? Location;
+        public string Name;
+        public int LocationId;
+        public Location Location;
         public string? Description;
-        public string? Language;
+        public string Language;
         public int MaxNumberOfGuests;
         public string? Stops;
-        public string? Start;
-        public string? Finish;
+        public string Start;
+        public string Finish;
         public DateTime StartDate;
         public List<DateTime> dates { get; set; }
-        public double? Duration;
+        public double Duration;
         public string? PictureURLs;
         public string[] Pictures;
-        public string? GuideUsername;
+        public string GuideUsername;
         public List<string> StopsList { get; set; }
-        public GuideVM Guide;
+        public Guide Guide;
         public bool IsValid;
         
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
         public Tour()
         {
             StopsList = new List<string>();
             dates = new List<DateTime>();
             IsValid = false;
         }
-        public Tour(string name, LocationVM location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
+        public Tour(string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
         {
             Name = name;
             Location = location;
@@ -68,11 +62,10 @@ namespace ProjectTourism.Model
             Duration = duration;
             PictureURLs = images;
             GuideUsername = guideUsername;
-            Guide = FindGuide(guideUsername);
             StopsList = new List<string>();
             dates = new List<DateTime>();
         }
-        public Tour(int id, string name, LocationVM location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
+        public Tour(int id, string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
         {
             Id = id;
             Name = name;
@@ -87,18 +80,12 @@ namespace ProjectTourism.Model
             Duration = duration;
             PictureURLs = images;
             GuideUsername = guideUsername;
-            Guide = FindGuide(guideUsername);
             Pictures = GetPictureURLsFromCSV();
             StopsList = new List<string>();
             dates = new List<DateTime>();
         }
 
-        public GuideVM? FindGuide(string username)
-        {
-            GuideService guideService = new GuideService(new GuideRepository());
-            return guideService.GetOne(username);
-        }
-
+        
         public string[] GetPictureURLsFromCSV()
         {
             string[] pictures = PictureURLs.Split(',');
@@ -146,17 +133,10 @@ namespace ProjectTourism.Model
             PictureURLs = values[10];
             GuideUsername = values[11];
             LocationId = int.Parse(values[12]);
-            Guide = FindGuide(GuideUsername);
-            Location = FindLocation(LocationId);
             Pictures = GetPictureURLsFromCSV();
         }
 
-        private LocationVM? FindLocation(int? locationId)
-        {
-            LocationService locationDAO = new LocationService(new LocationRepository());
-            return locationDAO.GetOne((int)locationId);
-        }
-
+        
         public string[] ToCSV()
         {
             string[] csvValues =
@@ -177,7 +157,5 @@ namespace ProjectTourism.Model
             };
             return csvValues;
         }
-
-        
     }
 }

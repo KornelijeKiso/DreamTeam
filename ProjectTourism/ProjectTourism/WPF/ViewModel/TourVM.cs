@@ -46,7 +46,7 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public int? LocationId
+        public int LocationId
         {
             get => _tour.LocationId;
             set
@@ -60,12 +60,12 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public LocationVM? Location
         {
-            get => _tour.Location;
+            get => new LocationVM(_tour.Location);
             set
             {
-                if (_tour.Location != value)
+                if (_tour.Location != value.GetLocation())
                 {
-                    _tour.Location = value;
+                    _tour.Location = value.GetLocation();
                     OnPropertyChanged();
                 }
             }
@@ -154,7 +154,7 @@ namespace ProjectTourism.WPF.ViewModel
                 OnPropertyChanged();
             }
         }
-        public double? Duration
+        public double Duration
         {
             get => _tour.Duration;
             set
@@ -189,18 +189,24 @@ namespace ProjectTourism.WPF.ViewModel
             get => _tour.GuideUsername;
             set
             {
-                _tour.GuideUsername = value;
-                OnPropertyChanged();
+                if (value != _tour.GuideUsername)
+                {
+                    _tour.GuideUsername = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
         public GuideVM Guide
         {
-            get => _tour.Guide;
+            get => new GuideVM(_tour.Guide);
             set
             {
-                _tour.Guide = value;
-                OnPropertyChanged();
+                if (value.GetGuide() != _tour.Guide)
+                {
+                    _tour.Guide = value.GetGuide();
+                    OnPropertyChanged();
+                }
             }
         }
         public bool IsValid

@@ -24,6 +24,12 @@ namespace ProjectTourism.Repositories
         }
         public void Synchronize()
         {
+            ITourRepository tourRepository = new TourRepository();
+            foreach (var tourApp in TourAppointments)
+            {
+                Tour tour = tourRepository.GetOne(tourApp.TourId);
+                tourApp.Tour = tour;
+            }
 
         }
         public int GenerateId()

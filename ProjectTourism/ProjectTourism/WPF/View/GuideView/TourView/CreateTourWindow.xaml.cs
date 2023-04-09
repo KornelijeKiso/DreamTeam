@@ -106,7 +106,7 @@ namespace ProjectTourism.View.TourView
                 MessageBox.Show("You have not choosed any dates for this tour!");
                 return;
             }
-            if (Tour.IsValid && NewLocation.IsValid) // <- this doesnt work because Tour.IsValid=false i dont know why
+            if (Tour.IsValid && NewLocation.IsValid)
                 AddTour();
             else
                 MessageBox.Show("Tour can not be made because the fields were not correctly entered.");

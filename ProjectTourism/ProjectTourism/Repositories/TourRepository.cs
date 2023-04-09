@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.FileHandler;
 using ProjectTourism.Model;
+using ProjectTourism.Repositories.IRepositories;
 using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.Repositories
@@ -23,6 +24,19 @@ namespace ProjectTourism.Repositories
 
         public void Synchronize()
         {
+            IGuideRepository guideRepository = new GuideRepository();
+            ILocationRepository locationRepository = new LocationRepository();
+            foreach (var tour in Tours) 
+            {
+                Location location = locationRepository.GetOne(tour.LocationId);
+                tour.Location = location;
+
+                Guide guide = guideRepository.GetOne(tour.GuideUsername);
+                tour.Guide = guide;
+
+                List<string> stops = GetStops(tour);
+                tour.StopsList = stops;
+            }
 
         }
         public Tour? Identify(Tour tour)
