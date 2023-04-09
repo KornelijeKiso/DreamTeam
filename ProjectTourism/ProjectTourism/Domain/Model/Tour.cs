@@ -19,7 +19,7 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.Model
 {
-    public class Tour : Serializable, INotifyPropertyChanged, IDataErrorInfo
+    public class Tour : Serializable, INotifyPropertyChanged
     {
         public int Id;
         public string? Name;
@@ -178,69 +178,6 @@ namespace ProjectTourism.Model
             return csvValues;
         }
 
-        private Regex _NameRegex = new Regex("[A-Z a-z]+");
-        private Regex _PositiveNumberRegex = new Regex("0|^[0-9]+$");
-        private Regex _StartRegex = new Regex("^.*[a-zA-Z]+.*$");
-        private Regex _DateTimeRegex = new Regex("^(0?[1-9]|1[012])\\/(0?[1-9]|[12][0-9]|3[01])\\/\\d{4}\\s(0?[1-9]|1[012]):([0-5][0-9]):([0-5][0-9])\\s(AM|PM)$\r\n");
-
-        public string Error => null;
-        public string? this[string columnName]
-        {
-            get
-            {
-                if (columnName == "Name")
-                {
-                    if (string.IsNullOrEmpty(Name))
-                        return "Name is required!";
-                    Match match = _NameRegex.Match(Name);
-                    if (!match.Success)
-                        return "Enter name";
-                }
-                else if (columnName == "MaxNumberOfGuests")
-                {
-                    if (string.IsNullOrEmpty(MaxNumberOfGuests.ToString()))
-                        return "Number must be positive!";
-                    Match match = _PositiveNumberRegex.Match(MaxNumberOfGuests.ToString());
-                    if (!match.Success)
-                        return "Enter positive number";
-                }
-                else if (columnName == "Start")
-                {
-                    if (string.IsNullOrEmpty(Start))
-                        return "Start point required!";
-                    Match match = _StartRegex.Match(Start);
-                    if (!match.Success)
-                        return "Enter start";
-                }
-                else if (columnName == "Finish")
-                {
-                    if (string.IsNullOrEmpty(Finish))
-                        return "Finish point is required!";
-                    Match match = _StartRegex.Match(Finish);
-                    if (!match.Success)
-                        return "Enter finish";
-                }
-                else if (columnName == "StartDate")
-                {
-                    if (string.IsNullOrEmpty(StartDate.ToString("MM/dd/yyyy HH:mm:ss")))
-                        return "Start date is required!";
-                    Match match = _DateTimeRegex.Match(StartDate.ToString("MM/dd/yyyy HH:mm:ss"));
-                }
-                else if (columnName == "Duration")
-                {
-                    if (string.IsNullOrEmpty(Duration.ToString()))
-                        return "Number must be positive!";
-                    Match match = _PositiveNumberRegex.Match(Duration.ToString());
-                    if (!match.Success)
-                        return "Enter positive number";
-                }
-                else
-                {
-                    return "Error";
-                }
-                return null;
-            }
-        }
         
     }
 }
