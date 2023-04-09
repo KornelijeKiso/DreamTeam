@@ -36,7 +36,7 @@ namespace ProjectTourism.Services
             List<TourVM> tours = new List<TourVM>();
             foreach (var tour in TourRepository.GetAll())
             {
-                List<string> pom = TourRepository.GetStops(new TourVM(tour));
+                List<string> pom = TourRepository.GetStops(tour);
                 tour.StopsList = pom;
                 tours.Add(new TourVM(tour));
             }
@@ -61,7 +61,7 @@ namespace ProjectTourism.Services
         }
         public List<string> GetStops(TourVM tour)
         {
-            return TourRepository.GetStops(tour);
+            return TourRepository.GetStops(tour.GetTour());
         }
     }
 }

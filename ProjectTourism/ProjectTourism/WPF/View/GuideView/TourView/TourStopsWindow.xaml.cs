@@ -116,17 +116,21 @@ namespace ProjectTourism.View.GuideView.TourView
         }
         private void UpdateNextStop(TourAppointmentVM tourAppVM)
         {
-            StopTextBox.Text = TourAppointmentService.GetNextStop(new TourVM(tourAppVM.Tour), PassedButtonClicks(tourAppVM));
-
-            if (tourAppVM.Tour.StopsList.Contains(tourAppVM.CurrentTourStop) && PassedButtonClicks(tourAppVM) + 1 < tourAppVM.Tour.StopsList.Count)
-                tourAppVM.CurrentTourStop = tourAppVM.Tour.StopsList[PassedButtonClicks(tourAppVM) + 1];
+            int nextStopIndex = PassedButtonClicks(tourAppVM) + 1;
+            if (nextStopIndex < tourAppVM.Tour.StopsList.Count)
+            {
+                StopTextBox.Text = TourAppointmentService.GetNextStop(new TourVM(tourAppVM.Tour), nextStopIndex);
+                tourAppVM.CurrentTourStop = tourAppVM.Tour.StopsList[nextStopIndex];
+                TourAppointmentService.ChangeCurrentStop(tourAppVM);
+                tourAppVM.State = TOURSTATE.STARTED;
+                TourAppointmentService.ChangeState(tourAppVM);
+            }
             else
+            {
                 return;
-            TourAppointmentService.ChangeCurrentStop(tourAppVM);
-            tourAppVM.State = TOURSTATE.STARTED;
-            TourAppointmentService.ChangeState(tourAppVM);
-            GuideService.UpdateHasTourStarted(tourAppVM.Tour.Guide.Username, true);
+            }
         }
+
 
         private void StopPassedButton_Click(object sender, RoutedEventArgs e)
         {

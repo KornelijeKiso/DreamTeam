@@ -19,13 +19,6 @@ namespace ProjectTourism.WPF.ViewModel
         {
             _tourAppointment = tourAppointment;
         }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         public TourAppointment GetTourAppointment()
         {
             return _tourAppointment;
@@ -137,6 +130,11 @@ namespace ProjectTourism.WPF.ViewModel
                     OnPropertyChanged();
                 }
             }
+        }
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

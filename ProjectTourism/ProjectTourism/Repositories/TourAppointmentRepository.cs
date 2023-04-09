@@ -160,24 +160,6 @@ namespace ProjectTourism.Repositories
             }
             FileHandler.Save(TourAppointments);
         }
-        public string GetNextStop(Tour tour, int checkpointIndex)
-        {
-            TourDAO tourDAO = new TourDAO();
-            List<string> stops = tourDAO.GetStops(tour);
-            tour.StopsList = stops;
-
-            if (checkpointIndex < 0 || checkpointIndex >= tour.StopsList.Count - 1)
-            {
-                throw new ArgumentException("Invalid stop index");
-            }
-
-            return tour.StopsList[checkpointIndex + 1];
-        }
-        public void Update(TourAppointment tourAppointment)
-        {
-            throw new NotImplementedException();
-        }
-
         public string GetNextStop(TourVM tour, int checkpointIndex)
         {
             TourService tourService = new TourService(new TourRepository());
@@ -191,7 +173,10 @@ namespace ProjectTourism.Repositories
 
             return tour.StopsList[checkpointIndex + 1];
         }
-
+        public void Update(TourAppointment tourAppointment)
+        {
+            throw new NotImplementedException();
+        }
         public void ChangeCurrentStop(TourAppointmentVM tourAppVM)
         {
             foreach (var tourApp in TourAppointments)

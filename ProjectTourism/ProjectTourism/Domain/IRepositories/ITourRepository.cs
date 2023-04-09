@@ -15,6 +15,6 @@ namespace ProjectTourism.Domain.IRepositories
         void Add(Tour tour);
         void Delete(Tour tour);
         void Update(Tour tour);
-        List<string> GetStops(TourVM tour);
+        List<string> GetStops(Tour tour);
     }
 }

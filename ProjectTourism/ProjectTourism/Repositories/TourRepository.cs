@@ -90,18 +90,5 @@ namespace ProjectTourism.Repositories
             stops.Add(tour.Finish);
             return stops;
         }
-
-        public List<string> GetStops(TourVM tour)
-        {
-            List<string> stops = new List<string>();
-            string[] str = tour.Stops.Split(',');
-            foreach (string s in str)
-            {
-                stops.Add(s.Trim());
-            }
-            stops.Insert(0, tour.Start);
-            stops.Add(tour.Finish);
-            return stops;
-        }
     }
 }
