@@ -35,5 +35,6 @@
 
         </DataGrid>
         <Label Content="Tour state" HorizontalAlignment="Left" Margin="583,57,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Button x:Name="ReviewsButton" IsEnabled="{Binding TourAppointment.IsNotFinished}" Content="See reviews" HorizontalAlignment="Left" Height="47" Margin="627,232,0,0" VerticalAlignment="Top" Width="133" Click="ReviewsButton_Click"/>
     </Grid>
 </Window>

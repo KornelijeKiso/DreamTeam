@@ -197,6 +197,10 @@ namespace ProjectTourism.View.GuideView.TourView
         {
             Tickets = new ObservableCollection<TicketVM>((IEnumerable<TicketVM>)TourAppointment.Tickets);
         }
+        private void ReviewsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)

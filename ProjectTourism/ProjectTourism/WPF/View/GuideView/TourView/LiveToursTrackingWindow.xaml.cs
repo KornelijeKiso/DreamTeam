@@ -49,7 +49,11 @@ namespace ProjectTourism.View.GuideView.TourView
         }
         public void Update()
         {
-
+            TourAppointments.Clear();
+            foreach (var item in GuideService.GetGuidesCurrentAppointments(Guide.Username))
+            {
+                TourAppointments.Add(item);
+            }
         }
 
         private void StartTourButton_Click(object sender, RoutedEventArgs e)
@@ -58,6 +62,7 @@ namespace ProjectTourism.View.GuideView.TourView
             {
                 TourStopsWindow tourStopsWindow = new TourStopsWindow(SelectedTourAppointment.Id);
                 tourStopsWindow.ShowDialog();
+                Update();                    
             }
             else
             {
