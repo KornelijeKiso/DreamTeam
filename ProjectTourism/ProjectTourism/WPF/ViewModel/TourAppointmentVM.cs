@@ -18,6 +18,7 @@ namespace ProjectTourism.WPF.ViewModel
         public TourAppointmentVM(TourAppointment tourAppointment)
         {
             _tourAppointment = tourAppointment;
+            Tickets = _tourAppointment.Tickets.Select(r => new TicketVM(r)).ToList();
         }
         public TourAppointment GetTourAppointment()
         {
@@ -83,18 +84,7 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public List<Ticket> Tickets
-        {
-            get => _tourAppointment.Tickets;
-            set
-            {
-                if (_tourAppointment.Tickets != value)
-                {
-                    _tourAppointment.Tickets = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public List<TicketVM> Tickets;
         public int AvailableSeats
         {
             get => _tourAppointment.AvailableSeats;
