@@ -19,9 +19,22 @@ namespace ProjectTourism.WPF.ViewModel
         public TourVM(Tour tour)
         {
             _tour = tour;
+            
+
         }
         public List<DateTime> dates { get; set; }
-        public List<string> StopsList { get; set; }
+        public List<string> StopsList
+        {
+            get => _tour.StopsList;
+            set
+            {
+                if(value != _tour.StopsList)
+                {
+                    _tour.StopsList = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public int Id
         {
             get => _tour.Id;

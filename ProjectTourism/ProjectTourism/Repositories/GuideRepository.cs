@@ -96,14 +96,14 @@ namespace ProjectTourism.Repositories
         public List<Tour> GetGuidesTours(string username)
         {
             List<Tour> tours = new List<Tour>();
-            TourService tourService = new TourService(new TourRepository());
-            foreach (var tour in tourService.GetAll())
+            ITourRepository tourRepository= new TourRepository();
+            foreach (var tour in tourRepository.GetAll())
             {
                 if (tour.GuideUsername.Equals(username))
                 {
-                    List<string> pom = tourService.GetStops(tour);
+                    List<string> pom = tourRepository.GetStops(tour);
                     tour.StopsList = pom;
-                    tours.Add(tour.GetTour());
+                    tours.Add(tour);
                 }
             }
             return tours;

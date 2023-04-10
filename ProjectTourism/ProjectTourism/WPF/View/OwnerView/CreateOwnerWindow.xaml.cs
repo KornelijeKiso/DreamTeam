@@ -3,6 +3,10 @@ using ProjectTourism.Model;
 using ProjectTourism.Observer;
 using System;
 using System.Collections.Generic;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
+using ProjectTourism.Domain.IRepositories;
+using ProjectTourism.WPF.ViewModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -24,21 +28,21 @@ namespace ProjectTourism.View.OwnerView
     /// </summary>
     public partial class CreateOwnerWindow : Window, INotifyPropertyChanged, IObserver
     {
-        public Owner Owner { get; set; }
-        public User User { get; set; }
-        public OwnerController OwnerController { get; set; }
-        public UserController UserController { get; set; }
+        public OwnerVM OwnerVM { get; set; }
+        public UserVM UserVM { get; set; }
+        public OwnerService OwnerService { get; set; }
+        public UserService UserService { get; set; }
 
-        public CreateOwnerWindow(User user)
+        public CreateOwnerWindow(UserVM userVM)
         {
             InitializeComponent();
             DataContext= this;
-            Owner = new Owner();
-            User = user;
-            Owner.Username= User.Username;
-            OwnerController = new OwnerController();
-            UserController = new UserController();
-            OwnerController.Subscribe(this);
+            OwnerVM = new OwnerVM(new Owner());
+            UserVM = userVM;
+            OwnerVM.Username= UserVM.Username;
+            OwnerService = new OwnerService(new OwnerRepository());
+            UserService = new UserService(new UserRepository());
+            OwnerService.Subscribe(this);
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -48,10 +52,10 @@ namespace ProjectTourism.View.OwnerView
         }
         public void CreateClick(object sender, RoutedEventArgs e)
         {
-            if(Owner.Email!=null && Owner.FirstName!=null && Owner.LastName != null)
+            if(OwnerVM.Email!=null && OwnerVM.FirstName!=null && OwnerVM.LastName != null)
             {
-                UserController.Add(User);
-                OwnerController.Add(Owner);
+                UserService.Add(UserVM);
+                OwnerService.Add(OwnerVM);
                 Close();
             }
             else

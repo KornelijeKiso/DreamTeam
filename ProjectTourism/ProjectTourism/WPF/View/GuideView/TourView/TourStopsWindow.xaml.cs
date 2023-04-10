@@ -75,12 +75,12 @@ namespace ProjectTourism.View.GuideView.TourView
         {
             return TourAppointment.State == TOURSTATE.STARTED;
         }
-        public int PassedButtonClicks(TourAppointmentVM tour)
+        public int PassedButtonClicks(TourAppointmentVM tourApp)
         {
             int number = 0;
-            foreach(var stop in tour.Tour.StopsList)
+            foreach(var stop in tourApp.Tour.StopsList)
             {
-                if (stop.Equals(tour.CurrentTourStop))
+                if (stop.Equals(tourApp.CurrentTourStop))
                     break;
                 number++;
             }

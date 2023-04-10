@@ -1,6 +1,10 @@
 ﻿using ProjectTourism.Controller;
 using ProjectTourism.Model;
 using ProjectTourism.Observer;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
+using ProjectTourism.Domain.IRepositories;
+using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -24,21 +28,21 @@ namespace ProjectTourism.View.Guest1View
     /// </summary>
     public partial class CreateGuest1Window : Window, INotifyPropertyChanged, IObserver
     {
-        public Guest1 Guest1 { get; set; }
-        public User User { get; set; }
-        public Guest1Controller Guest1Controller { get; set; }
-        public UserController UserController { get; set; }
+        public Guest1VM Guest1VM { get; set; }
+        public UserVM UserVM { get; set; }
+        public Guest1Service Guest1Service { get; set; }
+        public UserService UserService { get; set; }
 
-        public CreateGuest1Window(User user)
+        public CreateGuest1Window(UserVM userVM)
         {
             InitializeComponent();
             DataContext = this;
-            Guest1 = new Guest1();
-            User = user;
-            Guest1.Username = User.Username;
-            Guest1Controller = new Guest1Controller();
-            UserController = new UserController();
-            Guest1Controller.Subscribe(this);
+            Guest1VM = new Guest1VM(new Guest1());
+            UserVM = userVM;
+            Guest1VM.Username = UserVM.Username;
+            Guest1Service = new Guest1Service(new Guest1Repository());
+            UserService = new UserService(new UserRepository());
+            Guest1Service.Subscribe(this);
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -48,10 +52,10 @@ namespace ProjectTourism.View.Guest1View
         }
         public void CreateGuestClick(object sender, RoutedEventArgs e)
         {
-            if (Guest1.Email != null && Guest1.FirstName != null && Guest1.LastName != null)
+            if (Guest1VM.Email != null && Guest1VM.FirstName != null && Guest1VM.LastName != null)
             {
-                UserController.Add(User);
-                Guest1Controller.Add(Guest1);
+                UserService.Add(UserVM);
+                Guest1Service.Add(Guest1VM);
                 Close();
             }
             else

@@ -9,65 +9,23 @@ using System.Threading.Tasks;
 namespace ProjectTourism.Model
 {
     public enum USERTYPE{ OWNER, GUIDE, GUEST1, GUEST2 };
-    public class User:Serializable, INotifyPropertyChanged
+    public class User:Serializable
     {
-        private USERTYPE _Type;
-        public USERTYPE Type
+        public USERTYPE Type;
+        
+        public string Username;
+        
+        public string Password;
+        
+        public User()
         {
-            get => _Type;
-            set
-            {
-                if (value != _Type)
-                {
-                    _Type = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private string _Username;
-        public string Username
-        {
-            get => _Username;
-            set
-            {
-                if (value != _Username)
-                {
-                    _Username = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private string _Password;
-        public string Password
-        {
-            get => _Password;
-            set
-            {
-                if (value != _Password)
-                {
-                    _Password = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public User(string username, string password, USERTYPE type)
-        {
-            this.Username = username;
-            this.Password = password;
-            this.Type = type;  
-        }
-        public User() {
-            this.Username = "";
-            this.Password = "";
-        }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
+        public User(string username, string password)
+        {
+            Username = username;
+            Password = password;
+        }
         public string[] ToCSV()
         {
             int type;
