@@ -12,7 +12,7 @@ public enum TOURSTATE { READY, STARTED, FINISHED, STOPPED };
 
 namespace ProjectTourism.WPF.ViewModel
 {
-    public class TourAppointmentVM: INotifyPropertyChanged //IDataErrorInfo
+    public class TourAppointmentVM: INotifyPropertyChanged
     {
         private TourAppointment _tourAppointment;
         public TourAppointmentVM(TourAppointment tourAppointment)
@@ -121,6 +121,20 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+
+        public bool IsFinished
+        {
+            get => _tourAppointment.IsFinished;
+            set
+            {
+                if (_tourAppointment.IsFinished != value)
+                {
+                    _tourAppointment.IsFinished = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

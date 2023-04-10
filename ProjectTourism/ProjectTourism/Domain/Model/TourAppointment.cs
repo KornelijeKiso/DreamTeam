@@ -29,7 +29,7 @@ namespace ProjectTourism.Model
         public int AvailableSeats;
         public TOURSTATE State;
         public bool IsNotFinished;
-        
+        public bool IsFinished;
 
         public TourAppointment()
         { 
@@ -44,6 +44,7 @@ namespace ProjectTourism.Model
             CurrentTourStop = Tour.Start;
             AvailableSeats = Tour.MaxNumberOfGuests;
             IsNotFinished = true;
+            IsFinished = false;
             State = TOURSTATE.READY;
             Tickets = new List<Ticket>();
         }

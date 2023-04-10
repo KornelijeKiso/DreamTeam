@@ -22,6 +22,7 @@ using ProjectTourism.Model;
 using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
+using ProjectTourism.WPF.View.GuideView.TourView;
 using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.GuideView.TourView
@@ -103,6 +104,7 @@ namespace ProjectTourism.View.GuideView.TourView
         private void UpdateFinishTour(TourAppointmentVM tourApp)
         {
             tourApp.IsNotFinished = false;
+            tourApp.IsFinished = true;
             tourApp.State = TOURSTATE.FINISHED;
             GuideService.UpdateHasTourStarted(tourApp.Tour.Guide.Username, false);
             TourAppointmentService.ChangeState(tourApp);
@@ -166,6 +168,7 @@ namespace ProjectTourism.View.GuideView.TourView
             TourAppointment.State = TOURSTATE.STOPPED;
             TourAppointmentService.ChangeState(TourAppointment);
             TourAppointment.IsNotFinished = false;
+            TourAppointment.IsFinished = true;
             GuideService.UpdateHasTourStarted(TourAppointment.Tour.Guide.Username, false);
         }
         
@@ -199,7 +202,8 @@ namespace ProjectTourism.View.GuideView.TourView
         }
         private void ReviewsButton_Click(object sender, RoutedEventArgs e)
         {
-
+            ReviewsWindow reviewsWindow = new ReviewsWindow();
+            reviewsWindow.ShowDialog();
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 

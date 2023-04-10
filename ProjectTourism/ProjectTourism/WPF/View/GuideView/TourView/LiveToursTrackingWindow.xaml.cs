@@ -47,15 +47,6 @@ namespace ProjectTourism.View.GuideView.TourView
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public void Update()
-        {
-            TourAppointments.Clear();
-            foreach (var item in GuideService.GetGuidesCurrentAppointments(Guide.Username))
-            {
-                TourAppointments.Add(item);
-            }
-        }
-
         private void StartTourButton_Click(object sender, RoutedEventArgs e)
         {
             if (SelectedTourAppointment != null)
@@ -67,6 +58,14 @@ namespace ProjectTourism.View.GuideView.TourView
             else
             {
                 MessageBox.Show("You must choose a route which you want to start.");
+            }
+        }
+        public void Update()
+        {
+            TourAppointments.Clear();
+            foreach (var item in GuideService.GetGuidesCurrentAppointments(Guide.Username))
+            {
+                TourAppointments.Add(item);
             }
         }
     }
