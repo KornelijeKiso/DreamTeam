@@ -51,8 +51,9 @@ namespace ProjectTourism.View.GuideView.TourView
         {
             if (SelectedTourAppointment != null)
             {
-                TourStopsWindow tourStopsWindow = new TourStopsWindow(SelectedTourAppointment.Id);
+                TourStopsWindow tourStopsWindow = new TourStopsWindow(SelectedTourAppointment);
                 tourStopsWindow.ShowDialog();
+                SelectedTourAppointment = tourStopsWindow.TourAppointment;
                 Update();                    
             }
             else
@@ -66,6 +67,8 @@ namespace ProjectTourism.View.GuideView.TourView
             foreach (var item in GuideService.GetGuidesCurrentAppointments(Guide.Username))
             {
                 TourAppointments.Add(item);
+                if(item.State == TOURSTATE.FINISHED)
+                    item.IsFinished = true;
             }
         }
     }

@@ -39,15 +39,15 @@ namespace ProjectTourism.View.GuideView.TourView
         public ObservableCollection<TicketVM> Tickets { get; set; }
         public TicketVM SelectedTicket { get; set; }
 
-        public TourStopsWindow(int id)
+        public TourStopsWindow(TourAppointmentVM SelectedTourAppointment)
         {
             InitializeComponent();
             DataContext = this;
             SetServices();
 
-            TourAppointment = TourAppointmentService.GetOne(id);
+            TourAppointment = SelectedTourAppointment;
 
-            List<TicketVM> tickets = TicketService.GetByAppointment(id);
+            List<TicketVM> tickets = TicketService.GetByAppointment(SelectedTourAppointment.Id);
             Tickets = new ObservableCollection<TicketVM>(tickets);
 
          //   ControlTicketStatusColor();
@@ -143,6 +143,7 @@ namespace ProjectTourism.View.GuideView.TourView
                 TourAppointment.CurrentTourStop = TourAppointment.Tour.StopsList.Last();
                 TourAppointmentService.ChangeCurrentStop(TourAppointment);
                 TourAppointment.State = TOURSTATE.FINISHED;
+                TourAppointment.IsFinished = true;
                 TourAppointmentService.ChangeState(TourAppointment);
                 FinishTour(TourAppointment);
             }
