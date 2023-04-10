@@ -1,4 +1,11 @@
-﻿using System;
+﻿using ProjectTourism.Controller;
+using ProjectTourism.Model;
+using ProjectTourism.Observer;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
+using ProjectTourism.Domain.IRepositories;
+using ProjectTourism.WPF.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,9 +20,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ProjectTourism.Controller;
-using ProjectTourism.Model;
-using ProjectTourism.Observer;
 
 namespace ProjectTourism.View.Guest2View
 {
@@ -24,21 +28,21 @@ namespace ProjectTourism.View.Guest2View
     /// </summary>
     public partial class CreateGuest2Window : Window, INotifyPropertyChanged, IObserver
     {
-        public Guest2 Guest2 { get; set; }
-        public User User { get; set; }
-        public Guest2Controller Guest2Controller { get; set; }
-        public UserController UserController { get; set; }
+        public Guest2VM Guest2VM { get; set; }
+        public UserVM UserVM { get; set; }
+        public Guest2Service Guest2Service { get; set; }
+        public UserService UserService { get; set; }
 
-        public CreateGuest2Window(User user)
+        public CreateGuest2Window(UserVM userVM)
         {
             InitializeComponent();
             DataContext = this;
-            Guest2Controller = new Guest2Controller();
-            UserController = new UserController();
-            Guest2 = new Guest2();
-            User = user;
-            Guest2.Username = user.Username;
-            Guest2Controller.Subscribe(this);
+            Guest2Service = new Guest2Service(new Guest2Repository());
+            UserService = new UserService(new UserRepository());
+            Guest2VM = new Guest2VM( new Guest2());
+            UserVM = userVM;
+            Guest2VM.Username = userVM.Username;
+            Guest2Service.Subscribe(this);
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -55,10 +59,10 @@ namespace ProjectTourism.View.Guest2View
 
         private void CreateClick(object sender, RoutedEventArgs e)
         {
-            if (Guest2.FirstName != null && Guest2.LastName != null)
+            if (Guest2VM.FirstName != null && Guest2VM.LastName != null)
             {
-                UserController.Add(User);
-                Guest2Controller.Add(Guest2);
+                UserService.Add(UserVM);
+                Guest2Service.Add(Guest2VM);
                 Close();
             }
             else
