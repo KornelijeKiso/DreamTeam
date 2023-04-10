@@ -55,7 +55,7 @@ namespace ProjectTourism.View.Guest1View
             if (Guest1VM.Email != null && Guest1VM.FirstName != null && Guest1VM.LastName != null)
             {
                 UserService.Add(UserVM);
-                Guest1Service.Add(Guest1VM);
+                Guest1Service.Add(Guest1VM.GetGuest1());
                 Close();
             }
             else

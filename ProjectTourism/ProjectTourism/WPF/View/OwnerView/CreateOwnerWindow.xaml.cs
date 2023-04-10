@@ -37,7 +37,7 @@ namespace ProjectTourism.View.OwnerView
         {
             InitializeComponent();
             DataContext= this;
-            OwnerVM = new OwnerVM(new Owner());
+            OwnerVM = new OwnerVM(userVM.Username);
             UserVM = userVM;
             OwnerVM.Username= UserVM.Username;
             OwnerService = new OwnerService(new OwnerRepository());
@@ -55,7 +55,7 @@ namespace ProjectTourism.View.OwnerView
             if(OwnerVM.Email!=null && OwnerVM.FirstName!=null && OwnerVM.LastName != null)
             {
                 UserService.Add(UserVM);
-                OwnerService.Add(OwnerVM);
+                OwnerService.Add(OwnerVM.GetOwner());
                 Close();
             }
             else
