@@ -8,6 +8,7 @@
         Title="Tour statistics" Height="720" Width="1280"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <Label Content="Tour statistics" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
+
     </Grid>
 </Window>

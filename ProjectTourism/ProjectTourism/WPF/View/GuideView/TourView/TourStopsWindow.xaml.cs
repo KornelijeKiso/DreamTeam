@@ -120,7 +120,7 @@ namespace ProjectTourism.View.GuideView.TourView
             int nextStopIndex = PassedButtonClicks(tourAppVM) + 1;
             if (nextStopIndex < tourAppVM.Tour.StopsList.Count())
             {
-                StopTextBox.Text = TourAppointmentService.GetNextStop(new TourVM(tourAppVM.Tour), nextStopIndex);
+                StopTextBox.Text = TourAppointmentService.GetNextStop(new TourVM(tourAppVM.Tour.GetTour()), nextStopIndex);
                 tourAppVM.CurrentTourStop = tourAppVM.Tour.StopsList[nextStopIndex];
                 TourAppointmentService.ChangeCurrentStop(tourAppVM);
                 tourAppVM.State = TOURSTATE.STARTED;

@@ -36,7 +36,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" >
-                                <Label Content="{Binding Path=Tour.Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
+                                <Label Content="{Binding Tour.Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
                                     <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
                                     <Label Margin="0,0,0,-7">

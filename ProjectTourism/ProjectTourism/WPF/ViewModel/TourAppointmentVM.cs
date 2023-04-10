@@ -71,14 +71,14 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public Tour Tour
+        public TourVM Tour
         {
-            get => _tourAppointment.Tour;
+            get => new TourVM(_tourAppointment.Tour);
             set
             {
-                if (_tourAppointment.Tour != value)
+                if (value.GetTour() != _tourAppointment.Tour)
                 {
-                    _tourAppointment.Tour = value;
+                    _tourAppointment.Tour = value.GetTour();
                     OnPropertyChanged();
                 }
             }
