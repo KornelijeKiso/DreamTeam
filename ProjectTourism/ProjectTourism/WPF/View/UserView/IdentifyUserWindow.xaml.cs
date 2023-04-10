@@ -4,6 +4,10 @@ using ProjectTourism.View.GuideView;
 using ProjectTourism.View.OwnerView;
 using ProjectTourism.View.Guest1View;
 using ProjectTourism.View.Guest2View;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
+using ProjectTourism.Domain.IRepositories;
+using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,13 +31,12 @@ namespace ProjectTourism.View.UserView
     /// </summary>
     public partial class IdentifyUserWindow : Window
     {
-        public User User;
-        public UserController Controller;
+        public UserVM UserVM { get; set; }
+        public UserService Service;
         public IdentifyUserWindow()
         {
             InitializeComponent();
-            User = new User();
-            Controller = new UserController();
+            Service = new UserService(new UserRepository());
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -43,35 +46,34 @@ namespace ProjectTourism.View.UserView
         }
         private void LogInClick(object sender, RoutedEventArgs e)
         {
-            User.Password = txtPassword.Password;
-            User.Username = txtUsername.Text;
-            User newUser = Controller.Identify(User);
+            UserVM = new UserVM(new User(txtUsername.Text, txtPassword.Password));
+            UserVM newUser = Service.Identify(UserVM);
             if (newUser != null)
             {
-                switch (User.Type)
+                switch (UserVM.Type)
                 {
                     case USERTYPE.OWNER: 
                         {
-                            MainOwnerWindow mainOwnerWindow = new MainOwnerWindow(User.Username);
+                            MainOwnerWindow mainOwnerWindow = new MainOwnerWindow(UserVM.Username);
                             mainOwnerWindow.ShowDialog();
                             break; 
                         }
                     case USERTYPE.GUIDE:
                         {
-                            MainGuideWindow mainGuideWindow = new MainGuideWindow(User.Username);
+                            MainGuideWindow mainGuideWindow = new MainGuideWindow(UserVM.Username);
                             mainGuideWindow.ShowDialog();
                             break;
                         }
                     case USERTYPE.GUEST1:
                         {
-                            Guest1MainWindow guest1mainWindow = new Guest1MainWindow(User.Username);
+                            Guest1MainWindow guest1mainWindow = new Guest1MainWindow(UserVM.Username);
                             guest1mainWindow.ShowDialog();
                             
                             break;
                         }
                     case USERTYPE.GUEST2:
                         {
-                            MainGuest2Window mainGuest2Window = new MainGuest2Window(User.Username);
+                            MainGuest2Window mainGuest2Window = new MainGuest2Window(UserVM.Username);
                             mainGuest2Window.ShowDialog();
                             break;
                         }
