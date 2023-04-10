@@ -21,37 +21,30 @@ namespace ProjectTourism.Services
             OwnerRepo = ior;
             Observers = new List<IObserver>();
         }
-        public void Add(OwnerVM owner)
+        public void Add(Owner owner)
         {
-            OwnerRepo.Add(owner.GetOwner());
+            OwnerRepo.Add(owner);
         }
-        public void Delete(OwnerVM owner)
+        public void Delete(Owner owner)
         {
-            OwnerRepo.Delete(owner.GetOwner());
+            OwnerRepo.Delete(owner);
         }
-        public OwnerVM GetOne(string username)
+        public Owner GetOne(string username)
         {
-            return new OwnerVM(OwnerRepo.GetOne(username));
+            return OwnerRepo.GetOne(username);
         }
-        public List<OwnerVM> GetAll()
+        public List<Owner> GetAll()
         {
-            List<OwnerVM> owners= new List<OwnerVM>();
-            foreach(var owner in OwnerRepo.GetAll())
-            {
-                owners.Add(new OwnerVM(owner));
-            }
-            return owners;
+            return OwnerRepo.GetAll();
         }
         public void Subscribe(IObserver observer)
         {
             Observers.Add(observer);
         }
-
         public void Unsubscribe(IObserver observer)
         {
             Observers.Remove(observer);
         }
-
         public void NotifyObservers()
         {
             foreach (var observer in Observers)

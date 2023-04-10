@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ProjectTourism.Services
 {
-    internal class AccommodationGradeService
+    public class AccommodationGradeService
     {
         public List<IObserver> Observers;
         private IAccommodationGradeRepository AccommodationGradeRepo;
@@ -21,26 +21,21 @@ namespace ProjectTourism.Services
             Observers = new List<IObserver>();
             AccommodationGradeRepo = iagr;
         }
-        public void Add(AccommodationGradeVM accommodationGrade)
+        public void Add(AccommodationGrade accommodationGrade)
         {
-            AccommodationGradeRepo.Add(accommodationGrade.GetAccommodationGrade());
+            AccommodationGradeRepo.Add(accommodationGrade);
         }
-        public void Delete(AccommodationGradeVM accommodationGrade)
+        public void Delete(AccommodationGrade accommodationGrade)
         {
-            AccommodationGradeRepo.Delete(accommodationGrade.GetAccommodationGrade());
+            AccommodationGradeRepo.Delete(accommodationGrade);
         }
-        public AccommodationGradeVM GetOneByReservation(int reservationId)
+        public AccommodationGrade GetOneByReservation(int reservationId)
         {
-            return new AccommodationGradeVM( AccommodationGradeRepo.GetOneByReservation(reservationId));
+            return AccommodationGradeRepo.GetOneByReservation(reservationId);
         }
-        public List<AccommodationGradeVM> GetAll()
+        public List<AccommodationGrade> GetAll()
         {
-            List<AccommodationGradeVM> accommodationsGrade = new List<AccommodationGradeVM>();
-            foreach (var accommodationGrade in AccommodationGradeRepo.GetAll())
-            {
-                accommodationsGrade.Add(new AccommodationGradeVM(accommodationGrade));
-            }
-            return accommodationsGrade;
+            return AccommodationGradeRepo.GetAll();
         }
         public void Subscribe(IObserver observer)
         {

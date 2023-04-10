@@ -30,21 +30,13 @@ namespace ProjectTourism.WPF.View.OwnerView
     public partial class YourAccommodationsMenuItem : UserControl, IObserver, INotifyPropertyChanged
     {
         public OwnerVM Owner { get; set; }
-        public ObservableCollection<AccommodationVM> Accommodations { get; set; }
-        public ObservableCollection<ReservationVM> Reservations { get; set; }
-        public ReservationVM SelectedReservation { get; set; }
         public AccommodationVM SelectedAccommodation { get; set; }
-        public OwnerService OwnerService { get; set; }
-        public AccommodationService AccommodationService { get; set; }
         public AccommodationVM NewAccommodation { get; set; }
         public LocationVM NewLocation { get; set; }
-        public LocationService LocationService { get; set; }
         public List<string> Deadlines { get; set; }
         public List<string> Types { get; set; }
         public Dictionary<string, int> Days { get; set; }
         public ObservableCollection<bool> IncDecButtons { get; set; }
-        public List<Guest1GradeVM> Grades { get; set; }
-        public Guest1GradeService Guest1GradeService { get; set; }
 
         public YourAccommodationsMenuItem(string username)
         {
@@ -55,36 +47,15 @@ namespace ProjectTourism.WPF.View.OwnerView
             InitializeDays();
             InitializeTypes();
 
-            InitializeControllers();
             InitializeNewEntities();
 
             SetOwner(username);
 
-            LoadDataGrids(username);
-
-            Subscribe();
-        }
-
-        private void Subscribe()
-        {
-            AccommodationService.Subscribe(this);
-            LocationService.Subscribe(this);
-        }
-
-        private void LoadDataGrids(string username)
-        {
-            Accommodations = new ObservableCollection<AccommodationVM>(Owner.Accommodations);
-            Reservations = SortReservations();
-            Grades = new List<Guest1GradeVM>();
-            foreach (ReservationVM reservation in Reservations)
-            {
-                Grades.Add(reservation.Guest1Grade);
-            }
         }
 
         private void SetOwner(string username)
         {
-            Owner = OwnerService.GetOne(username);
+            Owner = new OwnerVM(username);
             NewAccommodation.Owner = Owner;
             NewAccommodation.OwnerUsername = username;
         }
@@ -93,14 +64,6 @@ namespace ProjectTourism.WPF.View.OwnerView
         {
             NewAccommodation = new AccommodationVM(new Accommodation());
             NewLocation = new LocationVM(new Location());
-        }
-
-        private void InitializeControllers()
-        {
-            LocationService = new LocationService(new LocationRepository());
-            OwnerService = new OwnerService(new OwnerRepository());
-            AccommodationService = new AccommodationService(new AccommodationRepository());
-            Guest1GradeService = new Guest1GradeService(new Guest1GradeRepository());
         }
 
         private void InitializeTypes()
@@ -138,24 +101,6 @@ namespace ProjectTourism.WPF.View.OwnerView
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private ObservableCollection<ReservationVM> SortReservations()
-        {
-            List<ReservationVM> sortedReservations = Owner.Reservations;
-            sortedReservations.Sort((x, y) => y.EndDate.CompareTo(x.EndDate));
-            return new ObservableCollection<ReservationVM>(sortedReservations);
-        }
-
-        public void AreAllGuestsGraded(object sender, EventArgs e)
-        {
-            foreach (var reservation in Reservations)
-            {
-                if (reservation.IsAbleToGrade() && !reservation.Graded)
-                {
-                    MessageBox.Show("There are guests who are waiting to be graded.");
-                    break;
-                }
-            }
-        }
         private void HandleTypeCombobox()
         {
             if ((string)ComboType.SelectedItem == "Apartment")
@@ -186,16 +131,8 @@ namespace ProjectTourism.WPF.View.OwnerView
         private void RegisterNewAccommodation()
         {
             HandleTypeCombobox();
-            LocationVM location = new LocationVM(NewLocation.City, NewLocation.Country);
-            location.Id = LocationService.AddAndReturnId(location);
-            NewLocation.Id = location.Id;
-            NewAccommodation.SetLocation(location);
             NewAccommodation.CancellationDeadline = Days[(string)ComboDeadline.SelectedValue];
-
-            AccommodationService.Add(NewAccommodation);
-            AccommodationVM accommodation = new AccommodationVM(NewAccommodation);
-            Owner.Accommodations.Add(accommodation);
-            Accommodations.Add(accommodation);
+            Owner.AddAccommodation(NewAccommodation, NewLocation);
             Reset();
         }
 
@@ -209,7 +146,6 @@ namespace ProjectTourism.WPF.View.OwnerView
 
         public void Update()
         {
-            Accommodations = new ObservableCollection<AccommodationVM>(Owner.Accommodations);
         }
 
         public void IncreaseMaxNumberOfGuestsClick(object sender, RoutedEventArgs e)
@@ -264,25 +200,6 @@ namespace ProjectTourism.WPF.View.OwnerView
                 IncDecButtons[3] = false;
             }
         }
-        //public void GradeGuestClick(object sender, RoutedEventArgs e)
-        //{
-        //    Button button = (Button)sender;
-        //    GradeGuestWindow gradeGuestWindow = new GradeGuestWindow(SelectedReservation, Owner);
-        //    gradeGuestWindow.ShowDialog();
-        //    SelectedReservation.Graded = gradeGuestWindow.Graded;
-        //    if (gradeGuestWindow.Graded)
-        //    {
-        //        Owner = gradeGuestWindow.Owner;
-        //        button.IsEnabled = false;
-        //        SelectedReservation.VisibleReview = SelectedReservation.AccommodationGraded;
-        //    }
-        //    Update();
-        //}
-
-        //public void SeeReviewClick(object sender, RoutedEventArgs e)
-        //{
-        //    Guest1ReviewWindow guestsReviewWindow = new Guest1ReviewWindow(SelectedReservation.AccommodationGrade);
-        //    guestsReviewWindow.ShowDialog();
-        //}
+        
     }
 }

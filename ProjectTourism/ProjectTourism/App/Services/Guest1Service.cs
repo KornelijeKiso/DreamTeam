@@ -21,28 +21,21 @@ namespace ProjectTourism.Services
             Guest1Repo = ig1r;
             Observers = new List<IObserver>();
         }
-        public void Add(Guest1VM guest1)
+        public void Add(Guest1 guest1)
         {
-            Guest1Repo.Add(guest1.GetGuest1());
+            Guest1Repo.Add(guest1);
         }
-        public void Delete(Guest1VM guest1)
+        public void Delete(Guest1 guest1)
         {
-            Guest1Repo.Delete(guest1.GetGuest1());
+            Guest1Repo.Delete(guest1);
         }
-        public Guest1VM GetOne(string username)
+        public Guest1 GetOne(string username)
         {
-            Guest1 guest = Guest1Repo.GetOne(username);
-            guest.Reservations = Guest1Repo.GetReservationsByGuest(username);
-            return new Guest1VM(guest);
+            return Guest1Repo.GetOne(username);
         }
-        public List<Guest1VM> GetAll()
+        public List<Guest1> GetAll()
         {
-            List<Guest1VM> guests = new List<Guest1VM>();
-            foreach (var guest1 in Guest1Repo.GetAll())
-            {
-                guests.Add(new Guest1VM(guest1));
-            }
-            return guests;
+            return Guest1Repo.GetAll();
         }
         public void Subscribe(IObserver observer)
         {

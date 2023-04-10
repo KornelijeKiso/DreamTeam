@@ -15,7 +15,6 @@ namespace ProjectTourism.WPF.ViewModel
         public AccommodationVM(Accommodation accommodation)
         {
             _accommodation= accommodation;
-            Reservations = _accommodation.Reservations.Select(r => new ReservationVM(r)).ToList();
         }
         public AccommodationVM(AccommodationVM accommodation)
         {
@@ -171,7 +170,7 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public OwnerVM Owner
         {
-            get => new OwnerVM(_accommodation.Owner);
+            get => new OwnerVM(_accommodation.Owner.Username);
             set
             {
                 if (value.GetOwner() != _accommodation.Owner)
@@ -181,11 +180,10 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public List<ReservationVM> Reservations;
         
-        public void SetLocation(LocationVM location)
+        public void SetLocation(Location location)
         {
-            Location = location;
+            Location = new LocationVM(location);
             LocationId = location.Id;
             CityAndCountry = location.City + ", " + location.Country;
         }

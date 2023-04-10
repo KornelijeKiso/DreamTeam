@@ -10,7 +10,7 @@
 
 
 
-        <DataGrid x:Name="DataGridReservations" ItemsSource="{Binding Reservations, UpdateSourceTrigger=PropertyChanged}"
+        <DataGrid x:Name="DataGridReservations" ItemsSource="{Binding Owner.Reservations, UpdateSourceTrigger=PropertyChanged}"
             SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" RowHeight="80" 
             IsReadOnly="True" VerticalScrollBarVisibility="Visible" AutoGenerateColumns="False" Margin="100,79,100,79" HorizontalScrollBarVisibility="Disabled" 
             BorderThickness="2" BorderBrush="Green" Background="LightYellow" RowBackground="LightYellow" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">

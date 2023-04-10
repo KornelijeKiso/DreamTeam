@@ -21,26 +21,25 @@ namespace ProjectTourism.Services
             AccommodationRepo= iar;
             Observers = new List<IObserver>();
         }
-        public void Add(AccommodationVM accommodation)
+        public void Add(Accommodation accommodation)
         {
-            AccommodationRepo.Add(accommodation.GetAccommodation());
+            AccommodationRepo.Add(accommodation);
         }
-        public void Delete(AccommodationVM accommodation)
+        public void Delete(Accommodation accommodation)
         {
-            AccommodationRepo.Delete(accommodation.GetAccommodation());
+            AccommodationRepo.Delete(accommodation);
         }
-        public AccommodationVM GetOne(int id)
+        public Accommodation GetOne(int id)
         {
-            return new AccommodationVM(AccommodationRepo.GetOne(id));
+            return AccommodationRepo.GetOne(id);
         }
-        public List<AccommodationVM> GetAll()
+        public List<Accommodation> GetAll()
         {
-            List<AccommodationVM> accommodations = new List<AccommodationVM>();
-            foreach (var accommodation in AccommodationRepo.GetAll())
-            {
-                accommodations.Add(new AccommodationVM(accommodation));
-            }
-            return accommodations;
+            return AccommodationRepo.GetAll();
+        }
+        public List<Accommodation> GetAllByOwner(string username)
+        {
+            return AccommodationRepo.GetAllByOwner(username);
         }
         public void Subscribe(IObserver observer)
         {

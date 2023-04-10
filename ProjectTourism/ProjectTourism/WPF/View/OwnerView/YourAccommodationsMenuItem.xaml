@@ -17,7 +17,7 @@
         <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </UserControl.Resources>
     <Grid>
-        <DataGrid x:Name="DataGridAccommodations" HeadersVisibility="None" ItemsSource="{Binding Accommodations, UpdateSourceTrigger=PropertyChanged}"
+        <DataGrid x:Name="DataGridAccommodations" HeadersVisibility="None" ItemsSource="{Binding Path=Owner.Accommodations, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                     IsReadOnly="True" VerticalScrollBarVisibility="Visible" AutoGenerateColumns="False"  BorderBrush="Green" BorderThickness="2"
                     Margin="276,79,20,34" RowHeight="130" RowBackground="LightYellow" Background="LightYellow" HorizontalScrollBarVisibility="Disabled">

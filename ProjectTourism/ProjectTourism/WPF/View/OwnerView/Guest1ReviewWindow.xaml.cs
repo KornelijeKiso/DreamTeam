@@ -23,7 +23,7 @@ namespace ProjectTourism.View.OwnerView
     /// </summary>
     public partial class Guest1ReviewWindow : Window, INotifyPropertyChanged
     {
-        public AccommodationGradeVM Review { get; set; }
+        public ReservationVM Reservation { get; set; }
         public int Hospitality { get; set; }
         public int Cleanness { get; set; }
         public int Location { get; set; }
@@ -68,19 +68,19 @@ namespace ProjectTourism.View.OwnerView
                 }
             }
         }
-        public Guest1ReviewWindow(AccommodationGradeVM review)
+        public Guest1ReviewWindow(ReservationVM reservation)
         {
             InitializeComponent();
             DataContext = this;
-            Review = review;
-            Hospitality = Review.Grades["Hospitality"];
-            Cleanness = Review.Grades["Cleanness"];
-            Location = Review.Grades["Location"];
-            Comfort = Review.Grades["Comfort"];
-            PriceQuality = Review.Grades["Price and quality ratio"];
+            Reservation = reservation;
+            Hospitality = reservation.AccommodationGrade.Grades["Hospitality"];
+            Cleanness = reservation.AccommodationGrade.Grades["Cleanness"];
+            Location = reservation.AccommodationGrade.Grades["Location"];
+            Comfort = reservation.AccommodationGrade.Grades["Comfort"];
+            PriceQuality = reservation.AccommodationGrade.Grades["Price and quality ratio"];
             i = 0;
-            Picture = Review.Pictures[i];
-            Average = String.Format("{0:0.0}", Review.AverageGrade);
+            Picture = reservation.AccommodationGrade.Pictures[i];
+            Average = String.Format("{0:0.0}", reservation.AccommodationGrade.AverageGrade);
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -96,13 +96,13 @@ namespace ProjectTourism.View.OwnerView
             }
             else
             {
-                i = Review.Pictures.Length - 1;
+                i = Reservation.AccommodationGrade.Pictures.Length - 1;
             }
-            Picture = Review.Pictures[i];
+            Picture = Reservation.AccommodationGrade.Pictures[i];
         }
         public void ForwardClick(object sender, RoutedEventArgs e)
         {
-            if (i < Review.Pictures.Length-1)
+            if (i < Reservation.AccommodationGrade.Pictures.Length-1)
             {
                 i++;
             }
@@ -110,7 +110,7 @@ namespace ProjectTourism.View.OwnerView
             {
                 i = 0;
             }
-            Picture = Review.Pictures[i];
+            Picture = Reservation.AccommodationGrade.Pictures[i];
         }
     }
 }

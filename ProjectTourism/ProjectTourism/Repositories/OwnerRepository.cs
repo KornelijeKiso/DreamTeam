@@ -20,49 +20,6 @@ namespace ProjectTourism.Repositories
         {
             FileHandler = new OwnerFileHandler();
             Owners = FileHandler.Load();
-            Synchronize();
-        }
-
-        public void Synchronize()
-        {
-            IAccommodationRepository accommodationRepo = new AccommodationRepository();
-            foreach (var owner in Owners)
-            {
-                foreach (var accommodation in accommodationRepo.GetAllByOwner(owner.Username))
-                {
-                        accommodation.Owner = owner;
-                        owner.Accommodations.Add(accommodation);
-                        owner.Reservations.AddRange(accommodation.Reservations);
-                }
-                double sum = 0;
-                int counter = 0;
-                foreach (Reservation reservation in owner.Reservations)
-                {
-                    if (reservation.AccommodationGraded && reservation.EndDate.AddYears(1)>DateOnly.FromDateTime(DateTime.Now))
-                    {
-                        sum += reservation.AccommodationGrade.AverageGrade;
-                        counter++;
-                    }
-                }
-                if (counter > 0)
-                {
-                    owner.AverageGrade = sum / counter;
-                    if (owner.AverageGrade > 4.5)
-                    {
-                        owner.IsSuperHost = true;
-                    }
-                    else
-                    {
-                        owner.IsSuperHost = false;
-                    }
-                }
-                else
-                {
-                    owner.AverageGrade = 0;
-                    owner.IsSuperHost = false;
-                }
-                owner.NumberOfReviews = counter;
-            }
         }
 
         public void Add(Owner owner)

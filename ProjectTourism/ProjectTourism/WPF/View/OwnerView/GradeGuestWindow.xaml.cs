@@ -25,10 +25,6 @@ namespace ProjectTourism.View.OwnerView
     public partial class GradeGuestWindow : Window
     {
         public OwnerVM Owner { get; set; }
-        public ReservationVM Reservation { get; set; }
-        public Guest1GradeService Guest1GradeService { get; set; }
-        public ReservationService ReservationService { get; set; }  
-        public List<Guest1GradeVM> Guest1Grades { get; set; }
         public Guest1GradeVM GuestGrade { get; set; }
         public bool Graded;
         public GradeGuestWindow(ReservationVM reservation, OwnerVM owner)
@@ -36,16 +32,9 @@ namespace ProjectTourism.View.OwnerView
             InitializeComponent();
             DataContext = this;
             Owner = owner;
-            ReservationService= new ReservationService(new ReservationRepository());
-            Guest1GradeService = new Guest1GradeService(new Guest1GradeRepository());
-            Guest1Grades = new List<Guest1GradeVM>();
-            foreach(var res in Owner.Reservations)
-            {
-                Guest1Grades.Add(res.Guest1Grade);
-            }
             GuestGrade = new Guest1GradeVM();
             GuestGrade.ReservationId = reservation.Id;
-            Reservation = reservation;
+            GuestGrade.Reservation = reservation;
         }
 
         private void GradeClick(object sender, RoutedEventArgs e)
@@ -61,14 +50,7 @@ namespace ProjectTourism.View.OwnerView
                     return;
                 }
             }
-            Guest1GradeService.Add(GuestGrade);
-            foreach (var reservation in Owner.Reservations)
-            {
-                if (reservation.Id == GuestGrade.ReservationId)
-                {
-                    reservation.Guest1Grade= GuestGrade;
-                }
-            }
+            Owner.GradeAGuest(GuestGrade);
             Graded = true;
             Close();
         }
