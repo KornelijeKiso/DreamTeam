@@ -143,15 +143,7 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public bool CanBeGraded
         {
-            get => _reservation.CanBeGraded;
-            set
-            {
-                if (value != _reservation.CanBeGraded)
-                {
-                    _reservation.CanBeGraded = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => !Graded && IsAbleToGrade();
         }
         public bool VisibleReview
         {
@@ -203,6 +195,10 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public string GenerateGradingDeadlineMessage()
         {
+            if (Graded)
+            {
+                return "Already graded.";
+            }
             if (IsAbleToGrade())
             {
                 return GradingDeadline.ToString();

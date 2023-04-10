@@ -13,6 +13,9 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
+        <TextBlock Margin="860 80 0 0" FontSize="19">
+            <Hyperlink Click="Hyperlink_Click">Log out</Hyperlink>
+        </TextBlock>
         <Image VerticalAlignment="Top" HorizontalAlignment="Left" Source="https://img.icons8.com/cotton/2x/user-male-circle.png" Width="128" Height="128" Margin="51 103 0 0"></Image>
         <Label VerticalAlignment="Top" HorizontalAlignment="Left" Margin="190 113 0 0" ContentStringFormat="@{0}" FontSize="14" FontWeight="SemiBold" Foreground="DarkSlateGray" Content="{Binding Owner.Username}"></Label>
         <Label VerticalAlignment="Top"  FontSize="20" HorizontalAlignment="Left" Margin="190 133 0 0">

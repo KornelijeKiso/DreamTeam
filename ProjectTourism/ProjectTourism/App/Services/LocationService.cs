@@ -1,4 +1,5 @@
 ﻿using ProjectTourism.Domain.IRepositories;
+using ProjectTourism.Model;
 using ProjectTourism.Observer;
 using ProjectTourism.Repositories.IRepositories;
 using ProjectTourism.WPF.ViewModel;
@@ -19,37 +20,30 @@ namespace ProjectTourism.Services
             LocationRepo = ilr;
             Observers = new List<IObserver>();
         }
-        public int AddAndReturnId(LocationVM location)
+        public int AddAndReturnId(Location location)
         {
-            return LocationRepo.AddAndReturnId(location.GetLocation());
+            return LocationRepo.AddAndReturnId(location);
         }
-        public void Delete(LocationVM location)
+        public void Delete(Location location)
         {
-            LocationRepo.Delete(location.GetLocation());
+            LocationRepo.Delete(location);
         }
-        public LocationVM GetOne(int id)
+        public Location GetOne(int id)
         {
-            return new LocationVM(LocationRepo.GetOne(id));
+            return LocationRepo.GetOne(id);
         }
-        public List<LocationVM> GetAll()
+        public List<Location> GetAll()
         {
-            List<LocationVM> locations = new List<LocationVM>();
-            foreach (var location in LocationRepo.GetAll())
-            {
-                locations.Add(new LocationVM(location));
-            }
-            return locations;
+            return LocationRepo.GetAll();
         }
         public void Subscribe(IObserver observer)
         {
             Observers.Add(observer);
         }
-
         public void Unsubscribe(IObserver observer)
         {
             Observers.Remove(observer);
         }
-
         public void NotifyObservers()
         {
             foreach (var observer in Observers)

@@ -113,7 +113,7 @@ namespace ProjectTourism.View.TourView
 
         private void AddTour()
         {
-            NewLocation.Id = NewLocationService.AddAndReturnId(NewLocation);
+            NewLocation.Id = NewLocationService.AddAndReturnId(NewLocation.GetLocation());
             Tour.Location = NewLocation;
             Tour.LocationId = NewLocation.Id;
             SaveDates();

@@ -11,28 +11,28 @@
         <GroupBox Header="Reservation info" Background="LightGreen" FontSize="14" Height="124" Width="418" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,3,0,0" BorderThickness="2" BorderBrush="Black"/>
         <GroupBox Header="Accommodation" Background="White" FontSize="14" Height="92" Width="195" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="220,25,0,0" BorderThickness="2" BorderBrush="Black"/>
         <GroupBox Header="Guest" Background="White" FontSize="14" Height="92" Width="195" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,25,0,0" BorderThickness="2" BorderBrush="Black"/>
-        <Label FontWeight="Bold" Foreground="Gray" FontSize="13" ContentStringFormat = "@{0}" Content= "{Binding Path=Review.Reservation.Guest1Username}" HorizontalAlignment="Left" Margin="30,40,0,0" VerticalAlignment="Top" Width="175" Height="29"/>
+        <Label FontWeight="Bold" Foreground="Gray" FontSize="13" ContentStringFormat = "@{0}" Content= "{Binding Path=Reservation.Guest1Username}" HorizontalAlignment="Left" Margin="30,40,0,0" VerticalAlignment="Top" Width="175" Height="29"/>
         <Label FontWeight="Bold" FontSize="13" HorizontalAlignment="Left" Margin="30,60,0,0" VerticalAlignment="Top" Width="175" Height="29">
             <Label.Content>
                 <TextBlock>
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0} {1}">
-                            <Binding Path="Review.Reservation.Guest1.FirstName"/>
-                            <Binding Path="Review.Reservation.Guest1.LastName"/>
+                            <Binding Path="Reservation.Guest1.FirstName"/>
+                            <Binding Path="Reservation.Guest1.LastName"/>
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
             </Label.Content>
         </Label>
-        <Label FontWeight="Bold" FontSize="13" Content= "{Binding Path=Review.Reservation.Guest1.Email}" HorizontalAlignment="Left" Margin="30,80,0,0" VerticalAlignment="Top" Width="175" Height="29"/>
-        <Label FontWeight="Bold" Foreground="Gray" FontSize="13" Content= "{Binding Path=Review.Reservation.Accommodation.Name}" HorizontalAlignment="Left" Margin="230,40,0,0" VerticalAlignment="Top" Width="175" Height="29"/>
+        <Label FontWeight="Bold" FontSize="13" Content= "{Binding Path=Reservation.Guest1.Email}" HorizontalAlignment="Left" Margin="30,80,0,0" VerticalAlignment="Top" Width="175" Height="29"/>
+        <Label FontWeight="Bold" Foreground="Gray" FontSize="13" Content= "{Binding Path=Reservation.Accommodation.Name}" HorizontalAlignment="Left" Margin="230,40,0,0" VerticalAlignment="Top" Width="175" Height="29"/>
         <Label FontWeight="Bold" FontSize="13" HorizontalAlignment="Left" Margin="230,60,0,0" VerticalAlignment="Top" Width="175" Height="29">
             <Label.Content>
                 <TextBlock>
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0}, {1}">
-                            <Binding Path="Review.Reservation.Accommodation.Location.City"/>
-                            <Binding Path="Review.Reservation.Accommodation.Location.Country"/>
+                            <Binding Path="Reservation.Accommodation.Location.City"/>
+                            <Binding Path="Reservation.Accommodation.Location.Country"/>
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
@@ -43,8 +43,8 @@
                 <TextBlock>
                     <TextBlock.Text>
                         <MultiBinding StringFormat="{}{0} - {1}">
-                            <Binding Path="Review.Reservation.StartDate"/>
-                            <Binding Path="Review.Reservation.EndDate"/>
+                            <Binding Path="Reservation.StartDate"/>
+                            <Binding Path="Reservation.EndDate"/>
                         </MultiBinding>
                     </TextBlock.Text>
                 </TextBlock>
@@ -66,7 +66,7 @@
             <Image Source="https://img.icons8.com/fluency/2x/double-right.png"></Image>
         </Button>
         <Label Height="30" Width="150" Margin="-260,150,0,0" Content="Comment" FontSize="14" FontWeight="Medium"></Label>
-        <TextBox Text="{Binding Review.Comment}" IsEnabled="False" AcceptsReturn="True" TextWrapping="Wrap" Height="100" Width="300" Margin="-110,270,0,0" BorderBrush="Black" BorderThickness="2"></TextBox>
+        <TextBox Text="{Binding Reservation.AccommodationGrade.Comment}" IsEnabled="False" AcceptsReturn="True" TextWrapping="Wrap" Height="100" Width="300" Margin="-110,270,0,0" BorderBrush="Black" BorderThickness="2"></TextBox>
         <Rectangle Height="80" Width="80" Margin="315,250,0,0" Stroke="Green" Fill="White" StrokeThickness="3" ></Rectangle>
         <TextBlock Height="58" Width="80" Text="{Binding Path=Average, UpdateSourceTrigger=PropertyChanged}" FontSize="40" FontWeight="Bold" TextAlignment="Center" Foreground="Green" Margin="315,248,0,0"></TextBlock>
         <CheckBox Content="Recommended renovation" IsChecked="True" FontSize="14" IsEnabled="False" Margin="15,430,0,0"></CheckBox>

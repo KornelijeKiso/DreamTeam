@@ -44,6 +44,16 @@ namespace ProjectTourism.WPF.View.OwnerView
             Owner = owner;
             Average = owner.AverageGrade.ToString("0.0");
         }
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            Window parentWindow = Window.GetWindow(this);
+            if (parentWindow != null)
+            {
+                parentWindow.Close();
+            }
+        }
+
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

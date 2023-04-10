@@ -19,43 +19,8 @@ namespace ProjectTourism.Repositories
         {
             FileHandler = new ReservationFileHandler();
             Reservations = FileHandler.Load();
-            Synchronize();
         }
-        public void Synchronize()
-        {
-            IAccommodationGradeRepository accommodationGradeRepo = new AccommodationGradeRepository();
-            IGuest1GradeRepository guest1GradeRepo = new Guest1GradeRepository();
-            IGuest1Repository guest1Repo = new Guest1Repository();
-            AccommodationGrade accommodationGrade;
-            Guest1Grade guest1Grade;
-            foreach (Reservation reservation in Reservations)
-            {
-                accommodationGrade = accommodationGradeRepo.GetOneByReservation(reservation.Id);
-                guest1Grade = guest1GradeRepo.GetOneByReservation(reservation.Id);
-                reservation.Guest1 = guest1Repo.GetOne(reservation.Guest1Username);
-                if (guest1Grade != null)
-                {
-                    guest1Grade.Reservation = reservation;
-                    reservation.Guest1Grade = guest1Grade;
-                    reservation.Graded = true;
-                }
-                if (accommodationGrade != null)
-                {
-                    accommodationGrade.Reservation = reservation;
-                    reservation.AccommodationGrade = accommodationGrade;
-                    reservation.AccommodationGraded = true;
-                }
-                if (reservation.Graded && reservation.AccommodationGraded)
-                {
-                    reservation.VisibleReview = true;
-                }
-                reservation.CanBeGraded = false;
-                if (reservation.IsAbleToGrade() && !reservation.Graded)
-                {
-                    reservation.CanBeGraded = true;
-                }
-            }
-        }
+        
         public int GenerateId()
         {
             int id = 0;

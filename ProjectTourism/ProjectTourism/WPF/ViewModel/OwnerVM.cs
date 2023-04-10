@@ -1,8 +1,12 @@
 ﻿using ProjectTourism.Model;
 using ProjectTourism.Observer;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -14,12 +18,81 @@ namespace ProjectTourism.WPF.ViewModel
     {
         private Owner _owner;
 
-        public OwnerVM(Owner owner)
+        public OwnerVM(string username)
         {
-            _owner = owner;
-            Reservations = _owner.Reservations.Select(r => new ReservationVM(r)).ToList();
-            Accommodations = _owner.Accommodations.Select(r => new AccommodationVM(r)).ToList();
+            Synchronize(username);
+            Accommodations = new ObservableCollection<AccommodationVM>(_owner.Accommodations.Select(r => new AccommodationVM(r)).ToList());
+            Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).ToList());
         }
+        private void Synchronize(string username)
+        {
+            OwnerService ownerService = new OwnerService(new OwnerRepository());
+            AccommodationService accommodationService = new AccommodationService(new AccommodationRepository());
+            LocationService locationService = new LocationService(new LocationRepository());
+
+            _owner = ownerService.GetOne(username);
+            _owner.Accommodations = accommodationService.GetAllByOwner(_owner.Username);
+            _owner.Reservations = new List<Reservation>();
+            foreach (Accommodation accommodation in _owner.Accommodations)
+            {
+                accommodation.Location = locationService.GetOne(accommodation.LocationId);
+                accommodation.Reservations = SynchronizeReservations(accommodation);
+                _owner.Reservations.AddRange(accommodation.Reservations);
+            }
+        }
+        private List<Reservation> SynchronizeReservations(Accommodation accommodation)
+        {
+            ReservationService reservationService = new ReservationService(new ReservationRepository());
+            Guest1GradeService guest1GradeService = new Guest1GradeService(new Guest1GradeRepository());
+            Guest1Service guest1Service = new Guest1Service(new Guest1Repository());
+            AccommodationGradeService accommodationGradeService = new AccommodationGradeService(new AccommodationGradeRepository());
+
+            List<Reservation> reservations = reservationService.GetAllByAccommodation(accommodation.Id);
+            foreach (Reservation reservation in reservations)
+            {
+                reservation.Guest1 = guest1Service.GetOne(reservation.Guest1Username);
+                reservation.Accommodation = accommodation;
+                reservation.AccommodationGrade = accommodationGradeService.GetOneByReservation(reservation.Id);
+                reservation.Guest1Grade = guest1GradeService.GetOneByReservation(reservation.Id);
+                
+                reservation.Graded = reservation.Guest1Grade != null;
+                reservation.AccommodationGraded = reservation.AccommodationGrade != null;
+                reservation.CanBeGraded = !reservation.Graded && reservation.IsAbleToGrade();
+                reservation.VisibleReview = reservation.Graded && reservation.AccommodationGraded;
+            }
+
+            return reservations;
+        }
+        public void AddAccommodation(AccommodationVM newAccommodation, LocationVM newLocation)
+        {
+            AccommodationService accommodationService = new AccommodationService(new AccommodationRepository());
+            LocationService locationService = new LocationService(new LocationRepository());
+            Location location = new Location(newLocation.City, newLocation.Country);
+            location.Id = locationService.AddAndReturnId(location);
+            newLocation.Id = location.Id;
+            newAccommodation.SetLocation(location);
+
+            accommodationService.Add(newAccommodation.GetAccommodation());
+            AccommodationVM accommodation = new AccommodationVM(newAccommodation);
+            Accommodations.Add(accommodation);
+            _owner.Accommodations.Add(accommodation.GetAccommodation());
+        }
+
+        public void GradeAGuest(Guest1GradeVM grade)
+        {
+            Guest1GradeService guest1GradeService = new Guest1GradeService(new Guest1GradeRepository());
+            foreach( var reservation in Reservations)
+            {
+                if (reservation.Id == grade.ReservationId)
+                {
+                    reservation.Guest1Grade = grade;
+                    reservation.Graded = true;
+                    guest1GradeService.Add(grade.GetGuest1Grade());
+                    return;
+                }
+            }
+        }
+        
         public Owner GetOwner()
         {
             return _owner;
@@ -39,15 +112,7 @@ namespace ProjectTourism.WPF.ViewModel
 
         public bool IsSuperHost
         {
-            get => _owner.IsSuperHost;
-            set
-            {
-                if(value!= _owner.IsSuperHost)
-                {
-                    _owner.IsSuperHost = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => AverageGrade>4.5 && NumberOfReviews>2;
         }
         public string FirstName
         {
@@ -76,15 +141,7 @@ namespace ProjectTourism.WPF.ViewModel
 
         public int NumberOfReviews
         {
-            get => _owner.NumberOfReviews;
-            set
-            {
-                if (value != _owner.NumberOfReviews)
-                {
-                    _owner.NumberOfReviews = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => _owner.Reservations.Count(res=>res.AccommodationGrade!=null);
         }
         public int NumberOfReservations
         {
@@ -108,21 +165,25 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public double AverageGrade
         {
-            get => _owner.AverageGrade;
-            set
+            get => CalculateAverageGrade();
+        }
+        public ObservableCollection<AccommodationVM> Accommodations { get; set; }
+        public ObservableCollection<ReservationVM> Reservations{ get; set; }
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+        private double CalculateAverageGrade()
+        {
+            try
             {
-                if (value != _owner.AverageGrade)
-                {
-                    _owner.AverageGrade = value;
-                    OnPropertyChanged();
-                }
+                return _owner.Reservations.Where(reservation => reservation.AccommodationGraded && reservation.EndDate.AddYears(1) > DateOnly.FromDateTime(DateTime.Now))
+                                   .Average(reservation => reservation.AccommodationGrade.AverageGrade);
+            }
+            catch (Exception ex)
+            {
+                return 0;
             }
         }
-        public List<AccommodationVM> Accommodations;
-        public List<ReservationVM> Reservations;
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

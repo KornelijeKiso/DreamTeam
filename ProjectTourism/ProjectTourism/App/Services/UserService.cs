@@ -1,8 +1,8 @@
-﻿using ProjectTourism.Model;
+﻿using ProjectTourism.Domain.IRepositories;
+using ProjectTourism.Model;
 using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
-using ProjectTourism.Repositories.IRepositories;
 using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -12,34 +12,27 @@ using System.Threading.Tasks;
 
 namespace ProjectTourism.Services
 {
-    public class AccommodationService
+    public class UserService
     {
-        private IAccommodationRepository AccommodationRepo;
         public List<IObserver> Observers;
-        public AccommodationService(IAccommodationRepository iar)
+        private IUserRepository UserRepo;
+        public UserService(IUserRepository iur)
         {
-            AccommodationRepo= iar;
+            UserRepo = iur;
             Observers = new List<IObserver>();
         }
-        public void Add(Accommodation accommodation)
+        public void Add(UserVM user)
         {
-            AccommodationRepo.Add(accommodation);
+            UserRepo.Add(user.GetUser());
         }
-        public void Delete(Accommodation accommodation)
+        public UserVM Identify(UserVM userVM)
         {
-            AccommodationRepo.Delete(accommodation);
+            return new UserVM(UserRepo.Identify(userVM.GetUser()));
         }
-        public Accommodation GetOne(int id)
+
+        public bool UsernameAlreadyInUse(string username)
         {
-            return AccommodationRepo.GetOne(id);
-        }
-        public List<Accommodation> GetAll()
-        {
-            return AccommodationRepo.GetAll();
-        }
-        public List<Accommodation> GetAllByOwner(string username)
-        {
-            return AccommodationRepo.GetAllByOwner(username);
+            return UserRepo.UsernameAlreadyInUse(username);
         }
         public void Subscribe(IObserver observer)
         {

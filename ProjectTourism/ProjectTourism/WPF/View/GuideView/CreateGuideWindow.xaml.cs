@@ -1,4 +1,11 @@
-﻿using System;
+﻿using ProjectTourism.Controller;
+using ProjectTourism.Model;
+using ProjectTourism.Observer;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
+using ProjectTourism.Domain.IRepositories;
+using ProjectTourism.WPF.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,9 +20,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ProjectTourism.Controller;
-using ProjectTourism.Model;
-using ProjectTourism.Observer;
 
 namespace ProjectTourism.View.GuideView
 {
@@ -24,20 +28,20 @@ namespace ProjectTourism.View.GuideView
     /// </summary>
     public partial class CreateGuideWindow : Window, INotifyPropertyChanged, IObserver
     {
-        public Guide Guide { get; set; }
-        public User User { get; set; }
-        public GuideController GuideController { get; set; }
-        public UserController UserController { get; set; }
-        public CreateGuideWindow(User user)
+        public GuideVM GuideVM { get; set; }
+        public UserVM UserVM { get; set; }
+        public GuideService GuideService { get; set; }
+        public UserService UserService { get; set; }
+        public CreateGuideWindow(UserVM userVM)
         {
             InitializeComponent();
             DataContext = this;
-            Guide = new Guide();
-            User = user;
-            Guide.Username = user.Username;
-            GuideController = new GuideController();
-            UserController = new UserController();
-            GuideController.Subscribe(this);
+            GuideVM = new GuideVM(new Guide());
+            UserVM = userVM;
+            GuideVM.Username = userVM.Username;
+            GuideService = new GuideService(new GuideRepository());
+            UserService = new UserService(new UserRepository());
+            GuideService.Subscribe(this);
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -56,8 +60,8 @@ namespace ProjectTourism.View.GuideView
         {
             if (NameSurnameNotNull())
             {
-                UserController.Add(User);
-                GuideController.Add(Guide);
+                UserService.Add(UserVM);
+                GuideService.Add(GuideVM);
                 Close();
             }
             else
@@ -68,7 +72,7 @@ namespace ProjectTourism.View.GuideView
 
         private bool NameSurnameNotNull()
         {
-            return Guide.Name != null && Guide.Surname != null;
+            return GuideVM.Name != null && GuideVM.Surname != null;
         }
     }
 }

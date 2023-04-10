@@ -15,5 +15,6 @@ namespace ProjectTourism.Repositories.IRepositories
         void Delete(Reservation reservation);
         void Update(Reservation reservation);
         List<Reservation> GetAllByGuest1(string username);
+        List<Reservation> GetAllByAccommodation(int accommodationId);
     }
 }

@@ -14,6 +14,5 @@ namespace ProjectTourism.Domain.IRepositories
         void Add(Guest1 guest1);
         void Delete(Guest1 guest1);
         void Update(Guest1 guest1);
-        List<Reservation> GetReservationsByGuest(string guestUsername);
     }
 }

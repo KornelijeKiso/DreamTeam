@@ -4,6 +4,11 @@ using ProjectTourism.View.Guest1View;
 using ProjectTourism.View.GuideView;
 using ProjectTourism.View.OwnerView;
 using ProjectTourism.View.Guest2View;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
+using ProjectTourism.WPF.ViewModel;
+using ProjectTourism.Domain.IRepositories;
+using ProjectTourism.Observer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,15 +30,15 @@ namespace ProjectTourism.View.UserView
     /// <summary>
     /// Interaction logic for CreateUserView.xaml
     /// </summary>
-    public partial class CreateUserWindow : Window
+    public partial class CreateUserWindow : Window, INotifyPropertyChanged//, IObserver
     {
-        public User User;
-        public UserController Controller;
+        public UserVM UserVM;
+        public UserService Service;
         public CreateUserWindow()
         {
             InitializeComponent();
-            User = new User();
-            Controller = new UserController();
+            UserVM = new UserVM(new User());
+            Service = new UserService(new UserRepository());
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -46,7 +51,7 @@ namespace ProjectTourism.View.UserView
         {
             bool error = false;
             string username = txtUsername.Text;
-            if (Controller.UsernameAlreadyInUse(username))
+            if (Service.UsernameAlreadyInUse(username))
             {
                 MessageBox.Show("Username already in use.");
                 error = true;
@@ -58,38 +63,38 @@ namespace ProjectTourism.View.UserView
                 MessageBox.Show("Error in passwords.");
                 error = true;
             }
-            User.Username = username;
-            User.Password = password;
+            UserVM.Username = username;
+            UserVM.Password = password;
             switch (ComboType.SelectedIndex)
             {
-                case 0: { User.Type = USERTYPE.OWNER; break; }
-                case 1: { User.Type = USERTYPE.GUEST1; break; }
-                case 2: { User.Type = USERTYPE.GUIDE; break; }
-                case 3: { User.Type = USERTYPE.GUEST2; break; }
+                case 0: { UserVM.Type = USERTYPE.OWNER; break; }
+                case 1: { UserVM.Type = USERTYPE.GUEST1; break; }
+                case 2: { UserVM.Type = USERTYPE.GUIDE; break; }
+                case 3: { UserVM.Type = USERTYPE.GUEST2; break; }
             }
             if (!error)
             {
-                if (User.Type == USERTYPE.OWNER)
+                if (UserVM.Type == USERTYPE.OWNER)
                 {
-                    CreateOwnerWindow CreateOwnerWindow = new CreateOwnerWindow(User);
+                    CreateOwnerWindow CreateOwnerWindow = new CreateOwnerWindow(UserVM);
                     CreateOwnerWindow.ShowDialog();
                     Close();
                 }
-                else if (User.Type == USERTYPE.GUIDE)
+                else if (UserVM.Type == USERTYPE.GUIDE)
                 {
-                    CreateGuideWindow createGuideWindow = new CreateGuideWindow(User);
+                    CreateGuideWindow createGuideWindow = new CreateGuideWindow(UserVM);
                     createGuideWindow.ShowDialog();
                     Close();
                 }
-                else if (User.Type == USERTYPE.GUEST1)
+                else if (UserVM.Type == USERTYPE.GUEST1)
                 {
-                    CreateGuest1Window createGuest1Window = new CreateGuest1Window(User);
+                    CreateGuest1Window createGuest1Window = new CreateGuest1Window(UserVM);
                     createGuest1Window.ShowDialog();
                     Close();
                 }
-                else if (User.Type == USERTYPE.GUEST2)
+                else if (UserVM.Type == USERTYPE.GUEST2)
                 {
-                    CreateGuest2Window createGuest2Window = new CreateGuest2Window(User);
+                    CreateGuest2Window createGuest2Window = new CreateGuest2Window(UserVM);
                     createGuest2Window.ShowDialog();
                     Close();
                 }

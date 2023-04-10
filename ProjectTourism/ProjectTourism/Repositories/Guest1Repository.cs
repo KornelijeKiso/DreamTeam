@@ -37,11 +37,6 @@ namespace ProjectTourism.Repositories
             return Guests1;
         }
 
-        public List<Reservation> GetReservationsByGuest(string guestUsername)
-        {
-            IReservationRepository reservationRepository = new ReservationRepository();
-            return reservationRepository.GetAllByGuest1(guestUsername);
-        }
         public Guest1 GetOne(string username)
         {
             foreach (var guest1 in Guests1)
@@ -51,7 +46,7 @@ namespace ProjectTourism.Repositories
             return null;
         }
 
-        void IGuest1Repository.Update(Guest1 guest1)
+        public void Update(Guest1 guest1)
         {
             throw new NotImplementedException();
         }

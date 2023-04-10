@@ -21,31 +21,30 @@ namespace ProjectTourism.Services
             ReservationRepo = irr;
             Observers = new List<IObserver>();
         }
-        public void Add(ReservationVM reservation)
+        public void Add(Reservation reservation)
         {
-            ReservationRepo.Add(reservation.GetReservation());
+            ReservationRepo.Add(reservation);
         }
-        public void Delete(ReservationVM reservation)
+        public void Delete(Reservation reservation)
         {
-            ReservationRepo.Delete(reservation.GetReservation());
+            ReservationRepo.Delete(reservation);
         }
-        public ReservationVM GetOne(int id)
+        public Reservation GetOne(int id)
         {
-            return new ReservationVM(ReservationRepo.GetOne(id));
+            return ReservationRepo.GetOne(id);
         }
-        public List<ReservationVM> GetAll()
+        public List<Reservation> GetAll()
         {
-            List<ReservationVM> reservations = new List<ReservationVM>();
-            foreach (var reservation in ReservationRepo.GetAll())
-            {
-                reservations.Add(new ReservationVM(reservation));
-            }
-            return reservations;
+            return ReservationRepo.GetAll();
         }
-        public bool IsPossible(ReservationVM reservation)
+        public List<Reservation> GetAllByAccommodation(int id)
         {
-            List<Reservation> ReservationsForSameAccommodation = ReservationRepo.GetAll().FindAll(res => res.AccommodationId == reservation.AccommodationId);
-            return ReservationsForSameAccommodation.Find(res => Conflict(reservation.GetReservation(), res)) == null;
+            return ReservationRepo.GetAllByAccommodation(id);
+        }
+        public bool IsPossible(Reservation reservation)
+        {
+            List<Reservation> ReservationsForSameAccommodation = ReservationRepo.GetAllByAccommodation(reservation.AccommodationId);
+            return ReservationsForSameAccommodation.Find(res => Conflict(reservation, res)) == null;
         }
         private bool Conflict(Reservation reservation, Reservation existingReservation)
         {

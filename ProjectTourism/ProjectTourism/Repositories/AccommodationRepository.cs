@@ -19,26 +19,6 @@ namespace ProjectTourism.Repositories
         {
             FileHandler= new AccommodationFileHandler();
             Accommodations = FileHandler.Load();
-            Synchronize();
-        }
-        public void Synchronize()
-        {
-            ILocationRepository locationRepo = new LocationRepository();
-            IReservationRepository reservationRepo = new ReservationRepository();
-            foreach (Accommodation accommodation in Accommodations)
-            {
-                Location loc = locationRepo.GetOne(accommodation.LocationId);
-                accommodation.Location = loc;
-                accommodation.CityAndCountry = loc.City + ", " + loc.Country;
-                foreach (Reservation reservation in reservationRepo.GetAll())
-                {
-                    if (reservation.AccommodationId == accommodation.Id)
-                    {
-                        reservation.Accommodation = accommodation;
-                        accommodation.Reservations.Add(reservation);
-                    }
-                }
-            }
         }
         public int GenerateId()
         {
@@ -71,11 +51,6 @@ namespace ProjectTourism.Repositories
 
         public List<Accommodation> GetAll()
         {
-            IOwnerRepository ownerRepository= new OwnerRepository();
-            foreach(Accommodation accommodation in Accommodations)
-            {
-                accommodation.Owner = ownerRepository.GetOne(accommodation.OwnerUsername);
-            }
             return Accommodations;
         }
 
