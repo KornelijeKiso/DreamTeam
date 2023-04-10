@@ -3,7 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:ProjectTourism"
              StartupUri="WPF/View/UserView/IdentifyUserWindow.xaml">
+    <!--
+    StartupUri="WPF/View/Guest2View/MainGuest2Window.xaml"
+    -->
     <Application.Resources>
-         
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+
+                <ResourceDictionary Source="/Style/Guest2Style/Page.xaml" />
+                <ResourceDictionary Source="/Style/Guest2Style/Image.xaml" />
+                <ResourceDictionary Source="/Style/Guest2Style/Text.xaml" />
+                <ResourceDictionary Source="/Style/Guest2Style/Button.xaml" />
+                <ResourceDictionary Source="/Utilities/G2DataTemplate.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        
+
     </Application.Resources>
 </Application>
