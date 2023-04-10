@@ -13,11 +13,11 @@
         <Button x:Name="LiveTourMonitorButton" Content="Live tours monitor" HorizontalAlignment="Left" Height="57" Margin="305,736,0,0" VerticalAlignment="Top" Width="123" Click="LiveTourMonitorButton_Click"/>
 
         <StackPanel Orientation="Horizontal" Margin="612,46,32,596">
-            <TextBlock FontSize="20"><Hyperlink x:Name="HomeLink" >Home</Hyperlink></TextBlock>
+            <TextBlock FontSize="20"><Hyperlink x:Name="HomeLink_Click" >Home</Hyperlink></TextBlock>
             <TextBlock Margin="40,0,0,0" FontSize="20"><Hyperlink x:Name="LiveTourMonitorLink" Click="LiveTourMonitorButton_Click"><Run Text="Today's tours"/></Hyperlink></TextBlock>
             <TextBlock Margin="40,0,0,0" FontSize="20"><Hyperlink x:Name="AllAppointmentsLink" NavigateUri="home.xaml" RequestNavigate="AllAppointmentsLink_RequestNavigate"><Run Text="All Appointments"/></Hyperlink></TextBlock>
             <TextBlock Margin="40,0,0,0" FontSize="20"><Hyperlink x:Name="RequestsLink" Click="ToursButton_Click"><Run Text="Requests"/></Hyperlink></TextBlock>
-            <TextBlock Margin="40,0,0,0" FontSize="20"><Hyperlink x:Name="ProfileLink" Click="ToursButton_Click"><Run Text="Profile"/></Hyperlink></TextBlock>
+            <TextBlock Margin="40,0,0,0" FontSize="20"><Hyperlink x:Name="ProfileLink" NavigateUri="home.xaml" RequestNavigate="ProfileLink_RequestNavigate"><Run Text="Profile"/></Hyperlink></TextBlock>
         </StackPanel>
 
         <Label Content="Home" HorizontalAlignment="Left" Height="124" Margin="25,29,0,0" VerticalAlignment="Top" Width="182" FontSize="60"/>

@@ -22,6 +22,7 @@ using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using ProjectTourism.View.GuideView.TourView;
 using ProjectTourism.View.TourView;
+using ProjectTourism.WPF.View.GuideView.TourView;
 using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.GuideView
@@ -62,7 +63,6 @@ namespace ProjectTourism.View.GuideView
             CreateTourWindow createTourWindow = new CreateTourWindow(Guide);
             createTourWindow.ShowDialog();
         }
-
         private void ToursButton_Click(object sender, RoutedEventArgs e)
         {
             ViewAllToursWindow viewAllToursWindow = new ViewAllToursWindow(Guide.Username);
@@ -86,6 +86,14 @@ namespace ProjectTourism.View.GuideView
             viewAllAppointmentsWindow.Show();
             e.Handled = true;
         }
+
+        private void ProfileLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            Window ProfileWindow = new ProfileWindow();
+            ProfileWindow.Show();
+            e.Handled = true;
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

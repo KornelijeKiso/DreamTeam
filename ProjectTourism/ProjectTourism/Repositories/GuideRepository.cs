@@ -7,8 +7,8 @@ using System.Windows.Automation;
 using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.FileHandler;
 using ProjectTourism.Model;
-using ProjectTourism.ModelDAO;
 using ProjectTourism.Repositories.IRepositories;
+using ProjectTourism.Services;
 using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.Repositories
@@ -72,12 +72,12 @@ namespace ProjectTourism.Repositories
         public List<TourAppointment> GetGuidesCurrentAppointments(string username)
         {
             List<TourAppointment> appointments = new List<TourAppointment>();
-            TourAppointmentDAO tourAppDAO = new TourAppointmentDAO();
-            foreach (var tourAppointment in tourAppDAO.GetAll())
+            TourAppointmentService tourAppService = new TourAppointmentService(new TourAppointmentRepository());
+            foreach (var tourAppointment in tourAppService.GetAll())
             {
-                if (AppointmentAdditionIsValid(username, tourAppointment))
+                if (AppointmentAdditionIsValid(username, tourAppointment.GetTourAppointment()))
                 {
-                    appointments.Add(tourAppointment);
+                    appointments.Add(tourAppointment.GetTourAppointment());
                 }
             }
             return appointments;
@@ -85,24 +85,25 @@ namespace ProjectTourism.Repositories
         public List<TourAppointment> GetGuidesAppointments(string username)
         {
             List<TourAppointment> appointments = new List<TourAppointment>();
-            TourAppointmentDAO tourAppDAO = new TourAppointmentDAO();
+            TourAppointmentService tourAppDAO = new TourAppointmentService(new TourAppointmentRepository());
             foreach (var tourAppointment in tourAppDAO.GetAll())
             {
-                appointments.Add(tourAppointment);
+                if (tourAppointment.Tour.GuideUsername.Equals(username))
+                    appointments.Add(tourAppointment.GetTourAppointment());
             }
             return appointments;
         }
         public List<Tour> GetGuidesTours(string username)
         {
             List<Tour> tours = new List<Tour>();
-            TourDAO tourDAO = new TourDAO();
-            foreach (var tour in tourDAO.GetAll())
+            TourService tourService = new TourService(new TourRepository());
+            foreach (var tour in tourService.GetAll())
             {
                 if (tour.GuideUsername.Equals(username))
                 {
-                    List<string> pom = tourDAO.GetStops(tour);
+                    List<string> pom = tourService.GetStops(tour);
                     tour.StopsList = pom;
-                    tours.Add(tour);
+                    tours.Add(tour.GetTour());
                 }
             }
             return tours;

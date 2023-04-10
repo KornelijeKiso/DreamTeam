@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.FileHandler;
 using ProjectTourism.Model;
-using ProjectTourism.ModelDAO;
 using ProjectTourism.Services;
 using ProjectTourism.WPF.ViewModel;
 
@@ -136,8 +135,12 @@ namespace ProjectTourism.Repositories
         {
             TourAppointment tourAppointment = GetOne(tourAppointmentId);
             tourAppointment.AvailableSeats = tourAppointment.Tour.MaxNumberOfGuests;
-            TicketDAO ticketDAO = new TicketDAO();
-            List<Ticket> tickets = ticketDAO.GetByAppointment(tourAppointment.Id);
+            TicketService ticketService = new TicketService(new TicketRepository());
+            List<Ticket> tickets = new List<Ticket>();
+            foreach (var ticket in ticketService.GetByAppointment(tourAppointment.Id))
+            {
+                tickets.Add(ticket.GetTicket());
+            }
             foreach (Ticket ticket in tickets)
             {
                 tourAppointment.AvailableSeats -= ticket.NumberOfGuests;

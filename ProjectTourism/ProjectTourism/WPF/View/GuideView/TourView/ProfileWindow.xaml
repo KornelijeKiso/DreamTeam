@@ -1,0 +1,14 @@
+﻿<Window x:Class="ProjectTourism.WPF.View.GuideView.TourView.ProfileWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView.TourView"
+        mc:Ignorable="d"
+        Title="Profile" Height="720" Width="1280"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <TextBlock Margin="1088,172,40,461" FontSize="20"><Hyperlink x:Name="LiveTourMonitorLink" Click="TourStatistics_Click"><Run Text="Tour statistics"/></Hyperlink></TextBlock>
+        <Label Content="Profile" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
+    </Grid>
+</Window>
