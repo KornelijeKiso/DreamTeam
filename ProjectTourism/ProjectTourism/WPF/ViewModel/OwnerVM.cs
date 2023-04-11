@@ -56,11 +56,11 @@ namespace ProjectTourism.WPF.ViewModel
                 reservation.Accommodation = accommodation;
                 reservation.AccommodationGrade = accommodationGradeService.GetOneByReservation(reservation.Id);
                 reservation.Guest1Grade = guest1GradeService.GetOneByReservation(reservation.Id);
-                
+
                 reservation.Graded = reservation.Guest1Grade != null;
                 reservation.AccommodationGraded = reservation.AccommodationGrade != null;
                 reservation.CanBeGraded = !reservation.Graded && reservation.IsAbleToGrade();
-                reservation.VisibleReview = reservation.Graded && reservation.AccommodationGraded;
+                reservation.VisibleReview = (reservation.Graded || reservation.EndDate<DateOnly.FromDateTime(DateTime.Now).AddDays(-5)) && reservation.AccommodationGraded;
             }
 
             return reservations;

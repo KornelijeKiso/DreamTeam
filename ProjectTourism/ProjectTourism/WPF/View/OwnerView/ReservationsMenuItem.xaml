@@ -13,16 +13,26 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-
-
-
         <DataGrid x:Name="DataGridReservations" ItemsSource="{Binding Owner.Reservations, UpdateSourceTrigger=PropertyChanged}"
             SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" RowHeight="80" 
-            IsReadOnly="True" VerticalScrollBarVisibility="Visible" AutoGenerateColumns="False" Margin="100,79,100,79" HorizontalScrollBarVisibility="Disabled" 
-            BorderThickness="2" BorderBrush="Green" Background="LightYellow" RowBackground="LightYellow" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False">
+            IsReadOnly="True" VerticalScrollBarVisibility="Visible" AutoGenerateColumns="False" Margin="100,79,105,79" HorizontalScrollBarVisibility="Disabled" RowHeaderWidth="0" GridLinesVisibility="Vertical"
+            BorderThickness="2" BorderBrush="Green" Background="LightYellow" RowBackground="{Binding Background, RelativeSource={RelativeSource Self}}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" >
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Setter Property="BorderThickness" Value="0,2,0,2"/>
+                    <Setter Property="BorderBrush" Value="Green"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="BorderThickness" Value="0,2,0,2"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
             <DataGrid.CellStyle>
                 <Style TargetType="DataGridCell">
+                    <Setter Property="Margin" Value="0,0,0,0"/>
                     <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="BorderBrush" Value="Green"></Setter>
                     <Setter Property="TextBlock.TextAlignment" Value="Center" />
                     <Setter Property="FontSize" Value="13" />
                 </Style>
@@ -33,10 +43,8 @@
                 <Style TargetType="DataGridCell">
                     <Setter Property="HorizontalAlignment" Value="Right"/>
                 </Style>
-
             </DataGrid.Resources>
             <DataGrid.Columns>
-               
                 <DataGridTemplateColumn Width="190">
                     <DataGridTemplateColumn.Header>
                         <TextBlock Text="Accommodation"></TextBlock>
@@ -92,7 +100,7 @@
                                 </Label>
 
                                 <Label Margin="0,-10,0,0"  Content ="{Binding Path=Guest1.Email}"></Label>
-                                <Image Source="https://img.icons8.com/color/512/filled-star.png" Width="30" Height="30" Margin="150 -90 0 0"></Image>
+                                <Image Source="https://img.icons8.com/external-anggara-flat-anggara-putra/2x/external-verified-ui-basic-anggara-flat-anggara-putra.png" Width="25" Height="25" Margin="150 -90 0 0"></Image>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -121,7 +129,7 @@
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Width="190">
                     <DataGridTemplateColumn.Header>
-                        <TextBlock Text="Grade a guest"></TextBlock>
+                        <TextBlock Text="Guests review"></TextBlock>
                     </DataGridTemplateColumn.Header>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
