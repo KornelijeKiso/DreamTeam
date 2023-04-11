@@ -7,7 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.Text.RegularExpressions;
+//using System.Text.RegularExpressions;
 
 namespace ProjectTourism.WPF.ViewModel
 {
@@ -110,7 +110,7 @@ namespace ProjectTourism.WPF.ViewModel
         }
 
         // validation
-        private Regex _PhoneNumRegex = new Regex("[0-9]{3}[/]{1}[0-9]{3}-[0-9]{3}");
+        //private Regex _PhoneNumRegex = new Regex("[0-9]{3}[/]{1}[0-9]{3}-[0-9]{3}");
         public string Error => null;
         public string? this[string columnName]
         {
@@ -131,16 +131,21 @@ namespace ProjectTourism.WPF.ViewModel
                     if (string.IsNullOrEmpty(Age.ToString()))
                         return "Age is required!";
                 }
+                else if (columnName == "Email")
+                {
+                    if (string.IsNullOrEmpty(Email))
+                        return "Email is required!";
+                }
                 else if (columnName == "PhoneNumber")
                 {
                     if (string.IsNullOrEmpty(PhoneNumber))
                         return "Phone Number is required!";
 
-                    if (PhoneNumber.Length != 11)
-                        return "Phone number should be in format DDD/DDD-DDD";
-                    Match match = _PhoneNumRegex.Match(PhoneNumber);
-                    if (!match.Success)
-                        return "Phone number should be in format DDD/DDD-DDD";//"have 10 digits;
+                    //if (PhoneNumber.Length != 11)
+                    //    return "Phone number should be in format DDD/DDD-DDD";
+                    //Match match = _PhoneNumRegex.Match(PhoneNumber);
+                    //if (!match.Success)
+                    //    return "Phone number should be in format DDD/DDD-DDD";//"have 10 digits;
                 }
 
                 return null;

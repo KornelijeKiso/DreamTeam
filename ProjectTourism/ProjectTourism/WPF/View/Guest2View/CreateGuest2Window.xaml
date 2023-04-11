@@ -44,6 +44,11 @@
                Height="30" Width="100" Margin="20 0 0 0"
                Grid.Row="4" Grid.Column="1"
         />
+        <Label x:Name="Age" Content="Age" 
+               HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="100" Margin="20 0 0 0"
+               Grid.Row="5" Grid.Column="1"
+        />
 
         <TextBox 
             Text = "{Binding Path=Guest2.FirstName}"
@@ -68,6 +73,12 @@
             HorizontalAlignment="Left" VerticalAlignment="Center"
                Height="30" Width="200"
                Grid.Row="4" Grid.Column="2" 
+        />
+        <TextBox 
+            Text = "{Binding Path=Guest2.Age}"
+            HorizontalAlignment="Left" VerticalAlignment="Center"
+               Height="30" Width="200"
+               Grid.Row="5" Grid.Column="2" 
         />
 
         <Button Content="Create" 
