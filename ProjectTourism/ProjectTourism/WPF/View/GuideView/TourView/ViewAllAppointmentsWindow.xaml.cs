@@ -33,27 +33,30 @@ namespace ProjectTourism.View.GuideView.TourView
         public GuideService GuideService { get; set; }
         public TourAppointmentService TourAppointmentService { get; set; }
         public string GuideUsername { get; set; }
-        public CanceledTourAppointmentsRepository CanceledTourAppointmentsRepo { get; set; }
+        public CanceledTourAppointmentsService CanceledTourAppointmentsService { get; set; }
 
         public ViewAllAppointmentsWindow(string username)
         {
             InitializeComponent();
             GuideUsername = username;
             DataContext = this;
-            GuideService = new GuideService(new GuideRepository());
-            Appointments = new ObservableCollection<TourAppointmentVM>(GuideService.GetGuidesCurrentAppointments(username));
-            TourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
-            CanceledTourAppointmentsRepo = new CanceledTourAppointmentsRepository();
+            SetServices();
+            Appointments = new ObservableCollection<TourAppointmentVM>(GuideService.GetGuidesAppointments(username));
+            Update();
         }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public void SetServices()
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            GuideService = new GuideService(new GuideRepository());
+            TourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
+            CanceledTourAppointmentsService = new CanceledTourAppointmentsService(new CanceledTourAppointmentsRepository());
         }
         public void Update()
         {
-
+            Appointments.Clear();
+            foreach(var app in GuideService.GetGuidesAppointments(GuideUsername))
+            {
+                Appointments.Add(app);
+            }
         }
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
@@ -63,10 +66,10 @@ namespace ProjectTourism.View.GuideView.TourView
                     MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel this appointment?", "Delete appointment", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Yes)
                     {
-                        CanceledTourAppointmentsRepo.Add(SelectedAppointment.GetTourAppointment());
-                        TourAppointmentService.Delete(SelectedAppointment);
+                        CanceledTourAppointmentsService.Add(SelectedAppointment);
+                        TourAppointmentService.Delete(SelectedAppointment.Id);
                         Appointments.Remove(SelectedAppointment);
-                        UpdateAppointments();
+                        Update();
                     }
                 }
                 else
@@ -77,13 +80,10 @@ namespace ProjectTourism.View.GuideView.TourView
                 
             }
         }
-        private void UpdateAppointments()
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            Appointments.Clear();
-            foreach (var tourApp in GuideService.GetGuidesAppointments(GuideUsername))
-            {
-                Appointments.Add(tourApp);
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

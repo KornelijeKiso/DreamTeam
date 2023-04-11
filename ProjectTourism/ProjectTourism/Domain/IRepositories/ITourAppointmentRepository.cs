@@ -13,7 +13,7 @@ namespace ProjectTourism.Domain.IRepositories
         TourAppointment GetOne(int tourAppointmentId);
         List<TourAppointment> GetAll();
         void Add(TourAppointment tourAppointment);
-        void Delete(TourAppointment tourAppointment);
+        void Delete(int tourAppointmentId);
         void Update(TourAppointment tourAppointment);
         void ChangeState(TourAppointment tourAppointment);
         string GetNextStop(TourVM tour, int checkpointIndex);
