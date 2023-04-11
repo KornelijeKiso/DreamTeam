@@ -1,0 +1,36 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:vm="clr-namespace:ProjectTourism.WPF.ViewModel.Guest2ViewModel"
+                    xmlns:view="clr-namespace:ProjectTourism.WPF.View.Guest2View.Menu"
+                    >
+
+    
+    <DataTemplate DataType="{x:Type vm:HomeVM}">
+        <view:G2Home />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:TicketsVM}">
+        <view:G2Tickets />
+    </DataTemplate>
+ 
+    <DataTemplate DataType="{x:Type vm:VouchersVM}">
+        <view:G2Vouchers />
+    </DataTemplate>
+    
+    <!--
+    <DataTemplate DataType="{x:Type vm:ProfileVM}">
+        <view:Profile />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:SuggestTourVM}">
+        <view:SuggestTour />
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type vm:ComplexTourVM}">
+        <view:ComplexTours />
+    </DataTemplate>
+
+    -->
+    
+    
+</ResourceDictionary>

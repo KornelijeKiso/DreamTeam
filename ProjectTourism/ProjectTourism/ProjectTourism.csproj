@@ -8,4 +8,36 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="WPF\View\Guest2View\MainGuest2Window.xaml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Style\Guest2Style\img_demo.png" />
+    <None Remove="Style\Guest2Style\img_profile.png" />
+    <None Remove="Style\Guest2Style\img_search.png" />
+    <None Remove="WPF\View\Guest2View\img_complex_tour.png" />
+    <None Remove="WPF\View\Guest2View\img_home.png" />
+    <None Remove="WPF\View\Guest2View\img_profile.png" />
+    <None Remove="WPF\View\Guest2View\img_suggest_tour.png" />
+    <None Remove="WPF\View\Guest2View\img_tickets.png" />
+    <None Remove="WPF\View\Guest2View\img_voucher.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="WPF\View\Guest2View\MainGuest2Window.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Style\Guest2Style\img_demo.png" />
+    <Resource Include="Style\Guest2Style\img_profile.png" />
+    <Resource Include="Style\Guest2Style\img_search.png" />
+    <Resource Include="WPF\View\Guest2View\img_complex_tour.png" />
+    <Resource Include="WPF\View\Guest2View\img_home.png" />
+    <Resource Include="WPF\View\Guest2View\img_profile.png" />
+    <Resource Include="WPF\View\Guest2View\img_suggest_tour.png" />
+    <Resource Include="WPF\View\Guest2View\img_tickets.png" />
+    <Resource Include="WPF\View\Guest2View\img_voucher.png" />
+  </ItemGroup>
+
 </Project>

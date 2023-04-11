@@ -24,7 +24,17 @@ namespace ProjectTourism.Repositories
 
         public void Synchronize() 
         {
-           
+            ITourAppointmentRepository tourAppointmentRepository = new TourAppointmentRepository();
+            IGuest2Repository guest2Repository = new Guest2Repository();
+            foreach (var ticket in Tickets)
+            {
+                TourAppointment tourAppointment = tourAppointmentRepository.GetOne(ticket.TourAppointmentId);
+                ticket.TourAppointment = tourAppointment;
+                ticket.TourStop = tourAppointment.Tour.Start;
+
+                Guest2 guest2 = guest2Repository.GetOne(ticket.Guest2Username);
+                ticket.Guest2 = guest2;
+            }
         }
 
         public Ticket GetOne(int id)

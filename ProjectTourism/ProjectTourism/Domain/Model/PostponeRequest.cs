@@ -14,10 +14,11 @@ namespace ProjectTourism.Domain.Model
     {
         public int Id;
         public int ReservationId;
-        public Reservation reservation;
+        public Reservation Reservation;
         public DateOnly NewStartDate;
         public DateOnly NewEndDate;
         public bool Accepted;
+        public bool Rejected;
         public string AdditionalComment;
         public PostponeRequest()
         {
@@ -32,6 +33,7 @@ namespace ProjectTourism.Domain.Model
                 NewStartDate.ToString("dd.MM.yyyy"),
                 NewEndDate.ToString("dd.MM.yyyy"),
                 Accepted.ToString(),
+                Rejected.ToString(),
                 AdditionalComment     
             };
             return csvValues;
@@ -44,7 +46,8 @@ namespace ProjectTourism.Domain.Model
             if (DateOnly.TryParse(values[2], new CultureInfo("en-GB"), DateTimeStyles.None, out var startDate)) NewStartDate = startDate;
             if (DateOnly.TryParse(values[3], new CultureInfo("en-GB"), DateTimeStyles.None, out var endDate)) NewEndDate = endDate;
             Accepted = bool.Parse(values[4]);
-            AdditionalComment = values[5];
+            Rejected = bool.Parse(values[5]);
+            AdditionalComment = values[6];
         }
     }
 }

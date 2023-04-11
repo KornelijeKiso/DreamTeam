@@ -36,6 +36,10 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
+        public ReservationVM Reservation
+        {
+            get => new ReservationVM(_postponeRequest.Reservation);
+        }
         public int ReservationId
         {
             get => _postponeRequest.ReservationId;
@@ -80,6 +84,18 @@ namespace ProjectTourism.WPF.ViewModel
                 if (value != _postponeRequest.Accepted)
                 {
                     _postponeRequest.Accepted = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public bool Rejected
+        {
+            get => _postponeRequest.Rejected;
+            set
+            {
+                if (value != _postponeRequest.Rejected)
+                {
+                    _postponeRequest.Rejected = value;
                     OnPropertyChanged();
                 }
             }

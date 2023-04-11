@@ -1,4 +1,5 @@
-﻿using ProjectTourism.ModelDAO;
+﻿using ProjectTourism.Domain.Model;
+using ProjectTourism.ModelDAO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,11 +28,28 @@ namespace ProjectTourism.Model
         public string GradingDeadlineMessage;
         public AccommodationGrade AccommodationGrade;
         public Guest1Grade Guest1Grade;
-
+        public PostponeRequest PostponeRequest;
         public Reservation()
         {
 
         }
+        public Reservation(Reservation r)
+        {
+            Id = r.Id;
+            GradingDeadline = r.GradingDeadline;
+            Accommodation = r.Accommodation;
+            AccommodationId = r.AccommodationId;
+            AccommodationGraded = r.AccommodationGraded;
+            Guest1Username = r.Guest1Username;
+            Guest1 = r.Guest1;
+            Graded = r.Graded;
+            CanBeGraded = r.CanBeGraded;
+            VisibleReview = r.VisibleReview;
+            GradingDeadlineMessage = r.GradingDeadlineMessage;
+            AccommodationGrade = r.AccommodationGrade;
+            Guest1Grade = r.Guest1Grade;
+            PostponeRequest = r.PostponeRequest;
+    }
         public bool IsAbleToGrade()
         {
             return DateOnly.FromDateTime(DateTime.Now) > EndDate && DateOnly.FromDateTime(DateTime.Now) < GradingDeadline;
