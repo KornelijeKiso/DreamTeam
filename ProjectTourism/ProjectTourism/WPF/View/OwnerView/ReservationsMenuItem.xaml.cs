@@ -67,5 +67,11 @@ namespace ProjectTourism.WPF.View.OwnerView
             Guest1ReviewWindow guestsReviewWindow = new Guest1ReviewWindow(SelectedReservation);
             guestsReviewWindow.ShowDialog();
         }
+
+        private void PostponeRequestClick(object sender, RoutedEventArgs e)
+        {
+            PostponeRequestWindow postponeRequestWindow = new PostponeRequestWindow(SelectedReservation);
+            postponeRequestWindow.ShowDialog();
+        }
     }
 }

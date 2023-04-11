@@ -1,4 +1,5 @@
 ﻿using ProjectTourism.Domain.IRepositories;
+using ProjectTourism.Domain.Model;
 using ProjectTourism.Model;
 using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
@@ -21,26 +22,25 @@ namespace ProjectTourism.Services
             PostponeRequestRepo = iprr;
             Observers = new List<IObserver>();
         }
-        public void Add(PostponeRequestVM postponeRequest)
+        public void Add(PostponeRequest postponeRequest)
         {
-            PostponeRequestRepo.Add(postponeRequest.GetPostponeRequest());
+            PostponeRequestRepo.Add(postponeRequest);
         }
-        public void Delete(PostponeRequestVM postponeRequest)
+        public void Delete(PostponeRequest postponeRequest)
         {
-            PostponeRequestRepo.Delete(postponeRequest.GetPostponeRequest());
+            PostponeRequestRepo.Delete(postponeRequest);
         }
-        public PostponeRequestVM GetOne(int id)
+        public PostponeRequest GetOne(int id)
         {
-            return new PostponeRequestVM(PostponeRequestRepo.GetOne(id));
+            return PostponeRequestRepo.GetOne(id);
         }
-        public List<PostponeRequestVM> GetAll()
+        public PostponeRequest GetOneByReservation(int id)
         {
-            List<PostponeRequestVM> postponeRequests = new List<PostponeRequestVM>();
-            foreach (var postponeRequest in PostponeRequestRepo.GetAll())
-            {
-                postponeRequests.Add(new PostponeRequestVM(postponeRequest));
-            }
-            return postponeRequests;
+            return PostponeRequestRepo.GetOneByReservation(id);
+        }
+        public List<PostponeRequest> GetAll()
+        {
+            return PostponeRequestRepo.GetAll();
         }
         public void Subscribe(IObserver observer)
         {

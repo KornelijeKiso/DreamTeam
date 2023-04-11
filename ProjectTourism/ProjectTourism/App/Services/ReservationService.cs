@@ -48,7 +48,7 @@ namespace ProjectTourism.Services
         }
         private bool Conflict(Reservation reservation, Reservation existingReservation)
         {
-            return !(reservation.StartDate > existingReservation.EndDate || reservation.EndDate < existingReservation.StartDate);
+            return !(reservation.StartDate > existingReservation.EndDate || reservation.EndDate < existingReservation.StartDate) && reservation.Id!=existingReservation.Id;
         }
         public void Subscribe(IObserver observer)
         {

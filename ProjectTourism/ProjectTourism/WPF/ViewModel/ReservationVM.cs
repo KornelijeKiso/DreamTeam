@@ -1,4 +1,6 @@
 ﻿using ProjectTourism.Model;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -129,6 +131,22 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+        public PostponeRequestVM PostponeRequest
+        {
+            get => new PostponeRequestVM(_reservation.PostponeRequest);
+        }
+        public bool RequestedPostpone
+        {
+            get => IsPostponeRequested();
+        }
+        private bool IsPostponeRequested()
+        {
+            if (PostponeRequest.GetPostponeRequest() != null)
+            {
+                return !PostponeRequest.Accepted && !PostponeRequest.Rejected && StartDate>DateOnly.FromDateTime(DateTime.Now);
+            }
+            else return false;
+        }
         public bool Graded
         {
             get => _reservation.Graded;
@@ -156,6 +174,10 @@ namespace ProjectTourism.WPF.ViewModel
                     OnPropertyChanged();
                 }
             }
+        }
+        public string PostponeConflictMessage
+        {
+            get => GetPostponeConflictMessage();
         }
         public string GradingDeadlineMessage
         {
@@ -191,6 +213,21 @@ namespace ProjectTourism.WPF.ViewModel
                     _reservation.Guest1Grade = value.GetGuest1Grade();
                     OnPropertyChanged();
                 }
+            }
+        }
+        public string GetPostponeConflictMessage()
+        {
+            Reservation reservation = new Reservation(_reservation);
+            ReservationService reservationService = new ReservationService(new ReservationRepository());
+            reservation.StartDate = PostponeRequest.NewStartDate;
+            reservation.EndDate = PostponeRequest.NewEndDate;
+            if (reservationService.IsPossible(reservation))
+            {
+                return "Requested appointment is not in conflict with other reservations for this accommodation. You have options to accept or reject this postpone request.";
+            }
+            else
+            {
+                return "Requested appointment is in conflict with other reservations for this accommodation. You have options to accept or reject this postpone request.";
             }
         }
         public string GenerateGradingDeadlineMessage()

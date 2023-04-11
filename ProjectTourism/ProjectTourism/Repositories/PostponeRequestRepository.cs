@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace ProjectTourism.Repositories
 {
-    public class PostponeRequestRepository
+    public class PostponeRequestRepository:IPostponeRequestRepository
     {
         public PostponeRequestFileHandler FileHandler { get; set; }
         public List<PostponeRequest> PostponeRequests { get; set; }
@@ -54,7 +54,7 @@ namespace ProjectTourism.Repositories
             return null;
         }
 
-        public void Update(Owner owner)
+        public void Update(PostponeRequest postponeRequest)
         {
             throw new NotImplementedException();
         }

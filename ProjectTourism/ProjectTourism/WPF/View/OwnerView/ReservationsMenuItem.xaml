@@ -4,8 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProjectTourism.WPF.View.OwnerView"
+             xmlns:conv="clr-namespace:ProjectTourism.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1000">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
 
 
@@ -52,7 +58,8 @@
                                     </Label.Content>
                                 </Label>
                                 <Label Margin="0,-10,0,0" ContentStringFormat="{}{0} guests"  Content ="{Binding Path=Accommodation.MaxNumberOfGuests}"></Label>
-                                <Button Content="Postpone request" FontSize="10" IsEnabled="False" Width="90" Margin="55 -10 0 0">
+                                <Button Content="Postpone request" FontSize="10" BorderBrush="Green" Click="PostponeRequestClick"
+                                    BorderThickness="2" Visibility="{Binding Path=RequestedPostpone, Converter={conv:BoolToVisibilityConverter}}" Width="90" Margin="85 -10 0 0">
                                     <Button.Resources>
                                         <Style TargetType="Border">
                                             <Setter Property="CornerRadius" Value="5"/>

@@ -22,7 +22,7 @@ namespace ProjectTourism.WPF.ViewModel
         {
             Synchronize(username);
             Accommodations = new ObservableCollection<AccommodationVM>(_owner.Accommodations.Select(r => new AccommodationVM(r)).ToList());
-            Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).ToList());
+            Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).Reverse().ToList());
         }
         private void Synchronize(string username)
         {
@@ -46,10 +46,12 @@ namespace ProjectTourism.WPF.ViewModel
             Guest1GradeService guest1GradeService = new Guest1GradeService(new Guest1GradeRepository());
             Guest1Service guest1Service = new Guest1Service(new Guest1Repository());
             AccommodationGradeService accommodationGradeService = new AccommodationGradeService(new AccommodationGradeRepository());
+            PostponeRequestService postponeRequestService = new PostponeRequestService(new PostponeRequestRepository());
 
             List<Reservation> reservations = reservationService.GetAllByAccommodation(accommodation.Id);
             foreach (Reservation reservation in reservations)
             {
+                reservation.PostponeRequest = postponeRequestService.GetOneByReservation(reservation.Id);
                 reservation.Guest1 = guest1Service.GetOne(reservation.Guest1Username);
                 reservation.Accommodation = accommodation;
                 reservation.AccommodationGrade = accommodationGradeService.GetOneByReservation(reservation.Id);
