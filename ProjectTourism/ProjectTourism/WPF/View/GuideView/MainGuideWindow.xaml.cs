@@ -30,75 +30,50 @@ namespace ProjectTourism.View.GuideView
     /// <summary>
     /// Interaction logic for MainGuideWindow.xaml
     /// </summary>
-    public partial class MainGuideWindow : Window, INotifyPropertyChanged, IObserver
+    public partial class MainGuideWindow : Window
     {
-        public GuideVM Guide { get; set; }
-        public GuideService GuideService { get; set; }
-        public LocationVM NewLocation { get; set; }
-        public LocationService LocationService { get; set; }
+        public string Username { get; set; }
         public MainGuideWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
-
-            SetServices();
-            Guide = GuideService.GetOne(username);
-            NewLocation = new LocationVM(new Location());
+            Username = username;
+            ContentArea.Content = new HomeWindow(username);
         }
-
-        private void SetServices()
+        private void HomeLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            LocationService = new LocationService(new LocationRepository());
-            GuideService = new GuideService(new GuideRepository());
-        }
-
-        
-        public void Update()
-        {
-
-        }
-
-        private void AddNewTourButton_Click(object sender, RoutedEventArgs e)
-        {
-            CreateTourWindow createTourWindow = new CreateTourWindow(Guide);
-            createTourWindow.ShowDialog();
-        }
-        private void ToursButton_Click(object sender, RoutedEventArgs e)
-        {
-            ViewAllToursWindow viewAllToursWindow = new ViewAllToursWindow(Guide.Username);
-            viewAllToursWindow.ShowDialog();
-        }
-
-        private void LiveTourMonitorButton_Click(object sender, RoutedEventArgs e)
-        {
-            LiveToursTrackingWindow liveToursTrackingWindow = new LiveToursTrackingWindow(Guide.Username);
-            liveToursTrackingWindow.ShowDialog();
-        }
-
-        private void AllToursButton_Click(object sender, RoutedEventArgs e)
-        {
-            ViewAllToursWindow viewAllToursWindow = new ViewAllToursWindow(Guide.Username);
-            viewAllToursWindow.ShowDialog();
+            ContentArea.Content = new HomeWindow(Username);
+            e.Handled = true;
         }
         private void AllAppointmentsLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            Window viewAllAppointmentsWindow = new ViewAllAppointmentsWindow(Guide.Username);
-            viewAllAppointmentsWindow.Show();
+            ContentArea.Content = new ViewAllAppointmentsWindow(Username);
             e.Handled = true;
         }
 
         private void ProfileLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            Window ProfileWindow = new ProfileWindow();
-            ProfileWindow.Show();
+            //Window ProfileWindow = new ProfileWindow();
+            //ProfileWindow.ShowDialog();
+            ContentArea.Content = new ProfileWindow();
             e.Handled = true;
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private void RequestsLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            //    Window ProfileWindow = new ProfileWindow(); //when request window is finished enter here
+            //    ProfileWindow.ShowDialog();
+            ContentArea.Content = new ProfileWindow(); //when request window is finished enter here
+            e.Handled = true;
         }
+
+        private void LiveTourMonitorLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
+        {
+            //Window ProfileWindow = new LiveToursTrackingWindow(Username);
+            //ProfileWindow.ShowDialog();
+            ContentArea.Content = new LiveToursTrackingWindow(Username);
+            e.Handled = true;
+        }
+
     }
 }

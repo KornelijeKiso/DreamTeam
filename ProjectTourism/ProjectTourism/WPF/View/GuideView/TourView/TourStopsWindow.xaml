@@ -1,18 +1,16 @@
-﻿<Window x:Class="ProjectTourism.View.GuideView.TourView.TourStopsWindow"
+﻿<UserControl x:Class="ProjectTourism.View.GuideView.TourView.TourStopsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.GuideView.TourView"
         xmlns:conv="clr-namespace:ProjectTourism.Converters"
-        mc:Ignorable="d"
-        Title="Tour stops" Height="720" Width="1280"
-        WindowStartupLocation="CenterScreen">
-    <Window.Resources>
+        mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
+    <UserControl.Resources>
         <ResourceDictionary>
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         </ResourceDictionary>
-    </Window.Resources>
+        </UserControl.Resources>
     <Grid>
         <Button x:Name="StopPassedButton" IsEnabled="{Binding TourAppointment.IsNotFinished}" Content="Start" HorizontalAlignment="Left" Height="48" Margin="1064,466,0,0" VerticalAlignment="Top" Width="134" Click="StopPassedButton_Click"/>
         <Button IsCancel="True" x:Name="EmergencyStopButton" IsEnabled="{Binding TourAppointment.IsNotFinished}" Content="Emergency stop" HorizontalAlignment="Left" Height="46" Margin="1064,540,0,0" VerticalAlignment="Top" Width="134" Background="#FFEF4343" Click="EmergencyStopButton_Click"/>
@@ -42,5 +40,6 @@
         </DataGrid>
         <Label Content="Tour state" HorizontalAlignment="Left" Margin="1022,52,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Button x:Name="ReviewsButton" Visibility="{Binding TourAppointment.IsFinished, Converter={conv:BoolToVisibilityConverter}}" Content="See reviews" HorizontalAlignment="Left" Height="47" Margin="1064,402,0,0" VerticalAlignment="Top" Width="132" Click="ReviewsButton_Click"/>
+        <ContentControl x:Name="ContentArea"></ContentControl>
     </Grid>
-</Window>
+</UserControl>

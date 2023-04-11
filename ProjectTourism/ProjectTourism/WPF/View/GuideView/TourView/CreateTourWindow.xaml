@@ -1,14 +1,12 @@
-﻿<Window x:Class="ProjectTourism.View.TourView.CreateTourWindow"
+﻿<UserControl x:Class="ProjectTourism.View.TourView.CreateTourWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.TourView"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
-        mc:Ignorable="d"
-        Title="Tour creation" Height="720" Width="1280"
-        WindowStartupLocation="CenterScreen">
-    <Window.Resources>
+        mc:Ignorable="d"  d:DesignHeight="720" d:DesignWidth="1280">
+    <UserControl.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
                 <AdornedElementPlaceholder x:Name="textBox" />
@@ -16,7 +14,7 @@
             </StackPanel>
 
         </ControlTemplate>
-    </Window.Resources>
+    </UserControl.Resources>
     <Grid>
         <Grid Margin="580,-80,152,81" Height="370" Width="220">
             <Rectangle Stroke="Black" Margin="0,-15,0,-20" Fill="#FFEAEAEA" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="4">
@@ -97,4 +95,4 @@
 
 
 
-</Window>
+</UserControl>

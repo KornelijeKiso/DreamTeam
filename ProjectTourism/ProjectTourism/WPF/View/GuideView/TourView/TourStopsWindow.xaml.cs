@@ -30,7 +30,7 @@ namespace ProjectTourism.View.GuideView.TourView
     /// <summary>
     /// Interaction logic for TourStopsWindow.xaml
     /// </summary>
-    public partial class TourStopsWindow : Window, INotifyPropertyChanged, IObserver
+    public partial class TourStopsWindow : UserControl, INotifyPropertyChanged, IObserver
     {
         public TourAppointmentService TourAppointmentService { get; set; }
         public TourAppointmentVM TourAppointment { get; set; }
@@ -154,7 +154,7 @@ namespace ProjectTourism.View.GuideView.TourView
             else
             {
                 MessageBox.Show("Guide has already started a tour!");
-                Close();
+                //Close();
             }
             EmergencyButtonSet();
         }
@@ -203,8 +203,7 @@ namespace ProjectTourism.View.GuideView.TourView
         }
         private void ReviewsButton_Click(object sender, RoutedEventArgs e)
         {
-            ReviewsWindow reviewsWindow = new ReviewsWindow();
-            reviewsWindow.ShowDialog();
+           ContentArea.Content = new ReviewsWindow();
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 

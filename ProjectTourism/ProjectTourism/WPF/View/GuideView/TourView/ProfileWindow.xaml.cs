@@ -19,7 +19,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
     /// <summary>
     /// Interaction logic for ProfileWindow.xaml
     /// </summary>
-    public partial class ProfileWindow : Window
+    public partial class ProfileWindow : UserControl
     {
         public ProfileWindow()
         {
@@ -28,8 +28,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         }
         private void TourStatistics_Click(object sender, RoutedEventArgs e)
         {
-            TourStatisticsWindow tourStatisticsWindow = new TourStatisticsWindow();
-            tourStatisticsWindow.ShowDialog();
+           ContentArea.Content = new TourStatisticsWindow();
         }
     }
 }

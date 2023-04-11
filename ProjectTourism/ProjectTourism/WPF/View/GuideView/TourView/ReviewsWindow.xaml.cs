@@ -22,7 +22,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
     /// <summary>
     /// Interaction logic for ReviewsWindow.xaml
     /// </summary>
-    public partial class ReviewsWindow : Window
+    public partial class ReviewsWindow : UserControl
     {
         public TicketGradeVM SelectedTicketGrade { get; set; }
         public ObservableCollection<TicketGradeVM> Tickets { get; set; }

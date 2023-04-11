@@ -28,7 +28,7 @@ namespace ProjectTourism.View.TourView
     /// <summary>
     /// Interaction logic for CreateTourWindow.xaml
     /// </summary>
-    public partial class CreateTourWindow : Window, INotifyPropertyChanged, IObserver
+    public partial class CreateTourWindow : UserControl, INotifyPropertyChanged, IObserver
     {
         public TourVM Tour { get; set; }
         public TourService TourService { get; set; }
@@ -119,7 +119,7 @@ namespace ProjectTourism.View.TourView
             SaveDates();
             TourService.Add(Tour);
             TourAppointmentService.MakeTourAppointments(Tour);
-            Close();
+            //Close();
         }
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)

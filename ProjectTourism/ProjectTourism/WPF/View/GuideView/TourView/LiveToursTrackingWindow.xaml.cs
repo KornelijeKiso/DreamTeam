@@ -26,11 +26,12 @@ namespace ProjectTourism.View.GuideView.TourView
     /// <summary>
     /// Interaction logic for LiveToursTrackingWindow.xaml
     /// </summary>
-    public partial class LiveToursTrackingWindow : Window, INotifyPropertyChanged, IObserver
+    public partial class LiveToursTrackingWindow : UserControl, INotifyPropertyChanged, IObserver
     {
         public GuideVM Guide { get; set; }
         public ObservableCollection<TourAppointmentVM> TourAppointments { get; set; }
         public TourAppointmentVM SelectedTourAppointment { get; set; }
+        public LiveToursTrackingWindow DataContext { get; }
         public GuideService GuideService { get; set; }
         public TourAppointmentService TourAppointmentService { get; set; }
         public LiveToursTrackingWindow(string username)
@@ -48,7 +49,8 @@ namespace ProjectTourism.View.GuideView.TourView
             if (SelectedTourAppointment != null)
             {
                 TourStopsWindow tourStopsWindow = new TourStopsWindow(SelectedTourAppointment);
-                tourStopsWindow.ShowDialog();
+                //tourStopsWindow.ShowDialog();
+                ContentArea = tourStopsWindow;
                 SelectedTourAppointment = tourStopsWindow.TourAppointment;
                 Update();                    
             }

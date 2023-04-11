@@ -26,7 +26,7 @@ namespace ProjectTourism.View.GuideView.TourView
     /// <summary>
     /// Interaction logic for TrackToursWindow.xaml
     /// </summary>
-    public partial class ViewAllAppointmentsWindow : Window, INotifyPropertyChanged, IObserver
+    public partial class ViewAllAppointmentsWindow : UserControl, INotifyPropertyChanged, IObserver
     {
         public ObservableCollection<TourAppointmentVM> Appointments { get; set; }
         public TourAppointmentVM SelectedAppointment { get; set; }
@@ -38,6 +38,7 @@ namespace ProjectTourism.View.GuideView.TourView
         public ViewAllAppointmentsWindow(string username)
         {
             InitializeComponent();
+            DataContext = this;
             GuideUsername = username;
             DataContext = this;
             SetServices();
