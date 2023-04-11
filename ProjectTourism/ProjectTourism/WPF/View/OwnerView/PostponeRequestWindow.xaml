@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.OwnerView"
         mc:Ignorable="d"
-        Title="PostponeRequestWindow" Height="400" Width="450">
+        Title="PostponeRequestWindow" Height="400" Width="450" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
 
         <GroupBox Header="Reservation info" Background="LightGreen" FontSize="14" Height="124" Width="418" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,3,0,0" BorderThickness="2" BorderBrush="Black"/>
