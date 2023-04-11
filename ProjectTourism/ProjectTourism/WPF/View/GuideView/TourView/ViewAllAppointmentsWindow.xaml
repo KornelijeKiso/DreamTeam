@@ -9,7 +9,8 @@
         WindowStartupLocation="CenterScreen">
     <Grid>
         <DataGrid CanUserDeleteRows="False" IsReadOnly="True" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserAddRows="False" HorizontalAlignment="Center" Height="563" VerticalAlignment="Center" Width="784"
-                  SelectedItem="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Appointments, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding Appointments, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Width="186" Binding="{Binding Id}"></DataGridTextColumn>

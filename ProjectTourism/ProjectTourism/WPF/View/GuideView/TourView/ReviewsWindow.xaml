@@ -13,14 +13,8 @@
                   SelectedItem="{Binding SelectedTicketGrade, UpdateSourceTrigger=PropertyChanged}" 
                   ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="104,211,0,0">
             <DataGrid.Columns>
-                <!--<DataGridTextColumn Header="Name" Width="150" Binding="{Binding Path=Guest2.FirstName}"/>
-                <DataGridTextColumn Header="Surname" Width="150" Binding="{Binding Path=Guest2.LastName}"/>-->
-                <DataGridTemplateColumn Width="*">
-                    <DataGridTemplateColumn.Header>
-                        <TextBlock Text="Status"/>
-                    </DataGridTemplateColumn.Header>
-                
-                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Name" Width="150" Binding="{Binding Path=Ticket.Guest2.FirstName}"/>
+                <DataGridTextColumn Header="Surname" Width="150" Binding="{Binding Path=Ticket.Guest2.LastName}"/>
             </DataGrid.Columns>
 
         </DataGrid>

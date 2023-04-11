@@ -41,11 +41,7 @@ namespace ProjectTourism.View.GuideView.TourView
             TourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
             Guide = GuideService.GetOne(username);
             TourAppointments = new ObservableCollection<TourAppointmentVM>(GuideService.GetGuidesCurrentAppointments(username));
-        }
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            Update();
         }
         private void StartTourButton_Click(object sender, RoutedEventArgs e)
         {
@@ -70,6 +66,12 @@ namespace ProjectTourism.View.GuideView.TourView
                 if(item.State == TOURSTATE.FINISHED)
                     item.IsFinished = true;
             }
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

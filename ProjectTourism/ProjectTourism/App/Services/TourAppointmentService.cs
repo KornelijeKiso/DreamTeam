@@ -26,9 +26,9 @@ namespace ProjectTourism.Services
         {
             TourAppointmentRepository.Add(tourAppointmentVM.GetTourAppointment());
         }
-        public void Delete(TourAppointmentVM tourAppointmentVM)
+        public void Delete(int tourAppointmentId)
         {
-            TourAppointmentRepository.Delete(tourAppointmentVM.GetTourAppointment());
+            TourAppointmentRepository.Delete(tourAppointmentId);
         }
         public TourAppointmentVM GetOne(int id)
         {

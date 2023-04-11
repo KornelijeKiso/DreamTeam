@@ -107,16 +107,16 @@ namespace ProjectTourism.Model
             }
             return dates;
         }
-        public string ToString(List<DateTime> dates)
-        {
-            string dateString = "";
-            int i;
-            for (i = 0; i < dates.Count(); i++)
-            {
-                dateString += dates[i].ToString("dd.MM.yyyy HH:mm") + ",";
-            }
-            return dateString;
-        }
+        //public string ToString(List<DateTime> dates)
+        //{
+        //    string dateString = "";
+        //    int i;
+        //    for (i = 0; i < dates.Count(); i++)
+        //    {
+        //        dateString += dates[i].ToString("dd.MM.yyyy HH:mm") + ",";
+        //    }
+        //    return dateString;
+        //}
 
         public void FromCSV(string[] values)
         {
@@ -128,11 +128,11 @@ namespace ProjectTourism.Model
             Start = values[5];
             Stops = values[6];
             Finish = values[7];
-            dates = FromString(values[8]);
-            Duration = double.Parse(values[9]);
-            PictureURLs = values[10];
-            GuideUsername = values[11];
-            LocationId = int.Parse(values[12]);
+         //   dates = FromString(values[8]);
+            Duration = double.Parse(values[8]);
+            PictureURLs = values[9];
+            GuideUsername = values[10];
+            LocationId = int.Parse(values[11]);
             Pictures = GetPictureURLsFromCSV();
         }
 
@@ -149,7 +149,7 @@ namespace ProjectTourism.Model
                 Start,
                 Stops,
                 Finish,
-                ToString(dates),
+             //   ToString(dates),
                 Duration.ToString(),
                 PictureURLs,
                 GuideUsername,
