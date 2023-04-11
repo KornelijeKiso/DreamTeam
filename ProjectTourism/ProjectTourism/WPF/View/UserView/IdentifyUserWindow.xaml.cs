@@ -3,7 +3,7 @@ using ProjectTourism.Model;
 using ProjectTourism.View.GuideView;
 using ProjectTourism.View.OwnerView;
 using ProjectTourism.View.Guest1View;
-using ProjectTourism.View.Guest2View;
+using ProjectTourism.WPF.View.Guest2View;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using ProjectTourism.Domain.IRepositories;
@@ -73,7 +73,8 @@ namespace ProjectTourism.View.UserView
                         }
                     case USERTYPE.GUEST2:
                         {
-                            MainGuest2Window mainGuest2Window = new MainGuest2Window(UserVM.Username);
+                            //MainGuest2Window mainGuest2Window = new MainGuest2Window(User.Username);
+                            Guest2MainWindow mainGuest2Window = new Guest2MainWindow(UserVM.Username);
                             mainGuest2Window.ShowDialog();
                             break;
                         }

@@ -1,0 +1,60 @@
+﻿<UserControl x:Class="ProjectTourism.WPF.View.Guest2View.Menu.G2Tickets"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest2View.Menu"
+             mc:Ignorable="d" 
+             d:DesignHeight="550" 
+             d:DesignWidth="700"
+             Style="{StaticResource Page_Style}"        >
+    <!--<UserControl.DataContext>
+        <vm:TicketsVM />
+    </UserControl.DataContext>-->
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="380"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0"  >
+            <!---->
+        </Grid>
+
+        <Grid Grid.Row="1"  >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="175" />
+                <ColumnDefinition Width="175" />
+                <ColumnDefinition Width="175" />
+                <ColumnDefinition Width="175" />
+            </Grid.ColumnDefinitions>
+            <!-- UPDATE TICKET BUTTON -->
+            <!--Style="{StaticResource button}"-->
+            <Button x:Name="UpdateTicket"
+                    Height="50" Width="150" Margin="0 0 20 20"
+                    HorizontalAlignment="Right" VerticalAlignment="Center" 
+                    Content="Update Ticket"    
+                    Grid.Column="3">
+            </Button>
+            
+            <!-- RETURN TICKET BUTTON -->
+            <!--Style="{StaticResource button}"-->
+            <Button x:Name="ReturnTicket"
+                    Height="50" Width="150" Margin="0 0 20 20"
+                    HorizontalAlignment="Right" VerticalAlignment="Center" 
+                    Content="Return Ticket"    
+                    Grid.Column="2">
+            </Button>
+            
+            <!-- MAKE A REPORT BUTTON -->
+            <!--Style="{StaticResource button}"-->
+            <Button x:Name="MakeReport"
+                    Height="50" Width="150" Margin="0 0 20 20"
+                    HorizontalAlignment="Right" VerticalAlignment="Center" 
+                    Content="Make a Report"    
+                    Grid.Column="1">
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>
