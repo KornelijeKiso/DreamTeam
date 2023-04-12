@@ -59,7 +59,7 @@ namespace ProjectTourism.View.GuideView
 
         private void RequestsLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            ContentArea.Content = new ProfileWindow(); //when request window is finished enter here
+            ContentArea.Content = new RequestsWindow();
             e.Handled = true;
         }
 
