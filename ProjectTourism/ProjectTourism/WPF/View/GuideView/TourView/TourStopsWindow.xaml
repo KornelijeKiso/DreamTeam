@@ -10,14 +10,14 @@
         <ResourceDictionary>
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         </ResourceDictionary>
-        </UserControl.Resources>
+    </UserControl.Resources>
     <Grid>
         <Button x:Name="StopPassedButton" IsEnabled="{Binding TourAppointment.IsNotFinished}" Content="Start" HorizontalAlignment="Left" Height="48" Margin="1064,466,0,0" VerticalAlignment="Top" Width="134" Click="StopPassedButton_Click"/>
         <Button IsCancel="True" x:Name="EmergencyStopButton" IsEnabled="{Binding TourAppointment.IsNotFinished}" Content="Emergency stop" HorizontalAlignment="Left" Height="46" Margin="1064,540,0,0" VerticalAlignment="Top" Width="134" Background="#FFEF4343" Click="EmergencyStopButton_Click"/>
-        <Label Content="Current tour stop" HorizontalAlignment="Left" Margin="104,52,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <Label Name="CurrentTourStopLabel" Content="Current tour stop" HorizontalAlignment="Left" Margin="104,52,0,0" VerticalAlignment="Top" FontSize="22"/>
         <TextBox x:Name="StopTextBox" HorizontalAlignment="Left" Height="42" Margin="104,104,0,0" TextWrapping="Wrap" Text="{Binding Path=TourAppointment.CurrentTourStop}" VerticalAlignment="Top" Width="408" FontSize="14" TextChanged="TextBox_TextChanged" IsEnabled="False"/>
-        <TextBox x:Name="TourStatusTextBox" HorizontalAlignment="Left" Height="42" Margin="1022,99,0,0" TextWrapping="Wrap" Text="{Binding Path=TourAppointment.State}" VerticalAlignment="Top" Width="178" TextChanged="TextBox_TextChanged" FontSize="13" IsEnabled="False"/>
-        <DataGrid CanUserAddRows="False" HorizontalAlignment="Left" Height="375" VerticalAlignment="Top" Width="408" 
+        <TextBox x:Name="TourStatusTextBox" HorizontalAlignment="Left" Height="42" Margin="1022,140,0,0" TextWrapping="Wrap" Text="{Binding Path=TourAppointment.State}" VerticalAlignment="Top" Width="178" TextChanged="TextBox_TextChanged" FontSize="13" IsEnabled="False"/>
+        <DataGrid x:Name="Grid1" CanUserAddRows="False" HorizontalAlignment="Left" Height="375" VerticalAlignment="Top" Width="408" 
                   SelectedItem="{Binding SelectedTicket, UpdateSourceTrigger=PropertyChanged}" 
                   ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="104,211,0,0">
             <DataGrid.Columns>
@@ -38,7 +38,7 @@
             </DataGrid.Columns>
 
         </DataGrid>
-        <Label Content="Tour state" HorizontalAlignment="Left" Margin="1022,52,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <Label Name="TourStateLabel" Content="Tour state" HorizontalAlignment="Left" Margin="1022,92,0,0" VerticalAlignment="Top" FontSize="18"/>
         <Button x:Name="ReviewsButton" Visibility="{Binding TourAppointment.IsFinished, Converter={conv:BoolToVisibilityConverter}}" Content="See reviews" HorizontalAlignment="Left" Height="47" Margin="1064,402,0,0" VerticalAlignment="Top" Width="132" Click="ReviewsButton_Click"/>
         <ContentControl x:Name="ContentArea"></ContentControl>
     </Grid>

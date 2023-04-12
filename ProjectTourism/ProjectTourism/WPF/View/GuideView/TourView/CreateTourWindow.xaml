@@ -16,7 +16,7 @@
         </ControlTemplate>
     </UserControl.Resources>
     <Grid x:Name="grid1">
-        <Grid Margin="580,-10,152,81" Height="370" Width="220" x:Name="grid3">
+        <Grid Margin="580,60,152,81" Height="370" Width="220" x:Name="grid3">
             <Rectangle Stroke="Black" Margin="0,-15,0,-20" Fill="#FFEAEAEA" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="4" Name="rectangle">
                 <Rectangle.RenderTransform>
                     <TransformGroup>
@@ -85,7 +85,7 @@
             <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding Path = Tour.Description}" Margin="0,8,0,8"/>
         </Grid>
         <WrapPanel Margin="586,274,536,338">
-            <Button IsDefault="True" x:Name="AddLanguageButton" Content="Add language" HorizontalAlignment="Left" Margin="25, 0, 0, 0" Height="30"  VerticalAlignment="Top" Width="86" Click="AddLanguageButton_Click"/>
+            <Button IsDefault="True" x:Name="AddLanguageButton" Content="Add language" HorizontalAlignment="Left" Margin="4, -2, 0, 0" Height="33"  VerticalAlignment="Top" Width="86" Click="AddLanguageButton_Click"/>
         </WrapPanel>
         <WrapPanel x:Name="SaveButton" Margin="1114,608,27,24">
             <Button Content="Save" Click="SaveTour_Click" HorizontalAlignment="Center" Height="43" Margin="25, 0, 0, 0" VerticalAlignment="Center" Width="95"/>
