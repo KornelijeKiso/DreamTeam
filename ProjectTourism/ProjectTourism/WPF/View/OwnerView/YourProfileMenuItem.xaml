@@ -38,16 +38,16 @@
         <Label VerticalAlignment="Top" HorizontalAlignment="Left" Margin="190 163 0 0" ContentStringFormat="Tel-number : {0}" FontSize="14" Content="069 5036644"></Label>
         <Label VerticalAlignment="Top" HorizontalAlignment="Left" Margin="190 183 0 0" ContentStringFormat="E-mail : {0}" FontSize="14" Content="{Binding Owner.Email}"></Label>
         <Label VerticalAlignment="Top" HorizontalAlignment="Left" Margin="190 203 0 0" FontSize="14" Content="Status : Owner"></Label>
-        <Line X1="50" Y1="270" X2="410" Y2="270" Stroke="Green" StrokeThickness="2"/>
+        <Line X1="50" Y1="270" X2="410" Y2="270" Stroke="DarkBlue" StrokeThickness="2"/>
 
-        <GroupBox Header="Profile lifetime stats" Margin="50 300 0 0" Height="300" Width="350" BorderBrush="Green" FontSize="15" Foreground="DarkSlateGray" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left"></GroupBox>
+        <GroupBox Header="Profile lifetime stats" Margin="50 300 0 0" Height="300" Width="350" BorderBrush="DarkBlue" FontSize="15" Foreground="DarkSlateGray" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left"></GroupBox>
         <Label ContentStringFormat="{}{0} Accommodations" Content="{Binding Owner.NumberOfAccommodations}" VerticalAlignment="Top"
                HorizontalAlignment="Left" Margin="70 340 0 0" FontSize="16" FontWeight="Bold" Foreground="DarkGoldenrod"></Label>
         <Label ContentStringFormat="{}{0} Reservations" Content="{Binding Owner.NumberOfReservations}" VerticalAlignment="Top"
                HorizontalAlignment="Left" Margin="70 365 0 0" FontSize="16" FontWeight="Bold" Foreground="DarkGoldenrod"></Label>
         <Label ContentStringFormat="{}{0} Renovations" Content="0" VerticalAlignment="Top"
                HorizontalAlignment="Left" Margin="70 390 0 0" FontSize="16" FontWeight="Bold" Foreground="DarkGoldenrod"></Label>
-        <GroupBox Header="Last year" Margin="75 430 0 0" Height="150" Width="300" BorderBrush="Green" FontSize="15"
+        <GroupBox Header="Last year" Margin="75 430 0 0" Height="150" Width="300" BorderBrush="DarkBlue" FontSize="15"
                   Foreground="DarkSlateGray" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left"></GroupBox>
         <Rectangle VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" Height="80" Margin="110 470 0 0" Stroke="DarkGoldenrod" StrokeThickness="2"></Rectangle>
         <Rectangle VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" Height="80" Margin="240 470 0 0" Stroke="DarkGoldenrod" StrokeThickness="2"></Rectangle>

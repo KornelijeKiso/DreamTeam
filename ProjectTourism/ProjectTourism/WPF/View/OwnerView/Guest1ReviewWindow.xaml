@@ -8,7 +8,7 @@
         Title="Guests Review" Height="515" Width="450" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
         
-        <GroupBox Header="Reservation info" Background="LightGreen" FontSize="14" Height="124" Width="418" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,3,0,0" BorderThickness="2" BorderBrush="Black"/>
+        <GroupBox Header="Reservation info" Background="DeepSkyBlue" FontSize="14" Height="124" Width="418" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,3,0,0" BorderThickness="2" BorderBrush="Black"/>
         <GroupBox Header="Accommodation" Background="White" FontSize="14" Height="92" Width="195" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="220,25,0,0" BorderThickness="2" BorderBrush="Black"/>
         <GroupBox Header="Guest" Background="White" FontSize="14" Height="92" Width="195" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="20,25,0,0" BorderThickness="2" BorderBrush="Black"/>
         <Label FontWeight="Bold" Foreground="Gray" FontSize="13" ContentStringFormat = "@{0}" Content= "{Binding Path=Reservation.Guest1Username}" HorizontalAlignment="Left" Margin="30,40,0,0" VerticalAlignment="Top" Width="175" Height="29"/>
@@ -50,7 +50,7 @@
                 </TextBlock>
             </Label.Content>
         </Label>
-        <GroupBox Header="Grades" Background="LightGreen" FontSize="14" Height="179" Width="418" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,123,0,0" BorderThickness="2" BorderBrush="Black"/>
+        <GroupBox Header="Grades" Background="DeepSkyBlue" FontSize="14" Height="179" Width="418" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,123,0,0" BorderThickness="2" BorderBrush="Black"/>
         
         <Rectangle Height="141" Width="390" Fill="White" Margin="3,-45,0,0"></Rectangle>
         <Label FontSize="16" FontWeight="Medium" ContentStringFormat="Price and quality ratio: {0}"  Content="{Binding PriceQuality}" HorizontalAlignment="Left" Margin="30,150,0,0" VerticalAlignment="Top" Width="195"/>
@@ -67,9 +67,9 @@
         </Button>
         <Label Height="30" Width="150" Margin="-260,150,0,0" Content="Comment" FontSize="14" FontWeight="Medium"></Label>
         <TextBox Text="{Binding Reservation.AccommodationGrade.Comment}" IsEnabled="False" AcceptsReturn="True" TextWrapping="Wrap" Height="100" Width="300" Margin="-110,270,0,0" BorderBrush="Black" BorderThickness="2"></TextBox>
-        <Rectangle Height="80" Width="80" Margin="315,250,0,0" Stroke="Green" Fill="White" StrokeThickness="3" ></Rectangle>
-        <TextBlock Height="58" Width="80" Text="{Binding Path=Average, UpdateSourceTrigger=PropertyChanged}" FontSize="40" FontWeight="Bold" TextAlignment="Center" Foreground="Green" Margin="315,248,0,0"></TextBlock>
+        <Rectangle Height="80" Width="80" Margin="315,250,0,0" Stroke="DodgerBlue" Fill="White" StrokeThickness="3" ></Rectangle>
+        <TextBlock Height="58" Width="80" Text="{Binding Path=Average, UpdateSourceTrigger=PropertyChanged}" FontSize="40" FontWeight="Bold" TextAlignment="Center" Foreground="DodgerBlue" Margin="315,248,0,0"></TextBlock>
         <CheckBox Content="Recommended renovation" IsChecked="True" FontSize="14" IsEnabled="False" Margin="15,430,0,0"></CheckBox>
-        <Button Content="Cancel" Foreground="Green" FontSize="15" Background="Transparent" Height="30" Width="70" Margin="315,390,0,0" IsCancel="True"></Button>
+        <Button Content="Cancel" Foreground="DodgerBlue" FontSize="15" Background="Transparent" Height="30" Width="70" Margin="315,390,0,0" IsCancel="True"></Button>
     </Grid>
 </Window>

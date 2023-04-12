@@ -14,13 +14,13 @@
     </UserControl.Resources>
     <Grid>
         <DataGrid x:Name="DataGridReservations" ItemsSource="{Binding Owner.Reservations, UpdateSourceTrigger=PropertyChanged}"
-            SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" RowHeight="80" 
-            IsReadOnly="True" VerticalScrollBarVisibility="Visible" AutoGenerateColumns="False" Margin="100,79,105,79" HorizontalScrollBarVisibility="Disabled" RowHeaderWidth="0" GridLinesVisibility="Vertical"
-            BorderThickness="2" BorderBrush="Green" Background="LightYellow" RowBackground="{Binding Background, RelativeSource={RelativeSource Self}}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" >
+            SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" RowHeight="90" 
+            IsReadOnly="True" VerticalScrollBarVisibility="Visible" AutoGenerateColumns="False" Margin="130,89,135,49" HorizontalScrollBarVisibility="Disabled" RowHeaderWidth="0" GridLinesVisibility="None" HeadersVisibility="None"
+            BorderThickness="2" BorderBrush="DodgerBlue" Background="LightYellow" RowBackground="{Binding Background, RelativeSource={RelativeSource Self}}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" >
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Setter Property="BorderThickness" Value="0,2,0,2"/>
-                    <Setter Property="BorderBrush" Value="Green"/>
+                    <Setter Property="BorderBrush" Value="DodgerBlue"/>
                     <Style.Triggers>
                         <Trigger Property="IsSelected" Value="True">
                             <Setter Property="BorderThickness" Value="0,2,0,2"/>
@@ -32,7 +32,7 @@
                 <Style TargetType="DataGridCell">
                     <Setter Property="Margin" Value="0,0,0,0"/>
                     <Setter Property="BorderThickness" Value="0"/>
-                    <Setter Property="BorderBrush" Value="Green"></Setter>
+                    <Setter Property="BorderBrush" Value="DodgerBlue"></Setter>
                     <Setter Property="TextBlock.TextAlignment" Value="Center" />
                     <Setter Property="FontSize" Value="13" />
                 </Style>
@@ -52,8 +52,31 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel>
-                                <Label ContentStringFormat="@{0}" Content ="{Binding Path=Accommodation.Name}"></Label>
-                                <Label Margin="0,-8,0,0">
+                                <Label >
+                                    <Label.Content>
+                                        <TextBlock FontWeight="SemiBold">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} - {1} guests">
+                                                    <Binding Path="Accommodation.Name"/>
+                                                    <Binding Path="Accommodation.MaxNumberOfGuests"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Label.Content>
+                                </Label>
+                                <Label Margin="0 -8 0 0">
+                                    <Label.Content>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0}, {1}">
+                                                    <Binding Path="Accommodation.Location.City"/>
+                                                    <Binding Path="Accommodation.Location.Country"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Label.Content>
+                                </Label>
+                                <Label Margin="0,5,0,0" BorderBrush="Gray" Background="#FFFFFF9D" BorderThickness="1" Width="150" Height="28">
                                     <Label.Content>
                                         <TextBlock>
                                             <TextBlock.Text>
@@ -65,15 +88,7 @@
                                         </TextBlock>
                                     </Label.Content>
                                 </Label>
-                                <Label Margin="0,-10,0,0" ContentStringFormat="{}{0} guests"  Content ="{Binding Path=Accommodation.MaxNumberOfGuests}"></Label>
-                                <Button Content="Postpone request" FontSize="10" BorderBrush="Green" Click="PostponeRequestClick"
-                                    BorderThickness="2" Visibility="{Binding Path=RequestedPostpone, Converter={conv:BoolToVisibilityConverter}}" Width="90" Margin="85 -10 0 0">
-                                    <Button.Resources>
-                                        <Style TargetType="Border">
-                                            <Setter Property="CornerRadius" Value="5"/>
-                                        </Style>
-                                    </Button.Resources>
-                                </Button>
+                                
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -84,37 +99,47 @@
                     </DataGridTemplateColumn.Header>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel>
-                                <Label ContentStringFormat="@{0}" Content ="{Binding Path=Guest1.Username}"></Label>
-                                <Label Margin="0,-8,0,0">
-                                    <Label.Content>
-                                        <TextBlock>
-                                            <TextBlock.Text>
-                                                <MultiBinding StringFormat="{}{0} {1}">
-                                                    <Binding Path="Guest1.FirstName"/>
-                                                    <Binding Path="Guest1.LastName"/>
-                                                </MultiBinding>
-                                            </TextBlock.Text>
-                                        </TextBlock>
-                                    </Label.Content>
-                                </Label>
+                            <GroupBox BorderBrush="Gray" FontSize="10" Header="Guest" Margin="0 0 0 5">
+                                <StackPanel>
+                                    <Label Margin="0,-8,0,0" FontSize="13">
+                                        <Label.Content>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0} {1} (@{2})">
+                                                        <Binding Path="Guest1.FirstName"/>
+                                                        <Binding Path="Guest1.LastName"/>
+                                                        <Binding Path="Guest1.Username"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Label.Content>
+                                    </Label>
 
-                                <Label Margin="0,-10,0,0"  Content ="{Binding Path=Guest1.Email}"></Label>
-                                <Image Source="https://img.icons8.com/external-anggara-flat-anggara-putra/2x/external-verified-ui-basic-anggara-flat-anggara-putra.png" Width="25" Height="25" Margin="150 -90 0 0"></Image>
-                            </StackPanel>
+                                    <Label FontSize="13" Margin="0,-10,0,0"  Content ="{Binding Path=Guest1.Email}"></Label>
+                                    <Image Source="https://img.icons8.com/external-anggara-flat-anggara-putra/2x/external-verified-ui-basic-anggara-flat-anggara-putra.png" Width="25" Height="25" Margin="140 -40 0 0"></Image>
+                                    <Button Content="Postpone request" FontSize="10" BorderBrush="DeepSkyBlue" Click="PostponeRequestClick"
+                                    BorderThickness="2" Visibility="{Binding Path=RequestedPostpone, Converter={conv:BoolToVisibilityConverter}}" Width="120" Margin="0 3 0 0">
+                                        <Button.Resources>
+                                            <Style TargetType="Border">
+                                                <Setter Property="CornerRadius" Value="5"/>
+                                            </Style>
+                                        </Button.Resources>
+                                    </Button>
+                                </StackPanel>
+                            </GroupBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="190">
+                <DataGridTemplateColumn Width="170">
                     <DataGridTemplateColumn.Header>
                         <TextBlock Text="Grade a guest"></TextBlock>
                     </DataGridTemplateColumn.Header>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel>
-                                <Label Content ="Grading deadline:"></Label>
-                                <Label Margin="0,-8,0,0" Content="{Binding GradingDeadlineMessage}"></Label>
-                                <Button Height="20" Width="120" BorderBrush="Green" 
+                                <Label Margin="10 4 0 0" Content ="Grading deadline:"></Label>
+                                <Label Margin="10,-8,0,0" Content="{Binding GradingDeadlineMessage}"></Label>
+                                <Button Height="20" Width="120" BorderBrush="DeepSkyBlue" 
                                     BorderThickness="2" IsEnabled="{Binding CanBeGraded}" Click="GradeGuestClick" 
                                     Content="Grade your guest" FontSize="10" Margin="0 5 0 0">
                                     <Button.Resources>
@@ -134,10 +159,10 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel>
-                                <Label Content ="Grade your guest to"></Label>
-                                <Label Margin="0,-8,0,0" Content="be able to see theirs review"></Label>
-                                <Button Height="20" Width="120" BorderBrush="Green" 
-                                    BorderThickness="2" Margin="0 5 0 0" FontSize="10" IsEnabled="{Binding VisibleReview}" Click="SeeReviewClick" 
+                                <Label Margin="-10 4 0 0" Content ="Grade your guest to be"></Label>
+                                <Label Margin="-10,-8,0,0" Content="able to see theirs review"></Label>
+                                <Button Height="20" Width="120" BorderBrush="DeepSkyBlue" 
+                                    BorderThickness="2" Margin="-59 5 0 0" FontSize="10" IsEnabled="{Binding VisibleReview}" Click="SeeReviewClick" 
                                     Content="See guests review">
                                     <Button.Resources>
                                         <Style TargetType="Border">
@@ -152,7 +177,7 @@
                 
             </DataGrid.Columns>
         </DataGrid>
-        <Label Content="YOUR RESERVATIONS" FontSize="16" Foreground="Green" FontWeight="Bold" HorizontalAlignment="Left" Margin="100,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,0.708" Width="200"/>
+        <Label Content="YOUR RESERVATIONS" FontSize="16" Foreground="Gray" FontWeight="Bold" HorizontalAlignment="Left" Margin="125,55,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,0.708" Width="200"/>
 
     </Grid>
 </UserControl>

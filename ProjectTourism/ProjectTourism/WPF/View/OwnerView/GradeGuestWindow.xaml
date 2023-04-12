@@ -5,15 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.OwnerView"
         mc:Ignorable="d"
-        Title="Grade a guest" Height="495" Width="450" WindowStartupLocation="CenterScreen" Background="LightGreen">
+        Title="Grade a guest" Height="495" Width="450" WindowStartupLocation="CenterScreen" Background="LightBlue">
 
     <Grid >
 
         <StackPanel>
             <StackPanel Orientation="Horizontal">
-                <GroupBox Header="Guest" Background="White" FontSize="14" Height="72" Width="195" BorderThickness="2" BorderBrush="Green" Foreground="DarkGreen" Margin="12 0 0 0">
+                <GroupBox Header="Guest" Background="White" FontSize="14" Height="72" Width="195" BorderThickness="2" BorderBrush="Blue" Foreground="Black" Margin="12 0 0 0">
                     <StackPanel>
-                        <Label FontSize="12" FontWeight="Medium" Foreground="DarkGreen">
+                        <Label FontSize="12" FontWeight="Medium" Foreground="DodgerBlue">
                             <Label.Content>
                                 <TextBlock>
                                     <TextBlock.Text>
@@ -39,9 +39,9 @@
                         </Label>
                     </StackPanel>
                 </GroupBox>
-                <GroupBox Header="Accommodation" Background="White" FontSize="14" Height="72" Width="195" BorderThickness="2" BorderBrush="Green" Foreground="DarkGreen" Margin="20 0 0 0">
+                <GroupBox Header="Accommodation" Background="White" FontSize="14" Height="72" Width="195" BorderThickness="2" BorderBrush="Blue" Foreground="Black" Margin="20 0 0 0">
                     <StackPanel>
-                        <Label ContentStringFormat="{}{0} - {1} guests" FontSize="12" FontWeight="Medium" Foreground="DarkGreen">
+                        <Label ContentStringFormat="{}{0} - {1} guests" FontSize="12" FontWeight="Medium" Foreground="DodgerBlue">
                             <Label.Content>
                                 <TextBlock>
                                     <TextBlock.Text>
@@ -69,34 +69,34 @@
                 </GroupBox>
             </StackPanel>
             <Label Margin="10 0 0 0"  FontSize="13" FontWeight="DemiBold" Content="Grade your guest with values from 1 to 5 for each of listed categories"></Label>
-            <GroupBox Background="White" Margin="15 0 15 20" BorderBrush="Green" BorderThickness="2" FontSize="14" Foreground="DarkGreen" Header="Grades">
+            <GroupBox Background="White" Margin="15 0 15 20" BorderBrush="Blue" BorderThickness="2" FontSize="14" Foreground="Black" Header="Grades">
                 <StackPanel>
                     <Label Content="Cleanness :" FontSize="14" Margin="20 -5 0 5"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30" Name="Cleanness">
-                        <RadioButton Margin="25 0 0 0" Content="1" FontSize="14" GroupName="GradeGroup" Width="55" Background="LightGreen"/>
-                        <RadioButton Content="2" FontSize="14" GroupName="GradeGroup" Width="55" Background="LightGreen"/>
-                        <RadioButton Content="3" FontSize="14" GroupName="GradeGroup" Width="55" Background="LightGreen"/>
-                        <RadioButton Content="4" FontSize="14" GroupName="GradeGroup" Width="55" Background="LightGreen"/>
-                        <RadioButton Content="5" FontSize="14" GroupName="GradeGroup" Width="55" Background="LightGreen"/>
+                        <RadioButton Margin="25 0 0 0" Content="1" FontSize="14" GroupName="GradeGroup" Width="55" Background="DeepSkyBlue"/>
+                        <RadioButton Content="2" FontSize="14" GroupName="GradeGroup" Width="55" Background="DeepSkyBlue"/>
+                        <RadioButton Content="3" FontSize="14" GroupName="GradeGroup" Width="55" Background="DeepSkyBlue"/>
+                        <RadioButton Content="4" FontSize="14" GroupName="GradeGroup" Width="55" Background="DeepSkyBlue"/>
+                        <RadioButton Content="5" FontSize="14" GroupName="GradeGroup" Width="55" Background="DeepSkyBlue"/>
                     </StackPanel>
                     <Label Content="Communication :" FontSize="14" Margin="20 -5 0 5"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30" Name="Communication">
-                        <RadioButton Margin="25 0 0 0" Content="1" FontSize="14" GroupName="GradeGroup1" Width="55" Background="LightGreen"/>
-                        <RadioButton Content="2" FontSize="14" GroupName="GradeGroup1" Width="55" Background="LightGreen"/>
-                        <RadioButton Content="3" FontSize="14" GroupName="GradeGroup1" Width="55" Background="LightGreen"/>
-                        <RadioButton Content="4" FontSize="14" GroupName="GradeGroup1" Width="55" Background="LightGreen"/>
-                        <RadioButton Content="5" FontSize="14" GroupName="GradeGroup1" Width="55" Background="LightGreen"/>
+                        <RadioButton Margin="25 0 0 0" Content="1" FontSize="14" GroupName="GradeGroup1" Width="55" Background="DeepSkyBlue"/>
+                        <RadioButton Content="2" FontSize="14" GroupName="GradeGroup1" Width="55" Background="DeepSkyBlue"/>
+                        <RadioButton Content="3" FontSize="14" GroupName="GradeGroup1" Width="55" Background="DeepSkyBlue"/>
+                        <RadioButton Content="4" FontSize="14" GroupName="GradeGroup1" Width="55" Background="DeepSkyBlue"/>
+                        <RadioButton Content="5" FontSize="14" GroupName="GradeGroup1" Width="55" Background="DeepSkyBlue"/>
                     </StackPanel>
                     <Label Content="Following the rules :" FontSize="14" Margin="20 -5 0 5"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="30" Name="FollowingTheRules">
-                        <RadioButton Margin="25 0 0 0" Content="1" FontSize="14" GroupName="GradeGroup2" Width="55" Background="LightGreen"/>
-                        <RadioButton Content="2" FontSize="14" GroupName="GradeGroup2" Width="55" Background="LightGreen"/>
-                        <RadioButton Content="3" FontSize="14" GroupName="GradeGroup2" Width="55" Background="LightGreen"/>
-                        <RadioButton Content="4" FontSize="14" GroupName="GradeGroup2" Width="55" Background="LightGreen"/>
-                        <RadioButton Content="5" FontSize="14" GroupName="GradeGroup2" Width="55" Background="LightGreen"/>
+                        <RadioButton Margin="25 0 0 0" Content="1" FontSize="14" GroupName="GradeGroup2" Width="55" Background="DeepSkyBlue"/>
+                        <RadioButton Content="2" FontSize="14" GroupName="GradeGroup2" Width="55" Background="DeepSkyBlue"/>
+                        <RadioButton Content="3" FontSize="14" GroupName="GradeGroup2" Width="55" Background="DeepSkyBlue"/>
+                        <RadioButton Content="4" FontSize="14" GroupName="GradeGroup2" Width="55" Background="DeepSkyBlue"/>
+                        <RadioButton Content="5" FontSize="14" GroupName="GradeGroup2" Width="55" Background="DeepSkyBlue"/>
                     </StackPanel>
                     <Label Content="Comment :" FontSize="14" Margin="20 -5 0 5"></Label>
-                    <TextBox BorderThickness="2" BorderBrush="Green" Height="60" Width="290" Margin="0 0 0 10" HorizontalAlignment="Center" Text="{Binding GuestGrade.Comment,UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                    <TextBox BorderThickness="2" BorderBrush="DodgerBlue" Height="60" Width="290" Margin="0 0 0 10" HorizontalAlignment="Center" Text="{Binding GuestGrade.Comment,UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
                 </StackPanel>
             </GroupBox>
