@@ -21,6 +21,7 @@ using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using ProjectTourism.View.GuideView.TourView;
+using ProjectTourism.WPF.View.GuideView.TourView;
 using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.TourView
@@ -81,23 +82,14 @@ namespace ProjectTourism.View.TourView
             LanguagesObservable = new ObservableCollection<string>(Languages);
             LanguageComboBox.ItemsSource = LanguagesObservable;
         }
-        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
         public void Update()
         {
 
         }
-
         private void AttachTourImagesButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
-
         private void SaveTour_Click(object sender, RoutedEventArgs e)
         {
             if (appointmentsListBox.Items.Count == 0)
@@ -106,11 +98,13 @@ namespace ProjectTourism.View.TourView
                 return;
             }
             if (Tour.IsValid && NewLocation.IsValid)
+            {
                 AddTour();
+                ContentArea.Content = new HomeWindow(Tour.Guide.Username);
+            }
             else
                 MessageBox.Show("Tour can not be made because the fields were not correctly entered.");
         }
-
         private void AddTour()
         {
             NewLocation.Id = NewLocationService.AddAndReturnId(NewLocation.GetLocation());
@@ -119,14 +113,48 @@ namespace ProjectTourism.View.TourView
             SaveDates();
             TourService.Add(Tour);
             TourAppointmentService.MakeTourAppointments(Tour);
-            //Close();
+            HideTourCreateContents();
         }
-
+        private void HideTourCreateContents()
+        {
+            foreach (var child in grid1.Children)
+            {
+                if (child is Button || child is Label || child is TextBox)
+                {
+                    (child as UIElement).Visibility = Visibility.Hidden;
+                }
+            }
+            foreach (var child in grid2.Children)
+            {
+                if (child is Button || child is Label || child is TextBox)
+                {
+                    (child as UIElement).Visibility = Visibility.Hidden;
+                }
+            }
+            foreach (var child in grid3.Children)
+            {
+                if (child is Button || child is Label || child is TextBox)
+                {
+                    (child as UIElement).Visibility = Visibility.Hidden;
+                }
+            }
+            textblockHours.Visibility = Visibility.Hidden;
+            textblockMinutes.Visibility =Visibility.Hidden;
+            hoursTextBox.Visibility = Visibility.Hidden;
+            minutesTextBox.Visibility = Visibility.Hidden;
+            appointmentsListBox.Visibility = Visibility.Hidden;
+            AddTimeButton.Visibility = Visibility.Hidden;
+            calendar.Visibility = Visibility.Hidden;
+            LanguageComboBox.Visibility = Visibility.Hidden;
+            rectangle.Visibility = Visibility.Hidden;
+            SaveButton.Visibility = Visibility.Hidden;
+            AddLanguageButton.Visibility = Visibility.Hidden;
+            CreateTourLabel.Visibility = Visibility.Hidden;
+        }
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
-
         private void AddLanguageButton_Click(object sender, RoutedEventArgs e)
         {
             LanguageAdditionWindow languageAdditionWindow = new LanguageAdditionWindow(LanguagesObservable);
@@ -210,6 +238,11 @@ namespace ProjectTourism.View.TourView
         {
             hoursTextBox.Text = "";
             minutesTextBox.Text = "";
+        }
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
