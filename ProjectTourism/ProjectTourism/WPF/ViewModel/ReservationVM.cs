@@ -159,6 +159,14 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+        public bool Conflict
+        {
+            get => PostponeConflictMessage.Equals("Requested appointment is in conflict with other reservations for this accommodation. You have options to accept or reject this postpone request.");
+        }
+        public bool NotConflict
+        {
+            get => PostponeConflictMessage.Equals("Requested appointment is not in conflict with other reservations for this accommodation. You have options to accept or reject this postpone request.");
+        }
         public bool CanBeGraded
         {
             get => !Graded && IsAbleToGrade();

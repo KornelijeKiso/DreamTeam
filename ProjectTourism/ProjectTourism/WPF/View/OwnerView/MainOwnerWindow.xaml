@@ -20,14 +20,14 @@
     
     <Grid Margin="0,0,0,0">
 
-        <Menu Margin="15,0,15,640" BorderThickness="1" BorderBrush="Green">
+        <Menu Margin="15,0,15,640" BorderThickness="1" BorderBrush="DodgerBlue">
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Rows="1" HorizontalAlignment="Center"/>
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
-            
-            <MenuItem Name="ProfileItem" FontSize="14" Click="SwitchToYourProfile" BorderBrush="Green">
+
+            <MenuItem Name="ProfileItem" FontSize="14" Click="SwitchToYourProfile" BorderBrush="DodgerBlue">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="       Your Profile   " HorizontalAlignment="Center" Margin="0 3 0 0"/>
@@ -35,7 +35,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem Name="AccommodationsItem" FontSize="14" Click="SwitchToMyAccommodations" BorderBrush="Green">
+            <MenuItem Name="AccommodationsItem" FontSize="14" Click="SwitchToMyAccommodations" BorderBrush="DodgerBlue">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text=" Accommodations  " HorizontalAlignment="Center" Margin="0 3 0 0"/>
@@ -43,7 +43,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem Name="ReservationsItem" FontSize="14" Click="SwitchToReservations" BorderBrush="Green">
+            <MenuItem Name="ReservationsItem" FontSize="14" Click="SwitchToReservations" BorderBrush="DodgerBlue">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="     Reservations    " HorizontalAlignment="Center" Margin="0 3 0 0"/>
@@ -51,7 +51,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem Name="NotificationsItem" FontSize="14" BorderBrush="Green">
+            <MenuItem Name="NotificationsItem" FontSize="14" BorderBrush="DodgerBlue">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="    Notifications    " HorizontalAlignment="Center" Margin="0 3 0 0"/>
@@ -59,7 +59,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem Name="ForumsItem" FontSize="14" BorderBrush="Green">
+            <MenuItem Name="ForumsItem" FontSize="14" BorderBrush="DodgerBlue">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="        Forums    " HorizontalAlignment="Center" Margin="0 3 0 0"/>
@@ -67,7 +67,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem Name="HelpItem" FontSize="14" BorderBrush="Green">
+            <MenuItem Name="HelpItem" FontSize="14" BorderBrush="DodgerBlue">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="         Help    " HorizontalAlignment="Center" Margin="0 3 0 0"/>

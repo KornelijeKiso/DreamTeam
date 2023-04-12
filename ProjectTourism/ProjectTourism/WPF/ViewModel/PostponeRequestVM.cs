@@ -52,6 +52,7 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+        
         public DateOnly NewStartDate
         {
             get => _postponeRequest.NewStartDate;

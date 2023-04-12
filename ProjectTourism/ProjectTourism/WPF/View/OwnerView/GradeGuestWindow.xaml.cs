@@ -26,6 +26,7 @@ namespace ProjectTourism.View.OwnerView
     {
         public OwnerVM Owner { get; set; }
         public Guest1GradeVM GuestGrade { get; set; }
+        public ReservationVM Reservation { get; set; }
         public bool Graded;
         public GradeGuestWindow(ReservationVM reservation, OwnerVM owner)
         {
@@ -33,6 +34,7 @@ namespace ProjectTourism.View.OwnerView
             DataContext = this;
             Owner = owner;
             GuestGrade = new Guest1GradeVM();
+            Reservation = reservation;
             GuestGrade.ReservationId = reservation.Id;
             GuestGrade.Reservation = reservation;
         }

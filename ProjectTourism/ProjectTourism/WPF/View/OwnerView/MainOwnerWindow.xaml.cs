@@ -39,14 +39,14 @@ namespace ProjectTourism.View.OwnerView
             DataContext = this;
 
             Content.Content = new YourAccommodationsMenuItem(username);
-            AccommodationsItem.Background = Brushes.LightGreen;
+            AccommodationsItem.Background = Brushes.DeepSkyBlue;
             SetOwner(username);
             
         }
         public void SwitchToMyAccommodations(object sender, EventArgs e)
         {
             Content.Content = new YourAccommodationsMenuItem(Owner.Username);
-            AccommodationsItem.Background = Brushes.LightGreen;
+            AccommodationsItem.Background = Brushes.DeepSkyBlue;
             ReservationsItem.Background = Brushes.Transparent;
             HelpItem.Background = Brushes.Transparent;
             ForumsItem.Background = Brushes.Transparent;
@@ -57,7 +57,7 @@ namespace ProjectTourism.View.OwnerView
         {
             Content.Content = new ReservationsMenuItem(Owner.Username);
             AccommodationsItem.Background = Brushes.Transparent;
-            ReservationsItem.Background = Brushes.LightGreen;
+            ReservationsItem.Background = Brushes.DeepSkyBlue;
             HelpItem.Background = Brushes.Transparent;
             ForumsItem.Background = Brushes.Transparent;
             NotificationsItem.Background = Brushes.Transparent;
@@ -71,7 +71,7 @@ namespace ProjectTourism.View.OwnerView
             HelpItem.Background = Brushes.Transparent;
             ForumsItem.Background = Brushes.Transparent;
             NotificationsItem.Background = Brushes.Transparent;
-            ProfileItem.Background = Brushes.LightGreen;
+            ProfileItem.Background = Brushes.DeepSkyBlue;
         }
 
         private void SetOwner(string username)
