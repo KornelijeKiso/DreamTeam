@@ -68,11 +68,9 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         }
         private void AllToursButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewAllToursWindow viewAllToursWindow = new ViewAllToursWindow(Guide.Username);
-            viewAllToursWindow.ShowDialog();
+            HideHomeContents();
+            ContentArea.Content = new ViewAllToursWindow(Guide.Username);
         }
-
-        
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

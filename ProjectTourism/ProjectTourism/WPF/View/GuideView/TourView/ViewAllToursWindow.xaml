@@ -1,12 +1,10 @@
-﻿<Window x:Class="ProjectTourism.View.GuideView.TourView.ViewAllToursWindow"
+﻿<UserControl x:Class="ProjectTourism.View.GuideView.TourView.ViewAllToursWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.GuideView.TourView"
-        mc:Ignorable="d"
-        Title="Tours" Height="450" Width="800"
-        WindowStartupLocation="CenterScreen">
+        mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
         <DataGrid CanUserDeleteRows="False"
                   IsReadOnly="True"
@@ -29,5 +27,6 @@
                 <DataGridTextColumn Header="Duration" Width="*" Binding="{Binding Duration}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <Label Content="All tours" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
     </Grid>
-</Window>
+</UserControl>

@@ -25,7 +25,7 @@ namespace ProjectTourism.View.GuideView.TourView
     /// <summary>
     /// Interaction logic for TrackToursWindow.xaml
     /// </summary>
-    public partial class ViewAllToursWindow : Window, INotifyPropertyChanged, IObserver
+    public partial class ViewAllToursWindow : UserControl, INotifyPropertyChanged, IObserver
     {
         public GuideVM Guide { get; set; }
         public ObservableCollection<TourVM> Tours { get; set; }
