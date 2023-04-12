@@ -15,9 +15,9 @@
 
         </ControlTemplate>
     </UserControl.Resources>
-    <Grid>
-        <Grid Margin="580,-80,152,81" Height="370" Width="220">
-            <Rectangle Stroke="Black" Margin="0,-15,0,-20" Fill="#FFEAEAEA" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="4">
+    <Grid x:Name="grid1">
+        <Grid Margin="580,60,152,81" Height="370" Width="220" x:Name="grid3">
+            <Rectangle Stroke="Black" Margin="0,-15,0,-20" Fill="#FFEAEAEA" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="4" Name="rectangle">
                 <Rectangle.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="-1"/>
@@ -30,17 +30,17 @@
 
             <StackPanel>
                 <Calendar x:Name="calendar" SelectionMode="MultipleRange" SelectedDatesChanged="Calendar_SelectedDatesChanged"/>
-                <StackPanel Orientation="Horizontal" Height="34">
-                    <TextBlock Text="Hours: " Margin="2, 5" FontSize="11" Height="19"/>
+                <StackPanel Orientation="Horizontal" Height="34" x:Name="stackpanel">
+                    <TextBlock x:Name="textblockHours" Text="Hours: " Margin="2, 5" FontSize="11" Height="19"/>
                     <TextBox x:Name="hoursTextBox" Width="28" Margin="5"/>
-                    <TextBlock Text="Minutes: " Margin="0,5" FontSize="11" Height="17"/>
+                    <TextBlock x:Name="textblockMinutes" Text="Minutes: " Margin="0,5" FontSize="11" Height="17"/>
                     <TextBox x:Name="minutesTextBox" Width="28" Margin="5"/>
-                    <Button Content="Add Time" Click="AddTimeButton_Click" Margin="0,5" Height="23"/>
+                    <Button x:Name="AddTimeButton" Content="Add Time" Click="AddTimeButton_Click" Margin="0,5" Height="23"/>
                 </StackPanel>
                 <ListBox x:Name="appointmentsListBox" Margin="5"/>
             </StackPanel>
         </Grid>
-        <Grid Margin="-200,50,152,81" Height="550" Width="430">
+        <Grid Margin="249,120,587,36" x:Name="grid2">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -84,15 +84,13 @@
             <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding Path = Tour.PictureURLs}" Margin="0,8,0,8"/>
             <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding Path = Tour.Description}" Margin="0,8,0,8"/>
         </Grid>
-        <WrapPanel Margin="561,210,587,432">
-            <Button IsDefault="True" x:Name="AddLanguageButton" Content="Add language" HorizontalAlignment="Left" Margin="25, 0, 0, 0" Height="33"  VerticalAlignment="Top" Width="86" Click="AddLanguageButton_Click"/>
+        <WrapPanel Margin="586,274,536,338">
+            <Button IsDefault="True" x:Name="AddLanguageButton" Content="Add language" HorizontalAlignment="Left" Margin="4, -2, 0, 0" Height="33"  VerticalAlignment="Top" Width="86" Click="AddLanguageButton_Click"/>
         </WrapPanel>
-        <WrapPanel Margin="1114,608,27,24">
+        <WrapPanel x:Name="SaveButton" Margin="1114,608,27,24">
             <Button Content="Save" Click="SaveTour_Click" HorizontalAlignment="Center" Height="43" Margin="25, 0, 0, 0" VerticalAlignment="Center" Width="95"/>
         </WrapPanel>
+        <ContentControl x:Name="ContentArea"></ContentControl>
+        <Label Name="CreateTourLabel" Content="Create tour" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
     </Grid>
-
-
-
-
 </UserControl>

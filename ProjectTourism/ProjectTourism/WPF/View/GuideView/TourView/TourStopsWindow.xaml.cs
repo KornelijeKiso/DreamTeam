@@ -50,7 +50,7 @@ namespace ProjectTourism.View.GuideView.TourView
             List<TicketVM> tickets = TicketService.GetByAppointment(SelectedTourAppointment.Id);
             Tickets = new ObservableCollection<TicketVM>(tickets);
 
-         //   ControlTicketStatusColor();
+            //   ControlTicketStatusColor();
             EmergencyButtonSet();
         }
 
@@ -79,7 +79,7 @@ namespace ProjectTourism.View.GuideView.TourView
         public int PassedButtonClicks(TourAppointmentVM tourApp)
         {
             int number = 0;
-            foreach(var stop in tourApp.Tour.StopsList)
+            foreach (var stop in tourApp.Tour.StopsList)
             {
                 if (stop.Equals(tourApp.CurrentTourStop))
                     break;
@@ -115,7 +115,7 @@ namespace ProjectTourism.View.GuideView.TourView
             StopPassedButton.Content = "Stop passed";
             GuideService.UpdateHasTourStarted(tourApp.Tour.Guide.Username, true);
             UpdateNextStop(tourApp);
-           // ControlTicketStatusColor();
+            // ControlTicketStatusColor();
         }
         private void UpdateNextStop(TourAppointmentVM tourAppVM)
         {
@@ -154,7 +154,6 @@ namespace ProjectTourism.View.GuideView.TourView
             else
             {
                 MessageBox.Show("Guide has already started a tour!");
-                //Close();
             }
             EmergencyButtonSet();
         }
@@ -172,7 +171,7 @@ namespace ProjectTourism.View.GuideView.TourView
             TourAppointment.IsFinished = true;
             GuideService.UpdateHasTourStarted(TourAppointment.Tour.Guide.Username, false);
         }
-        
+
         //private void ControlTicketStatusColor()
         //{
         //    foreach (Ticket ticket in Tickets)
@@ -203,8 +202,22 @@ namespace ProjectTourism.View.GuideView.TourView
         }
         private void ReviewsButton_Click(object sender, RoutedEventArgs e)
         {
-           ContentArea.Content = new ReviewsWindow();
+            HideTourStopsContent();
+            ContentArea.Content = new ReviewsWindow();
         }
+
+        private void HideTourStopsContent()
+        {
+            StopPassedButton.Visibility = Visibility.Hidden;
+            EmergencyStopButton.Visibility = Visibility.Hidden;
+            CurrentTourStopLabel.Visibility = Visibility.Hidden;
+            StopTextBox.Visibility = Visibility.Hidden;
+            TourStatusTextBox.Visibility = Visibility.Hidden;
+            Grid1.Visibility = Visibility.Hidden;
+            TourStateLabel.Visibility = Visibility.Hidden;
+            ReviewsButton.Visibility = Visibility.Hidden;
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)

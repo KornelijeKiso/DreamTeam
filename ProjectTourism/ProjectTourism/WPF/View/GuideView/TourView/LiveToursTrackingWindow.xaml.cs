@@ -31,7 +31,6 @@ namespace ProjectTourism.View.GuideView.TourView
         public GuideVM Guide { get; set; }
         public ObservableCollection<TourAppointmentVM> TourAppointments { get; set; }
         public TourAppointmentVM SelectedTourAppointment { get; set; }
-        public LiveToursTrackingWindow DataContext { get; }
         public GuideService GuideService { get; set; }
         public TourAppointmentService TourAppointmentService { get; set; }
         public LiveToursTrackingWindow(string username)
@@ -49,15 +48,21 @@ namespace ProjectTourism.View.GuideView.TourView
             if (SelectedTourAppointment != null)
             {
                 TourStopsWindow tourStopsWindow = new TourStopsWindow(SelectedTourAppointment);
-                //tourStopsWindow.ShowDialog();
-                ContentArea = tourStopsWindow;
+                HideTodaysToursContent();
+                ContentArea.Content = new TourStopsWindow(SelectedTourAppointment);
                 SelectedTourAppointment = tourStopsWindow.TourAppointment;
-                Update();                    
+                Update();
             }
             else
             {
                 MessageBox.Show("You must choose a route which you want to start.");
             }
+        }
+        private void HideTodaysToursContent()
+        {
+            StartTourButton.Visibility = Visibility.Hidden;
+            TodaysToursLabel.Visibility = Visibility.Hidden;
+            DataGridTourAppointments.Visibility = Visibility.Hidden;
         }
         public void Update()
         {
@@ -65,7 +70,7 @@ namespace ProjectTourism.View.GuideView.TourView
             foreach (var item in GuideService.GetGuidesCurrentAppointments(Guide.Username))
             {
                 TourAppointments.Add(item);
-                if(item.State == TOURSTATE.FINISHED)
+                if (item.State == TOURSTATE.FINISHED)
                     item.IsFinished = true;
             }
         }

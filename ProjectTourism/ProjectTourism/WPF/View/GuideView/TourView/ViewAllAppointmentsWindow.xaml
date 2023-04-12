@@ -11,8 +11,8 @@
                   ItemsSource="{Binding Appointments, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" Margin="0,154,0,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Width="186" Binding="{Binding Id}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Name" Width="136" Binding="{Binding Tour.Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Id" Width="30" Binding="{Binding Id}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Name" Width="*" Binding="{Binding Tour.Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Date and time" Width="*" Binding="{Binding TourDateTime}"></DataGridTextColumn>
                 <!--<DataGridTextColumn Header="City" Width="91" Binding="{Binding Location.City}"></DataGridTextColumn>
                 
@@ -22,6 +22,6 @@
             </DataGrid.Columns>
         </DataGrid>
         <Button x:Name="QuitButton" Content="Cancel" HorizontalAlignment="Left" Height="62" Margin="1114,154,0,0" VerticalAlignment="Top" Width="129" Click="QuitButton_Click"/>
-        <Label Content="All appointments" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
+        <Label Content="All appointments" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="377" FontSize="40"/>
     </Grid>
 </UserControl>

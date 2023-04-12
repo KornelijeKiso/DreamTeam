@@ -41,10 +41,10 @@
                                         <Label.Content>
                                             <TextBlock>
                                                 <TextBlock.Text>
-                                                <MultiBinding StringFormat="{}{0}, {1}">
-                                                    <Binding Path="Tour.Location.Country" />
-                                                    <Binding Path="Tour.Location.City" />
-                                                </MultiBinding>
+                                                    <MultiBinding StringFormat="{}{0}, {1}">
+                                                        <Binding Path="Tour.Location.Country" />
+                                                        <Binding Path="Tour.Location.City" />
+                                                    </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
                                         </Label.Content>
@@ -79,7 +79,7 @@
             </DataGrid.Columns>
         </DataGrid>-->
         <Button x:Name="StartTourButton" Content="Manage" HorizontalAlignment="Left" Height="49" Margin="1069,147,0,0" VerticalAlignment="Top" Width="123" Click="StartTourButton_Click"/>
-        <Label Content="Today's tours" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
+        <Label Name="TodaysToursLabel" Content="Today's tours" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         <ContentControl x:Name="ContentArea"></ContentControl>
     </Grid>
 </UserControl>

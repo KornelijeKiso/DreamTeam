@@ -1,33 +1,73 @@
-﻿<Window x:Class="ProjectTourism.View.GuideView.TourView.ViewAllToursWindow"
+﻿<UserControl x:Class="ProjectTourism.View.GuideView.TourView.ViewAllToursWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.GuideView.TourView"
-        mc:Ignorable="d"
-        Title="Tours" Height="450" Width="800"
-        WindowStartupLocation="CenterScreen">
+        mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
-        <DataGrid CanUserDeleteRows="False"
-                  IsReadOnly="True"
-                  CanUserReorderColumns="False"
-                  CanUserResizeRows="False"
-                  CanUserAddRows="False"
-                  HorizontalAlignment="Center"
-                  Height="299"
-                  Width="785"
-                  VerticalAlignment="Center"
-                  AutoGenerateColumns="False"
-                  ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}">
-            
+        <DataGrid x:Name="DataGridTours" 
+                    ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
+                    SelectionMode="Single"
+                    VerticalScrollBarVisibility="Visible" 
+                    IsReadOnly="True" AutoGenerateColumns="False" Margin="345,147,345,131" RowHeight="100" HeadersVisibility="None" >
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
+            </DataGrid.Resources>
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Style>
+            </DataGrid.CellStyle>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="186" Binding="{Binding Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Country" Width="136" Binding="{Binding Location.Country}"></DataGridTextColumn>
-                <DataGridTextColumn Header="City" Width="90" Binding="{Binding Location.City}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Language" Width="90" Binding="{Binding Language}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Max guests" Width="90" Binding="{Binding MaxNumberOfGuests}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Duration" Width="*" Binding="{Binding Duration}"></DataGridTextColumn>
+
+                <DataGridTemplateColumn Width="120" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Stretch="Fill" 
+                                   Source="{Binding Pictures[0]}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" >
+                                <Label Content="{Binding Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                    <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
+                                    <Label Margin="0,0,0,-7">
+                                        <Label.Content>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0}, {1}">
+                                                        <Binding Path="Location.Country" />
+                                                        <Binding Path="Location.City" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Label.Content>
+                                    </Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                    <Label Content="Language :" Margin="0,0,-7,-7" ></Label>
+                                    <Label Content="{Binding Language}" Margin="0,-0.8,0,0"></Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                    <Label Content="Duration :" Margin="0,0,-7,-7" ></Label>
+                                    <Label Content="{Binding Duration}" Margin="0,0,0,-7" FontWeight="Bold"></Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                    <Label Content="Max number of guests :" Margin="0,0,-7,-7" ></Label>
+                                    <Label Content="{Binding MaxNumberOfGuests}" Margin="0,0,0,-7" FontWeight="Bold"></Label>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
+
         </DataGrid>
+        <Label Content="All tours" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
     </Grid>
-</Window>
+</UserControl>

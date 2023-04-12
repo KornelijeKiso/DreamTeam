@@ -55,15 +55,22 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         }
         private void AddNewTourButton_Click(object sender, RoutedEventArgs e)
         {
+            HideHomeContent();
             ContentArea.Content = new CreateTourWindow(Guide);
+        }
+        private void HideHomeContent()
+        {
+            HomeLabel.Visibility = Visibility.Hidden;
+            WelcomeLabel.Visibility = Visibility.Hidden;
+            UpcomingLabel.Visibility = Visibility.Hidden;
+            AddNewTourButton.Visibility = Visibility.Hidden;
+            AllToursButton.Visibility = Visibility.Hidden;
         }
         private void AllToursButton_Click(object sender, RoutedEventArgs e)
         {
-            ViewAllToursWindow viewAllToursWindow = new ViewAllToursWindow(Guide.Username);
-            viewAllToursWindow.ShowDialog();
+            HideHomeContent();
+            ContentArea.Content = new ViewAllToursWindow(Guide.Username);
         }
-
-        
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

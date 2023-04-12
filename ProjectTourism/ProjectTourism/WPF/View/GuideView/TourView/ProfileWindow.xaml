@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView.TourView"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
-        <TextBlock Margin="1088,172,40,461" FontSize="20"><Hyperlink x:Name="LiveTourMonitorLink" Click="TourStatistics_Click"><Run Text="Tour statistics"/></Hyperlink></TextBlock>
-        <Label Content="Profile" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
+        <TextBlock Name="TourStatisticsLink"  Margin="1088,172,40,461" FontSize="20"><Hyperlink x:Name="LiveTourMonitorLink" Click="TourStatistics_Click"><Run Text="Tour statistics"/></Hyperlink></TextBlock>
+        <Label Name="ProfileLabel" Content="Profile" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         <ContentControl x:Name="ContentArea"></ContentControl>
     </Grid>
 </UserControl>

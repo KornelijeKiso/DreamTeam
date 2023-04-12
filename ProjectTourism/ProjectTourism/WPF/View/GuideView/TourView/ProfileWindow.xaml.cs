@@ -28,7 +28,13 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         }
         private void TourStatistics_Click(object sender, RoutedEventArgs e)
         {
-           ContentArea.Content = new TourStatisticsWindow();
+            HideProfilesContent();
+            ContentArea.Content = new TourStatisticsWindow();
+        }
+        private void HideProfilesContent()
+        {
+            ProfileLabel.Visibility = Visibility.Hidden;
+            TourStatisticsLink.Visibility = Visibility.Hidden;
         }
     }
 }

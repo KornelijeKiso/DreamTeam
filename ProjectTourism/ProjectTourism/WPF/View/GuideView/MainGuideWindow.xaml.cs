@@ -53,24 +53,18 @@ namespace ProjectTourism.View.GuideView
 
         private void ProfileLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            //Window ProfileWindow = new ProfileWindow();
-            //ProfileWindow.ShowDialog();
             ContentArea.Content = new ProfileWindow();
             e.Handled = true;
         }
 
         private void RequestsLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            //    Window ProfileWindow = new ProfileWindow(); //when request window is finished enter here
-            //    ProfileWindow.ShowDialog();
-            ContentArea.Content = new ProfileWindow(); //when request window is finished enter here
+            ContentArea.Content = new RequestsWindow();
             e.Handled = true;
         }
 
         private void LiveTourMonitorLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            //Window ProfileWindow = new LiveToursTrackingWindow(Username);
-            //ProfileWindow.ShowDialog();
             ContentArea.Content = new LiveToursTrackingWindow(Username);
             e.Handled = true;
         }
