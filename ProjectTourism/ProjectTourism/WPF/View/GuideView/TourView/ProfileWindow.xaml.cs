@@ -21,15 +21,17 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
     /// </summary>
     public partial class ProfileWindow : UserControl
     {
-        public ProfileWindow()
+        public string Username { get; set; }
+        public ProfileWindow(string username)
         {
             InitializeComponent();
             DataContext= this;
+            Username = username;
         }
         private void TourStatistics_Click(object sender, RoutedEventArgs e)
         {
             HideProfilesContent();
-            ContentArea.Content = new TourStatisticsWindow();
+            ContentArea.Content = new TourStatisticsWindow(Username);
         }
         private void HideProfilesContent()
         {

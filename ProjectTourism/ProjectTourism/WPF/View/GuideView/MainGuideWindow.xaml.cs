@@ -53,7 +53,7 @@ namespace ProjectTourism.View.GuideView
 
         private void ProfileLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            ContentArea.Content = new ProfileWindow();
+            ContentArea.Content = new ProfileWindow(Username);
             e.Handled = true;
         }
 

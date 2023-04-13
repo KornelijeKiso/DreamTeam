@@ -81,9 +81,14 @@ namespace ProjectTourism.Services
             return tourApps;
         }
 
-        public List<Tour> GetGuidesTours(string username)
+        public List<TourVM> GetGuidesTours(string username)
         {
-            return GuideRepository.GetGuidesTours(username);
+            List<TourVM> ToursVM = new List<TourVM>();
+            foreach(var tourApp in GuideRepository.GetGuidesTours(username))
+            {
+                ToursVM.Add(new TourVM(tourApp));
+            }
+            return ToursVM;
         }
     }
 }

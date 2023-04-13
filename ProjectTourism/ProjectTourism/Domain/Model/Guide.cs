@@ -39,13 +39,6 @@ namespace ProjectTourism.Model
             HasTourStarted = false;
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         public string?[] ToCSV()
         {
             string?[] csvValues =
@@ -63,6 +56,13 @@ namespace ProjectTourism.Model
             Biography = values[3];
             Language = values[4];
             HasTourStarted = bool.Parse(values[5]);
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

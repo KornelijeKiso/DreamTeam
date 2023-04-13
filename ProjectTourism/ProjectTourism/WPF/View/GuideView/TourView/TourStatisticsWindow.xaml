@@ -7,6 +7,70 @@
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
         <Label Content="Tour statistics" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
+        <Label Content="Year:" HorizontalAlignment="Left" Height="78" Margin="40,186,0,0" VerticalAlignment="Top" Width="94" FontSize="24"/>
+        <GroupBox Header="Name of some tour - finish this" Margin="640,186,0,0" Height="436" Width="577" FontSize="20" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left" Foreground="Black" Background="#FFB2D3F1"></GroupBox>
+        <ComboBox Width="120" Margin="134,187,1026,494"/>
+        <DataGrid x:Name="DataGridTours" 
+                    ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
+                    SelectionMode="Single"
+                    VerticalScrollBarVisibility="Visible" 
+                    IsReadOnly="True" AutoGenerateColumns="False"  RowHeight="50" HeadersVisibility="None" Margin="60,314,785,98" >
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
+            </DataGrid.Resources>
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.Columns>
 
+                <DataGridTemplateColumn Width="80" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Stretch="Fill" 
+                                   Source="{Binding Pictures[0]}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" >
+                                <Label Content="{Binding Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                    <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
+                                    <Label Margin="0,0,0,-7">
+                                        <Label.Content>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0}, {1}">
+                                                        <Binding Path="Location.Country" />
+                                                        <Binding Path="Location.City" />
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Label.Content>
+                                    </Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                    <Label Content="Language :" Margin="0,0,-7,-7" ></Label>
+                                    <Label Content="{Binding Language}" Margin="0,-0.8,0,0"></Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                    <Label Content="Duration :" Margin="0,0,-7,-7" ></Label>
+                                    <Label Content="{Binding Duration}" Margin="0,0,0,-7" FontWeight="Bold"></Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                    <Label Content="Max number of guests :" Margin="0,0,-7,-7" ></Label>
+                                    <Label Content="{Binding MaxNumberOfGuests}" Margin="0,0,0,-7" FontWeight="Bold"></Label>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+
+        </DataGrid>
     </Grid>
 </UserControl>
