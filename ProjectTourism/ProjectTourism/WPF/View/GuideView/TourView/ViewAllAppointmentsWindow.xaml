@@ -8,7 +8,7 @@
     <Grid>
         <DataGrid CanUserDeleteRows="False" IsReadOnly="True" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserAddRows="False" HorizontalAlignment="Center" Height="500" VerticalAlignment="Top" Width="784"
                   SelectedItem="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged}"
-                  ItemsSource="{Binding Appointments, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding Guide.TourAppointments, UpdateSourceTrigger=PropertyChanged}"
                   AutoGenerateColumns="False" Margin="0,154,0,0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Width="30" Binding="{Binding Id}"></DataGridTextColumn>

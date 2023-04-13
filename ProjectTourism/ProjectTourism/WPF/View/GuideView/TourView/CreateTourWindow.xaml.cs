@@ -111,8 +111,8 @@ namespace ProjectTourism.View.TourView
             Tour.Location = NewLocation;
             Tour.LocationId = NewLocation.Id;
             SaveDates();
-            TourService.Add(Tour);
-            TourAppointmentService.MakeTourAppointments(Tour);
+            TourService.Add(Tour.GetTour());
+            //TourAppointmentService.MakeTourAppointments(Tour);
             HideTourCreateContents();
         }
         private void HideTourCreateContents()

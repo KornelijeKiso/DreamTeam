@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectTourism.Domain.IRepositories;
+using ProjectTourism.Model;
 using ProjectTourism.Observer;
+using ProjectTourism.Repositories;
 using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.Services
@@ -19,28 +21,21 @@ namespace ProjectTourism.Services
             TourRepository = tourRepository;
             Observers = new List<IObserver>();
         }
-        public void Add(TourVM tourVM)
+        public void Add(Tour tour)
         {
-            TourRepository.Add(tourVM.GetTour());
+            TourRepository.Add(tour);
         }
-        public void Delete(TourVM tourVM)
+        public void Delete(Tour tour)
         {
-            TourRepository.Delete(tourVM.GetTour());
+            TourRepository.Delete(tour);
         }
-        public TourVM GetOne(int id)
+        public Tour GetOne(int id)
         {
-            return new TourVM(TourRepository.GetOne(id));
+            return TourRepository.GetOne(id);
         }
-        public List<TourVM> GetAll()
+        public List<Tour> GetAll()
         {
-            List<TourVM> tours = new List<TourVM>();
-            foreach (var tour in TourRepository.GetAll())
-            {
-                List<string> pom = TourRepository.GetStops(tour);
-                tour.StopsList = pom;
-                tours.Add(new TourVM(tour));
-            }
-            return tours;
+            return TourRepository.GetAll();
         }
         public void Subscribe(IObserver observer)
         {
@@ -59,9 +54,32 @@ namespace ProjectTourism.Services
                 observer.Update();
             }
         }
-        public List<string> GetStops(TourVM tour)
+        public Tour? Identify(Tour tour)
         {
-            return TourRepository.GetStops(tour.GetTour());
+            foreach (var existingTour in TourRepository.GetAll())
+            {
+                if (existingTour.Id == tour.Id)
+                {
+                    return existingTour;
+                }
+            }
+            return null;
+        }
+        public List<string> GetStops(Tour tour)
+        {
+            return TourRepository.GetStops(tour);
+        }
+        public string GetNextStop(Tour tour, int checkpointIndex)
+        {
+            List<string> stops = GetStops(tour);
+            tour.StopsList = stops;
+
+            if (checkpointIndex < 0 || checkpointIndex >= tour.StopsList.Count - 1)
+            {
+                throw new ArgumentException("Invalid stop index");
+            }
+
+            return tour.StopsList[checkpointIndex + 1];
         }
     }
 }

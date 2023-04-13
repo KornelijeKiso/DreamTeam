@@ -28,36 +28,18 @@ namespace ProjectTourism.View.GuideView.TourView
     /// </summary>
     public partial class ViewAllAppointmentsWindow : UserControl, INotifyPropertyChanged, IObserver
     {
-        public ObservableCollection<TourAppointmentVM> Appointments { get; set; }
         public TourAppointmentVM SelectedAppointment { get; set; }
-        public GuideService GuideService { get; set; }
-        public TourAppointmentService TourAppointmentService { get; set; }
-        public string GuideUsername { get; set; }
-        public CanceledTourAppointmentsService CanceledTourAppointmentsService { get; set; }
+        public GuideVM Guide { get; set; }
 
         public ViewAllAppointmentsWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
-            GuideUsername = username;
+            Guide = new GuideVM(username);
             DataContext = this;
-            SetServices();
-            Appointments = new ObservableCollection<TourAppointmentVM>(GuideService.GetGuidesAppointments(username));
-            Update();
-        }
-        public void SetServices()
-        {
-            GuideService = new GuideService(new GuideRepository());
-            TourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
-            CanceledTourAppointmentsService = new CanceledTourAppointmentsService(new CanceledTourAppointmentsRepository());
         }
         public void Update()
         {
-            Appointments.Clear();
-            foreach(var app in GuideService.GetGuidesAppointments(GuideUsername))
-            {
-                Appointments.Add(app);
-            }
         }
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
@@ -66,12 +48,7 @@ namespace ProjectTourism.View.GuideView.TourView
                 if(SelectedAppointment.TourDateTime > DateTime.Now.AddHours(48)) {
                     MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel this appointment?", "Delete appointment", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Yes)
-                    {
-                        CanceledTourAppointmentsService.Add(SelectedAppointment);
-                        TourAppointmentService.Delete(SelectedAppointment.Id);
-                        Appointments.Remove(SelectedAppointment);
-                        Update();
-                    }
+                        Guide.CancelAppointment(SelectedAppointment);
                 }
                 else
                     MessageBox.Show("The tour can not be canceled because the cancelation time is at least 48 hours before start.");

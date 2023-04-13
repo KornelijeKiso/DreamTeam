@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -18,7 +19,7 @@ namespace ProjectTourism.WPF.ViewModel
         public TourAppointmentVM(TourAppointment tourAppointment)
         {
             _tourAppointment = tourAppointment;
-            Tickets = _tourAppointment.Tickets.Select(r => new TicketVM(r)).ToList();
+            Tickets = new ObservableCollection<TicketVM>(_tourAppointment.Tickets.Select(r => new TicketVM(r)).ToList());
         }
         public TourAppointment GetTourAppointment()
         {
@@ -84,7 +85,7 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public List<TicketVM> Tickets;
+        public ObservableCollection<TicketVM> Tickets;
         public int AvailableSeats
         {
             get => _tourAppointment.AvailableSeats;

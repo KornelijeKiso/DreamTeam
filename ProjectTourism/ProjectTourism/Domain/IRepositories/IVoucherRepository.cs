@@ -14,6 +14,6 @@ namespace ProjectTourism.Domain.IRepositories
         void Add(Voucher voucher);
         void Delete(Voucher voucher);
         void Update(Voucher voucher);
-        List<Voucher> GetByGuest2(string guest2username);
+        List<Voucher> GetAllByGuest2(string guest2username);
     }
 }

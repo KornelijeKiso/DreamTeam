@@ -61,7 +61,7 @@ namespace ProjectTourism.View.GuideView
             if (NameSurnameNotNull())
             {
                 UserService.Add(UserVM);
-                GuideService.Add(GuideVM);
+                GuideService.Add(GuideVM.GetGuide());
                 Close();
             }
             else

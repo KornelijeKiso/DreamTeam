@@ -40,12 +40,14 @@ namespace ProjectTourism.Model
         public List<string> StopsList { get; set; }
         public Guide Guide;
         public bool IsValid;
+        public List<TourAppointment> TourAppointments { get; set; }
         
 
         public Tour()
         {
             StopsList = new List<string>();
             dates = new List<DateTime>();
+            TourAppointments = new List<TourAppointment>();
             IsValid = false;
         }
         public Tour(string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)

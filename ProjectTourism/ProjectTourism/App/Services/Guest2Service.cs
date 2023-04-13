@@ -16,48 +16,35 @@ namespace ProjectTourism.Services
     {
         public List<IObserver> Observers;
         private IGuest2Repository Guest2Repository;
-
         public Guest2Service(IGuest2Repository ig2r)
         {
             Guest2Repository = ig2r;
             Observers = new List<IObserver>();
         }
-
-        public Guest2VM GetOne(string username)
+        public Guest2 GetOne(string username)
         {
-            return new Guest2VM(Guest2Repository.GetOne(username));
+            return Guest2Repository.GetOne(username);
         }
-
-        public List<Guest2VM> GetAll()
+        public List<Guest2> GetAll()
         {
-            List<Guest2VM> guests = new List<Guest2VM>();
-            foreach (var guest2 in Guest2Repository.GetAll())
-            {
-                guests.Add(new Guest2VM(guest2));
-            }
-            return guests;
+            return Guest2Repository.GetAll();
         }
         public void Add(Guest2VM guest)
         {
             Guest2Repository.Add(guest.GetGuest2());
         }
-
         public void Delete(Guest2VM guest)
         {
             Guest2Repository.Delete(guest.GetGuest2());
         }
-        
-        
         public void Subscribe(IObserver observer)
         {
             Observers.Add(observer);
         }
-
         public void Unsubscribe(IObserver observer)
         {
             Observers.Remove(observer);
         }
-
         public void NotifyObservers()
         {
             foreach (var observer in Observers)

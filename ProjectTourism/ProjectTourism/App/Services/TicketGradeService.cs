@@ -22,46 +22,34 @@ namespace ProjectTourism.Services
             Observers = new List<IObserver>();
             TicketGradeRepository = itgr;
         }
-
-        public TicketGradeVM GetOne(int Id)
+        public TicketGrade GetOne(int Id)
         {
-            return new TicketGradeVM(TicketGradeRepository.GetOne(Id));
+            return TicketGradeRepository.GetOne(Id);
         }
-        public List<TicketGradeVM> GetAll()
+        public List<TicketGrade> GetAll()
         {
-            List<TicketGradeVM> ticketsGrade = new List<TicketGradeVM>();
-            foreach (var ticketGrade in TicketGradeRepository.GetAll())
-            {
-                ticketsGrade.Add(new TicketGradeVM(ticketGrade));
-            }
-            return ticketsGrade;
+            return TicketGradeRepository.GetAll();
         }
-        public void Add(TicketGradeVM addedTicketGrade)
+        public void Add(TicketGrade addedTicketGrade)
         {
-            TicketGradeRepository.Add(addedTicketGrade.GetTicketGrade());
+            TicketGradeRepository.Add(addedTicketGrade);
         }
-
-        public void Delete(TicketGradeVM ticketGrade)
+        public void Delete(TicketGrade ticketGrade)
         {
-            TicketGradeRepository.Delete(ticketGrade.GetTicketGrade());
+            TicketGradeRepository.Delete(ticketGrade);
         }
-
-        public TicketGradeVM GetOneByTicket(int ticketId)
+        public TicketGrade GetOneByTicket(int ticketId)
         {
-            return new TicketGradeVM(TicketGradeRepository.GetOneByTicket(ticketId));
+            return TicketGradeRepository.GetOneByTicket(ticketId);
         }
-
-
         public void Subscribe(IObserver observer)
         {
             Observers.Add(observer);
         }
-
         public void Unsubscribe(IObserver observer)
         {
             Observers.Remove(observer);
         }
-
         public void NotifyObservers()
         {
             foreach (var observer in Observers)

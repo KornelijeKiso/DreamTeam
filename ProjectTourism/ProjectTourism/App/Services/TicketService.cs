@@ -23,34 +23,29 @@ namespace ProjectTourism.Services
             Observers = new List<IObserver>();
         }
 
-        public TicketVM GetOne(int Id) 
+        public Ticket GetOne(int Id) 
         {
-            return new TicketVM(TicketRepository.GetOne(Id));
+            return TicketRepository.GetOne(Id);
         }
 
-        public List<TicketVM> GetAll() 
+        public List<Ticket> GetAll() 
         {
-            List<TicketVM> tickets = new List<TicketVM>();
-            foreach (var ticket in TicketRepository.GetAll())
-            {
-                tickets.Add(new TicketVM(ticket));
-            }
-            return tickets;
+            return TicketRepository.GetAll();
         }
 
-        public void Add(TicketVM ticket) 
+        public void Add(Ticket ticket) 
         {
-            TicketRepository.Add(ticket.GetTicket());
+            TicketRepository.Add(ticket);
         }
 
-        public void Delete(TicketVM ticket) 
+        public void Delete(Ticket ticket) 
         {
-            TicketRepository.Delete(ticket.GetTicket());
+            TicketRepository.Delete(ticket);
         }
 
-        public void Update(TicketVM ticket) 
+        public void Update(Ticket ticket) 
         {
-            TicketRepository.Update(ticket.GetTicket());
+            TicketRepository.Update(ticket);
         }
 
         public void Subscribe(IObserver observer)
@@ -70,20 +65,9 @@ namespace ProjectTourism.Services
                 observer.Update();
             }
         }
-        public List<TicketVM> GetByAppointment(int tourAppointmentId)
+        public List<Ticket> GetByAppointment(int tourAppointmentId)
         {
-            List<Ticket> ticketsByApp = TicketRepository.GetByAppointment(tourAppointmentId);
-            List<TicketVM> ticketsVM= new List<TicketVM>();
-            foreach(var ticket in ticketsByApp)
-            {
-                ticketsVM.Add(new TicketVM(ticket));
-            }
-            return ticketsVM;
-        }
-
-        public void GuideCheck(TicketVM selectedTicket)
-        {
-            TicketRepository.GuideCheck(selectedTicket.GetTicket());
+            return TicketRepository.GetByAppointment(tourAppointmentId);
         }
     }
 }

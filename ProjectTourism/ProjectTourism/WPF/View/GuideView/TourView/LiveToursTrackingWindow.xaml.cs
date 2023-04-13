@@ -39,8 +39,8 @@ namespace ProjectTourism.View.GuideView.TourView
             DataContext = this;
             GuideService = new GuideService(new GuideRepository());
             TourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
-            Guide = GuideService.GetOne(username);
-            TourAppointments = new ObservableCollection<TourAppointmentVM>(GuideService.GetGuidesCurrentAppointments(username));
+            Guide = new GuideVM(username);
+            TourAppointments = Guide.TourAppointments;
             Update();
         }
         private void StartTourButton_Click(object sender, RoutedEventArgs e)
@@ -66,13 +66,13 @@ namespace ProjectTourism.View.GuideView.TourView
         }
         public void Update()
         {
-            TourAppointments.Clear();
-            foreach (var item in GuideService.GetGuidesCurrentAppointments(Guide.Username))
-            {
-                TourAppointments.Add(item);
-                if (item.State == TOURSTATE.FINISHED)
-                    item.IsFinished = true;
-            }
+        //    TourAppointments.Clear();
+        //    foreach (var item in Guide.TourAppointments)
+        //    {
+        //        TourAppointments.Add(item);
+        //        if (item.State == TOURSTATE.FINISHED)
+        //            item.IsFinished = true;
+        //    }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

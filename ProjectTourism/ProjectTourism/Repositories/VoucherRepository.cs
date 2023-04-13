@@ -18,20 +18,8 @@ namespace ProjectTourism.Repositories
         {
             FileHandler = new VoucherFileHandler();
             Vouchers = FileHandler.Load();
-            Synchronize();
         }
-
-        public void Synchronize()
-        {
-            IGuest2Repository guest2Repository = new Guest2Repository();
-            foreach (var voucher in Vouchers)
-            {
-                Guest2 guest2 = guest2Repository.GetOne(voucher.Guest2Username);
-                voucher.Guest2 = guest2;
-            }
-        }
-
-        public int GenerateId()
+        private int GenerateId()
         {
             int id = 0;
             if (Vouchers == null)
@@ -86,7 +74,7 @@ namespace ProjectTourism.Repositories
             return Vouchers;
         }
 
-        public List<Voucher> GetByGuest2(string guest2username)
+        public List<Voucher> GetAllByGuest2(string guest2username)
         {
             List<Voucher> guest2Vouchers = new List<Voucher>();
 

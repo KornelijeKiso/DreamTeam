@@ -32,35 +32,18 @@ namespace ProjectTourism.View.GuideView.TourView
     /// </summary>
     public partial class TourStopsWindow : UserControl, INotifyPropertyChanged, IObserver
     {
-        public TourAppointmentService TourAppointmentService { get; set; }
         public TourAppointmentVM TourAppointment { get; set; }
-        public TicketService TicketService { get; set; }
-        public GuideService GuideService { get; set; }
-        public ObservableCollection<TicketVM> Tickets { get; set; }
         public TicketVM SelectedTicket { get; set; }
 
         public TourStopsWindow(TourAppointmentVM SelectedTourAppointment)
         {
             InitializeComponent();
             DataContext = this;
-            SetServices();
 
             TourAppointment = SelectedTourAppointment;
-
-            List<TicketVM> tickets = TicketService.GetByAppointment(SelectedTourAppointment.Id);
-            Tickets = new ObservableCollection<TicketVM>(tickets);
-
             //   ControlTicketStatusColor();
             EmergencyButtonSet();
         }
-
-        private void SetServices()
-        {
-            TourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
-            TicketService = new TicketService(new TicketRepository());
-            GuideService = new GuideService(new GuideRepository());
-        }
-
         private void EmergencyButtonSet()
         {
             if (TourStarted())
@@ -76,80 +59,62 @@ namespace ProjectTourism.View.GuideView.TourView
         {
             return TourAppointment.State == TOURSTATE.STARTED;
         }
-        public int PassedButtonClicks(TourAppointmentVM tourApp)
+        public int PassedButtonClicks()
         {
             int number = 0;
-            foreach (var stop in tourApp.Tour.StopsList)
+            foreach (var stop in TourAppointment.Tour.StopsList)
             {
-                if (stop.Equals(tourApp.CurrentTourStop))
+                if (stop.Equals(TourAppointment.CurrentTourStop))
                     break;
                 number++;
             }
             return number;
         }
 
-        public bool IsLastStop(TourAppointmentVM tour)
+        public bool IsLastStop()
         {
-            return tour.Tour.StopsList.Last().Equals(tour.CurrentTourStop);
+            return TourAppointment.Tour.StopsList.Last().Equals(TourAppointment.CurrentTourStop);
         }
 
-        public void FinishTour(TourAppointmentVM tour)
+        public void FinishTour()
         {
             StopPassedButton.Content = "Tour finished";
-            UpdateFinishTour(tour);
+            UpdateFinishTour();
             StopPassedButton.IsEnabled = false;
             EmergencyStopButton.IsEnabled = false;
         }
 
-        private void UpdateFinishTour(TourAppointmentVM tourApp)
+        private void UpdateFinishTour()
         {
-            tourApp.IsNotFinished = false;
-            tourApp.IsFinished = true;
-            tourApp.State = TOURSTATE.FINISHED;
-            GuideService.UpdateHasTourStarted(tourApp.Tour.Guide.Username, false);
-            TourAppointmentService.ChangeState(tourApp);
+            TourAppointment.Tour.Guide.FinishTour(TourAppointment);
         }
 
-        public void NextStop(TourAppointmentVM tourApp)
+        public void NextStop()
         {
             StopPassedButton.Content = "Stop passed";
-            GuideService.UpdateHasTourStarted(tourApp.Tour.Guide.Username, true);
-            UpdateNextStop(tourApp);
+            UpdateNextStop();
             // ControlTicketStatusColor();
         }
-        private void UpdateNextStop(TourAppointmentVM tourAppVM)
+        private void UpdateNextStop()
         {
-            int nextStopIndex = PassedButtonClicks(tourAppVM) + 1;
-            if (nextStopIndex < tourAppVM.Tour.StopsList.Count())
-            {
-                StopTextBox.Text = TourAppointmentService.GetNextStop(new TourVM(tourAppVM.Tour.GetTour()), nextStopIndex);
-                tourAppVM.CurrentTourStop = tourAppVM.Tour.StopsList[nextStopIndex];
-                TourAppointmentService.ChangeCurrentStop(tourAppVM);
-                tourAppVM.State = TOURSTATE.STARTED;
-                TourAppointmentService.ChangeState(tourAppVM);
-            }
+            int nextStopIndex = PassedButtonClicks() + 1;
+            if (nextStopIndex < TourAppointment.Tour.StopsList.Count())
+                StopTextBox.Text=TourAppointment.Tour.Guide.NextStop(nextStopIndex, TourAppointment.GetTourAppointment());
             else
-            {
-                FinishTour(tourAppVM);
-            }
+                FinishTour();
         }
 
+        
 
         private void StopPassedButton_Click(object sender, RoutedEventArgs e)
         {
-            if (PassedButtonClicks(TourAppointment) == TourAppointment.Tour.StopsList.Count() - 2) //we clicked lastindex-1 times
+            if (PassedButtonClicks() == TourAppointment.Tour.StopsList.Count() - 2) //we clicked lastindex-1 times
             {
-                StopPassedButton.Content = TourAppointment.Tour.StopsList.Last();
-                TourAppointment.CurrentTourStop = TourAppointment.Tour.StopsList.Last();
-                TourAppointmentService.ChangeCurrentStop(TourAppointment);
-                TourAppointment.State = TOURSTATE.FINISHED;
-                TourAppointment.IsFinished = true;
-                TourAppointmentService.ChangeState(TourAppointment);
-                FinishTour(TourAppointment);
+                StopPassedButton.Content = TourAppointment.Tour.Guide.FinishTheTour(TourAppointment);
             }
             if (CanGoNextStop())
             {
-                NextStop(TourAppointment);
+                NextStop();
             }
             else
             {
@@ -160,16 +125,12 @@ namespace ProjectTourism.View.GuideView.TourView
 
         private bool CanGoNextStop()
         {
-            return (!TourAppointment.Tour.Guide.HasTourStarted || TourAppointment.State == TOURSTATE.STARTED) && PassedButtonClicks(TourAppointment) != TourAppointment.Tour.StopsList.Count() - 2;
+            return (!TourAppointment.Tour.Guide.HasTourStarted || TourAppointment.State == TOURSTATE.STARTED) && PassedButtonClicks() != TourAppointment.Tour.StopsList.Count() - 2;
         }
 
         private void EmergencyStopButton_Click(object sender, RoutedEventArgs e)
         {
-            TourAppointment.State = TOURSTATE.STOPPED;
-            TourAppointmentService.ChangeState(TourAppointment);
-            TourAppointment.IsNotFinished = false;
-            TourAppointment.IsFinished = true;
-            GuideService.UpdateHasTourStarted(TourAppointment.Tour.Guide.Username, false);
+            TourAppointment.Tour.Guide.EmergencyStop(TourAppointment);
         }
 
         //private void ControlTicketStatusColor()
@@ -189,17 +150,14 @@ namespace ProjectTourism.View.GuideView.TourView
             if (SelectedTicket.ButtonColor != Brushes.Green)
             {
                 SelectedTicket.ButtonColor = Brushes.IndianRed;
-                TicketService.GuideCheck(SelectedTicket);
+                TourAppointment.Tour.Guide.CheckTicket(SelectedTicket);
             }
         }
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
         }
-        public void Update()
-        {
-            Tickets = new ObservableCollection<TicketVM>((IEnumerable<TicketVM>)TourAppointment.Tickets);
-        }
+        public void Update() { }
         private void ReviewsButton_Click(object sender, RoutedEventArgs e)
         {
             HideTourStopsContent();

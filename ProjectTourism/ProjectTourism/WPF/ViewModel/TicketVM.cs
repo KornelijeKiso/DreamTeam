@@ -63,15 +63,14 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
-        public TourAppointment TourAppointment
-        //public TourAppointmentVM TourAppointment
+        public TourAppointmentVM TourAppointment
         {
-            get => _ticket.TourAppointment;
+            get => new TourAppointmentVM(_ticket.TourAppointment);
             set
             {
-                if (value != _ticket.TourAppointment)
+                if (value.GetTourAppointment() != _ticket.TourAppointment)
                 {
-                    _ticket.TourAppointment = value;
+                    _ticket.TourAppointment = value.GetTourAppointment();
                     OnPropertyChanged();
                 }
             }
@@ -103,6 +102,18 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
+        public TicketGradeVM TicketGrade
+        {
+            get => new TicketGradeVM(_ticket.TicketGrade);
+            set
+            {
+                if (value.GetTicketGrade() != _ticket.TicketGrade)
+                {
+                    _ticket.TicketGrade = value.GetTicketGrade();
+                    OnPropertyChanged();
+                }
+            }
+        }
         public Guest2VM Guest2
         {
             get => new Guest2VM(_ticket.Guest2);

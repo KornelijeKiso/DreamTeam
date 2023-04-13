@@ -19,24 +19,7 @@ namespace ProjectTourism.Repositories
         {
             FileHandler = new TicketFileHandler();
             Tickets = FileHandler.Load();
-            Synchronize();
         }
-
-        public void Synchronize() 
-        {
-            ITourAppointmentRepository tourAppointmentRepository = new TourAppointmentRepository();
-            IGuest2Repository guest2Repository = new Guest2Repository();
-            foreach (var ticket in Tickets)
-            {
-                TourAppointment tourAppointment = tourAppointmentRepository.GetOne(ticket.TourAppointmentId);
-                ticket.TourAppointment = tourAppointment;
-                ticket.TourStop = tourAppointment.Tour.Start;
-
-                Guest2 guest2 = guest2Repository.GetOne(ticket.Guest2Username);
-                ticket.Guest2 = guest2;
-            }
-        }
-
         public Ticket GetOne(int id)
         {
             foreach (var ticket in Tickets)
@@ -51,7 +34,7 @@ namespace ProjectTourism.Repositories
             return Tickets;
         }
 
-        public int GenerateId()
+        private int GenerateId()
         {
             int id = 0;
             if (Tickets == null)
@@ -91,6 +74,8 @@ namespace ProjectTourism.Repositories
                     existingTicket.Guest2Username = ticket.Guest2Username;
                     existingTicket.NumberOfGuests = ticket.NumberOfGuests;
                     existingTicket.TourStop = ticket.TourStop;
+                    existingTicket.HasGuideChecked = ticket.HasGuideChecked;
+                    break;
                 }
             }
             FileHandler.Save(Tickets);
@@ -98,13 +83,11 @@ namespace ProjectTourism.Repositories
 
         public List<Ticket> GetByAppointment(int tourAppointmentId)
         {
-            TourAppointmentDAO tourAppointmentDAO = new TourAppointmentDAO();
-            TourAppointment tourAppointment = tourAppointmentDAO.GetOne(tourAppointmentId);
             List<Ticket> ticketsByApp = new List<Ticket>();
 
             foreach (var ticket in Tickets)
             {
-                if (tourAppointment.Id == ticket.TourAppointmentId)
+                if (tourAppointmentId == ticket.TourAppointmentId)
                 {
                     ticketsByApp.Add(ticket);
                 }
@@ -112,7 +95,7 @@ namespace ProjectTourism.Repositories
             return ticketsByApp;
         }
 
-        public List<Ticket> GetByGuest(string guest2Username)
+        public List<Ticket> GetAllByGuest(string guest2Username)
         {
             List<Ticket> ticketsByGuest = new List<Ticket>();
 
@@ -134,30 +117,6 @@ namespace ProjectTourism.Repositories
                     return ticket;
             }
             return null;
-        }
-
-        public void CheckGuestStatus(int tourAppId, int ticketId)
-        {
-            TourAppointmentDAO tourAppointmentDAO = new TourAppointmentDAO();
-            TourAppointment TourAppointment = tourAppointmentDAO.GetOne(tourAppId);
-            Ticket ticket = GetOne(ticketId);
-            if ((TourAppointment.CurrentTourStop.Equals(ticket.TourStop)) && (TourAppointment.State == TOURSTATE.STARTED))
-                ticket.HasGuideChecked = true;
-
-            FileHandler.Save(Tickets);
-        }
-
-        public void GuideCheck(Ticket ticket)
-        {
-            foreach (Ticket checkTicket in Tickets)
-            {
-                if (checkTicket.Id == ticket.Id)
-                {
-                    checkTicket.HasGuideChecked = true;
-                    break;
-                }
-            }
-            FileHandler.Save(Tickets);
         }
     }
 }

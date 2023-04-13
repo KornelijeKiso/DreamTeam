@@ -30,24 +30,11 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
     public partial class HomeWindow : UserControl, INotifyPropertyChanged, IObserver
     {
         public GuideVM Guide { get; set; }
-        public GuideService GuideService { get; set; }
-        public LocationVM NewLocation { get; set; }
-        public LocationService LocationService { get; set; }
-        public string Username { get; set; }
         public HomeWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
-
-            Username = username;
-            SetServices();
-            Guide = GuideService.GetOne(username);
-            NewLocation = new LocationVM(new Location());
-        }
-        private void SetServices()
-        {
-            LocationService = new LocationService(new LocationRepository());
-            GuideService = new GuideService(new GuideRepository());
+            Guide = new GuideVM(username);
         }
         public void Update()
         {

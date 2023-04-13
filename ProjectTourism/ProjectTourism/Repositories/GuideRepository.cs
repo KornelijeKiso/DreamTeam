@@ -21,11 +21,6 @@ namespace ProjectTourism.Repositories
         {
             FileHandler = new GuideFileHandler();
             Guides = FileHandler.Load();
-            Synchronize();
-        }
-        public void Synchronize()
-        {
-
         }
         public void Add(Guide guide)
         {
@@ -53,60 +48,16 @@ namespace ProjectTourism.Repositories
             }
             return null;
         }
-
-        public void UpdateHasTourStarted(string username, bool hasTourStarted)
-        {
-            Guide Guide = GetOne(username);
-            Guide.HasTourStarted = hasTourStarted;
-            FileHandler.Save(Guides);
-        }
-
         public void Update(Guide guide)
         {
-            throw new NotImplementedException();
-        }
-        private static bool AppointmentAdditionIsValid(string username, TourAppointment tourAppointment)
-        {
-            return tourAppointment.Tour.GuideUsername.Equals(username) && tourAppointment.TourDateTime.Date.Equals(DateTime.Now.Date);
-        }
-        public List<TourAppointment> GetGuidesCurrentAppointments(string username)
-        {
-            List<TourAppointment> appointments = new List<TourAppointment>();
-            TourAppointmentService tourAppService = new TourAppointmentService(new TourAppointmentRepository());
-            foreach (var tourAppointment in tourAppService.GetAll())
+            foreach(var existingGuide in Guides)
             {
-                if (AppointmentAdditionIsValid(username, tourAppointment.GetTourAppointment()))
+                if(guide.Username.Equals(existingGuide.Username))
                 {
-                    appointments.Add(tourAppointment.GetTourAppointment());
+                    existingGuide.HasTourStarted = guide.HasTourStarted;
                 }
             }
-            return appointments;
-        }
-        public List<TourAppointment> GetGuidesAppointments(string username)
-        {
-            List<TourAppointment> appointments = new List<TourAppointment>();
-            TourAppointmentService tourAppDAO = new TourAppointmentService(new TourAppointmentRepository());
-            foreach (var tourAppointment in tourAppDAO.GetAll())
-            {
-                if (tourAppointment.Tour.GuideUsername.Equals(username))
-                    appointments.Add(tourAppointment.GetTourAppointment());
-            }
-            return appointments;
-        }
-        public List<Tour> GetGuidesTours(string username)
-        {
-            List<Tour> tours = new List<Tour>();
-            ITourRepository tourRepository= new TourRepository();
-            foreach (var tour in tourRepository.GetAll())
-            {
-                if (tour.GuideUsername.Equals(username))
-                {
-                    List<string> pom = tourRepository.GetStops(tour);
-                    tour.StopsList = pom;
-                    tours.Add(tour);
-                }
-            }
-            return tours;
+            FileHandler.Save(Guides);
         }
     }
 }

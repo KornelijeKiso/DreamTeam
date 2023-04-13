@@ -18,19 +18,7 @@ namespace ProjectTourism.Repositories
         {
             FileHandler = new TicketGradeFileHandler();
             TicketGrades = FileHandler.Load();
-            Synchronize();
         }
-
-        public void Synchronize()
-        {
-            ITicketRepository ticketRepository = new TicketRepository();
-            foreach (var ticketGrade in TicketGrades)
-            {
-                Ticket ticket = ticketRepository.GetOne(ticketGrade.Id);
-                ticketGrade.Ticket = ticket;
-            }
-        }
-
         public TicketGrade GetOne(int id)
         {
             foreach (var ticketGrade in TicketGrades)
@@ -45,7 +33,7 @@ namespace ProjectTourism.Repositories
             return TicketGrades;
         }
 
-        public int GenerateId()
+        private int GenerateId()
         {
             int id = 0;
             if (TicketGrades == null)

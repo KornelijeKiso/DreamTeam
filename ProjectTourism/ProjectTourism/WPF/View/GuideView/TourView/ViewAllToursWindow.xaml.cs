@@ -28,22 +28,13 @@ namespace ProjectTourism.View.GuideView.TourView
     public partial class ViewAllToursWindow : UserControl, INotifyPropertyChanged, IObserver
     {
         public GuideVM Guide { get; set; }
-        public ObservableCollection<TourVM> Tours { get; set; }
         public TourVM SelectedTour { get; set; }
-        public GuideService GuideService { get; set; }
 
         public ViewAllToursWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
-            GuideService = new GuideService(new GuideRepository());
-            Guide = GuideService.GetOne(username);
-            List<TourVM> ToursVM = new List<TourVM>();
-            foreach(var tour in GuideService.GetGuidesTours(username))
-            {
-                ToursVM.Add(new TourVM(tour));
-            }
-            Tours = new ObservableCollection<TourVM>(ToursVM);
+            Guide = new GuideVM(username);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

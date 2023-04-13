@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectTourism.Domain.IRepositories;
+using ProjectTourism.Model;
 using ProjectTourism.Observer;
 using ProjectTourism.WPF.ViewModel;
 
@@ -20,18 +21,13 @@ namespace ProjectTourism.Services
             CanceledTourAppointmentsRepo = iar;
             Observers = new List<IObserver>();
         }
-        public void Add(TourAppointmentVM tourApp)
+        public void Add(TourAppointment tourApp)
         {
-            CanceledTourAppointmentsRepo.Add(tourApp.GetTourAppointment());
+            CanceledTourAppointmentsRepo.Add(tourApp);
         }
-        public List<TourAppointmentVM> GetAll()
+        public List<TourAppointment> GetAll()
         {
-            List<TourAppointmentVM> tourApps = new List<TourAppointmentVM>();
-            foreach(var tourApp in CanceledTourAppointmentsRepo.GetAll())
-            {
-                tourApps.Add(new TourAppointmentVM(tourApp));
-            }
-            return tourApps;
+            return CanceledTourAppointmentsRepo.GetAll();
         }
     }
 }

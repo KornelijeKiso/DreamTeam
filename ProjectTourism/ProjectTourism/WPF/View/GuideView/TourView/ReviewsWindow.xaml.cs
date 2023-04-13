@@ -32,8 +32,8 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             InitializeComponent();
             DataContext = this;
             TicketGradeService = new TicketGradeService(new TicketGradeRepository());
-            List<TicketGradeVM> tickets = TicketGradeService.GetAll();
-            Tickets = new ObservableCollection<TicketGradeVM>(tickets);
+            //List<TicketGradeVM> tickets = TicketGradeService.GetAll();
+            //Tickets = new ObservableCollection<TicketGradeVM>(tickets);
         }
     }
 }

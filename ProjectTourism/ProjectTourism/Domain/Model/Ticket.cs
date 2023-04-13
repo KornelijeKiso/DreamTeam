@@ -21,6 +21,7 @@ namespace ProjectTourism.Model
         public int NumberOfGuests;
         public bool HasGuideChecked;
         public bool HasGuestConfirmed;
+        public TicketGrade TicketGrade;
         public Ticket()
         {  }
 

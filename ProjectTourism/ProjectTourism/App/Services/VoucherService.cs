@@ -23,44 +23,34 @@ namespace ProjectTourism.Services
             VoucherRepository = ivr;
         }
 
-        public VoucherVM GetOne(int id)
+        public Voucher GetOne(int id)
         {
-            return new VoucherVM(VoucherRepository.GetOne(id));
+            return VoucherRepository.GetOne(id);
         }
 
-        public List<VoucherVM> GetAll()
+        public List<Voucher> GetAll()
         {
-            List<VoucherVM> vouchers = new List<VoucherVM>();
-            foreach (var voucher in VoucherRepository.GetAll())
-            {
-                vouchers.Add(new VoucherVM(voucher));
-            }
-            return vouchers;
+            return VoucherRepository.GetAll();
         }
         
-        public void Add(VoucherVM voucher)
+        public void Add(Voucher voucher)
         {
-            VoucherRepository.Add(voucher.GetVoucher());
+            VoucherRepository.Add(voucher);
         }
 
-        public void Delete(VoucherVM voucher)
+        public void Delete(Voucher voucher)
         {
-            VoucherRepository.Delete(voucher.GetVoucher());
+            VoucherRepository.Delete(voucher);
         }
 
-        public void Update(VoucherVM voucher)
+        public void Update(Voucher voucher)
         {
-            VoucherRepository.Update(voucher.GetVoucher());
+            VoucherRepository.Update(voucher);
         }
 
-        public List<VoucherVM> GetByGuest2(string guest2username)
+        public List<Voucher> GetByGuest2(string guest2username)
         {
-            List <VoucherVM> guest2vouchers = new List<VoucherVM> ();
-            foreach (var voucher in VoucherRepository.GetByGuest2(guest2username))
-            {
-                guest2vouchers.Add(new VoucherVM(voucher));
-            }
-            return guest2vouchers;
+            return VoucherRepository.GetAllByGuest2(guest2username);
         }
 
         public void Subscribe(IObserver observer)

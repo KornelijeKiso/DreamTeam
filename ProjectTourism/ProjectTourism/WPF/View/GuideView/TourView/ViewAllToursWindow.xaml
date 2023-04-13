@@ -7,7 +7,7 @@
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
         <DataGrid x:Name="DataGridTours" 
-                    ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{Binding Guide.Tours, UpdateSourceTrigger=PropertyChanged}"
                     SelectionMode="Single"
                     VerticalScrollBarVisibility="Visible" 
                     IsReadOnly="True" AutoGenerateColumns="False" Margin="345,147,345,131" RowHeight="100" HeadersVisibility="None" >

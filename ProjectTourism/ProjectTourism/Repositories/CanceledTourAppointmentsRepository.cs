@@ -21,7 +21,6 @@ namespace ProjectTourism.Repositories
             FileHandler = new CanceledTourAppointmentsFileHandler();
             CanceledAppointments = FileHandler.Load();
         }
-
         public void Add(TourAppointment appointment)
         {
             CanceledAppointments.Add(appointment);

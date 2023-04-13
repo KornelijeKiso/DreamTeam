@@ -15,9 +15,7 @@ namespace ProjectTourism.Domain.IRepositories
         void Add(TourAppointment tourAppointment);
         void Delete(int tourAppointmentId);
         void Update(TourAppointment tourAppointment);
-        void ChangeState(TourAppointment tourAppointment);
-        string GetNextStop(TourVM tour, int checkpointIndex);
-        void ChangeCurrentStop(TourAppointmentVM tourAppVM);
-        void MakeTourAppointments(TourVM tour);
+        TourAppointment GetByDate(int tourId, DateTime date);
+        List<TourAppointment> GetAllByTour(int id);
     }
 }

@@ -19,37 +19,8 @@ namespace ProjectTourism.Repositories
         { 
             FileHandler= new TourFileHandler();
             Tours = FileHandler.Load();
-            Synchronize();
         }
 
-        public void Synchronize()
-        {
-            IGuideRepository guideRepository = new GuideRepository();
-            ILocationRepository locationRepository = new LocationRepository();
-            foreach (var tour in Tours) 
-            {
-                Location location = locationRepository.GetOne(tour.LocationId);
-                tour.Location = location;
-
-                Guide guide = guideRepository.GetOne(tour.GuideUsername);
-                tour.Guide = guide;
-
-                List<string> stops = GetStops(tour);
-                tour.StopsList = stops;
-            }
-
-        }
-        public Tour? Identify(Tour tour)
-        {
-            foreach (var existingTour in Tours)
-            {
-                if (existingTour.Id == tour.Id)
-                {
-                    return existingTour;
-                }
-            }
-            return null;
-        }
         public int GenerateId()
         {
             if (Tours.Count == 0) return 0;

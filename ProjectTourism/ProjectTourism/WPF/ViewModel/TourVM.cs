@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -19,9 +20,9 @@ namespace ProjectTourism.WPF.ViewModel
         public TourVM(Tour tour)
         {
             _tour = tour;
-            
-
+            TourAppointments = new ObservableCollection<TourAppointmentVM>(_tour.TourAppointments.Select(r => new TourAppointmentVM(r)).ToList());
         }
+        public ObservableCollection<TourAppointmentVM> TourAppointments { get; set; }
         public List<DateTime> dates { get; set; }
         public List<string> StopsList
         {

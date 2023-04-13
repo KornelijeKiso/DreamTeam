@@ -22,26 +22,21 @@ namespace ProjectTourism.Services
             TourAppointmentRepository = tourAppointmentRepo;
             Observers = new List<IObserver>();
         }
-        public void Add(TourAppointmentVM tourAppointmentVM)
+        public void Add(TourAppointment tourAppointment)
         {
-            TourAppointmentRepository.Add(tourAppointmentVM.GetTourAppointment());
+            TourAppointmentRepository.Add(tourAppointment);
         }
         public void Delete(int tourAppointmentId)
         {
             TourAppointmentRepository.Delete(tourAppointmentId);
         }
-        public TourAppointmentVM GetOne(int id)
+        public TourAppointment GetOne(int id)
         {
-            return new TourAppointmentVM(TourAppointmentRepository.GetOne(id));
+            return TourAppointmentRepository.GetOne(id);
         }
-        public List<TourAppointmentVM> GetAll()
+        public List<TourAppointment> GetAll()
         {
-            List<TourAppointmentVM> tourAppointments = new List<TourAppointmentVM>();
-            foreach (var tour in TourAppointmentRepository.GetAll())
-            {
-                tourAppointments.Add(new TourAppointmentVM(tour));
-            }
-            return tourAppointments;
+            return TourAppointmentRepository.GetAll();
         }
         public void Subscribe(IObserver observer)
         {
@@ -58,22 +53,21 @@ namespace ProjectTourism.Services
                 observer.Update();
             }
         }
-        public void ChangeState(TourAppointmentVM tourApp)
+        public void Update(TourAppointment tourApp)
         {
-            TourAppointmentRepository.ChangeState(tourApp.GetTourAppointment());
+            TourAppointmentRepository.Update(tourApp);
         }
-        public string GetNextStop(TourVM tour, int checkpointIndex)
+        public TourAppointment GetByDate(int tourId, DateTime date)
         {
-            return TourAppointmentRepository.GetNextStop(tour, checkpointIndex);
+            return TourAppointmentRepository.GetByDate(tourId, date);
         }
-        public void ChangeCurrentStop(TourAppointmentVM tourAppVM)
+        public List<TourAppointment> GetAllByTour(int id)
         {
-            TourAppointmentRepository.ChangeCurrentStop(tourAppVM);
+            return TourAppointmentRepository.GetAllByTour(id);
         }
-
-        public void MakeTourAppointments(TourVM tour)
+        private static bool AppointmentAdditionIsValid(string username, TourAppointment tourAppointment)
         {
-            TourAppointmentRepository.MakeTourAppointments(tour);
+            return tourAppointment.Tour.GuideUsername.Equals(username) && tourAppointment.TourDateTime.Date.Equals(DateTime.Now.Date);
         }
     }
 }

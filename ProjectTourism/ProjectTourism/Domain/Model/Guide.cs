@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProjectTourism.Model
 {
-    public class Guide : Serializable, INotifyPropertyChanged
+    public class Guide : Serializable
     {
         public bool? IsSuperGuide;
         public bool HasTourStarted;
@@ -17,6 +17,8 @@ namespace ProjectTourism.Model
         public string? Surname;
         public string? Biography;
         public string? Language;
+        public List<Tour> Tours;
+        public List<TourAppointment> TourAppointments;
         
         public Guide()
         {
@@ -27,6 +29,8 @@ namespace ProjectTourism.Model
             Biography = "";
             Language = "";
             HasTourStarted = false;
+            Tours = new List<Tour>();
+            TourAppointments = new List<TourAppointment>();
         }
         public Guide(string username, string name, string surname, string biography, string language)
         {
@@ -37,15 +41,9 @@ namespace ProjectTourism.Model
             Biography = biography;
             Language = language;
             HasTourStarted = false;
+            Tours = new List<Tour>();
+            TourAppointments = new List<TourAppointment>();
         }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         public string?[] ToCSV()
         {
             string?[] csvValues =

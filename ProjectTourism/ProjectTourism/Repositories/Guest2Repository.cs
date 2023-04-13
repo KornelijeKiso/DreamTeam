@@ -20,14 +20,7 @@ namespace ProjectTourism.Repositories
         {
             FileHandler = new Guest2FileHandler();
             Guests = FileHandler.Load();
-            Synchronize();
         }
-
-        public void Synchronize()
-        {
-            
-        }
-
         public Guest2 GetOne(string username)
         {
             foreach (var guest in Guests)
@@ -36,7 +29,6 @@ namespace ProjectTourism.Repositories
             }
             return null;
         }
-
         public List<Guest2> GetAll()
         {
             return Guests;
@@ -56,7 +48,6 @@ namespace ProjectTourism.Repositories
         
         public void Update(Guest2 guest)
         {
-            throw new NotImplementedException();
         }
     }
 }

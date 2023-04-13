@@ -20,26 +20,21 @@ namespace ProjectTourism.Services
             GuideRepository = iGuideRepository;
             Observers = new List<IObserver>();
         }
-        public void Add(GuideVM guide)
+        public void Add(Guide guide)
         {
-            GuideRepository.Add(guide.GetGuide());
+            GuideRepository.Add(guide);
         }
-        public void Delete(GuideVM guide)
+        public void Delete(Guide guide)
         {
-            GuideRepository.Delete(guide.GetGuide());
+            GuideRepository.Delete(guide);
         }
-        public GuideVM GetOne(string username)
+        public Guide GetOne(string username)
         {
-            return new GuideVM(GuideRepository.GetOne(username));
+            return GuideRepository.GetOne(username);
         }
-        public List<GuideVM> GetAll()
+        public List<Guide> GetAll()
         {
-            List<GuideVM> guides = new List<GuideVM>();
-            foreach (var guide in GuideRepository.GetAll())
-            {
-                guides.Add(new GuideVM(guide));
-            }
-            return guides;
+            return GuideRepository.GetAll();
         }
         public void Subscribe(IObserver observer)
         {
@@ -58,32 +53,9 @@ namespace ProjectTourism.Services
                 observer.Update();
             }
         }
-        public void UpdateHasTourStarted(string username, bool hasTourStarted)
+        public void Update(Guide guide)
         {
-            GuideRepository.UpdateHasTourStarted(username, hasTourStarted);
-        }
-        public List<TourAppointmentVM> GetGuidesCurrentAppointments(string username)
-        {
-            List<TourAppointmentVM> tourApps = new List<TourAppointmentVM>();
-            foreach (var tourApp in GuideRepository.GetGuidesCurrentAppointments(username))
-            {
-                tourApps.Add(new TourAppointmentVM(tourApp));
-            }
-            return tourApps;
-        }
-        public List<TourAppointmentVM> GetGuidesAppointments(string username)
-        {
-            List<TourAppointmentVM> tourApps = new List<TourAppointmentVM>();
-            foreach (var tourApp in GuideRepository.GetGuidesAppointments(username))
-            {
-                tourApps.Add(new TourAppointmentVM(tourApp));
-            }
-            return tourApps;
-        }
-
-        public List<Tour> GetGuidesTours(string username)
-        {
-            return GuideRepository.GetGuidesTours(username);
+            GuideRepository.Update(guide);
         }
     }
 }
