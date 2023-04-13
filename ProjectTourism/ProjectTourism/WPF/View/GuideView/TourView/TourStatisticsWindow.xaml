@@ -39,7 +39,6 @@
                             <StackPanel Orientation="Vertical" >
                                 <Label Content="{Binding Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
                                     <Label Margin="0,0,0,-7">
                                         <Label.Content>
                                             <TextBlock>
@@ -53,19 +52,14 @@
                                         </Label.Content>
                                     </Label>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label Content="Language :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Content="{Binding Language}" Margin="0,-0.8,0,0"></Label>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label Content="Duration :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Content="{Binding Duration}" Margin="0,0,0,-7" FontWeight="Bold"></Label>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label Content="Max number of guests :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Content="{Binding MaxNumberOfGuests}" Margin="0,0,0,-7" FontWeight="Bold"></Label>
-                                </StackPanel>
                             </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label HorizontalAlignment="Center" VerticalAlignment="Center">56</Label>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
