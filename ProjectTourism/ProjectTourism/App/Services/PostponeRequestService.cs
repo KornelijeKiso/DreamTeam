@@ -42,6 +42,10 @@ namespace ProjectTourism.Services
         {
             return PostponeRequestRepo.GetAll();
         }
+        public void Update(PostponeRequest postponeRequest)
+        {
+            PostponeRequestRepo.Update(postponeRequest);
+        }
         public void Subscribe(IObserver observer)
         {
             Observers.Add(observer);

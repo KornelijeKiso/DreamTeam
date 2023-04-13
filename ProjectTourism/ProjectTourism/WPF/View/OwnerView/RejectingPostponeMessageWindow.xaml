@@ -1,0 +1,23 @@
+﻿<Window x:Class="ProjectTourism.WPF.View.OwnerView.RejectingPostponeMessageWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectTourism.WPF.View.OwnerView"
+        mc:Ignorable="d"
+        Title="RejectingPostponeMessageWindow" Height="300" Width="400" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30 20 0 0" Width="340" Height="40" TextWrapping="Wrap" TextAlignment="Justify" Text="If you want, you can enter a message for the guest explaining why you rejected his request."></TextBlock>
+        <TextBox Name="textBox"  BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30 70 0 0" Width="340" Height="140" TextWrapping="Wrap"></TextBox>
+      
+        <Button Content="Submit" Margin="0 200 0 0" Height="20" Width="60" Click="SubmitClick">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Content="Cancel" Margin="300 230 0 0" Height="20" Width="60" IsCancel="True">
+        </Button>
+    </Grid>
+</Window>

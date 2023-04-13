@@ -118,7 +118,7 @@
                                     <Label FontSize="13" Margin="0,-10,0,0"  Content ="{Binding Path=Guest1.Email}"></Label>
                                     <Image Source="https://img.icons8.com/external-anggara-flat-anggara-putra/2x/external-verified-ui-basic-anggara-flat-anggara-putra.png" Width="25" Height="25" Margin="140 -40 0 0"></Image>
                                     <Button Content="Postpone request" FontSize="10" BorderBrush="DeepSkyBlue" Click="PostponeRequestClick"
-                                    BorderThickness="2" Visibility="{Binding Path=RequestedPostpone, Converter={conv:BoolToVisibilityConverter}}" Width="120" Margin="0 3 0 0">
+                                    BorderThickness="2" Visibility="{Binding Path=RequestedPostpone, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}" Width="120" Margin="0 3 0 0">
                                         <Button.Resources>
                                             <Style TargetType="Border">
                                                 <Setter Property="CornerRadius" Value="5"/>
@@ -138,7 +138,7 @@
                         <DataTemplate>
                             <StackPanel>
                                 <Label Margin="10 4 0 0" Content ="Grading deadline:"></Label>
-                                <Label Margin="10,-8,0,0" Content="{Binding GradingDeadlineMessage}"></Label>
+                                <Label Margin="10,-8,0,0" Content="{Binding GradingDeadlineMessage}" FontWeight="SemiBold"></Label>
                                 <Button Height="20" Width="120" BorderBrush="DeepSkyBlue" 
                                     BorderThickness="2" IsEnabled="{Binding CanBeGraded}" Click="GradeGuestClick" 
                                     Content="Grade your guest" FontSize="10" Margin="0 5 0 0">
@@ -159,8 +159,8 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel>
-                                <Label Margin="-10 4 0 0" Content ="Grade your guest to be"></Label>
-                                <Label Margin="-10,-8,0,0" Content="able to see theirs review"></Label>
+                                <Label Margin="-10 4 0 0" Content ="Grade your guests to be"></Label>
+                                <Label Margin="-10,-8,0,0" Content="able to see their review"></Label>
                                 <Button Height="20" Width="120" BorderBrush="DeepSkyBlue" 
                                     BorderThickness="2" Margin="-59 5 0 0" FontSize="10" IsEnabled="{Binding VisibleReview}" Click="SeeReviewClick" 
                                     Content="See guests review">

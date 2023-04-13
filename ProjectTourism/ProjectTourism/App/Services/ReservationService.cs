@@ -33,6 +33,10 @@ namespace ProjectTourism.Services
         {
             return ReservationRepo.GetOne(id);
         }
+        public void Update(Reservation reservation)
+        {
+            ReservationRepo.Update(reservation);
+        }
         public List<Reservation> GetAll()
         {
             return ReservationRepo.GetAll();

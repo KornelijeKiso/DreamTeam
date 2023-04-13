@@ -71,8 +71,10 @@ namespace ProjectTourism.Repositories
                 if (existingAccommodation.Id == reservation.Id)
                 {
                     existingAccommodation.StartDate = reservation.StartDate;
+                    existingAccommodation.EndDate = reservation.EndDate;
                 }
             }
+            FileHandler.Save(Reservations);
         }
         public List<Reservation> GetAllByAccommodation(int accommodationId)
         {
