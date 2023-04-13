@@ -17,6 +17,9 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             set { _currentView = value; OnPropertyChanged(); }
         }
 
+        public Guest2VM Guest2 { get; set; }
+        public string Username { get; set; }
+
         public ICommand HomeCommand { get; set; }
         public ICommand TicketsCommand { get; set; }
         public ICommand VouchersCommand { get; set; }
@@ -34,6 +37,8 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 
         public NavigationVM()
         {
+            
+
             HomeCommand = new RelayCommand(Home);
             TicketsCommand = new RelayCommand(Tickets);
             VouchersCommand = new RelayCommand(Vouchers);
@@ -43,6 +48,24 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 
             // Startup Page
             CurrentView = new HomeVM();
+        }
+
+        public NavigationVM setGuest2(string username)
+        {
+            NavigationVM vm = new NavigationVM();
+            Guest2 = new Guest2VM(username);
+            vm.Guest2 = Guest2;
+            
+            vm.HomeCommand = new RelayCommand(Home);
+            vm.TicketsCommand = new RelayCommand(Tickets);
+            vm.VouchersCommand = new RelayCommand(Vouchers);
+            //ProfileCommand = new RelayCommand(Profile);
+            //SuggestTourCommand = new RelayCommand(SuggestTour);
+            //ComplexToursCommand = new RelayCommand(ComplexTour);
+
+            // Startup Page
+            vm.CurrentView = new HomeVM();
+            return vm;
         }
     }
 }

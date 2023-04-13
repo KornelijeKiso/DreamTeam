@@ -6,7 +6,7 @@
         xmlns:vm="clr-namespace:ProjectTourism.WPF.ViewModel.Guest2ViewModel"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest2View.Menu"
         mc:Ignorable="d"
-        d:DesignHeight="550" 
+        d:DesignHeight="500" 
         d:DesignWidth="700"
         Style="{StaticResource Page_Style}"     >
     
@@ -157,12 +157,8 @@
 
         <Grid Grid.Row="2" >
             <!-- BUY TICKET   -->
-            <!--Style="{StaticResource button}"-->
-            <Button x:Name="BuyTicket"
-                    Height="50" Width="150" Margin="0 0 20 0"
-                    HorizontalAlignment="Right" 
-                    VerticalAlignment="Center" 
-                    Content="Buy Ticket"    >
+            <Button x:Name="BuyTicket" Style="{StaticResource BuyTickets_button}"
+                    Margin="0 0 20 40" >
             </Button>
 
         </Grid>

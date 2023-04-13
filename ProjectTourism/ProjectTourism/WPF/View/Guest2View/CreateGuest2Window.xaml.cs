@@ -62,7 +62,7 @@ namespace ProjectTourism.View.Guest2View
             if (Guest2.FirstName != null && Guest2.LastName != null)
             {
                 UserService.Add(UserVM);
-                Guest2Service.Add(Guest2);
+                Guest2Service.Add(Guest2.GetGuest2());
                 Close();
             }
             else

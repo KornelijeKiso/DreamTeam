@@ -7,7 +7,7 @@
         <Setter Property="RenderTransform">
             <Setter.Value>
                 <TranslateTransform X="0"
-                                    Y="50" />
+                                    Y="0" />
             </Setter.Value>
         </Setter>
         <Setter Property="Background"
@@ -54,5 +54,49 @@
             </Setter.Value>
         </Setter>-->
     </Style >
+
+    <Style x:Key="BuyTickets_button"
+           TargetType="{x:Type Button}">
+        <Setter Property="Height"
+                Value="40"/>
+        <Setter Property="Width"
+                Value="150"/>
+        <Setter Property="VerticalAlignment"
+                Value="Center"/>
+        <Setter Property="HorizontalAlignment"
+                Value="Right"/>
+        
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border"
+                            BorderThickness="1"
+                            Background="Black">
+                        <TextBlock Text="Buy Ticket"
+                                   FontFamily="/Fonts/#Rubik" 
+                                   FontSize="18"
+                                   Foreground="#DBDBDB" 
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   />
+                    </Border>
+                    
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True"   >
+
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="#272B2F" />
+
+                        </Trigger>
+                        <Trigger Property="IsPressed"
+                                 Value="True"   ></Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+    </Style>
 
 </ResourceDictionary>

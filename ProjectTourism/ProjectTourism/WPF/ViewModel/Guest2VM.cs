@@ -1,5 +1,7 @@
 ﻿using ProjectTourism.Model;
 using ProjectTourism.Observer;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +20,18 @@ namespace ProjectTourism.WPF.ViewModel
         public Guest2VM(Guest2 guest2)
         {
             _guest2 = guest2;
+        }
+
+        public Guest2VM(string username)
+        {
+            Synchronize(username);
+        }
+
+        public void Synchronize(string username)
+        {
+            Guest2Service guest2Service = new Guest2Service(new Guest2Repository());
+            _guest2 = guest2Service.GetOne(username);
+
         }
 
         public Guest2 GetGuest2()
@@ -151,7 +165,7 @@ namespace ProjectTourism.WPF.ViewModel
                 return null;
             }
         }
-        private readonly string[] _validatedProperties = { "FirstName", "LastName", "Age", "PhoneNumber" };
+        private readonly string[] _validatedProperties = { "FirstName", "LastName", "Age", "Email", "PhoneNumber" };
 
         public bool IsValid
         {
