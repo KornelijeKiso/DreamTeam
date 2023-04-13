@@ -39,7 +39,7 @@
                                
                 <!-- LOGOUT BUTTON -->
                 <Button x:Name="LogOut"
-                        Style="{StaticResource LogOut}"     >
+                        Style="{StaticResource LogOut}" Click="LogOut_Click"     >
                 </Button>
 
             </Grid>

@@ -40,5 +40,14 @@ namespace ProjectTourism.WPF.View.Guest2View
             //NavigationVM = NavigationVM.setGuest2(username);
             //DataContext = NavigationVM;
         }
+
+        private void LogOut_Click(object sender, RoutedEventArgs e)
+        {
+            Window parentWindow = Window.GetWindow(this);
+            if (parentWindow != null)
+            {
+                parentWindow.Close();
+            }
+        }
     }
 }
