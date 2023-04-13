@@ -1,6 +1,8 @@
 ﻿using ProjectTourism.Domain.Model;
 using ProjectTourism.Model;
 using ProjectTourism.Observer;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,6 +24,12 @@ namespace ProjectTourism.WPF.ViewModel
         public PostponeRequest GetPostponeRequest()
         {
             return _postponeRequest;
+        }
+
+        public void Update()
+        {
+            PostponeRequestService postponeRequestService = new PostponeRequestService(new PostponeRequestRepository());
+            postponeRequestService.Update(this.GetPostponeRequest());
         }
         public int Id
         {

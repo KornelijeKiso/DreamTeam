@@ -22,6 +22,11 @@ namespace ProjectTourism.WPF.ViewModel
         {
             return _reservation;
         }
+        public void Update()
+        {
+            ReservationService reservationService = new ReservationService(new ReservationRepository());
+            reservationService.Update(this.GetReservation());
+        }
         public int Id
         {
             get => _reservation.Id;
@@ -135,9 +140,18 @@ namespace ProjectTourism.WPF.ViewModel
         {
             get => new PostponeRequestVM(_reservation.PostponeRequest);
         }
+        private bool _RequestedPostpone;
         public bool RequestedPostpone
         {
-            get => IsPostponeRequested();
+            get => _RequestedPostpone = IsPostponeRequested();
+            set
+            {
+                if(value!=_RequestedPostpone)
+                {
+                    _RequestedPostpone = value;
+                    OnPropertyChanged();
+                }
+            }
         }
         private bool IsPostponeRequested()
         {

@@ -5,6 +5,7 @@ using ProjectTourism.Model;
 using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
 using ProjectTourism.Repositories.IRepositories;
+using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,7 +57,16 @@ namespace ProjectTourism.Repositories
 
         public void Update(PostponeRequest postponeRequest)
         {
-            throw new NotImplementedException();
+            foreach (var existingPostponeRequest in PostponeRequests)
+            {
+                if (existingPostponeRequest.Id == postponeRequest.Id)
+                {
+                    existingPostponeRequest.Accepted = postponeRequest.Accepted;
+                    existingPostponeRequest.Rejected = postponeRequest.Rejected;
+                    existingPostponeRequest.AdditionalComment= postponeRequest.AdditionalComment;
+                }
+            }
+            FileHandler.Save(PostponeRequests);
         }
     }
 }

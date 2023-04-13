@@ -18,7 +18,7 @@
     </UserControl.Resources>
     <Grid>
         <DataGrid x:Name="DataGridAccommodations" HeadersVisibility="None" ItemsSource="{Binding Path=Owner.Accommodations, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" GridLinesVisibility="Horizontal"
+                    SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" GridLinesVisibility="All"
                     IsReadOnly="True" VerticalScrollBarVisibility="Visible" AutoGenerateColumns="False"  BorderBrush="DodgerBlue" BorderThickness="3"
                     Margin="296,79,50,34" RowHeight="130" RowBackground="LightYellow" Background="LightYellow" HorizontalScrollBarVisibility="Disabled">
             <DataGrid.Resources>

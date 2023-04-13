@@ -36,7 +36,6 @@ namespace ProjectTourism.WPF.View.OwnerView
             InitializeComponent();
             DataContext = this;
             SetOwner(username);
-
         }
         private void SetOwner(string username)
         {
@@ -72,6 +71,10 @@ namespace ProjectTourism.WPF.View.OwnerView
         {
             PostponeRequestWindow postponeRequestWindow = new PostponeRequestWindow(SelectedReservation);
             postponeRequestWindow.ShowDialog();
+            if (SelectedReservation.PostponeRequest.Accepted || SelectedReservation.PostponeRequest.Rejected)
+            {
+                SelectedReservation.RequestedPostpone = false;
+            }
         }
     }
 }
