@@ -92,7 +92,8 @@
             
             <!-- SEARCH BUTTON -->
             <Button x:Name="Search" Style="{StaticResource Search}"
-                    Grid.Row="0" Grid.RowSpan="2" Grid.Column="4" >
+                    Grid.Row="0" Grid.RowSpan="2" Grid.Column="4" 
+                    Click="Search_Click" >
                 <!--click DODAJ -->
             </Button>
         </Grid>

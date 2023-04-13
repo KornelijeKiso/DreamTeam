@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectTourism.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,18 +28,18 @@ namespace ProjectTourism.Services
         {
             TourRepository.Delete(tourVM.GetTour());
         }
-        public TourVM GetOne(int id)
+        public Tour GetOne(int id)
         {
-            return new TourVM(TourRepository.GetOne(id));
+            return TourRepository.GetOne(id);
         }
-        public List<TourVM> GetAll()
+        public List<Tour> GetAll()
         {
-            List<TourVM> tours = new List<TourVM>();
+            List<Tour> tours = new List<Tour>();
             foreach (var tour in TourRepository.GetAll())
             {
                 List<string> pom = TourRepository.GetStops(tour);
                 tour.StopsList = pom;
-                tours.Add(new TourVM(tour));
+                tours.Add(tour);
             }
             return tours;
         }
