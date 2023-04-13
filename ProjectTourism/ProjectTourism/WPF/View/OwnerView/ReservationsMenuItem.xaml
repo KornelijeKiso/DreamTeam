@@ -159,8 +159,8 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel>
-                                <Label Margin="-10 4 0 0" Content ="Grade your guest to be"></Label>
-                                <Label Margin="-10,-8,0,0" Content="able to see theirs review"></Label>
+                                <Label Margin="-10 4 0 0" Content ="Grade your guests to be"></Label>
+                                <Label Margin="-10,-8,0,0" Content="able to see their review"></Label>
                                 <Button Height="20" Width="120" BorderBrush="DeepSkyBlue" 
                                     BorderThickness="2" Margin="-59 5 0 0" FontSize="10" IsEnabled="{Binding VisibleReview}" Click="SeeReviewClick" 
                                     Content="See guests review">
