@@ -14,22 +14,24 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ProjectTourism.Controller;
 using ProjectTourism.Model;
+using ProjectTourism.WPF.ViewModel;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
+using ProjectTourism.WPF.View.Guest2View.TicketView;
 using ProjectTourism.Observer;
-using ProjectTourism.View.Guest2View.TicketView;
 using ProjectTourism.Utilities;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
     class HomeVM : Utilities.ViewModelBase
     {
-        //public Guest2 Guest { get; set; }
-        public Guest2Controller GuestController { get; set; }
-        public TourController TourController { get; set; }
+        public Guest2VM Guest2 { get; set; }
+        public Guest2Service GuestService { get; set; }
+        public TourService TourService { get; set; }
         public Tour? SelectedTour { get; set; }
         public ObservableCollection<Tour> Tours { get; set; }
-        public TourAppointmentController TourAppointmentController { get; set; }
+        //public TourAppointmentService TourAppointmentService { get; set; }
 
         public string searchLocation { get; set; }
         public string searchLanguage { get; set; }
@@ -38,17 +40,17 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 
         public HomeVM()
         {
-            GuestController = new Guest2Controller();
-            //Guest = GuestController.GetOne(username);
-            TourController = new TourController();
-            Tours = new ObservableCollection<Tour>(TourController.GetAll());
+            GuestService = new Guest2Service(new Guest2Repository());
+            //Guest2 = GuestService.GetOne(username);
+            TourService = new TourService(new TourRepository());
+            Tours = new ObservableCollection<Tour>(TourService.GetAll());
 
             searchLocation = "";
             searchLanguage = "";
             searchDuration = "";
             searchMaxNumberOfGuests = "";
 
-            TourAppointmentController = new TourAppointmentController();
+            //TourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
         }
 
         public void UpdateToursList(List<Tour> tours)
@@ -138,10 +140,19 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             SearchMaxNumberOfGuests(Tours);
         }
 
-        private void SearchClick(object sender, RoutedEventArgs e)
+        private void Search_Click(object sender, RoutedEventArgs e)
         {
-            UpdateToursList(TourController.GetAll());
+            UpdateToursList(TourService.GetAll());
             SearchOne();
+        }
+
+        private void BuyTicket_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedTour != null)
+            {
+                CreateTicketWindow createTicketWidnow = new CreateTicketWindow(Guest2.Username, SelectedTour.Id);
+                createTicketWidnow.ShowDialog();
+            }
         }
     }
 }

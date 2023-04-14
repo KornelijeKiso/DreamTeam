@@ -1,9 +1,7 @@
 ﻿using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.Model;
-using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
-using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,13 +27,14 @@ namespace ProjectTourism.Services
         {
             return Guest2Repository.GetAll();
         }
-        public void Add(Guest2VM guest)
+        public void Add(Guest2 guest)
         {
-            Guest2Repository.Add(guest.GetGuest2());
+            Guest2Repository.Add(guest);
         }
-        public void Delete(Guest2VM guest)
+
+        public void Delete(Guest2 guest)
         {
-            Guest2Repository.Delete(guest.GetGuest2());
+            Guest2Repository.Delete(guest);
         }
         public void Subscribe(IObserver observer)
         {
