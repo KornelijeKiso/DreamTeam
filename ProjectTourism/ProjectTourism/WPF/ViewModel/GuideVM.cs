@@ -38,7 +38,18 @@ namespace ProjectTourism.WPF.ViewModel
             Guest2Service guest2Service = new Guest2Service(new Guest2Repository());
 
             _guide = guideService.GetOne(username);
-            foreach(var tour in tourService.GetAll())
+
+            Guide guide = SynchronizeUser(username);
+            _guide.Username = guide.Username;
+            _guide.Password = guide.Password;
+            _guide.Type = guide.Type;
+            _guide.FirstName = guide.FirstName;
+            _guide.LastName = guide.LastName;
+            _guide.Birthday = guide.Birthday;
+            _guide.Email = guide.Email;
+            _guide.PhoneNumber = guide.PhoneNumber;
+
+            foreach (var tour in tourService.GetAll())
             {
                 if (tour.GuideUsername.Equals(username))
                 {
@@ -61,6 +72,14 @@ namespace ProjectTourism.WPF.ViewModel
                     _guide.TourAppointments.AddRange(tour.TourAppointments);
                 }
             }
+        }
+
+        private Guide SynchronizeUser(string username)
+        {
+            UserService userService = new UserService(new UserRepository());
+            User user = userService.GetOne(username);
+            Guide guide = new Guide(user);
+            return guide;
         }
         public void CancelAppointment(TourAppointmentVM tourApp)
         {
