@@ -28,7 +28,7 @@ namespace ProjectTourism.View.Guest2View
     /// </summary>
     public partial class CreateGuest2Window : Window, INotifyPropertyChanged, IObserver
     {
-        public Guest2VM Guest2VM { get; set; }
+        public Guest2VM Guest2 { get; set; }
         public UserVM UserVM { get; set; }
         public Guest2Service Guest2Service { get; set; }
         public UserService UserService { get; set; }
@@ -39,9 +39,9 @@ namespace ProjectTourism.View.Guest2View
             DataContext = this;
             Guest2Service = new Guest2Service(new Guest2Repository());
             UserService = new UserService(new UserRepository());
-            Guest2VM = new Guest2VM( new Guest2());
+            Guest2 = new Guest2VM( new Guest2());
             UserVM = userVM;
-            Guest2VM.Username = userVM.Username;
+            Guest2.Username = userVM.Username;
             Guest2Service.Subscribe(this);
         }
 
@@ -59,10 +59,10 @@ namespace ProjectTourism.View.Guest2View
 
         private void CreateClick(object sender, RoutedEventArgs e)
         {
-            if (Guest2VM.FirstName != null && Guest2VM.LastName != null)
+            if (Guest2.FirstName != null && Guest2.LastName != null)
             {
                 UserService.Add(UserVM);
-                Guest2Service.Add(Guest2VM);
+                Guest2Service.Add(Guest2.GetGuest2());
                 Close();
             }
             else

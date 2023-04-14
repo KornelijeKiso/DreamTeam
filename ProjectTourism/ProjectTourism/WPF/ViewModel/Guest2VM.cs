@@ -1,5 +1,7 @@
 ﻿using ProjectTourism.Model;
 using ProjectTourism.Observer;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,7 +9,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.Text.RegularExpressions;
+//using System.Text.RegularExpressions;
 
 namespace ProjectTourism.WPF.ViewModel
 {
@@ -18,6 +20,18 @@ namespace ProjectTourism.WPF.ViewModel
         public Guest2VM(Guest2 guest2)
         {
             _guest2 = guest2;
+        }
+
+        public Guest2VM(string username)
+        {
+            Synchronize(username);
+        }
+
+        public void Synchronize(string username)
+        {
+            Guest2Service guest2Service = new Guest2Service(new Guest2Repository());
+            _guest2 = guest2Service.GetOne(username);
+
         }
 
         public Guest2 GetGuest2()
@@ -110,7 +124,7 @@ namespace ProjectTourism.WPF.ViewModel
         }
 
         // validation
-        private Regex _PhoneNumRegex = new Regex("[0-9]{3}[/]{1}[0-9]{3}-[0-9]{3}");
+        //private Regex _PhoneNumRegex = new Regex("[0-9]{3}[/]{1}[0-9]{3}-[0-9]{3}");
         public string Error => null;
         public string? this[string columnName]
         {
@@ -131,22 +145,27 @@ namespace ProjectTourism.WPF.ViewModel
                     if (string.IsNullOrEmpty(Age.ToString()))
                         return "Age is required!";
                 }
+                else if (columnName == "Email")
+                {
+                    if (string.IsNullOrEmpty(Email))
+                        return "Email is required!";
+                }
                 else if (columnName == "PhoneNumber")
                 {
                     if (string.IsNullOrEmpty(PhoneNumber))
                         return "Phone Number is required!";
 
-                    if (PhoneNumber.Length != 11)
-                        return "Phone number should be in format DDD/DDD-DDD";
-                    Match match = _PhoneNumRegex.Match(PhoneNumber);
-                    if (!match.Success)
-                        return "Phone number should be in format DDD/DDD-DDD";//"have 10 digits;
+                    //if (PhoneNumber.Length != 11)
+                    //    return "Phone number should be in format DDD/DDD-DDD";
+                    //Match match = _PhoneNumRegex.Match(PhoneNumber);
+                    //if (!match.Success)
+                    //    return "Phone number should be in format DDD/DDD-DDD";//"have 10 digits;
                 }
 
                 return null;
             }
         }
-        private readonly string[] _validatedProperties = { "FirstName", "LastName", "Age", "PhoneNumber" };
+        private readonly string[] _validatedProperties = { "FirstName", "LastName", "Age", "Email", "PhoneNumber" };
 
         public bool IsValid
         {
