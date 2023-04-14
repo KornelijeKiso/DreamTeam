@@ -5,15 +5,12 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectTourism.Model;
 
 namespace ProjectTourism.Model
 {
-    public class Guest1 : Serializable
+    public class Guest1 : User, Serializable
     {
-        public string Username;
-        public string FirstName;
-        public string LastName;
-        public string Email;
         public double AverageGrade;
         public List<Reservation> Reservations;
         public Guest1()
@@ -21,33 +18,35 @@ namespace ProjectTourism.Model
             AverageGrade = 0;
             Reservations = new List<Reservation>();
         }
-        public Guest1(string username, string firstName, string lastName, string email)
+
+        public Guest1(User user)
         {
-            Username = username;
-            FirstName = firstName;
-            LastName = lastName;
-            Email = email;
-            Reservations = new List<Reservation>();
+            this.Username = user.Username;
+            this.Password = user.Password;
+            this.Type = user.Type;
+            this.FirstName = user.FirstName;
+            this.LastName = user.LastName;
+            this.Birthday = user.Birthday;
+            this.Email = user.Email;
+            this.PhoneNumber = user.PhoneNumber;
+
+            this.AverageGrade = 0;
+            this.Reservations = new List<Reservation>();
         }
-        public string[] ToCSV()
+        
+        public new string[] ToCSV()
         {
             string[] csvValues =
             {
                 Username,
-                FirstName,
-                LastName,
-                Email,
                 AverageGrade.ToString()     };
             return csvValues;
         }
 
-        public void FromCSV(string[] values)
+        public new void FromCSV(string[] values)
         {
             Username = values[0];
-            FirstName = values[1];
-            LastName = values[2];
-            Email = values[3];
-            AverageGrade = double.Parse(values[4]);
+            AverageGrade = double.Parse(values[1]);
         }
     }
 }

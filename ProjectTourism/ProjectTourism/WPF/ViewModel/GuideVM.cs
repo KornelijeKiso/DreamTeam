@@ -41,6 +41,17 @@ namespace ProjectTourism.WPF.ViewModel
             Guest2Service guest2Service = new Guest2Service(new Guest2Repository());
 
             _guide = guideService.GetOne(username);
+
+            Guide guide = SynchronizeUser(username);
+            _guide.Username = guide.Username;
+            _guide.Password = guide.Password;
+            _guide.Type = guide.Type;
+            _guide.FirstName = guide.FirstName;
+            _guide.LastName = guide.LastName;
+            _guide.Birthday = guide.Birthday;
+            _guide.Email = guide.Email;
+            _guide.PhoneNumber = guide.PhoneNumber;
+
             foreach (var tour in tourService.GetAll())
             {
                 if (tour.GuideUsername.Equals(username))
@@ -64,6 +75,14 @@ namespace ProjectTourism.WPF.ViewModel
                     _guide.TourAppointments.AddRange(tour.TourAppointments);
                 }
             }
+        }
+
+        private Guide SynchronizeUser(string username)
+        {
+            UserService userService = new UserService(new UserRepository());
+            User user = userService.GetOne(username);
+            Guide guide = new Guide(user);
+            return guide;
         }
         public void CancelAppointment(TourAppointmentVM tourApp)
         {
@@ -181,30 +200,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public string? Name
-        {
-            get => _guide.Name;
-            set
-            {
-                if (_guide.Name != value)
-                {
-                    _guide.Name = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public string? Surname
-        {
-            get => _guide.Surname;
-            set
-            {
-                if (_guide.Surname != value)
-                {
-                    _guide.Surname = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
         public string? Biography
         {
             get => _guide.Biography;
@@ -225,32 +220,6 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_guide.Language != value)
                 {
                     _guide.Language = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string? Email
-        {
-            get => _guide.Email;
-            set
-            {
-                if (_guide.Email != value)
-                {
-                    _guide.Email = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string? Phone
-        {
-            get => _guide.Phone;
-            set
-            {
-                if (_guide.Phone != value)
-                {
-                    _guide.Phone = value;
                     OnPropertyChanged();
                 }
             }

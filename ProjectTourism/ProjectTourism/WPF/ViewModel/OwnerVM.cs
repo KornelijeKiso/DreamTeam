@@ -1,5 +1,4 @@
 ﻿using ProjectTourism.Model;
-using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using System;
@@ -18,6 +17,13 @@ namespace ProjectTourism.WPF.ViewModel
     {
         private Owner _owner;
 
+        public OwnerVM(Owner owner)
+        {
+            _owner = owner;
+            Accommodations = new ObservableCollection<AccommodationVM>(_owner.Accommodations.Select(r => new AccommodationVM(r)).ToList());
+            Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).Reverse().ToList());
+        }
+
         public OwnerVM(string username)
         {
             Synchronize(username);
@@ -33,6 +39,17 @@ namespace ProjectTourism.WPF.ViewModel
             _owner = ownerService.GetOne(username);
             _owner.Accommodations = accommodationService.GetAllByOwner(_owner.Username);
             _owner.Reservations = new List<Reservation>();
+
+            Owner owner = SynchronizeUser(username);
+            _owner.Username = owner.Username;
+            _owner.Password = owner.Password;
+            _owner.Type = owner.Type;
+            _owner.FirstName = owner.FirstName;
+            _owner.LastName = owner.LastName;
+            _owner.Birthday = owner.Birthday;
+            _owner.Email = owner.Email;
+            _owner.PhoneNumber = owner.PhoneNumber;
+
             foreach (Accommodation accommodation in _owner.Accommodations)
             {
                 accommodation.Location = locationService.GetOne(accommodation.LocationId);
@@ -40,6 +57,15 @@ namespace ProjectTourism.WPF.ViewModel
                 _owner.Reservations.AddRange(accommodation.Reservations);
             }
         }
+
+        private Owner SynchronizeUser(string username)
+        { 
+            UserService userService = new UserService(new UserRepository());
+            User user = userService.GetOne(username);
+            Owner owner = new Owner(user);
+            return owner;
+        }
+
         private List<Reservation> SynchronizeReservations(Accommodation accommodation)
         {
             ReservationService reservationService = new ReservationService(new ReservationRepository());
@@ -111,36 +137,10 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
         public bool IsSuperHost
         {
             get => AverageGrade>4.5 && NumberOfReviews>2;
         }
-        public string FirstName
-        {
-            get => _owner.FirstName;
-            set
-            {
-                if (value != _owner.FirstName)
-                {
-                    _owner.FirstName = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public string LastName
-        {
-            get => _owner.LastName;
-            set
-            {
-                if (value != _owner.LastName)
-                {
-                    _owner.LastName = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         public int NumberOfReviews
         {
             get => _owner.Reservations.Count(res=>res.AccommodationGrade!=null);
@@ -152,18 +152,6 @@ namespace ProjectTourism.WPF.ViewModel
         public int NumberOfAccommodations
         {
             get => _owner.Accommodations.Count();
-        }
-        public string Email
-        {
-            get => _owner.Email;
-            set
-            {
-                if (value != _owner.Email)
-                {
-                    _owner.Email = value;
-                    OnPropertyChanged();
-                }
-            }
         }
         public double AverageGrade
         {

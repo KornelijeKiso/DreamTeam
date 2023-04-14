@@ -7,40 +7,21 @@
         mc:Ignorable="d"
         Title="Guide window" Height="720" Width="1280" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Grid Margin="180,202,596,153">
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-                <RowDefinition></RowDefinition>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250*"></ColumnDefinition>
-                <ColumnDefinition Width="247*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-
-            <Label x:Name="NameLabel" Grid.Row="0" Grid.Column="0" Content="Name" Margin="0,6,0,6"/>
-            <Label x:Name="SurnameLabel" Grid.Row="1" Grid.Column="0" Content="Surname" Margin="0,6,0,6"/>
-            <Label x:Name="EmailLabel" Grid.Row="2" Grid.Column="0" Content="Email" Margin="0,6,0,6"/>
-            <Label x:Name="PhoneNumberLabel" Grid.Row="3" Grid.Column="0" Content="Phone number" Margin="0,6,0,6"/>
-            <Label x:Name="LanguagesLabel" Grid.Row="4" Grid.Column="0" Content="Spoken languages" Margin="0,6,0,6"/>
-            <Label x:Name="MaxGuestsLabel" Grid.Row="5" Grid.Column="0" Content="Maximum number of guests" Margin="0,6,0,6"/>
-            <Label x:Name="BioLabel" Grid.Row="6" Grid.Column="0" Content="Biography" Margin="0,6,0,6"/>
-
-
-            <TextBox x:Name="textbox0" Grid.Row="0" Grid.Column="1" Text="{Binding Guide.Name}" Margin="0,8,0,8"/>
-            <TextBox x:Name="textbox00" Grid.Row="1" Grid.Column="1" Text="{Binding Guide.Surname}" Margin="0,8,0,8"/>
-            <TextBox x:Name="textbox1" Grid.Row="2" Grid.Column="1" Text="{Binding Guide.Email}" Margin="0,8,0,8"/>
-            <TextBox x:Name="textbox2" Grid.Row="3" Grid.Column="1" Text="{Binding Guide.Phone}" Margin="0,8,0,8"/>
-            <TextBox x:Name="textbox3" Grid.Row="4" Grid.Column="1" Text="{Binding Guide.Language}" Margin="0,8,0,8"/>
-            <TextBox x:Name="textbox5" Grid.Row="5" Grid.Column="1" Text="{Binding Guide.MaxNumberOfGuests}" Margin="0,8,0,8"/>
-            <TextBox x:Name="textbox4" Grid.Row="6" Grid.Column="1" Text="{Binding Guide.Biography}" Margin="0,8,0,8" Grid.RowSpan="2"/>
-        </Grid>
-        <Button x:Name="CreateGuideButton" Content="Create" HorizontalAlignment="Left" Height="36" Margin="1074,614,0,0" VerticalAlignment="Top" Width="110" Click="CreateGuideButton_Click"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="41*"/>
+            <RowDefinition Height="393*"/>
+        </Grid.RowDefinitions>
+        <Label x:Name="Name" Content="Name" HorizontalAlignment="Left" Height="30" Margin="61,10,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117"/>
+        <Label x:Name="Surname" Content="Surname" HorizontalAlignment="Left" Height="30" Margin="61,56,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117"/>
+        <Label x:Name="Language" Content="Language" HorizontalAlignment="Left" Height="30" Margin="61,102,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117"/>
+        <Label x:Name="Biography" Content="Biography" HorizontalAlignment="Left" Height="30" Margin="61,147,0,0" Grid.Row="1" VerticalAlignment="Top" Width="117"/>
+        <TextBox IsReadOnly="True" IsEnabled="False"
+            Text="{Binding Path = UserVM.FirstName}" HorizontalAlignment="Center" Height="30" Margin="0,10,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="202"/>
+        <TextBox IsReadOnly="True" IsEnabled="False"
+            Text ="{Binding Path = UserVM.LastName}" HorizontalAlignment="Center" Height="30" Margin="0,56,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="202"/>
+        <TextBox Text="{Binding Path = GuideVM.Language}" HorizontalAlignment="Center" Height="30" Margin="0,102,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="202"/>
+        <TextBox Text ="{Binding Path = GuideVM.Biography}" HorizontalAlignment="Center" Height="192" Margin="0,147,0,0" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="202"/>
+        <Button x:Name="CreateGuideButton" Content="Create" HorizontalAlignment="Left" Height="37" Margin="651,302,0,0" Grid.Row="1" VerticalAlignment="Top" Width="110" Click="CreateGuideButton_Click"/>
 
     </Grid>
 </Window>
