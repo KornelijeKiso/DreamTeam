@@ -23,7 +23,18 @@ namespace ProjectTourism.WPF.ViewModel
             TourAppointments = new ObservableCollection<TourAppointmentVM>(_tour.TourAppointments.Select(r => new TourAppointmentVM(r)).ToList());
         }
         public ObservableCollection<TourAppointmentVM> TourAppointments { get; set; }
-        public List<DateTime> dates { get; set; }
+        public List<DateTime> dates
+        {
+            get => _tour.dates;
+            set
+            {
+                if(value != _tour.dates)
+                {
+                    _tour.dates = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public List<string> StopsList
         {
             get => _tour.StopsList;

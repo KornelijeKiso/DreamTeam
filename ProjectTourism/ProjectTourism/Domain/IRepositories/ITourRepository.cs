@@ -12,7 +12,7 @@ namespace ProjectTourism.Domain.IRepositories
     {
         Tour GetOne(int tourId);
         List<Tour> GetAll();
-        void Add(Tour tour);
+        int Add(Tour tour);
         void Delete(Tour tour);
         void Update(Tour tour);
         List<string> GetStops(Tour tour);

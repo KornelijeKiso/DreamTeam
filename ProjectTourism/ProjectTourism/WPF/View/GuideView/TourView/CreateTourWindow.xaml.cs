@@ -31,62 +31,43 @@ namespace ProjectTourism.View.TourView
     /// </summary>
     public partial class CreateTourWindow : UserControl, INotifyPropertyChanged, IObserver
     {
-        public TourVM Tour { get; set; }
-        public TourService TourService { get; set; }
+        public TourVM NewTour { get; set; }
         public LocationVM NewLocation { get; set; }
-        public LocationService NewLocationService { get; set; }
-        public List<string> Languages { get; set; }
-        public ObservableCollection<string> LanguagesObservable { get; set; }
+        public GuideVM Guide { get; set; }
         public TourAppointmentVM TourAppointment { get; set; }
-        public TourAppointmentService TourAppointmentService { get; set; }
+        public ObservableCollection<string> LanguagesObservable { get; set; }
         private Dictionary<DateTime, List<TimeSpan>> appointments = new Dictionary<DateTime, List<TimeSpan>>();
         public CreateTourWindow(GuideVM guide)
         {
             InitializeComponent();
             DataContext = this;
+            Guide = guide;
 
-            Tour = new TourVM(new Tour());
-            Tour.GuideUsername = guide.Username;
-            Tour.Guide = guide;
-            Tour.dates = new List<DateTime>();
+            SetModels();
 
-            TourService = new TourService(new TourRepository());
-            TourService.Subscribe(this);
-            NewLocation = new LocationVM(new Location());
-            NewLocationService = new LocationService(new LocationRepository());
-            TourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
+            NewTour.GuideUsername = guide.Username;
+            NewTour.Guide = guide;
+            NewTour.dates = new List<DateTime>();
 
-            Languages = new List<string>
-            {
-                "English",
-                "Spanish",
-                "French",
-                "German",
-                "Italian",
-                "Portuguese",
-                "Russian",
-                "Japanese",
-                "Korean",
-                "Chinese",
-                "Arabic",
-                "Hebrew",
-                "Dutch",
-                "Swedish",
-                "Norwegian",
-                "Danish",
-                "Finnish",
-                "Turkish",
-                "Greek",
-                "Polish"
-            };
-            LanguagesObservable = new ObservableCollection<string>(Languages);
+            LanguagesObservable = new ObservableCollection<string>(SetLanguages());
             LanguageComboBox.ItemsSource = LanguagesObservable;
         }
-        public void Update()
-        {
 
+        private List<string> SetLanguages()
+        {
+            return new List<string>
+            {
+                "English","Spanish","French","German","Italian","Portuguese","Russian","Japanese","Korean","Chinese",
+                "Dutch","Swedish","Norwegian","Danish","Finnish","Turkish","Greek","Polish","Arabic","Hebrew",
+            };
         }
-        private void AttachTourImagesButton_Click(object sender, RoutedEventArgs e)
+
+        private void SetModels()
+        {
+            NewTour = new TourVM(new Tour());
+            NewLocation = new LocationVM(new Location());
+        }
+        public void Update()
         {
 
         }
@@ -94,26 +75,20 @@ namespace ProjectTourism.View.TourView
         {
             if (appointmentsListBox.Items.Count == 0)
             {
-                MessageBox.Show("You have not choosed any dates for this tour!");
+                MessageBox.Show("You did not choose any dates for this tour!");
                 return;
             }
-            if (Tour.IsValid && NewLocation.IsValid)
-            {
+            if (NewTour.IsValid && NewLocation.IsValid)
                 AddTour();
-                ContentArea.Content = new HomeWindow(Tour.Guide.Username);
-            }
             else
-                MessageBox.Show("Tour can not be made because the fields were not correctly entered.");
+                MessageBox.Show("Tour can not be made because the fields were not entered correctly.");
         }
         private void AddTour()
         {
-            NewLocation.Id = NewLocationService.AddAndReturnId(NewLocation.GetLocation());
-            Tour.Location = NewLocation;
-            Tour.LocationId = NewLocation.Id;
             SaveDates();
-            TourService.Add(Tour.GetTour());
-            //TourAppointmentService.MakeTourAppointments(Tour);
+            Guide.AddTour(NewTour, NewLocation);
             HideTourCreateContents();
+            ContentArea.Content = new HomeWindow(NewTour.Guide.Username);
         }
         private void HideTourCreateContents()
         {
@@ -159,14 +134,10 @@ namespace ProjectTourism.View.TourView
         {
             LanguageAdditionWindow languageAdditionWindow = new LanguageAdditionWindow(LanguagesObservable);
             languageAdditionWindow.ShowDialog();
-            if (LanguageAdded())
+            if (languageAdditionWindow.LanguageAdded)
                 LanguageComboBox.SelectedItem = LanguagesObservable.Last().ToString();
         }
 
-        private bool LanguageAdded()
-        {
-            return LanguagesObservable.Count() > Languages.Count();
-        }
 
         private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -229,7 +200,7 @@ namespace ProjectTourism.View.TourView
                     appointmentText = appointment.Key.ToString(DateTimeFormatInfo.CurrentInfo.ShortDatePattern) + " ";
                     appointmentText += time.ToString("hh\\:mm");
                     if (DateTime.TryParse(appointmentText, CultureInfo.CurrentCulture.DateTimeFormat, DateTimeStyles.None, out var dateTimeParsed))
-                        Tour.dates.Add(dateTimeParsed);
+                        NewTour.dates.Add(dateTimeParsed);
                 }
             }
         }
