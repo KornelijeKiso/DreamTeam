@@ -73,40 +73,32 @@ namespace ProjectTourism.WPF.ViewModel
             tourAppointmentService.Delete(tourApp.Id);
             canceledTourAppointmentsService.Add(tourApp.GetTourAppointment());
         }
-        public string NextStop(int nextStopIndex, TourAppointment tourApp)
+        public string NextStop(TourAppointment tourApp)
         {
             TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
             TourService tourService = new TourService(new TourRepository());
 
+            string currentStop = tourApp.CurrentTourStop;
+            int nextStopIndex = tourApp.Tour.StopsList.FindIndex(stop => stop == currentStop) + 1;
+
             tourApp.CurrentTourStop = tourApp.Tour.StopsList[nextStopIndex];
             tourApp.State = TOURSTATE.STARTED;
             tourAppointmentService.Update(tourApp);
-            return tourService.GetNextStop(tourApp.Tour, nextStopIndex);
+            return tourService.GetNextStop(tourApp.Tour, nextStopIndex-1);
         }
-        public string FinishTheTour(TourAppointmentVM tourApp)
+        public string FinishTourAndReturnStop(TourAppointmentVM tourApp)
         {
+            GuideService guideService = new GuideService(new GuideRepository());
             TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
 
             tourApp.CurrentTourStop = tourApp.Tour.StopsList.Last();
             tourApp.State = TOURSTATE.FINISHED;
             tourApp.IsFinished = true;
+            tourApp.IsNotFinished = false;
             tourAppointmentService.Update(tourApp.GetTourAppointment());
-            FinishTour(tourApp);
+            guideService.Update(_guide);
             return tourApp.Tour.StopsList.Last();
         }
-        public void FinishTour(TourAppointmentVM tourApp)
-        {
-            GuideService guideService = new GuideService(new GuideRepository());
-            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
-
-            tourApp.IsNotFinished = false;
-            tourApp.IsFinished = true;
-            tourApp.State = TOURSTATE.FINISHED;
-            _guide.HasTourStarted = false;
-            guideService.Update(_guide);
-            tourAppointmentService.Update(tourApp.GetTourAppointment());
-        }
-
         public void CheckTicket(TicketVM ticket)
         {
             ticket.HasGuideChecked = true;

@@ -78,9 +78,6 @@ namespace ProjectTourism.Repositories
             }
             return null;
         }
-
-
-
         public void Update(TourAppointment tourAppointment)
         {
             foreach (var tourApp in TourAppointments)
@@ -88,7 +85,7 @@ namespace ProjectTourism.Repositories
                 if (tourApp.Id == tourAppointment.Id)
                 {
                     tourApp.State = tourAppointment.State;
-                    tourApp.CurrentTourStop = tourApp.CurrentTourStop;
+                    tourApp.CurrentTourStop = tourAppointment.CurrentTourStop;
                 }
             }
             FileHandler.Save(TourAppointments);

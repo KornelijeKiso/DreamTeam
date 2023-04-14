@@ -34,19 +34,21 @@ namespace ProjectTourism.View.GuideView.TourView
     {
         public TourAppointmentVM TourAppointment { get; set; }
         public TicketVM SelectedTicket { get; set; }
+        public GuideVM Guide { get; set; }
 
         public TourStopsWindow(TourAppointmentVM SelectedTourAppointment)
         {
             InitializeComponent();
             DataContext = this;
 
+            Guide = new GuideVM(SelectedTourAppointment.Tour.Guide.GetGuide());
             TourAppointment = SelectedTourAppointment;
             //   ControlTicketStatusColor();
             EmergencyButtonSet();
         }
         private void EmergencyButtonSet()
         {
-            if (TourStarted())
+            if (HasTourStarted())
             {
                 StopPassedButton.Content = "Stop passed";
                 EmergencyStopButton.IsEnabled = true;
@@ -55,7 +57,7 @@ namespace ProjectTourism.View.GuideView.TourView
                 EmergencyStopButton.IsEnabled = false;
         }
 
-        private bool TourStarted()
+        private bool HasTourStarted()
         {
             return TourAppointment.State == TOURSTATE.STARTED;
         }
@@ -70,62 +72,49 @@ namespace ProjectTourism.View.GuideView.TourView
             }
             return number;
         }
-
-        public bool IsLastStop()
-        {
-            return TourAppointment.Tour.StopsList.Last().Equals(TourAppointment.CurrentTourStop);
-        }
-
-        public void FinishTour()
-        {
-            StopPassedButton.Content = "Tour finished";
-            UpdateFinishTour();
-            StopPassedButton.IsEnabled = false;
-            EmergencyStopButton.IsEnabled = false;
-        }
-
-        private void UpdateFinishTour()
-        {
-            TourAppointment.Tour.Guide.FinishTour(TourAppointment);
-        }
-
         public void NextStop()
         {
+            int nextStopIndex = PassedButtonClicks() + 1;
             StopPassedButton.Content = "Stop passed";
-            UpdateNextStop();
+            StopTextBox.Text = TourAppointment.Tour.Guide.NextStop(TourAppointment.GetTourAppointment());
             // ControlTicketStatusColor();
         }
-        private void UpdateNextStop()
+        private bool CanGuidePassStop()
         {
-            int nextStopIndex = PassedButtonClicks() + 1;
-            if (nextStopIndex < TourAppointment.Tour.StopsList.Count())
-                StopTextBox.Text=TourAppointment.Tour.Guide.NextStop(nextStopIndex, TourAppointment.GetTourAppointment());
-            else
-                FinishTour();
+            if (TourAppointment.State == TOURSTATE.READY)
+            {
+                foreach (var tourApp in Guide.TourAppointments.Where(t => t.Id != TourAppointment.Id).ToList())
+                {
+                    if (tourApp.State == TOURSTATE.STARTED)
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
         }
-
-        
-
         private void StopPassedButton_Click(object sender, RoutedEventArgs e)
         {
-            if (PassedButtonClicks() == TourAppointment.Tour.StopsList.Count() - 2) //we clicked lastindex-1 times
+            if (CanGuidePassStop())
             {
-                StopPassedButton.Content = TourAppointment.Tour.Guide.FinishTheTour(TourAppointment);
-            }
-            if (CanGoNextStop())
-            {
-                NextStop();
+                if (IsNextStopFinish())
+                    TourAppointment.Tour.Guide.FinishTourAndReturnStop(TourAppointment);
+                else if (CanGoNextStop())
+                    NextStop();
             }
             else
-            {
                 MessageBox.Show("Guide has already started a tour!");
-            }
             EmergencyButtonSet();
         }
-
+        
+        private bool IsNextStopFinish()
+        {
+            //if we are on the one before last or if the stops are null
+            return PassedButtonClicks() == TourAppointment.Tour.StopsList.Count() - 2 || TourAppointment.Tour.Stops.Equals(""); 
+        }
         private bool CanGoNextStop()
         {
-            return (!TourAppointment.Tour.Guide.HasTourStarted || TourAppointment.State == TOURSTATE.STARTED) && PassedButtonClicks() != TourAppointment.Tour.StopsList.Count() - 2;
+            return (!TourAppointment.Tour.Guide.HasTourStarted || TourAppointment.State == TOURSTATE.STARTED) && !IsNextStopFinish();
         }
 
         private void EmergencyStopButton_Click(object sender, RoutedEventArgs e)
