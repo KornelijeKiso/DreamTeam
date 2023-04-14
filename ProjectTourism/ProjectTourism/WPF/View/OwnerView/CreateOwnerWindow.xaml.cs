@@ -37,14 +37,14 @@ namespace ProjectTourism.View.OwnerView
         {
             InitializeComponent();
             DataContext= this;
-            OwnerVM = new OwnerVM(userVM.Username);
+            OwnerVM = new OwnerVM(new Owner(userVM.GetUser()));
             UserVM = userVM;
             OwnerVM.Username= UserVM.Username;
             OwnerService = new OwnerService(new OwnerRepository());
             UserService = new UserService(new UserRepository());
             OwnerService.Subscribe(this);
         }
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -52,7 +52,9 @@ namespace ProjectTourism.View.OwnerView
         }
         public void CreateClick(object sender, RoutedEventArgs e)
         {
-            if(OwnerVM.Email!=null && OwnerVM.FirstName!=null && OwnerVM.LastName != null)
+            if(OwnerVM.GetOwner().Email != null &&
+                OwnerVM.GetOwner().FirstName != null &&
+                OwnerVM.GetOwner().LastName != null)
             {
                 UserService.Add(UserVM);
                 OwnerService.Add(OwnerVM.GetOwner());

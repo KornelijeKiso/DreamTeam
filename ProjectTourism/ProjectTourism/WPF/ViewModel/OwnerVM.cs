@@ -1,5 +1,4 @@
 ﻿using ProjectTourism.Model;
-using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using System;
@@ -17,6 +16,13 @@ namespace ProjectTourism.WPF.ViewModel
     public class OwnerVM : INotifyPropertyChanged
     {
         private Owner _owner;
+
+        public OwnerVM(Owner owner)
+        {
+            _owner = owner;
+            Accommodations = new ObservableCollection<AccommodationVM>(_owner.Accommodations.Select(r => new AccommodationVM(r)).ToList());
+            Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).Reverse().ToList());
+        }
 
         public OwnerVM(string username)
         {
@@ -111,36 +117,10 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
         public bool IsSuperHost
         {
             get => AverageGrade>4.5 && NumberOfReviews>2;
         }
-        public string FirstName
-        {
-            get => _owner.FirstName;
-            set
-            {
-                if (value != _owner.FirstName)
-                {
-                    _owner.FirstName = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public string LastName
-        {
-            get => _owner.LastName;
-            set
-            {
-                if (value != _owner.LastName)
-                {
-                    _owner.LastName = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         public int NumberOfReviews
         {
             get => _owner.Reservations.Count(res=>res.AccommodationGrade!=null);
@@ -152,18 +132,6 @@ namespace ProjectTourism.WPF.ViewModel
         public int NumberOfAccommodations
         {
             get => _owner.Accommodations.Count();
-        }
-        public string Email
-        {
-            get => _owner.Email;
-            set
-            {
-                if (value != _owner.Email)
-                {
-                    _owner.Email = value;
-                    OnPropertyChanged();
-                }
-            }
         }
         public double AverageGrade
         {
