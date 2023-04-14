@@ -29,6 +29,7 @@ namespace ProjectTourism.View.GuideView.TourView
     {
         public ObservableCollection<string> ObserverLanguages = new ObservableCollection<string>();
         public TourService TourService { get; set; }
+        public bool LanguageAdded { get; set; }
         public LanguageAdditionWindow(ObservableCollection<string> observerLanguages)
         {
             InitializeComponent();
@@ -52,6 +53,7 @@ namespace ProjectTourism.View.GuideView.TourView
         private void AddLanguageButton_Click(object sender, RoutedEventArgs e)
         {
             ObserverLanguages.Add(LanguageTextBox.Text);
+            LanguageAdded = true;
             Close();
         }
     }

@@ -22,6 +22,15 @@ namespace ProjectTourism.Services
             TourAppointmentRepository = tourAppointmentRepo;
             Observers = new List<IObserver>();
         }
+
+        public void MakeTourAppointments(Tour tour)
+        {
+            foreach (var date in tour.dates)
+            {
+                TourAppointment tourAppointment = new TourAppointment(date, tour.Id, tour);
+                TourAppointmentRepository.Add(tourAppointment);
+            }
+        }
         public void Add(TourAppointment tourAppointment)
         {
             TourAppointmentRepository.Add(tourAppointment);

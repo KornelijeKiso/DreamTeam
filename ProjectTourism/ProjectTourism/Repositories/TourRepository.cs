@@ -26,13 +26,14 @@ namespace ProjectTourism.Repositories
             if (Tours.Count == 0) return 0;
             return Tours.Last<Tour>().Id + 1;
         }
-        public void Add(Tour tour)
+        public int Add(Tour tour)
         {
             tour.Id = GenerateId();
             List<string> pom = GetStops(tour);
             tour.StopsList = pom;
             Tours.Add(tour);
             FileHandler.Save(Tours);
+            return tour.Id;
         }
 
         public void Delete(Tour tour)

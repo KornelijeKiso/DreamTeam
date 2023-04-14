@@ -122,6 +122,26 @@ namespace ProjectTourism.WPF.ViewModel
             _guide.HasTourStarted = false;
             guideService.Update(_guide);
         }
+
+        public void AddTour(TourVM NewTour, LocationVM NewLocation)
+        {
+            TourService tourService = new TourService(new TourRepository());
+            LocationService locationService = new LocationService(new LocationRepository());
+            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
+
+
+            Location location = new Location(NewLocation.City, NewLocation.Country);
+            location.Id = locationService.AddAndReturnId(location);
+            NewLocation.Id = location.Id;
+            NewTour.LocationId = location.Id;
+            NewTour.Location = new LocationVM(location);
+
+            Tours.Add(NewTour);
+            _guide.Tours.Add(NewTour.GetTour());
+            Tour tour = new Tour(NewTour.GetTour());
+            tour.Id = tourService.AddAndReturnId(NewTour.GetTour());
+            tourAppointmentService.MakeTourAppointments(tour);
+        }
         public Guide GetGuide()
         {
             return _guide;

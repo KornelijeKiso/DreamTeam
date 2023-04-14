@@ -12,10 +12,13 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Xml.Linq;
 using ProjectTourism.ModelDAO;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using ProjectTourism.WPF.ViewModel;
+using static System.Formats.Asn1.AsnWriter;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ProjectTourism.Model
 {
@@ -49,6 +52,26 @@ namespace ProjectTourism.Model
             dates = new List<DateTime>();
             TourAppointments = new List<TourAppointment>();
             IsValid = false;
+        }
+
+        public Tour(Tour t)
+        {
+            Id = t.Id;
+            Name = t.Name;
+            Location = t.Location;
+            Description = t.Description;
+            Language = t.Language;
+            MaxNumberOfGuests = t.MaxNumberOfGuests;
+            Start = t.Start;
+            Stops = t.Stops;
+            Finish = t.Finish;
+            StartDate = t.StartDate;
+            Duration = t.Duration;
+            PictureURLs = t.PictureURLs;
+            GuideUsername = t.GuideUsername;
+            Pictures = t.Pictures;
+            StopsList = t.StopsList;
+            dates = t.dates;
         }
         public Tour(string name, Location location, string description, string language, int maxNumberOfGuests, string start, string stops, string finish, DateTime startDate, double duration, string images, string guideUsername)
         {

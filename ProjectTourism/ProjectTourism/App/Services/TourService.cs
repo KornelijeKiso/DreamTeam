@@ -21,9 +21,9 @@ namespace ProjectTourism.Services
             TourRepository = tourRepository;
             Observers = new List<IObserver>();
         }
-        public void Add(Tour tour)
+        public int AddAndReturnId(Tour tour)
         {
-            TourRepository.Add(tour);
+            return TourRepository.Add(tour);
         }
         public void Delete(Tour tour)
         {
