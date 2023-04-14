@@ -7,7 +7,7 @@
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
         <DataGrid x:Name="DataGridTourAppointments" 
-                    ItemsSource="{Binding Path=Guide.TourAppointments, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{Binding Path=Guide.TodaysAppointments, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedTourAppointment, UpdateSourceTrigger=PropertyChanged}" 
                     SelectionMode="Single"
                     VerticalScrollBarVisibility="Visible" 

@@ -24,7 +24,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         public ProfileWindow()
         {
             InitializeComponent();
-            DataContext= this;
+            DataContext = this;
         }
         private void TourStatistics_Click(object sender, RoutedEventArgs e)
         {
@@ -33,8 +33,31 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         }
         private void HideProfilesContent()
         {
-            ProfileLabel.Visibility = Visibility.Hidden;
-            TourStatisticsLink.Visibility = Visibility.Hidden;
+            NameSurnameLabel.Visibility = Visibility.Collapsed;
+            usernamelabel.Visibility = Visibility.Collapsed;
+            EmailLabel.Visibility = Visibility.Collapsed;
+            PhoneNumberLabel.Visibility = Visibility.Collapsed;
+            LanguagesLabel.Visibility = Visibility.Collapsed;
+            BioLabel.Visibility = Visibility.Collapsed;
+            MaxGuestsLabel.Visibility = Visibility.Collapsed;
+            DarkThemeLabel.Visibility = Visibility.Collapsed;
+            textbox1.Visibility = Visibility.Collapsed;
+            textbox2.Visibility = Visibility.Collapsed;
+            textbox3.Visibility = Visibility.Collapsed;
+            textbox4.Visibility = Visibility.Collapsed;
+            textbox5.Visibility = Visibility.Collapsed;
+            toggleSwitch.Visibility = Visibility.Collapsed;
+            rectangle.Visibility = Visibility.Collapsed;
+            ContentArea.Visibility = Visibility.Collapsed;
+            LinkSignOut.Visibility = Visibility.Collapsed;
+        }
+        private void toggleSwitch_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void toggleSwitch_Unchecked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

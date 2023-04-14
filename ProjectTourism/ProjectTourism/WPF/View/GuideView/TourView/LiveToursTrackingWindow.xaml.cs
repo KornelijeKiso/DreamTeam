@@ -29,19 +29,12 @@ namespace ProjectTourism.View.GuideView.TourView
     public partial class LiveToursTrackingWindow : UserControl, INotifyPropertyChanged, IObserver
     {
         public GuideVM Guide { get; set; }
-        public ObservableCollection<TourAppointmentVM> TourAppointments { get; set; }
         public TourAppointmentVM SelectedTourAppointment { get; set; }
-        public GuideService GuideService { get; set; }
-        public TourAppointmentService TourAppointmentService { get; set; }
         public LiveToursTrackingWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
-            GuideService = new GuideService(new GuideRepository());
-            TourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
             Guide = new GuideVM(username);
-            TourAppointments = Guide.TourAppointments;
-            Update();
         }
         private void StartTourButton_Click(object sender, RoutedEventArgs e)
         {
@@ -66,13 +59,13 @@ namespace ProjectTourism.View.GuideView.TourView
         }
         public void Update()
         {
-        //    TourAppointments.Clear();
-        //    foreach (var item in Guide.TourAppointments)
-        //    {
-        //        TourAppointments.Add(item);
-        //        if (item.State == TOURSTATE.FINISHED)
-        //            item.IsFinished = true;
-        //    }
+            //    TourAppointments.Clear();
+            //    foreach (var item in Guide.TourAppointments)
+            //    {
+            //        TourAppointments.Add(item);
+            //        if (item.State == TOURSTATE.FINISHED)
+            //            item.IsFinished = true;
+            //    }
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

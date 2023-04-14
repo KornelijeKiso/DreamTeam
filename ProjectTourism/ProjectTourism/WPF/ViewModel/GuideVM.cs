@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
@@ -20,12 +21,14 @@ namespace ProjectTourism.WPF.ViewModel
             _guide = guide;
             Tours = new ObservableCollection<TourVM>(_guide.Tours.Select(r => new TourVM(r)).ToList());
             TourAppointments = new ObservableCollection<TourAppointmentVM>(_guide.TourAppointments.Select(r => new TourAppointmentVM(r)).ToList());
+            TodaysAppointments = new ObservableCollection<TourAppointmentVM>(TourAppointments.Where(t => t.TourDateTime.Date.Equals(DateTime.Now.Date)));
         }
         public GuideVM(string username)
         {
             Synchronize(username);
             Tours = new ObservableCollection<TourVM>(_guide.Tours.Select(r => new TourVM(r)).ToList());
             TourAppointments = new ObservableCollection<TourAppointmentVM>(_guide.TourAppointments.Select(r => new TourAppointmentVM(r)).ToList());
+            TodaysAppointments = new ObservableCollection<TourAppointmentVM>(TourAppointments.Where(t => t.TourDateTime.Date.Equals(DateTime.Now.Date)));
         }
         private void Synchronize(string username)
         {
@@ -38,17 +41,17 @@ namespace ProjectTourism.WPF.ViewModel
             Guest2Service guest2Service = new Guest2Service(new Guest2Repository());
 
             _guide = guideService.GetOne(username);
-            foreach(var tour in tourService.GetAll())
+            foreach (var tour in tourService.GetAll())
             {
                 if (tour.GuideUsername.Equals(username))
                 {
                     tour.StopsList = tourService.LoadStops(tour);
                     tour.Guide = _guide;
                     tour.Location = locationService.GetOne(tour.LocationId);
-                    foreach(var tourApp in tourAppointmentService.GetAllByTour(tour.Id))
+                    foreach (var tourApp in tourAppointmentService.GetAllByTour(tour.Id))
                     {
                         tourApp.Tour = tour;
-                        foreach(var ticket in ticketService.GetByAppointment(tourApp.Id))
+                        foreach (var ticket in ticketService.GetByAppointment(tourApp.Id))
                         {
                             ticket.TourAppointment = tourApp;
                             ticket.Guest2 = guest2Service.GetOne(ticket.Guest2Username);
@@ -74,7 +77,7 @@ namespace ProjectTourism.WPF.ViewModel
         {
             TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
             TourService tourService = new TourService(new TourRepository());
-            
+
             tourApp.CurrentTourStop = tourApp.Tour.StopsList[nextStopIndex];
             tourApp.State = TOURSTATE.STARTED;
             tourAppointmentService.Update(tourApp);
@@ -106,7 +109,7 @@ namespace ProjectTourism.WPF.ViewModel
 
         public void CheckTicket(TicketVM ticket)
         {
-            ticket.HasGuideChecked= true;
+            ticket.HasGuideChecked = true;
             TicketService ticketService = new TicketService(new TicketRepository());
             ticketService.Update(ticket.GetTicket());
         }
@@ -149,6 +152,7 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public ObservableCollection<TourVM> Tours { get; set; }
         public ObservableCollection<TourAppointmentVM> TourAppointments { get; set; }
+        public ObservableCollection<TourAppointmentVM> TodaysAppointments { get; set; }
         public bool? IsSuperGuide
         {
             get => _guide.IsSuperGuide;
