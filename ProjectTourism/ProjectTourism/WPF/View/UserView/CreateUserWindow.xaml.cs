@@ -24,24 +24,26 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Globalization;
 
 namespace ProjectTourism.View.UserView
 {
     /// <summary>
     /// Interaction logic for CreateUserView.xaml
     /// </summary>
-    public partial class CreateUserWindow : Window, INotifyPropertyChanged//, IObserver
+    public partial class CreateUserWindow : Window, INotifyPropertyChanged, IObserver
     {
-        public UserVM UserVM;
-        public UserService Service;
+        public UserVM User { get; set; }
+        public UserService Service { get; set; }
         public CreateUserWindow()
         {
             InitializeComponent();
-            UserVM = new UserVM(new User());
+            DataContext = this;
+            User = new UserVM(new User());
             Service = new UserService(new UserRepository());
         }
-        public event PropertyChangedEventHandler PropertyChanged;
 
+        public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -49,56 +51,76 @@ namespace ProjectTourism.View.UserView
 
         private void CreateUserClick(object sender, RoutedEventArgs e)
         {
-            bool error = false;
+            UserTypeComboBox();
+
+            if (User.IsValid && IsValidUsername() && IsValidPassword())
+            {
+                if (User.Type == USERTYPE.OWNER)
+                {
+                    CreateOwnerWindow CreateOwnerWindow = new CreateOwnerWindow(User);
+                    CreateOwnerWindow.ShowDialog();
+                    Close();
+                }
+                else if (User.Type == USERTYPE.GUIDE)
+                {
+                    CreateGuideWindow createGuideWindow = new CreateGuideWindow(User);
+                    createGuideWindow.ShowDialog();
+                    Close();
+                }
+                else if (User.Type == USERTYPE.GUEST1)
+                {
+                    CreateGuest1Window createGuest1Window = new CreateGuest1Window(User);
+                    createGuest1Window.ShowDialog();
+                    Close();
+                }
+                else if (User.Type == USERTYPE.GUEST2)
+                {
+                    CreateGuest2Window createGuest2Window = new CreateGuest2Window(User);
+                    createGuest2Window.ShowDialog();
+                    Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show("You have not entered the data correctly.");
+            }
+        }
+
+        private bool IsValidUsername()
+        {
             string username = txtUsername.Text;
             if (Service.UsernameAlreadyInUse(username))
             {
                 MessageBox.Show("Username already in use.");
-                error = true;
+                return false;
             }
+            return true;
+        }
+
+        private bool IsValidPassword()
+        {
             string password = txtPassword.Password;
             string passwordAgain = txtPasswordAgain.Password;
             if (!password.Equals(passwordAgain))
             {
                 MessageBox.Show("Error in passwords.");
-                error = true;
+                return false;
             }
-            UserVM.Username = username;
-            UserVM.Password = password;
+            return true;
+        }
+
+        private void UserTypeComboBox()
+        {
             switch (ComboType.SelectedIndex)
             {
-                case 0: { UserVM.Type = USERTYPE.OWNER; break; }
-                case 1: { UserVM.Type = USERTYPE.GUEST1; break; }
-                case 2: { UserVM.Type = USERTYPE.GUIDE; break; }
-                case 3: { UserVM.Type = USERTYPE.GUEST2; break; }
-            }
-            if (!error)
-            {
-                if (UserVM.Type == USERTYPE.OWNER)
-                {
-                    CreateOwnerWindow CreateOwnerWindow = new CreateOwnerWindow(UserVM);
-                    CreateOwnerWindow.ShowDialog();
-                    Close();
-                }
-                else if (UserVM.Type == USERTYPE.GUIDE)
-                {
-                    CreateGuideWindow createGuideWindow = new CreateGuideWindow(UserVM);
-                    createGuideWindow.ShowDialog();
-                    Close();
-                }
-                else if (UserVM.Type == USERTYPE.GUEST1)
-                {
-                    CreateGuest1Window createGuest1Window = new CreateGuest1Window(UserVM);
-                    createGuest1Window.ShowDialog();
-                    Close();
-                }
-                else if (UserVM.Type == USERTYPE.GUEST2)
-                {
-                    CreateGuest2Window createGuest2Window = new CreateGuest2Window(UserVM);
-                    createGuest2Window.ShowDialog();
-                    Close();
-                }
+                case 0: { User.Type = USERTYPE.OWNER; break; }
+                case 1: { User.Type = USERTYPE.GUEST1; break; }
+                case 2: { User.Type = USERTYPE.GUIDE; break; }
+                case 3: { User.Type = USERTYPE.GUEST2; break; }
             }
         }
+
+
+        public void Update() { }
     }
 }

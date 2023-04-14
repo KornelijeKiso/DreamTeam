@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ProjectTourism.WPF.ViewModel
 {
-    public class UserVM : INotifyPropertyChanged
+    public class UserVM : INotifyPropertyChanged , IDataErrorInfo
     {
         private User _user;
 
@@ -130,6 +130,65 @@ namespace ProjectTourism.WPF.ViewModel
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public string Error => null;
+        public string this[string columnName]
+        {
+            get
+            {
+                if (columnName == "Username")
+                {
+                    if (string.IsNullOrEmpty(Username))
+                        return "Username is required!";
+                }
+                //else if (columnName == "Password")
+                //{
+                //    if (string.IsNullOrEmpty(Password))
+                //        return "Password is required!";
+                //}
+                else if (columnName == "FirstName")
+                {
+                    if (string.IsNullOrEmpty(FirstName))
+                        return "Name is required!";
+                }
+                else if (columnName == "LastName")
+                {
+                    if (string.IsNullOrEmpty(LastName))
+                        return "Last Name is required!";
+                }
+                else if (columnName == "Birthday")
+                {
+                    if (string.IsNullOrEmpty(Birthday.ToString()))
+                        return "Birthday is required!";
+                }
+                else if (columnName == "Email")
+                {
+                    if (string.IsNullOrEmpty(Email))
+                        return "Email is required!";
+                }
+                else if (columnName == "PhoneNumber")
+                {
+                    if (string.IsNullOrEmpty(PhoneNumber))
+                        return "Phone Number is required!";
+                }
+
+                return null;
+            }
+        }
+        private readonly string[] _validatedProperties = { "Username",/* "Password",*/ "FirstName", "LastName", "Birthday", "Email", "PhoneNumber" };
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+                return true;
+            }
         }
     }
 }
