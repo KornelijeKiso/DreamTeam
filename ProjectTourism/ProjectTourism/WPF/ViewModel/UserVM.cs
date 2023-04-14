@@ -60,6 +60,71 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
+        public string FirstName
+        {
+            get => _user.FirstName;
+            set
+            {
+                if (value != _user.FirstName)
+                {
+                    _user.FirstName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string LastName
+        {
+            get => _user.LastName;
+            set
+            {
+                if (value != _user.LastName)
+                {
+                    _user.LastName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public DateTime Birthday
+        {
+            get => _user.Birthday;
+            set
+            {
+                if (value != _user.Birthday)
+                {
+                    _user.Birthday = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string Email
+        {
+            get => _user.Email;
+            set
+            {
+                if (value != _user.Email)
+                {
+                    _user.Email = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string PhoneNumber
+        {
+            get => _user.PhoneNumber;
+            set
+            {
+                if (value != _user.PhoneNumber)
+                {
+                    _user.PhoneNumber = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
