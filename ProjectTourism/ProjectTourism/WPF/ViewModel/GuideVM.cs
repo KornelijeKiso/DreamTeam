@@ -42,6 +42,7 @@ namespace ProjectTourism.WPF.ViewModel
             {
                 if (tour.GuideUsername.Equals(username))
                 {
+                    tour.StopsList = tourService.LoadStops(tour);
                     tour.Guide = _guide;
                     tour.Location = locationService.GetOne(tour.LocationId);
                     foreach(var tourApp in tourAppointmentService.GetAllByTour(tour.Id))

@@ -29,6 +29,14 @@ namespace ProjectTourism.Services
         {
             TourRepository.Delete(tour);
         }
+
+        public List<string> LoadStops(Tour tour)
+        {
+            List<string> result = tour.Stops.Split(',').ToList();
+            result.Add(tour.Finish);
+            result.Insert(0, tour.Start);
+            return result;
+        }
         public Tour GetOne(int id)
         {
             return TourRepository.GetOne(id);
