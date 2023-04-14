@@ -5,51 +5,45 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectTourism.Model;
 
 namespace ProjectTourism.Model
 {
-    public class Guest2 : Serializable
+    public class Guest2 : User, Serializable
     {
-        public string Username;
-        public string FirstName;
-        public string LastName;
-        public int Age;
-        public string Email;
-        public string PhoneNumber;
+        public List<Voucher> Vouchers;
+        public List<Ticket> Tickets;
         public Guest2()
-        { }
-
-        public Guest2(string username, string firstName, string lastName, int age, string email, string phoneNumber)
         {
-            this.Username = username;
-            this.FirstName = firstName;
-            this.LastName = lastName;
-            this.Age = age;
-            this.Email = email;
-            this.PhoneNumber = phoneNumber;
+            Vouchers = new List<Voucher>();
+            Tickets = new List<Ticket>();
         }
 
-        public string[] ToCSV()
+        public Guest2(User user)
+        {
+            this.Username = user.Username;
+            this.Password = user.Password;
+            this.Type = user.Type;
+            this.FirstName = user.FirstName;
+            this.LastName = user.LastName;
+            this.Email = user.Email;
+            this.PhoneNumber = user.PhoneNumber;
+
+            Vouchers = new List<Voucher>();
+            Tickets = new List<Ticket>();
+        }
+
+        public new string[] ToCSV()
         {
             string[] csvValues = 
             {
-                Username,
-                FirstName,
-                LastName,
-                Age.ToString(),
-                Email,
-                PhoneNumber     };
+                Username };
             return csvValues;
         }
 
-        public void FromCSV(string[] values)
+        public new void FromCSV(string[] values)
         {
             Username = values[0];
-            FirstName = values[1];
-            LastName = values[2];
-            Age = int.Parse(values[3]);
-            Email = values[4];
-            PhoneNumber = values[5];
         }
     }
 }

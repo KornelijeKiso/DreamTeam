@@ -1,5 +1,4 @@
 ﻿using ProjectTourism.Model;
-using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using System;
@@ -9,7 +8,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-//using System.Text.RegularExpressions;
 
 namespace ProjectTourism.WPF.ViewModel
 {
@@ -20,6 +18,8 @@ namespace ProjectTourism.WPF.ViewModel
         public Guest2VM(Guest2 guest2)
         {
             _guest2 = guest2;
+            Tickets = _guest2.Tickets.Select(r => new TicketVM(r)).ToList();
+            Vouchers = _guest2.Vouchers.Select(r => new VoucherVM(r)).ToList();
         }
 
         public Guest2VM(string username)
@@ -32,6 +32,9 @@ namespace ProjectTourism.WPF.ViewModel
             Guest2Service guest2Service = new Guest2Service(new Guest2Repository());
             _guest2 = guest2Service.GetOne(username);
 
+
+            //Tickets;
+            //Vouchers;
         }
 
         public Guest2 GetGuest2()
@@ -52,70 +55,8 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
-        public string FirstName
-        {
-            get => _guest2.FirstName;
-            set
-            {
-                if (value != _guest2.FirstName)
-                {
-                    _guest2.FirstName = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string LastName
-        {
-            get => _guest2.LastName;
-            set
-            {
-                if (value != _guest2.LastName)
-                {
-                    _guest2.LastName = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public int Age
-        {
-            get => _guest2.Age;
-            set
-            {
-                if (value != _guest2.Age)
-                {
-                    _guest2.Age = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string Email
-        {
-            get => _guest2.Email;
-            set
-            {
-                if (value != _guest2.Email)
-                {
-                    _guest2.Email = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string PhoneNumber
-        {
-            get => _guest2.PhoneNumber;
-            set
-            {
-                if (value != _guest2.PhoneNumber)
-                {
-                    _guest2.PhoneNumber = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public List<TicketVM> Tickets;
+        public List<VoucherVM> Vouchers;
         
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -124,48 +65,20 @@ namespace ProjectTourism.WPF.ViewModel
         }
 
         // validation
-        //private Regex _PhoneNumRegex = new Regex("[0-9]{3}[/]{1}[0-9]{3}-[0-9]{3}");
         public string Error => null;
         public string? this[string columnName]
         {
             get
             {
-                if (columnName == "FirstName")
+                if (columnName == "Username")
                 {
-                    if (string.IsNullOrEmpty(FirstName))
-                        return "Name is required!";
+                    if (string.IsNullOrEmpty(Username))
+                        return "Username is required!";
                 }
-                else if (columnName == "LastName")
-                {
-                    if (string.IsNullOrEmpty(LastName))
-                        return "Last Name is required!";
-                }
-                else if (columnName == "Age")
-                {
-                    if (string.IsNullOrEmpty(Age.ToString()))
-                        return "Age is required!";
-                }
-                else if (columnName == "Email")
-                {
-                    if (string.IsNullOrEmpty(Email))
-                        return "Email is required!";
-                }
-                else if (columnName == "PhoneNumber")
-                {
-                    if (string.IsNullOrEmpty(PhoneNumber))
-                        return "Phone Number is required!";
-
-                    //if (PhoneNumber.Length != 11)
-                    //    return "Phone number should be in format DDD/DDD-DDD";
-                    //Match match = _PhoneNumRegex.Match(PhoneNumber);
-                    //if (!match.Success)
-                    //    return "Phone number should be in format DDD/DDD-DDD";//"have 10 digits;
-                }
-
                 return null;
             }
         }
-        private readonly string[] _validatedProperties = { "FirstName", "LastName", "Age", "Email", "PhoneNumber" };
+        private readonly string[] _validatedProperties = { "Username" };
 
         public bool IsValid
         {
