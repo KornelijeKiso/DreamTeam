@@ -26,6 +26,7 @@ namespace ProjectTourism.Model
             this.Type = user.Type;
             this.FirstName = user.FirstName;
             this.LastName = user.LastName;
+            this.Birthday = user.Birthday;
             this.Email = user.Email;
             this.PhoneNumber = user.PhoneNumber;
 

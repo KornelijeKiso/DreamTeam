@@ -14,6 +14,8 @@ namespace ProjectTourism.WPF.ViewModel
     {
         private User _user;
 
+        public UserVM() { }
+
         public UserVM(User user)
         {
             _user = user;

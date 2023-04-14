@@ -39,6 +39,17 @@ namespace ProjectTourism.WPF.ViewModel
             _owner = ownerService.GetOne(username);
             _owner.Accommodations = accommodationService.GetAllByOwner(_owner.Username);
             _owner.Reservations = new List<Reservation>();
+
+            Owner owner = SynchronizeUser(username);
+            _owner.Username = owner.Username;
+            _owner.Password = owner.Password;
+            _owner.Type = owner.Type;
+            _owner.FirstName = owner.FirstName;
+            _owner.LastName = owner.LastName;
+            _owner.Birthday = owner.Birthday;
+            _owner.Email = owner.Email;
+            _owner.PhoneNumber = owner.PhoneNumber;
+
             foreach (Accommodation accommodation in _owner.Accommodations)
             {
                 accommodation.Location = locationService.GetOne(accommodation.LocationId);
@@ -46,6 +57,15 @@ namespace ProjectTourism.WPF.ViewModel
                 _owner.Reservations.AddRange(accommodation.Reservations);
             }
         }
+
+        private Owner SynchronizeUser(string username)
+        { 
+            UserService userService = new UserService(new UserRepository());
+            User user = userService.GetOne(username);
+            Owner owner = new Owner(user);
+            return owner;
+        }
+
         private List<Reservation> SynchronizeReservations(Accommodation accommodation)
         {
             ReservationService reservationService = new ReservationService(new ReservationRepository());

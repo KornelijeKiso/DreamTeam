@@ -26,6 +26,16 @@ namespace ProjectTourism.Repositories
                 FileHandler.Save(Users);
             }
         }
+
+        public User GetOne(string username)
+        {
+            foreach (var user in Users)
+            {
+                if (user.Username.Equals(username)) return user;
+            }
+            return null;
+        } 
+
         public User Identify(User user)
         {
             Users = FileHandler.Load();
