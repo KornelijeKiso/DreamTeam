@@ -185,30 +185,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public string? Name
-        {
-            get => _guide.Name;
-            set
-            {
-                if (_guide.Name != value)
-                {
-                    _guide.Name = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public string? Surname
-        {
-            get => _guide.Surname;
-            set
-            {
-                if (_guide.Surname != value)
-                {
-                    _guide.Surname = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
         public string? Biography
         {
             get => _guide.Biography;
