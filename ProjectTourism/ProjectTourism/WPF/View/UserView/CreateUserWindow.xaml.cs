@@ -106,6 +106,7 @@ namespace ProjectTourism.View.UserView
                 MessageBox.Show("Error in passwords.");
                 return false;
             }
+            User.Password = password;
             return true;
         }
 

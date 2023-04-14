@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProjectTourism.WPF.ViewModel
 {
-    public class Guest1VM:INotifyPropertyChanged
+    public class Guest1VM : INotifyPropertyChanged
     {
         private Guest1 _guest1;
         public Guest1VM(Guest1 guest1)
@@ -33,42 +33,7 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public string FirstName
-        {
-            get => _guest1.FirstName;
-            set
-            {
-                if (value != _guest1.FirstName)
-                {
-                    _guest1.FirstName = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public string LastName
-        {
-            get => _guest1.LastName;
-            set
-            {
-                if (value != _guest1.LastName)
-                {
-                    _guest1.LastName = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public string Email
-        {
-            get => _guest1.Email;
-            set
-            {
-                if (value != _guest1.Email)
-                {
-                    _guest1.Email = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        
         public double AverageGrade
         {
             get => _guest1.AverageGrade;
