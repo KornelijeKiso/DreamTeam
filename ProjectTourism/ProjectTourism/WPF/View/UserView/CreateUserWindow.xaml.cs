@@ -32,12 +32,12 @@ namespace ProjectTourism.View.UserView
     /// </summary>
     public partial class CreateUserWindow : Window, INotifyPropertyChanged//, IObserver
     {
-        public UserVM UserVM;
+        public UserVM User;
         public UserService Service;
         public CreateUserWindow()
         {
             InitializeComponent();
-            UserVM = new UserVM(new User());
+            User = new UserVM(new User());
             Service = new UserService(new UserRepository());
         }
         public event PropertyChangedEventHandler PropertyChanged;
@@ -63,38 +63,38 @@ namespace ProjectTourism.View.UserView
                 MessageBox.Show("Error in passwords.");
                 error = true;
             }
-            UserVM.Username = username;
-            UserVM.Password = password;
+            User.Username = username;
+            User.Password = password;
             switch (ComboType.SelectedIndex)
             {
-                case 0: { UserVM.Type = USERTYPE.OWNER; break; }
-                case 1: { UserVM.Type = USERTYPE.GUEST1; break; }
-                case 2: { UserVM.Type = USERTYPE.GUIDE; break; }
-                case 3: { UserVM.Type = USERTYPE.GUEST2; break; }
+                case 0: { User.Type = USERTYPE.OWNER; break; }
+                case 1: { User.Type = USERTYPE.GUEST1; break; }
+                case 2: { User.Type = USERTYPE.GUIDE; break; }
+                case 3: { User.Type = USERTYPE.GUEST2; break; }
             }
             if (!error)
             {
-                if (UserVM.Type == USERTYPE.OWNER)
+                if (User.Type == USERTYPE.OWNER)
                 {
-                    CreateOwnerWindow CreateOwnerWindow = new CreateOwnerWindow(UserVM);
+                    CreateOwnerWindow CreateOwnerWindow = new CreateOwnerWindow(User);
                     CreateOwnerWindow.ShowDialog();
                     Close();
                 }
-                else if (UserVM.Type == USERTYPE.GUIDE)
+                else if (User.Type == USERTYPE.GUIDE)
                 {
-                    CreateGuideWindow createGuideWindow = new CreateGuideWindow(UserVM);
+                    CreateGuideWindow createGuideWindow = new CreateGuideWindow(User);
                     createGuideWindow.ShowDialog();
                     Close();
                 }
-                else if (UserVM.Type == USERTYPE.GUEST1)
+                else if (User.Type == USERTYPE.GUEST1)
                 {
-                    CreateGuest1Window createGuest1Window = new CreateGuest1Window(UserVM);
+                    CreateGuest1Window createGuest1Window = new CreateGuest1Window(User);
                     createGuest1Window.ShowDialog();
                     Close();
                 }
-                else if (UserVM.Type == USERTYPE.GUEST2)
+                else if (User.Type == USERTYPE.GUEST2)
                 {
-                    CreateGuest2Window createGuest2Window = new CreateGuest2Window(UserVM);
+                    CreateGuest2Window createGuest2Window = new CreateGuest2Window(User);
                     createGuest2Window.ShowDialog();
                     Close();
                 }

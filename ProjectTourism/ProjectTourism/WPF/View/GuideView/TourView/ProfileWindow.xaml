@@ -7,8 +7,20 @@
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
         <TextBlock Margin="1088,172,40,461" FontSize="20"><Hyperlink x:Name="TourStatisticsLink" Click="TourStatistics_Click"><Run Text="Tour statistics"/></Hyperlink></TextBlock>
-        <Label x:Name="NameSurnameLabel" Content="Lara Petković" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
-        <Label x:Name="usernamelabel" Content="@larapetkovic" HorizontalAlignment="Left" Height="58" Margin="40,93,0,0" VerticalAlignment="Top" Width="283" FontSize="28" Foreground="#FFB7A8A8"/>
+        <!--<Label x:Name="NameSurnameLabel" Content="Lara Petković" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>-->
+        <Label x:Name="NameSurnameLabel" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40">
+            <Label.Content>
+                <TextBlock>
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="Guide.Name" />
+                            <Binding Path="Guide.Surname" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Label.Content>
+        </Label>
+        <Label x:Name="usernamelabel" ContentStringFormat="@{0}" Content="{Binding Guide.Username}" HorizontalAlignment="Left" Height="58" Margin="40,93,0,0" VerticalAlignment="Top" Width="283" FontSize="28" Foreground="#FFB7A8A8"/>
         <Border x:Name="rectangle" Background="#FF9BC8EC" BorderBrush="#FF9BC8EC" BorderThickness="1" CornerRadius="30" Margin="69,216,617,117"/>
         <Grid Margin="114,238,662,117">
             <Grid.RowDefinitions>
@@ -28,15 +40,15 @@
             <Label x:Name="PhoneNumberLabel" Grid.Row="1" Grid.Column="0" Content="Phone number" Margin="0,6,0,6"/>
             <Label x:Name="LanguagesLabel" Grid.Row="2" Grid.Column="0" Content="Spoken languages" Margin="0,6,0,6"/>
             <Label x:Name="BioLabel" Grid.Row="3" Grid.Column="0" Content="Biography" Margin="0,6,0,6"/>
-            <Label x:Name="MaxGuestsLabel" Grid.Row="5" Grid.Column="0" Content="Maximum number of guests" Margin="0,6,0,6"/>
+            <Label x:Name="MaxGuestsLabel" Grid.Row="5" Grid.Column="0" Content="" Margin="0,6,0,6"/>
             <Label x:Name="DarkThemeLabel" Grid.Row="6" Grid.Column="0" Content="Dark theme" Margin="0,6,0,6"/>
 
 
-            <TextBox x:Name="textbox1" Grid.Row="0" Grid.Column="1" Text="n" Margin="0,8,0,8"/>
-            <TextBox x:Name="textbox2" Grid.Row="1" Grid.Column="1" Text="n" Margin="0,8,0,8"/>
-            <TextBox x:Name="textbox3" Grid.Row="2" Grid.Column="1" Text="n" Margin="0,8,0,8"/>
-            <TextBox x:Name="textbox4" Grid.Row="3" Grid.Column="1" Text="n" Margin="0,8,0,10" Grid.RowSpan="2"/>
-            <TextBox x:Name="textbox5" Grid.Row="5" Grid.Column="1" Text="n" Margin="0,8,0,8"/>
+            <TextBox x:Name="textbox1" Grid.Row="0" Grid.Column="1" Text="{Binding Guide.Email}" Margin="0,8,0,8" IsReadOnly="True"/>
+            <TextBox x:Name="textbox2" Grid.Row="1" Grid.Column="1" Text="{Binding Guide.Phone}" Margin="0,8,0,8" IsReadOnly="True"/>
+            <TextBox x:Name="textbox3" Grid.Row="2" Grid.Column="1" Text="{Binding Guide.Language}" Margin="0,8,0,8" IsReadOnly="True"/>
+            <TextBox x:Name="textbox4" Grid.Row="3" Grid.Column="1" Text="{Binding Guide.Biography}" Margin="0,8,0,8" IsReadOnly="True" Grid.RowSpan="2"/>
+            <TextBox x:Name="textbox5" Grid.Row="5" Grid.Column="1" Text="" Margin="0,8,0,8" IsReadOnly="True" Visibility="Hidden"/>
             <ToggleButton  Grid.Row="6" Grid.Column="1" x:Name="toggleSwitch" Width="60" Height="30" Content="OFF" IsChecked="False" 
               Background="LightGray" Foreground="Black"
               Checked="toggleSwitch_Checked" Unchecked="toggleSwitch_Unchecked" />

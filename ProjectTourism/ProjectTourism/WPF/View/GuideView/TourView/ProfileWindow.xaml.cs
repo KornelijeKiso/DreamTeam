@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ProjectTourism.Model;
 using ProjectTourism.View.GuideView.TourView;
+using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.GuideView.TourView
 {
@@ -21,10 +22,12 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
     /// </summary>
     public partial class ProfileWindow : UserControl
     {
-        public ProfileWindow()
+        public GuideVM Guide { get; set; }
+        public ProfileWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
+            Guide = new GuideVM(username);
         }
         private void TourStatistics_Click(object sender, RoutedEventArgs e)
         {

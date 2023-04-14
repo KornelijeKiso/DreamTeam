@@ -238,6 +238,32 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
+        public string? Email
+        {
+            get => _guide.Email;
+            set
+            {
+                if (_guide.Email != value)
+                {
+                    _guide.Email = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string? Phone
+        {
+            get => _guide.Phone;
+            set
+            {
+                if (_guide.Phone != value)
+                {
+                    _guide.Phone = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

@@ -17,22 +17,19 @@ namespace ProjectTourism.Model
         public string? Surname;
         public string? Biography;
         public string? Language;
+        public string? Email;
+        public string? Phone;
         public List<Tour> Tours;
         public List<TourAppointment> TourAppointments;
         
         public Guide()
         {
             IsSuperGuide = false;
-            Username = "";
-            Name = "";
-            Surname = "";
-            Biography = "";
-            Language = "";
             HasTourStarted = false;
             Tours = new List<Tour>();
             TourAppointments = new List<TourAppointment>();
         }
-        public Guide(string username, string name, string surname, string biography, string language)
+        public Guide(string username, string name, string surname, string biography, string language, string email, string phone)
         {
             IsSuperGuide = false;
             Username = Username;
@@ -43,12 +40,14 @@ namespace ProjectTourism.Model
             HasTourStarted = false;
             Tours = new List<Tour>();
             TourAppointments = new List<TourAppointment>();
+            Email = email;
+            Phone = phone;
         }
         public string?[] ToCSV()
         {
             string?[] csvValues =
             {
-                Username, Name, Surname, Biography, Language, HasTourStarted.ToString()
+                Username, Name, Surname, Biography, Language, HasTourStarted.ToString(), Email, Phone
             };
             return csvValues;
         }
@@ -61,6 +60,8 @@ namespace ProjectTourism.Model
             Biography = values[3];
             Language = values[4];
             HasTourStarted = bool.Parse(values[5]);
+            Email = values[6];
+            Phone = values[7];
         }
     }
 }
