@@ -68,6 +68,16 @@ namespace ProjectTourism.Repositories
             }
             return null;
         }
+        public List<Voucher> GetAllByTourAppointment(int tourAppointmentId)
+        {
+            List<Voucher> list = new List<Voucher>();
+            foreach (var voucher in Vouchers)
+            {
+                if (voucher.Ticket.TourAppointment.Id == tourAppointmentId)
+                    list.Add(voucher);
+            }
+            return list;
+        }
 
         public List<Voucher> GetAll()
         {

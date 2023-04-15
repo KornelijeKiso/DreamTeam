@@ -1,5 +1,7 @@
 ﻿using ProjectTourism.Model;
 using ProjectTourism.Observer;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,18 +15,23 @@ namespace ProjectTourism.WPF.ViewModel
     public class VoucherVM : INotifyPropertyChanged
     {
         private Voucher _voucher;
-
         public VoucherVM(Voucher voucher)
         {
             _voucher = voucher;
+            Synchronize();
         }
+        private void Synchronize()
+        {
+            Guest2Service guest2Service = new Guest2Service(new Guest2Repository());
+            _voucher.Guest2 = guest2Service.GetOne(_voucher.Guest2Username);
 
+            TicketService ticketService = new TicketService(new TicketRepository());
+            _voucher.Ticket = ticketService.GetOne(_voucher.TicketId);
+        }
         public Voucher GetVoucher()
         {
             return _voucher;
         }
-
-
 
         public int Id 
         { 
@@ -38,7 +45,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
         public string Guest2Username
         {
             get => _voucher.Guest2Username;
@@ -51,7 +57,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
         public Guest2VM Guest2
         {
             get => new Guest2VM(_voucher.Guest2);
@@ -64,7 +69,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
         public DateTime ValidFrom
         {
             get => _voucher.ValidFrom;
@@ -77,7 +81,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
         public DateTime ValidDue
         {
             get => _voucher.ValidDue;
@@ -90,7 +93,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
         public STATUS Status
         {
             get => _voucher.Status;
@@ -103,7 +105,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
         public string Description
         {
             get => _voucher.Description;
@@ -116,7 +117,30 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
+        public Ticket Ticket
+        {
+            get => _voucher.Ticket;
+            set
+            {
+                if (value != _voucher.Ticket)
+                {
+                    _voucher.Ticket = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public int TicketId
+        {
+            get => _voucher.TicketId;
+            set
+            {
+                if (value != _voucher.TicketId)
+                {
+                    _voucher.TicketId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

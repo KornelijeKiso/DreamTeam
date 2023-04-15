@@ -20,17 +20,20 @@ namespace ProjectTourism.Model
         public DateTime ValidDue { get; set; }
         public STATUS Status { get; set; }
         public string Description { get; set; }
+        public Ticket Ticket { get; set; }
+        public int TicketId { get; set; }
 
         public Voucher()
         {}
 
-        public Voucher(string guest2username, DateTime validFrom, DateTime validDue, STATUS status, string description)
+        public Voucher(string guest2username, DateTime validFrom, DateTime validDue, STATUS status, string description, int ticketId)
         {
             Guest2Username = guest2username;
             ValidFrom = validFrom;
             ValidDue = validDue;
             Status = status;
             Description = description;
+            TicketId = ticketId;
         }
 
         public string[] ToCSV()
@@ -38,6 +41,7 @@ namespace ProjectTourism.Model
             string[] csvValues =
             {
                 Id.ToString(),
+                TicketId.ToString(),
                 Guest2Username.ToString(),
                 ValidFrom.ToString("dd.MM.yyyy HH:mm"),
                 ValidDue.ToString("dd.MM.yyyy HH:mm"),
@@ -50,12 +54,13 @@ namespace ProjectTourism.Model
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
-            Guest2Username = values[1];
-            if (DateTime.TryParse(values[2], new CultureInfo("en-GB"), DateTimeStyles.None, out var dateTimeParsedFrom))
+            TicketId = Convert.ToInt32(values[1]);
+            Guest2Username = values[2];
+            if (DateTime.TryParse(values[3], new CultureInfo("en-GB"), DateTimeStyles.None, out var dateTimeParsedFrom))
                 ValidFrom = dateTimeParsedFrom;
-            if (DateTime.TryParse(values[3], new CultureInfo("en-GB"), DateTimeStyles.None, out var dateTimeParsedDue))
+            if (DateTime.TryParse(values[4], new CultureInfo("en-GB"), DateTimeStyles.None, out var dateTimeParsedDue))
                 ValidDue = dateTimeParsedDue;
-            switch (values[4])
+            switch (values[5])
             {
                 case "USED":
                     { Status = STATUS.USED; break; }
@@ -67,7 +72,7 @@ namespace ProjectTourism.Model
                 default:
                     { Status = STATUS.VALID; break; }
             }
-            Description = values[5];
+            Description = values[6];
         }
     }
 }

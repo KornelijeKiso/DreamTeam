@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Net.Sockets;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,8 +40,11 @@ namespace ProjectTourism.WPF.ViewModel
             LocationService locationService = new LocationService(new LocationRepository());
             GuideService guideService = new GuideService(new GuideRepository());
             Guest2Service guest2Service = new Guest2Service(new Guest2Repository());
+            VoucherService voucherService = new VoucherService(new VoucherRepository());
 
             _guide = guideService.GetOne(username);
+            
+
             foreach (var tour in tourService.GetAll())
             {
                 if (tour.GuideUsername.Equals(username))
@@ -51,6 +55,7 @@ namespace ProjectTourism.WPF.ViewModel
                     foreach (var tourApp in tourAppointmentService.GetAllByTour(tour.Id))
                     {
                         tourApp.Tour = tour;
+                        tourApp.Vouchers.AddRange(voucherService.GetAllByTourAppointment(tourApp.Id));
                         foreach (var ticket in ticketService.GetByAppointment(tourApp.Id))
                         {
                             ticket.TourAppointment = tourApp;

@@ -27,7 +27,10 @@ namespace ProjectTourism.Services
         {
             return VoucherRepository.GetOne(id);
         }
-
+        public List<Voucher> GetAllByTourAppointment(int tourAppId)
+        {
+            return VoucherRepository.GetAllByTourAppointment(tourAppId);
+        }
         public List<Voucher> GetAll()
         {
             return VoucherRepository.GetAll();
