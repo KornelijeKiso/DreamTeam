@@ -4,6 +4,7 @@ using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -15,24 +16,35 @@ namespace ProjectTourism.WPF.ViewModel
 {
     public class Guest2VM : INotifyPropertyChanged, IDataErrorInfo
     {
-        private Guest2 _guest2;
+        private Guest2 _guest2 { get; set; }
 
         public Guest2VM(Guest2 guest2)
         {
             _guest2 = guest2;
-            Tickets = _guest2.Tickets.Select(r => new TicketVM(r)).ToList();
-            Vouchers = _guest2.Vouchers.Select(r => new VoucherVM(r)).ToList();
+            Tickets = new ObservableCollection<TicketVM>(_guest2.Tickets.Select(r => new TicketVM(r)).ToList());
+            Vouchers = new ObservableCollection<VoucherVM>(_guest2.Vouchers.Select(r => new VoucherVM(r)).ToList());
         }
 
         public Guest2VM(string username)
         {
             Synchronize(username);
+            Tickets = new ObservableCollection<TicketVM>(_guest2.Tickets.Select(r => new TicketVM(r)).ToList());
+            Vouchers = new ObservableCollection<VoucherVM>(_guest2.Vouchers.Select(r => new VoucherVM(r)).ToList());
+
+            this.FirstName = _guest2.FirstName;
+            this.LastName = _guest2.LastName;
         }
 
         public void Synchronize(string username)
         {
             Guest2Service guest2Service = new Guest2Service(new Guest2Repository());
             _guest2 = guest2Service.GetOne(username);
+
+            TicketService ticketService = new TicketService(new TicketRepository());
+            _guest2.Tickets = ticketService.GetByGuest2(username);
+
+            VoucherService voucherService = new VoucherService(new VoucherRepository());
+            _guest2.Vouchers = voucherService.GetByGuest2(username);
 
         }
 
@@ -139,9 +151,9 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
-        public List<TicketVM> Tickets;
-        public List<VoucherVM> Vouchers;
-        
+        public ObservableCollection<TicketVM> Tickets { get; set; }
+        public ObservableCollection<VoucherVM> Vouchers { get; set; }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

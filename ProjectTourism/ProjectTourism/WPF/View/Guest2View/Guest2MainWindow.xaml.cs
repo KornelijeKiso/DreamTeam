@@ -14,12 +14,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ProjectTourism.Controller;
 using ProjectTourism.Model;
 using ProjectTourism.Observer;
 using ProjectTourism.View.Guest2View.TicketView;
 using ProjectTourism.WPF.ViewModel;
 using ProjectTourism.WPF.ViewModel.Guest2ViewModel;
+using ProjectTourism.Services;
+using ProjectTourism.Repositories;
 using ProjectTourism.Utilities;
 
 namespace ProjectTourism.WPF.View.Guest2View
@@ -30,15 +31,17 @@ namespace ProjectTourism.WPF.View.Guest2View
     public partial class Guest2MainWindow : Window//, INotifyPropertyChanged//, IObserver
     {
         public Guest2VM Guest2 { get; set; }
-        //private NavigationVM NavigationVM { get; set; }
+        //public Guest2Service Guest2Service { get; set; }
+        
+        public NavigationVM NavigationVM { get; set; }
         public Guest2MainWindow(string username)
         {
             InitializeComponent();
-            
+            //Guest2Service = new Guest2Service(new Guest2Repository());
             Guest2 = new Guest2VM(username);
-            //NavigationVM = new NavigationVM();
-            //NavigationVM = NavigationVM.setGuest2(username);
-            //DataContext = NavigationVM;
+            NavigationVM = new NavigationVM();
+            NavigationVM.SetGuest2(Guest2);
+            DataContext = NavigationVM;
         }
 
         private void LogOut_Click(object sender, RoutedEventArgs e)

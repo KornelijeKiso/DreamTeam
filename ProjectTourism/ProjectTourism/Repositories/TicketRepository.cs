@@ -95,7 +95,7 @@ namespace ProjectTourism.Repositories
             return ticketsByApp;
         }
 
-        public List<Ticket> GetAllByGuest(string guest2Username)
+        public List<Ticket> GetByGuest2(string guest2Username)
         {
             List<Ticket> ticketsByGuest = new List<Ticket>();
 
