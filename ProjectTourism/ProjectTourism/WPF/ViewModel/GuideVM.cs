@@ -181,30 +181,92 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public string? Name
+        public string Password
         {
-            get => _guide.Name;
+            get => _guide.Password;
             set
             {
-                if (_guide.Name != value)
+                if (value != _guide.Password)
                 {
-                    _guide.Name = value;
+                    _guide.Password = value;
                     OnPropertyChanged();
                 }
             }
         }
-        public string? Surname
+        public USERTYPE Type
         {
-            get => _guide.Surname;
+            get => _guide.Type;
             set
             {
-                if (_guide.Surname != value)
+                if (value != _guide.Type)
                 {
-                    _guide.Surname = value;
+                    _guide.Type = value;
                     OnPropertyChanged();
                 }
             }
         }
+
+        public string FirstName
+        {
+            get => _guide.FirstName;
+            set
+            {
+                if (value != _guide.FirstName)
+                {
+                    _guide.FirstName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string LastName
+        {
+            get => _guide.LastName;
+            set
+            {
+                if (value != _guide.LastName)
+                {
+                    _guide.LastName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public DateTime Birthday
+        {
+            get => _guide.Birthday;
+            set
+            {
+                if (value != _guide.Birthday)
+                {
+                    _guide.Birthday = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string Email
+        {
+            get => _guide.Email;
+            set
+            {
+                if (value != _guide.Email)
+                {
+                    _guide.Email = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string PhoneNumber
+        {
+            get => _guide.PhoneNumber;
+            set
+            {
+                if (value != _guide.PhoneNumber)
+                {
+                    _guide.PhoneNumber = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public string? Biography
         {
             get => _guide.Biography;
@@ -225,32 +287,6 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_guide.Language != value)
                 {
                     _guide.Language = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string? Email
-        {
-            get => _guide.Email;
-            set
-            {
-                if (_guide.Email != value)
-                {
-                    _guide.Email = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string? Phone
-        {
-            get => _guide.Phone;
-            set
-            {
-                if (_guide.Phone != value)
-                {
-                    _guide.Phone = value;
                     OnPropertyChanged();
                 }
             }

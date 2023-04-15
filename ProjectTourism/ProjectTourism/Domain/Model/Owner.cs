@@ -8,12 +8,8 @@ using System.Threading.Tasks;
 
 namespace ProjectTourism.Model
 {
-    public class Owner:Serializable
+    public class Owner : User, Serializable
     {
-        public string Username;
-        public string FirstName;
-        public string LastName;
-        public string Email;
         public double AverageGrade;
         public List<Accommodation> Accommodations;
         public List<Reservation> Reservations;
@@ -26,25 +22,36 @@ namespace ProjectTourism.Model
             Reservations = new List<Reservation>();
             IsSuperHost = false;
         }
-        public string[] ToCSV()
+        public Owner(User user)
+        {
+            this.Username = user.Username;
+            this.Password = user.Password;
+            this.Type = user.Type;
+            this.FirstName = user.FirstName;
+            this.LastName = user.LastName;
+            this.Birthday = user.Birthday;
+            this.Email = user.Email;
+            this.PhoneNumber = user.PhoneNumber;
+
+            AverageGrade = 0;
+            Accommodations = new List<Accommodation>();
+            Reservations = new List<Reservation>();
+            IsSuperHost = false;
+            //NumberOfReviews = 0;
+        }
+        public new string[] ToCSV()
         {
             string[] csvValues =
             {
                 Username,
-                FirstName,
-                LastName,
-                Email,
                 AverageGrade.ToString()     };
             return csvValues;
         }
 
-        public void FromCSV(string[] values)
+        public new void FromCSV(string[] values)
         {
             Username = values[0];
-            FirstName = values[1];
-            LastName = values[2];
-            Email = values[3];
-            AverageGrade = double.Parse(values[4]);
+            AverageGrade = double.Parse(values[1]);
             Accommodations = new List<Accommodation>();
             Reservations = new List<Reservation>();
         }
