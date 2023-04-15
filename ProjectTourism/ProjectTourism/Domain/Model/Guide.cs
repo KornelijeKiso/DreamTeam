@@ -5,58 +5,63 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using ProjectTourism.Model;
 
 namespace ProjectTourism.Model
 {
-    public class Guide : User, Serializable
+    public class Guide : Serializable
     {
         public bool? IsSuperGuide;
         public bool HasTourStarted;
-        public string Biography;
-        public string Language;
+        public string? Username;
+        public string? Name;
+        public string? Surname;
+        public string? Biography;
+        public string? Language;
+        public string? Email;
+        public string? Phone;
         public List<Tour> Tours;
         public List<TourAppointment> TourAppointments;
         
         public Guide()
         {
-            Tours = new List<Tour>();
-            TourAppointments = new List<TourAppointment>();
-        }
-        public Guide(User user)
-        {
-            this.Username = user.Username;
-            this.Password = user.Password;
-            this.Type = user.Type;
-            this.FirstName = user.FirstName;
-            this.LastName = user.LastName;
-            this.Birthday = user.Birthday;
-            this.Email = user.Email;
-            this.PhoneNumber = user.PhoneNumber;
-
             IsSuperGuide = false;
-            Biography = "";
-            Language = "";
             HasTourStarted = false;
             Tours = new List<Tour>();
             TourAppointments = new List<TourAppointment>();
         }
-
-        public new string[] ToCSV()
+        public Guide(string username, string name, string surname, string biography, string language, string email, string phone)
         {
-            string[] csvValues =
+            IsSuperGuide = false;
+            Username = Username;
+            Name = name;
+            Surname = surname;
+            Biography = biography;
+            Language = language;
+            HasTourStarted = false;
+            Tours = new List<Tour>();
+            TourAppointments = new List<TourAppointment>();
+            Email = email;
+            Phone = phone;
+        }
+        public string?[] ToCSV()
+        {
+            string?[] csvValues =
             {
-                Username, Biography, Language, HasTourStarted.ToString()
+                Username, Name, Surname, Biography, Language, HasTourStarted.ToString(), Email, Phone
             };
             return csvValues;
         }
 
-        public new void FromCSV(string[] values)
+        public void FromCSV(string[] values)
         {
             Username = values[0];
-            Biography = values[1];
-            Language = values[2];
-            HasTourStarted = bool.Parse(values[3]);
+            Name = values[1];
+            Surname = values[2];
+            Biography = values[3];
+            Language = values[4];
+            HasTourStarted = bool.Parse(values[5]);
+            Email = values[6];
+            Phone = values[7];
         }
     }
 }

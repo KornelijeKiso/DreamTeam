@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -15,13 +14,9 @@ namespace ProjectTourism.Model
         public USERTYPE Type;
         
         public string Username;
+        
         public string Password;
-        public string FirstName;
-        public string LastName;
-        public DateTime Birthday;
-        public string Email;
-        public string PhoneNumber;
-
+        
         public User()
         {
 
@@ -31,18 +26,6 @@ namespace ProjectTourism.Model
             Username = username;
             Password = password;
         }
-
-        public User(string username, string password, string firstName, string lastName, DateTime birthday, string email, string phoneNumber)
-        {
-            Username = username;
-            Password = password;
-            FirstName = firstName;
-            LastName = lastName;
-            Birthday = birthday;
-            Email = email;
-            PhoneNumber = phoneNumber;
-        }
-
         public string[] ToCSV()
         {
             int type;
@@ -58,12 +41,7 @@ namespace ProjectTourism.Model
             {
                 Username,
                 Password,
-                type.ToString(),
-                FirstName,
-                LastName,
-                Birthday.ToString("dd.MM.yyyy HH:mm"),
-                Email,
-                PhoneNumber     };
+                type.ToString()          };
             return csvValues;
         }
         public void FromCSV(string[] values)
@@ -78,12 +56,6 @@ namespace ProjectTourism.Model
                 case 2: { Type = USERTYPE.GUEST1; break;}
                 case 3: { Type = USERTYPE.GUEST2; break;}
             }
-            FirstName = values[3];
-            LastName = values[4];
-            if (DateTime.TryParse(values[5], new CultureInfo("en-GB"), DateTimeStyles.None, out var dateTimeParsed))
-                Birthday = dateTimeParsed;
-            Email = values[6];
-            PhoneNumber = values[7];
         }
     }
 }

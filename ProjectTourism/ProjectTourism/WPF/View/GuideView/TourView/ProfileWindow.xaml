@@ -44,8 +44,8 @@
             <Label x:Name="DarkThemeLabel" Grid.Row="6" Grid.Column="0" Content="Dark theme" Margin="0,6,0,6"/>
 
 
-            <TextBox x:Name="textbox1" Grid.Row="0" Grid.Column="1" Text="{Binding Path=Guide.Email}" Margin="0,8,0,8" IsReadOnly="True"/>
-            <TextBox x:Name="textbox2" Grid.Row="1" Grid.Column="1" Text="{Binding Path=Guide.PhoneNumber}" Margin="0,8,0,8" IsReadOnly="True"/>
+            <TextBox x:Name="textbox1" Grid.Row="0" Grid.Column="1" Text="{Binding Guide.Email}" Margin="0,8,0,8" IsReadOnly="True"/>
+            <TextBox x:Name="textbox2" Grid.Row="1" Grid.Column="1" Text="{Binding Guide.Phone}" Margin="0,8,0,8" IsReadOnly="True"/>
             <TextBox x:Name="textbox3" Grid.Row="2" Grid.Column="1" Text="{Binding Guide.Language}" Margin="0,8,0,8" IsReadOnly="True"/>
             <TextBox x:Name="textbox4" Grid.Row="3" Grid.Column="1" Text="{Binding Guide.Biography}" Margin="0,8,0,8" IsReadOnly="True" Grid.RowSpan="2"/>
             <TextBox x:Name="textbox5" Grid.Row="5" Grid.Column="1" Text="" Margin="0,8,0,8" IsReadOnly="True" Visibility="Hidden"/>

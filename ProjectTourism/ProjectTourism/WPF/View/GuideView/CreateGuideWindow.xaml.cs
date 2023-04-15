@@ -1,4 +1,5 @@
-﻿using ProjectTourism.Model;
+﻿using ProjectTourism.Controller;
+using ProjectTourism.Model;
 using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
@@ -27,7 +28,7 @@ namespace ProjectTourism.View.GuideView
     /// </summary>
     public partial class CreateGuideWindow : Window, INotifyPropertyChanged, IObserver
     {
-        public GuideVM GuideVM { get; set; }
+        public GuideVM Guide { get; set; }
         public UserVM UserVM { get; set; }
         public GuideService GuideService { get; set; }
         public UserService UserService { get; set; }
@@ -35,8 +36,11 @@ namespace ProjectTourism.View.GuideView
         {
             InitializeComponent();
             DataContext = this;
-            GuideVM = new GuideVM(new Guide(userVM.GetUser()));
+            Guide = new GuideVM(new Guide());
             UserVM = userVM;
+            Guide.Username = userVM.Username;
+
+
             GuideService = new GuideService(new GuideRepository());
             UserService = new UserService(new UserRepository());
             GuideService.Subscribe(this);
@@ -59,7 +63,7 @@ namespace ProjectTourism.View.GuideView
             if (NameSurnameNotNull())
             {
                 UserService.Add(UserVM);
-                GuideService.Add(GuideVM.GetGuide());
+                GuideService.Add(Guide.GetGuide());
                 Close();
             }
             else
@@ -70,8 +74,7 @@ namespace ProjectTourism.View.GuideView
 
         private bool NameSurnameNotNull()
         {
-            return GuideVM.GetGuide().FirstName != null
-                && GuideVM.GetGuide().LastName != null;
+            return Guide.Name != null && Guide.Surname != null;
         }
     }
 }

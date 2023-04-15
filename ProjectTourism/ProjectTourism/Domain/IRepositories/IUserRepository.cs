@@ -14,7 +14,6 @@ namespace ProjectTourism.Domain.IRepositories
     public interface IUserRepository
     {
         void Add(User user);
-        User GetOne(string username);
         User Identify(User user);
         bool UsernameAlreadyInUse(string username);
     }

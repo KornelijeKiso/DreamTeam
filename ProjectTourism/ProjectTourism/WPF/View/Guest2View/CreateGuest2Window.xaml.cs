@@ -1,4 +1,5 @@
-﻿using ProjectTourism.Model;
+﻿using ProjectTourism.Controller;
+using ProjectTourism.Model;
 using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
@@ -38,8 +39,9 @@ namespace ProjectTourism.View.Guest2View
             DataContext = this;
             Guest2Service = new Guest2Service(new Guest2Repository());
             UserService = new UserService(new UserRepository());
-            Guest2 = new Guest2VM(new Guest2(userVM.GetUser()));
+            Guest2 = new Guest2VM( new Guest2());
             UserVM = userVM;
+            Guest2.Username = userVM.Username;
             Guest2Service.Subscribe(this);
         }
 
@@ -57,9 +59,7 @@ namespace ProjectTourism.View.Guest2View
 
         private void CreateClick(object sender, RoutedEventArgs e)
         {
-            if (Guest2.GetGuest2().Email != null &&
-                Guest2.GetGuest2().FirstName != null &&
-                Guest2.GetGuest2().LastName != null )
+            if (Guest2.FirstName != null && Guest2.LastName != null)
             {
                 UserService.Add(UserVM);
                 Guest2Service.Add(Guest2.GetGuest2());

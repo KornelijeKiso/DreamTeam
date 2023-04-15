@@ -25,11 +25,6 @@ namespace ProjectTourism.Services
         {
             UserRepo.Add(user.GetUser());
         }
-
-        public User GetOne(string username)
-        {
-            return UserRepo.GetOne(username);
-        }
         public UserVM Identify(UserVM userVM)
         {
             return new UserVM(UserRepo.Identify(userVM.GetUser()));
