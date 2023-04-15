@@ -63,10 +63,10 @@ namespace ProjectTourism.WPF.ViewModel
                 reservation.AccommodationGrade = accommodationGradeService.GetOneByReservation(reservation.Id);
                 reservation.Guest1Grade = guest1GradeService.GetOneByReservation(reservation.Id);
 
-                reservation.Graded = reservation.Guest1Grade != null;
-                reservation.AccommodationGraded = reservation.AccommodationGrade != null;
-                reservation.CanBeGraded = !reservation.Graded && reservation.IsAbleToGrade();
-                reservation.VisibleReview = (reservation.Graded || reservation.EndDate<DateOnly.FromDateTime(DateTime.Now).AddDays(-5)) && reservation.AccommodationGraded;
+                //reservation.Graded = reservation.Guest1Grade != null;
+                //reservation.AccommodationGraded = reservation.AccommodationGrade != null;
+                //reservation.CanBeGraded = !reservation.Graded && reservation.IsAbleToGrade();
+                //reservation.VisibleReview = (reservation.Graded || reservation.EndDate<DateOnly.FromDateTime(DateTime.Now).AddDays(-5)) && reservation.AccommodationGraded;
             }
 
             return reservations;
@@ -82,6 +82,7 @@ namespace ProjectTourism.WPF.ViewModel
 
             accommodationService.Add(newAccommodation.GetAccommodation());
             AccommodationVM accommodation = new AccommodationVM(newAccommodation);
+            accommodation.Location = new LocationVM(locationService.GetOne(location.Id));
             Accommodations.Add(accommodation);
             _owner.Accommodations.Add(accommodation.GetAccommodation());
         }
@@ -113,30 +114,6 @@ namespace ProjectTourism.WPF.ViewModel
                 if (value != _owner.Username)
                 {
                     _owner.Username = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public string Password
-        {
-            get => _owner.Password;
-            set
-            {
-                if (value != _owner.Password)
-                {
-                    _owner.Password = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public USERTYPE Type
-        {
-            get => _owner.Type;
-            set
-            {
-                if (value != _owner.Type)
-                {
-                    _owner.Type = value;
                     OnPropertyChanged();
                 }
             }
@@ -227,13 +204,13 @@ namespace ProjectTourism.WPF.ViewModel
         public ObservableCollection<AccommodationVM> Accommodations { get; set; }
         public ObservableCollection<ReservationVM> Reservations{ get; set; }
 
-    public event PropertyChangedEventHandler? PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         private double CalculateAverageGrade()
         {
             try
             {
-                return _owner.Reservations.Where(reservation => reservation.AccommodationGraded && reservation.EndDate.AddYears(1) > DateOnly.FromDateTime(DateTime.Now))
+                return Reservations.Where(reservation => reservation.AccommodationGraded && reservation.EndDate.AddYears(1) > DateOnly.FromDateTime(DateTime.Now))
                                    .Average(reservation => reservation.AccommodationGrade.AverageGrade);
             }
             catch (Exception ex)

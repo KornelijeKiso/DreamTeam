@@ -1,6 +1,5 @@
 ﻿using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.Model;
-using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.WPF.ViewModel;
@@ -15,11 +14,9 @@ namespace ProjectTourism.Services
     public class Guest1GradeService
     {
         private IGuest1GradeRepository Guest1GradeRepo;
-        public List<IObserver> Observers;
         public Guest1GradeService(IGuest1GradeRepository ig1gr)
         {
             Guest1GradeRepo = ig1gr;
-            Observers = new List<IObserver>();
         }
         public void Add(Guest1Grade guest1Grade)
         {
@@ -36,23 +33,6 @@ namespace ProjectTourism.Services
         public List<Guest1Grade> GetAll()
         {
             return Guest1GradeRepo.GetAll();
-        }
-        public void Subscribe(IObserver observer)
-        {
-            Observers.Add(observer);
-        }
-
-        public void Unsubscribe(IObserver observer)
-        {
-            Observers.Remove(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            foreach (var observer in Observers)
-            {
-                observer.Update();
-            }
-        }
+        }  
     }
 }

@@ -59,15 +59,7 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public double AverageGrade
         {
-            get => _accommodationGrade.AverageGrade;
-            set
-            {
-                if (value != _accommodationGrade.AverageGrade)
-                {
-                    _accommodationGrade.AverageGrade = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => CalculateAverageGrade();
         }
         public ReservationVM Reservation
         {
@@ -96,15 +88,16 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public string[] Pictures
         {
-            get => _accommodationGrade.Pictures;
-            set
+            get => GetPictureURLsFromCSV();
+        }
+        private string[] GetPictureURLsFromCSV()
+        {
+            string[] pictures = PictureURLs.Split(',');
+            foreach (var picture in pictures)
             {
-                if (value != _accommodationGrade.Pictures)
-                {
-                    _accommodationGrade.Pictures = value;
-                    OnPropertyChanged();
-                }
+                picture.Trim();
             }
+            return pictures;
         }
         public string PictureURLs
         {
@@ -125,14 +118,14 @@ namespace ProjectTourism.WPF.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public void CalculateAverageGrade()
+        private double CalculateAverageGrade()
         {
             double sum = 0;
             foreach (var category in CategoryNames)
             {
                 sum += Grades[category];
             }
-            AverageGrade = sum / CategoryNames.Length;
+            return sum / CategoryNames.Length;
         }
     }
 }

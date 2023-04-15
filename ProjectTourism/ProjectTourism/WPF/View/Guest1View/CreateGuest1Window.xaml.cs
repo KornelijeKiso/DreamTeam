@@ -40,7 +40,6 @@ namespace ProjectTourism.View.Guest1View
             UserVM = userVM;
             Guest1Service = new Guest1Service(new Guest1Repository());
             UserService = new UserService(new UserRepository());
-            Guest1Service.Subscribe(this);
         }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

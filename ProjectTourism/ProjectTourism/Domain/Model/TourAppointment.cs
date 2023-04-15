@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectTourism.ModelDAO;
+using System;
 using System.CodeDom.Compiler;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +13,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using ProjectTourism.ModelDAO;
 
 
 

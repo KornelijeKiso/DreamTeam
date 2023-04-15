@@ -1,5 +1,4 @@
 ﻿using ProjectTourism.Domain.Model;
-using ProjectTourism.ModelDAO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,16 +15,10 @@ namespace ProjectTourism.Model
         public int Id;
         public DateOnly StartDate;
         public DateOnly EndDate;
-        public DateOnly GradingDeadline;
         public Accommodation Accommodation;
         public int AccommodationId;
-        public bool AccommodationGraded;
         public string Guest1Username;
         public Guest1 Guest1;
-        public bool Graded;
-        public bool CanBeGraded;
-        public bool VisibleReview;
-        public string GradingDeadlineMessage;
         public AccommodationGrade AccommodationGrade;
         public Guest1Grade Guest1Grade;
         public PostponeRequest PostponeRequest;
@@ -36,23 +29,17 @@ namespace ProjectTourism.Model
         public Reservation(Reservation r)
         {
             Id = r.Id;
-            GradingDeadline = r.GradingDeadline;
             Accommodation = r.Accommodation;
             AccommodationId = r.AccommodationId;
-            AccommodationGraded = r.AccommodationGraded;
             Guest1Username = r.Guest1Username;
             Guest1 = r.Guest1;
-            Graded = r.Graded;
-            CanBeGraded = r.CanBeGraded;
-            VisibleReview = r.VisibleReview;
-            GradingDeadlineMessage = r.GradingDeadlineMessage;
             AccommodationGrade = r.AccommodationGrade;
             Guest1Grade = r.Guest1Grade;
             PostponeRequest = r.PostponeRequest;
-    }
+        }
         public bool IsAbleToGrade()
         {
-            return DateOnly.FromDateTime(DateTime.Now) > EndDate && DateOnly.FromDateTime(DateTime.Now) < GradingDeadline;
+            return DateOnly.FromDateTime(DateTime.Now) > EndDate && DateOnly.FromDateTime(DateTime.Now) < EndDate.AddDays(5);
         }
         public string[] ToCSV()
         {
@@ -74,7 +61,6 @@ namespace ProjectTourism.Model
             if(DateOnly.TryParse(values[2],new CultureInfo("en-GB"),DateTimeStyles.None,out var startDate)) StartDate = startDate;
             if (DateOnly.TryParse(values[3], new CultureInfo("en-GB"), DateTimeStyles.None, out var endDate)) EndDate = endDate;
             Guest1Username = values[4];
-            GradingDeadline = EndDate.AddDays(5);
         }
     }
 }
