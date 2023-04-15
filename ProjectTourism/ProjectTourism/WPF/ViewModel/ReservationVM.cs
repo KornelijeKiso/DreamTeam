@@ -65,15 +65,7 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public DateOnly GradingDeadline
         {
-            get => _reservation.GradingDeadline;
-            set
-            {
-                if (value != _reservation.GradingDeadline)
-                {
-                    _reservation.GradingDeadline = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => _reservation.EndDate.AddDays(5);
         }
         public AccommodationVM Accommodation
         {
@@ -99,14 +91,15 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+        private bool _AccommodationGraded;
         public bool AccommodationGraded
         {
-            get => _reservation.AccommodationGraded;
+            get => _AccommodationGraded = _reservation.AccommodationGrade != null;
             set
             {
-                if (value != _reservation.AccommodationGraded)
+                if (value != _AccommodationGraded)
                 {
-                    _reservation.AccommodationGraded = value;
+                    _AccommodationGraded = value;
                     OnPropertyChanged();
                 }
             }
@@ -161,14 +154,15 @@ namespace ProjectTourism.WPF.ViewModel
             }
             else return false;
         }
+        private bool _Graded;
         public bool Graded
         {
-            get => _reservation.Graded;
+            get => _Graded = _reservation.Guest1Grade!=null;
             set
             {
-                if (value != _reservation.Graded)
+                if (value != _Graded)
                 {
-                    _reservation.Graded = value;
+                    _Graded = value;
                     OnPropertyChanged();
                 }
             }
@@ -185,14 +179,15 @@ namespace ProjectTourism.WPF.ViewModel
         {
             get => !Graded && IsAbleToGrade();
         }
+        private bool _VisibleReview;
         public bool VisibleReview
         {
-            get => _reservation.VisibleReview;
+            get => _VisibleReview=(Graded || EndDate <= DateOnly.FromDateTime(DateTime.Now).AddDays(-5)) && AccommodationGraded;
             set
             {
-                if (value != _reservation.VisibleReview)
+                if (value != _VisibleReview)
                 {
-                    _reservation.VisibleReview = value;
+                    _VisibleReview = value;
                     OnPropertyChanged();
                 }
             }
@@ -204,14 +199,6 @@ namespace ProjectTourism.WPF.ViewModel
         public string GradingDeadlineMessage
         {
             get => GenerateGradingDeadlineMessage();
-            set
-            {
-                if (value != _reservation.GradingDeadlineMessage)
-                {
-                    _reservation.GradingDeadlineMessage = value;
-                    OnPropertyChanged();
-                }
-            }
         }
         public AccommodationGradeVM AccommodationGrade
         {

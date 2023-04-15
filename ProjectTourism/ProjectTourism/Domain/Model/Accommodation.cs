@@ -1,5 +1,4 @@
-﻿using ProjectTourism.ModelDAO;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,11 +20,9 @@ namespace ProjectTourism.Model
     {
         public int Id;
         public string PictureURLs;
-        public string[] Pictures;
         public string Name;
         public Location Location;
         public int LocationId;
-        public string CityAndCountry;
         public ACCOMMODATIONTYPE Type;
         public int MaxNumberOfGuests;
         public int MinDaysForReservation;
@@ -54,15 +51,12 @@ namespace ProjectTourism.Model
             MaxNumberOfGuests = accommodation.MaxNumberOfGuests;
             MinDaysForReservation = accommodation.MinDaysForReservation;
             CancellationDeadline= accommodation.CancellationDeadline;  
-            CityAndCountry = accommodation.CityAndCountry;
-            Pictures = accommodation.GetPictureURLsFromCSV(PictureURLs);
             Reservations = new List<Reservation>();
         }
         public void SetLocation(Location location)
         {
             Location = location;
             LocationId = location.Id;
-            CityAndCountry = location.City + ", " + location.Country;
         }
         public void Reset()
         {
@@ -75,15 +69,6 @@ namespace ProjectTourism.Model
             PictureURLs = "";
         }
 
-        public string[] GetPictureURLsFromCSV(string source)
-        {
-            string[] pictures = source.Split(',');
-            foreach (var picture in pictures)
-            {
-                picture.Trim();
-            }
-            return pictures;
-        }
         private int GenerateCSVType()
         {
             switch (Type)
@@ -131,7 +116,6 @@ namespace ProjectTourism.Model
             OwnerUsername = values[6];
             Name = values[7];
             PictureURLs = values[8];
-            Pictures = GetPictureURLsFromCSV(values[8]);
             Reservations = new List<Reservation>();
         }
 

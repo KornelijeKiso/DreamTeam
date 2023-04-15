@@ -35,7 +35,7 @@
                 <Image Source="https://img.icons8.com/ios-glyphs/512/pencil.png"></Image>
             </Button.Content>
         </Button>
-        <Label VerticalAlignment="Top" HorizontalAlignment="Left" Margin="190 163 0 0" ContentStringFormat="Tel-number : {0}" FontSize="14" Content="069 5036644"></Label>
+        <Label VerticalAlignment="Top" HorizontalAlignment="Left" Margin="190 163 0 0" ContentStringFormat="Tel-number : {0}" FontSize="14" Content="{Binding Owner.PhoneNumber}"></Label>
         <Label VerticalAlignment="Top" HorizontalAlignment="Left" Margin="190 183 0 0" ContentStringFormat="E-mail : {0}" FontSize="14" Content="{Binding Owner.Email}"></Label>
         <Label VerticalAlignment="Top" HorizontalAlignment="Left" Margin="190 203 0 0" FontSize="14" Content="Status : Owner"></Label>
         <Line X1="50" Y1="270" X2="410" Y2="270" Stroke="DarkBlue" StrokeThickness="2"/>

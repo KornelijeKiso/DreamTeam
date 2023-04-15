@@ -1,5 +1,4 @@
 ﻿using ProjectTourism.Model;
-using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Repositories.IRepositories;
@@ -14,12 +13,10 @@ namespace ProjectTourism.Services
 {
     public class ReservationService
     {
-        public List<IObserver> Observers;
         private IReservationRepository ReservationRepo;
         public ReservationService(IReservationRepository irr)
         {
             ReservationRepo = irr;
-            Observers = new List<IObserver>();
         }
         public void Add(Reservation reservation)
         {
@@ -53,23 +50,6 @@ namespace ProjectTourism.Services
         private bool Conflict(Reservation reservation, Reservation existingReservation)
         {
             return !(reservation.StartDate > existingReservation.EndDate || reservation.EndDate < existingReservation.StartDate) && reservation.Id!=existingReservation.Id;
-        }
-        public void Subscribe(IObserver observer)
-        {
-            Observers.Add(observer);
-        }
-
-        public void Unsubscribe(IObserver observer)
-        {
-            Observers.Remove(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            foreach (var observer in Observers)
-            {
-                observer.Update();
-            }
         }
     }
 }

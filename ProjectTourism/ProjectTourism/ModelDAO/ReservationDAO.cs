@@ -33,30 +33,7 @@ namespace ProjectTourism.ModelDAO
             Guest1Grade guest1Grade;
             foreach(Reservation reservation in Reservations)
             {
-                accommodationGrade = accommodationGradeDAO.GetOneByReservation(reservation.Id);
-                guest1Grade = guest1GradeDAO.GetOneByReservation(reservation.Id);
-                reservation.Guest1 = guest1DAO.GetOne(reservation.Guest1Username);
-                if(guest1Grade != null)
-                {
-                    guest1Grade.Reservation = reservation;
-                    reservation.Guest1Grade = guest1Grade;
-                    reservation.Graded= true;
-                }
-                if(accommodationGrade!= null)
-                {
-                    accommodationGrade.Reservation = reservation;
-                    reservation.AccommodationGrade = accommodationGrade;
-                    reservation.AccommodationGraded = true;
-                }  
-                if(reservation.Graded && reservation.AccommodationGraded)
-                {
-                    reservation.VisibleReview = true;
-                }
-                reservation.CanBeGraded = false;
-                if (reservation.IsAbleToGrade() && !reservation.Graded)
-                {
-                    reservation.CanBeGraded = true;
-                }
+                
             }
         }
         public int GenerateId()

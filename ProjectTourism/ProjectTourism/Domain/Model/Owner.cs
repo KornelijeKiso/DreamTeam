@@ -10,17 +10,13 @@ namespace ProjectTourism.Model
 {
     public class Owner : User, Serializable
     {
-        public double AverageGrade;
         public List<Accommodation> Accommodations;
         public List<Reservation> Reservations;
-        public bool IsSuperHost;
-        public int NumberOfReviews;
+        public double AverageGrade;
         public Owner()
         {
-            AverageGrade = 0;
             Accommodations = new List<Accommodation>();
             Reservations = new List<Reservation>();
-            IsSuperHost = false;
         }
         public Owner(User user)
         {
@@ -36,8 +32,6 @@ namespace ProjectTourism.Model
             AverageGrade = 0;
             Accommodations = new List<Accommodation>();
             Reservations = new List<Reservation>();
-            IsSuperHost = false;
-            //NumberOfReviews = 0;
         }
         public new string[] ToCSV()
         {

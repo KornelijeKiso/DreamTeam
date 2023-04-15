@@ -40,7 +40,6 @@ namespace ProjectTourism.View.OwnerView
             UserVM = userVM;
             OwnerService = new OwnerService(new OwnerRepository());
             UserService = new UserService(new UserRepository());
-            OwnerService.Subscribe(this);
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 

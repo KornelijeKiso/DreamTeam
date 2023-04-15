@@ -65,7 +65,7 @@ namespace ProjectTourism.View.OwnerView
         }
         public void SwitchToYourProfile(object sender, EventArgs e)
         {
-            Content.Content = new YourProfileMenuItem(Owner);
+            Content.Content = new YourProfileMenuItem(Owner.Username);
             AccommodationsItem.Background = Brushes.Transparent;
             ReservationsItem.Background = Brushes.Transparent;
             HelpItem.Background = Brushes.Transparent;
