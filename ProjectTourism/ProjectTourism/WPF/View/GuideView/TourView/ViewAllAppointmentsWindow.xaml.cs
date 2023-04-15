@@ -36,11 +36,8 @@ namespace ProjectTourism.View.GuideView.TourView
             InitializeComponent();
             DataContext = this;
             Guide = new GuideVM(username);
-            DataContext = this;
         }
-        public void Update()
-        {
-        }
+        
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
             if (SelectedAppointment != null)
@@ -55,9 +52,11 @@ namespace ProjectTourism.View.GuideView.TourView
             }
             else
             {
-                
+                MessageBox.Show("You must choose an appointment which you would like to cancel!");
             }
         }
+        public void Update() { }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

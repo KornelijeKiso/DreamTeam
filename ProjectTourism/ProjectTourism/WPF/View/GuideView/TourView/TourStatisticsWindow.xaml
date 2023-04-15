@@ -74,6 +74,9 @@
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Visits" HorizontalAlignment="Left" Height="41" Margin="504,228,0,0" VerticalAlignment="Top" Width="84" FontSize="15"/>
-        <ComboBox x:Name="comboboxYears" SelectionChanged="YearsComboBox_SelectionChanged" HorizontalAlignment="Left" Height="43" Margin="50,167,0,0" VerticalAlignment="Top" Width="132"/>
+        <ComboBox x:Name="comboboxYears" SelectionChanged="YearsComboBox_SelectionChanged" HorizontalAlignment="Left" Height="43" Margin="50,167,0,0" VerticalAlignment="Top" Width="132" FontSize="20"/>
+        <GroupBox Header="Golden Age Of Athens Tour" Margin="759,167,0,0" Height="371" Width="450"  FontSize="15" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="#FF61676B" Background="#FF9BC8EC" FontWeight="SemiBold">
+            <!--<Canvas x:Name="canvas" Height="96" Margin="49,0,301,0"/>-->
+        </GroupBox>
     </Grid>
 </UserControl>

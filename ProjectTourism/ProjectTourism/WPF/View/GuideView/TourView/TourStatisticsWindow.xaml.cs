@@ -37,7 +37,6 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             SetComboBox();
             SortedTours = new ObservableCollection<TourVM>(SortedToursList);
         }
-
         private void YearsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             SelectedYear = (int)comboboxYears.SelectedItem;
@@ -46,22 +45,11 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             SetVisits();
             Update();
         }
-
-        private void Update()
-        {
-            SortedTours.Clear();
-            foreach (var tour in SortedToursList)
-            {
-                SortedTours.Add(tour);
-            }
-        }
-
         private void SetComboBox()
         {
             comboboxYears.ItemsSource = Years;
             comboboxYears.SelectedIndex = Years.IndexOf(DateTime.Now.Year);
         }
-
         private void SetModels(string username)
         {
             Guide = new GuideVM(username);
@@ -69,7 +57,6 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             SortedToursList = new List<TourVM>(Guide.Tours);
             Years = new List<int>(GetYears());
         }
-
         private void SetVisits()
         {
             SortedToursList.ForEach(tour =>{ tour.Visits = tour.TourAppointments.Sum(tourApp => tourApp.Tickets.Sum(ticket => ticket.NumberOfGuests));});
@@ -79,6 +66,13 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         {
             return SortedToursList.SelectMany(tour => tour.TourAppointments).Select(tourApp => tourApp.TourDateTime.Year).Distinct().OrderByDescending(year => year).ToList();
         }
-
+        private void Update()
+        {
+            SortedTours.Clear();
+            foreach (var tour in SortedToursList)
+            {
+                SortedTours.Add(tour);
+            }
+        }
     }
 }
