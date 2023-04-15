@@ -32,8 +32,8 @@ namespace ProjectTourism.View.UserView
     /// </summary>
     public partial class CreateUserWindow : Window, INotifyPropertyChanged, IObserver
     {
-        public UserVM User;
-        public UserService Service;
+        public UserVM User { get; set; }
+        public UserService Service { get; set; }
         public CreateUserWindow()
         {
             InitializeComponent();

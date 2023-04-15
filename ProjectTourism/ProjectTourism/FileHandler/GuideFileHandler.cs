@@ -25,6 +25,7 @@ namespace ProjectTourism.FileHandler
         public List<Guide> Load()
         {
             Guides = Serializer.fromCSV(Filename);
+            AddUserData();
             return Guides;
         }
 
