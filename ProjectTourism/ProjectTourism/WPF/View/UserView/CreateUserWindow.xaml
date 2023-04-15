@@ -5,25 +5,146 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.UserView"
         mc:Ignorable="d"
-        Title="CreateUserWindow" Height="450" Width="800"
+        Title="Create User" 
+        Height="550" Width="800"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" />
+            </StackPanel>
+        </ControlTemplate>
+    </Window.Resources>
+
     <Grid>
-        <TextBox FontSize="15" Name="txtUsername" HorizontalAlignment="Left" Height="38" Margin="170,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256" Text="{Binding Path=User.Username, UpdateSourceTrigger=PropertyChanged}" />
-        <PasswordBox FontSize="15" Name ="txtPassword" HorizontalAlignment="Left" Height="38" Margin="170,217,0,0" VerticalAlignment="Top" Width="256" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="50*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="200"/>
+        </Grid.ColumnDefinitions>
 
-        <PasswordBox FontSize="15" Name ="txtPasswordAgain" HorizontalAlignment="Left" Height="38" Margin="170,288,0,0" VerticalAlignment="Top" Width="256" />
+        <Label Grid.Row="0" Grid.Column="1"
+            FontSize="15" Content="Username :"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center" Width="96"/>
+        <TextBox Grid.Row="0" Grid.Column="2" Name="txtUsername" 
+                 FontSize="15" TextWrapping="Wrap" 
+                 HorizontalAlignment="Left" VerticalAlignment="Center"  
+                 Height="35" Width="200"
+                 Text="{Binding Path=User.Username, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"     />
 
-        <Button FontSize="15" Content="Create account" IsDefault="True" HorizontalAlignment="Left" Height="38" Margin="505,343,0,0" Background="#FF63E263" VerticalAlignment="Top" Width="120" Click="CreateUserClick"/>
-        <ComboBox FontSize="15" Name ="ComboType" HorizontalAlignment="Left" Margin="505,146,0,0" VerticalAlignment="Top" Width="185" Height="38">
+        <Label Grid.Row="1" Grid.Column="1"
+            FontSize="15" Content="Password :"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center" Width="96"/>
+        <PasswordBox Grid.Row="1" Grid.Column="2" Name ="txtPassword"
+                     FontSize="15"  
+                     HorizontalAlignment="Left" VerticalAlignment="Center" 
+                     Height="35" Width="200"/>
+
+        <Label Grid.Row="2" Grid.Column="1"
+            FontSize="15" Content="Confirm your password :"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center" Width="200"/>
+        <PasswordBox Grid.Row="2" Grid.Column="2" Name ="txtPasswordAgain"
+                     FontSize="15"  
+                     HorizontalAlignment="Left" VerticalAlignment="Center" 
+                     Height="35" Width="200"/>
+
+        <Label Grid.Row="3" Grid.Column="1"
+            FontSize="15" Content="Account type :"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center" Width="200"/>
+        <ComboBox Grid.Row="3" Grid.Column="2"
+            FontSize="15" 
+            Name ="ComboType" 
+            HorizontalAlignment="Left" VerticalAlignment="Center"
+            Width="200" Height="35">
             <ComboBoxItem Content="Owner" IsSelected="True"/>
             <ComboBoxItem Content="Guest1"/>
             <ComboBoxItem Content="Guide"/>
             <ComboBoxItem Content="Guest2"/>
         </ComboBox>
-        <Label FontSize="15" Content="Username :" HorizontalAlignment="Left" Margin="170,120,0,0" VerticalAlignment="Top" Width="96"/>
-        <Label FontSize="15" Content="Password :" HorizontalAlignment="Left" Margin="170,191,0,0" VerticalAlignment="Top" Width="78"/>
-        <Label FontSize="15" Content="Account type :" HorizontalAlignment="Left" Margin="505,120,0,0" VerticalAlignment="Top" Width="113"/>
-        <Label FontSize="15" Content="Confirm your password :" HorizontalAlignment="Left" Margin="170,260,0,0" VerticalAlignment="Top" Width="184"/>
+
+        <Label Grid.Row="4" Grid.Column="1"
+            FontSize="15" Content="First Name :"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center" Width="200"/>
+        <TextBox Grid.Row="4" Grid.Column="2" Name="txtFirstName" 
+                 FontSize="15" TextWrapping="Wrap" 
+                 HorizontalAlignment="Left" VerticalAlignment="Center"  
+                 Height="35" Width="200"
+                 Text="{Binding Path=User.FirstName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"     />
+
+        <Label Grid.Row="5" Grid.Column="1"
+            FontSize="15" Content="Last Name :"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center" Width="200"/>
+        <TextBox Grid.Row="5" Grid.Column="2" Name="txtLastName" 
+                 FontSize="15" TextWrapping="Wrap" 
+                 HorizontalAlignment="Left" VerticalAlignment="Center"  
+                 Height="35" Width="200"
+                 Text="{Binding Path=User.LastName, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"     />
+
+        <Label Grid.Row="6" Grid.Column="1"
+            FontSize="15" Content="Birthday :"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center" Width="200"/>
+        <TextBox Grid.Row="6" Grid.Column="2" Name="txtBirthday" 
+                 FontSize="15" TextWrapping="Wrap" 
+                 HorizontalAlignment="Left" VerticalAlignment="Center"  
+                 Height="35" Width="200"
+                 Text="{Binding Path=User.Birthday, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"     />
+
+        <Label Grid.Row="7" Grid.Column="1"
+            FontSize="15" Content="Email :"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center" Width="200"/>
+        <TextBox Grid.Row="7" Grid.Column="2" Name="txtEmail" 
+                 FontSize="15" TextWrapping="Wrap" 
+                 HorizontalAlignment="Left" VerticalAlignment="Center"  
+                 Height="35" Width="200"
+                 Text="{Binding Path=User.Email, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"     />
+
+        <Label Grid.Row="8" Grid.Column="1"
+            FontSize="15" Content="Phone Number :"
+            HorizontalAlignment="Left" 
+            VerticalAlignment="Center" Width="200"/>
+        <TextBox Grid.Row="8" Grid.Column="2" Name="txtPhoneNumber" 
+                 FontSize="15" TextWrapping="Wrap" 
+                 HorizontalAlignment="Left" VerticalAlignment="Center"  
+                 Height="35" Width="200"
+                 Text="{Binding Path=User.PhoneNumber, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
+                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}"     />
+
+
+
+
+        <Button Grid.Row="8" Grid.Column="3"
+            FontSize="15" Background="#FF63E263"
+            Content="Create account" IsDefault="True" 
+            HorizontalAlignment="Left" VerticalAlignment="Center"
+            Height="35" Width="120" Margin="20 0 0 0"
+            Click="CreateUserClick"/>
 
     </Grid>
 </Window>

@@ -17,6 +17,12 @@ namespace ProjectTourism.WPF.ViewModel
     public class OwnerVM : INotifyPropertyChanged
     {
         private Owner _owner;
+        public OwnerVM(Owner owner)
+        {
+            _owner = owner;
+            Accommodations = new ObservableCollection<AccommodationVM>(_owner.Accommodations.Select(r => new AccommodationVM(r)).ToList());
+            Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).Reverse().ToList());
+        }
 
         public OwnerVM(string username)
         {
@@ -111,11 +117,31 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
-        public bool IsSuperHost
+        public string Password
         {
-            get => AverageGrade>4.5 && NumberOfReviews>2;
+            get => _owner.Password;
+            set
+            {
+                if (value != _owner.Password)
+                {
+                    _owner.Password = value;
+                    OnPropertyChanged();
+                }
+            }
         }
+        public USERTYPE Type
+        {
+            get => _owner.Type;
+            set
+            {
+                if (value != _owner.Type)
+                {
+                    _owner.Type = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public string FirstName
         {
             get => _owner.FirstName;
@@ -140,18 +166,17 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
-        public int NumberOfReviews
+        public DateTime Birthday
         {
-            get => _owner.Reservations.Count(res=>res.AccommodationGrade!=null);
-        }
-        public int NumberOfReservations
-        {
-            get => _owner.Reservations.Count();
-        }
-        public int NumberOfAccommodations
-        {
-            get => _owner.Accommodations.Count();
+            get => _owner.Birthday;
+            set
+            {
+                if (value != _owner.Birthday)
+                {
+                    _owner.Birthday = value;
+                    OnPropertyChanged();
+                }
+            }
         }
         public string Email
         {
@@ -164,6 +189,36 @@ namespace ProjectTourism.WPF.ViewModel
                     OnPropertyChanged();
                 }
             }
+        }
+        public string PhoneNumber
+        {
+            get => _owner.PhoneNumber;
+            set
+            {
+                if (value != _owner.PhoneNumber)
+                {
+                    _owner.PhoneNumber = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool IsSuperHost
+        {
+            get => AverageGrade>4.5 && NumberOfReviews>2;
+        }
+
+        public int NumberOfReviews
+        {
+            get => _owner.Reservations.Count(res=>res.AccommodationGrade!=null);
+        }
+        public int NumberOfReservations
+        {
+            get => _owner.Reservations.Count();
+        }
+        public int NumberOfAccommodations
+        {
+            get => _owner.Accommodations.Count();
         }
         public double AverageGrade
         {
