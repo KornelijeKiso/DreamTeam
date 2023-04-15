@@ -12,8 +12,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using ProjectTourism.ModelDAO;
-
 
 
 namespace ProjectTourism.Model
@@ -84,7 +82,6 @@ namespace ProjectTourism.Model
                 default:
                     { State = TOURSTATE.READY; IsNotFinished = true; break; }
             }
-
         }
     }
 }

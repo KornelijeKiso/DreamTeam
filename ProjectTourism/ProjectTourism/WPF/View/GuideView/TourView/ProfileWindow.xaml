@@ -53,7 +53,7 @@
               Background="LightGray" Foreground="Black"
               Checked="toggleSwitch_Checked" Unchecked="toggleSwitch_Unchecked" />
         </Grid>
-        <TextBlock x:Name="LinkSignOut" Margin="105,608,1022,25" FontSize="20"><Hyperlink x:Name="SignOutLink"><Run Text="Sign out"/></Hyperlink></TextBlock>
+        <TextBlock x:Name="LinkSignOut" Margin="105,608,1022,25" FontSize="20"><Hyperlink x:Name="SignOutLink" Click="SignOutLink_Click"><Run Text="Sign out"/></Hyperlink></TextBlock>
         <ContentControl x:Name="ContentArea"></ContentControl>
     </Grid>
 </UserControl>
