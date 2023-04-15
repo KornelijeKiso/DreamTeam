@@ -32,7 +32,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         private void TourStatistics_Click(object sender, RoutedEventArgs e)
         {
             HideProfilesContent();
-            ContentArea.Content = new TourStatisticsWindow();
+            ContentArea.Content = new TourStatisticsWindow(Guide.Username);
         }
         private void HideProfilesContent()
         {
@@ -51,8 +51,8 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             textbox5.Visibility = Visibility.Collapsed;
             toggleSwitch.Visibility = Visibility.Collapsed;
             rectangle.Visibility = Visibility.Collapsed;
-            ContentArea.Visibility = Visibility.Collapsed;
             LinkSignOut.Visibility = Visibility.Collapsed;
+            TourStatsLink.Visibility = Visibility.Collapsed;
         }
         private void toggleSwitch_Checked(object sender, RoutedEventArgs e)
         {

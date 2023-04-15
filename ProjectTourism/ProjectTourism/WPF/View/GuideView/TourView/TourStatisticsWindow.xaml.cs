@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.GuideView.TourView
 {
@@ -19,10 +20,29 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
     /// </summary>
     public partial class TourStatisticsWindow : UserControl
     {
-        public TourStatisticsWindow()
+        public GuideVM Guide { get; set; }
+        public List<TourVM> SortedTours { get; set; }
+        public TourStatisticsWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
+            Guide = new GuideVM(username);
+
+            SortedTours = new List<TourVM>(Guide.Tours);
+
+            foreach (var tour in SortedTours)
+            {
+                int totalVisits = 0;
+                foreach (var tourApp in tour.TourAppointments)
+                {
+                    foreach (var ticket in tourApp.Tickets)
+                    {
+                        totalVisits += ticket.NumberOfGuests;
+                    }
+                }
+                tour.Visits = totalVisits;
+            }
+            SortedTours.Sort((t1, t2) => t2.Visits.CompareTo(t1.Visits));
         }
     }
 }
