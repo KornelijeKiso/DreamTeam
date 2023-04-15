@@ -21,8 +21,8 @@
                   SelectedItem="{Binding SelectedTicket, UpdateSourceTrigger=PropertyChanged}" 
                   ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="104,211,0,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="FirstName" Width="150" Binding="{Binding Path=Guest2.FirstName}"/>
-                <DataGridTextColumn Header="LastName" Width="150" Binding="{Binding Path=Guest2.LastName}"/>
+                <DataGridTextColumn Header="FirstName" Width="150" Binding="{Binding Path=Guide.TourAppointments.Tickets.Guest2.FirstName}"/>
+                <DataGridTextColumn Header="LastName" Width="150" Binding="{Binding Path=Guide.TourAppointments.Tickets.Guest2.LastName}"/>
                 <DataGridTemplateColumn Width="*">
                     <DataGridTemplateColumn.Header>
                         <TextBlock Text="Status"/>
