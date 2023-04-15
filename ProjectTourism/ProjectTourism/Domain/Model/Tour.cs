@@ -13,7 +13,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Xml.Linq;
-using ProjectTourism.ModelDAO;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using ProjectTourism.WPF.ViewModel;

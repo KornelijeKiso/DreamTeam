@@ -41,7 +41,14 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 textbox5, toggleSwitch, rectangle, LinkSignOut, TourStatsLink
             };
         }
-
+        private void SignOutLink_Click(object sender, RoutedEventArgs e)
+        {
+            Window parentWindow = Window.GetWindow(this);
+            if (parentWindow != null)
+            {
+                parentWindow.Close();
+            }
+        }
         private void TourStatistics_Click(object sender, RoutedEventArgs e)
         {
             HideProfilesContent();
