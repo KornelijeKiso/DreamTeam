@@ -36,11 +36,8 @@ namespace ProjectTourism.View.GuideView
         {
             InitializeComponent();
             DataContext = this;
-            Guide = new GuideVM(new Guide());
+            Guide = new GuideVM(new Guide(userVM.GetUser()));
             UserVM = userVM;
-            Guide.Username = userVM.Username;
-
-
             GuideService = new GuideService(new GuideRepository());
             UserService = new UserService(new UserRepository());
             GuideService.Subscribe(this);
@@ -74,7 +71,8 @@ namespace ProjectTourism.View.GuideView
 
         private bool NameSurnameNotNull()
         {
-            return Guide.Name != null && Guide.Surname != null;
+            return Guide.GetGuide().FirstName != null
+               && Guide.GetGuide().LastName != null;
         }
     }
 }

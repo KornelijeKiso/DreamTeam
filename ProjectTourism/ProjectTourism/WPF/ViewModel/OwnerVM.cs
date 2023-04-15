@@ -17,6 +17,12 @@ namespace ProjectTourism.WPF.ViewModel
     public class OwnerVM : INotifyPropertyChanged
     {
         private Owner _owner;
+        public OwnerVM(Owner owner)
+        {
+            _owner = owner;
+            Accommodations = new ObservableCollection<AccommodationVM>(_owner.Accommodations.Select(r => new AccommodationVM(r)).ToList());
+            Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).Reverse().ToList());
+        }
 
         public OwnerVM(string username)
         {

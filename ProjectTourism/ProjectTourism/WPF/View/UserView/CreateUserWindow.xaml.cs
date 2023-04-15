@@ -30,17 +30,18 @@ namespace ProjectTourism.View.UserView
     /// <summary>
     /// Interaction logic for CreateUserView.xaml
     /// </summary>
-    public partial class CreateUserWindow : Window, INotifyPropertyChanged//, IObserver
+    public partial class CreateUserWindow : Window, INotifyPropertyChanged, IObserver
     {
         public UserVM User;
         public UserService Service;
         public CreateUserWindow()
         {
             InitializeComponent();
+            DataContext = this;
             User = new UserVM(new User());
             Service = new UserService(new UserRepository());
         }
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
@@ -49,30 +50,9 @@ namespace ProjectTourism.View.UserView
 
         private void CreateUserClick(object sender, RoutedEventArgs e)
         {
-            bool error = false;
-            string username = txtUsername.Text;
-            if (Service.UsernameAlreadyInUse(username))
-            {
-                MessageBox.Show("Username already in use.");
-                error = true;
-            }
-            string password = txtPassword.Password;
-            string passwordAgain = txtPasswordAgain.Password;
-            if (!password.Equals(passwordAgain))
-            {
-                MessageBox.Show("Error in passwords.");
-                error = true;
-            }
-            User.Username = username;
-            User.Password = password;
-            switch (ComboType.SelectedIndex)
-            {
-                case 0: { User.Type = USERTYPE.OWNER; break; }
-                case 1: { User.Type = USERTYPE.GUEST1; break; }
-                case 2: { User.Type = USERTYPE.GUIDE; break; }
-                case 3: { User.Type = USERTYPE.GUEST2; break; }
-            }
-            if (!error)
+            UserTypeComboBox();
+
+            if (User.IsValid && IsValidUsername() && IsValidPassword())
             {
                 if (User.Type == USERTYPE.OWNER)
                 {
@@ -99,6 +79,46 @@ namespace ProjectTourism.View.UserView
                     Close();
                 }
             }
+            else
+            {
+                MessageBox.Show("You have not entered the data correctly.");
+            }
         }
+
+        private bool IsValidUsername()
+        {
+            string username = txtUsername.Text;
+            if (Service.UsernameAlreadyInUse(username))
+            {
+                MessageBox.Show("Username already in use.");
+                return false;
+            }
+            return true;
+        }
+
+        private bool IsValidPassword()
+        {
+            string password = txtPassword.Password;
+            string passwordAgain = txtPasswordAgain.Password;
+            if (!password.Equals(passwordAgain))
+            {
+                MessageBox.Show("Error in passwords.");
+                return false;
+            }
+            User.Password = password;
+            return true;
+        }
+
+        private void UserTypeComboBox()
+        {
+            switch (ComboType.SelectedIndex)
+            {
+                case 0: { User.Type = USERTYPE.OWNER; break; }
+                case 1: { User.Type = USERTYPE.GUEST1; break; }
+                case 2: { User.Type = USERTYPE.GUIDE; break; }
+                case 3: { User.Type = USERTYPE.GUEST2; break; }
+            }
+        }
+        public void Update() { }
     }
 }
