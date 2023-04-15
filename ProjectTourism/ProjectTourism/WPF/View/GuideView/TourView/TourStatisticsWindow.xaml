@@ -11,7 +11,7 @@
                     ItemsSource="{Binding SortedTours, UpdateSourceTrigger=PropertyChanged}"
                     SelectionMode="Single"
                     VerticalScrollBarVisibility="Visible" 
-                    IsReadOnly="True" AutoGenerateColumns="False" Margin="50,263,764,49" RowHeight="100" HeadersVisibility="None" >
+                    IsReadOnly="True" AutoGenerateColumns="False" Margin="50,263,684,49" RowHeight="100" HeadersVisibility="None" >
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
             </DataGrid.Resources>
@@ -30,6 +30,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+
                 <DataGridTemplateColumn Width="*">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -55,19 +56,24 @@
                                     <Label Content="{Binding Language}" Margin="0,-0.8,0,0"></Label>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label Content="Duration :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Content="{Binding Duration}" Margin="0,0,0,-7" FontWeight="Bold"></Label>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,-7">
-                                    <Label Content="{Binding Visits}" FontSize="15" Margin="0,0,0,-7"></Label>
-                                    <Label Content="  " Margin="0,0,-7,-7" ></Label>
+                                    <Label ContentStringFormat="Duration : {0}h" Content="{Binding Duration}" Margin="0,0,-7,-7" ></Label>
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-            </DataGrid.Columns>
 
+                <DataGridTemplateColumn Width="80" >
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Content="{Binding Visits}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Margin="0,0,0,-7"></Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
         </DataGrid>
+        <Label Content="Visits" HorizontalAlignment="Left" Height="41" Margin="504,228,0,0" VerticalAlignment="Top" Width="84" FontSize="15"/>
+        <ComboBox x:Name="comboboxYears" SelectionChanged="YearsComboBox_SelectionChanged" HorizontalAlignment="Left" Height="43" Margin="50,167,0,0" VerticalAlignment="Top" Width="132"/>
     </Grid>
 </UserControl>
