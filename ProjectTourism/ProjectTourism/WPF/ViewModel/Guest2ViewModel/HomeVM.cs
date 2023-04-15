@@ -6,7 +6,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -24,10 +23,10 @@ using ProjectTourism.Utilities;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
-    class HomeVM : Utilities.ViewModelBase
+    public class HomeVM : ViewModelBase
     {
         public Guest2VM Guest2 { get; set; }
-        public Guest2Service GuestService { get; set; }
+        //public Guest2Service GuestService { get; set; }
         public TourService TourService { get; set; }
         public Tour? SelectedTour { get; set; }
         public ObservableCollection<Tour> Tours { get; set; }
@@ -38,10 +37,13 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public string searchDuration { get; set; }
         public string searchMaxNumberOfGuests { get; set; }
 
+        public void SetGuest2(Guest2VM guest2)
+        {
+            Guest2 = guest2;
+        }
+
         public HomeVM()
         {
-            GuestService = new Guest2Service(new Guest2Repository());
-            //Guest2 = GuestService.GetOne(username);
             TourService = new TourService(new TourRepository());
             Tours = new ObservableCollection<Tour>(TourService.GetAll());
 
@@ -140,19 +142,19 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             SearchMaxNumberOfGuests(Tours);
         }
 
-        private void Search_Click(object sender, RoutedEventArgs e)
-        {
-            UpdateToursList(TourService.GetAll());
-            SearchOne();
-        }
+        //private void Search_Click(object sender, RoutedEventArgs e)
+        //{
+        //    UpdateToursList(TourService.GetAll());
+        //    SearchOne();
+        //}
 
-        private void BuyTicket_Click(object sender, RoutedEventArgs e)
-        {
-            if (SelectedTour != null)
-            {
-                CreateTicketWindow createTicketWidnow = new CreateTicketWindow(Guest2.Username, SelectedTour.Id);
-                createTicketWidnow.ShowDialog();
-            }
-        }
+        //private void BuyTicket_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (SelectedTour != null)
+        //    {
+        //        CreateTicketWindow createTicketWidnow = new CreateTicketWindow(Guest2.Username, SelectedTour.Id);
+        //        createTicketWidnow.ShowDialog();
+        //    }
+        //}
     }
 }

@@ -22,6 +22,11 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public void SetGuest2(Guest2VM guest2)
         {
             Guest2 = guest2;
+            homeVM.SetGuest2(guest2);
+            ticketsVM.SetGuest2(guest2);
+            vouchersVM.SetGuest2(guest2);
+
+
         }
 
         public ICommand HomeCommand { get; set; }
@@ -31,7 +36,12 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public ICommand SuggestTourCommand { get; set; }
         public ICommand ComplexToursCommand { get; set; }
 
-        private void Home(object obj) => CurrentView = new HomeVM();
+        private HomeVM homeVM = new HomeVM();
+        private TicketsVM ticketsVM = new TicketsVM();
+        private VouchersVM vouchersVM = new VouchersVM();
+
+
+        private void Home(object obj) => CurrentView = homeVM;
         private void Tickets(object obj) => CurrentView = new TicketsVM();
         private void Vouchers(object obj) => CurrentView = new VouchersVM();
         //private void Profile(object obj) => CurrentView = new ProfileVM();
