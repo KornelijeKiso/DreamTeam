@@ -85,8 +85,6 @@ namespace ProjectTourism.Model
                     { State = TOURSTATE.READY; IsNotFinished = true; break; }
             }
 
-            TourDAO routeDAO = new TourDAO();
-            Tour = routeDAO.GetOne(TourId);
         }
     }
 }
