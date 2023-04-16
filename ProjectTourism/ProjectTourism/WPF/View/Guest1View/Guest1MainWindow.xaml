@@ -5,8 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:ProjectTourism.View.Guest1View"
+        xmlns:conv="clr-namespace:ProjectTourism.Converters"
         mc:Ignorable="d"
         Title="MainGuest1Window" Height="570" Width="1000">
+    <Window.Resources>
+        <ResourceDictionary>
+            <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid Margin="0,0,0,-113">
         <DataGrid x:Name="DataGridAccommodations" ItemsSource="{Binding Guest1VM.Accommodations, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
@@ -40,6 +46,8 @@
                                     <Label Content="Minimal number of days for reservation :" Margin="0,0,-7,-7" ></Label>
                                     <Label Content="{Binding Path=MinDaysForReservation}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
                                 </StackPanel>
+                                <Image Source="https://img.icons8.com/fluency/2x/star.png" Height="30" Margin="400 -70 0 0" 
+                                       Visibility="{Binding Path=Owner.IsSuperHost, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Image>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
