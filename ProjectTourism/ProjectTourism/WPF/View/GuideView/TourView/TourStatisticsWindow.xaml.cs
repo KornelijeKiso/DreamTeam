@@ -38,11 +38,11 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             SetVisits();
             SetComboBox();
             SortedTours = new ObservableCollection<TourVM>(SortedToursList);
-            TourPercentage = new ObservableCollection<double>();
             StatsLabels.Visibility = Visibility.Collapsed;
         }
         private void StatsButton_Click(object sender, RoutedEventArgs e)
         {
+            FieldSet.Header = SelectedTour.Name;
             CalculateTicketPercentage(SelectedTour);
             StatsLabels.Visibility = Visibility.Visible;
         }

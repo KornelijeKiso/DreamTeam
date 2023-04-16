@@ -61,7 +61,7 @@
                                 </StackPanel>
                                 <Button HorizontalAlignment="Right" Height="35" Width="35" Margin="0, -25, 10, 0" Click="StatsButton_Click">
                                     <Button.Background>
-                                        <ImageBrush ImageSource="https://www.inventicons.com/uploads/iconset/1452/wm/512/statistics-22.png" />
+                                        <ImageBrush ImageSource="https://i.pinimg.com/564x/df/f9/82/dff9823eb1ec2d29b41913332689b8f7.jpg" />
                                     </Button.Background>
                                 </Button>
                             </StackPanel>
@@ -81,7 +81,7 @@
         </DataGrid>
         
         <Grid x:Name="StatsGrid">
-            <GroupBox Header="Golden Age Of Athens Tour" Margin="759,167,0,0" Height="371" Width="450" FontSize="15" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="#FF61676B" Background="#FF9BC8EC" FontWeight="SemiBold">
+            <GroupBox x:Name="FieldSet" Header="Tour statistics" Margin="759,167,0,0" Height="371" Width="450" FontSize="15" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="#FF61676B" Background="#FF9BC8EC" FontWeight="SemiBold">
                 <StackPanel x:Name="StatsLabels">
                     <TextBlock Margin="0,0,0,-7">
                         <Run Text="Tickets: "/>
