@@ -39,6 +39,7 @@ namespace ProjectTourism.WPF.ViewModel
             LocationService locationService = new LocationService(new LocationRepository());
             GuideService guideService = new GuideService(new GuideRepository());
             Guest2Service guest2Service = new Guest2Service(new Guest2Repository());
+            VoucherService voucherService = new VoucherService(new VoucherRepository());
 
             _guide = guideService.GetOne(username);
             foreach (var tour in tourService.GetAll())
@@ -53,6 +54,7 @@ namespace ProjectTourism.WPF.ViewModel
                         tourApp.Tour = tour;
                         foreach (var ticket in ticketService.GetByAppointment(tourApp.Id))
                         {
+                            ticket.HasVoucher = voucherService.GetOneByTicket(ticket.Id) != null;
                             ticket.TourAppointment = tourApp;
                             ticket.Guest2 = guest2Service.GetOne(ticket.Guest2Username);
                             ticket.TicketGrade = ticketGradeService.GetOneByTicket(ticket.Id);

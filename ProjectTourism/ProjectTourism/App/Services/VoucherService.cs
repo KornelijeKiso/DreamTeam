@@ -28,6 +28,10 @@ namespace ProjectTourism.Services
             return VoucherRepository.GetOne(id);
         }
 
+        public Voucher GetOneByTicket(int ticketId)
+        {
+            return VoucherRepository.GetOneByTicket(ticketId);
+        }
         public List<Voucher> GetAll()
         {
             return VoucherRepository.GetAll();

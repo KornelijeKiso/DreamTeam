@@ -10,6 +10,7 @@ namespace ProjectTourism.Domain.IRepositories
     public interface IVoucherRepository
     {
         Voucher GetOne(int voucherId);
+        Voucher GetOneByTicket(int ticketId);
         List<Voucher> GetAll();
         void Add(Voucher voucher);
         void Delete(Voucher voucher);

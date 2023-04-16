@@ -20,17 +20,22 @@ namespace ProjectTourism.Model
         public DateTime ValidDue { get; set; }
         public STATUS Status { get; set; }
         public string Description { get; set; }
+        public Ticket Ticket { get; set; }
+        public int TicketId { get; set; }
 
         public Voucher()
-        {}
+        {
+            TicketId = -1;
+        }
 
-        public Voucher(string guest2username, DateTime validFrom, DateTime validDue, STATUS status, string description)
+        public Voucher(string guest2username, DateTime validFrom, DateTime validDue, STATUS status, string description, int ticketId)
         {
             Guest2Username = guest2username;
             ValidFrom = validFrom;
             ValidDue = validDue;
             Status = status;
             Description = description;
+            TicketId = ticketId;
         }
 
         public string[] ToCSV()
@@ -42,7 +47,8 @@ namespace ProjectTourism.Model
                 ValidFrom.ToString("dd.MM.yyyy HH:mm"),
                 ValidDue.ToString("dd.MM.yyyy HH:mm"),
                 Status.ToString(),
-                Description
+                Description, 
+                TicketId.ToString()
             };
             return csvValues;
         }
@@ -68,6 +74,7 @@ namespace ProjectTourism.Model
                     { Status = STATUS.VALID; break; }
             }
             Description = values[5];
+            TicketId = int.Parse(values[6]);
         }
     }
 }

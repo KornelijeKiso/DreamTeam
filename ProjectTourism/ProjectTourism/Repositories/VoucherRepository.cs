@@ -69,6 +69,14 @@ namespace ProjectTourism.Repositories
             return null;
         }
 
+        public Voucher GetOneByTicket(int ticketId)
+        {
+            foreach (var voucher in Vouchers)
+            {
+                if (voucher.TicketId == ticketId) return voucher;
+            }
+            return null;
+        }
         public List<Voucher> GetAll()
         {
             return Vouchers;

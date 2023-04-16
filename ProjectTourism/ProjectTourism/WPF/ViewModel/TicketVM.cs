@@ -37,6 +37,18 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
+        public bool HasVoucher
+        {
+            get => _ticket.HasVoucher;
+            set
+            {
+                if (value != _ticket.HasVoucher)
+                {
+                    _ticket.HasVoucher = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public SolidColorBrush ButtonColor
         {
             get => _ticket.ButtonColor;
