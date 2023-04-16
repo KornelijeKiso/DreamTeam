@@ -42,7 +42,6 @@ namespace ProjectTourism.Model
         public List<string> StopsList { get; set; }
         public Guide Guide;
         public bool IsValid;
-        public int Visits;
         public List<TourAppointment> TourAppointments { get; set; }
         
 

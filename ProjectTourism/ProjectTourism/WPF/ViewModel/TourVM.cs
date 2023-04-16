@@ -35,18 +35,7 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public int Visits
-        {
-            get => _tour.Visits;
-            set
-            {
-                if (value != _tour.Visits)
-                {
-                    _tour.Visits = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        
         public List<string> StopsList
         {
             get => _tour.StopsList;

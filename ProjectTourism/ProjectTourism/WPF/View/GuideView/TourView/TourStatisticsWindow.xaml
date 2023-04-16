@@ -8,8 +8,8 @@
     <Grid>
         <Label Content="Tour statistics" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         <DataGrid x:Name="DataGridTours" 
-                    ItemsSource="{Binding SortedTours, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{Binding TourAppsObs, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding SelectedTourApp, UpdateSourceTrigger=PropertyChanged}"
                     SelectionMode="Single"
                     VerticalScrollBarVisibility="Visible" 
                     IsReadOnly="True" AutoGenerateColumns="False" Margin="50,263,684,49" RowHeight="100" HeadersVisibility="None" >
@@ -27,7 +27,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Image Stretch="Fill" 
-                                   Source="{Binding Pictures[0]}"/>
+                                   Source="{Binding Path=Tour.Pictures[0]}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -36,7 +36,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" >
-                                <Label Content="{Binding Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
+                                <Label Content="{Binding Path=Tour.Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
                                     <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
                                     <Label Margin="0,0,0,-7">
@@ -44,8 +44,8 @@
                                             <TextBlock>
                                                 <TextBlock.Text>
                                                     <MultiBinding StringFormat="{}{0}, {1}">
-                                                        <Binding Path="Location.Country" />
-                                                        <Binding Path="Location.City" />
+                                                        <Binding Path="Tour.Location.Country" />
+                                                        <Binding Path="Tour.Location.City" />
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
@@ -54,10 +54,10 @@
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
                                     <Label Content="Language :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Content="{Binding Language}" Margin="0,-0.8,0,0"></Label>
+                                    <Label Content="{Binding Path=Tour.Language}" Margin="0,-0.8,0,0"></Label>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label ContentStringFormat="Duration : {0}h" Content="{Binding Duration}" Margin="0,0,-7,-7" ></Label>
+                                    <Label ContentStringFormat="Duration : {0}h" Content="{Binding Path=Tour.Duration}" Margin="0,0,-7,-7" ></Label>
                                 </StackPanel>
                                 <Button HorizontalAlignment="Right" Height="35" Width="35" Margin="0, -25, 10, 0" Click="StatsButton_Click">
                                     <Button.Background>
@@ -85,12 +85,12 @@
                 <StackPanel x:Name="StatsLabels">
                     <TextBlock Margin="0,0,0,-7">
                         <Run Text="Tickets: "/>
-                        <Run Text="{Binding TourPercentage[0]}"/>
+                        <Run Text="{Binding TourAppPercentage[0]}"/>
                         <Run Text="%"/>
                     </TextBlock>
                     <TextBlock Margin="0,0,0,-7">
                         <Run Text="Vouchers: "/>
-                        <Run Text="{Binding TourPercentage[1]}"/>
+                        <Run Text="{Binding TourAppPercentage[1]}"/>
                         <Run Text="%"/>
                     </TextBlock>
                 </StackPanel>

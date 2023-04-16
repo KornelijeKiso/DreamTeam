@@ -28,6 +28,7 @@ namespace ProjectTourism.Model
         public TOURSTATE State;
         public bool IsNotFinished;
         public bool IsFinished;
+        public int Visits;
 
         public TourAppointment()
         { 

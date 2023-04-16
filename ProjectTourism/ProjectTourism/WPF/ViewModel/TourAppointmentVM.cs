@@ -37,6 +37,18 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+        public int Visits
+        {
+            get => _tourAppointment.Visits;
+            set
+            {
+                if (value != _tourAppointment.Visits)
+                {
+                    _tourAppointment.Visits = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public DateTime TourDateTime
         {
             get => _tourAppointment.TourDateTime;
