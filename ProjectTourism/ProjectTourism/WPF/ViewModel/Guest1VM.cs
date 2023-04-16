@@ -1,7 +1,13 @@
 ﻿using ProjectTourism.Model;
+using ProjectTourism.WPF.ViewModel;
+using ProjectTourism.Observer;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -12,6 +18,15 @@ namespace ProjectTourism.WPF.ViewModel
     public class Guest1VM:INotifyPropertyChanged
     {
         private Guest1 _guest1;
+        public ObservableCollection<OwnerVM> OwnerVMs { get; set; }
+        public ObservableCollection<AccommodationVM> Accommodations { get; set; }
+
+        public Guest1VM(string username)
+        {
+            AccommodationService accommodationService = new AccommodationService(new AccommodationRepository());
+            Accommodations = new ObservableCollection<AccommodationVM>(accommodationService.GetAll().Select(r => new AccommodationVM(r)).ToList().OrderByDescending(a => a.Owner.IsSuperHost).ToList());
+            
+        }
         public Guest1VM(Guest1 guest1)
         {
             _guest1 = guest1;

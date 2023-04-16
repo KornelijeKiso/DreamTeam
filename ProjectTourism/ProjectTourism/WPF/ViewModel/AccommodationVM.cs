@@ -151,7 +151,7 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public OwnerVM Owner
         {
-            get => new OwnerVM(_accommodation.Owner.Username);
+            get => new OwnerVM(_accommodation.OwnerUsername);
             set
             {
                 if (value.GetOwner() != _accommodation.Owner)
