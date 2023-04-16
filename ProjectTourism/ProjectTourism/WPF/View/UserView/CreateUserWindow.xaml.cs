@@ -35,14 +35,17 @@ namespace ProjectTourism.View.UserView
         public UserVM User { get; set; }
         public UserService UserService { get; set; }
         public OwnerService OwnerService { get; set; }
+        public GuideService GuideService { get; set; }
         public OwnerVM Owner { get; set; }
+        public GuideVM Guide { get; set; }
         public CreateUserWindow()
         {
             InitializeComponent();
             DataContext = this;
             User = new UserVM(new User());
             UserService = new UserService(new UserRepository());
-            OwnerService= new OwnerService(new OwnerRepository());
+            OwnerService = new OwnerService(new OwnerRepository());
+            GuideService = new GuideService(new GuideRepository());
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -66,8 +69,9 @@ namespace ProjectTourism.View.UserView
                 }
                 else if (User.Type == USERTYPE.GUIDE)
                 {
-                    CreateGuideWindow createGuideWindow = new CreateGuideWindow(User);
-                    createGuideWindow.ShowDialog();
+                    Guide = new GuideVM(new Model.Guide(User.GetUser()));
+                    UserService.Add(User);
+                    GuideService.Add(Guide.GetGuide());
                     Close();
                 }
                 else if (User.Type == USERTYPE.GUEST1)
