@@ -39,6 +39,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             SetComboBox();
             
             StatsLabels.Visibility = Visibility.Collapsed;
+            Update();
         }
         private void StatsButton_Click(object sender, RoutedEventArgs e)
         {
@@ -59,7 +60,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         private void SetVisits()
         {
             foreach (var tourApp in TourApps)
-    {
+            {
                 tourApp.Visits = tourApp.Tickets.Count;
             }
             TourApps.Sort((t1, t2) => t2.Visits.CompareTo(t1.Visits));
@@ -73,9 +74,10 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         {
             SelectedYear = (int)comboboxYears.SelectedItem;
          
-            TourApps.Clear();   foreach (var tourApp in Guide.TourAppointments)
+            TourApps.Clear();
+            foreach (var tourApp in Guide.TourAppointments)
             {
-                if (tourApp.TourDateTime.Year == SelectedYear)
+                if (tourApp.TourDateTime.Year == SelectedYear && tourApp.State.Equals(TOURSTATE.FINISHED))
                     TourApps.Add(tourApp);
             }
             SetVisits();
@@ -84,9 +86,8 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         private List<int> GetYears()
         {
             List<int> years = new List<int>();
-
-
-            foreach (var tourApp in TourApps)
+            Update();
+            foreach (var tourApp in TourAppsObs)
             {
                 int year = tourApp.TourDateTime.Year;
                 if (!years.Contains(year))
@@ -122,7 +123,8 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             TourAppsObs.Clear();
             foreach (var tourApp in TourApps)
             {
-                TourAppsObs.Add(tourApp);
+                if(tourApp.State == TOURSTATE.FINISHED)
+                    TourAppsObs.Add(tourApp);
             }
         }
     }
