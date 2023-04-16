@@ -33,13 +33,16 @@ namespace ProjectTourism.View.UserView
     public partial class CreateUserWindow : Window, INotifyPropertyChanged, IObserver
     {
         public UserVM User { get; set; }
-        public UserService Service { get; set; }
+        public UserService UserService { get; set; }
+        public OwnerService OwnerService { get; set; }
+        public OwnerVM Owner { get; set; }
         public CreateUserWindow()
         {
             InitializeComponent();
             DataContext = this;
             User = new UserVM(new User());
-            Service = new UserService(new UserRepository());
+            UserService = new UserService(new UserRepository());
+            OwnerService= new OwnerService(new OwnerRepository());
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -56,8 +59,9 @@ namespace ProjectTourism.View.UserView
             {
                 if (User.Type == USERTYPE.OWNER)
                 {
-                    CreateOwnerWindow CreateOwnerWindow = new CreateOwnerWindow(User);
-                    CreateOwnerWindow.ShowDialog();
+                    Owner = new OwnerVM(new Model.Owner(User.GetUser()));
+                    UserService.Add(User);
+                    OwnerService.Add(Owner.GetOwner());
                     Close();
                 }
                 else if (User.Type == USERTYPE.GUIDE)
@@ -88,7 +92,7 @@ namespace ProjectTourism.View.UserView
         private bool IsValidUsername()
         {
             string username = txtUsername.Text;
-            if (Service.UsernameAlreadyInUse(username))
+            if (UserService.UsernameAlreadyInUse(username))
             {
                 MessageBox.Show("Username already in use.");
                 return false;
