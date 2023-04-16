@@ -22,6 +22,8 @@ namespace ProjectTourism.WPF.ViewModel
         {
             _tourAppointment = tourAppointment;
             Tickets = new ObservableCollection<TicketVM>(_tourAppointment.Tickets.Select(r => new TicketVM(r)).ToList());
+            Vouchers = new ObservableCollection<VoucherVM>(_tourAppointment.Vouchers.Select(v => new VoucherVM(v)).ToList());
+            Synchronize();
         }
         public TourAppointment GetTourAppointment()
         {
@@ -97,6 +99,7 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
         public ObservableCollection<TicketVM> Tickets;
+        public ObservableCollection<VoucherVM> Vouchers;
         public int AvailableSeats
         {
             get => _tourAppointment.AvailableSeats;

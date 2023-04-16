@@ -70,6 +70,7 @@ namespace ProjectTourism.WPF.ViewModel
                     _guide.TourAppointments.AddRange(tour.TourAppointments);
                 }
             }
+            //ONLY FOR CHECK///////////
             bool ok = false;
             foreach(var tour in _guide.Tours)
             {
@@ -79,6 +80,7 @@ namespace ProjectTourism.WPF.ViewModel
                         ok = true;
                 }
             }
+            ///////////////////////////
         }
         public void CancelAppointment(TourAppointmentVM tourApp)
         {
