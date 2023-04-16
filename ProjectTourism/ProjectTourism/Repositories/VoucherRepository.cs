@@ -73,12 +73,13 @@ namespace ProjectTourism.Repositories
             List<Voucher> list = new List<Voucher>();
             foreach (var voucher in Vouchers)
             {
-                if (voucher.Ticket.TourAppointment.Id == tourAppointmentId)
+                if (voucher.Ticket != null && voucher.Ticket.TourAppointment.Id == tourAppointmentId)
+                {
                     list.Add(voucher);
+                }
             }
             return list;
         }
-
         public List<Voucher> GetAll()
         {
             return Vouchers;

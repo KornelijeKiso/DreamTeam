@@ -23,6 +23,7 @@ namespace ProjectTourism.WPF.ViewModel
             Tours = new ObservableCollection<TourVM>(_guide.Tours.Select(r => new TourVM(r)).ToList());
             TourAppointments = new ObservableCollection<TourAppointmentVM>(_guide.TourAppointments.Select(r => new TourAppointmentVM(r)).ToList());
             TodaysAppointments = new ObservableCollection<TourAppointmentVM>(TourAppointments.Where(t => t.TourDateTime.Date.Equals(DateTime.Now.Date)));
+            
         }
         public GuideVM(string username)
         {
@@ -55,7 +56,6 @@ namespace ProjectTourism.WPF.ViewModel
                     foreach (var tourApp in tourAppointmentService.GetAllByTour(tour.Id))
                     {
                         tourApp.Tour = tour;
-                        tourApp.Vouchers.AddRange(voucherService.GetAllByTourAppointment(tourApp.Id));
                         foreach (var ticket in ticketService.GetByAppointment(tourApp.Id))
                         {
                             ticket.TourAppointment = tourApp;
@@ -64,9 +64,19 @@ namespace ProjectTourism.WPF.ViewModel
                             tourApp.Tickets.Add(ticket);
                         }
                         tour.TourAppointments.Add(tourApp);
+                        tourApp.Vouchers.AddRange(voucherService.GetAllByTourAppointment(tourApp.Id));
                     }
                     _guide.Tours.Add(tour);
                     _guide.TourAppointments.AddRange(tour.TourAppointments);
+                }
+            }
+            bool ok = false;
+            foreach(var tour in _guide.Tours)
+            {
+                foreach(var tourApp in tour.TourAppointments)
+                {
+                    if (tourApp.Vouchers.Count() > 0)
+                        ok = true;
                 }
             }
         }

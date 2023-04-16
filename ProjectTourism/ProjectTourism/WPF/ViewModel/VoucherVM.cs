@@ -117,14 +117,14 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public Ticket Ticket
+        public TicketVM Ticket
         {
-            get => _voucher.Ticket;
+            get => new TicketVM(_voucher.Ticket);
             set
             {
-                if (value != _voucher.Ticket)
+                if (value.GetTicket() != _voucher.Ticket)
                 {
-                    _voucher.Ticket = value;
+                    _voucher.Ticket = value.GetTicket();
                     OnPropertyChanged();
                 }
             }
