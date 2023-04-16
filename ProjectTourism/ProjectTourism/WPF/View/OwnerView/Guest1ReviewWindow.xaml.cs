@@ -90,26 +90,14 @@ namespace ProjectTourism.View.OwnerView
         }
         public void BackwardsClick(object sender, RoutedEventArgs e)
         {
-            if (i > 0)
-            {
-                i--;
-            }
-            else
-            {
-                i = Reservation.AccommodationGrade.Pictures.Length - 1;
-            }
+            if (i > 0) i--;
+            else i = Reservation.AccommodationGrade.Pictures.Length - 1;
             Picture = Reservation.AccommodationGrade.Pictures[i];
         }
         public void ForwardClick(object sender, RoutedEventArgs e)
         {
-            if (i < Reservation.AccommodationGrade.Pictures.Length-1)
-            {
-                i++;
-            }
-            else
-            {
-                i = 0;
-            }
+            if (i < Reservation.AccommodationGrade.Pictures.Length-1) i++; 
+            else i = 0; 
             Picture = Reservation.AccommodationGrade.Pictures[i];
         }
     }
