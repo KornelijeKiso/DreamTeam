@@ -1,5 +1,4 @@
 ﻿using ProjectTourism.Model;
-using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Repositories.IRepositories;
@@ -15,11 +14,9 @@ namespace ProjectTourism.Services
     public class AccommodationService
     {
         private IAccommodationRepository AccommodationRepo;
-        public List<IObserver> Observers;
         public AccommodationService(IAccommodationRepository iar)
         {
             AccommodationRepo= iar;
-            Observers = new List<IObserver>();
         }
         public void Add(Accommodation accommodation)
         {
@@ -40,23 +37,6 @@ namespace ProjectTourism.Services
         public List<Accommodation> GetAllByOwner(string username)
         {
             return AccommodationRepo.GetAllByOwner(username);
-        }
-        public void Subscribe(IObserver observer)
-        {
-            Observers.Add(observer);
-        }
-
-        public void Unsubscribe(IObserver observer)
-        {
-            Observers.Remove(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            foreach (var observer in Observers)
-            {
-                observer.Update();
-            }
         }
     }
 }

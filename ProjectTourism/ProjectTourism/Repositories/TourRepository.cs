@@ -69,15 +69,19 @@ namespace ProjectTourism.Repositories
         }
         public List<string> GetStops(Tour tour)
         {
-            List<string> stops = new List<string>();
-            string[] str = tour.Stops.Split(',');
-            foreach (string s in str)
+            if(tour.Stops != null)
             {
-                stops.Add(s.Trim());
+                List<string> stops = new List<string>();
+                string[] str = tour.Stops.Split(',');
+                foreach (string s in str)
+                {
+                    stops.Add(s.Trim());
+                }
+                stops.Insert(0, tour.Start);
+                stops.Add(tour.Finish);
+                return stops;
             }
-            stops.Insert(0, tour.Start);
-            stops.Add(tour.Finish);
-            return stops;
+            return null;
         }
     }
 }

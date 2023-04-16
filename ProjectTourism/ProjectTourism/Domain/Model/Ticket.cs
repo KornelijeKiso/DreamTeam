@@ -22,8 +22,8 @@ namespace ProjectTourism.Model
         public bool HasGuideChecked;
         public bool HasGuestConfirmed;
         public TicketGrade TicketGrade;
-        public Ticket()
-        {  }
+        public bool HasVoucher;
+        public Ticket() { HasVoucher = false; }
 
         public Ticket(int id, int tourAppId, string tourStop, string guest2Username, int numberOfGuests)
         {

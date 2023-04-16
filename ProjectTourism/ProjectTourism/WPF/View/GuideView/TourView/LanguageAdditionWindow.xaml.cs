@@ -28,33 +28,27 @@ namespace ProjectTourism.View.GuideView.TourView
     public partial class LanguageAdditionWindow : Window, INotifyPropertyChanged, IObserver
     {
         public ObservableCollection<string> ObserverLanguages = new ObservableCollection<string>();
-        public TourService TourService { get; set; }
         public bool LanguageAdded { get; set; }
         public LanguageAdditionWindow(ObservableCollection<string> observerLanguages)
         {
             InitializeComponent();
             DataContext = this;
-            TourService = new TourService(new TourRepository());
-            TourService.Subscribe(this);
             ObserverLanguages = observerLanguages;
         }
-
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public void Update()
-        {
-
         }
         private void AddLanguageButton_Click(object sender, RoutedEventArgs e)
         {
             ObserverLanguages.Add(LanguageTextBox.Text);
             LanguageAdded = true;
             Close();
+        }
+        public event PropertyChangedEventHandler? PropertyChanged;
+        public void Update()
+        {
+
         }
     }
 }

@@ -13,7 +13,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Xml.Linq;
-using ProjectTourism.ModelDAO;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using ProjectTourism.WPF.ViewModel;
@@ -43,6 +42,7 @@ namespace ProjectTourism.Model
         public List<string> StopsList { get; set; }
         public Guide Guide;
         public bool IsValid;
+        public int Visits;
         public List<TourAppointment> TourAppointments { get; set; }
         
 

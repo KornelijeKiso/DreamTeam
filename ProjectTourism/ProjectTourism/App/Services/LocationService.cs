@@ -13,12 +13,10 @@ namespace ProjectTourism.Services
 {
     public class LocationService
     {
-        public List<IObserver> Observers;
         private ILocationRepository LocationRepo;
         public LocationService(ILocationRepository ilr)
         {
             LocationRepo = ilr;
-            Observers = new List<IObserver>();
         }
         public int AddAndReturnId(Location location)
         {
@@ -35,21 +33,6 @@ namespace ProjectTourism.Services
         public List<Location> GetAll()
         {
             return LocationRepo.GetAll();
-        }
-        public void Subscribe(IObserver observer)
-        {
-            Observers.Add(observer);
-        }
-        public void Unsubscribe(IObserver observer)
-        {
-            Observers.Remove(observer);
-        }
-        public void NotifyObservers()
-        {
-            foreach (var observer in Observers)
-            {
-                observer.Update();
-            }
         }
     }
 }

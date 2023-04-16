@@ -50,15 +50,7 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public string[] Pictures
         {
-            get => _accommodation.Pictures;
-            set
-            {
-                if (value != _accommodation.Pictures)
-                {
-                    _accommodation.Pictures = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => GetPictureURLsFromCSV(PictureURLs);
         }
         public string Name
         {
@@ -96,18 +88,7 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public string CityAndCountry
-        {
-            get => _accommodation.CityAndCountry;
-            set
-            {
-                if (value != _accommodation.CityAndCountry)
-                {
-                    _accommodation.CityAndCountry = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        
         public ACCOMMODATIONTYPE Type
         {
             get => _accommodation.Type;
@@ -185,17 +166,14 @@ namespace ProjectTourism.WPF.ViewModel
         {
             Location = new LocationVM(location);
             LocationId = location.Id;
-            CityAndCountry = location.City + ", " + location.Country;
         }
         public void Reset()
         {
-            Name = "";
-            CityAndCountry = "";    
+            Name = "";  
             MaxNumberOfGuests= 1;
             MinDaysForReservation = 1;
             CancellationDeadline = 1;
             PictureURLs = "";
-            Pictures = GetPictureURLsFromCSV(PictureURLs);
             _accommodation.Reset();
         }
 
@@ -206,7 +184,7 @@ namespace ProjectTourism.WPF.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public string[] GetPictureURLsFromCSV(string source)
+        private string[] GetPictureURLsFromCSV(string source)
         {
             string[] pictures = source.Split(',');
             foreach (var picture in pictures)

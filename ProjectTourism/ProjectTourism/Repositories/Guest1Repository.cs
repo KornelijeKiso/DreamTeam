@@ -1,7 +1,6 @@
 ﻿using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.FileHandler;
 using ProjectTourism.Model;
-using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
 using ProjectTourism.Repositories.IRepositories;
 using System;

@@ -7,11 +7,11 @@
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
         <DataGrid x:Name="DataGridTourAppointments" 
-                    ItemsSource="{Binding Path=Guide.TodaysAppointments, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding SelectedTourAppointment, UpdateSourceTrigger=PropertyChanged}" 
-                    SelectionMode="Single"
-                    VerticalScrollBarVisibility="Visible" 
-                    IsReadOnly="True" AutoGenerateColumns="False" Margin="345,147,345,131" RowHeight="100" HeadersVisibility="None" >
+    ItemsSource="{Binding Path=Guide.TodaysAppointments, UpdateSourceTrigger=PropertyChanged}"
+    SelectedItem="{Binding SelectedTourAppointment, UpdateSourceTrigger=PropertyChanged}" 
+    SelectionMode="Single"
+    VerticalScrollBarVisibility="Visible" 
+    IsReadOnly="True" AutoGenerateColumns="False" Margin="345,147,345,131" RowHeight="100" HeadersVisibility="None" GridLinesVisibility="Horizontal" >
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
             </DataGrid.Resources>
@@ -21,12 +21,11 @@
                 </Style>
             </DataGrid.CellStyle>
             <DataGrid.Columns>
-
                 <DataGridTemplateColumn Width="120" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Image Stretch="Fill" 
-                                   Source="{Binding Tour.Pictures[0]}"/>
+                        Source="{Binding Tour.Pictures[0]}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -62,9 +61,27 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Margin="0,0,0,-7" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Label.Content>
+                                    <TextBlock>
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{} {0}:{1}">
+                                                <Binding Path="TourDateTime.Hour" />
+                                                <Binding Path="TourDateTime.Minute" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </Label.Content>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
-
         </DataGrid>
+
 
         <!--<DataGrid CanUserAddRows="False" HorizontalAlignment="Left" Height="166" VerticalAlignment="Top" Width="785" SelectedItem="{Binding SelectedTourAppointment, UpdateSourceTrigger=PropertyChanged}" 
                   ItemsSource="{Binding TourAppointments, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="52,402,0,0">

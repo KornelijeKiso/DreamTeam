@@ -1,7 +1,6 @@
 ﻿using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.Domain.Model;
 using ProjectTourism.Model;
-using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.WPF.ViewModel;
@@ -15,12 +14,10 @@ namespace ProjectTourism.Services
 {
     public class PostponeRequestService
     {
-        public List<IObserver> Observers;
         private IPostponeRequestRepository PostponeRequestRepo;
         public PostponeRequestService(IPostponeRequestRepository iprr)
         {
             PostponeRequestRepo = iprr;
-            Observers = new List<IObserver>();
         }
         public void Add(PostponeRequest postponeRequest)
         {
@@ -45,23 +42,6 @@ namespace ProjectTourism.Services
         public void Update(PostponeRequest postponeRequest)
         {
             PostponeRequestRepo.Update(postponeRequest);
-        }
-        public void Subscribe(IObserver observer)
-        {
-            Observers.Add(observer);
-        }
-
-        public void Unsubscribe(IObserver observer)
-        {
-            Observers.Remove(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            foreach (var observer in Observers)
-            {
-                observer.Update();
-            }
         }
     }
 }

@@ -56,19 +56,21 @@ namespace ProjectTourism.View.UserView
                         {
                             MainOwnerWindow mainOwnerWindow = new MainOwnerWindow(UserVM.Username);
                             mainOwnerWindow.ShowDialog();
+                            Clear(); 
                             break; 
                         }
                     case USERTYPE.GUIDE:
                         {
                             MainGuideWindow mainGuideWindow = new MainGuideWindow(UserVM.Username);
                             mainGuideWindow.ShowDialog();
+                            Clear(); 
                             break;
                         }
                     case USERTYPE.GUEST1:
                         {
                             Guest1MainWindow guest1mainWindow = new Guest1MainWindow(UserVM.Username);
                             guest1mainWindow.ShowDialog();
-                            
+                            Clear();
                             break;
                         }
                     case USERTYPE.GUEST2:
@@ -76,6 +78,7 @@ namespace ProjectTourism.View.UserView
                             //MainGuest2Window mainGuest2Window = new MainGuest2Window(User.Username);
                             Guest2MainWindow mainGuest2Window = new Guest2MainWindow(UserVM.Username);
                             mainGuest2Window.ShowDialog();
+                            Clear();
                             break;
                         }
 
@@ -91,6 +94,12 @@ namespace ProjectTourism.View.UserView
         {
             CreateUserWindow CreateUser = new CreateUserWindow();
             CreateUser.ShowDialog();
+        }
+
+        private void Clear()
+        {
+            txtUsername.Text = string.Empty;
+            txtPassword.Password = string.Empty;
         }
     }
 }

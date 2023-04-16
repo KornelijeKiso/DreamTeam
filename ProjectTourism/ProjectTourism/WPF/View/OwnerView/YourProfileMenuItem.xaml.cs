@@ -37,12 +37,12 @@ namespace ProjectTourism.WPF.View.OwnerView
                 }
             }
         }
-        public YourProfileMenuItem(OwnerVM owner)
+        public YourProfileMenuItem(string username)
         {
             InitializeComponent();
             DataContext = this;
-            Owner = owner;
-            Average = owner.AverageGrade.ToString("0.0");
+            Owner = new OwnerVM(username);
+            Average = Owner.AverageGrade.ToString("0.0");
         }
         private void Hyperlink_Click(object sender, RoutedEventArgs e)
         {

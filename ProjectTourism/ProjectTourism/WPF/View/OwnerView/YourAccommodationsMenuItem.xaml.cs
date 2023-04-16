@@ -150,55 +150,27 @@ namespace ProjectTourism.WPF.View.OwnerView
 
         public void IncreaseMaxNumberOfGuestsClick(object sender, RoutedEventArgs e)
         {
-            if (NewAccommodation.MaxNumberOfGuests < 15)
-            {
                 NewAccommodation.MaxNumberOfGuests++;
                 if (NewAccommodation.MaxNumberOfGuests == 15) IncDecButtons[0] = false;
                 IncDecButtons[1] = true;
-            }
-            else
-            {
-                IncDecButtons[0] = false;
-            }
         }
         public void DecreaseMaxNumberOfGuestsClick(object sender, RoutedEventArgs e)
         {
-            if (NewAccommodation.MaxNumberOfGuests > 1)
-            {
                 NewAccommodation.MaxNumberOfGuests--;
                 if (NewAccommodation.MaxNumberOfGuests == 1) IncDecButtons[1] = false;
                 IncDecButtons[0] = true;
-            }
-            else
-            {
-                IncDecButtons[1] = false;
-            }
         }
         public void IncreaseMinDaysForReservationClick(object sender, RoutedEventArgs e)
         {
-            if (NewAccommodation.MinDaysForReservation < 7)
-            {
                 NewAccommodation.MinDaysForReservation++;
                 if (NewAccommodation.MinDaysForReservation == 7) IncDecButtons[2] = false;
                 IncDecButtons[3] = true;
-            }
-            else
-            {
-                IncDecButtons[2] = false;
-            }
         }
         public void DecreaseMinDaysForReservationClick(object sender, RoutedEventArgs e)
         {
-            if (NewAccommodation.MinDaysForReservation > 1)
-            {
                 NewAccommodation.MinDaysForReservation--;
                 if (NewAccommodation.MinDaysForReservation == 1) IncDecButtons[3] = false;
                 IncDecButtons[2] = true;
-            }
-            else
-            {
-                IncDecButtons[3] = false;
-            }
         }
         
     }

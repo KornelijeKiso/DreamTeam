@@ -12,7 +12,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <Button x:Name="StopPassedButton" IsEnabled="{Binding TourAppointment.IsNotFinished}" Content="Start" HorizontalAlignment="Left" Height="48" Margin="1064,466,0,0" VerticalAlignment="Top" Width="134" Click="StopPassedButton_Click"/>
+        <Button x:Name="StopPassedButton" IsEnabled="{Binding TourAppointment.IsNotFinished}" Content="Start" HorizontalAlignment="Left" Height="48" Margin="1064,466,0,0" VerticalAlignment="Top" Width="134" Click="CheckpointPassedButton_Click"/>
         <Button IsCancel="True" x:Name="EmergencyStopButton" IsEnabled="{Binding TourAppointment.IsNotFinished}" Content="Emergency stop" HorizontalAlignment="Left" Height="46" Margin="1064,540,0,0" VerticalAlignment="Top" Width="134" Background="#FFEF4343" Click="EmergencyStopButton_Click"/>
         <Label Name="CurrentTourStopLabel" Content="Current tour stop" HorizontalAlignment="Left" Margin="104,52,0,0" VerticalAlignment="Top" FontSize="22"/>
         <TextBox x:Name="StopTextBox" HorizontalAlignment="Left" Height="42" Margin="104,104,0,0" TextWrapping="Wrap" Text="{Binding Path=TourAppointment.CurrentTourStop}" VerticalAlignment="Top" Width="408" FontSize="14" TextChanged="TextBox_TextChanged" IsEnabled="False"/>
@@ -21,8 +21,8 @@
                   SelectedItem="{Binding SelectedTicket, UpdateSourceTrigger=PropertyChanged}" 
                   ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="104,211,0,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="FirstName" Width="150" Binding="{Binding Path=Guest2.FirstName}"/>
-                <DataGridTextColumn Header="LastName" Width="150" Binding="{Binding Path=Guest2.LastName}"/>
+                <DataGridTextColumn Header="Username" Width="330" Binding="{Binding Path=Guest2Username}"/>
+                <!--<DataGridTextColumn Header="LastName" Width="150" Binding="{Binding Path=Guest2.LastName}"/>-->
                 <DataGridTemplateColumn Width="*">
                     <DataGridTemplateColumn.Header>
                         <TextBlock Text="Status"/>

@@ -1,6 +1,5 @@
 ﻿using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.Model;
-using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.WPF.ViewModel;
@@ -14,12 +13,10 @@ namespace ProjectTourism.Services
 {
     public class OwnerService
     {
-        public List<IObserver> Observers;
         private IOwnerRepository OwnerRepo;
         public OwnerService(IOwnerRepository ior)
         {
             OwnerRepo = ior;
-            Observers = new List<IObserver>();
         }
         public void Add(Owner owner)
         {
@@ -36,21 +33,6 @@ namespace ProjectTourism.Services
         public List<Owner> GetAll()
         {
             return OwnerRepo.GetAll();
-        }
-        public void Subscribe(IObserver observer)
-        {
-            Observers.Add(observer);
-        }
-        public void Unsubscribe(IObserver observer)
-        {
-            Observers.Remove(observer);
-        }
-        public void NotifyObservers()
-        {
-            foreach (var observer in Observers)
-            {
-                observer.Update();
-            }
         }
     }
 }

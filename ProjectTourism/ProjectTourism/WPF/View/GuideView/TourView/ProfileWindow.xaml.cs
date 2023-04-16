@@ -23,36 +23,43 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
     public partial class ProfileWindow : UserControl
     {
         public GuideVM Guide { get; set; }
+        private List<UIElement> profileUIElements;
         public ProfileWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
             Guide = new GuideVM(username);
+            SetProfilesElements();
+        }
+
+        private void SetProfilesElements()
+        {
+            profileUIElements = new List<UIElement>
+            {
+                NameSurnameLabel, usernamelabel, EmailLabel, PhoneNumberLabel, LanguagesLabel,
+                BioLabel, MaxGuestsLabel, DarkThemeLabel, textbox1, textbox2, textbox3, textbox4,
+                textbox5, toggleSwitch, rectangle, LinkSignOut, TourStatsLink
+            };
+        }
+        private void SignOutLink_Click(object sender, RoutedEventArgs e)
+        {
+            Window parentWindow = Window.GetWindow(this);
+            if (parentWindow != null)
+            {
+                parentWindow.Close();
+            }
         }
         private void TourStatistics_Click(object sender, RoutedEventArgs e)
         {
             HideProfilesContent();
-            ContentArea.Content = new TourStatisticsWindow();
+            ContentArea.Content = new TourStatisticsWindow(Guide.Username);
         }
         private void HideProfilesContent()
         {
-            NameSurnameLabel.Visibility = Visibility.Collapsed;
-            usernamelabel.Visibility = Visibility.Collapsed;
-            EmailLabel.Visibility = Visibility.Collapsed;
-            PhoneNumberLabel.Visibility = Visibility.Collapsed;
-            LanguagesLabel.Visibility = Visibility.Collapsed;
-            BioLabel.Visibility = Visibility.Collapsed;
-            MaxGuestsLabel.Visibility = Visibility.Collapsed;
-            DarkThemeLabel.Visibility = Visibility.Collapsed;
-            textbox1.Visibility = Visibility.Collapsed;
-            textbox2.Visibility = Visibility.Collapsed;
-            textbox3.Visibility = Visibility.Collapsed;
-            textbox4.Visibility = Visibility.Collapsed;
-            textbox5.Visibility = Visibility.Collapsed;
-            toggleSwitch.Visibility = Visibility.Collapsed;
-            rectangle.Visibility = Visibility.Collapsed;
-            ContentArea.Visibility = Visibility.Collapsed;
-            LinkSignOut.Visibility = Visibility.Collapsed;
+            foreach (var element in profileUIElements)
+            {
+                element.Visibility = Visibility.Collapsed;
+            }
         }
         private void toggleSwitch_Checked(object sender, RoutedEventArgs e)
         {

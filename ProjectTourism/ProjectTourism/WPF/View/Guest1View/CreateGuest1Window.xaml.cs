@@ -1,5 +1,4 @@
-﻿using ProjectTourism.Controller;
-using ProjectTourism.Model;
+﻿using ProjectTourism.Model;
 using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
@@ -37,22 +36,22 @@ namespace ProjectTourism.View.Guest1View
         {
             InitializeComponent();
             DataContext = this;
-            Guest1VM = new Guest1VM(new Guest1());
+            Guest1VM = new Guest1VM(new Guest1(userVM.GetUser()));
             UserVM = userVM;
-            Guest1VM.Username = UserVM.Username;
             Guest1Service = new Guest1Service(new Guest1Repository());
             UserService = new UserService(new UserRepository());
-            Guest1Service.Subscribe(this);
         }
-        public event PropertyChangedEventHandler PropertyChanged;
-
+        public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         public void CreateGuestClick(object sender, RoutedEventArgs e)
         {
-            if (Guest1VM.Email != null && Guest1VM.FirstName != null && Guest1VM.LastName != null)
+            if (Guest1VM.GetGuest1().Email != null &&
+                Guest1VM.GetGuest1().FirstName != null &&
+                Guest1VM.GetGuest1().LastName != null
+                )
             {
                 UserService.Add(UserVM);
                 Guest1Service.Add(Guest1VM.GetGuest1());

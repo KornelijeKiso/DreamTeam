@@ -44,7 +44,6 @@ namespace ProjectTourism.View.GuideView.TourView
                 HideTodaysToursContent();
                 ContentArea.Content = new TourStopsWindow(SelectedTourAppointment);
                 SelectedTourAppointment = tourStopsWindow.TourAppointment;
-                Update();
             }
             else
             {
@@ -59,13 +58,7 @@ namespace ProjectTourism.View.GuideView.TourView
         }
         public void Update()
         {
-            //    TourAppointments.Clear();
-            //    foreach (var item in Guide.TourAppointments)
-            //    {
-            //        TourAppointments.Add(item);
-            //        if (item.State == TOURSTATE.FINISHED)
-            //            item.IsFinished = true;
-            //    }
+
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

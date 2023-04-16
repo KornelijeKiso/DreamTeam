@@ -48,6 +48,31 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+        public string Password
+        {
+            get => _guest1.Password;
+            set
+            {
+                if (value != _guest1.Password)
+                {
+                    _guest1.Password = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public USERTYPE Type
+        {
+            get => _guest1.Type;
+            set
+            {
+                if (value != _guest1.Type)
+                {
+                    _guest1.Type = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public string FirstName
         {
             get => _guest1.FirstName;
@@ -72,6 +97,18 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+        public DateTime Birthday
+        {
+            get => _guest1.Birthday;
+            set
+            {
+                if (value != _guest1.Birthday)
+                {
+                    _guest1.Birthday = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public string Email
         {
             get => _guest1.Email;
@@ -80,6 +117,18 @@ namespace ProjectTourism.WPF.ViewModel
                 if (value != _guest1.Email)
                 {
                     _guest1.Email = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string PhoneNumber
+        {
+            get => _guest1.PhoneNumber;
+            set
+            {
+                if (value != _guest1.PhoneNumber)
+                {
+                    _guest1.PhoneNumber = value;
                     OnPropertyChanged();
                 }
             }

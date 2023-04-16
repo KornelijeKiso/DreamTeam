@@ -39,6 +39,7 @@ namespace ProjectTourism.WPF.ViewModel
             LocationService locationService = new LocationService(new LocationRepository());
             GuideService guideService = new GuideService(new GuideRepository());
             Guest2Service guest2Service = new Guest2Service(new Guest2Repository());
+            VoucherService voucherService = new VoucherService(new VoucherRepository());
 
             _guide = guideService.GetOne(username);
             foreach (var tour in tourService.GetAll())
@@ -53,6 +54,7 @@ namespace ProjectTourism.WPF.ViewModel
                         tourApp.Tour = tour;
                         foreach (var ticket in ticketService.GetByAppointment(tourApp.Id))
                         {
+                            ticket.HasVoucher = voucherService.GetOneByTicket(ticket.Id) != null;
                             ticket.TourAppointment = tourApp;
                             ticket.Guest2 = guest2Service.GetOne(ticket.Guest2Username);
                             ticket.TicketGrade = ticketGradeService.GetOneByTicket(ticket.Id);
@@ -73,40 +75,64 @@ namespace ProjectTourism.WPF.ViewModel
             tourAppointmentService.Delete(tourApp.Id);
             canceledTourAppointmentsService.Add(tourApp.GetTourAppointment());
         }
-        public string NextStop(int nextStopIndex, TourAppointment tourApp)
+        public string NextStop(TourAppointment tourApp)
         {
             TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
             TourService tourService = new TourService(new TourRepository());
 
-            tourApp.CurrentTourStop = tourApp.Tour.StopsList[nextStopIndex];
+            string currentStop = tourApp.CurrentTourStop;
+            int stopIndex = CalculateStopIndex(tourApp, currentStop);
+            MoveCurrentStop(tourApp, stopIndex);
             tourApp.State = TOURSTATE.STARTED;
             tourAppointmentService.Update(tourApp);
-            return tourService.GetNextStop(tourApp.Tour, nextStopIndex);
+            return tourApp.CurrentTourStop;
         }
-        public string FinishTheTour(TourAppointmentVM tourApp)
+
+        private static void MoveCurrentStop(TourAppointment tourApp, int stopIndex)
         {
+            if (stopIndex == tourApp.Tour.StopsList.Count)
+                tourApp.CurrentTourStop = tourApp.Tour.StopsList.Last();
+            else
+                tourApp.CurrentTourStop = tourApp.Tour.StopsList[stopIndex + 1];
+        }
+
+        private static int CalculateStopIndex(TourAppointment tourApp, string currentStop)
+        {
+            int stopIndex = 0;
+            foreach (var stop in tourApp.Tour.StopsList)
+            {
+                if (stop.Trim() == currentStop.Trim())
+                    return stopIndex;
+                stopIndex += 1;
+            }
+            return stopIndex;
+        }
+
+        public void EndTour(TourAppointmentVM tourApp)
+        {
+            GuideService guideService = new GuideService(new GuideRepository());
             TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
 
             tourApp.CurrentTourStop = tourApp.Tour.StopsList.Last();
             tourApp.State = TOURSTATE.FINISHED;
             tourApp.IsFinished = true;
+            tourApp.IsNotFinished = false;
             tourAppointmentService.Update(tourApp.GetTourAppointment());
-            FinishTour(tourApp);
-            return tourApp.Tour.StopsList.Last();
+            guideService.Update(_guide);
         }
-        public void FinishTour(TourAppointmentVM tourApp)
+        public string FinishTourAndReturnStop(TourAppointmentVM tourApp)
         {
             GuideService guideService = new GuideService(new GuideRepository());
             TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
 
-            tourApp.IsNotFinished = false;
-            tourApp.IsFinished = true;
+            tourApp.CurrentTourStop = tourApp.Tour.StopsList.Last();
             tourApp.State = TOURSTATE.FINISHED;
-            _guide.HasTourStarted = false;
-            guideService.Update(_guide);
+            tourApp.IsFinished = true;
+            tourApp.IsNotFinished = false;
             tourAppointmentService.Update(tourApp.GetTourAppointment());
+            guideService.Update(_guide);
+            return tourApp.Tour.StopsList.Last();
         }
-
         public void CheckTicket(TicketVM ticket)
         {
             ticket.HasGuideChecked = true;
@@ -189,30 +215,92 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public string? Name
+        public string Password
         {
-            get => _guide.Name;
+            get => _guide.Password;
             set
             {
-                if (_guide.Name != value)
+                if (value != _guide.Password)
                 {
-                    _guide.Name = value;
+                    _guide.Password = value;
                     OnPropertyChanged();
                 }
             }
         }
-        public string? Surname
+        public USERTYPE Type
         {
-            get => _guide.Surname;
+            get => _guide.Type;
             set
             {
-                if (_guide.Surname != value)
+                if (value != _guide.Type)
                 {
-                    _guide.Surname = value;
+                    _guide.Type = value;
                     OnPropertyChanged();
                 }
             }
         }
+
+        public string FirstName
+        {
+            get => _guide.FirstName;
+            set
+            {
+                if (value != _guide.FirstName)
+                {
+                    _guide.FirstName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string LastName
+        {
+            get => _guide.LastName;
+            set
+            {
+                if (value != _guide.LastName)
+                {
+                    _guide.LastName = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public DateTime Birthday
+        {
+            get => _guide.Birthday;
+            set
+            {
+                if (value != _guide.Birthday)
+                {
+                    _guide.Birthday = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string Email
+        {
+            get => _guide.Email;
+            set
+            {
+                if (value != _guide.Email)
+                {
+                    _guide.Email = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public string PhoneNumber
+        {
+            get => _guide.PhoneNumber;
+            set
+            {
+                if (value != _guide.PhoneNumber)
+                {
+                    _guide.PhoneNumber = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public string? Biography
         {
             get => _guide.Biography;
@@ -233,32 +321,6 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_guide.Language != value)
                 {
                     _guide.Language = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string? Email
-        {
-            get => _guide.Email;
-            set
-            {
-                if (_guide.Email != value)
-                {
-                    _guide.Email = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public string? Phone
-        {
-            get => _guide.Phone;
-            set
-            {
-                if (_guide.Phone != value)
-                {
-                    _guide.Phone = value;
                     OnPropertyChanged();
                 }
             }

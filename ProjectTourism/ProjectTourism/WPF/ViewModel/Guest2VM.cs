@@ -20,6 +20,8 @@ namespace ProjectTourism.WPF.ViewModel
         public Guest2VM(Guest2 guest2)
         {
             _guest2 = guest2;
+            Tickets = _guest2.Tickets.Select(r => new TicketVM(r)).ToList();
+            Vouchers = _guest2.Vouchers.Select(r => new VoucherVM(r)).ToList();
         }
 
         public Guest2VM(string username)
@@ -51,6 +53,30 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+        public string Password
+        {
+            get => _guest2.Password;
+            set
+            {
+                if (value != _guest2.Password)
+                {
+                    _guest2.Password = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public USERTYPE Type
+        {
+            get => _guest2.Type;
+            set
+            {
+                if (value != _guest2.Type)
+                {
+                    _guest2.Type = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public string FirstName
         {
@@ -64,7 +90,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
         public string LastName
         {
             get => _guest2.LastName;
@@ -77,20 +102,18 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
-        public int Age
+        public DateTime Birthday
         {
-            get => _guest2.Age;
+            get => _guest2.Birthday;
             set
             {
-                if (value != _guest2.Age)
+                if (value != _guest2.Birthday)
                 {
-                    _guest2.Age = value;
+                    _guest2.Birthday = value;
                     OnPropertyChanged();
                 }
             }
         }
-
         public string Email
         {
             get => _guest2.Email;
@@ -103,7 +126,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
         public string PhoneNumber
         {
             get => _guest2.PhoneNumber;
@@ -116,6 +138,9 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+
+        public List<TicketVM> Tickets;
+        public List<VoucherVM> Vouchers;
         
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -124,48 +149,20 @@ namespace ProjectTourism.WPF.ViewModel
         }
 
         // validation
-        //private Regex _PhoneNumRegex = new Regex("[0-9]{3}[/]{1}[0-9]{3}-[0-9]{3}");
         public string Error => null;
         public string? this[string columnName]
         {
             get
             {
-                if (columnName == "FirstName")
+                if (columnName == "Username")
                 {
-                    if (string.IsNullOrEmpty(FirstName))
-                        return "Name is required!";
+                    if (string.IsNullOrEmpty(Username))
+                        return "Username is required!";
                 }
-                else if (columnName == "LastName")
-                {
-                    if (string.IsNullOrEmpty(LastName))
-                        return "Last Name is required!";
-                }
-                else if (columnName == "Age")
-                {
-                    if (string.IsNullOrEmpty(Age.ToString()))
-                        return "Age is required!";
-                }
-                else if (columnName == "Email")
-                {
-                    if (string.IsNullOrEmpty(Email))
-                        return "Email is required!";
-                }
-                else if (columnName == "PhoneNumber")
-                {
-                    if (string.IsNullOrEmpty(PhoneNumber))
-                        return "Phone Number is required!";
-
-                    //if (PhoneNumber.Length != 11)
-                    //    return "Phone number should be in format DDD/DDD-DDD";
-                    //Match match = _PhoneNumRegex.Match(PhoneNumber);
-                    //if (!match.Success)
-                    //    return "Phone number should be in format DDD/DDD-DDD";//"have 10 digits;
-                }
-
                 return null;
             }
         }
-        private readonly string[] _validatedProperties = { "FirstName", "LastName", "Age", "Email", "PhoneNumber" };
+        private readonly string[] _validatedProperties = { "Username" };
 
         public bool IsValid
         {

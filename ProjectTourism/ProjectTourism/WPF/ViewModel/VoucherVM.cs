@@ -39,6 +39,31 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
+        public TicketVM Ticket
+        {
+            get => new TicketVM(_voucher.Ticket);
+            set
+            {
+                if (value.GetTicket() != _voucher.Ticket)
+                {
+                    _voucher.Ticket = value.GetTicket();
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public int TicketId
+        {
+            get => _voucher.TicketId;
+            set
+            {
+                if (value != _voucher.TicketId)
+                {
+                    _voucher.TicketId = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public string Guest2Username
         {
             get => _voucher.Guest2Username;

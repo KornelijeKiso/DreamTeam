@@ -1,5 +1,4 @@
-﻿using ProjectTourism.ModelDAO;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -16,10 +15,8 @@ namespace ProjectTourism.Model
         public int ReservationId;
         public static readonly string[] CategoryNames = { "Cleanness", "Comfort", "Hospitality", "Price and quality ratio", "Location" };
         public string Comment;
-        public double AverageGrade;
         public Reservation Reservation;
         public Dictionary<string, int> Grades;
-        public string[] Pictures;
         public string PictureURLs;
 
         public AccommodationGrade()
@@ -30,24 +27,7 @@ namespace ProjectTourism.Model
                 Grades.Add(category, 0);
             }
         }
-        public void CalculateAverageGrade()
-        {
-            double sum = 0;
-            foreach(var category in CategoryNames)
-            {
-                sum += Grades[category];
-            }
-            AverageGrade = sum / CategoryNames.Length;
-        }
-        public string[] GetPictureURLsFromCSV()
-        {
-            string[] pictures = PictureURLs.Split(',');
-            foreach (var picture in pictures)
-            {
-                picture.Trim();
-            }
-            return pictures;
-        }
+        
         public string[] ToCSV()
         {
             List<string> csv = new List<string>();
@@ -69,12 +49,10 @@ namespace ProjectTourism.Model
             ReservationId = int.Parse(values[1]);
             Comment = values[2];
             PictureURLs = values[3];
-            Pictures = GetPictureURLsFromCSV();
             for (int i = 4; i < values.Length; i++)
             {
                 Grades[CategoryNames[i - 4]] = int.Parse(values[i]);
             }
-            CalculateAverageGrade();
         }
     }
 }
