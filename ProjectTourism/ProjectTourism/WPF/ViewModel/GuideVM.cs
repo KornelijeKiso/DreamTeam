@@ -79,12 +79,44 @@ namespace ProjectTourism.WPF.ViewModel
             TourService tourService = new TourService(new TourRepository());
 
             string currentStop = tourApp.CurrentTourStop;
-            int nextStopIndex = tourApp.Tour.StopsList.FindIndex(stop => stop == currentStop) + 1;
-
-            tourApp.CurrentTourStop = tourApp.Tour.StopsList[nextStopIndex];
+            int stopIndex = CalculateStopIndex(tourApp, currentStop);
+            MoveCurrentStop(tourApp, stopIndex);
             tourApp.State = TOURSTATE.STARTED;
             tourAppointmentService.Update(tourApp);
-            return tourService.GetNextStop(tourApp.Tour, nextStopIndex-1);
+            return tourApp.CurrentTourStop;
+        }
+
+        private static void MoveCurrentStop(TourAppointment tourApp, int stopIndex)
+        {
+            if (stopIndex == tourApp.Tour.StopsList.Count)
+                tourApp.CurrentTourStop = tourApp.Tour.StopsList.Last();
+            else
+                tourApp.CurrentTourStop = tourApp.Tour.StopsList[stopIndex + 1];
+        }
+
+        private static int CalculateStopIndex(TourAppointment tourApp, string currentStop)
+        {
+            int stopIndex = 0;
+            foreach (var stop in tourApp.Tour.StopsList)
+            {
+                if (stop.Trim() == currentStop.Trim())
+                    return stopIndex;
+                stopIndex += 1;
+            }
+            return stopIndex;
+        }
+
+        public void EndTour(TourAppointmentVM tourApp)
+        {
+            GuideService guideService = new GuideService(new GuideRepository());
+            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
+
+            tourApp.CurrentTourStop = tourApp.Tour.StopsList.Last();
+            tourApp.State = TOURSTATE.FINISHED;
+            tourApp.IsFinished = true;
+            tourApp.IsNotFinished = false;
+            tourAppointmentService.Update(tourApp.GetTourAppointment());
+            guideService.Update(_guide);
         }
         public string FinishTourAndReturnStop(TourAppointmentVM tourApp)
         {

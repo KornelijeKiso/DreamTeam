@@ -83,11 +83,6 @@ namespace ProjectTourism.Services
             List<string> stops = GetStops(tour);
             tour.StopsList = stops;
 
-            if (checkpointIndex < 0 || checkpointIndex >= tour.StopsList.Count - 1)
-            {
-                throw new ArgumentException("Invalid stop index");
-            }
-
             return tour.StopsList[checkpointIndex + 1];
         }
     }
