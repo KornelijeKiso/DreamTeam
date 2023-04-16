@@ -9,6 +9,8 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using ProjectTourism.Model;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
 
 namespace ProjectTourism.WPF.ViewModel
 {
@@ -20,7 +22,19 @@ namespace ProjectTourism.WPF.ViewModel
         public TourVM(Tour tour)
         {
             _tour = tour;
+            Synchronize();
             TourAppointments = new ObservableCollection<TourAppointmentVM>(_tour.TourAppointments.Select(r => new TourAppointmentVM(r)).ToList());
+        }
+        private void Synchronize()
+        {
+            LocationService locationService = new LocationService(new LocationRepository());
+            _tour.Location = locationService.GetOne(_tour.LocationId);
+
+            GuideService guideService = new GuideService(new GuideRepository());
+            _tour.Guide = guideService.GetOne(_tour.GuideUsername);
+
+            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
+            _tour.TourAppointments = tourAppointmentService.GetAllByTour(_tour.Id);
         }
         public ObservableCollection<TourAppointmentVM> TourAppointments { get; set; }
         public List<DateTime> dates

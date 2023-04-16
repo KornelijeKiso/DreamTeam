@@ -10,10 +10,21 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
     public class TicketsVM : ViewModelBase
     {
         public Guest2VM? Guest2 { get; set; }
+        public TicketVM SelectedTicket { get; set; }
+        
 
         public void SetGuest2(Guest2VM guest2)
         {
             Guest2 = guest2;
         }
+
+        public TicketsVM()
+        {
+
+        }
+
+
+
+
     }
 }

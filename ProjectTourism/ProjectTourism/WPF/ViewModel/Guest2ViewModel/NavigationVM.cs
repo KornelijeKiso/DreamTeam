@@ -39,16 +39,16 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         private HomeVM homeVM = new HomeVM();
         private TicketsVM ticketsVM = new TicketsVM();
         private VouchersVM vouchersVM = new VouchersVM();
-
+        //private ProfileVM profileVM = new ProfileVM();
+        //private SuggestTourVM suggestTourVM = new SuggestTourVM();
+        //private ComplexTourVM complexTourVM = new ComplexTourVM();
 
         private void Home(object obj) => CurrentView = homeVM;
-        private void Tickets(object obj) => CurrentView = new TicketsVM();
-        private void Vouchers(object obj) => CurrentView = new VouchersVM();
-        //private void Profile(object obj) => CurrentView = new ProfileVM();
-        //private void SuggestTour(object obj) => CurrentView = new SuggestTourVM();
-        //private void ComplexTour(object obj) => CurrentView = new ComplexTourVM();
-
-
+        private void Tickets(object obj) => CurrentView = ticketsVM;
+        private void Vouchers(object obj) => CurrentView = vouchersVM;
+        //private void Profile(object obj) => CurrentView = profileVM;
+        //private void SuggestTour(object obj) => CurrentView = suggestTourVM;
+        //private void ComplexTour(object obj) => CurrentView = complexTourVM;
         public NavigationVM()
         {
             HomeCommand = new RelayCommand(Home);

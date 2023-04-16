@@ -23,10 +23,5 @@ namespace ProjectTourism.WPF.View.Guest2View.Menu
         {
             InitializeComponent();
         }
-
-        private void Search_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
