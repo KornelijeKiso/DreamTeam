@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjectTourism.Controller;
 using ProjectTourism.Model;
+using ProjectTourism.WPF.ViewModel;
 using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
 using System;
@@ -30,6 +31,7 @@ namespace ProjectTourism.View.Guest1View
     public partial class Guest1MainWindow : Window
     {
         public Guest1 Guest1 { get; set; }
+        public Guest1VM Guest1VM { get; set; }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
         public Accommodation SelectedAccommodation { get; set; }
         public ObservableCollection<Accommodation> FilteredAccommodations { get; set; }
@@ -49,7 +51,11 @@ public Guest1MainWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
+
+
+
             Guest1Controller = new Guest1Controller();
+            Guest1VM = new Guest1VM(username);
             Guest1 = Guest1Controller.GetOne(username);
             AccommodationController = new AccommodationController();
             Accommodations = new ObservableCollection<Accommodation>(AccommodationController.GetAll());

@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="MainGuest1Window" Height="570" Width="1000">
     <Grid Margin="0,0,0,-113">
-        <DataGrid x:Name="DataGridAccommodations" ItemsSource="{Binding FilteredAccommodations, UpdateSourceTrigger=PropertyChanged}"
+        <DataGrid x:Name="DataGridAccommodations" ItemsSource="{Binding Guest1VM.Accommodations, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                     IsReadOnly="True" AutoGenerateColumns="False" Height="324" RowHeight="100" Margin="270,66,10,168">
             <DataGrid.Columns>
