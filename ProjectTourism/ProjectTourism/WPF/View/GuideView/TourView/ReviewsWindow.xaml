@@ -8,9 +8,12 @@
 
     <Grid>
         <Label Content="Reviews" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
-        <DataGrid RowHeight="100" CanUserAddRows="False" HorizontalAlignment="Left" Height="400" VerticalAlignment="Top" Width="1047" 
-            SelectedItem="{Binding SelectedTicketGrade, UpdateSourceTrigger=PropertyChanged}" 
-            ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="104,211,0,0">
+        <DataGrid Name="DataGridRow" RowHeight="100" CanUserAddRows="False" HorizontalAlignment="Center" Height="400" VerticalAlignment="Top" Width="1048" 
+            SelectedItem="{Binding SelectedTicket, UpdateSourceTrigger=PropertyChanged}" 
+            ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="0,211,0,0">
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
+            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Width="150" Binding="{Binding Guest2Username}"/>
                 <DataGridTextColumn Header="Checkpoint arrival" Width="150" Binding="{Binding TourStop}"/>
@@ -30,9 +33,9 @@
                 <DataGridTemplateColumn Width="100" Header="Button">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Click="BadReviewButton_Click" Height="50" Width="50">
+                            <Button x:Name="BadReviewButton" HorizontalAlignment="Right" Height="35" Width="35" Margin="0, -25, 10, 0" Click="BadReviewButton_Click">
                                 <Button.Background>
-                                    <ImageBrush ImageSource="https://img.icons8.com/color/256/cancel.png"/>
+                                    <ImageBrush ImageSource="https://img.icons8.com/color/256/cancel.png" />
                                 </Button.Background>
                             </Button>
                         </DataTemplate>

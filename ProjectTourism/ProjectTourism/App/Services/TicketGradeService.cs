@@ -22,6 +22,10 @@ namespace ProjectTourism.Services
             Observers = new List<IObserver>();
             TicketGradeRepository = itgr;
         }
+        public void Update(TicketGrade ticketGrade)
+        {
+            TicketGradeRepository.Update(ticketGrade);
+        }
         public TicketGrade GetOne(int Id)
         {
             return TicketGradeRepository.GetOne(Id);

@@ -112,6 +112,18 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
+        public bool IsReported
+        {
+            get => _ticketGrade.IsReported;
+            set
+            {
+                if (value != _ticketGrade.IsReported)
+                {
+                    _ticketGrade.IsReported = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

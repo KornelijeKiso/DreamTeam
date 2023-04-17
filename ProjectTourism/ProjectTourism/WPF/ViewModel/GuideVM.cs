@@ -67,6 +67,12 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+        public void ReportTicketGrade(TicketVM ticket)
+        {
+            TicketGradeService ticketGradeService = new TicketGradeService(new TicketGradeRepository());
+            ticket.TicketGrade.IsReported = true;
+            ticketGradeService.Update(ticket.TicketGrade.GetTicketGrade());
+        }
         public void CancelAppointment(TourAppointmentVM tourApp)
         {
             TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());

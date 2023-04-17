@@ -72,8 +72,10 @@ namespace ProjectTourism.Repositories
                     existingTicketGrade.TicketId = ticketGrade.TicketId;
                     existingTicketGrade.Comment = ticketGrade.Comment;
                     existingTicketGrade.PictureURLs = ticketGrade.PictureURLs;
+                    existingTicketGrade.IsReported = ticketGrade.IsReported;
                 }
             }
+            FileHandler.Save(TicketGrades);
         }
 
         public TicketGrade GetOneByTicket(int ticketId)

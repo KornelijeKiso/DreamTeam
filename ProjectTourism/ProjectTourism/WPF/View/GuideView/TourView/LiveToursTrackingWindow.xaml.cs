@@ -26,7 +26,7 @@ namespace ProjectTourism.View.GuideView.TourView
     /// <summary>
     /// Interaction logic for LiveToursTrackingWindow.xaml
     /// </summary>
-    public partial class LiveToursTrackingWindow : UserControl, INotifyPropertyChanged, IObserver
+    public partial class LiveToursTrackingWindow : UserControl, INotifyPropertyChanged
     {
         public GuideVM Guide { get; set; }
         public TourAppointmentVM SelectedTourAppointment { get; set; }

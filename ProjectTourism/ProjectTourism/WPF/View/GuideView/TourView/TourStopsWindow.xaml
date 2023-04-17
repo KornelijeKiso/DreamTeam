@@ -20,6 +20,9 @@
         <DataGrid x:Name="Grid1" CanUserAddRows="False" HorizontalAlignment="Left" Height="375" VerticalAlignment="Top" Width="408" 
                   SelectedItem="{Binding SelectedTicket, UpdateSourceTrigger=PropertyChanged}" 
                   ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="104,211,0,0">
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
+            </DataGrid.Resources>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Username" Width="330" Binding="{Binding Path=Guest2Username}"/>
                 <!--<DataGridTextColumn Header="LastName" Width="150" Binding="{Binding Path=Guest2.LastName}"/>-->

@@ -26,21 +26,40 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
     /// </summary>
     public partial class ReviewsWindow : UserControl, INotifyPropertyChanged
     {
-        public TicketGradeVM SelectedTicketGrade { get; set; }
+        public TicketVM SelectedTicket { get; set; }
         public ObservableCollection<TicketVM> Tickets { get; set; }
+        public List<TicketVM> TicketsList { get; set; }
+        public GuideVM Guide { get; set; }
         public ReviewsWindow(TourAppointmentVM tourApp)
         {
             InitializeComponent();
             DataContext = this;
 
             Tickets = new ObservableCollection<TicketVM>(tourApp.Tickets);
+            TicketsList = new List<TicketVM>(tourApp.Tickets);
+            Guide = new GuideVM(tourApp.Tour.GuideUsername);
+            Update();
         }
 
         private void BadReviewButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            Button clickedButton = (Button)sender;
+            SelectedTicket.TicketGrade.IsReported = true;
+            clickedButton.IsEnabled = true;
+            Guide.ReportTicketGrade(SelectedTicket);
+            Update();
         }
 
+        public void Update()
+        {
+            Tickets.Clear();
+            foreach(var ticket in TicketsList)
+            {
+                Tickets.Add(ticket);
+                //if(ticket.TicketGrade.IsReported)
+                //    BadReviewButton.IsEnabled = false;
+            }
+        }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
