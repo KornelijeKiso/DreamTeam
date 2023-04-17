@@ -8,32 +8,118 @@
 
     <Grid>
         <Label Content="Reviews" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
-        <DataGrid Name="DataGridRow" RowHeight="100" CanUserAddRows="False" HorizontalAlignment="Center" Height="400" VerticalAlignment="Top" Width="1048" 
+        <DataGrid  Name="DataGridRow" RowHeight="100" CanUserAddRows="False" HorizontalAlignment="Center" Height="486" VerticalAlignment="Top" Width="1048" 
             SelectedItem="{Binding SelectedTicket, UpdateSourceTrigger=PropertyChanged}" 
-            ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="0,211,0,0">
+            ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="0,149,0,0">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="150" Binding="{Binding Guest2Username}"/>
-                <DataGridTextColumn Header="Checkpoint arrival" Width="150" Binding="{Binding TourStop}"/>
-                <DataGridTextColumn Header="Comment" Width="150" Binding="{Binding Path=TicketGrade.Comment}"/>
-                <DataGridTextColumn Header="Guide's knowledge" Width="120" Binding="{Binding Path=TicketGrade.Grades[GuidesKnowledge]}"/>
-                <DataGridTextColumn Header="Guide's language" Width="110" Binding="{Binding Path=TicketGrade.Grades[GuidesLanguage]}"/>
-                <DataGridTextColumn Header="Interesting" Width="*" Binding="{Binding Path=TicketGrade.Grades[Interesting]}"/>
 
-                <DataGridTemplateColumn Width="150" Header="Picture">
+                <DataGridTemplateColumn Header="Guest username" Width="150">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Image Source="{Binding Path=TicketGrade.Pictures[0]}"/>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Guest2Username}" TextWrapping="Wrap"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Width="100" Header="Button">
+                <DataGridTemplateColumn Header="Checkpoint arrival" Width="150">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="BadReviewButton" HorizontalAlignment="Right" Height="35" Width="35" Margin="0, -25, 10, 0" Click="BadReviewButton_Click" 
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding TourStop}" TextWrapping="Wrap"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Comment" Width="150">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=TicketGrade.Comment}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Header="Guide's knowledge" FontSize="18"  Width="120" Binding="{Binding Path=TicketGrade.Grades[GuidesKnowledge]}">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="Guide's language" FontSize="18"  Width="110" Binding="{Binding Path=TicketGrade.Grades[GuidesLanguage]}">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Header="Interesting" FontSize="18" Width="*" Binding="{Binding Path=TicketGrade.Grades[Interesting]}">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+
+
+                <DataGridTemplateColumn Width="150" Header="Picture">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Stretch="Fill"  Source="{Binding Path=TicketGrade.Pictures[0]}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="100" Header="Report">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button x:Name="BadReviewButton" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="35" Click="BadReviewButton_Click" 
                             IsEnabled="{Binding TicketGrade.IsNotReported, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
                                 <Button.Background>
                                     <ImageBrush ImageSource="https://img.icons8.com/color/256/cancel.png" />

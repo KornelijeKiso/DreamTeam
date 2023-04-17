@@ -10,7 +10,7 @@
                     ItemsSource="{Binding Guide.Tours, UpdateSourceTrigger=PropertyChanged}"
                     SelectionMode="Single"
                     VerticalScrollBarVisibility="Visible" 
-                    IsReadOnly="True" AutoGenerateColumns="False" Margin="345,147,345,131" RowHeight="100" HeadersVisibility="None" >
+                    IsReadOnly="True" AutoGenerateColumns="False" Margin="280,151,280,81" RowHeight="130" HeadersVisibility="None" >
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
             </DataGrid.Resources>
@@ -21,7 +21,7 @@
             </DataGrid.CellStyle>
             <DataGrid.Columns>
 
-                <DataGridTemplateColumn Width="120" >
+                <DataGridTemplateColumn Width="170" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Image Stretch="Fill" 
@@ -33,7 +33,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" >
-                                <Label Content="{Binding Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
+                                <Label Content="{Binding Name}" FontSize="18" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
                                     <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
                                     <Label Margin="0,0,0,-7">

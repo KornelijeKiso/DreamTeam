@@ -7,7 +7,6 @@
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
         <TextBlock x:Name="TourStatsLink" Margin="1088,172,40,461" FontSize="20"><Hyperlink x:Name="TourStatisticsLink" Click="TourStatistics_Click"><Run Text="Tour statistics"/></Hyperlink></TextBlock>
-        <!--<Label x:Name="NameSurnameLabel" Content="Lara Petković" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>-->
         <Label x:Name="NameSurnameLabel" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40">
             <Label.Content>
                 <TextBlock>
@@ -42,7 +41,6 @@
             <Label x:Name="BioLabel" Grid.Row="3" Grid.Column="0" Content="Biography" Margin="0,6,0,6"/>
             <Label x:Name="MaxGuestsLabel" Grid.Row="5" Grid.Column="0" Content="" Margin="0,6,0,6"/>
             <Label x:Name="DarkThemeLabel" Grid.Row="6" Grid.Column="0" Content="Dark theme" Margin="0,6,0,6"/>
-
 
             <TextBox x:Name="textbox1" Grid.Row="0" Grid.Column="1" Text="{Binding Guide.Email}" Margin="0,8,0,8" IsReadOnly="True"/>
             <TextBox x:Name="textbox2" Grid.Row="1" Grid.Column="1" Text="{Binding Guide.PhoneNumber}" Margin="0,8,0,8" IsReadOnly="True"/>
