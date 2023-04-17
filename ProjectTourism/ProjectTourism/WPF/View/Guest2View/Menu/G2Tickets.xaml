@@ -3,14 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:ProjectTourism.WPF.ViewModel.Guest2ViewModel"
              xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest2View.Menu"
              mc:Ignorable="d" 
              d:DesignHeight="550" 
              d:DesignWidth="700"
              Style="{StaticResource Page_Style}"        >
-    <!--<UserControl.DataContext>
+    <UserControl.DataContext>
         <vm:TicketsVM />
-    </UserControl.DataContext>-->
+    </UserControl.DataContext>
     
     <Grid>
         <Grid.RowDefinitions>
@@ -18,8 +19,267 @@
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0"  >
-            <!---->
+        <!--
+        Height="300" Width="550"
+        Guest2.Tickets.TourAppointment.Tour
+        -->
+        <Grid Grid.Row="0">
+            <!--SelectionChanged="{Binding TabControlCommand}"-->
+            <TabControl x:Name="TabControl" SelectionChanged="ItemsShown"
+                        Margin="20 0 20 20"
+                        >
+                <TabControl.Style>
+                    <Style TargetType="TabControl">
+                        <Setter Property="FontFamily" Value="/Fonts/#Rubik" />
+                        <Setter Property="FontSize" Value="16" />
+                        <Setter Property="Foreground" Value="#DBDBDB" />
+                        <Setter Property="BorderBrush" Value="Black" />
+                        <Setter Property="BorderThickness" Value="3" />
+                    </Style>
+                </TabControl.Style>
+
+                <!-- UPCOMING TICKETS -->
+                <TabItem Header="Upcoming" Height="20" VerticalAlignment="Top">
+                    <DataGrid x:Name="DataGridUpcomingTickets" Style="{StaticResource DataGrid_Style}"
+                              ItemsSource="{Binding UpcomingTickets, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding Path=SelectedTicket, UpdateSourceTrigger=PropertyChanged}" 
+                              Margin="0 0 0 0" BorderThickness="0"  >
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                                             Color="#339AF0"/>
+                        </DataGrid.Resources>
+
+                        <!--<DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Style>
+                        </DataGrid.CellStyle>-->
+                        <DataGrid.Columns>
+
+                            <DataGridTemplateColumn Width="120" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Stretch="Fill" 
+                                   Source="{Binding Path=TourAppointment.Tour.Pictures[0]}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="350">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical" >
+                                            <Label Content="{Binding Path=TourAppointment.Tour.Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Content="{Binding Path=TourAppointment.Tour.Location.Country}" Margin="0,0,0,-7"></Label>
+                                                <Label Content="," Margin="0,0,0,-7"></Label>
+                                                <Label Content="{Binding Path=TourAppointment.Tour.Location.City}" Margin="0,0,0,-7"></Label>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Language :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Content="{Binding Path=TourAppointment.Tour.Language}" Margin="0,0,0,-7"></Label>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Duration :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Content="{Binding Path=TourAppointment.Tour.Duration}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Max number of guests :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Content="{Binding Path=TourAppointment.Tour.MaxNumberOfGuests}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <GroupBox BorderBrush="Black" FontSize="12" Height="50" 
+                                                  VerticalAlignment="Top" Margin="5 5 5 5"
+                                                  Header="Status">
+                                            <Label FontSize="14">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <Binding Path="TourAppointment.State"/>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                        </GroupBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                </TabItem>
+                
+                <!-- ATTENDED TICKETS -->
+                <TabItem Header="Attended" Height="20" VerticalAlignment="Top">
+                    <DataGrid x:Name="DataGridAttendedTickets" Style="{StaticResource DataGrid_Style}"
+                              ItemsSource="{Binding AttendedTickets, UpdateSourceTrigger=PropertyChanged}" 
+                              SelectedItem="{Binding Path=SelectedTicket, UpdateSourceTrigger=PropertyChanged}" 
+                              Margin="0 0 0 0" BorderThickness="0"  >
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                                             Color="#339AF0"/>
+                        </DataGrid.Resources>
+
+                        <!--<DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Style>
+                        </DataGrid.CellStyle>-->
+                        <DataGrid.Columns>
+
+                            <DataGridTemplateColumn Width="120" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Stretch="Fill" 
+                                   Source="{Binding Path=TourAppointment.Tour.Pictures[0]}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="350">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical" >
+                                            <Label Content="{Binding Path=TourAppointment.Tour.Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Content="{Binding Path=TourAppointment.Tour.Location.Country}" Margin="0,0,0,-7"></Label>
+                                                <Label Content="," Margin="0,0,0,-7"></Label>
+                                                <Label Content="{Binding Path=TourAppointment.Tour.Location.City}" Margin="0,0,0,-7"></Label>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Language :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Content="{Binding Path=TourAppointment.Tour.Language}" Margin="0,0,0,-7"></Label>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Duration :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Content="{Binding Path=TourAppointment.Tour.Duration}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Max number of guests :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Content="{Binding Path=TourAppointment.Tour.MaxNumberOfGuests}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <GroupBox BorderBrush="Black" FontSize="12" Height="50" 
+                                                      VerticalAlignment="Top" Margin="5 5 5 5"
+                                                      Header="Status">
+                                                <Label FontSize="14">
+                                                    <Label.Content>
+                                                        <TextBlock>
+                                                            <TextBlock.Text>
+                                                                <Binding Path="TourAppointment.State"/>
+                                                            </TextBlock.Text>
+                                                        </TextBlock>
+                                                    </Label.Content>
+                                                </Label>
+                                            </GroupBox>
+                                            <!--Command="{Binding GradeTicketCommand}"-->
+                                            
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    
+                </TabItem>
+
+                <!-- SKIPPED TICKETS -->
+                <TabItem Header="Skipped" Height="20" VerticalAlignment="Top">
+                    <DataGrid x:Name="DataGridSkippedTickets" Style="{StaticResource DataGrid_Style}"
+                              ItemsSource="{Binding SkippedTickets, UpdateSourceTrigger=PropertyChanged}"
+                              Margin="0 0 0 0" BorderThickness="0"  >
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                                             Color="#339AF0"/>
+                        </DataGrid.Resources>
+
+                        <!--<DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Style>
+                        </DataGrid.CellStyle>-->
+                        <DataGrid.Columns>
+
+                            <DataGridTemplateColumn Width="120" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Stretch="Fill" 
+                                   Source="{Binding Path=TourAppointment.Tour.Pictures[0]}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="350">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical" >
+                                            <Label Content="{Binding Path=TourAppointment.Tour.Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Content="{Binding Path=TourAppointment.Tour.Location.Country}" Margin="0,0,0,-7"></Label>
+                                                <Label Content="," Margin="0,0,0,-7"></Label>
+                                                <Label Content="{Binding Path=TourAppointment.Tour.Location.City}" Margin="0,0,0,-7"></Label>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Language :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Content="{Binding Path=TourAppointment.Tour.Language}" Margin="0,0,0,-7"></Label>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Duration :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Content="{Binding Path=TourAppointment.Tour.Duration}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Max number of guests :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Content="{Binding Path=TourAppointment.Tour.MaxNumberOfGuests}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <GroupBox BorderBrush="Black" FontSize="12" Height="50" 
+                                                  VerticalAlignment="Top" Margin="5 5 5 5"
+                                                  Header="Status">
+                                            <Label FontSize="14">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <Binding Path="TourAppointment.State"/>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                        </GroupBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    
+                </TabItem>
+
+                <!-- CANCELED TICKETS -->
+                <TabItem Header="Canceled By Guide" Height="20" VerticalAlignment="Top">
+
+                </TabItem>
+
+            </TabControl>
+
+            
         </Grid>
 
         <Grid Grid.Row="1"  >
@@ -29,32 +289,176 @@
                 <ColumnDefinition Width="175" />
                 <ColumnDefinition Width="175" />
             </Grid.ColumnDefinitions>
-            <!-- UPDATE TICKET BUTTON -->
-            <!--Style="{StaticResource button}"-->
-            <Button x:Name="UpdateTicket"
-                    Height="50" Width="150" Margin="0 0 20 20"
-                    HorizontalAlignment="Right" VerticalAlignment="Center" 
-                    Content="Update Ticket"    
-                    Grid.Column="3">
-            </Button>
-            
+
             <!-- RETURN TICKET BUTTON -->
             <!--Style="{StaticResource button}"-->
             <Button x:Name="ReturnTicket"
-                    Height="50" Width="150" Margin="0 0 20 20"
-                    HorizontalAlignment="Right" VerticalAlignment="Center" 
-                    Content="Return Ticket"    
+                    Grid.Column="1">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Height" Value="40"/>
+                        <Setter Property="Width" Value="150"/>
+                        <Setter Property="Margin" Value="0 0 20 20"/>
+                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="border"
+                                            BorderThickness="1"
+                                            Background="Black">
+                                        <TextBlock Text="Return Ticket"
+                                            FontFamily="/Fonts/#Rubik" 
+                                            FontSize="18"
+                                            Foreground="#DBDBDB" 
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver"
+                                                 Value="True"   >
+                                            <Setter Property="Background"
+                                                    TargetName="border"
+                                                    Value="#272B2F" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True" />
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <!-- UPDATE TICKET BUTTON -->
+            <!--Style="{StaticResource button}"-->
+            <Button x:Name="UpdateTicket"    
                     Grid.Column="2">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Height" Value="40"/>
+                        <Setter Property="Width" Value="150"/>
+                        <Setter Property="Margin" Value="0 0 20 20"/>
+                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="border"
+                                            BorderThickness="1"
+                                            Background="Black">
+                                        <TextBlock Text="Update Ticket"
+                                            FontFamily="/Fonts/#Rubik" 
+                                            FontSize="18"
+                                            Foreground="#DBDBDB" 
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver"
+                                                 Value="True"   >
+                                            <Setter Property="Background"
+                                                    TargetName="border"
+                                                    Value="#272B2F" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True" />
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
             </Button>
             
             <!-- MAKE A REPORT BUTTON -->
             <!--Style="{StaticResource button}"-->
-            <Button x:Name="MakeReport"
-                    Height="50" Width="150" Margin="0 0 20 20"
-                    HorizontalAlignment="Right" VerticalAlignment="Center" 
-                    Content="Make a Report"    
-                    Grid.Column="1">
+            <Button x:Name="MakeReport" 
+                    Grid.Column="3">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Height" Value="40"/>
+                        <Setter Property="Width" Value="150"/>
+                        <Setter Property="Margin" Value="0 0 20 20"/>
+                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="border"
+                                            BorderThickness="1"
+                                            Background="Black">
+                                        <TextBlock Text="Make a report"
+                                            FontFamily="/Fonts/#Rubik" 
+                                            FontSize="18"
+                                            Foreground="#DBDBDB" 
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver"
+                                                 Value="True"   >
+                                            <Setter Property="Background"
+                                                    TargetName="border"
+                                                    Value="#272B2F" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True" />
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
             </Button>
+
+
+            <!-- LEAVE A REVIEW -->
+            <!--Click="{Binding GradeTicket_Click}" IsEnabled="{Binding CanGrade}" -->
+            <Button x:Name="GradeTicketButton" 
+                    Grid.Column="2"
+                    Command="{Binding GradeTicketCommand}" 
+                    >
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Height" Value="40"/>
+                        <Setter Property="Width" Value="150"/>
+                        <Setter Property="Margin" Value="0 0 20 20"/>
+                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="border"
+                                            BorderThickness="1"
+                                            Background="Black">
+                                        <TextBlock Text="Leave a review"
+                                                   FontFamily="/Fonts/#Rubik" 
+                                                   FontSize="18"
+                                                   Foreground="#DBDBDB" 
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True"   >
+                                            <Setter Property="Background"
+                                                    TargetName="border"
+                                                    Value="#272B2F" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True" />
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+
         </Grid>
     </Grid>
 </UserControl>

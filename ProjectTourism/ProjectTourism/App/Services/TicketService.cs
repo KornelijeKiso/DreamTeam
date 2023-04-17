@@ -69,5 +69,9 @@ namespace ProjectTourism.Services
         {
             return TicketRepository.GetByAppointment(tourAppointmentId);
         }
+        public List<Ticket> GetByGuest2(string guest2Username)
+        {
+            return TicketRepository.GetByGuest2(guest2Username);
+        }
     }
 }

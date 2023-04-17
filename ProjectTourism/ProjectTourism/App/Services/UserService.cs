@@ -31,5 +31,10 @@ namespace ProjectTourism.Services
         {
             return UserRepo.UsernameAlreadyInUse(username);
         }
+
+        public User GetOne(string username)
+        {
+            return UserRepo.GetOne(username);
+        }
     }
 }

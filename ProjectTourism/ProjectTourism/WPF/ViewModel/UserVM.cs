@@ -1,4 +1,6 @@
 ﻿using ProjectTourism.Model;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
 using ProjectTourism.Observer;
 using System;
 using System.Collections.Generic;
@@ -14,12 +16,17 @@ namespace ProjectTourism.WPF.ViewModel
     {
         private User _user;
 
-        public UserVM() { }
+        public UserVM(string username) 
+        {
+            UserService userService = new UserService(new UserRepository());
+            _user = userService.GetOne(username);
+        }
 
         public UserVM(User user)
         {
             _user = user;
         }
+
         public User GetUser()
         {
             return _user;

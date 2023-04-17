@@ -14,5 +14,6 @@ namespace ProjectTourism.Domain.IRepositories
         void Add(Guest2 guest2);
         void Delete(Guest2 guest2);
         void Update(Guest2 guest2);
+        List<Ticket>? GetTickets(Guest2? guest2);
     }
 }

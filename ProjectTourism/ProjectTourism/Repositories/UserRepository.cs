@@ -28,6 +28,7 @@ namespace ProjectTourism.Repositories
         }
         public User Identify(User user)
         {
+            if (user == null) return null;
             Users = FileHandler.Load();
             foreach (var existingUser in Users)
             {
@@ -51,5 +52,15 @@ namespace ProjectTourism.Repositories
             }
             return false;
         }
+        
+        public User GetOne(string username)
+        {
+            foreach (var user in Users)
+            {
+                if (user.Username.Equals(username)) return user;
+            }
+            return null;
+        }
+
     }
 }

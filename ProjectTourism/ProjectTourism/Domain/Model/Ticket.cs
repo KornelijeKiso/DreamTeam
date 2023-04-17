@@ -21,6 +21,7 @@ namespace ProjectTourism.Model
         public int NumberOfGuests;
         public bool HasGuideChecked;
         public bool HasGuestConfirmed;
+        //public int TicketGradeId;
         public TicketGrade TicketGrade;
         public bool HasVoucher;
         public Ticket() { HasVoucher = false; }
@@ -57,6 +58,7 @@ namespace ProjectTourism.Model
                 TourStop,
                 HasGuideChecked.ToString(),
                 HasGuestConfirmed.ToString()
+                //TicketGradeId.ToString()
             };
             return csvValues;
         }
@@ -70,6 +72,7 @@ namespace ProjectTourism.Model
             TourStop = values[4];
             HasGuideChecked = bool.Parse(values[5]);
             HasGuestConfirmed= bool.Parse(values[6]);
+            //TicketGradeId = int.Parse(values[7]);
 
             if (HasGuestConfirmed)
                 ButtonColor = Brushes.Green;

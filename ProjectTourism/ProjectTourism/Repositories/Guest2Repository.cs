@@ -49,5 +49,11 @@ namespace ProjectTourism.Repositories
         public void Update(Guest2 guest)
         {
         }
+
+        public List<Ticket>? GetTickets(Guest2? guest2)
+        {
+            if (guest2 == null) return null;
+            return guest2.Tickets;
+        }
     }
 }

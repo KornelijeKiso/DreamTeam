@@ -24,5 +24,51 @@ namespace ProjectTourism.WPF.View.Guest2View.Menu
         {
             InitializeComponent();
         }
+
+        private void ItemsShown(object sender, SelectionChangedEventArgs e)
+        {
+            switch (TabControl.SelectedIndex)
+            {
+                case 0:
+                    {
+                        UpdateTicket.Visibility = Visibility.Visible;
+                        UpdateTicket.IsEnabled = true;
+
+                        ReturnTicket.Visibility = Visibility.Visible;
+                        ReturnTicket.IsEnabled = true;
+
+                        GradeTicketButton.Visibility = Visibility.Collapsed;
+                        GradeTicketButton.IsEnabled = false;
+
+                        break;
+                    }
+                case 1:
+                    {
+                        UpdateTicket.Visibility = Visibility.Collapsed;
+                        UpdateTicket.IsEnabled = false;
+
+                        ReturnTicket.Visibility = Visibility.Collapsed;
+                        ReturnTicket.IsEnabled = false;
+
+                        GradeTicketButton.Visibility = Visibility.Visible;
+                        GradeTicketButton.IsEnabled = true;
+
+                        break;
+                    }
+                default:
+                    {
+                        UpdateTicket.Visibility = Visibility.Collapsed;
+                        UpdateTicket.IsEnabled = false;
+
+                        ReturnTicket.Visibility = Visibility.Collapsed;
+                        ReturnTicket.IsEnabled = false;
+
+                        GradeTicketButton.Visibility = Visibility.Collapsed;
+                        GradeTicketButton.IsEnabled = false;
+
+                        break;
+                    }
+            }
+        }
     }
 }

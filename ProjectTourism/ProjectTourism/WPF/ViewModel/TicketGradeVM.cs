@@ -1,4 +1,6 @@
 ﻿using ProjectTourism.Model;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,9 +17,22 @@ namespace ProjectTourism.WPF.ViewModel
         public TicketGradeVM(TicketGrade ticketGrade)
         {
             _ticketGrade = ticketGrade;
+            Synchronize();
         }
 
-        public TicketGrade GetTicketGrade()
+        private void Synchronize()
+        {
+            TicketService ticketService = new TicketService(new TicketRepository());
+            _ticketGrade.Ticket = ticketService.GetOne(TicketId);
+        }
+
+        public TicketGradeVM(int TicketID)
+        {
+            TicketGradeService ticketGradeService = new TicketGradeService(new TicketGradeRepository());
+            _ticketGrade = ticketGradeService.GetOneByTicket(TicketID);
+        }
+
+            public TicketGrade GetTicketGrade()
         {
             return _ticketGrade;
         }

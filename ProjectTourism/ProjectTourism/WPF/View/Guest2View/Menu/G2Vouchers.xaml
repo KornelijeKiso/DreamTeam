@@ -3,14 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:vm="clr-namespace:ProjectTourism.WPF.ViewModel.Guest2ViewModel"
              xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest2View.Menu"
              mc:Ignorable="d" 
              d:DesignHeight="550" 
              d:DesignWidth="700"
              Style="{StaticResource Page_Style}"        >
-    <!--<UserControl.DataContext>
+    <UserControl.DataContext>
         <vm:VouchersVM />
-    </UserControl.DataContext>-->
+    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="380"/>
@@ -19,7 +20,7 @@
 
         <Grid Grid.Row="0"  >
             <!---->
-            <TextBlock>neki data grid ovde</TextBlock>
+            <TextBlock>Vouchers</TextBlock>
         </Grid>
 
     </Grid>
