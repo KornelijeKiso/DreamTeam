@@ -16,5 +16,6 @@ namespace ProjectTourism.Domain.IRepositories
         void Add(User user);
         User Identify(User user);
         bool UsernameAlreadyInUse(string username);
+        User GetOne(string username);
     }
 }
