@@ -11,6 +11,6 @@ namespace ProjectTourism.Domain.IRepositories
     {
         void Add(User user);
         User GetUser();
-        void Delete(User user);
+        void Delete();
     }
 }

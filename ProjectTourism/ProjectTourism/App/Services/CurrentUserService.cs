@@ -26,9 +26,9 @@ namespace ProjectTourism.Services
         {
             return CurrentUserRepo.GetUser();
         }
-        public void Delete(User user)
+        public void Delete()
         {
-            CurrentUserRepo.Delete(user);
+            CurrentUserRepo.Delete();
         }
     }
 }

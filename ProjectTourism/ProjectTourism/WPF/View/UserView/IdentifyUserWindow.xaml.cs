@@ -32,13 +32,12 @@ namespace ProjectTourism.View.UserView
     public partial class IdentifyUserWindow : Window
     {
         public UserVM UserVM { get; set; }
-        public UserService Service;
-        public CurrentUserService CurrentUserService { get; set; }
+        public CurrentUserVM CurrentUserVM { get; set; }
+        
+
         public IdentifyUserWindow()
         {
             InitializeComponent();
-            Service = new UserService(new UserRepository());
-            CurrentUserService = new CurrentUserService(new CurrentUserRepository());
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -55,46 +54,52 @@ namespace ProjectTourism.View.UserView
             else
             {
                 UserVM = new UserVM(txtUsername.Text);
-                //UserVM newUser = Service.Identify(UserVM);
-                if (UserVM != null && UserVM.Password.Equals(txtPassword.Password))
+                if (UserVM.GetUser() == null)
                 {
-                    switch (UserVM.Type)
-                    {
-                        case USERTYPE.OWNER:
-                            {
-                                MainOwnerWindow mainOwnerWindow = new MainOwnerWindow(UserVM.Username);
-                                mainOwnerWindow.ShowDialog();
-                                Clear();
-                                break;
-                            }
-                        case USERTYPE.GUIDE:
-                            {
-                                MainGuideWindow mainGuideWindow = new MainGuideWindow(UserVM.Username);
-                                mainGuideWindow.ShowDialog();
-                                Clear();
-                                break;
-                            }
-                        case USERTYPE.GUEST1:
-                            {
-                                Guest1MainWindow guest1mainWindow = new Guest1MainWindow(UserVM.Username);
-                                guest1mainWindow.ShowDialog();
-                                Clear();
-                                break;
-                            }
-                        case USERTYPE.GUEST2:
-                            {
-                                CurrentUserService.Add(UserVM.GetUser());
-                                Guest2MainWindow mainGuest2Window = new Guest2MainWindow();
-                                mainGuest2Window.ShowDialog();
-                                CurrentUserService.Delete(UserVM.GetUser());
-                                Clear();
-                                break;
-                            }
-                    }
+                    MessageBox.Show("User with that username doesn't exist.");
                 }
                 else
                 {
-                    MessageBox.Show("Incorrect username or password.");
+                    if (UserVM != null && UserVM.Password.Equals(txtPassword.Password))
+                    {
+                        switch (UserVM.Type)
+                        {
+                            case USERTYPE.OWNER:
+                                {
+                                    MainOwnerWindow mainOwnerWindow = new MainOwnerWindow(UserVM.Username);
+                                    mainOwnerWindow.ShowDialog();
+                                    Clear();
+                                    break;
+                                }
+                            case USERTYPE.GUIDE:
+                                {
+                                    MainGuideWindow mainGuideWindow = new MainGuideWindow(UserVM.Username);
+                                    mainGuideWindow.ShowDialog();
+                                    Clear();
+                                    break;
+                                }
+                            case USERTYPE.GUEST1:
+                                {
+                                    Guest1MainWindow guest1mainWindow = new Guest1MainWindow(UserVM.Username);
+                                    guest1mainWindow.ShowDialog();
+                                    Clear();
+                                    break;
+                                }
+                            case USERTYPE.GUEST2:
+                                {
+                                    CurrentUserVM = new CurrentUserVM(UserVM);
+                                    Guest2MainWindow mainGuest2Window = new Guest2MainWindow();
+                                    mainGuest2Window.ShowDialog();
+                                    CurrentUserVM.LogoutCurrentUser();
+                                    Clear();
+                                    break;
+                                }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Incorrect password.");
+                    }
                 }
             }
         }
