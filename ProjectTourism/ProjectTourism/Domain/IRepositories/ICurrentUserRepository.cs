@@ -10,7 +10,7 @@ namespace ProjectTourism.Domain.IRepositories
     public interface ICurrentUserRepository
     {
         void Add(User user);
-        User Get(string username);
+        User GetUser();
         void Delete(User user);
     }
 }

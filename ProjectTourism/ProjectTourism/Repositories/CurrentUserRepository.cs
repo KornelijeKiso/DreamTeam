@@ -17,28 +17,33 @@ namespace ProjectTourism.Repositories
         {
             FileHandler = new CurrentUserFileHandler();
             User = FileHandler.Load();
-            if (User.Count > 1)
-            {
-                throw new Exception("More than one user can't be logged on!");
-            }
+            //if (User.Count > 1)
+            //{
+            //    throw new Exception("More than one user can't be logged on!");
+            //}
         }
         public void Add(User user)
         {
-            if (User.Count == 1)
-            {
-                throw new Exception("More than one user can't be logged on!");
-            }
+            //if (User.Count == 1)
+            //{
+            //    throw new Exception("More than one user can't be logged on!");
+            //}
             User.Add(user);
             FileHandler.Save(User);
         }
-        public User Get(string username)
+        public User GetUser()
         {
-            foreach (User user in User)
+            if (User.Count > 0)
             {
-                if (user.Username.Equals(username))
-                    return user;
+                return User.Last();   
             }
             return null;
+            /////// UNCOMMENT LATER
+            //if (User.Count == 1)
+            //{
+            //    return User[0];
+            //}
+            //return null;
         }
         public void Delete(User user)
         {

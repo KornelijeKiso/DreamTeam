@@ -14,6 +14,8 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
     public class HomeVM : ViewModelBase
     {
+        public CurrentUserService CurrentUserService { get; set; }
+        public UserVM CurrentUser { get; set; }
         public Guest2VM Guest2 { get; set; }
         public TourService TourService { get; set; }
         public TourVM? SelectedTour { get; set; }
@@ -27,6 +29,8 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 
         public HomeVM()
         {
+            SetGuest2();
+
             TourService = new TourService(new TourRepository());
             Tours = new ObservableCollection<TourVM>(TourService.GetAll().Select(x => new TourVM(x)).ToList());
 
@@ -37,9 +41,11 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 
             //TourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
         }
-        public void SetGuest2(Guest2VM guest2)
+        public void SetGuest2()
         {
-            Guest2 = guest2;
+            CurrentUserService = new CurrentUserService(new CurrentUserRepository());
+            CurrentUser = new UserVM(CurrentUserService.GetUser());
+            Guest2 = new Guest2VM(CurrentUser.Username);
         }
 
         public void UpdateToursList(List<TourVM> tours)

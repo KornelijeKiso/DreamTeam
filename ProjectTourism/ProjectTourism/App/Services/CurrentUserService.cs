@@ -22,9 +22,9 @@ namespace ProjectTourism.Services
         {
             CurrentUserRepo.Add(user);
         }
-        public User Get(string username)
+        public User GetUser()
         {
-            return CurrentUserRepo.Get(username);
+            return CurrentUserRepo.GetUser();
         }
         public void Delete(User user)
         {

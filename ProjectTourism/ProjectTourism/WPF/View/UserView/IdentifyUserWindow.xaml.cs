@@ -84,7 +84,7 @@ namespace ProjectTourism.View.UserView
                         case USERTYPE.GUEST2:
                             {
                                 CurrentUserService.Add(UserVM.GetUser());
-                                Guest2MainWindow mainGuest2Window = new Guest2MainWindow(UserVM.Username);
+                                Guest2MainWindow mainGuest2Window = new Guest2MainWindow();
                                 mainGuest2Window.ShowDialog();
                                 CurrentUserService.Delete(UserVM.GetUser());
                                 Clear();

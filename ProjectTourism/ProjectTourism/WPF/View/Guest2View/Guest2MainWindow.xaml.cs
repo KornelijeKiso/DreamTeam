@@ -30,18 +30,9 @@ namespace ProjectTourism.WPF.View.Guest2View
     /// </summary>
     public partial class Guest2MainWindow : Window//, INotifyPropertyChanged//, IObserver
     {
-        public Guest2VM Guest2 { get; set; }
-        //public Guest2Service Guest2Service { get; set; }
-        
-        public NavigationVM NavigationVM { get; set; }
-        public Guest2MainWindow(string username)
+        public Guest2MainWindow()
         {
             InitializeComponent();
-            //Guest2Service = new Guest2Service(new Guest2Repository());
-            Guest2 = new Guest2VM(username);
-            NavigationVM = new NavigationVM();
-            NavigationVM.SetGuest2(Guest2);
-            DataContext = NavigationVM;
         }
 
         private void LogOut_Click(object sender, RoutedEventArgs e)
