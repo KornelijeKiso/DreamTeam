@@ -26,6 +26,12 @@ namespace ProjectTourism.WPF.ViewModel
             _ticketGrade.Ticket = ticketService.GetOne(TicketId);
         }
 
+        public TicketGradeVM(int TicketID)
+        {
+            TicketGradeService ticketGradeService = new TicketGradeService(new TicketGradeRepository());
+            _ticketGrade = ticketGradeService.GetOneByTicket(TicketID);
+        }
+
             public TicketGrade GetTicketGrade()
         {
             return _ticketGrade;
