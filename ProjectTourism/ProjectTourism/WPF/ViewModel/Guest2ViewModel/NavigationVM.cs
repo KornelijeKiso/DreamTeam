@@ -25,8 +25,9 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             homeVM.SetGuest2(guest2);
             ticketsVM.SetGuest2(guest2);
             vouchersVM.SetGuest2(guest2);
-
-
+            //profileVM.SetGuest2(guest2);
+            //suggestTourVM.SetGuest2(guest2);
+            //complexTourVM.SetGuest2(guest2);
         }
 
         public ICommand HomeCommand { get; set; }
@@ -59,7 +60,8 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             //ComplexToursCommand = new RelayCommand(ComplexTour);
 
             // Startup Page
-            CurrentView = new HomeVM();
+            //CurrentView = new HomeVM();
+            CurrentView = new TicketsVM();
         }
     }
 }

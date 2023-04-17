@@ -19,10 +19,14 @@
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
 
+        <!--
+        Height="300" Width="550"
+        Guest2.Tickets.TourAppointment.Tour
+        -->
         <Grid Grid.Row="0">
-            <DataGrid x:Name="DataGridTickets" Style="{StaticResource DataGrid_Style}" 
-              ItemsSource="{Binding Guest2.Tickets, UpdateSourceTrigger=PropertyChanged}"
-              SelectedItem="{Binding SelectedTicket, UpdateSourceTrigger=PropertyChanged}" 
+            <DataGrid x:Name="DataGridTickets" Style="{StaticResource DataGrid_Style}"
+              ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}"
+              SelectedItem="{Binding Path=SelectedTicket, UpdateSourceTrigger=PropertyChanged}" 
             >
                 <DataGrid.Resources>
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 

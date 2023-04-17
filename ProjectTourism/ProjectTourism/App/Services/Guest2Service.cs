@@ -36,6 +36,11 @@ namespace ProjectTourism.Services
         {
             Guest2Repository.Delete(guest);
         }
+
+        public List<Ticket>? GetTickets(Guest2? guest2)
+        {
+            return Guest2Repository.GetTickets(guest2);
+        }
         public void Subscribe(IObserver observer)
         {
             Observers.Add(observer);

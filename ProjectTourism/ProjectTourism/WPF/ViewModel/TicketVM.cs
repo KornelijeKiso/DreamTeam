@@ -1,4 +1,6 @@
 ﻿using ProjectTourism.Model;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
 using ProjectTourism.Observer;
 using System;
 using System.Collections.Generic;
@@ -18,6 +20,19 @@ namespace ProjectTourism.WPF.ViewModel
         public TicketVM(Ticket ticket)
         {
             _ticket = ticket;
+            Synchronize();
+        }
+
+        private void Synchronize()
+        {
+            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
+            _ticket.TourAppointment = tourAppointmentService.GetOne(_ticket.TourAppointmentId);
+
+            Guest2Service guest2Service = new Guest2Service(new Guest2Repository());
+            _ticket.Guest2 = guest2Service.GetOne(_ticket.Guest2Username);
+
+            //TicketGradeService ticketGradeService = new TicketGradeService(new TicketGradeRepository());
+            //_ticket.TicketGrade = ticketGradeService.GetOne(_ticket.TicketGradeId);
         }
         public Ticket GetTicket()
         {
@@ -88,7 +103,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
         public string Guest2Username
         {
             get => _ticket.Guest2Username;
@@ -97,19 +111,6 @@ namespace ProjectTourism.WPF.ViewModel
                 if (value != _ticket.Guest2Username)
                 {
                     _ticket.Guest2Username = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public TicketGradeVM TicketGrade
-        {
-            get => new TicketGradeVM(_ticket.TicketGrade);
-            set
-            {
-                if (value.GetTicketGrade() != _ticket.TicketGrade)
-                {
-                    _ticket.TicketGrade = value.GetTicketGrade();
                     OnPropertyChanged();
                 }
             }
@@ -126,7 +127,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
         public int NumberOfGuests
         {
             get => _ticket.NumberOfGuests;
@@ -139,7 +139,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
         public bool HasGuideChecked
         {
             get => _ticket.HasGuideChecked;
@@ -152,7 +151,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        
         public bool HasGuestConfirmed
         {
             get => _ticket.HasGuestConfirmed;
@@ -161,6 +159,30 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_ticket.HasGuestConfirmed != value)
                 {
                     _ticket.HasGuestConfirmed = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        //public int TicketGradeId
+        //{
+        //    get => _ticket.TicketGradeId;
+        //    set
+        //    {
+        //        if (value != _ticket.TicketGradeId)
+        //        {
+        //            _ticket.TicketGradeId = value;
+        //            OnPropertyChanged();
+        //        }
+        //    }
+        //}
+        public TicketGradeVM TicketGrade
+        {
+            get => new TicketGradeVM(_ticket.TicketGrade);
+            set
+            {
+                if (value.GetTicketGrade() != _ticket.TicketGrade)
+                {
+                    _ticket.TicketGrade = value.GetTicketGrade();
                     OnPropertyChanged();
                 }
             }
