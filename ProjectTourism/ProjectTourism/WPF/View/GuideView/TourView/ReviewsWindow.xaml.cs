@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,16 +24,27 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
     /// <summary>
     /// Interaction logic for ReviewsWindow.xaml
     /// </summary>
-    public partial class ReviewsWindow : UserControl
+    public partial class ReviewsWindow : UserControl, INotifyPropertyChanged
     {
         public TicketGradeVM SelectedTicketGrade { get; set; }
-        public ObservableCollection<TicketGradeVM> Tickets { get; set; }
-        public TicketGradeService TicketGradeService { get; set; }
-        public ReviewsWindow()
+        public ObservableCollection<TicketVM> Tickets { get; set; }
+        public ReviewsWindow(TourAppointmentVM tourApp)
         {
             InitializeComponent();
             DataContext = this;
-            TicketGradeService = new TicketGradeService(new TicketGradeRepository());
+
+            Tickets = new ObservableCollection<TicketVM>(tourApp.Tickets);
+        }
+
+        private void BadReviewButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -80,7 +80,8 @@ namespace ProjectTourism.Repositories
         {
             foreach (var ticketGrade in TicketGrades)
             {
-                if (ticketGrade.TicketId == ticketId) return ticketGrade;
+                if (ticketGrade.TicketId == ticketId) 
+                    return ticketGrade;
             }
             return null;
         }

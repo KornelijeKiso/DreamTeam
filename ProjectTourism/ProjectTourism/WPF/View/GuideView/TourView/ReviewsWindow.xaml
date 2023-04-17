@@ -5,16 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView.TourView"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
+
     <Grid>
         <Label Content="Reviews" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
-        <DataGrid CanUserAddRows="False" HorizontalAlignment="Left" Height="375" VerticalAlignment="Top" Width="408" 
-                  SelectedItem="{Binding SelectedTicketGrade, UpdateSourceTrigger=PropertyChanged}" 
-                  ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="104,211,0,0">
+        <DataGrid RowHeight="100" CanUserAddRows="False" HorizontalAlignment="Left" Height="400" VerticalAlignment="Top" Width="1047" 
+            SelectedItem="{Binding SelectedTicketGrade, UpdateSourceTrigger=PropertyChanged}" 
+            ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="104,211,0,0">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="150" Binding="{Binding Path=Ticket.Guest2.FirstName}"/>
-                <DataGridTextColumn Header="Surname" Width="150" Binding="{Binding Path=Ticket.Guest2.LastName}"/>
-            </DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Width="150" Binding="{Binding Guest2Username}"/>
+                <DataGridTextColumn Header="Checkpoint arrival" Width="150" Binding="{Binding TourStop}"/>
+                <DataGridTextColumn Header="Comment" Width="150" Binding="{Binding Path=TicketGrade.Comment}"/>
+                <DataGridTextColumn Header="Guide's knowledge" Width="120" Binding="{Binding Path=TicketGrade.Grades[GuidesKnowledge]}"/>
+                <DataGridTextColumn Header="Guide's language" Width="110" Binding="{Binding Path=TicketGrade.Grades[GuidesLanguage]}"/>
+                <DataGridTextColumn Header="Interesting" Width="*" Binding="{Binding Path=TicketGrade.Grades[Interesting]}"/>
 
+                <DataGridTemplateColumn Width="150" Header="Picture">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Path=TicketGrade.Pictures[0]}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="100" Header="Button">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Click="BadReviewButton_Click" Height="50" Width="50">
+                                <Button.Background>
+                                    <ImageBrush ImageSource="https://img.icons8.com/color/256/cancel.png"/>
+                                </Button.Background>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+
+            </DataGrid.Columns>
         </DataGrid>
     </Grid>
+
+
+
+
 </UserControl>

@@ -131,7 +131,7 @@ namespace ProjectTourism.View.GuideView.TourView
         private void ReviewsButton_Click(object sender, RoutedEventArgs e)
         {
             HideTourStopsContent();
-            ContentArea.Content = new ReviewsWindow();
+            ContentArea.Content = new ReviewsWindow(TourAppointment);
         }
 
         private List<UIElement> UIElements()
@@ -150,7 +150,6 @@ namespace ProjectTourism.View.GuideView.TourView
         public void Update() { }
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e) { }
         public event PropertyChangedEventHandler? PropertyChanged;
-
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));

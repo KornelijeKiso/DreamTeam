@@ -15,7 +15,7 @@ namespace ProjectTourism.Model
         public int Id;
         public int TicketId;
         public Ticket Ticket;
-        public static readonly string[] CategoryNames = { "Guide's knoweledge", "Guide's language", "Interesting" };
+        public static readonly string[] CategoryNames = { "GuidesKnowledge", "GuidesLanguage", "Interesting" };
         public Dictionary<string, int> Grades;
         public string Comment;
         public string? PictureURLs;
