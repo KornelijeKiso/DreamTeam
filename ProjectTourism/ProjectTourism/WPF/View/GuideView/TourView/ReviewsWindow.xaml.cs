@@ -43,9 +43,6 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
 
         private void BadReviewButton_Click(object sender, RoutedEventArgs e)
         {
-            Button clickedButton = (Button)sender;
-            SelectedTicket.TicketGrade.IsReported = true;
-            clickedButton.IsEnabled = true;
             Guide.ReportTicketGrade(SelectedTicket);
             Update();
         }
@@ -56,8 +53,6 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             foreach(var ticket in TicketsList)
             {
                 Tickets.Add(ticket);
-                //if(ticket.TicketGrade.IsReported)
-                //    BadReviewButton.IsEnabled = false;
             }
         }
         public event PropertyChangedEventHandler? PropertyChanged;

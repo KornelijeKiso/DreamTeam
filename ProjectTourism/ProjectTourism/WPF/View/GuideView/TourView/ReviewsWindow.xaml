@@ -33,11 +33,13 @@
                 <DataGridTemplateColumn Width="100" Header="Button">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="BadReviewButton" HorizontalAlignment="Right" Height="35" Width="35" Margin="0, -25, 10, 0" Click="BadReviewButton_Click">
+                            <Button x:Name="BadReviewButton" HorizontalAlignment="Right" Height="35" Width="35" Margin="0, -25, 10, 0" Click="BadReviewButton_Click" 
+                            IsEnabled="{Binding TicketGrade.IsNotReported, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
                                 <Button.Background>
                                     <ImageBrush ImageSource="https://img.icons8.com/color/256/cancel.png" />
                                 </Button.Background>
                             </Button>
+
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

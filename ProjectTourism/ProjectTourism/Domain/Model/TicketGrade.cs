@@ -20,7 +20,7 @@ namespace ProjectTourism.Model
         public string Comment;
         public string? PictureURLs;
         public string[] Pictures;
-        public bool IsReported;
+        public bool IsNotReported;
 
 
         public TicketGrade()
@@ -30,7 +30,7 @@ namespace ProjectTourism.Model
             {
                 Grades.Add(category, 0);
             }
-            IsReported = false;
+            IsNotReported = true;
         }
 
         public string[] GetPictureURLsFromCSV()
@@ -54,7 +54,7 @@ namespace ProjectTourism.Model
             }
             csv.Add(Comment);
             csv.Add(PictureURLs);
-            csv.Add(IsReported.ToString());
+            csv.Add(IsNotReported.ToString());
             string[] csvValues = csv.ToArray();
             return csvValues;
         }
@@ -69,7 +69,7 @@ namespace ProjectTourism.Model
             }
             Comment = values[5];
             PictureURLs = values[6];
-            IsReported = bool.Parse(values[7]);
+            IsNotReported = bool.Parse(values[7]);
             Pictures = GetPictureURLsFromCSV();
         }
     }

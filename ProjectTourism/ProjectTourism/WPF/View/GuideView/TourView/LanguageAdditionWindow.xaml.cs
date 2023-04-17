@@ -35,10 +35,7 @@ namespace ProjectTourism.View.GuideView.TourView
             DataContext = this;
             ObserverLanguages = observerLanguages;
         }
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        
         private void AddLanguageButton_Click(object sender, RoutedEventArgs e)
         {
             ObserverLanguages.Add(LanguageTextBox.Text);
@@ -46,9 +43,10 @@ namespace ProjectTourism.View.GuideView.TourView
             Close();
         }
         public event PropertyChangedEventHandler? PropertyChanged;
-        public void Update()
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        public void Update() { }
     }
 }

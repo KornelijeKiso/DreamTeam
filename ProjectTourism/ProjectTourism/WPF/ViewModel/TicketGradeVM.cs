@@ -127,14 +127,14 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
-        public bool IsReported
+        public bool IsNotReported
         {
-            get => _ticketGrade.IsReported;
+            get => _ticketGrade.IsNotReported;
             set
             {
-                if (value != _ticketGrade.IsReported)
+                if (value != _ticketGrade.IsNotReported)
                 {
-                    _ticketGrade.IsReported = value;
+                    _ticketGrade.IsNotReported = value;
                     OnPropertyChanged();
                 }
             }

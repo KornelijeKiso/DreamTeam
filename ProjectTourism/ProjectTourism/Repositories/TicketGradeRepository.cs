@@ -72,7 +72,7 @@ namespace ProjectTourism.Repositories
                     existingTicketGrade.TicketId = ticketGrade.TicketId;
                     existingTicketGrade.Comment = ticketGrade.Comment;
                     existingTicketGrade.PictureURLs = ticketGrade.PictureURLs;
-                    existingTicketGrade.IsReported = ticketGrade.IsReported;
+                    existingTicketGrade.IsNotReported = ticketGrade.IsNotReported;
                 }
             }
             FileHandler.Save(TicketGrades);

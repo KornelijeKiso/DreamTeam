@@ -37,7 +37,6 @@ namespace ProjectTourism.View.GuideView.TourView
         public GuideVM Guide { get; set; }
         public ObservableCollection<TicketVM> Tickets { get; set; } 
 
-
         public TourStopsWindow(TourAppointmentVM SelectedTourAppointment)
         {
             InitializeComponent();
