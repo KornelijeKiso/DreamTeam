@@ -21,9 +21,6 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.GuideView.TourView
 {
-    /// <summary>
-    /// Interaction logic for ReviewsWindow.xaml
-    /// </summary>
     public partial class ReviewsWindow : UserControl, INotifyPropertyChanged
     {
         public TicketVM SelectedTicket { get; set; }

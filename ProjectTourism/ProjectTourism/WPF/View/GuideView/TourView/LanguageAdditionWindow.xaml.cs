@@ -22,31 +22,28 @@ using ProjectTourism.Services;
 
 namespace ProjectTourism.View.GuideView.TourView
 {
-    /// <summary>
-    /// Interaction logic for LanguageAdditionWindow.xaml
-    /// </summary>
     public partial class LanguageAdditionWindow : Window, INotifyPropertyChanged, IObserver
     {
-        public ObservableCollection<string> ObserverLanguages = new ObservableCollection<string>();
         public bool LanguageAdded { get; set; }
+        public ObservableCollection<string> ObserverLanguages { get; set; }
         public LanguageAdditionWindow(ObservableCollection<string> observerLanguages)
         {
             InitializeComponent();
             DataContext = this;
+            ObserverLanguages = new ObservableCollection<string>();
             ObserverLanguages = observerLanguages;
         }
-        
         private void AddLanguageButton_Click(object sender, RoutedEventArgs e)
         {
             ObserverLanguages.Add(LanguageTextBox.Text);
             LanguageAdded = true;
             Close();
         }
+        public void Update() { }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public void Update() { }
     }
 }

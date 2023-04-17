@@ -26,9 +26,6 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.TourView
 {
-    /// <summary>
-    /// Interaction logic for CreateTourWindow.xaml
-    /// </summary>
     public partial class CreateTourWindow : UserControl, INotifyPropertyChanged, IObserver
     {
         public TourVM NewTour { get; set; }
@@ -42,17 +39,9 @@ namespace ProjectTourism.View.TourView
             InitializeComponent();
             DataContext = this;
             Guide = guide;
-
             SetModels();
-
-            NewTour.GuideUsername = guide.Username;
-            NewTour.Guide = guide;
-            NewTour.dates = new List<DateTime>();
-
-            LanguagesObservable = new ObservableCollection<string>(SetLanguages());
             LanguageComboBox.ItemsSource = LanguagesObservable;
         }
-
         private List<string> SetLanguages()
         {
             return new List<string>
@@ -61,15 +50,14 @@ namespace ProjectTourism.View.TourView
                 "Dutch","Swedish","Norwegian","Danish","Finnish","Turkish","Greek","Polish","Arabic","Hebrew",
             };
         }
-
         private void SetModels()
         {
             NewTour = new TourVM(new Tour());
+            NewTour.dates = new List<DateTime>();
+            NewTour.GuideUsername = Guide.Username;
+            NewTour.Guide = Guide;
             NewLocation = new LocationVM(new Location());
-        }
-        public void Update()
-        {
-
+            LanguagesObservable = new ObservableCollection<string>(SetLanguages());
         }
         private void SaveTour_Click(object sender, RoutedEventArgs e)
         {
@@ -92,44 +80,16 @@ namespace ProjectTourism.View.TourView
         }
         private void HideTourCreateContents()
         {
-            foreach (var child in grid1.Children)
-            {
-                if (child is Button || child is Label || child is TextBox)
-                {
-                    (child as UIElement).Visibility = Visibility.Hidden;
-                }
-            }
-            foreach (var child in grid2.Children)
-            {
-                if (child is Button || child is Label || child is TextBox)
-                {
-                    (child as UIElement).Visibility = Visibility.Hidden;
-                }
-            }
-            foreach (var child in grid3.Children)
-            {
-                if (child is Button || child is Label || child is TextBox)
-                {
-                    (child as UIElement).Visibility = Visibility.Hidden;
-                }
-            }
-            textblockHours.Visibility = Visibility.Hidden;
-            textblockMinutes.Visibility =Visibility.Hidden;
-            hoursTextBox.Visibility = Visibility.Hidden;
-            minutesTextBox.Visibility = Visibility.Hidden;
-            appointmentsListBox.Visibility = Visibility.Hidden;
-            AddTimeButton.Visibility = Visibility.Hidden;
-            calendar.Visibility = Visibility.Hidden;
-            LanguageComboBox.Visibility = Visibility.Hidden;
-            rectangle.Visibility = Visibility.Hidden;
-            SaveButton.Visibility = Visibility.Hidden;
-            AddLanguageButton.Visibility = Visibility.Hidden;
-            CreateTourLabel.Visibility = Visibility.Hidden;
-        }
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
+            datagrid.Children.Cast<UIElement>().Where(child => child is Button || child is Label || child is TextBox)
+                                               .ToList().ForEach(child => child.Visibility = Visibility.Hidden);
 
+            List<UIElement> elementsToHide = new List<UIElement>
+            { textblockHours,textblockMinutes,hoursTextBox,minutesTextBox,appointmentsListBox,AddTimeButton,
+                calendar,LanguageComboBox,rectangle,SaveButton,AddLanguageButton,CreateTourLabel };
+
+            elementsToHide.ForEach(element => element.Visibility = Visibility.Hidden);
         }
+        
         private void AddLanguageButton_Click(object sender, RoutedEventArgs e)
         {
             LanguageAdditionWindow languageAdditionWindow = new LanguageAdditionWindow(LanguagesObservable);
@@ -137,13 +97,6 @@ namespace ProjectTourism.View.TourView
             if (languageAdditionWindow.LanguageAdded)
                 LanguageComboBox.SelectedItem = LanguagesObservable.Last().ToString();
         }
-
-
-        private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private void AddTimeButton_Click(object sender, RoutedEventArgs e)
         {
             int hours, minutes;
@@ -156,11 +109,8 @@ namespace ProjectTourism.View.TourView
                 UpdateAppointmentsListBox();
             }
             else
-            {
                 MessageBox.Show("Invalid time entered.");
-            }
         }
-
         private void AddTimeToDate(int hours, int minutes, DateTime date)
         {
             TimeSpan time = new TimeSpan(hours, minutes, 0);
@@ -169,17 +119,8 @@ namespace ProjectTourism.View.TourView
                 appointments[date] = new List<TimeSpan>();
             }
             appointments[date].Add(time);
-        }
 
-        private void UpdateAppointmentsListBox()
-        {
-            appointmentsListBox.Items.Clear();
-            foreach (KeyValuePair<DateTime, List<TimeSpan>> appointment in appointments)
-            {
-                AddDateToList(appointment);
-            }
         }
-
         private void AddDateToList(KeyValuePair<DateTime, List<TimeSpan>> appointment)
         {
             string appointmentText = appointment.Key.ToShortDateString() + " ";
@@ -189,7 +130,6 @@ namespace ProjectTourism.View.TourView
             }
             appointmentsListBox.Items.Add(appointmentText.TrimEnd(',', ' '));
         }
-
         private void SaveDates()
         {
             foreach (KeyValuePair<DateTime, List<TimeSpan>> appointment in appointments)
@@ -204,12 +144,23 @@ namespace ProjectTourism.View.TourView
                 }
             }
         }
-
+        private void UpdateAppointmentsListBox()
+        {
+            appointmentsListBox.Items.Clear();
+            foreach (KeyValuePair<DateTime, List<TimeSpan>> appointment in appointments)
+            {
+                AddDateToList(appointment);
+            }
+        }
         private void Calendar_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
         {
             hoursTextBox.Text = "";
             minutesTextBox.Text = "";
         }
+        public void Update() { }
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e) { }
+        private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         {

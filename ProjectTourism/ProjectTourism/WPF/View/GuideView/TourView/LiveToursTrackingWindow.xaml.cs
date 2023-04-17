@@ -23,9 +23,6 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.GuideView.TourView
 {
-    /// <summary>
-    /// Interaction logic for LiveToursTrackingWindow.xaml
-    /// </summary>
     public partial class LiveToursTrackingWindow : UserControl, INotifyPropertyChanged
     {
         public GuideVM Guide { get; set; }
@@ -46,20 +43,14 @@ namespace ProjectTourism.View.GuideView.TourView
                 SelectedTourAppointment = tourStopsWindow.TourAppointment;
             }
             else
-            {
                 MessageBox.Show("You must choose a route which you want to start.");
-            }
         }
         private void HideTodaysToursContent()
         {
-            StartTourButton.Visibility = Visibility.Hidden;
-            TodaysToursLabel.Visibility = Visibility.Hidden;
-            DataGridTourAppointments.Visibility = Visibility.Hidden;
+            List<UIElement> elementsToHide = new List<UIElement> { StartTourButton, TodaysToursLabel, DataGridTourAppointments };
+            elementsToHide.ForEach(element => element.Visibility = Visibility.Hidden);
         }
-        public void Update()
-        {
-
-        }
+        public void Update() { }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace ProjectTourism.WPF.View.GuideView.TourView
 {
-    /// <summary>
-    /// Interaction logic for RequestsWindow.xaml
-    /// </summary>
     public partial class RequestsWindow : UserControl
     {
         public RequestsWindow()

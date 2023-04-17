@@ -17,9 +17,6 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.GuideView.TourView
 {
-    /// <summary>
-    /// Interaction logic for TourStatistics.xaml
-    /// </summary>
     public partial class TourStatisticsWindow : UserControl
     {
         public GuideVM Guide { get; set; }

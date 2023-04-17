@@ -22,26 +22,17 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.GuideView.TourView
 {
-    /// <summary>
-    /// Interaction logic for TrackToursWindow.xaml
-    /// </summary>
     public partial class ViewAllToursWindow : UserControl, INotifyPropertyChanged, IObserver
     {
         public GuideVM Guide { get; set; }
         public TourVM SelectedTour { get; set; }
-
         public ViewAllToursWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
             Guide = new GuideVM(username);
         }
-
         public event PropertyChangedEventHandler? PropertyChanged;
-
-        public void Update()
-        {
-
-        }
+        public void Update() { }
     }
 }

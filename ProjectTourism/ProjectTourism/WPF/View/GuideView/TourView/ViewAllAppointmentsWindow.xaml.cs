@@ -23,9 +23,6 @@ using System.Runtime.CompilerServices;
 
 namespace ProjectTourism.View.GuideView.TourView
 {
-    /// <summary>
-    /// Interaction logic for TrackToursWindow.xaml
-    /// </summary>
     public partial class ViewAllAppointmentsWindow : UserControl, INotifyPropertyChanged, IObserver
     {
         public TourAppointmentVM SelectedAppointment { get; set; }
@@ -37,7 +34,6 @@ namespace ProjectTourism.View.GuideView.TourView
             DataContext = this;
             Guide = new GuideVM(username);
         }
-        
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
             if (SelectedAppointment != null)
@@ -51,9 +47,7 @@ namespace ProjectTourism.View.GuideView.TourView
                     MessageBox.Show("The tour can not be canceled because the cancelation time is at least 48 hours before start.");
             }
             else
-            {
                 MessageBox.Show("You must choose an appointment which you would like to cancel!");
-            }
         }
         public void Update() { }
 

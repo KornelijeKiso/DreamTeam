@@ -14,8 +14,8 @@
             </StackPanel>
         </ControlTemplate>
     </UserControl.Resources>
-    <Grid x:Name="grid1">
-        <Grid Margin="580,60,152,81" Height="370" Width="220" x:Name="grid3">
+    <Grid>
+        <Grid Margin="580,60,152,81" Height="370" Width="220" x:Name="calendargrid">
             <Rectangle Stroke="Black" Margin="0,-15,0,-20" Fill="#FF9BC8EC" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="4" Name="rectangle">
                 <Rectangle.RenderTransform>
                     <TransformGroup>
@@ -39,7 +39,7 @@
                 <ListBox x:Name="appointmentsListBox" Margin="5"/>
             </StackPanel>
         </Grid>
-        <Grid Margin="249,120,587,36" x:Name="grid2">
+        <Grid Margin="249,120,587,36" x:Name="datagrid">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -69,7 +69,6 @@
             <Label Grid.Row="9" Grid.Column="0" Content="Images" Margin="0,6,0,6"/>
             <Label Grid.Row="10" Grid.Column="0" Content="Tour description" Margin="0,7,0,6"/>
 
-
             <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path = NewTour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>
             <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path = NewLocation.Country, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>
             <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path = NewLocation.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>
@@ -78,7 +77,6 @@
             <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path = NewTour.Start, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" TextChanged="TextBox_TextChanged" Margin="0,8,0,8"/>
             <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Path = NewTour.Stops}" Margin="0,8,0,8"/>
             <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding Path = NewTour.Finish, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>
-            <!--<DatePicker x:Name="dateTimePicker" Grid.Row="8" Grid.Column="1" SelectedDate="{Binding Path=NewTour.StartDate, Mode=TwoWay}" Margin="0,8,0,8" FirstDayOfWeek="Monday"/>-->
             <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding Path = NewTour.Duration, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>
             <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding Path = NewTour.PictureURLs}" Margin="0,8,0,8"/>
             <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding Path = NewTour.Description}" Margin="0,8,0,8"/>
