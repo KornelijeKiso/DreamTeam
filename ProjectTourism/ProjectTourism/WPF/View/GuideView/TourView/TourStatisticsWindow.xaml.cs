@@ -42,7 +42,65 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             StatsLabels.Visibility = Visibility.Collapsed;
             Update();
         }
+        private void StatsButton_Click(object sender, RoutedEventArgs e)
+        {
+            FieldSet.Header = SelectedTourApp.Tour.Name;
+            CalculateTicketPercentage(SelectedTourApp);
+            CalculateAgeStats(SelectedTourApp);
+            StatsLabels.Visibility = Visibility.Visible;
+        }
+        private void SetModels(string username)
+        {
+            Guide = new GuideVM(username);
+            TourAppsObs = new ObservableCollection<TourAppointmentVM>();
+            TourAppPercentage = new ObservableCollection<double>();
+            TourApps = new List<TourAppointmentVM>(Guide.TourAppointments);
+            TourAppsObs = new ObservableCollection<TourAppointmentVM>(TourApps);
+            Years = new List<int>(GetYears());
+            AgeGroups = new ObservableCollection<double>();
+        }
+        private void SetVisits()
+        {
+            TourApps.ForEach(tourApp => tourApp.Visits = tourApp.Tickets.Count);
+            TourApps.Sort((t1, t2) => t2.Visits.CompareTo(t1.Visits));
+        }
+        private void SetComboBox()
+        {
+            comboboxYears.ItemsSource = Years;
+            comboboxYears.SelectedIndex = Years.IndexOf(DateTime.Now.Year);
+        }
+        private void YearsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            SelectedYear = (int)comboboxYears.SelectedItem;
 
+            TourApps.Clear();
+            Guide.TourAppointments.Where(tourApp => tourApp.TourDateTime.Year == SelectedYear && tourApp.State.Equals(TOURSTATE.FINISHED))
+                                  .ToList().ForEach(tourApp => TourApps.Add(tourApp));
+            SetVisits();
+            Update();
+        }
+        private List<int> GetYears()
+        {
+            List<int> years = new List<int>();
+            Update();
+            TourAppsObs.ToList().ForEach(tourApp => { if (!years.Contains(tourApp.TourDateTime.Year)) years.Add(tourApp.TourDateTime.Year); });
+            years.Sort();
+            years.Reverse();
+
+            return years;
+        }
+        private void CalculateTicketPercentage(TourAppointmentVM SelectedTourApp)
+        {
+            int tickets = 0;
+            int vouchers = 0;
+
+            tickets += SelectedTourApp.Tickets.Count;
+            vouchers += SelectedTourApp.Tickets.Count(ticket => ticket.HasVoucher);
+
+            TourAppPercentage.Clear();
+            TourAppPercentage.Add(Math.Round(tickets != 0 ? (double)(tickets - vouchers) / tickets * 100 : 0));
+            TourAppPercentage.Add(Math.Round(tickets != 0 ? (double)vouchers / tickets * 100 : 0));
+        }
         private void CalculateAgeStats(TourAppointmentVM SelectedTourApp)
         {
             int year = DateTime.Now.Year;
@@ -62,87 +120,6 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             AgeGroups.Add(Math.Round(group2 != 0 ? (double)(group2) / (group1 + group2 + group3) * 100 : 0));
             AgeGroups.Add(Math.Round(group3 != 0 ? (double)(group3) / (group1 + group2 + group3) * 100 : 0));
         }
-
-        private void StatsButton_Click(object sender, RoutedEventArgs e)
-        {
-            FieldSet.Header = SelectedTourApp.Tour.Name;
-            CalculateTicketPercentage(SelectedTourApp);
-            CalculateAgeStats(SelectedTourApp);
-            StatsLabels.Visibility = Visibility.Visible;
-        }
-        private void SetModels(string username)
-        {
-            Guide = new GuideVM(username);
-            TourAppsObs = new ObservableCollection<TourAppointmentVM>();
-            TourAppPercentage = new ObservableCollection<double>();
-            TourApps = new List<TourAppointmentVM>(Guide.TourAppointments);
-            TourAppsObs = new ObservableCollection<TourAppointmentVM>(TourApps);
-            Years = new List<int>(GetYears());
-            AgeGroups = new ObservableCollection<double>();
-        }
-
-        private void SetVisits()
-        {
-            foreach (var tourApp in TourApps)
-            {
-                tourApp.Visits = tourApp.Tickets.Count;
-            }
-            TourApps.Sort((t1, t2) => t2.Visits.CompareTo(t1.Visits));
-        }
-        private void SetComboBox()
-        {
-            comboboxYears.ItemsSource = Years;
-            comboboxYears.SelectedIndex = Years.IndexOf(DateTime.Now.Year);
-        }
-        private void YearsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            SelectedYear = (int)comboboxYears.SelectedItem;
-         
-            TourApps.Clear();
-            foreach (var tourApp in Guide.TourAppointments)
-            {
-                if (tourApp.TourDateTime.Year == SelectedYear && tourApp.State.Equals(TOURSTATE.FINISHED))
-                    TourApps.Add(tourApp);
-            }
-            SetVisits();
-            Update();
-            
-        }
-        private List<int> GetYears()
-        {
-            List<int> years = new List<int>();
-            Update();
-            foreach (var tourApp in TourAppsObs)
-            {
-                int year = tourApp.TourDateTime.Year;
-                if (!years.Contains(year))
-                    years.Add(year);
-            }
-            years.Sort();
-            years.Reverse();
-
-            return years;
-        }
-
-        private void CalculateTicketPercentage(TourAppointmentVM SelectedTourApp)
-        {
-            int tickets = 0;
-            int vouchers = 0;
-
-
-            tickets += SelectedTourApp.Tickets.Count;
-            vouchers += SelectedTourApp.Tickets.Count(ticket => ticket.HasVoucher);
-            
-
-            TourAppPercentage.Clear();
-
-            double TicketPercentage = tickets != 0 ? (double)(tickets - vouchers) / tickets * 100 : 0;
-            double VoucherPercentage = tickets != 0 ? (double)vouchers / tickets * 100 : 0;
-
-            TourAppPercentage.Add(Math.Round(TicketPercentage));
-            TourAppPercentage.Add(Math.Round(VoucherPercentage));
-        }
-
         private void Update()
         {
             TourAppsObs.Clear();
