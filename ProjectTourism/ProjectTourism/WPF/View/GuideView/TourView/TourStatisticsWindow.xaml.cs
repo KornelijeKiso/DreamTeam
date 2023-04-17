@@ -29,6 +29,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         public ObservableCollection<double> TourAppPercentage { get; set; }
         public int SelectedYear { get; set; }
         public List<int> Years { get; set; }
+        public ObservableCollection<double> AgeGroups { get; set; }
         public TourStatisticsWindow(string username)
         {
             InitializeComponent();
@@ -37,14 +38,36 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             SetModels(username);
             SetVisits();
             SetComboBox();
-            
+
             StatsLabels.Visibility = Visibility.Collapsed;
             Update();
         }
+
+        private void CalculateAgeStats(TourAppointmentVM SelectedTourApp)
+        {
+            int year = DateTime.Now.Year;
+            int group1 = 0, group2 = 0, group3 = 0;
+
+            foreach (var ticket in SelectedTourApp.Tickets)
+            {
+                if (ticket.Guest2.Birthday.Year + 18 > year)
+                    group1++;
+                else if (ticket.Guest2.Birthday.Year + 18 <= year && ticket.Guest2.Birthday.Year + 50 > year)
+                    group2++;
+                else
+                    group3++;
+            }
+            AgeGroups.Clear();
+            AgeGroups.Add(Math.Round(group1 != 0 ? (double)(group1) / (group1 + group2 + group3) * 100 : 0));
+            AgeGroups.Add(Math.Round(group2 != 0 ? (double)(group2) / (group1 + group2 + group3) * 100 : 0));
+            AgeGroups.Add(Math.Round(group3 != 0 ? (double)(group3) / (group1 + group2 + group3) * 100 : 0));
+        }
+
         private void StatsButton_Click(object sender, RoutedEventArgs e)
         {
             FieldSet.Header = SelectedTourApp.Tour.Name;
             CalculateTicketPercentage(SelectedTourApp);
+            CalculateAgeStats(SelectedTourApp);
             StatsLabels.Visibility = Visibility.Visible;
         }
         private void SetModels(string username)
@@ -55,6 +78,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             TourApps = new List<TourAppointmentVM>(Guide.TourAppointments);
             TourAppsObs = new ObservableCollection<TourAppointmentVM>(TourApps);
             Years = new List<int>(GetYears());
+            AgeGroups = new ObservableCollection<double>();
         }
 
         private void SetVisits()
@@ -82,6 +106,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             }
             SetVisits();
             Update();
+            
         }
         private List<int> GetYears()
         {
@@ -114,8 +139,8 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             double TicketPercentage = tickets != 0 ? (double)(tickets - vouchers) / tickets * 100 : 0;
             double VoucherPercentage = tickets != 0 ? (double)vouchers / tickets * 100 : 0;
 
-            TourAppPercentage.Add(Math.Round(TicketPercentage, 2));
-            TourAppPercentage.Add(Math.Round(VoucherPercentage, 2));
+            TourAppPercentage.Add(Math.Round(TicketPercentage));
+            TourAppPercentage.Add(Math.Round(VoucherPercentage));
         }
 
         private void Update()

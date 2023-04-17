@@ -69,6 +69,25 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
+                <DataGridTemplateColumn Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Label Margin="0,0,0,-7" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Label.Content>
+                                    <TextBlock>
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{} {0}:{1}">
+                                                <Binding Path="TourDateTime.Hour" />
+                                                <Binding Path="TourDateTime.Minute" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                </Label.Content>
+                            </Label>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
                 <DataGridTemplateColumn Width="80" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -76,7 +95,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-
+                
             </DataGrid.Columns>
         </DataGrid>
         
@@ -91,6 +110,21 @@
                     <TextBlock Margin="0,0,0,-7">
                         <Run Text="Vouchers: "/>
                         <Run Text="{Binding TourAppPercentage[1]}"/>
+                        <Run Text="%"/>
+                    </TextBlock>
+                    <TextBlock Margin="0,0,0,-7">
+                        <Run Text="Under 18: "/>
+                        <Run Text="{Binding AgeGroups[0]}"/>
+                        <Run Text="%"/>
+                    </TextBlock>
+                    <TextBlock Margin="0,0,0,-7">
+                        <Run Text="[18-50]: "/>
+                        <Run Text="{Binding AgeGroups[1]}"/>
+                        <Run Text="%"/>
+                    </TextBlock>
+                    <TextBlock Margin="0,0,0,-7">
+                        <Run Text="Over 50: "/>
+                        <Run Text="{Binding AgeGroups[2]}"/>
                         <Run Text="%"/>
                     </TextBlock>
                 </StackPanel>

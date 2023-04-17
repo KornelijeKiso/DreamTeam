@@ -81,20 +81,6 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-
-
-        <!--<DataGrid CanUserAddRows="False" HorizontalAlignment="Left" Height="166" VerticalAlignment="Top" Width="785" SelectedItem="{Binding SelectedTourAppointment, UpdateSourceTrigger=PropertyChanged}" 
-                  ItemsSource="{Binding TourAppointments, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="52,402,0,0">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Name" Width="111" Binding="{Binding Tour.Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Country" Width="111" Binding="{Binding Tour.Location.Country}"></DataGridTextColumn>
-                <DataGridTextColumn Header="City" Width="111" Binding="{Binding Tour.Location.City}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Language" Width="111" Binding="{Binding Tour.Language}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Max guests" Width="111" Binding="{Binding Tour.MaxNumberOfGuests}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Date and time" Width="111" Binding="{Binding TourDateTime}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Duration" Width="111" Binding="{Binding Tour.Duration}"></DataGridTextColumn>
-            </DataGrid.Columns>
-        </DataGrid>-->
         <Button x:Name="StartTourButton" Content="Manage" HorizontalAlignment="Left" Height="49" Margin="1069,147,0,0" VerticalAlignment="Top" Width="123" Click="StartTourButton_Click"/>
         <Label Name="TodaysToursLabel" Content="Today's tours" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         <ContentControl x:Name="ContentArea"></ContentControl>
