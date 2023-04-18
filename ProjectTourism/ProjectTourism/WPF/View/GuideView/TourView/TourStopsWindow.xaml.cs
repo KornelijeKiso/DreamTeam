@@ -89,9 +89,9 @@ namespace ProjectTourism.View.GuideView.TourView
         }
         private bool CanGuidePassStop()
         {
-            if (TourAppointment.State == TOURSTATE.READY)
-                return !Guide.TourAppointments.Any(t => t.Id != TourAppointment.Id && t.State == TOURSTATE.STARTED);
-            return true;
+            if (TourAppointment.State == TOURSTATE.READY && !Guide.HasTourStarted)
+                return true;
+            return false;
         }
         private void CheckpointPassedButton_Click(object sender, RoutedEventArgs e)
         {

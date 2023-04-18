@@ -85,12 +85,16 @@ namespace ProjectTourism.WPF.ViewModel
         {
             TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
             TourService tourService = new TourService(new TourRepository());
+            GuideService guideService = new GuideService(new GuideRepository());
+
 
             string currentStop = tourApp.CurrentTourStop;
             int stopIndex = CalculateStopIndex(tourApp, currentStop);
             MoveCurrentStop(tourApp, stopIndex);
             tourApp.State = TOURSTATE.STARTED;
             tourAppointmentService.Update(tourApp);
+            _guide.HasTourStarted = true;
+            guideService.Update(_guide);
             return tourApp.CurrentTourStop;
         }
 
@@ -136,6 +140,7 @@ namespace ProjectTourism.WPF.ViewModel
             tourApp.IsFinished = true;
             tourApp.IsNotFinished = false;
             tourAppointmentService.Update(tourApp.GetTourAppointment());
+            _guide.HasTourStarted = false;
             guideService.Update(_guide);
             return tourApp.Tour.StopsList.Last();
         }
