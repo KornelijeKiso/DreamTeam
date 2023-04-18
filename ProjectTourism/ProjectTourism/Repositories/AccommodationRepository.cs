@@ -2,6 +2,7 @@
 using ProjectTourism.FileHandler;
 using ProjectTourism.Model;
 using ProjectTourism.Repositories.IRepositories;
+using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,19 +22,8 @@ namespace ProjectTourism.Repositories
         }
         public int GenerateId()
         {
-            int id = 0;
-            if (Accommodations == null)
-            {
-                id = 0;
-            }
-            else
-            {
-                foreach (var accommodation in Accommodations)
-                {
-                    id = accommodation.Id + 1;
-                }
-            }
-            return id;
+            if (Accommodations == null) return 0;
+            else return Accommodations.Last().Id + 1;
         }
         public void Add(Accommodation accommodation)
         {
@@ -55,11 +45,7 @@ namespace ProjectTourism.Repositories
 
         public Accommodation GetOne(int accommodationId)
         {
-            foreach (var accommodation in Accommodations)
-            {
-                if (accommodation.Id == accommodationId) return accommodation;
-            }
-            return null;
+            return Accommodations.Find(a => a.Id == accommodationId);
         }
 
         public void Update(Accommodation accommodation)
@@ -74,15 +60,7 @@ namespace ProjectTourism.Repositories
         }
         public List<Accommodation> GetAllByOwner(string ownerUsername)
         {
-            List<Accommodation> ownersAccommodations = new List<Accommodation>();
-            foreach(var accommodation in Accommodations)
-            {
-                if(accommodation.OwnerUsername == ownerUsername)
-                {
-                    ownersAccommodations.Add(accommodation);
-                }
-            }
-            return ownersAccommodations;
+            return Accommodations.FindAll(a => a.OwnerUsername.Equals(ownerUsername));
         }
     }
 }

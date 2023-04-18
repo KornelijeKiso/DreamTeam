@@ -1,4 +1,5 @@
-﻿using ProjectTourism.Model;
+﻿using ProjectTourism.Domain.Model;
+using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using System;
@@ -26,6 +27,23 @@ namespace ProjectTourism.WPF.ViewModel
         {
             ReservationService reservationService = new ReservationService(new ReservationRepository());
             reservationService.Update(this.GetReservation());
+        }
+
+        public void AcceptPostpone()
+        {
+            PostponeRequest.Accepted = true;
+            StartDate = PostponeRequest.NewStartDate;
+            EndDate = PostponeRequest.NewEndDate;
+            PostponeRequest.Update();
+            Update();
+            RequestedPostpone = false;
+        }
+        public void RejectPostpone(string Message)
+        {
+            PostponeRequest.Rejected = true;
+            PostponeRequest.AdditionalComment = Message;
+            PostponeRequest.Update();
+            RequestedPostpone = false;
         }
         public int Id
         {
@@ -175,9 +193,18 @@ namespace ProjectTourism.WPF.ViewModel
         {
             get => PostponeConflictMessage.Equals("Requested appointment is not in conflict with other reservations for this accommodation. You have options to accept or reject this postpone request.");
         }
+        private bool _CanBeGraded;
         public bool CanBeGraded
         {
-            get => !Graded && IsAbleToGrade();
+            get => _CanBeGraded=!Graded && IsAbleToGrade();
+            set
+            {
+                if(value!=_CanBeGraded)
+                {
+                    _CanBeGraded = value;
+                    OnPropertyChanged();
+                }
+            }
         }
         private bool _VisibleReview;
         public bool VisibleReview

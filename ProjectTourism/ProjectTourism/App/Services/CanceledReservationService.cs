@@ -11,46 +11,46 @@ using System.Threading.Tasks;
 
 namespace ProjectTourism.Services
 {
-    public class ReservationService
+    public class CanceledReservationService
     {
-        private IReservationRepository ReservationRepo;
-        public ReservationService(IReservationRepository irr)
+        private IReservationRepository CanceledReservationRepo;
+        public CanceledReservationService(IReservationRepository icrr)
         {
-            ReservationRepo = irr;
+            CanceledReservationRepo = icrr;
         }
         public void Add(Reservation reservation)
         {
-            ReservationRepo.Add(reservation);
+            CanceledReservationRepo.Add(reservation);
         }
         public void Cancel(Reservation reservation)
         {
 
-            ReservationRepo.Delete(reservation);
+            CanceledReservationRepo.Delete(reservation);
         }
         public Reservation GetOne(int id)
         {
-            return ReservationRepo.GetOne(id);
+            return CanceledReservationRepo.GetOne(id);
         }
         public void Update(Reservation reservation)
         {
-            ReservationRepo.Update(reservation);
+            CanceledReservationRepo.Update(reservation);
         }
         public List<Reservation> GetAll()
         {
-            return ReservationRepo.GetAll();
+            return CanceledReservationRepo.GetAll();
         }
         public List<Reservation> GetAllByAccommodation(int id)
         {
-            return ReservationRepo.GetAllByAccommodation(id);
+            return CanceledReservationRepo.GetAllByAccommodation(id);
         }
         public bool IsPossible(Reservation reservation)
         {
-            List<Reservation> ReservationsForSameAccommodation = ReservationRepo.GetAllByAccommodation(reservation.AccommodationId);
+            List<Reservation> ReservationsForSameAccommodation = CanceledReservationRepo.GetAllByAccommodation(reservation.AccommodationId);
             return ReservationsForSameAccommodation.Find(res => Conflict(reservation, res)) == null;
         }
         private bool Conflict(Reservation reservation, Reservation existingReservation)
         {
-            return !(reservation.StartDate > existingReservation.EndDate || reservation.EndDate < existingReservation.StartDate) && reservation.Id!=existingReservation.Id;
+            return !(reservation.StartDate > existingReservation.EndDate || reservation.EndDate < existingReservation.StartDate) && reservation.Id != existingReservation.Id;
         }
     }
 }

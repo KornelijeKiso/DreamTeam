@@ -38,11 +38,7 @@ namespace ProjectTourism.Repositories
 
         public Guest1 GetOne(string username)
         {
-            foreach (var guest1 in Guests1)
-            {
-                if (guest1.Username.Equals(username)) return guest1;
-            }
-            return null;
+            return Guests1.Find(g => g.Username.Equals(username));
         }
 
         public void Update(Guest1 guest1)

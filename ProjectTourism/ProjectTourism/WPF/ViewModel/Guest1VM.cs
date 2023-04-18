@@ -15,22 +15,79 @@ using System.Threading.Tasks;
 
 namespace ProjectTourism.WPF.ViewModel
 {
-    public class Guest1VM:INotifyPropertyChanged
+    public class Guest1VM : INotifyPropertyChanged
     {
         private Guest1 _guest1;
         public ObservableCollection<OwnerVM> OwnerVMs { get; set; }
         public ObservableCollection<AccommodationVM> Accommodations { get; set; }
+        public ObservableCollection<ReservationVM> Reservations { get; set; }
+        public ObservableCollection<ReservationVM> MyReservations { get; set; }
 
         public Guest1VM(string username)
         {
+            Guest1Service guest1Service = new Guest1Service(new Guest1Repository());
+            _guest1 = guest1Service.GetOne(username);
             AccommodationService accommodationService = new AccommodationService(new AccommodationRepository());
             Accommodations = new ObservableCollection<AccommodationVM>(accommodationService.GetAll().Select(r => new AccommodationVM(r)).ToList().OrderByDescending(a => a.Owner.IsSuperHost).ToList());
-            
+            MyReservations = new ObservableCollection<ReservationVM>();
+            ReservationService reservationService = new ReservationService(new ReservationRepository());
+            Reservations = new ObservableCollection<ReservationVM>(reservationService.GetAll().Select(r => new ReservationVM(r)).Reverse().ToList());
+            foreach (ReservationVM reservationVM in Reservations)
+            {
+                if (_guest1.Username == reservationVM.Guest1Username)
+                {
+                    reservationVM.Accommodation = new AccommodationVM(Accommodations.ToList().Find(a => a.Id == reservationVM.AccommodationId).GetAccommodation());
+                    MyReservations.Add(reservationVM);
+                }
+            }
+        }
+        public void CancelReservation(ReservationVM reservationVM)
+        {
+            ReservationService reservationService = new ReservationService(new ReservationRepository());
+            CanceledReservationService canceledReservationService = new CanceledReservationService(new CanceledReservationRepository());
+            MyReservations.Remove(reservationVM);
+            reservationService.Cancel(reservationVM.GetReservation());
+            canceledReservationService.Add(reservationVM.GetReservation());
+        }
+        public void PrepareReservation(out ReservationVM reservationVM, out AccommodationVM accommodationVM)
+        {
+            reservationVM = new ReservationVM(new Reservation());
+            ReservationService reservationService = new ReservationService(new ReservationRepository());
+            AccommodationService accommodationService = new AccommodationService(new AccommodationRepository());
+            accommodationVM = new AccommodationVM(accommodationService.GetOne(reservationVM.AccommodationId));
+        }
+
+        public bool ProcessReservation(ReservationVM reservationVM)
+        {
+            ReservationService reservationService = new ReservationService(new ReservationRepository());
+            if (reservationService.IsPossible(reservationVM.GetReservation()))
+            {
+                BookAccommodation(reservationVM);
+                return true;
+            }
+            else
+            {
+                FindFirstAvailableAccommodation(reservationVM);
+                return false;
+            }
+        }
+        private void BookAccommodation(ReservationVM reservationVM)
+        {
+            ReservationService reservationService = new ReservationService(new ReservationRepository());
+            reservationService.Add(reservationVM.GetReservation());
+        }
+        private void FindFirstAvailableAccommodation(ReservationVM reservationVM)
+        {
+            ReservationService reservationService = new ReservationService(new ReservationRepository());
+            while (!reservationService.IsPossible(reservationVM.GetReservation()))
+            {
+                reservationVM.StartDate = reservationVM.StartDate.AddDays(1);
+                reservationVM.EndDate = reservationVM.EndDate.AddDays(1);
+            }
         }
         public Guest1VM(Guest1 guest1)
         {
             _guest1 = guest1;
-            Reservations = _guest1.Reservations.Select(r => new ReservationVM(r)).ToList();
         }
         public Guest1 GetGuest1()
         {
@@ -145,7 +202,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public List<ReservationVM> Reservations;
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

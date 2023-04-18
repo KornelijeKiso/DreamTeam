@@ -2,6 +2,7 @@
 using ProjectTourism.FileHandler;
 using ProjectTourism.Model;
 using ProjectTourism.Repositories.IRepositories;
+using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,19 +22,8 @@ namespace ProjectTourism.Repositories
         }
         public int GenerateId()
         {
-            int id = 0;
-            if (AccommodationGrades == null)
-            {
-                id = 0;
-            }
-            else
-            {
-                foreach (var accommodationGrade in AccommodationGrades)
-                {
-                    id = accommodationGrade.Id + 1;
-                }
-            }
-            return id;
+            if (AccommodationGrades == null) return 0;
+            else return AccommodationGrades.Last().Id + 1;
         }
         public void Add(AccommodationGrade accommodationGrade)
         {
@@ -55,11 +45,7 @@ namespace ProjectTourism.Repositories
 
         public AccommodationGrade GetOne(int accommodationGradeId)
         {
-            foreach (var accommodationGrade in AccommodationGrades)
-            {
-                if (accommodationGrade.Id == accommodationGradeId) return accommodationGrade;
-            }
-            return null;
+            return AccommodationGrades.Find(a => a.Id == accommodationGradeId);
         }
 
         public void Update(AccommodationGrade accommodationGrade)
@@ -74,14 +60,7 @@ namespace ProjectTourism.Repositories
         }
         public AccommodationGrade GetOneByReservation(int reservationId)
         {
-            foreach (var accommodationGrade in AccommodationGrades)
-            {
-                if (accommodationGrade.ReservationId == reservationId)
-                {
-                    return accommodationGrade;
-                }
-            }
-            return null;
+            return AccommodationGrades.Find(a => a.ReservationId == reservationId);
         }
     }
 }

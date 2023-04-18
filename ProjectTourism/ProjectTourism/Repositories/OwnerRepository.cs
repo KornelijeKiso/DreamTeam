@@ -37,11 +37,7 @@ namespace ProjectTourism.Repositories
         }
         public Owner GetOne(string username)
         {
-            foreach (var owner in Owners)
-            {
-                if (owner.Username.Equals(username)) return owner;
-            }
-            return null;
+            return Owners.Find(o => o.Username.Equals(username));
         }
 
         public void Update(Owner owner)
