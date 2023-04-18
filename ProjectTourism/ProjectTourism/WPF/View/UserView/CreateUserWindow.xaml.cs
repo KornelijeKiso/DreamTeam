@@ -34,15 +34,12 @@ namespace ProjectTourism.View.UserView
     {
         public UserVM User { get; set; }
         public UserService UserService { get; set; }
-        public OwnerService OwnerService { get; set; }
-        public OwnerVM Owner { get; set; }
         public CreateUserWindow()
         {
             InitializeComponent();
             DataContext = this;
             User = new UserVM(new User());
             UserService = new UserService(new UserRepository());
-            OwnerService= new OwnerService(new OwnerRepository());
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -59,9 +56,7 @@ namespace ProjectTourism.View.UserView
             {
                 if (User.Type == USERTYPE.OWNER)
                 {
-                    Owner = new OwnerVM(new Model.Owner(User.GetUser()));
-                    UserService.Add(User);
-                    OwnerService.Add(Owner.GetOwner());
+                    User.CreateOwner();
                     Close();
                 }
                 else if (User.Type == USERTYPE.GUIDE)

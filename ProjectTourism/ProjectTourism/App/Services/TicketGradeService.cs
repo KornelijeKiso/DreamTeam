@@ -1,6 +1,5 @@
 ﻿using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.Model;
-using ProjectTourism.ModelDAO;
 using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.WPF.ViewModel;
@@ -14,12 +13,10 @@ namespace ProjectTourism.Services
 {
     public class TicketGradeService
     {
-        public List<IObserver> Observers;
         private ITicketGradeRepository TicketGradeRepository;
 
         public TicketGradeService(ITicketGradeRepository itgr)
         {
-            Observers = new List<IObserver>();
             TicketGradeRepository = itgr;
         }
         public void Update(TicketGrade ticketGrade)
@@ -45,21 +42,6 @@ namespace ProjectTourism.Services
         public TicketGrade GetOneByTicket(int ticketId)
         {
             return TicketGradeRepository.GetOneByTicket(ticketId);
-        }
-        public void Subscribe(IObserver observer)
-        {
-            Observers.Add(observer);
-        }
-        public void Unsubscribe(IObserver observer)
-        {
-            Observers.Remove(observer);
-        }
-        public void NotifyObservers()
-        {
-            foreach (var observer in Observers)
-            {
-                observer.Update();
-            }
         }
     }
 }

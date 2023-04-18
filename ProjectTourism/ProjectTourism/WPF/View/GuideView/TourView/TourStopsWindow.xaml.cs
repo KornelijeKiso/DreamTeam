@@ -17,9 +17,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ProjectTourism.Controller;
 using ProjectTourism.Model;
-using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using ProjectTourism.WPF.View.GuideView.TourView;
@@ -30,7 +28,7 @@ namespace ProjectTourism.View.GuideView.TourView
     /// <summary>
     /// Interaction logic for TourStopsWindow.xaml
     /// </summary>
-    public partial class TourStopsWindow : UserControl, INotifyPropertyChanged, IObserver
+    public partial class TourStopsWindow : UserControl, INotifyPropertyChanged
     {
         public TourAppointmentVM TourAppointment { get; set; }
         public TicketVM SelectedTicket { get; set; }
@@ -89,17 +87,19 @@ namespace ProjectTourism.View.GuideView.TourView
         }
         private bool CanGuidePassStop()
         {
-            if (TourAppointment.State == TOURSTATE.READY)
-                return !Guide.TourAppointments.Any(t => t.Id != TourAppointment.Id && t.State == TOURSTATE.STARTED);
-            return true;
+            if ((TourAppointment.State == TOURSTATE.READY && !Guide.HasTourStarted) || 
+                    (TourAppointment.State == TOURSTATE.STARTED && Guide.HasTourStarted))
+                return true;
+            return false;
         }
         private void CheckpointPassedButton_Click(object sender, RoutedEventArgs e)
         {
+            Guide = new GuideVM(TourAppointment.Tour.Guide.GetGuide());
             if (CanGuidePassStop())
             {
                 if (IsNextStopFinish())
                     TourAppointment.Tour.Guide.FinishTourAndReturnStop(TourAppointment);
-                else if (CanGoNextStop())
+                else 
                     NextStop();
             }
             else
@@ -110,10 +110,6 @@ namespace ProjectTourism.View.GuideView.TourView
         {
             //if we are on the one before last or if the stops are null
             return PassedButtonClicks() == TourAppointment.Tour.StopsList.Count() - 2 || TourAppointment.Tour.Stops.Equals(""); 
-        }
-        private bool CanGoNextStop()
-        {
-            return (!TourAppointment.Tour.Guide.HasTourStarted || TourAppointment.State == TOURSTATE.STARTED) && !IsNextStopFinish();
         }
         private void EmergencyStopButton_Click(object sender, RoutedEventArgs e)
         {
@@ -129,8 +125,16 @@ namespace ProjectTourism.View.GuideView.TourView
         }
         private void ReviewsButton_Click(object sender, RoutedEventArgs e)
         {
-            HideTourStopsContent();
-            ContentArea.Content = new ReviewsWindow(TourAppointment);
+            if (TourAppointment.Tickets.Count != 0 && TourAppointment.TicketGrades.Count != 0)
+            {
+                HideTourStopsContent();
+                ContentArea.Content = new ReviewsWindow(TourAppointment);
+            }
+            else
+            {
+                MessageBox.Show("There are no reviews for this appointment!");
+            }
+            
         }
 
         private List<UIElement> UIElements()

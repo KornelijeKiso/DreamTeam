@@ -20,7 +20,7 @@ namespace ProjectTourism.WPF.ViewModel
         public TicketVM(Ticket ticket)
         {
             _ticket = ticket;
-            Synchronize();
+            //Synchronize();
         }
         private void Synchronize()
         {

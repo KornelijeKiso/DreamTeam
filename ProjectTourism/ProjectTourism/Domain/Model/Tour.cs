@@ -32,8 +32,7 @@ namespace ProjectTourism.Model
         public int MaxNumberOfGuests;
         public string? Stops;
         public string Start;
-        public string Finish;
-        public DateTime StartDate;
+        public string Finish;        
         public List<DateTime> dates { get; set; }
         public double Duration;
         public string? PictureURLs;
@@ -41,7 +40,6 @@ namespace ProjectTourism.Model
         public string GuideUsername;
         public List<string> StopsList { get; set; }
         public Guide Guide;
-        public bool IsValid;
         public List<TourAppointment> TourAppointments { get; set; }
         
 
@@ -50,7 +48,6 @@ namespace ProjectTourism.Model
             StopsList = new List<string>();
             dates = new List<DateTime>();
             TourAppointments = new List<TourAppointment>();
-            IsValid = false;
         }
 
         public Tour(Tour t)
@@ -64,7 +61,6 @@ namespace ProjectTourism.Model
             Start = t.Start;
             Stops = t.Stops;
             Finish = t.Finish;
-            StartDate = t.StartDate;
             Duration = t.Duration;
             PictureURLs = t.PictureURLs;
             GuideUsername = t.GuideUsername;
@@ -82,7 +78,6 @@ namespace ProjectTourism.Model
             Start = start;
             Stops = stops;
             Finish = finish;
-            StartDate = startDate;
             Duration = duration;
             PictureURLs = images;
             GuideUsername = guideUsername;
@@ -100,7 +95,6 @@ namespace ProjectTourism.Model
             Start = start;
             Stops = stops;
             Finish = finish;
-            StartDate = startDate;
             Duration = duration;
             PictureURLs = images;
             GuideUsername = guideUsername;
@@ -133,37 +127,7 @@ namespace ProjectTourism.Model
             listStops.Add(finish);
             return listStops;
         }
-        //private List<DateTime> GetDates(List<TourAppointment> tourAppointments)
-        //{
-        //    List<DateTime> dates = new List<DateTime>();
-        //    foreach (TourAppointment tourAppointment in tourAppointments)
-        //    {
-        //        dates.Add(tourAppointment.TourDateTime);
-        //    }
-        //    return dates;
-        //}
-        //public List<DateTime> FromString(string dateString)
-        //{
-        //    List<DateTime> dates = new List<DateTime>();
-        //    string[] oneDate = dateString.Split(',');
-        //    foreach (var date in oneDate)
-        //    {
-        //        if (DateTime.TryParse(date.Trim(), new CultureInfo("en-GB"), DateTimeStyles.None, out var dateTimeParsed))
-        //            dates.Add(dateTimeParsed);
-        //    }
-        //    return dates;
-        //}
-        //public string ToString(List<DateTime> dates)
-        //{
-        //    string dateString = "";
-        //    int i;
-        //    for (i = 0; i < dates.Count(); i++)
-        //    {
-        //        dateString += dates[i].ToString("dd.MM.yyyy HH:mm") + ",";
-        //    }
-        //    return dateString;
-        //}
-
+       
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
@@ -174,7 +138,6 @@ namespace ProjectTourism.Model
             Start = values[5];
             Stops = values[6];
             Finish = values[7];
-         //   dates = FromString(values[8]);
             Duration = double.Parse(values[8]);
             PictureURLs = values[9];
             GuideUsername = values[10];
@@ -196,7 +159,6 @@ namespace ProjectTourism.Model
                 Start,
                 Stops,
                 Finish,
-             //   ToString(dates),
                 Duration.ToString(),
                 PictureURLs,
                 GuideUsername,

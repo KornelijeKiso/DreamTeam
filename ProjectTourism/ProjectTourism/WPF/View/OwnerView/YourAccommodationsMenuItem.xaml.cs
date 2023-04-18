@@ -1,5 +1,4 @@
 ﻿using ProjectTourism.Model;
-using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using ProjectTourism.View.OwnerView;
@@ -27,7 +26,7 @@ namespace ProjectTourism.WPF.View.OwnerView
     /// <summary>
     /// Interaction logic for YourAccommodationsMenuItem.xaml
     /// </summary>
-    public partial class YourAccommodationsMenuItem : UserControl, IObserver, INotifyPropertyChanged
+    public partial class YourAccommodationsMenuItem : UserControl,INotifyPropertyChanged
     {
         public OwnerVM Owner { get; set; }
         public AccommodationVM SelectedAccommodation { get; set; }
@@ -143,11 +142,6 @@ namespace ProjectTourism.WPF.View.OwnerView
             ComboDeadline.SelectedItem = Deadlines[0];
             ComboType.SelectedItem = Types[0];
         }
-
-        public void Update()
-        {
-        }
-
         public void IncreaseMaxNumberOfGuestsClick(object sender, RoutedEventArgs e)
         {
                 NewAccommodation.MaxNumberOfGuests++;

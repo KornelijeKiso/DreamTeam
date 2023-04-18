@@ -14,15 +14,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ProjectTourism.Controller;
 using ProjectTourism.Model;
-using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 
 namespace ProjectTourism.View.GuideView.TourView
 {
-    public partial class LanguageAdditionWindow : Window, INotifyPropertyChanged, IObserver
+    public partial class LanguageAdditionWindow : Window, INotifyPropertyChanged
     {
         public bool LanguageAdded { get; set; }
         public ObservableCollection<string> ObserverLanguages { get; set; }

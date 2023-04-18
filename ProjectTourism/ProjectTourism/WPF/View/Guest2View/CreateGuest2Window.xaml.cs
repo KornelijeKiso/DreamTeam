@@ -40,7 +40,6 @@ namespace ProjectTourism.View.Guest2View
             UserService = new UserService(new UserRepository());
             Guest2 = new Guest2VM(new Guest2(userVM.GetUser()));
             UserVM = userVM;
-            Guest2Service.Subscribe(this);
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

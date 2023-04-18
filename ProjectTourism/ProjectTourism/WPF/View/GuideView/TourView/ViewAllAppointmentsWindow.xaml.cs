@@ -13,9 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ProjectTourism.Controller;
 using ProjectTourism.Model;
-using ProjectTourism.Observer;
 using ProjectTourism.Services;
 using ProjectTourism.WPF.ViewModel;
 using ProjectTourism.Repositories;
@@ -23,7 +21,7 @@ using System.Runtime.CompilerServices;
 
 namespace ProjectTourism.View.GuideView.TourView
 {
-    public partial class ViewAllAppointmentsWindow : UserControl, INotifyPropertyChanged, IObserver
+    public partial class ViewAllAppointmentsWindow : UserControl, INotifyPropertyChanged
     {
         public TourAppointmentVM SelectedAppointment { get; set; }
         public GuideVM Guide { get; set; }

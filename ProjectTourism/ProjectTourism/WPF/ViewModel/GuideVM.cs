@@ -52,13 +52,19 @@ namespace ProjectTourism.WPF.ViewModel
                     foreach (var tourApp in tourAppointmentService.GetAllByTour(tour.Id))
                     {
                         tourApp.Tour = tour;
+                        tourApp.TicketGrades = new List<TicketGrade>();
+                        tourApp.Tickets = new List<Ticket>();
                         foreach (var ticket in ticketService.GetByAppointment(tourApp.Id))
                         {
                             ticket.HasVoucher = voucherService.GetOneByTicket(ticket.Id) != null;
-                            ticket.TourAppointment = tourApp;
                             ticket.Guest2 = guest2Service.GetOne(ticket.Guest2Username);
                             ticket.TicketGrade = ticketGradeService.GetOneByTicket(ticket.Id);
                             tourApp.Tickets.Add(ticket);
+                            if (ticket.TicketGrade != null)
+                            {
+                                tourApp.TicketGrades.Add(ticket.TicketGrade);
+                            }
+                            ticket.TourAppointment = tourApp;
                         }
                         tour.TourAppointments.Add(tourApp);
                     }
@@ -85,12 +91,16 @@ namespace ProjectTourism.WPF.ViewModel
         {
             TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
             TourService tourService = new TourService(new TourRepository());
+            GuideService guideService = new GuideService(new GuideRepository());
+
 
             string currentStop = tourApp.CurrentTourStop;
             int stopIndex = CalculateStopIndex(tourApp, currentStop);
             MoveCurrentStop(tourApp, stopIndex);
             tourApp.State = TOURSTATE.STARTED;
             tourAppointmentService.Update(tourApp);
+            _guide.HasTourStarted = true;
+            guideService.Update(_guide);
             return tourApp.CurrentTourStop;
         }
 
@@ -136,6 +146,7 @@ namespace ProjectTourism.WPF.ViewModel
             tourApp.IsFinished = true;
             tourApp.IsNotFinished = false;
             tourAppointmentService.Update(tourApp.GetTourAppointment());
+            _guide.HasTourStarted = false;
             guideService.Update(_guide);
             return tourApp.Tour.StopsList.Last();
         }

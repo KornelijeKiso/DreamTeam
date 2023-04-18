@@ -1,8 +1,5 @@
 ﻿using ProjectTourism.Services;
-using ProjectTourism.Controller;
 using ProjectTourism.Model;
-using ProjectTourism.ModelDAO;
-using ProjectTourism.Observer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -29,7 +26,7 @@ namespace ProjectTourism.View.OwnerView
     /// <summary>
     /// Interaction logic for MainOwnerWindow.xaml
     /// </summary>
-    public partial class MainOwnerWindow : Window, INotifyPropertyChanged, IObserver
+    public partial class MainOwnerWindow : Window, INotifyPropertyChanged
     {
         public OwnerVM Owner { get; set; }
 
@@ -97,12 +94,6 @@ namespace ProjectTourism.View.OwnerView
                 }
             }
         }
-
-        public void Update()
-        {
-        }
-
-
 
     }
 }
