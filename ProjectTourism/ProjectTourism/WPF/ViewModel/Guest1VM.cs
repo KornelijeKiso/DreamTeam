@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace ProjectTourism.WPF.ViewModel
 {
-    public class Guest1VM:INotifyPropertyChanged
+    public class Guest1VM : INotifyPropertyChanged
     {
         private Guest1 _guest1;
         public ObservableCollection<OwnerVM> OwnerVMs { get; set; }
@@ -57,7 +57,7 @@ namespace ProjectTourism.WPF.ViewModel
             accommodationVM = new AccommodationVM(accommodationService.GetOne(reservationVM.AccommodationId));
         }
 
-        public bool ProcessReservation(ReservationVM reservationVM) 
+        public bool ProcessReservation(ReservationVM reservationVM)
         {
             ReservationService reservationService = new ReservationService(new ReservationRepository());
             if (reservationService.IsPossible(reservationVM.GetReservation()))
@@ -88,7 +88,6 @@ namespace ProjectTourism.WPF.ViewModel
         public Guest1VM(Guest1 guest1)
         {
             _guest1 = guest1;
-            Guest1Reservations = _guest1.Reservations.Select(r => new ReservationVM(r)).ToList();
         }
         public Guest1 GetGuest1()
         {
@@ -203,7 +202,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public List<ReservationVM> Guest1Reservations;
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

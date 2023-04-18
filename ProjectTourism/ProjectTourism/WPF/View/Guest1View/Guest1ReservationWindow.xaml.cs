@@ -30,7 +30,7 @@ namespace ProjectTourism.View.Guest1View
     /// <summary>
     /// Interaction logic for Guest1ReservationWindow.xaml
     /// </summary>
-    
+
     public partial class Guest1ReservationWindow : Window
     {
         public Guest1 Guest1 { get; set; }
@@ -50,13 +50,14 @@ namespace ProjectTourism.View.Guest1View
         public int GuestCount { get; set; }
         public DateOnly startingDate { get; set; }
         public DateOnly endingDate { get; set; }
-        
-        public Guest1ReservationWindow(ReservationVM reservationVM, AccommodationVM accommodationVM)
+
+        public Guest1ReservationWindow(ReservationVM reservationVM, AccommodationVM accommodationVM, string username)
         {
             InitializeComponent();
             DataContext = this;
             ReservationVM = new ReservationVM(new Reservation());
             SetReservation(reservationVM, accommodationVM);
+            Guest1VM = new Guest1VM(username);
             //this.reservationService = new ReservationController();
             //ReservationVMs = new ObservableCollection<Reservation>(ReservationController.GetAll());
             ReservationService reservationService = new ReservationService(new ReservationRepository());
@@ -106,18 +107,18 @@ namespace ProjectTourism.View.Guest1View
             ReservationVM.StartDate = startingDate;
             ReservationVM.EndDate = endingDate;
 
-            var reservedDaysCount = Reservation.EndDate.DayNumber - Reservation.StartDate.DayNumber;
+            var reservedDaysCount = ReservationVM.EndDate.DayNumber - ReservationVM.StartDate.DayNumber;
 
-            if (reservedDaysCount >= (Reservation.Accommodation.MinDaysForReservation - 1) || reservedDaysCount < 0)
+            if (reservedDaysCount >= (ReservationVM.Accommodation.MinDaysForReservation - 1) || reservedDaysCount < 0)
             {
-                if (GuestCount <= Reservation.Accommodation.MaxNumberOfGuests)
+                if (GuestCount <= ReservationVM.Accommodation.MaxNumberOfGuests)
                 {
                     if (GuestCount > 0)
                     {
                         if (reservedDaysCount >= 0)
                         {
-                            Guest1VM.ProcessReservation(ReservationVM);
-                            if (Guest1VM.ProcessReservation(ReservationVM)) 
+                            //Guest1VM.ProcessReservation(ReservationVM);
+                            if (Guest1VM.ProcessReservation(ReservationVM))
                             {
                                 MessageBox.Show("Accommodation reserved successfully!");
                                 Close();
@@ -125,49 +126,21 @@ namespace ProjectTourism.View.Guest1View
                             else
                             {
                                 MessageBox.Show("Selected Accommodation isn't available for the chosen date. \nTake a look at available dates?");
-                                MessageBox.Show("First available date is: " + Reservation.StartDate + " - " + Reservation.EndDate);
+                                MessageBox.Show("First available date is: " + ReservationVM.StartDate + " - " + ReservationVM.EndDate);
                             }
-                            //ReservationService reservationService = new ReservationService(new ReservationRepository());
-                            //if (reservationService.IsPossible(Reservation))
-                            //{
-                            //    BookAccommodation();
-                            //}
-                            //else
-                            //{
-                            //    FindFirstAvailableAccommodation();
-                            //}
                         }
                         else
-                        {MessageBox.Show("Invalid date format");}
+                        { MessageBox.Show("Invalid date format"); }
                     }
                     else
-                    {MessageBox.Show("At least 1 guest is required");}
+                    { MessageBox.Show("At least 1 guest is required"); }
                 }
                 else
-                {MessageBox.Show("Maximum number of guests is " + Reservation.Accommodation.MaxNumberOfGuests + ".");}
+                { MessageBox.Show("Maximum number of guests is " + ReservationVM.Accommodation.MaxNumberOfGuests + "."); }
             }
             else
-            {MessageBox.Show("At least " + Reservation.Accommodation.MinDaysForReservation + " days must be reserved");}
+            { MessageBox.Show("At least " + ReservationVM.Accommodation.MinDaysForReservation + " days must be reserved"); }
         }
 
-        //private void FindFirstAvailableAccommodation()
-        //{
-        //    MessageBox.Show("Selected Accommodation isn't available for the chosen date. \nTake a look at available dates?");
-        //    ReservationService reservationService = new ReservationService(new ReservationRepository());
-        //    while (!reservationService.IsPossible(ReservationVM.GetReservation()))
-        //    {
-        //        Reservation.StartDate = Reservation.StartDate.AddDays(1);
-        //        Reservation.EndDate = Reservation.EndDate.AddDays(1);
-        //    }
-        //    MessageBox.Show("First available date is: " + Reservation.StartDate + " - " + Reservation.EndDate);
-        //}
-        //
-        //private void BookAccommodation()
-        //{
-        //    ReservationService reservationService = new ReservationService(new ReservationRepository());
-        //    reservationService.Add(Reservation);
-        //    MessageBox.Show("Accommodation reserved successfully!");
-        //    Close();
-        //}
     }
 }

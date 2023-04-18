@@ -52,13 +52,13 @@ namespace ProjectTourism.View.Guest1View
         public DateOnly endingDate { get; set; }
 
 
-public Guest1MainWindow(string username)
+        public Guest1MainWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
 
             Guest1VM = new Guest1VM(username);
-            
+
             AccommodationService accommodationService = new AccommodationService(new AccommodationRepository());
             FilteredAccommodations = new ObservableCollection<AccommodationVM>(accommodationService.GetAll().Select(r => new AccommodationVM(r)).ToList().OrderByDescending(a => a.Owner.IsSuperHost).ToList());
             AccommodationVMs = new ObservableCollection<AccommodationVM>(accommodationService.GetAll().Select(r => new AccommodationVM(r)).ToList().OrderByDescending(a => a.Owner.IsSuperHost).ToList());
@@ -147,7 +147,7 @@ public Guest1MainWindow(string username)
         {
             if (NameQuery != null /*string.IsNullOrEmpty(NameQuery)*/)
             {
-                if(!NameQuery.Equals(""))
+                if (!NameQuery.Equals(""))
                 {
                     string search = NameQuery.ToLower().Trim();
 
@@ -167,7 +167,7 @@ public Guest1MainWindow(string username)
             }
             else
             {
-                return true;   
+                return true;
             }
         }
 
@@ -229,7 +229,7 @@ public Guest1MainWindow(string username)
             city = city.ToLower();
         }
 
-        private bool TypeMatch (AccommodationVM accommodationVM)
+        private bool TypeMatch(AccommodationVM accommodationVM)
         {
             if (ComboType.SelectedIndex == 0)
             {
@@ -237,7 +237,7 @@ public Guest1MainWindow(string username)
             }
             if (ComboType.SelectedIndex == 1 && accommodationVM.Type == ACCOMMODATIONTYPE.APARTMENT)
             {
-                    return true;
+                return true;
             }
             else if (ComboType.SelectedIndex == 2 && accommodationVM.Type == ACCOMMODATIONTYPE.HOUSE)
             {
@@ -285,9 +285,9 @@ public Guest1MainWindow(string username)
             //reservationVM.EndDate = endingDate;
             reservationVM.AccommodationId = SelectedAccommodation.Id;
             reservationVM.Guest1Username = Guest1VM.Username;
-            Guest1VM.PrepareReservation(out reservationVM, out accommodationVM);
+            //Guest1VM.PrepareReservation(out reservationVM, out accommodationVM);
 
-            Guest1ReservationWindow guest1ReservationWindow = new Guest1ReservationWindow(reservationVM, accommodationVM);
+            Guest1ReservationWindow guest1ReservationWindow = new Guest1ReservationWindow(reservationVM, SelectedAccommodation, Guest1VM.Username);
             guest1ReservationWindow.ShowDialog();
             Update();
         }
@@ -295,7 +295,7 @@ public Guest1MainWindow(string username)
         public void MyReservationsClick(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
-         
+
             string username = Guest1VM.Username;
 
             Guest1ReservedAccommodations guest1ReservedAccommodations = new Guest1ReservedAccommodations(username);
