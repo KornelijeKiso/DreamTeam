@@ -8,6 +8,8 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectTourism.Model;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
 
 public enum TOURSTATE { READY, STARTED, FINISHED, STOPPED };
 
@@ -19,7 +21,17 @@ namespace ProjectTourism.WPF.ViewModel
         public TourAppointmentVM(TourAppointment tourAppointment)
         {
             _tourAppointment = tourAppointment;
+            Synchronize();
             Tickets = new ObservableCollection<TicketVM>(_tourAppointment.Tickets.Select(r => new TicketVM(r)).ToList());
+        }
+
+        private void Synchronize()
+        {
+            TourService tourService = new TourService(new TourRepository());
+            _tourAppointment.Tour = tourService.GetOne(_tourAppointment.TourId);
+
+            TicketService ticketService = new TicketService(new TicketRepository());
+            _tourAppointment.Tickets = ticketService.GetByAppointment(_tourAppointment.Id);
         }
         public TourAppointment GetTourAppointment()
         {

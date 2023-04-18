@@ -1,5 +1,5 @@
-﻿using ProjectTourism.Controller;
-using ProjectTourism.Model;
+﻿using ProjectTourism.Model;
+using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,38 +14,46 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace ProjectTourism.View.Guest2View.TicketView
+namespace ProjectTourism.WPF.Guest2View.TicketView
 {
     /// <summary>
     /// Interaction logic for GradeTicketWindow.xaml
     /// </summary>
     public partial class GradeTicketWindow : Window
     {
-        public TicketGradeController TicketGradeController { get; set; }
-        public TicketGrade TicketGrade { get; set; }
-        public TicketController TicketController { get; set; }
-        public bool Graded;
-        public GradeTicketWindow(int ticketId)
+        public Guest2VM Guest2 { get; set; }
+        public TicketGradeVM TicketGrade { get; set; }
+        public GradeTicketWindow(TicketVM ticket, Guest2VM guest2)
         {
             InitializeComponent();
             DataContext = this;
-            TicketGradeController = new TicketGradeController();
-            TicketGrade = new TicketGrade();
-            TicketController = new TicketController();
-
-            TicketGrade.TicketId = ticketId;
-            //Graded = IsAlreadyGraded(ticketId);
+            Guest2 = guest2;
+            TicketGrade = new TicketGradeVM(new TicketGrade()); 
+            TicketGrade.TicketId = ticket.Id;
+            TicketGrade.Ticket = ticket;
         }
 
         private void GradeTicketClick(object sender, RoutedEventArgs e)
         {
+            GradeAllCategories();
+            foreach (var category in ProjectTourism.Model.TicketGrade.CategoryNames)
+            {
+                if (TicketGrade.Grades[category] == 0)
+                {
+                    MessageBox.Show("You have to grade each of listed categories.");
+                    return;
+                }
+            }
+            Guest2.GradeATicket(TicketGrade);
+            Close();
+        }
+
+        private void GradeAllCategories()
+        {
             GradeGuideKnoweledge();
             GradeGuideLanguage();
             GradeInteresting();
-            TicketGradeController.Add(TicketGrade);
-            Graded = true;
-            Close();
-            }
+        }
 
         private void GradeGuideKnoweledge()
         {
@@ -53,7 +61,7 @@ namespace ProjectTourism.View.Guest2View.TicketView
             {
                 if (radioButton.IsChecked == true)
                 {
-                    TicketGrade.Grades["Guide's knoweledge"] = Convert.ToInt32(radioButton.Content);
+                    TicketGrade.Grades["GuidesKnowledge"] = Convert.ToInt32(radioButton.Content);
                     break;
                 }
             }
@@ -64,7 +72,7 @@ namespace ProjectTourism.View.Guest2View.TicketView
             {
                 if (radioButton.IsChecked == true)
                 {
-                    TicketGrade.Grades["Guide's language"] = Convert.ToInt32(radioButton.Content);
+                    TicketGrade.Grades["GuidesLanguage"] = Convert.ToInt32(radioButton.Content);
                     break;
                 }
             }
@@ -79,16 +87,6 @@ namespace ProjectTourism.View.Guest2View.TicketView
                     break;
                 }
             }
-        }
-
-        private bool IsAlreadyGraded(int ticketId)
-        {
-            List<TicketGrade> ticketGrades = TicketGradeController.GetAll();
-            foreach (TicketGrade ticketGrade in ticketGrades)
-            {
-                if (ticketGrade.TicketId == ticketId) return true;
-            }
-            return false;
         }
     }
 }

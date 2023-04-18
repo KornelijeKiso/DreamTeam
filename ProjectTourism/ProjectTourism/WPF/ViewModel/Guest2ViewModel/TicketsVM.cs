@@ -8,8 +8,7 @@ using System.Threading.Tasks;
 using ProjectTourism.Utilities;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
-using ProjectTourism.WPF.View.Guest2View.TicketView;
-using ProjectTourism.View.Guest2View.TicketView;
+using ProjectTourism.WPF.Guest2View.TicketView;
 using System.Windows;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
@@ -111,35 +110,14 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         {
             get
             {
-                if (SelectedTicket != null)
-                {
-                    TicketGradeVM = new TicketGradeVM(SelectedTicket.Id);
-                    return (Guest2 != null
-                         && TicketGradeVM == null);
-                }
-                return (SelectedTicket != null && Guest2 != null
-                     && SelectedTicket.TicketGrade == null);
+                TicketGradeVM = new TicketGradeVM(new Model.TicketGrade());
+                return (SelectedTicket != null && Guest2 != null && !TicketGradeVM.IsAlreadyGraded(SelectedTicket.GetTicket()));
             }
         }
         public void GradeTicket_Click()
         {
-            if (SelectedTicket == null)
-            {
-                MessageBox.Show("Select the Ticket!");
-            }
-            else
-            {
-                TicketGradeVM = new TicketGradeVM(SelectedTicket.Id);
-                if (TicketGradeVM == null)
-                {
-                    GradeTicketWindow gradeTicketWindow = new GradeTicketWindow(SelectedTicket.Id);
-                    gradeTicketWindow.ShowDialog();
-                }
-                else
-                {
-                    MessageBox.Show("Already has a grade!");
-                }
-            }
+            GradeTicketWindow gradeTicketWindow = new GradeTicketWindow(SelectedTicket, Guest2);
+            gradeTicketWindow.ShowDialog();
         }
 
     }
