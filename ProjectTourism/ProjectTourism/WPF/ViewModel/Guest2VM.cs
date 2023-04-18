@@ -53,6 +53,20 @@ namespace ProjectTourism.WPF.ViewModel
             return _guest2;
         }
 
+        public void GradeATicket(TicketGradeVM ticketGrade)
+        {
+            TicketGradeService ticketGradeService = new TicketGradeService(new TicketGradeRepository());
+            foreach (var ticket in Tickets)
+            {
+                if (ticket.Id == ticketGrade.Id)
+                {
+                    ticket.TicketGrade = ticketGrade;
+                    ticketGradeService.Add(ticketGrade.GetTicketGrade());
+                    return;
+                }    
+            }
+        }
+
         public string Username
         {
             get => _guest2.Username;

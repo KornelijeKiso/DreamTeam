@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace ProjectTourism.WPF.ViewModel
 {
-    public class TicketGradeVM : INotifyPropertyChanged, IDataErrorInfo
+    public class TicketGradeVM : INotifyPropertyChanged
     {
         private TicketGrade _ticketGrade;
         public TicketGradeVM(TicketGrade ticketGrade)
@@ -26,13 +26,22 @@ namespace ProjectTourism.WPF.ViewModel
             _ticketGrade.Ticket = ticketService.GetOne(TicketId);
         }
 
-        public TicketGradeVM(int TicketID)
+        public bool IsAlreadyGraded(Ticket ticket)
         {
+            TicketService ticketService = new TicketService(new TicketRepository());
+            _ticketGrade.Ticket = ticketService.GetOne(ticket.Id);
+            
             TicketGradeService ticketGradeService = new TicketGradeService(new TicketGradeRepository());
-            _ticketGrade = ticketGradeService.GetOneByTicket(TicketID);
+            List<TicketGrade> grades = ticketGradeService.GetAll();
+            foreach(TicketGrade grade in grades)
+            {
+                if (grade.TicketId == ticket.Id)
+                    return true;
+            }
+            return false;
         }
 
-            public TicketGrade GetTicketGrade()
+        public TicketGrade GetTicketGrade()
         {
             return _ticketGrade;
         }
@@ -144,37 +153,6 @@ namespace ProjectTourism.WPF.ViewModel
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        // validation
-        public string Error => null;
-        public string? this[string columnName]
-        {
-            get
-            {
-                if (columnName == "Grades")
-                {
-                    //if (string.IsNullOrEmpty(Grades))
-                    //    return "Grades are required!";
-                }
-                
-
-                return null;
-            }
-        }
-        private readonly string[] _validatedProperties = { "Grades" };
-
-        public bool IsValid
-        {
-            get
-            {
-                foreach (var property in _validatedProperties)
-                {
-                    if (this[property] != null)
-                        return false;
-                }
-                return true;
-            }
         }
     }
 }

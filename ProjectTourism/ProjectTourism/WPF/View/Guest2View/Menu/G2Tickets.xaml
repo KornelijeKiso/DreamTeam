@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:vm="clr-namespace:ProjectTourism.WPF.ViewModel.Guest2ViewModel"
+             xmlns:conv="clr-namespace:ProjectTourism.Converters"
              xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest2View.Menu"
              mc:Ignorable="d" 
              d:DesignHeight="550" 
@@ -172,7 +173,7 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel>
-                                            <GroupBox BorderBrush="Black" FontSize="12" Height="50" 
+                                            <GroupBox BorderBrush="Black" FontSize="12" FontFamily="/Fonts/#Rubik" Height="50" 
                                                       VerticalAlignment="Top" Margin="5 5 5 5"
                                                       Header="Status">
                                                 <Label FontSize="14">
@@ -185,8 +186,17 @@
                                                     </Label.Content>
                                                 </Label>
                                             </GroupBox>
-                                            <!--Command="{Binding GradeTicketCommand}"-->
-                                            
+
+                                            <!--<GroupBox x:Name="AlreadyGraded" 
+                                                      BorderBrush="Black" FontSize="12" FontFamily="/Fonts/#Rubik" Height="50" 
+                                                      VerticalAlignment="Bottom" Margin="5 5 5 5"
+                                                      Header="Graded" 
+                                                      Visibility="{Binding Path=CanGrade, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}" >
+                                                <Image Source="https://img.icons8.com/external-anggara-flat-anggara-putra/2x/external-verified-ui-basic-anggara-flat-anggara-putra.png" 
+                                                       Width="25" Height="25" 
+                                                       Margin="0 0 0 0">
+                                                </Image>
+                                            </GroupBox>-->
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
