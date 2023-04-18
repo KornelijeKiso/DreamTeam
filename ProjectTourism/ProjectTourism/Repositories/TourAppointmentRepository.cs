@@ -86,6 +86,7 @@ namespace ProjectTourism.Repositories
                 {
                     tourApp.State = tourAppointment.State;
                     tourApp.CurrentTourStop = tourAppointment.CurrentTourStop;
+                    tourApp.AvailableSeats = tourAppointment.AvailableSeats;
                 }
             }
             FileHandler.Save(TourAppointments);
