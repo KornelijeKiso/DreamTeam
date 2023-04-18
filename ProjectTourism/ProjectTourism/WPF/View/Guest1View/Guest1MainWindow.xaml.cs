@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ProjectTourism.Controller;
 using ProjectTourism.Model;
 using ProjectTourism.WPF.ViewModel;
-using ProjectTourism.ModelDAO;
-using ProjectTourism.Observer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -33,18 +30,10 @@ namespace ProjectTourism.View.Guest1View
     /// </summary>
     public partial class Guest1MainWindow : Window
     {
-        public Guest1 Guest1 { get; set; }
         public Guest1VM Guest1VM { get; set; }
-        public ObservableCollection<Accommodation> Accommodations { get; set; }
         public ObservableCollection<AccommodationVM> AccommodationVMs { get; set; }
         public AccommodationVM SelectedAccommodation { get; set; }
         public ObservableCollection<AccommodationVM> FilteredAccommodations { get; set; }
-        public ObservableCollection<Accommodation> FilteredAccommodationsVM { get; set; }
-        public Guest1Controller Guest1Controller { get; set; }
-        public AccommodationController AccommodationController { get; set; }
-        public ObservableCollection<Reservation> Reservations { get; set; }
-        public Reservation Reservation { get; set; }
-        public ReservationController ReservationController { get; set; }
         public string NameSearch { get; set; }
         public string LocationSearch { get; set; }
         public string GuestCountSearch { get; set; }
@@ -280,12 +269,9 @@ namespace ProjectTourism.View.Guest1View
             Button button = (Button)sender;
 
             ReservationVM reservationVM = new ReservationVM(new Reservation());
-            AccommodationVM accommodationVM; //= new AccommodationVM(new Accommodation());
-            //reservationVM.StartDate = startingDate;
-            //reservationVM.EndDate = endingDate;
+            //AccommodationVM accommodationVM; 
             reservationVM.AccommodationId = SelectedAccommodation.Id;
             reservationVM.Guest1Username = Guest1VM.Username;
-            //Guest1VM.PrepareReservation(out reservationVM, out accommodationVM);
 
             Guest1ReservationWindow guest1ReservationWindow = new Guest1ReservationWindow(reservationVM, SelectedAccommodation, Guest1VM.Username);
             guest1ReservationWindow.ShowDialog();
@@ -302,19 +288,6 @@ namespace ProjectTourism.View.Guest1View
             guest1ReservedAccommodations.ShowDialog();
             Update();
         }
-
-        //private void PrepareReservation(out ReservationVM reservationVM, out AccommodationVM accommodationVM)
-        //{
-        //    reservationVM = new ReservationVM(new Reservation());
-        //    //ReservationController reservationController = new ReservationController();
-        //    ReservationService reservationService = new ReservationService(new ReservationRepository());
-        //    AccommodationService accommodationService = new AccommodationService(new AccommodationRepository());
-        //    reservationVM.StartDate = startingDate;
-        //    reservationVM.EndDate = endingDate;
-        //    reservationVM.AccommodationId = SelectedAccommodation.Id;
-        //    reservationVM.Guest1Username = Guest1VM.Username;
-        //    accommodationVM = new AccommodationVM(accommodationService.GetOne(reservationVM.AccommodationId));
-        //}
 
         public void Update()
         {

@@ -65,7 +65,7 @@ namespace ProjectTourism.View.Guest1View
         }
         public void Update()
         {
-
+        
         }
     }
 }
