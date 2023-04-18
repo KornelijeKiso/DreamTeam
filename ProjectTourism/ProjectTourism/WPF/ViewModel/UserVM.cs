@@ -22,6 +22,14 @@ namespace ProjectTourism.WPF.ViewModel
             _user = userService.GetOne(username);
         }
 
+        public void CreateOwner()
+        {
+            UserService userService = new UserService(new UserRepository());
+            OwnerService ownerService = new OwnerService(new OwnerRepository());
+            OwnerVM Owner = new OwnerVM(new Model.Owner(GetUser()));
+            userService.Add(this);
+            ownerService.Add(Owner.GetOwner());
+        }
         public UserVM(User user)
         {
             _user = user;
