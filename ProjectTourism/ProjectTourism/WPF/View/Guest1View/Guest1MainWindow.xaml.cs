@@ -108,23 +108,16 @@ namespace ProjectTourism.View.Guest1View
 
         private bool GuestNumberMatch(string GuestNumberQuery, AccommodationVM accommodationVM)
         {
-            if (GuestNumberQuery != null)
+            if (!string.IsNullOrEmpty(GuestNumberQuery))
             {
-                if (!GuestNumberQuery.Equals(""))
-                {
-                    int search = int.Parse(GuestNumberQuery);
-                    int maxGuestCount = accommodationVM.MaxNumberOfGuests;
+                int search = int.Parse(GuestNumberQuery);
+                int maxGuestCount = accommodationVM.MaxNumberOfGuests;
 
-                    if (search <= maxGuestCount)
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-                else
+                if (search <= maxGuestCount)
                 {
                     return true;
                 }
+                return false;
             }
             else
             {
@@ -134,88 +127,23 @@ namespace ProjectTourism.View.Guest1View
 
         private bool NameMatch(string NameQuery, AccommodationVM accommodationVM)
         {
-            if (NameQuery != null /*string.IsNullOrEmpty(NameQuery)*/)
+            if (!string.IsNullOrEmpty(NameQuery))
             {
-                if (!NameQuery.Equals(""))
-                {
-                    string search = NameQuery.ToLower().Trim();
+                string search = NameQuery.ToLower().Trim();
 
-                    string name = accommodationVM.Name;
-                    name = name.ToLower();
+                string name = accommodationVM.Name;
+                name = name.ToLower();
 
-                    if (name.Contains(search))
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-                else
+                if (name.Contains(search))
                 {
                     return true;
                 }
+                return false;
             }
             else
             {
                 return true;
             }
-        }
-
-        private bool LocationMatch(string LocationQuery, AccommodationVM accommodationVM)
-        {
-            if (LocationQuery != null)
-            {
-                if (LocationQuery != "")
-                {
-                    string Search, country, city;
-                    string[] Query;
-                    PrepareSearch(LocationQuery, accommodationVM, out Search, out Query, out country, out city);
-                    if (Query.Length == 1 && (country.Contains(Search) || city.Contains(Search)))
-                    {
-                        return true;
-                    }
-                    else if (Query.Length == 2 && (city.Contains(Query[0]) && country.Contains(Query[1])))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        private static void PrepareSearch(string LocationQuery, AccommodationVM accommodationVM, out string Search, out string[] Query, out string country, out string city)
-        {
-            Search = LocationQuery.ToLower().Trim();
-            Query = Search.ToLower().Split(',');
-            int i = 0;
-            foreach (string query in Query)
-            {
-                string currentString;
-                currentString = query.Trim();
-                if (currentString == "")
-                {
-
-                }
-                else
-                {
-                    Query[i] = currentString;
-                    i++;
-                }
-            }
-            country = accommodationVM.Location.Country;
-            city = accommodationVM.Location.City;
-            country = country.ToLower();
-            city = city.ToLower();
         }
 
         private bool TypeMatch(AccommodationVM accommodationVM)
@@ -260,7 +188,6 @@ namespace ProjectTourism.View.Guest1View
             return ReservationAvailable(startingDate, endingDate, accommodationVM)
                                 && GuestNumberMatch(GuestCountSearch, accommodationVM)
                                 && NameMatch(NameSearch, accommodationVM)
-                                && LocationMatch(LocationSearch, accommodationVM)
                                 && TypeMatch(accommodationVM);
         }
 
@@ -269,7 +196,6 @@ namespace ProjectTourism.View.Guest1View
             Button button = (Button)sender;
 
             ReservationVM reservationVM = new ReservationVM(new Reservation());
-            //AccommodationVM accommodationVM; 
             reservationVM.AccommodationId = SelectedAccommodation.Id;
             reservationVM.Guest1Username = Guest1VM.Username;
 
