@@ -22,6 +22,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProjectTourism.Services;
+using ProjectTourism.Repositories;
+using ProjectTourism.WPF.View.Guest1View;
 
 namespace ProjectTourism.View.Guest1View
 {
@@ -33,8 +36,10 @@ namespace ProjectTourism.View.Guest1View
         public Guest1 Guest1 { get; set; }
         public Guest1VM Guest1VM { get; set; }
         public ObservableCollection<Accommodation> Accommodations { get; set; }
-        public Accommodation SelectedAccommodation { get; set; }
-        public ObservableCollection<Accommodation> FilteredAccommodations { get; set; }
+        public ObservableCollection<AccommodationVM> AccommodationVMs { get; set; }
+        public AccommodationVM SelectedAccommodation { get; set; }
+        public ObservableCollection<AccommodationVM> FilteredAccommodations { get; set; }
+        public ObservableCollection<Accommodation> FilteredAccommodationsVM { get; set; }
         public Guest1Controller Guest1Controller { get; set; }
         public AccommodationController AccommodationController { get; set; }
         public ObservableCollection<Reservation> Reservations { get; set; }
@@ -52,16 +57,11 @@ public Guest1MainWindow(string username)
             InitializeComponent();
             DataContext = this;
 
-
-
-            Guest1Controller = new Guest1Controller();
             Guest1VM = new Guest1VM(username);
-            Guest1 = Guest1Controller.GetOne(username);
-            AccommodationController = new AccommodationController();
-            Accommodations = new ObservableCollection<Accommodation>(AccommodationController.GetAll());
-            ReservationController = new ReservationController();
-            Reservations = new ObservableCollection<Reservation>(ReservationController.GetAll());
-            FilteredAccommodations = new ObservableCollection<Accommodation>(Accommodations);
+            
+            AccommodationService accommodationService = new AccommodationService(new AccommodationRepository());
+            FilteredAccommodations = new ObservableCollection<AccommodationVM>(accommodationService.GetAll().Select(r => new AccommodationVM(r)).ToList().OrderByDescending(a => a.Owner.IsSuperHost).ToList());
+            AccommodationVMs = new ObservableCollection<AccommodationVM>(accommodationService.GetAll().Select(r => new AccommodationVM(r)).ToList().OrderByDescending(a => a.Owner.IsSuperHost).ToList());
 
             SetUpDatePicker();
 
@@ -92,20 +92,20 @@ public Guest1MainWindow(string username)
         {
             endingDate = DateOnly.FromDateTime((DateTime)(((DatePicker)sender).SelectedDate));
         }
-        private bool ReservationAvailable(DateOnly reservationStart, DateOnly reservationEnd, Accommodation accommodation)
+        private bool ReservationAvailable(DateOnly reservationStart, DateOnly reservationEnd, AccommodationVM accommodationVM)
         {
             if (!reservationStart.Equals(""))
             {
-                ReservationController reservationController = new ReservationController();
-                Reservation reservation = new Reservation();
-                reservation.StartDate = reservationStart;
-                reservation.EndDate = reservationEnd;
-                reservation.AccommodationId = accommodation.Id;
-                reservation.Guest1Username = Guest1.Username;
+                ReservationService reservationService = new ReservationService(new ReservationRepository());
+                ReservationVM reservationVM = new ReservationVM(new Reservation());
+                reservationVM.StartDate = reservationStart;
+                reservationVM.EndDate = reservationEnd;
+                reservationVM.AccommodationId = accommodationVM.Id;
+                reservationVM.Guest1Username = Guest1VM.Username;
 
                 var reservedDaysCount = reservationEnd.DayNumber - reservationStart.DayNumber;
 
-                if (reservationController.IsPossible(reservation) && reservedDaysCount >= accommodation.MinDaysForReservation)
+                if (reservationService.IsPossible(reservationVM.GetReservation()) && reservedDaysCount >= accommodationVM.MinDaysForReservation)
                 {
                     return true;
                 }
@@ -117,14 +117,14 @@ public Guest1MainWindow(string username)
             }
         }
 
-        private bool GuestNumberMatch(string GuestNumberQuery, Accommodation accommodation)
+        private bool GuestNumberMatch(string GuestNumberQuery, AccommodationVM accommodationVM)
         {
             if (GuestNumberQuery != null)
             {
                 if (!GuestNumberQuery.Equals(""))
                 {
                     int search = int.Parse(GuestNumberQuery);
-                    int maxGuestCount = accommodation.MaxNumberOfGuests;
+                    int maxGuestCount = accommodationVM.MaxNumberOfGuests;
 
                     if (search <= maxGuestCount)
                     {
@@ -143,15 +143,15 @@ public Guest1MainWindow(string username)
             }
         }
 
-        private bool NameMatch(string NameQuery, Accommodation accommodation)
+        private bool NameMatch(string NameQuery, AccommodationVM accommodationVM)
         {
-            if (NameQuery != null)
+            if (NameQuery != null /*string.IsNullOrEmpty(NameQuery)*/)
             {
                 if(!NameQuery.Equals(""))
                 {
                     string search = NameQuery.ToLower().Trim();
 
-                    string name = accommodation.Name;
+                    string name = accommodationVM.Name;
                     name = name.ToLower();
 
                     if (name.Contains(search))
@@ -171,7 +171,7 @@ public Guest1MainWindow(string username)
             }
         }
 
-        private bool LocationMatch(string LocationQuery, Accommodation accommodation)
+        private bool LocationMatch(string LocationQuery, AccommodationVM accommodationVM)
         {
             if (LocationQuery != null)
             {
@@ -179,7 +179,7 @@ public Guest1MainWindow(string username)
                 {
                     string Search, country, city;
                     string[] Query;
-                    PrepareSearch(LocationQuery, accommodation, out Search, out Query, out country, out city);
+                    PrepareSearch(LocationQuery, accommodationVM, out Search, out Query, out country, out city);
                     if (Query.Length == 1 && (country.Contains(Search) || city.Contains(Search)))
                     {
                         return true;
@@ -204,7 +204,7 @@ public Guest1MainWindow(string username)
             }
         }
 
-        private static void PrepareSearch(string LocationQuery, Accommodation accommodation, out string Search, out string[] Query, out string country, out string city)
+        private static void PrepareSearch(string LocationQuery, AccommodationVM accommodationVM, out string Search, out string[] Query, out string country, out string city)
         {
             Search = LocationQuery.ToLower().Trim();
             Query = Search.ToLower().Split(',');
@@ -223,27 +223,27 @@ public Guest1MainWindow(string username)
                     i++;
                 }
             }
-            country = accommodation.Location.Country;
-            city = accommodation.Location.City;
+            country = accommodationVM.Location.Country;
+            city = accommodationVM.Location.City;
             country = country.ToLower();
             city = city.ToLower();
         }
 
-        private bool TypeMatch (Accommodation accommodation)
+        private bool TypeMatch (AccommodationVM accommodationVM)
         {
             if (ComboType.SelectedIndex == 0)
             {
                 return true;
             }
-            if (ComboType.SelectedIndex == 1 && accommodation.Type == ACCOMMODATIONTYPE.APARTMENT)
+            if (ComboType.SelectedIndex == 1 && accommodationVM.Type == ACCOMMODATIONTYPE.APARTMENT)
             {
                     return true;
             }
-            else if (ComboType.SelectedIndex == 2 && accommodation.Type == ACCOMMODATIONTYPE.HOUSE)
+            else if (ComboType.SelectedIndex == 2 && accommodationVM.Type == ACCOMMODATIONTYPE.HOUSE)
             {
                 return true;
             }
-            else if (ComboType.SelectedIndex == 3 && accommodation.Type == ACCOMMODATIONTYPE.HUT)
+            else if (ComboType.SelectedIndex == 3 && accommodationVM.Type == ACCOMMODATIONTYPE.HUT)
             {
                 return true;
             }
@@ -257,48 +257,64 @@ public Guest1MainWindow(string username)
         {
             FilteredAccommodations.Clear();
 
-            foreach (Accommodation accommodation in Accommodations)
+            foreach (AccommodationVM accommodationVM in AccommodationVMs)
             {
-                if (Fits(accommodation))
+                if (Fits(accommodationVM))
                 {
-                    FilteredAccommodations.Add(accommodation);
+                    FilteredAccommodations.Add(accommodationVM);
                 }
-
             }
         }
 
-        private bool Fits(Accommodation accommodation)
+        private bool Fits(AccommodationVM accommodationVM)
         {
-            return ReservationAvailable(startingDate, endingDate, accommodation)
-                                && GuestNumberMatch(GuestCountSearch, accommodation)
-                                && NameMatch(NameSearch, accommodation)
-                                && LocationMatch(LocationSearch, accommodation)
-                                && TypeMatch(accommodation);
+            return ReservationAvailable(startingDate, endingDate, accommodationVM)
+                                && GuestNumberMatch(GuestCountSearch, accommodationVM)
+                                && NameMatch(NameSearch, accommodationVM)
+                                && LocationMatch(LocationSearch, accommodationVM)
+                                && TypeMatch(accommodationVM);
         }
 
         public void ReserveAccommodationClick(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
 
-            Reservation reservation;
-            Accommodation accommodation;
-            PrepareReservation(out reservation, out accommodation);
+            ReservationVM reservationVM = new ReservationVM(new Reservation());
+            AccommodationVM accommodationVM; //= new AccommodationVM(new Accommodation());
+            //reservationVM.StartDate = startingDate;
+            //reservationVM.EndDate = endingDate;
+            reservationVM.AccommodationId = SelectedAccommodation.Id;
+            reservationVM.Guest1Username = Guest1VM.Username;
+            Guest1VM.PrepareReservation(out reservationVM, out accommodationVM);
 
-            Guest1ReservationWindow guest1ReservationWindow = new Guest1ReservationWindow(reservation, accommodation);
+            Guest1ReservationWindow guest1ReservationWindow = new Guest1ReservationWindow(reservationVM, accommodationVM);
             guest1ReservationWindow.ShowDialog();
             Update();
         }
 
-        private void PrepareReservation(out Reservation reservation, out Accommodation accommodation)
+        public void MyReservationsClick(object sender, RoutedEventArgs e)
         {
-            reservation = new Reservation();
-            ReservationController reservationController = new ReservationController();
-            reservation.StartDate = startingDate;
-            reservation.EndDate = endingDate;
-            reservation.AccommodationId = SelectedAccommodation.Id;
-            reservation.Guest1Username = Guest1.Username;
-            accommodation = AccommodationController.GetOne(reservation.AccommodationId);
+            Button button = (Button)sender;
+         
+            string username = Guest1VM.Username;
+
+            Guest1ReservedAccommodations guest1ReservedAccommodations = new Guest1ReservedAccommodations(username);
+            guest1ReservedAccommodations.ShowDialog();
+            Update();
         }
+
+        //private void PrepareReservation(out ReservationVM reservationVM, out AccommodationVM accommodationVM)
+        //{
+        //    reservationVM = new ReservationVM(new Reservation());
+        //    //ReservationController reservationController = new ReservationController();
+        //    ReservationService reservationService = new ReservationService(new ReservationRepository());
+        //    AccommodationService accommodationService = new AccommodationService(new AccommodationRepository());
+        //    reservationVM.StartDate = startingDate;
+        //    reservationVM.EndDate = endingDate;
+        //    reservationVM.AccommodationId = SelectedAccommodation.Id;
+        //    reservationVM.Guest1Username = Guest1VM.Username;
+        //    accommodationVM = new AccommodationVM(accommodationService.GetOne(reservationVM.AccommodationId));
+        //}
 
         public void Update()
         {

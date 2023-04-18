@@ -10,35 +10,17 @@ using System.Threading.Tasks;
 
 namespace ProjectTourism.Repositories
 {
-    public class ReservationRepository:IReservationRepository
+    public class CanceledReservationRepository : IReservationRepository
     {
-        public ReservationFileHandler FileHandler { get; set; }
+        public CanceledReservationFileHandler FileHandler { get; set; }
         public List<Reservation> Reservations { get; set; }
-        public ReservationRepository()
+        public CanceledReservationRepository()
         {
-            FileHandler = new ReservationFileHandler();
+            FileHandler = new CanceledReservationFileHandler();
             Reservations = FileHandler.Load();
-        }
-        
-        public int GenerateId()
-        {
-            int id = 0;
-            if (Reservations == null)
-            {
-                id = 0;
-            }
-            else
-            {
-                foreach (var reservation in Reservations)
-                {
-                    id = reservation.Id + 1;
-                }
-            }
-            return id;
         }
         public void Add(Reservation reservation)
         {
-            reservation.Id = GenerateId();
             Reservations.Add(reservation);
             FileHandler.Save(Reservations);
         }
