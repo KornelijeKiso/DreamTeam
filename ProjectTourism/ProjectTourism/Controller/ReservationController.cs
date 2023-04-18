@@ -11,38 +11,6 @@ namespace ProjectTourism.Controller
 {
     public class ReservationController
     {
-        private ReservationDAO ReservationDAO;
-        public ReservationController()
-        {
-            ReservationDAO = new ReservationDAO();
-        }
-        public void Add(Reservation reservation)
-        {
-            ReservationDAO.Add(reservation);
-        }
-        public void Delete(Reservation reservation)
-        {
-            ReservationDAO.Delete(reservation);
-        }
-        public Reservation GetOne(int id)
-        {
-            return ReservationDAO.GetOne(id);
-        }
-        public List<Reservation> GetAll()
-        {
-            return ReservationDAO.GetAll();
-        }
-        public bool IsPossible(Reservation reservation)
-        {
-            return ReservationDAO.IsPossible(reservation);
-        }
-        public void Subscribe(IObserver observer)
-        {
-            ReservationDAO.Subscribe(observer);
-        }
-        public void NotifyObservers()
-        {
-            ReservationDAO.NotifyObservers();
-        }
+        
     }
 }
