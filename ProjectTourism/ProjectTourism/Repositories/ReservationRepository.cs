@@ -2,6 +2,7 @@
 using ProjectTourism.FileHandler;
 using ProjectTourism.Model;
 using ProjectTourism.Repositories.IRepositories;
+using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,19 +23,8 @@ namespace ProjectTourism.Repositories
         
         public int GenerateId()
         {
-            int id = 0;
-            if (Reservations == null)
-            {
-                id = 0;
-            }
-            else
-            {
-                foreach (var reservation in Reservations)
-                {
-                    id = reservation.Id + 1;
-                }
-            }
-            return id;
+            if (Reservations == null) return 0;
+            else return Reservations.Last().Id + 1;
         }
         public void Add(Reservation reservation)
         {
@@ -56,11 +46,7 @@ namespace ProjectTourism.Repositories
 
         public Reservation GetOne(int reservationId)
         {
-            foreach (var accommodation in Reservations)
-            {
-                if (accommodation.Id == reservationId) return accommodation;
-            }
-            return null;
+            return Reservations.Find(r => r.Id == reservationId);
         }
 
         public void Update(Reservation reservation)
@@ -71,33 +57,18 @@ namespace ProjectTourism.Repositories
                 {
                     existingAccommodation.StartDate = reservation.StartDate;
                     existingAccommodation.EndDate = reservation.EndDate;
+                    break;
                 }
             }
             FileHandler.Save(Reservations);
         }
         public List<Reservation> GetAllByAccommodation(int accommodationId)
         {
-            List<Reservation> accommodationReservations = new List<Reservation>();
-            foreach (var reservation in Reservations)
-            {
-                if (reservation.AccommodationId == accommodationId)
-                {
-                    accommodationReservations.Add(reservation);
-                }
-            }
-            return accommodationReservations;
+            return Reservations.FindAll(r=>r.AccommodationId == accommodationId);
         }
         public List<Reservation> GetAllByGuest1(string username)
         {
-            List<Reservation> accommodationReservations = new List<Reservation>();
-            foreach (var reservation in Reservations)
-            {
-                if (reservation.Guest1Username == username)
-                {
-                    accommodationReservations.Add(reservation);
-                }
-            }
-            return accommodationReservations;
+            return Reservations.FindAll(r => r.Guest1Username.Equals(username));
         }
     }
 }
