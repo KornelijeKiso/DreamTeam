@@ -89,17 +89,19 @@ namespace ProjectTourism.View.GuideView.TourView
         }
         private bool CanGuidePassStop()
         {
-            if (TourAppointment.State == TOURSTATE.READY && !Guide.HasTourStarted)
+            if ((TourAppointment.State == TOURSTATE.READY && !Guide.HasTourStarted) || 
+                    (TourAppointment.State == TOURSTATE.STARTED && Guide.HasTourStarted))
                 return true;
             return false;
         }
         private void CheckpointPassedButton_Click(object sender, RoutedEventArgs e)
         {
+            Guide = new GuideVM(TourAppointment.Tour.Guide.GetGuide());
             if (CanGuidePassStop())
             {
                 if (IsNextStopFinish())
                     TourAppointment.Tour.Guide.FinishTourAndReturnStop(TourAppointment);
-                else if (CanGoNextStop())
+                else 
                     NextStop();
             }
             else
@@ -110,10 +112,6 @@ namespace ProjectTourism.View.GuideView.TourView
         {
             //if we are on the one before last or if the stops are null
             return PassedButtonClicks() == TourAppointment.Tour.StopsList.Count() - 2 || TourAppointment.Tour.Stops.Equals(""); 
-        }
-        private bool CanGoNextStop()
-        {
-            return (!TourAppointment.Tour.Guide.HasTourStarted || TourAppointment.State == TOURSTATE.STARTED) && !IsNextStopFinish();
         }
         private void EmergencyStopButton_Click(object sender, RoutedEventArgs e)
         {
@@ -129,8 +127,16 @@ namespace ProjectTourism.View.GuideView.TourView
         }
         private void ReviewsButton_Click(object sender, RoutedEventArgs e)
         {
-            HideTourStopsContent();
-            ContentArea.Content = new ReviewsWindow(TourAppointment);
+            if (TourAppointment.Tickets.Count != 0 && TourAppointment.TicketGrades.Count != 0)
+            {
+                HideTourStopsContent();
+                ContentArea.Content = new ReviewsWindow(TourAppointment);
+            }
+            else
+            {
+                MessageBox.Show("There are no reviews for this appointment!");
+            }
+            
         }
 
         private List<UIElement> UIElements()

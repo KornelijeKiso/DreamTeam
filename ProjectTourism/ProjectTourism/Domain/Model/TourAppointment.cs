@@ -29,10 +29,12 @@ namespace ProjectTourism.Model
         public bool IsNotFinished;
         public bool IsFinished;
         public int Visits;
+        public List<TicketGrade> TicketGrades { get; set; }
 
         public TourAppointment()
         { 
             Tickets = new List<Ticket>();
+            TicketGrades = new List<TicketGrade>();
         }
 
         public TourAppointment(DateTime tourDateTime, int tourId, Tour tour)
@@ -46,6 +48,7 @@ namespace ProjectTourism.Model
             IsFinished = false;
             State = TOURSTATE.READY;
             Tickets = new List<Ticket>();
+            TicketGrades = new List<TicketGrade>();
         }
 
         public string[] ToCSV()

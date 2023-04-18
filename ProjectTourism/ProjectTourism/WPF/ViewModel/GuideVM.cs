@@ -52,13 +52,19 @@ namespace ProjectTourism.WPF.ViewModel
                     foreach (var tourApp in tourAppointmentService.GetAllByTour(tour.Id))
                     {
                         tourApp.Tour = tour;
+                        tourApp.TicketGrades = new List<TicketGrade>();
+                        tourApp.Tickets = new List<Ticket>();
                         foreach (var ticket in ticketService.GetByAppointment(tourApp.Id))
                         {
                             ticket.HasVoucher = voucherService.GetOneByTicket(ticket.Id) != null;
-                            ticket.TourAppointment = tourApp;
                             ticket.Guest2 = guest2Service.GetOne(ticket.Guest2Username);
                             ticket.TicketGrade = ticketGradeService.GetOneByTicket(ticket.Id);
                             tourApp.Tickets.Add(ticket);
+                            if (ticket.TicketGrade != null)
+                            {
+                                tourApp.TicketGrades.Add(ticket.TicketGrade);
+                            }
+                            ticket.TourAppointment = tourApp;
                         }
                         tour.TourAppointments.Add(tourApp);
                     }

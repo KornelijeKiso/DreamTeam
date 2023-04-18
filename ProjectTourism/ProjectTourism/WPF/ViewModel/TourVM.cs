@@ -22,7 +22,7 @@ namespace ProjectTourism.WPF.ViewModel
         public TourVM(Tour tour)
         {
             _tour = tour;
-            Synchronize();
+            //Synchronize();
             TourAppointments = new ObservableCollection<TourAppointmentVM>(_tour.TourAppointments.Select(r => new TourAppointmentVM(r)).ToList());
         }
         private void Synchronize()

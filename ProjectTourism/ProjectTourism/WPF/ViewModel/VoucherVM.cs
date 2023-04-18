@@ -19,7 +19,7 @@ namespace ProjectTourism.WPF.ViewModel
         public VoucherVM(Voucher voucher)
         {
             _voucher = voucher;
-            Synchronize();
+            //Synchronize();
         }
 
         private void Synchronize()
