@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.Model;
-using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.WPF.ViewModel;
 
@@ -15,12 +14,10 @@ namespace ProjectTourism.Services
     public class TourService
     {
         private ITourRepository TourRepository;
-        public List<IObserver> Observers;
 
         public TourService(ITourRepository tourRepository)
         {
             TourRepository = tourRepository;
-            Observers = new List<IObserver>();
         }
         public int AddAndReturnId(Tour tour)
         {
@@ -45,23 +42,6 @@ namespace ProjectTourism.Services
         public List<Tour> GetAll()
         {
             return TourRepository.GetAll();
-        }
-        public void Subscribe(IObserver observer)
-        {
-            Observers.Add(observer);
-        }
-
-        public void Unsubscribe(IObserver observer)
-        {
-            Observers.Remove(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            foreach (var observer in Observers)
-            {
-                observer.Update();
-            }
         }
         public Tour? Identify(Tour tour)
         {

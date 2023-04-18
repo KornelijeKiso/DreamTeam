@@ -15,55 +15,29 @@ namespace ProjectTourism.Services
     public class TicketService
     {
         private ITicketRepository TicketRepository;
-        public List<IObserver> Observers;
-
         public TicketService(ITicketRepository itr)
         {
             TicketRepository = itr; 
-            Observers = new List<IObserver>();
         }
-
         public Ticket GetOne(int Id) 
         {
             return TicketRepository.GetOne(Id);
         }
-
         public List<Ticket> GetAll() 
         {
             return TicketRepository.GetAll();
         }
-
         public void Add(Ticket ticket) 
         {
             TicketRepository.Add(ticket);
         }
-
         public void Delete(Ticket ticket) 
         {
             TicketRepository.Delete(ticket);
         }
-
         public void Update(Ticket ticket) 
         {
             TicketRepository.Update(ticket);
-        }
-
-        public void Subscribe(IObserver observer)
-        {
-            Observers.Add(observer);
-        }
-
-        public void Unsubscribe(IObserver observer)
-        {
-            Observers.Remove(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            foreach (var observer in Observers)
-            {
-                observer.Update();
-            }
         }
         public List<Ticket> GetByAppointment(int tourAppointmentId)
         {
