@@ -22,7 +22,7 @@ namespace ProjectTourism.WPF.View.Guest1View
     /// <summary>
     /// Interaction logic for Guest1ReservedAccommodations.xaml
     /// </summary>
-    public partial class Guest1ReservedAccommodations : Window, INotifyPropertyChanged, IObserver
+    public partial class Guest1ReservedAccommodations : Window, INotifyPropertyChanged
     {
         public ReservationVM SelectedReservation { get; set; }
         public Guest1VM Guest1VM { get; set; }
@@ -58,10 +58,7 @@ namespace ProjectTourism.WPF.View.Guest1View
 
             PostponeReservationWindow postponeReservationWindow = new PostponeReservationWindow(reservationVM, Guest1VM.Username);
             postponeReservationWindow.ShowDialog();
-            Update();
-
         }
-        public void Update() { }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
