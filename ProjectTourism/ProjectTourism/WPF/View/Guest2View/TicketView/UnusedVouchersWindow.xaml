@@ -10,9 +10,6 @@
         Title="Unused Vouchers Window" 
         Height="450" Width="550"
         WindowStyle="None"  >
-    <Window.DataContext>
-        <vm:VouchersVM />
-    </Window.DataContext>
     <Grid Background="LightBlue">
         <Grid.RowDefinitions>
             <RowDefinition Height="350"/>
@@ -21,7 +18,8 @@
 
         <DataGrid x:Name="DataGridUnusedVouchers" Style="{StaticResource DataGrid_Style}"
                   Grid.Row="0"
-                  ItemsSource="{Binding UnusedVouchers, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding Path=VouchersVM.UnusedVouchers, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItem="{Binding Path=SelectedVoucherVM, UpdateSourceTrigger=PropertyChanged}" 
                   Margin="10 10 10 10" BorderThickness="0"  >
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 

@@ -25,7 +25,22 @@ namespace ProjectTourism.WPF.ViewModel
         private void Synchronize()
         {
             TicketService ticketService = new TicketService(new TicketRepository());
+            if (_voucher.TicketId == -1) 
+            {
+                _voucher.Ticket = null;
+            }
             _voucher.Ticket = ticketService.GetOne(_voucher.TicketId);
+        }
+
+        public VoucherVM(VoucherVM voucher, TicketVM ticket)
+        {
+            _voucher = voucher.GetVoucher();
+            _voucher.TicketId = ticket.Id;
+            _voucher.Ticket = ticket.GetTicket();
+            _voucher.Status = STATUS.USED;
+            _voucher.UsedOnDate = DateTime.Now;
+            VoucherService voucherService = new VoucherService(new VoucherRepository());
+            voucherService.Update(_voucher);
         }
 
         public Voucher GetVoucher()

@@ -56,8 +56,11 @@ namespace ProjectTourism.Repositories
                 if (existingVoucher.Id == voucher.Id)
                 {
                     existingVoucher.Status = voucher.Status;
+                    existingVoucher.TicketId = voucher.TicketId;
+                    existingVoucher.UsedOnDate = voucher.UsedOnDate;
                 }
             }
+            FileHandler.Save(Vouchers);
         }
 
         public Voucher GetOne(int Id)

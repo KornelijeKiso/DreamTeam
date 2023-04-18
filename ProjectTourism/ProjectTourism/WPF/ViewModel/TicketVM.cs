@@ -38,6 +38,21 @@ namespace ProjectTourism.WPF.ViewModel
             TicketService ticketService = new TicketService(new TicketRepository());
             ticketService.Add(ticket);
         }
+        public TicketVM GetLast()
+        {
+            TicketService ticketService = new TicketService(new TicketRepository());
+            List<Ticket> tickets = ticketService.GetAll();
+            Ticket last = tickets.Last();
+            return new TicketVM(last);
+        }
+
+        public void RemoveLast()
+        {
+            TicketService ticketService = new TicketService(new TicketRepository());
+            List<Ticket> tickets = ticketService.GetAll();
+            Ticket last = tickets.Last();
+            ticketService.Delete(last);
+        }
         public Ticket GetTicket()
         {
             return _ticket;
