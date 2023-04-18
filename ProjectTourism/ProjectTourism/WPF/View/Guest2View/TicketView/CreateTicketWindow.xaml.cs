@@ -15,8 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ProjectTourism.Model;
 using ProjectTourism.WPF.ViewModel;
-using ProjectTourism.Repositories;
-using ProjectTourism.Services;
+using ProjectTourism.WPF.View.Guest2View.TicketView;
 using ProjectTourism.Observer;
 using System.Globalization;
 
@@ -49,8 +48,7 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
             dates = FindDates();
 
             StopsList = SelectedTour.StopsList;
-            //StopsList empty
-            //StopsList.RemoveAt(StopsList.Count() - 1);  // Guest can't chose Finish stop to join the Tour
+            StopsList.RemoveAt(StopsList.Count() - 1);  // Guest can't chose Finish stop to join the Tour
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -67,10 +65,18 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
 
         private void CreateTicket(object sender, RoutedEventArgs e)
         {
-            Ticket.CreateTicket(new Ticket(selectedAppointment.Id, StopsComboBox.Text, Guest2.Username, int.Parse(sliderText.Text)));
-            selectedAppointment.AvailableSeats -= int.Parse(sliderText.Text);
-            selectedAppointment.UpdateTourAppointmentVM(selectedAppointment);
-            Close();
+            if (dates.Count > 0)
+            {
+                Ticket.CreateTicket(new Ticket(selectedAppointment.Id, StopsComboBox.Text, Guest2.Username, int.Parse(sliderText.Text)));
+                selectedAppointment.AvailableSeats -= int.Parse(sliderText.Text);
+                selectedAppointment.UpdateTourAppointmentVM(selectedAppointment);
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("You can't buy tickets for this tour!");
+                Close();
+            }
         }
 
         private void StopsComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -143,6 +149,14 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
             DateTime date = dates[DatesComboBox.SelectedIndex];
             selectedAppointment = new TourAppointmentVM(SelectedTour.GetTour(), date);
             slider.Maximum = selectedAppointment.AvailableSeats;
+        }
+        private void UseVoucherClick(object sender, RoutedEventArgs e)
+        {
+            // TO DO
+        }
+        private void CancelClick(object sender, RoutedEventArgs e)
+        {
+            Close();
         }
     }
 }

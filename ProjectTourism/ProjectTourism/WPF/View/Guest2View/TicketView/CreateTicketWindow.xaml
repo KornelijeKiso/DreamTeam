@@ -6,141 +6,392 @@
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest2View.TicketView"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Buy Ticket" Height="650" Width="800">
+        Title="Buy Ticket" 
+        Height="520" Width="750"
+        Background="LightBlue"
+        WindowStyle="None">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50*"/>
-            <RowDefinition Height="100*"/>
-            <RowDefinition Height="150*"/>
-            <RowDefinition Height="100*"/>
-            <RowDefinition Height="100*"/>
-            <RowDefinition Height="100*"/>
-            <RowDefinition Height="100*"/>
-            <RowDefinition Height="100*"/>
-            <RowDefinition Height="100*"/>
-            <RowDefinition Height="100*"/>
-            <RowDefinition Height="100*"/>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="320"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="200"/>
-        </Grid.ColumnDefinitions>
+        <Grid Grid.Row="0"
+              Background="Black"
+              Margin="5 0 5 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="375" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="0" Grid.Column="0">
+                <Label Content="{Binding Path=SelectedTour.Name}" 
+                       FontFamily="/Fonts/#Rubik"
+                       Foreground="#DBDBDB"
+                       FontSize="20"
+                       Height="auto"/>
+                <Label FontFamily="/Fonts/#Rubik"
+                       Foreground="#DBDBDB"
+                       FontSize="12"
+                       MaxHeight="25" Margin="0 -4 0 -4">
+                    <Label.Content>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}Guide:{0} {1}">
+                                    <Binding Path="SelectedTour.Guide.FirstName"/>
+                                    <Binding Path="SelectedTour.Guide.LastName"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </Label.Content>
+                </Label>
+                <Label FontFamily="/Fonts/#Rubik"
+                       Foreground="#DBDBDB"
+                       FontSize="12"
+                       MaxHeight="25" Margin="0 -4 0 -4">
+                    <Label.Content>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}Location:{0}, {1}">
+                                    <Binding Path="SelectedTour.Location.Country"/>
+                                    <Binding Path="SelectedTour.Location.City"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </Label.Content>
+                </Label>
+                <Label FontFamily="/Fonts/#Rubik"
+                       Foreground="#DBDBDB"
+                       FontSize="12"
+                       MaxHeight="25" Margin="0 -4 0 -4">
+                    <Label.Content>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}Language: {0}">
+                                    <Binding Path="SelectedTour.Language"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </Label.Content>
+                </Label>
+                <Label FontFamily="/Fonts/#Rubik"
+                       Foreground="#DBDBDB"
+                       FontSize="12"
+                       MaxHeight="25" Margin="0 -4 0 -4">
+                    <Label.Content>
+                        <TextBlock>
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}Duration: {0}h ">
+                                    <Binding Path="SelectedTour.Duration"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                    </Label.Content>
+                </Label>
+            </StackPanel>
+            <Image Grid.Row="0" Grid.Column="1" Width="150"
+                   Source="{Binding Path=SelectedTour.Pictures[0]}" />
+        </Grid>
+        <Grid Grid.Row="1"
+              Background="Black" Margin="5 0 5 0">
+            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+                <GroupBox Header="Description of Tour" FontFamily="/Fonts/#Rubik"
+                          Foreground="#DBDBDB" FontSize="12"
+                          Height="80" Margin="5 0 5 0" >
+                    <Label FontFamily="/Fonts/#Rubik"
+                           Foreground="#DBDBDB"
+                           FontSize="12"
+                           MaxHeight="80" >
+                        <Label.Content>
+                        <TextBlock TextWrapping="Wrap"
+                                       Text="{Binding Path=SelectedTour.Description}"/>
+                        </Label.Content>
+                    </Label>
+                </GroupBox>
 
-        <Label x:Name="Name" Content="Tour Name" 
-               HorizontalAlignment="Left" VerticalAlignment="Center"
-               Height="30" Width="120" Margin="20 0 0 0"
-               Grid.Row="1" Grid.Column="1"
-        />
-        <Label x:Name="Description" Content="Tour Description" 
-               HorizontalAlignment="Left" VerticalAlignment="Center"
-               Height="30" Width="120" Margin="20 0 0 0"
-               Grid.Row="2" Grid.Column="1"
-        />
-        <Label x:Name="Location" Content="Tour Location" 
-               HorizontalAlignment="Left" VerticalAlignment="Center"
-               Height="30" Width="120" Margin="20 0 0 0"
-               Grid.Row="3" Grid.Column="1"
-        />
-        <Label x:Name="Language" Content="Language" 
-               HorizontalAlignment="Left" VerticalAlignment="Center"
-               Height="30" Width="120" Margin="20 0 0 0"
-               Grid.Row="4" Grid.Column="1"
-        />
-        <Label x:Name="Date" Content="Tour Date" 
-               HorizontalAlignment="Left" VerticalAlignment="Center"
-               Height="30" Width="120" Margin="20 0 0 0"
-               Grid.Row="5" Grid.Column="1"
-        />
-        <Label x:Name="AvailableTicketsSeats" Content="Number of Tickets" 
-               HorizontalAlignment="Left" VerticalAlignment="Center"
-               Height="30" Width="120" Margin="20 0 0 0"
-               Grid.Row="6" Grid.Column="1"
-        />
-        <Label x:Name="Stops" Content="Your Starting Stop" 
-               HorizontalAlignment="Left" VerticalAlignment="Center"
-               Height="30" Width="120" Margin="20 0 0 0"
-               Grid.Row="7" Grid.Column="1"
-        />
-        <Label x:Name="LastStop" Content="Last Stop" 
-               HorizontalAlignment="Left" VerticalAlignment="Center"
-               Height="30" Width="120" Margin="20 0 0 0"
-               Grid.Row="8" Grid.Column="1"
-        />
+                <GroupBox Header="Number of tickets" FontFamily="/Fonts/#Rubik"
+                          Foreground="#DBDBDB" FontSize="12"
+                          Height="auto" Margin="5 0 5 0">
+                    <StackPanel>
+                        <Label FontFamily="/Fonts/#Rubik"
+                       Foreground="#DBDBDB"
+                       FontSize="12"
+                       MaxHeight="25" Margin="0 0 0 0">
+                            <Label.Content>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}Max Number Of Guests: {0}">
+                                            <Binding Path="SelectedTour.MaxNumberOfGuests"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Label.Content>
+                        </Label >
 
-        <TextBox 
-            Text = "{Binding Path=SelectedTour.Name}"
-            TextWrapping="Wrap"
-            HorizontalAlignment="Left" VerticalAlignment="Center"
-               Height="30" Width="200" IsReadOnly="True"
-               Grid.Row="1" Grid.Column="2" 
-        />
-        <TextBox 
-            Text = "{Binding Path=SelectedTour.Description}"
-            TextWrapping="Wrap"
-            HorizontalAlignment="Left" VerticalAlignment="Center"
-               Height="50" Width="200" IsReadOnly="True"
-               Grid.Row="2" Grid.Column="2" 
-        />
-        <TextBox 
-            Text = "{Binding Path=SelectedTour.Location.City}"
-            TextWrapping="Wrap"
-            HorizontalAlignment="Left" VerticalAlignment="Center"
-               Height="30" Width="200" IsReadOnly="True"
-               Grid.Row="3" Grid.Column="2" 
-        />
-        <TextBox 
-            Text = "{Binding Path=SelectedTour.Language}"
-            TextWrapping="Wrap"
-            HorizontalAlignment="Left" VerticalAlignment="Center"
-               Height="30" Width="200" IsReadOnly="True"
-               Grid.Row="4" Grid.Column="2" 
-        />
-        <ComboBox x:Name="DatesComboBox"
-               ItemsSource="{Binding Path = dates}"
-               SelectedIndex="0"
-               SelectionChanged="DatesComboBox_SelectionChanged"
-               HorizontalAlignment="Left" VerticalAlignment="Center"
-               Height="30" Width="200"
-               Grid.Row="5" Grid.Column="2" >
-        </ComboBox>
-        <TextBox x:Name="sliderText" Text="{Binding ElementName=slider,Path=Value,UpdateSourceTrigger=PropertyChanged}"
-                HorizontalAlignment="Left" VerticalAlignment="Center"
-                Height="30" Width="30"
-                Grid.Row="6" Grid.Column="2"    >
-        </TextBox>
-        <Slider x:Name="slider" Minimum="1" Maximum="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" 
-                Value="{Binding Path=Ticket.NumberOfGuests}" 
-                HorizontalAlignment="Right" VerticalAlignment="Center"
-                Height="30" Width="160" Margin="0 0 10 0"
-                Grid.Row="6" Grid.Column="2"      >
-        </Slider>
+                        <Grid Height="30">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition Width="300" />
+                                <ColumnDefinition Width="50" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0"
+                           FontFamily="/Fonts/#Rubik"
+                           Foreground="#DBDBDB"
+                           FontSize="12"
+                           MaxHeight="25" Margin="0 -4 0 -4"
+                           Content="Number of Tickets: " />
+                            <TextBox x:Name="sliderText" 
+                             Grid.Column="1"
+                             Text="{Binding ElementName=slider,Path=Value,UpdateSourceTrigger=PropertyChanged}"
+                             HorizontalAlignment="Left" VerticalAlignment="Center"
+                             Height="20" Width="30" >
+                            </TextBox>
+                            <Slider x:Name="slider" 
+                            Grid.Column="2"
+                            Minimum="1" Maximum="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" 
+                            Value="{Binding Path=Ticket.NumberOfGuests}" 
+                            HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Height="30" Width="200"
+                            FontFamily="/Fonts/#Rubik"
+                            Foreground="#DBDBDB"
+                            FontSize="12">
+                            </Slider>
+                            <Label Grid.Column="3"
+                           FontFamily="/Fonts/#Rubik"
+                           Foreground="#DBDBDB"
+                           FontSize="12"
+                           MaxHeight="25" Margin="0 -4 0 -4"
+                           Content="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" />
+                            <Label Grid.Column="4"
+                           FontFamily="/Fonts/#Rubik"
+                           Foreground="#DBDBDB"
+                           FontSize="12"
+                           MaxHeight="25" Margin="0 -4 0 -4"
+                           Content="available seats" />
+                        </Grid>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="Checkpoints" FontFamily="/Fonts/#Rubik"
+                          Foreground="#DBDBDB" FontSize="12"
+                          Height="auto" Margin="5 0 5 0">
+                    <StackPanel>
+                        <Label FontFamily="/Fonts/#Rubik"
+                       Foreground="#DBDBDB"
+                       FontSize="12"
+                       MaxHeight="30" Margin="0 0 0 0">
+                            <Label.Content>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}Starting checkpoint:                            {0}">
+                                            <Binding Path="SelectedTour.Start"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Label.Content>
+                        </Label >
+                        <!-- combobox stops -->
+                        <Grid Height="30">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0"
+                           FontFamily="/Fonts/#Rubik"
+                           Foreground="#DBDBDB"
+                           FontSize="12"
+                           MaxHeight="25" Margin="0 -4 0 -4"
+                           Content="Your starting checkpoint: " />
+                            <ComboBox x:Name="StopsComboBox"
+                              Grid.Column="1" 
+                              ItemsSource="{Binding Path = StopsList}"
+                              SelectedIndex="0"
+                              SelectionChanged="StopsComboBox_SelectionChanged"
+                              HorizontalAlignment="Left" VerticalAlignment="Center"
+                              Height="30" Width="200"
+                              >
+                            </ComboBox>
+                        </Grid>
+                        <Label FontFamily="/Fonts/#Rubik"
+                       Foreground="#DBDBDB"
+                       FontSize="12"
+                       MaxHeight="30" Margin="0 0 0 0">
+                            <Label.Content>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}Finish checkpoint:                               {0}">
+                                            <Binding Path="SelectedTour.Finish"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Label.Content>
+                        </Label >
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="Date" FontFamily="/Fonts/#Rubik"
+                          Foreground="#DBDBDB" FontSize="12"
+                          Height="auto" Margin="5 0 5 0">
+                    <!-- combobox dates -->
+                    <Grid Height="auto">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                           FontFamily="/Fonts/#Rubik"
+                           Foreground="#DBDBDB"
+                           FontSize="12"
+                           MaxHeight="25" Margin="0 -4 0 -4"
+                           Content="Date and Time: " />
+                        <ComboBox x:Name="DatesComboBox"
+                              Grid.Column="1"
+                              ItemsSource="{Binding Path = dates}"
+                              SelectedIndex="0"
+                              SelectionChanged="DatesComboBox_SelectionChanged"
+                              HorizontalAlignment="Left" VerticalAlignment="Center"
+                              Height="30" Width="200"   >
+                        </ComboBox>
+                    </Grid>
+                </GroupBox>
+            </StackPanel>
+        </Grid>
         
-        
-        <ComboBox x:Name="StopsComboBox"
-               ItemsSource="{Binding Path = StopsList}"
-               SelectedIndex="0"
-               SelectionChanged="StopsComboBox_SelectionChanged"
-               HorizontalAlignment="Left" VerticalAlignment="Center"
-               Height="30" Width="200"
-               Grid.Row="7" Grid.Column="2" >
-        </ComboBox>
-        <TextBox 
-            Text = "{Binding Path=SelectedTour.Finish}"
-            TextWrapping="Wrap"
-            HorizontalAlignment="Left" VerticalAlignment="Center"
-               Height="30" Width="200" IsReadOnly="True"
-               Grid.Row="8" Grid.Column="2" 
-        />
-        
-        <Button x:Name="CreateTicketButton" Content="Create" 
-                HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50 0 0 0"
-                Height="50" Width="100" 
-                IsDefault="True" Click="CreateTicket"
-                Grid.Row="9" Grid.Column="3"
-        />
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="350" />
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            
+            <Button x:Name="UseVoucherButton" 
+                    Grid.Column="0"
+                    Content="Create" 
+                    IsDefault="True" Click="UseVoucherClick"  >
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Height" Value="40"/>
+                        <Setter Property="Width" Value="150"/>
+                        <Setter Property="Margin" Value="0 0 20 20"/>
+                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="border"
+                                            BorderThickness="1"
+                                            Background="Black">
+                                        <TextBlock Text="Use Voucher"
+                                            FontFamily="/Fonts/#Rubik" 
+                                            FontSize="18"
+                                            Foreground="#DBDBDB" 
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver"
+                                                 Value="True"   >
+                                            <Setter Property="Background"
+                                                    TargetName="border"
+                                                    Value="#272B2F" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True" />
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <Button x:Name="CreateTicketButton" 
+                    Grid.Column="1"
+                    Content="Create" 
+                    IsDefault="True" Click="CreateTicket"  >
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Height" Value="40"/>
+                        <Setter Property="Width" Value="150"/>
+                        <Setter Property="Margin" Value="0 0 20 20"/>
+                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="border"
+                                            BorderThickness="1"
+                                            Background="Black">
+                                        <TextBlock Text="Buy Ticket"
+                                            FontFamily="/Fonts/#Rubik" 
+                                            FontSize="18"
+                                            Foreground="#DBDBDB" 
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver"
+                                                 Value="True"   >
+                                            <Setter Property="Background"
+                                                    TargetName="border"
+                                                    Value="#272B2F" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True" />
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <Button x:Name="CancelButton" 
+                    Grid.Column="2"
+                    Content="Cancel" 
+                    IsDefault="True" Click="CancelClick"  >
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Height" Value="40"/>
+                        <Setter Property="Width" Value="150"/>
+                        <Setter Property="Margin" Value="0 0 20 20"/>
+                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="border"
+                                            BorderThickness="1"
+                                            Background="Black">
+                                        <TextBlock Text="Cancel"
+                                            FontFamily="/Fonts/#Rubik" 
+                                            FontSize="18"
+                                            Foreground="#DBDBDB" 
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver"
+                                                 Value="True"   >
+                                            <Setter Property="Background"
+                                                    TargetName="border"
+                                                    Value="#272B2F" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True" />
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+        </Grid>
 
     </Grid>
 </Window>
