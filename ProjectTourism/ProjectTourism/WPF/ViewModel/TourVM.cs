@@ -185,15 +185,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public DateTime StartDate
-        {
-            get => _tour.StartDate;
-            set
-            {
-                _tour.StartDate = value;
-                OnPropertyChanged();
-            }
-        }
         public double Duration
         {
             get => _tour.Duration;
@@ -249,19 +240,7 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public bool IsValid
-        {
-            get
-            {
-                foreach (var property in _validatedProperties)
-                {
-                    if (this[property] != null)
-                        return false;
-                }
-
-                return true;
-            }
-        }
+        
 
         public string Error => null;
 
@@ -306,12 +285,6 @@ namespace ProjectTourism.WPF.ViewModel
                     if (!match.Success)
                         return "Enter finish";
                 }
-                else if (columnName == "StartDate")
-                {
-                    if (string.IsNullOrEmpty(StartDate.ToString("MM/dd/yyyy HH:mm:ss")))
-                        return "Start date is required!";
-                    Match match = _DateTimeRegex.Match(StartDate.ToString("MM/dd/yyyy HH:mm:ss"));
-                }
                 else if (columnName == "Duration")
                 {
                     if (string.IsNullOrEmpty(Duration.ToString()))
@@ -328,7 +301,22 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
-        private readonly string[] _validatedProperties = {"Name", "MaxNumberOfGuests", "Start", "Finish", "StartDate", "Duration" };
+        private readonly string[] _validatedProperties = {"Name", "MaxNumberOfGuests", "Start", "Finish","Duration" };
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+
+                return true;
+            }
+        }
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
