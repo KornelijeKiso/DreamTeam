@@ -74,7 +74,7 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
             }
             else
             {
-                MessageBox.Show("You can't buy tickets for this tour!");
+                MessageBox.Show("You can't buy tickets or use vouchers for this tour! \nIt is already full!");
                 Close();
             }
         }
@@ -152,7 +152,16 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
         }
         private void UseVoucherClick(object sender, RoutedEventArgs e)
         {
-            // TO DO
+            if (dates.Count > 0)
+            {
+                UnusedVouchersWindow unusedVouchersWindow = new UnusedVouchersWindow();
+                unusedVouchersWindow.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("You can't buy tickets or use vouchers for this tour! \nIt is already full!");
+                Close();
+            }
         }
         private void CancelClick(object sender, RoutedEventArgs e)
         {
