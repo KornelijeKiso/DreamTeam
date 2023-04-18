@@ -109,7 +109,7 @@
                                                     <Label.Content>
                                                         <TextBlock>
                                                             <TextBlock.Text>
-                                                                <Binding Path="UsedOn"/>
+                                                                <Binding Path="UsedOnDate"/>
                                                             </TextBlock.Text>
                                                         </TextBlock>
                                                     </Label.Content>

@@ -28,7 +28,7 @@ namespace ProjectTourism.WPF.ViewModel
             _voucher.Ticket = ticketService.GetOne(_voucher.TicketId);
         }
 
-            public Voucher GetVoucher()
+        public Voucher GetVoucher()
         {
             return _voucher;
         }
@@ -146,6 +146,19 @@ namespace ProjectTourism.WPF.ViewModel
                 if (value != _voucher.Description)
                 {
                     _voucher.Description = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public DateTime UsedOnDate
+        {
+            get => _voucher.UsedOnDate;
+            set
+            {
+                if (value != _voucher.UsedOnDate)
+                {
+                    _voucher.UsedOnDate = value;
                     OnPropertyChanged();
                 }
             }
