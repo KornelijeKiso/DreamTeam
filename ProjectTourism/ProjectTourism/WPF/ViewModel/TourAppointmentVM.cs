@@ -33,6 +33,20 @@ namespace ProjectTourism.WPF.ViewModel
             TicketService ticketService = new TicketService(new TicketRepository());
             _tourAppointment.Tickets = ticketService.GetByAppointment(_tourAppointment.Id);
         }
+
+        public TourAppointmentVM(Tour tour, DateTime date)
+        {
+            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
+            _tourAppointment = tourAppointmentService.GetByDate(tour.Id, date);
+            Synchronize();
+            Tickets = new ObservableCollection<TicketVM>(_tourAppointment.Tickets.Select(r => new TicketVM(r)).ToList());
+        }
+
+        public void UpdateTourAppointmentVM(TourAppointmentVM tourAppointmentVM)
+        {
+            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
+            tourAppointmentService.Update(tourAppointmentVM.GetTourAppointment());
+        }
         public TourAppointment GetTourAppointment()
         {
             return _tourAppointment;

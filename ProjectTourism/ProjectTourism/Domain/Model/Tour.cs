@@ -120,17 +120,39 @@ namespace ProjectTourism.Model
             return pictures;
         }
 
-        public List<DateTime> FromString(string dateString)
+        private List<string> GetStops(string start, string stops, string finish)
         {
-            List<DateTime> dates = new List<DateTime>();
-            string[] oneDate = dateString.Split(',');
-            foreach (var date in oneDate)
+            List<string> listStops = new List<string>();
+            listStops.Add(start);
+            string[] oneStop = stops.Split(',');
+            foreach(string stop in oneStop)
             {
-                if (DateTime.TryParse(date.Trim(), new CultureInfo("en-GB"), DateTimeStyles.None, out var dateTimeParsed))
-                    dates.Add(dateTimeParsed);
+                stop.Trim();
+                listStops.Add(stop);
             }
-            return dates;
+            listStops.Add(finish);
+            return listStops;
         }
+        //private List<DateTime> GetDates(List<TourAppointment> tourAppointments)
+        //{
+        //    List<DateTime> dates = new List<DateTime>();
+        //    foreach (TourAppointment tourAppointment in tourAppointments)
+        //    {
+        //        dates.Add(tourAppointment.TourDateTime);
+        //    }
+        //    return dates;
+        //}
+        //public List<DateTime> FromString(string dateString)
+        //{
+        //    List<DateTime> dates = new List<DateTime>();
+        //    string[] oneDate = dateString.Split(',');
+        //    foreach (var date in oneDate)
+        //    {
+        //        if (DateTime.TryParse(date.Trim(), new CultureInfo("en-GB"), DateTimeStyles.None, out var dateTimeParsed))
+        //            dates.Add(dateTimeParsed);
+        //    }
+        //    return dates;
+        //}
         //public string ToString(List<DateTime> dates)
         //{
         //    string dateString = "";
@@ -158,6 +180,7 @@ namespace ProjectTourism.Model
             GuideUsername = values[10];
             LocationId = int.Parse(values[11]);
             Pictures = GetPictureURLsFromCSV();
+            StopsList = GetStops(Start, Stops, Finish);
         }
 
         

@@ -81,22 +81,16 @@ namespace ProjectTourism.WPF.ViewModel
             Accommodations.Add(accommodation);
             _owner.Accommodations.Add(accommodation.GetAccommodation());
         }
-
         public void GradeAGuest(Guest1GradeVM grade)
         {
             Guest1GradeService guest1GradeService = new Guest1GradeService(new Guest1GradeRepository());
-            foreach( var reservation in Reservations)
-            {
-                if (reservation.Id == grade.ReservationId)
-                {
-                    reservation.Guest1Grade = grade;
-                    reservation.Graded = true;
-                    guest1GradeService.Add(grade.GetGuest1Grade());
-                    return;
-                }
-            }
+            var reservation = Reservations.ToList().Find(r=>r.Id == grade.ReservationId);
+            reservation.Guest1Grade = grade;
+            reservation.Graded = true;
+            reservation.CanBeGraded = false;
+            reservation.VisibleReview = reservation.AccommodationGraded;
+            guest1GradeService.Add(grade.GetGuest1Grade());
         }
-        
         public Owner GetOwner()
         {
             return _owner;
@@ -113,7 +107,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
         public string FirstName
         {
             get => _owner.FirstName;
@@ -174,12 +167,10 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
         public bool IsSuperHost
         {
             get => AverageGrade>4.5 && NumberOfReviews>2;
         }
-
         public int NumberOfReviews
         {
             get => _owner.Reservations.Count(res=>res.AccommodationGrade!=null);

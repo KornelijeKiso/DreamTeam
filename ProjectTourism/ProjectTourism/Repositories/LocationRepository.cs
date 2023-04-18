@@ -1,6 +1,7 @@
 ﻿using ProjectTourism.FileHandler;
 using ProjectTourism.Model;
 using ProjectTourism.Repositories.IRepositories;
+using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,19 +21,8 @@ namespace ProjectTourism.Repositories
         }
         public int GenerateId()
         {
-            int id = 0;
-            if (Locations == null)
-            {
-                id = 0;
-            }
-            else
-            {
-                foreach (var location in Locations)
-                {
-                    id = location.Id + 1;
-                }
-            }
-            return id;
+            if (Locations == null) return 0;
+            else return Locations.Last().Id + 1;
         }
         public int AddAndReturnId(Location location)
         {
@@ -55,11 +45,7 @@ namespace ProjectTourism.Repositories
 
         public Location GetOne(int locationId)
         {
-            foreach (var location in Locations)
-            {
-                if (location.Id == locationId) return location;
-            }
-            return null;
+            return Locations.Find(l => l.Id == locationId);
         }
 
         public void Update(Location location)

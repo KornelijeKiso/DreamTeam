@@ -14,13 +14,211 @@
     </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="380"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="450"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0"  >
-            <!---->
-            <TextBlock>Vouchers</TextBlock>
+            <TabControl x:Name="TabControl"
+                        Margin="20 0 20 20"
+                        >
+                <TabControl.Style>
+                    <Style TargetType="TabControl">
+                        <Setter Property="FontFamily" Value="/Fonts/#Rubik" />
+                        <Setter Property="FontSize" Value="16" />
+                        <Setter Property="Foreground" Value="#DBDBDB" />
+                        <Setter Property="BorderBrush" Value="Black" />
+                        <Setter Property="BorderThickness" Value="3" />
+                    </Style>
+                </TabControl.Style>
+                
+                <!-- USED -->
+                <TabItem Header="Used" Height="20" VerticalAlignment="Top">
+                    <DataGrid x:Name="DataGridUsedVouchers" Style="{StaticResource DataGrid_Style}"
+                              ItemsSource="{Binding UsedVouchers, UpdateSourceTrigger=PropertyChanged}"
+                              Margin="0 0 0 0" BorderThickness="0"  >
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                                             Color="#339AF0"/>
+                        </DataGrid.Resources>
+
+                        <!--<DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Style>
+                        </DataGrid.CellStyle>-->
+                        <DataGrid.Columns>
+
+                            <DataGridTemplateColumn Width="120" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Stretch="Fill" 
+                                   Source="{Binding Path=Ticket.TourAppointment.Tour.Pictures[0]}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="350">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical" >
+                                            <Label Content="{Binding Path=Ticket.TourAppointment.Tour.Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Content="{Binding Path=Ticket.TourAppointment.Tour.Location.Country}" Margin="0,0,0,-7"></Label>
+                                                <Label Content="," Margin="0,0,0,-7"></Label>
+                                                <Label Content="{Binding Path=Ticket.TourAppointment.Tour.Location.City}" Margin="0,0,0,-7"></Label>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Language :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Content="{Binding Path=Ticket.TourAppointment.Tour.Language}" Margin="0,0,0,-7"></Label>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Duration :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Content="{Binding Path=Ticket.TourAppointment.Tour.Duration}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Max number of guests :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Content="{Binding Path=Ticket.TourAppointment.Tour.MaxNumberOfGuests}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel>
+                                            <GroupBox BorderBrush="Black" FontSize="12" Height="50" 
+                                                  VerticalAlignment="Top" Margin="5 5 5 5"
+                                                  Header="Status">
+                                                <Label FontSize="14">
+                                                    <Label.Content>
+                                                        <TextBlock>
+                                                            <TextBlock.Text>
+                                                                <Binding Path="Ticket.TourAppointment.State"/>
+                                                            </TextBlock.Text>
+                                                        </TextBlock>
+                                                    </Label.Content>
+                                                </Label>
+                                            </GroupBox>
+
+                                            <GroupBox BorderBrush="Black" FontSize="12" Height="50" 
+                                                  VerticalAlignment="Bottom" Margin="5 5 5 5"
+                                                  Header="Voucher used on">
+                                                <Label FontSize="14">
+                                                    <Label.Content>
+                                                        <TextBlock>
+                                                            <TextBlock.Text>
+                                                                <Binding Path="UsedOnDate"/>
+                                                            </TextBlock.Text>
+                                                        </TextBlock>
+                                                    </Label.Content>
+                                                </Label>
+                                            </GroupBox>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+                
+                
+                <!-- UNUSED -->
+                <TabItem Header="Unused" Height="20" VerticalAlignment="Top">
+                    <DataGrid x:Name="DataGridUnusedVouchers" Style="{StaticResource DataGrid_Style}"
+                              ItemsSource="{Binding UnusedVouchers, UpdateSourceTrigger=PropertyChanged}"
+                              Margin="0 0 0 0" BorderThickness="0"  >
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                                             Color="#339AF0"/>
+                        </DataGrid.Resources>
+
+                        <!--<DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Style>
+                        </DataGrid.CellStyle>-->
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="120" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Stretch="Fill" Source="/WPF/View/Guest2View/Menu/img_voucher2.png"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical" >
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Date of winning :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Content="{Binding Path=ValidFrom}" Margin="0,0,0,-7"></Label>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Valid until :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Content="{Binding Path=ValidDue}" Margin="0,0,0,-7"></Label>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Reason for the reward :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Content="{Binding Path=Description}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+               
+                
+                <!-- EXPIRED -->
+                <TabItem Header="Expired" Height="20" VerticalAlignment="Top">
+                    <DataGrid x:Name="DataGridExpiredVouchers" Style="{StaticResource DataGrid_Style}"
+                              ItemsSource="{Binding ExpiredVouchers, UpdateSourceTrigger=PropertyChanged}"
+                              Margin="0 0 0 0" BorderThickness="0"  >
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                                             Color="#339AF0"/>
+                        </DataGrid.Resources>
+
+                        <!--<DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Style>
+                        </DataGrid.CellStyle>-->
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="120" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Stretch="Fill" Source="/WPF/View/Guest2View/Menu/img_voucher3.png"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical" >
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Date of winning :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Content="{Binding Path=ValidFrom}" Margin="0,0,0,-7"></Label>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Valid until :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Content="{Binding Path=ValidDue}" Margin="0,0,0,-7"></Label>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Reason for the reward :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Content="{Binding Path=Description}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+            </TabControl>
         </Grid>
 
     </Grid>

@@ -168,7 +168,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 
         public void BuyTicket_Click()
         {
-                CreateTicketWindow createTicketWidnow = new CreateTicketWindow(Guest2.Username, SelectedTour.Id);
+                CreateTicketWindow createTicketWidnow = new CreateTicketWindow(Guest2, SelectedTour);
                 createTicketWidnow.ShowDialog();
         }
     }

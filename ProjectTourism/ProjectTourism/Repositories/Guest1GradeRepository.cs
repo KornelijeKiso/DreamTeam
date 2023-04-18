@@ -2,6 +2,7 @@
 using ProjectTourism.FileHandler;
 using ProjectTourism.Model;
 using ProjectTourism.Observer;
+using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,35 +38,17 @@ namespace ProjectTourism.Repositories
         }
         public int GenerateId()
         {
-            int id = 0;
-            if (Guest1Grades == null)
-            {
-                id = 0;
-            }
-            else
-            {
-                foreach (var grades in Guest1Grades)
-                {
-                    id = grades.Id + 1;
-                }
-            }
-            return id;
+            if (Guest1Grades == null) return 0;
+            else return Guest1Grades.Last().Id + 1;
         }
         public Guest1Grade GetOneByReservation(int reservationId)
         {
-            foreach (var guest1Grade in Guest1Grades)
-            {
-                if (guest1Grade.ReservationId == reservationId) return guest1Grade;
-            }
-            return null;
+            return Guest1Grades.Find(g => g.ReservationId == reservationId);
         }
         public Guest1Grade GetOne(int guest1GradeId)
         {
-            foreach (var guest1Grade in Guest1Grades)
-            {
-                if (guest1Grade.Id == guest1GradeId) return guest1Grade;
-            }
-            return null;
+            return Guest1Grades.Find(g => g.Id == guest1GradeId);
+
         }
         public void Update(Guest1Grade guest1Grade)
         {

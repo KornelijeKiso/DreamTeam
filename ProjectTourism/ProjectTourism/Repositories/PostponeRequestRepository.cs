@@ -39,21 +39,13 @@ namespace ProjectTourism.Repositories
         }
         public PostponeRequest GetOne(int id)
         {
-            foreach (var postponeRequest in PostponeRequests)
-            {
-                if (postponeRequest.Id == id) return postponeRequest;
-            }
-            return null;
+            return PostponeRequests.Find(p => p.Id == id);
         }
         public PostponeRequest GetOneByReservation(int reservationId)
         {
-            foreach (var postponeRequest in PostponeRequests)
-            {
-                if (postponeRequest.ReservationId == reservationId) return postponeRequest;
-            }
-            return null;
-        }
+            return PostponeRequests.Find(p => p.ReservationId == reservationId);
 
+        }
         public void Update(PostponeRequest postponeRequest)
         {
             foreach (var existingPostponeRequest in PostponeRequests)

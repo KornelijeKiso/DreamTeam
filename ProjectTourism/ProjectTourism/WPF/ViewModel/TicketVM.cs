@@ -22,7 +22,6 @@ namespace ProjectTourism.WPF.ViewModel
             _ticket = ticket;
             Synchronize();
         }
-
         private void Synchronize()
         {
             TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
@@ -33,6 +32,26 @@ namespace ProjectTourism.WPF.ViewModel
 
             //TicketGradeService ticketGradeService = new TicketGradeService(new TicketGradeRepository());
             //_ticket.TicketGrade = ticketGradeService.GetOne(_ticket.TicketGradeId);
+        }
+        public void CreateTicket(Ticket ticket)
+        {
+            TicketService ticketService = new TicketService(new TicketRepository());
+            ticketService.Add(ticket);
+        }
+        public TicketVM GetLast()
+        {
+            TicketService ticketService = new TicketService(new TicketRepository());
+            List<Ticket> tickets = ticketService.GetAll();
+            Ticket last = tickets.Last();
+            return new TicketVM(last);
+        }
+
+        public void RemoveLast()
+        {
+            TicketService ticketService = new TicketService(new TicketRepository());
+            List<Ticket> tickets = ticketService.GetAll();
+            Ticket last = tickets.Last();
+            ticketService.Delete(last);
         }
         public Ticket GetTicket()
         {

@@ -24,19 +24,7 @@ namespace ProjectTourism.WPF.View.OwnerView
     public partial class YourProfileMenuItem : UserControl, INotifyPropertyChanged
     {
         public OwnerVM Owner { get; set; }
-        private string _Average;
-        public string Average
-        {
-            get => _Average;
-            set
-            {
-                if (value != _Average)
-                {
-                    _Average = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        public string Average { get; set; }
         public YourProfileMenuItem(string username)
         {
             InitializeComponent();
@@ -44,7 +32,7 @@ namespace ProjectTourism.WPF.View.OwnerView
             Owner = new OwnerVM(username);
             Average = Owner.AverageGrade.ToString("0.0");
         }
-        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        private void LogOutClick(object sender, RoutedEventArgs e)
         {
             Window parentWindow = Window.GetWindow(this);
             if (parentWindow != null)

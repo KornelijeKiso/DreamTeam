@@ -22,6 +22,7 @@ namespace ProjectTourism.Model
         public string Description { get; set; }
         public Ticket Ticket { get; set; }
         public int TicketId { get; set; }
+        public DateTime UsedOnDate { get; set; }
 
         public Voucher()
         {
@@ -48,7 +49,8 @@ namespace ProjectTourism.Model
                 ValidDue.ToString("dd.MM.yyyy HH:mm"),
                 Status.ToString(),
                 Description, 
-                TicketId.ToString()
+                TicketId.ToString(),
+                UsedOnDate.ToString("dd.MM.yyyy HH:mm")
             };
             return csvValues;
         }
@@ -75,6 +77,8 @@ namespace ProjectTourism.Model
             }
             Description = values[5];
             TicketId = int.Parse(values[6]);
+            if (DateTime.TryParse(values[7], new CultureInfo("en-GB"), DateTimeStyles.None, out var dateTimeParsedUsed))
+                UsedOnDate = dateTimeParsedUsed;
         }
     }
 }
