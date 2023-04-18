@@ -46,19 +46,15 @@ namespace ProjectTourism.WPF.View.OwnerView
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        public void Update(){}
+        public void Update()
+        {
+            SetOwner(Owner.Username);        
+        }
         public void GradeGuestClick(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
             GradeGuestWindow gradeGuestWindow = new GradeGuestWindow(SelectedReservation, Owner);
             gradeGuestWindow.ShowDialog();
-            SelectedReservation.Graded = gradeGuestWindow.Graded;
-            if (gradeGuestWindow.Graded)
-            {
-                Owner = gradeGuestWindow.Owner;
-                button.IsEnabled = false;
-                SelectedReservation.VisibleReview = SelectedReservation.AccommodationGraded;
-            }
             Update();
         }
         public void SeeReviewClick(object sender, RoutedEventArgs e)
@@ -71,10 +67,6 @@ namespace ProjectTourism.WPF.View.OwnerView
         {
             PostponeRequestWindow postponeRequestWindow = new PostponeRequestWindow(SelectedReservation);
             postponeRequestWindow.ShowDialog();
-            if (SelectedReservation.PostponeRequest.Accepted || SelectedReservation.PostponeRequest.Rejected)
-            {
-                SelectedReservation.RequestedPostpone = false;
-            }
         }
     }
 }

@@ -140,7 +140,7 @@
                                 <Label Margin="10 4 0 0" Content ="Grading deadline:"></Label>
                                 <Label Margin="10,-8,0,0" Content="{Binding GradingDeadlineMessage}" FontWeight="SemiBold"></Label>
                                 <Button Height="20" Width="120" BorderBrush="DeepSkyBlue" 
-                                    BorderThickness="2" IsEnabled="{Binding CanBeGraded}" Click="GradeGuestClick" 
+                                    BorderThickness="2" IsEnabled="{Binding CanBeGraded,UpdateSourceTrigger=PropertyChanged}" Click="GradeGuestClick" 
                                     Content="Grade your guest" FontSize="10" Margin="0 5 0 0">
                                     <Button.Resources>
                                         <Style TargetType="Border">

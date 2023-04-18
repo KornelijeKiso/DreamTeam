@@ -27,7 +27,6 @@ namespace ProjectTourism.View.OwnerView
         public OwnerVM Owner { get; set; }
         public Guest1GradeVM GuestGrade { get; set; }
         public ReservationVM Reservation { get; set; }
-        public bool Graded;
         public GradeGuestWindow(ReservationVM reservation, OwnerVM owner)
         {
             InitializeComponent();
@@ -53,7 +52,6 @@ namespace ProjectTourism.View.OwnerView
                 }
             }
             Owner.GradeAGuest(GuestGrade);
-            Graded = true;
             Close();
         }
 
