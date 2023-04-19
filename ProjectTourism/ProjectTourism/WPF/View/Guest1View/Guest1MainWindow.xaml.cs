@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ProjectTourism.Controller;
 using ProjectTourism.Model;
 using ProjectTourism.WPF.ViewModel;
-using ProjectTourism.ModelDAO;
-using ProjectTourism.Observer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -33,18 +30,10 @@ namespace ProjectTourism.View.Guest1View
     /// </summary>
     public partial class Guest1MainWindow : Window
     {
-        public Guest1 Guest1 { get; set; }
         public Guest1VM Guest1VM { get; set; }
-        public ObservableCollection<Accommodation> Accommodations { get; set; }
         public ObservableCollection<AccommodationVM> AccommodationVMs { get; set; }
         public AccommodationVM SelectedAccommodation { get; set; }
         public ObservableCollection<AccommodationVM> FilteredAccommodations { get; set; }
-        public ObservableCollection<Accommodation> FilteredAccommodationsVM { get; set; }
-        public Guest1Controller Guest1Controller { get; set; }
-        public AccommodationController AccommodationController { get; set; }
-        public ObservableCollection<Reservation> Reservations { get; set; }
-        public Reservation Reservation { get; set; }
-        public ReservationController ReservationController { get; set; }
         public string NameSearch { get; set; }
         public string LocationSearch { get; set; }
         public string GuestCountSearch { get; set; }
@@ -119,23 +108,16 @@ namespace ProjectTourism.View.Guest1View
 
         private bool GuestNumberMatch(string GuestNumberQuery, AccommodationVM accommodationVM)
         {
-            if (GuestNumberQuery != null)
+            if (!string.IsNullOrEmpty(GuestNumberQuery))
             {
-                if (!GuestNumberQuery.Equals(""))
-                {
-                    int search = int.Parse(GuestNumberQuery);
-                    int maxGuestCount = accommodationVM.MaxNumberOfGuests;
+                int search = int.Parse(GuestNumberQuery);
+                int maxGuestCount = accommodationVM.MaxNumberOfGuests;
 
-                    if (search <= maxGuestCount)
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-                else
+                if (search <= maxGuestCount)
                 {
                     return true;
                 }
+                return false;
             }
             else
             {
@@ -145,88 +127,23 @@ namespace ProjectTourism.View.Guest1View
 
         private bool NameMatch(string NameQuery, AccommodationVM accommodationVM)
         {
-            if (NameQuery != null /*string.IsNullOrEmpty(NameQuery)*/)
+            if (!string.IsNullOrEmpty(NameQuery))
             {
-                if (!NameQuery.Equals(""))
-                {
-                    string search = NameQuery.ToLower().Trim();
+                string search = NameQuery.ToLower().Trim();
 
-                    string name = accommodationVM.Name;
-                    name = name.ToLower();
+                string name = accommodationVM.Name;
+                name = name.ToLower();
 
-                    if (name.Contains(search))
-                    {
-                        return true;
-                    }
-                    return false;
-                }
-                else
+                if (name.Contains(search))
                 {
                     return true;
                 }
+                return false;
             }
             else
             {
                 return true;
             }
-        }
-
-        private bool LocationMatch(string LocationQuery, AccommodationVM accommodationVM)
-        {
-            if (LocationQuery != null)
-            {
-                if (LocationQuery != "")
-                {
-                    string Search, country, city;
-                    string[] Query;
-                    PrepareSearch(LocationQuery, accommodationVM, out Search, out Query, out country, out city);
-                    if (Query.Length == 1 && (country.Contains(Search) || city.Contains(Search)))
-                    {
-                        return true;
-                    }
-                    else if (Query.Length == 2 && (city.Contains(Query[0]) && country.Contains(Query[1])))
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                else
-                {
-                    return true;
-                }
-            }
-            else
-            {
-                return true;
-            }
-        }
-
-        private static void PrepareSearch(string LocationQuery, AccommodationVM accommodationVM, out string Search, out string[] Query, out string country, out string city)
-        {
-            Search = LocationQuery.ToLower().Trim();
-            Query = Search.ToLower().Split(',');
-            int i = 0;
-            foreach (string query in Query)
-            {
-                string currentString;
-                currentString = query.Trim();
-                if (currentString == "")
-                {
-
-                }
-                else
-                {
-                    Query[i] = currentString;
-                    i++;
-                }
-            }
-            country = accommodationVM.Location.Country;
-            city = accommodationVM.Location.City;
-            country = country.ToLower();
-            city = city.ToLower();
         }
 
         private bool TypeMatch(AccommodationVM accommodationVM)
@@ -271,7 +188,6 @@ namespace ProjectTourism.View.Guest1View
             return ReservationAvailable(startingDate, endingDate, accommodationVM)
                                 && GuestNumberMatch(GuestCountSearch, accommodationVM)
                                 && NameMatch(NameSearch, accommodationVM)
-                                && LocationMatch(LocationSearch, accommodationVM)
                                 && TypeMatch(accommodationVM);
         }
 
@@ -280,12 +196,8 @@ namespace ProjectTourism.View.Guest1View
             Button button = (Button)sender;
 
             ReservationVM reservationVM = new ReservationVM(new Reservation());
-            AccommodationVM accommodationVM; //= new AccommodationVM(new Accommodation());
-            //reservationVM.StartDate = startingDate;
-            //reservationVM.EndDate = endingDate;
             reservationVM.AccommodationId = SelectedAccommodation.Id;
             reservationVM.Guest1Username = Guest1VM.Username;
-            //Guest1VM.PrepareReservation(out reservationVM, out accommodationVM);
 
             Guest1ReservationWindow guest1ReservationWindow = new Guest1ReservationWindow(reservationVM, SelectedAccommodation, Guest1VM.Username);
             guest1ReservationWindow.ShowDialog();
@@ -302,19 +214,6 @@ namespace ProjectTourism.View.Guest1View
             guest1ReservedAccommodations.ShowDialog();
             Update();
         }
-
-        //private void PrepareReservation(out ReservationVM reservationVM, out AccommodationVM accommodationVM)
-        //{
-        //    reservationVM = new ReservationVM(new Reservation());
-        //    //ReservationController reservationController = new ReservationController();
-        //    ReservationService reservationService = new ReservationService(new ReservationRepository());
-        //    AccommodationService accommodationService = new AccommodationService(new AccommodationRepository());
-        //    reservationVM.StartDate = startingDate;
-        //    reservationVM.EndDate = endingDate;
-        //    reservationVM.AccommodationId = SelectedAccommodation.Id;
-        //    reservationVM.Guest1Username = Guest1VM.Username;
-        //    accommodationVM = new AccommodationVM(accommodationService.GetOne(reservationVM.AccommodationId));
-        //}
 
         public void Update()
         {

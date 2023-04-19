@@ -22,9 +22,14 @@ namespace ProjectTourism.Repositories
             FileHandler = new PostponeRequestFileHandler();
             PostponeRequests = FileHandler.Load();
         }
-
+        public int GenerateId()
+        {
+            if (PostponeRequests == null) return 0;
+            else return PostponeRequests.Last().Id + 1;
+        }
         public void Add(PostponeRequest postponeRequest)
         {
+            postponeRequest.Id = GenerateId();
             PostponeRequests.Add(postponeRequest);
             FileHandler.Save(PostponeRequests);
         }

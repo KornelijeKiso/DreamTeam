@@ -1,4 +1,5 @@
-﻿using ProjectTourism.Observer;
+﻿using ProjectTourism.Model;
+using ProjectTourism.Observer;
 using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace ProjectTourism.WPF.View.Guest1View
     /// <summary>
     /// Interaction logic for Guest1ReservedAccommodations.xaml
     /// </summary>
-    public partial class Guest1ReservedAccommodations : Window, INotifyPropertyChanged, IObserver
+    public partial class Guest1ReservedAccommodations : Window, INotifyPropertyChanged
     {
         public ReservationVM SelectedReservation { get; set; }
         public Guest1VM Guest1VM { get; set; }
@@ -42,29 +43,22 @@ namespace ProjectTourism.WPF.View.Guest1View
                         Guest1VM.CancelReservation(SelectedReservation);
                     }
                 }
-                else
-                    MessageBox.Show("The tour can not be canceled because the cancelation time is at least" + SelectedReservation.Accommodation.CancellationDeadline + "days before start.");
+            else
+                MessageBox.Show("The tour can not be canceled because the cancelation time is at least" + SelectedReservation.Accommodation.CancellationDeadline + "days before start.");
         }
 
         private void PostponeReservationClick(object sender, RoutedEventArgs e)
         {
-            //if (SelectedReservation != null)
-            //{
-            //if (SelectedReservation.StartDate > DateOnly.FromDateTime(DateTime.Now).AddDays(1/*SelectedReservation.Accommodation.CancellationDeadline*/))
-            //{
-                //MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel this reservation?", "Delete appointment", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                //if (result == MessageBoxResult.Yes)
-                //{
-                Guest1VM.CancelReservation(SelectedReservation);
-                //}
-            //}
-            //else
-            //  MessageBox.Show("The tour can not be canceled because the cancelation time is at least" + "1"/*SelectedReservation.Accommodation.CancellationDeadline*/ + "days before start.");
-            //}
-            //else
-            //    MessageBox.Show("You must choose an appointment which you would like to cancel!");
+            Button button = (Button)sender;
+
+            ReservationVM reservationVM = new ReservationVM(new Reservation());
+            reservationVM.AccommodationId = SelectedReservation.AccommodationId;
+            reservationVM.Accommodation = SelectedReservation.Accommodation;
+            reservationVM.Guest1Username = Guest1VM.Username;
+
+            PostponeReservationWindow postponeReservationWindow = new PostponeReservationWindow(reservationVM, Guest1VM.Username);
+            postponeReservationWindow.ShowDialog();
         }
-        public void Update() { }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
