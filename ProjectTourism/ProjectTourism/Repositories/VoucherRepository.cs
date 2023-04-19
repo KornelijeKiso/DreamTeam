@@ -17,6 +17,19 @@ namespace ProjectTourism.Repositories
         {
             FileHandler = new VoucherFileHandler();
             Vouchers = FileHandler.Load();
+            CheckIfValid();
+        }
+
+        private void CheckIfValid()
+        {
+            foreach (var voucher in Vouchers)
+            {
+                if (voucher.Status == STATUS.VALID && (DateTime.Compare(voucher.ValidDue, DateTime.Now) < 0))
+                {
+                    voucher.Status = STATUS.INVALID;
+                }
+            }
+            FileHandler.Save(Vouchers);
         }
         private int GenerateId()
         {
