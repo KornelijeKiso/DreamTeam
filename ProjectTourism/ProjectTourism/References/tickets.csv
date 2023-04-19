@@ -16,11 +16,11 @@
 15|3|mika|9|Nevesinje Center|False|False
 16|14|mika|15|Sarajevo center|False|False
 17|15|mika|8|Erechtheum|False|False
-18|34|jel|8|a|True|True
-19|34|jel|5|a|True|True
-20|34|mika|2|a|False|False
-21|16|teja|2|a|False|False
-22|16|mika|2|a|False|False
-23|44|teja|1|avantura1|False|False
-24|44|mika|2|avantura1|True|False
-25|44|jel|1|avantura1|True|False
+18|34|jel|8|Vienna Center|True|True
+19|34|jel|5|Vienna Center|True|True
+20|34|mika|2|Vienna Center|False|False
+21|41|teja|2|Foca Park|False|False
+22|16|mika|2|the Acropolis|False|False
+23|44|teja|1|Palic bus station|False|False
+24|44|mika|2|Palic bus station|True|False
+25|44|jel|1|Palic bus station|True|False

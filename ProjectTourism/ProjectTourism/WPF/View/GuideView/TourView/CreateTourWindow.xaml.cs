@@ -15,9 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ProjectTourism.Controller;
 using ProjectTourism.Model;
-using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using ProjectTourism.View.GuideView.TourView;
@@ -26,7 +24,7 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.TourView
 {
-    public partial class CreateTourWindow : UserControl, INotifyPropertyChanged, IObserver
+    public partial class CreateTourWindow : UserControl, INotifyPropertyChanged
     {
         public TourVM NewTour { get; set; }
         public LocationVM NewLocation { get; set; }

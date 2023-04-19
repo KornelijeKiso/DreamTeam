@@ -28,12 +28,10 @@ namespace ProjectTourism.Services
         {
             Guest2Repository.Add(guest);
         }
-
         public void Delete(Guest2 guest)
         {
             Guest2Repository.Delete(guest);
         }
-
         public List<Ticket>? GetTickets(Guest2? guest2)
         {
             return Guest2Repository.GetTickets(guest2);

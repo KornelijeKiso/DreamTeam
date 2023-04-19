@@ -1,6 +1,5 @@
 ﻿using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.Model;
-using ProjectTourism.Observer;
 using ProjectTourism.Repositories.IRepositories;
 using ProjectTourism.WPF.ViewModel;
 using System;

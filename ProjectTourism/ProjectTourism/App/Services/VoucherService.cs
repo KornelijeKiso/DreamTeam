@@ -18,12 +18,10 @@ namespace ProjectTourism.Services
         {
             VoucherRepository = ivr;
         }
-
         public Voucher GetOne(int id)
         {
             return VoucherRepository.GetOne(id);
         }
-
         public Voucher GetOneByTicket(int ticketId)
         {
             return VoucherRepository.GetOneByTicket(ticketId);
@@ -32,17 +30,14 @@ namespace ProjectTourism.Services
         {
             return VoucherRepository.GetAll();
         }
-        
         public void Add(Voucher voucher)
         {
             VoucherRepository.Add(voucher);
         }
-
         public void Delete(Voucher voucher)
         {
             VoucherRepository.Delete(voucher);
         }
-
         public void Update(Voucher voucher)
         {
             VoucherRepository.Update(voucher);

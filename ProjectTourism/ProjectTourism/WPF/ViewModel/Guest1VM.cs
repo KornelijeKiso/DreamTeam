@@ -12,6 +12,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectTourism.Domain.Model;
 
 namespace ProjectTourism.WPF.ViewModel
 {
@@ -71,10 +72,33 @@ namespace ProjectTourism.WPF.ViewModel
                 return false;
             }
         }
+        public bool ProcessRequest(ReservationVM reservationVM)
+        {
+            ReservationService reservationService = new ReservationService(new ReservationRepository());
+            if (reservationService.IsPossible(reservationVM.GetReservation()))
+            {
+                SendRequest(reservationVM);
+                return true;
+            }
+            else
+            {
+                FindFirstAvailableAccommodation(reservationVM);
+                return false;
+            }
+        }
         private void BookAccommodation(ReservationVM reservationVM)
         {
             ReservationService reservationService = new ReservationService(new ReservationRepository());
             reservationService.Add(reservationVM.GetReservation());
+        }
+        private void SendRequest(ReservationVM reservationVM)
+        {
+            PostponeRequestVM postponeRequestVM = new PostponeRequestVM(new PostponeRequest());
+            postponeRequestVM.ReservationId = reservationVM.Id;
+            postponeRequestVM.NewStartDate = reservationVM.StartDate;
+            postponeRequestVM.NewEndDate = reservationVM.EndDate;
+            PostponeRequestService postponeRequestService = new PostponeRequestService(new PostponeRequestRepository());
+            postponeRequestService.Add(postponeRequestVM.GetPostponeRequest());
         }
         private void FindFirstAvailableAccommodation(ReservationVM reservationVM)
         {

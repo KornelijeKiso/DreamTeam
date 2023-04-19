@@ -17,7 +17,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ProjectTourism.Model;
-using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using ProjectTourism.View.GuideView.TourView;
@@ -26,7 +25,7 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.GuideView.TourView
 {
-    public partial class HomeWindow : UserControl, INotifyPropertyChanged, IObserver
+    public partial class HomeWindow : UserControl, INotifyPropertyChanged
     {
         public GuideVM Guide { get; set; }
         public HomeWindow(string username)

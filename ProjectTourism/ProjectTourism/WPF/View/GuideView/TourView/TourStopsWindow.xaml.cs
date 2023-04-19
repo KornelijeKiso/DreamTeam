@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -17,9 +18,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ProjectTourism.Controller;
 using ProjectTourism.Model;
-using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using ProjectTourism.WPF.View.GuideView.TourView;
@@ -30,7 +29,7 @@ namespace ProjectTourism.View.GuideView.TourView
     /// <summary>
     /// Interaction logic for TourStopsWindow.xaml
     /// </summary>
-    public partial class TourStopsWindow : UserControl, INotifyPropertyChanged, IObserver
+    public partial class TourStopsWindow : UserControl, INotifyPropertyChanged
     {
         public TourAppointmentVM TourAppointment { get; set; }
         public TicketVM SelectedTicket { get; set; }
@@ -57,18 +56,13 @@ namespace ProjectTourism.View.GuideView.TourView
         }
         private void EmergencyButtonSet()
         {
-            if (HasTourStarted())
+            if (TourAppointment.State == TOURSTATE.STARTED)
             {
                 StopPassedButton.Content = "Stop passed";
                 EmergencyStopButton.IsEnabled = true;
             }
             else
                 EmergencyStopButton.IsEnabled = false;
-        }
-
-        private bool HasTourStarted()
-        {
-            return TourAppointment.State == TOURSTATE.STARTED;
         }
         public int PassedButtonClicks()
         {
@@ -116,6 +110,8 @@ namespace ProjectTourism.View.GuideView.TourView
         private void EmergencyStopButton_Click(object sender, RoutedEventArgs e)
         {
             TourAppointment.Tour.Guide.EmergencyStop(TourAppointment);
+            MainGuideWindow mainGuideWindow = new MainGuideWindow(Guide.Username);
+            mainGuideWindow.ShowDialog();
         }
         private void TicketStatusButton_Click(object sender, RoutedEventArgs e)
         {
@@ -133,23 +129,13 @@ namespace ProjectTourism.View.GuideView.TourView
                 ContentArea.Content = new ReviewsWindow(TourAppointment);
             }
             else
-            {
                 MessageBox.Show("There are no reviews for this appointment!");
-            }
-            
-        }
-
-        private List<UIElement> UIElements()
-        {
-            return new List<UIElement>
-            {
-                StopPassedButton, EmergencyStopButton, CurrentTourStopLabel,
-                TourStatusTextBox, Grid1, TourStateLabel, ReviewsButton, StopTextBox
-            };
         }
         private void HideTourStopsContent()
         {
-            UIElements().ForEach(uiElement => uiElement.Visibility = Visibility.Hidden);
+            List<UIElement> elementsToHide = new List<UIElement> { StopPassedButton, EmergencyStopButton, CurrentTourStopLabel,
+                                                                   TourStatusTextBox, Grid1, TourStateLabel, ReviewsButton, StopTextBox };
+            elementsToHide.ForEach(element => element.Visibility = Visibility.Hidden);
         }
 
         public void Update() { }

@@ -13,6 +13,7 @@ namespace ProjectTourism.Services
     public class TicketService
     {
         private ITicketRepository TicketRepository;
+
         public TicketService(ITicketRepository itr)
         {
             TicketRepository = itr; 
@@ -42,7 +43,6 @@ namespace ProjectTourism.Services
         {
             TicketRepository.Update(ticket);
         }
-
         public List<Ticket> GetByAppointment(int tourAppointmentId)
         {
             return TicketRepository.GetByAppointment(tourAppointmentId);
