@@ -23,24 +23,52 @@ namespace ProjectTourism.WPF.ViewModel
         public ObservableCollection<AccommodationVM> Accommodations { get; set; }
         public ObservableCollection<ReservationVM> Reservations { get; set; }
         public ObservableCollection<ReservationVM> MyReservations { get; set; }
+        public ObservableCollection<ReservationVM> GradableReservations { get; set; }
 
         public Guest1VM(string username)
         {
             Guest1Service guest1Service = new Guest1Service(new Guest1Repository());
-            _guest1 = guest1Service.GetOne(username);
             AccommodationService accommodationService = new AccommodationService(new AccommodationRepository());
+            ReservationService reservationService = new ReservationService(new ReservationRepository());
+
+            _guest1 = guest1Service.GetOne(username);
             Accommodations = new ObservableCollection<AccommodationVM>(accommodationService.GetAll().Select(r => new AccommodationVM(r)).ToList().OrderByDescending(a => a.Owner.IsSuperHost).ToList());
             MyReservations = new ObservableCollection<ReservationVM>();
-            ReservationService reservationService = new ReservationService(new ReservationRepository());
+            GradableReservations = new ObservableCollection<ReservationVM>();
             Reservations = new ObservableCollection<ReservationVM>(reservationService.GetAll().Select(r => new ReservationVM(r)).Reverse().ToList());
+            
             foreach (ReservationVM reservationVM in Reservations)
             {
-                if (_guest1.Username == reservationVM.Guest1Username)
+                if (IsReserved(reservationVM))
                 {
                     reservationVM.Accommodation = new AccommodationVM(Accommodations.ToList().Find(a => a.Id == reservationVM.AccommodationId).GetAccommodation());
                     MyReservations.Add(reservationVM);
                 }
+                else if (IsGradable(reservationVM))
+                {
+                    reservationVM.Accommodation = new AccommodationVM(Accommodations.ToList().Find(a => a.Id == reservationVM.AccommodationId).GetAccommodation());
+                    GradableReservations.Add(reservationVM);
+                }
             }
+        }
+
+        private bool IsGradable(ReservationVM reservationVM)
+        {
+            return _guest1.Username == reservationVM.Guest1Username
+                                    && reservationVM.EndDate < DateOnly.FromDateTime(DateTime.Now)
+                                    && reservationVM.EndDate.AddDays(5) > DateOnly.FromDateTime(DateTime.Now);
+        }
+
+        private bool IsReserved(ReservationVM reservationVM)
+        {
+            return _guest1.Username == reservationVM.Guest1Username 
+                                    && reservationVM.StartDate > DateOnly.FromDateTime(DateTime.Now);
+        }
+        public void GradeAccommodation(AccommodationGradeVM grade)
+        {
+            AccommodationGradeService accommodationGradeService = new AccommodationGradeService(new AccommodationGradeRepository());
+            var reservation = Reservations.ToList().Find(r => r.Id == grade.ReservationId);
+            accommodationGradeService.Add(grade.GetAccommodationGrade());
         }
         public void CancelReservation(ReservationVM reservationVM)
         {
@@ -50,14 +78,6 @@ namespace ProjectTourism.WPF.ViewModel
             reservationService.Cancel(reservationVM.GetReservation());
             canceledReservationService.Add(reservationVM.GetReservation());
         }
-        public void PrepareReservation(out ReservationVM reservationVM, out AccommodationVM accommodationVM)
-        {
-            reservationVM = new ReservationVM(new Reservation());
-            ReservationService reservationService = new ReservationService(new ReservationRepository());
-            AccommodationService accommodationService = new AccommodationService(new AccommodationRepository());
-            accommodationVM = new AccommodationVM(accommodationService.GetOne(reservationVM.AccommodationId));
-        }
-
         public bool ProcessReservation(ReservationVM reservationVM)
         {
             ReservationService reservationService = new ReservationService(new ReservationRepository());

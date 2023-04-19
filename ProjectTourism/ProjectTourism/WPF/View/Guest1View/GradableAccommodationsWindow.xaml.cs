@@ -20,44 +20,30 @@ using System.Windows.Shapes;
 namespace ProjectTourism.WPF.View.Guest1View
 {
     /// <summary>
-    /// Interaction logic for Guest1ReservedAccommodations.xaml
+    /// Interaction logic for GradableAccommodationsWindow.xaml
     /// </summary>
-    public partial class Guest1ReservedAccommodations : Window, INotifyPropertyChanged
+    public partial class GradableAccommodationsWindow : Window, INotifyPropertyChanged
     {
         public ReservationVM SelectedReservation { get; set; }
         public Guest1VM Guest1VM { get; set; }
-        public Guest1ReservedAccommodations(string username)
+        public GradableAccommodationsWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
             Guest1VM = new Guest1VM(username);
         }
-
-        private void CancelReservationClick(object sender, RoutedEventArgs e)
-        {
-            if (SelectedReservation.StartDate > DateOnly.FromDateTime(DateTime.Now).AddDays(SelectedReservation.Accommodation.CancellationDeadline))
-                {
-                    MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel this reservation?", "Delete appointment", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        Guest1VM.CancelReservation(SelectedReservation);
-                    }
-                }
-            else
-                MessageBox.Show("The tour can not be canceled because the cancelation date is " + SelectedReservation.Accommodation.CancellationDeadline + " days before start.");
-        }
-
-        private void PostponeReservationClick(object sender, RoutedEventArgs e)
+        private void GradeAccommodationClick(object sender, RoutedEventArgs e)
         {
             Button button = (Button)sender;
 
             ReservationVM reservationVM = new ReservationVM(new Reservation());
+            reservationVM.Id = SelectedReservation.Id;
             reservationVM.AccommodationId = SelectedReservation.AccommodationId;
             reservationVM.Accommodation = SelectedReservation.Accommodation;
             reservationVM.Guest1Username = Guest1VM.Username;
 
-            PostponeReservationWindow postponeReservationWindow = new PostponeReservationWindow(reservationVM, Guest1VM.Username);
-            postponeReservationWindow.ShowDialog();
+            GradeAccommodatonWindow gradeAccommodatonWindow = new GradeAccommodatonWindow(reservationVM, Guest1VM.Username);
+            gradeAccommodatonWindow.ShowDialog();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -65,6 +51,5 @@ namespace ProjectTourism.WPF.View.Guest1View
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
     }
 }

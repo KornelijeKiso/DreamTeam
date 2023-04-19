@@ -214,6 +214,16 @@ namespace ProjectTourism.View.Guest1View
             guest1ReservedAccommodations.ShowDialog();
             Update();
         }
+        public void ShowGradableClick(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+
+            string username = Guest1VM.Username;
+
+            GradableAccommodationsWindow gradableAccommodationsWindow = new GradableAccommodationsWindow(username);
+            gradableAccommodationsWindow.ShowDialog();
+            Update();
+        }
 
         public void Update()
         {

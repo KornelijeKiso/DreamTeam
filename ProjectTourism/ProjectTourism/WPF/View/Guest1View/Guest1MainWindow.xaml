@@ -14,7 +14,7 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid Margin="0,0,0,-113">
-        <DataGrid x:Name="DataGridAccommodations" ItemsSource="{Binding FilteredAccommodations, UpdateSourceTrigger=PropertyChanged}"
+        <DataGrid x:Name="DataGridAccommodations" ItemsSource="{Binding Guest1VM.Accommodations, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                     IsReadOnly="True" AutoGenerateColumns="False" Height="324" RowHeight="100" Margin="270,66,10,168">
             <DataGrid.Columns>
@@ -66,7 +66,7 @@
         </DataGrid>
         <Button Content="Filter" HorizontalAlignment="Left" IsDefault="True" Margin="30,455,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="FilterAccommodationsClick"/>
         <Button Content="My Reservations" HorizontalAlignment="Left" IsDefault="True" Margin="270,75,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="MyReservationsClick"/>
-        <!--Button Content="History" HorizontalAlignment="Left" IsDefault="True" Margin="500,75,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="ShowHistoryClick"/-->
+        <Button Content="See Gradable Accommodations" HorizontalAlignment="Left" IsDefault="True" Margin="500,75,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="ShowGradableClick"/>
         <Rectangle HorizontalAlignment="Left" Height="385" Stroke="Blue" VerticalAlignment="Top" Width="235" Margin="10,49,0,0"/>
         <TextBox HorizontalAlignment="Left" Margin="30,90,0,0" TextWrapping="Wrap" Text="{Binding Path=NameSearch, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="33"/>
         <TextBox HorizontalAlignment="Left" Margin="30,150,0,0" TextWrapping="Wrap" Text="{Binding Path=LocationSearch, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="33"/>
