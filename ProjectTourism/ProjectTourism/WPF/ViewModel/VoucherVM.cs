@@ -1,7 +1,6 @@
 ﻿using ProjectTourism.Model;
 using ProjectTourism.Services;
 using ProjectTourism.Repositories;
-using ProjectTourism.Observer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -19,19 +18,7 @@ namespace ProjectTourism.WPF.ViewModel
         public VoucherVM(Voucher voucher)
         {
             _voucher = voucher;
-            //Synchronize();
         }
-
-        private void Synchronize()
-        {
-            TicketService ticketService = new TicketService(new TicketRepository());
-            if (_voucher.TicketId == -1) 
-            {
-                _voucher.Ticket = null;
-            }
-            _voucher.Ticket = ticketService.GetOne(_voucher.TicketId);
-        }
-
         public VoucherVM(VoucherVM voucher, TicketVM ticket)
         {
             _voucher = voucher.GetVoucher();
@@ -47,8 +34,6 @@ namespace ProjectTourism.WPF.ViewModel
         {
             return _voucher;
         }
-
-
 
         public int Id 
         { 

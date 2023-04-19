@@ -17,14 +17,6 @@ namespace ProjectTourism.WPF.ViewModel
         public TicketGradeVM(TicketGrade ticketGrade)
         {
             _ticketGrade = ticketGrade;
-            //Synchronize();
-        }
-
-
-        private void Synchronize()
-        {
-            TicketService ticketService = new TicketService(new TicketRepository());
-            _ticketGrade.Ticket = ticketService.GetOne(TicketId);
         }
 
         public bool IsAlreadyGraded(Ticket ticket)
@@ -42,19 +34,6 @@ namespace ProjectTourism.WPF.ViewModel
             return false;
         }
 
-        //public List<TicketGradeVM> GetAllByTourAppointment(TourAppointmentVM tourAppointmentVM)
-        //{
-        //    Synchronize();
-        //    TicketGradeService ticketGradeService = new TicketGradeService(new TicketGradeRepository());
-        //    List<TicketGrade> grades = ticketGradeService.GetAllByTourAppointment(tourAppointmentVM.GetTourAppointment());
-        //    List <TicketGradeVM> gradesByAppointment = new List<TicketGradeVM>();
-        //    foreach (var grade in grades)
-        //    {
-        //        gradesByAppointment.Add(new TicketGradeVM(grade));
-        //    }
-        //    return gradesByAppointment;
-
-        //}
         public TicketGrade GetTicketGrade()
         {
             return _ticketGrade;

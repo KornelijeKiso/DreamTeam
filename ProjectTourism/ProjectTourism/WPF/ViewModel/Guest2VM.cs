@@ -31,72 +31,33 @@ namespace ProjectTourism.WPF.ViewModel
             Synchronize(username);
             Tickets = new ObservableCollection<TicketVM>(_guest2.Tickets.Select(r => new TicketVM(r)).ToList());
             Vouchers = new ObservableCollection<VoucherVM>(_guest2.Vouchers.Select(r => new VoucherVM(r)).ToList());
-            //Tours = new ObservableCollection<TourVM>();
-            //this.FirstName = _guest2.FirstName;
-            //this.LastName = _guest2.LastName;
-        }
 
-        private void Synchronize(ObservableCollection<TourVM> Tours)
-        {
-            TourService tourService = new TourService(new TourRepository());
-            GuideService guideService = new GuideService(new GuideRepository());
-            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
-            LocationService locationService = new LocationService(new LocationRepository());
-            
-            foreach (var tour in Tours)
-            {
-                tour.Location = new LocationVM(locationService.GetOne(tour.LocationId));
-                tour.Guide = new GuideVM(guideService.GetOne(tour.GuideUsername));
-                tour.TourAppointments = new ObservableCollection<TourAppointmentVM>();
-                foreach (var tourAppointment in tourAppointmentService.GetAllByTour(tour.Id))
-                {
-                    tour.TourAppointments.Add(new TourAppointmentVM(tourAppointment));
-                }
-                tour.StopsList = tourService.LoadStops(tour.GetTour());
-            }
         }
         public void Synchronize(string username)
         {
             Guest2Service guest2Service = new Guest2Service(new Guest2Repository());
             _guest2 = guest2Service.GetOne(username);
+            
+            TourService tourService = new TourService(new TourRepository());
+            Tours = new ObservableCollection<TourVM>(tourService.GetAll().Select(r => new TourVM(r)).ToList());
+            SynchronizeTours(Tours);
 
+            SynchronizeTicketsList(_guest2);
+            SynchronizeVouchersList(_guest2);
+        }
 
+        private void SynchronizeVouchersList(Guest2 _guest2)
+        {
             TicketService ticketService = new TicketService(new TicketRepository());
-            VoucherService voucherService = new VoucherService(new VoucherRepository()); 
+            VoucherService voucherService = new VoucherService(new VoucherRepository());
             TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
             TourService tourService = new TourService(new TourRepository());
             TicketGradeService ticketGradeService = new TicketGradeService(new TicketGradeRepository());
             LocationService locationService = new LocationService(new LocationRepository());
             GuideService guideService = new GuideService(new GuideRepository());
 
-            Tours = new ObservableCollection<TourVM>(tourService.GetAll().Select(r => new TourVM(r)).ToList());
-            Synchronize(Tours);
-
-            
-            _guest2.Tickets = new List<Ticket>();
-            foreach (var ticket in ticketService.GetByGuest2(username))
-            {
-                ticket.Guest2 = _guest2;
-                ticket.HasVoucher = voucherService.GetOneByTicket(ticket.Id) != null;
-                ticket.TourAppointment = tourAppointmentService.GetOne(ticket.TourAppointmentId);
-
-                ticket.TourAppointment.Tickets = new List<Ticket>();
-                //ticket.TourAppointment.Tickets = ticketService.GetByAppointment(ticket.TourAppointmentId);
-                ticket.TourAppointment.TicketGrades = new List<TicketGrade>();
-                //
-                ticket.TourAppointment.Tour = tourService.GetOne(ticket.TourAppointment.TourId);
-                ticket.TourAppointment.Tour.Location = locationService.GetOne(ticket.TourAppointment.Tour.LocationId);
-                ticket.TourAppointment.Tour.Guide = guideService.GetOne(ticket.TourAppointment.Tour.GuideUsername);
-                ticket.TourAppointment.Tour.TourAppointments = tourAppointmentService.GetAllByTour(ticket.TourAppointment.TourId);
-                ticket.TourAppointment.Tour.StopsList = tourService.LoadStops(ticket.TourAppointment.Tour);
-
-                ticket.TicketGrade = ticketGradeService.GetOneByTicket(ticket.Id);
-
-                _guest2.Tickets.Add(ticket);
-            }
-
             _guest2.Vouchers = new List<Voucher>();
-            foreach (var voucher in voucherService.GetAllByGuest2(username))
+            foreach (var voucher in voucherService.GetAllByGuest2(_guest2.Username))
             {
                 voucher.Guest2 = _guest2;
                 if (voucher.TicketId == -1)
@@ -108,7 +69,7 @@ namespace ProjectTourism.WPF.ViewModel
                 {
                     voucher.Ticket = ticketService.GetOne(voucher.TicketId);
                     voucher.Ticket.Guest2 = _guest2;
-                    
+
                     voucher.Ticket.TourAppointment = tourAppointmentService.GetOne(voucher.Ticket.TourAppointmentId);
                     voucher.Ticket.TourAppointment.Tickets = new List<Ticket>();
                     voucher.Ticket.TourAppointment.TicketGrades = new List<TicketGrade>();
@@ -122,6 +83,54 @@ namespace ProjectTourism.WPF.ViewModel
 
                     _guest2.Vouchers.Add(voucher);
                 }
+            }
+
+        }
+        private void SynchronizeTicketsList(Guest2 _guest2)
+        {
+            TicketService ticketService = new TicketService(new TicketRepository());
+            VoucherService voucherService = new VoucherService(new VoucherRepository());
+            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
+            TourService tourService = new TourService(new TourRepository());
+            TicketGradeService ticketGradeService = new TicketGradeService(new TicketGradeRepository());
+            LocationService locationService = new LocationService(new LocationRepository());
+            GuideService guideService = new GuideService(new GuideRepository());
+
+            _guest2.Tickets = new List<Ticket>();
+            foreach (var ticket in ticketService.GetByGuest2(_guest2.Username))
+            {
+                ticket.Guest2 = _guest2;
+                ticket.HasVoucher = voucherService.GetOneByTicket(ticket.Id) != null;
+                ticket.TourAppointment = tourAppointmentService.GetOne(ticket.TourAppointmentId);
+                ticket.TourAppointment.Tickets = new List<Ticket>();
+                ticket.TourAppointment.TicketGrades = new List<TicketGrade>();
+                ticket.TourAppointment.Tour = tourService.GetOne(ticket.TourAppointment.TourId);
+                ticket.TourAppointment.Tour.Location = locationService.GetOne(ticket.TourAppointment.Tour.LocationId);
+                ticket.TourAppointment.Tour.Guide = guideService.GetOne(ticket.TourAppointment.Tour.GuideUsername);
+                ticket.TourAppointment.Tour.TourAppointments = tourAppointmentService.GetAllByTour(ticket.TourAppointment.TourId);
+                ticket.TourAppointment.Tour.StopsList = tourService.LoadStops(ticket.TourAppointment.Tour);
+                ticket.TicketGrade = ticketGradeService.GetOneByTicket(ticket.Id);
+                _guest2.Tickets.Add(ticket);
+            }
+        }
+
+        private void SynchronizeTours(ObservableCollection<TourVM> Tours)
+        {
+            TourService tourService = new TourService(new TourRepository());
+            GuideService guideService = new GuideService(new GuideRepository());
+            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
+            LocationService locationService = new LocationService(new LocationRepository());
+
+            foreach (var tour in Tours)
+            {
+                tour.Location = new LocationVM(locationService.GetOne(tour.LocationId));
+                tour.Guide = new GuideVM(guideService.GetOne(tour.GuideUsername));
+                tour.TourAppointments = new ObservableCollection<TourAppointmentVM>();
+                foreach (var tourAppointment in tourAppointmentService.GetAllByTour(tour.Id))
+                {
+                    tour.TourAppointments.Add(new TourAppointmentVM(tourAppointment));
+                }
+                tour.StopsList = tourService.LoadStops(tour.GetTour());
             }
         }
 
