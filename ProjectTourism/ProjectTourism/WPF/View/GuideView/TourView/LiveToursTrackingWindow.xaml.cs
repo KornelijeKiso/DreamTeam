@@ -47,7 +47,13 @@ namespace ProjectTourism.View.GuideView.TourView
         private void ReviewButton_Click(object sender, RoutedEventArgs e)
         {
             if (SelectedTourAppointment != null)
-                ShowReviewWindow();
+            {
+                if (SelectedTourAppointment.State == TOURSTATE.FINISHED || SelectedTourAppointment.State == TOURSTATE.STOPPED)
+                    ShowReviewWindow();
+                else
+                    MessageBox.Show("The selected appointment was not finished yet!");
+            }
+                
             else
                 MessageBox.Show("You must choose an appointment which reviews you would like to see.");
         }
