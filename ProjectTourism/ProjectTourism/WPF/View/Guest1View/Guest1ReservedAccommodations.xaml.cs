@@ -52,6 +52,7 @@ namespace ProjectTourism.WPF.View.Guest1View
             Button button = (Button)sender;
 
             ReservationVM reservationVM = new ReservationVM(new Reservation());
+            reservationVM.Id = SelectedReservation.Id;
             reservationVM.AccommodationId = SelectedReservation.AccommodationId;
             reservationVM.Accommodation = SelectedReservation.Accommodation;
             reservationVM.Guest1Username = Guest1VM.Username;
