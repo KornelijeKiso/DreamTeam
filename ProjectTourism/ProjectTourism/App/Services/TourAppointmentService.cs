@@ -4,9 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectTourism.Domain.IRepositories;
-using ProjectTourism.FileHandler;
 using ProjectTourism.Model;
-using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.WPF.ViewModel;
 
@@ -15,12 +13,10 @@ namespace ProjectTourism.Services
     public class TourAppointmentService
     {
         private ITourAppointmentRepository TourAppointmentRepository;
-        public List<IObserver> Observers;
         
         public TourAppointmentService(ITourAppointmentRepository tourAppointmentRepo)
         {
             TourAppointmentRepository = tourAppointmentRepo;
-            Observers = new List<IObserver>();
         }
 
         public void MakeTourAppointments(Tour tour)
@@ -47,21 +43,7 @@ namespace ProjectTourism.Services
         {
             return TourAppointmentRepository.GetAll();
         }
-        public void Subscribe(IObserver observer)
-        {
-            Observers.Add(observer);
-        }
-        public void Unsubscribe(IObserver observer)
-        {
-            Observers.Remove(observer);
-        }
-        public void NotifyObservers()
-        {
-            foreach (var observer in Observers)
-            {
-                observer.Update();
-            }
-        }
+       
         public void Update(TourAppointment tourApp)
         {
             TourAppointmentRepository.Update(tourApp);

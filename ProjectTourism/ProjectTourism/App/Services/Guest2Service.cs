@@ -1,6 +1,5 @@
 ﻿using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.Model;
-using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using System;
 using System.Collections.Generic;
@@ -12,12 +11,10 @@ namespace ProjectTourism.Services
 {
     public class Guest2Service
     {
-        public List<IObserver> Observers;
         private IGuest2Repository Guest2Repository;
         public Guest2Service(IGuest2Repository ig2r)
         {
             Guest2Repository = ig2r;
-            Observers = new List<IObserver>();
         }
         public Guest2 GetOne(string username)
         {
@@ -40,21 +37,6 @@ namespace ProjectTourism.Services
         public List<Ticket>? GetTickets(Guest2? guest2)
         {
             return Guest2Repository.GetTickets(guest2);
-        }
-        public void Subscribe(IObserver observer)
-        {
-            Observers.Add(observer);
-        }
-        public void Unsubscribe(IObserver observer)
-        {
-            Observers.Remove(observer);
-        }
-        public void NotifyObservers()
-        {
-            foreach (var observer in Observers)
-            {
-                observer.Update();
-            }
         }
     }
 }

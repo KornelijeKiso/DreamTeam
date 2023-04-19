@@ -1,6 +1,4 @@
 ﻿using ProjectTourism.Model;
-using ProjectTourism.ModelDAO;
-using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.WPF.ViewModel;
@@ -14,12 +12,10 @@ namespace ProjectTourism.Services
 {
     public class VoucherService
     {
-        public List<IObserver> Observers;
         private IVoucherRepository VoucherRepository;
 
         public VoucherService(IVoucherRepository ivr)
         {
-            Observers = new List<IObserver>();
             VoucherRepository = ivr;
         }
 
@@ -55,24 +51,6 @@ namespace ProjectTourism.Services
         public List<Voucher> GetAllByGuest2(string guest2username)
         {
             return VoucherRepository.GetAllByGuest2(guest2username);
-        }
-
-        public void Subscribe(IObserver observer)
-        {
-            Observers.Add(observer);
-        }
-
-        public void Unsubscribe(IObserver observer)
-        {
-            Observers.Remove(observer);
-        }
-
-        public void NotifyObservers()
-        {
-            foreach (var observer in Observers)
-            {
-                observer.Update();
-            }
         }
     }
 }
