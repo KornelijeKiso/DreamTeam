@@ -91,7 +91,7 @@ namespace ProjectTourism.Repositories
 
             foreach (var voucher in Vouchers)
             {
-                if (voucher.Guest2Username == guest2username)
+                if (voucher.Guest2Username.Equals(guest2username))
                 {
                     guest2Vouchers.Add(voucher);
                 }

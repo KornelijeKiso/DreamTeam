@@ -52,7 +52,7 @@ namespace ProjectTourism.Services
             VoucherRepository.Update(voucher);
         }
 
-        public List<Voucher> GetByGuest2(string guest2username)
+        public List<Voucher> GetAllByGuest2(string guest2username)
         {
             return VoucherRepository.GetAllByGuest2(guest2username);
         }

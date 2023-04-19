@@ -13,38 +13,39 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ProjectTourism.Controller;
 using ProjectTourism.Model;
-using ProjectTourism.Observer;
+using ProjectTourism.Repositories;
+using ProjectTourism.Services;
+using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.Guest2View.TicketView
 {
     /// <summary>
     /// Interaction logic for UpdateTicketWindow.xaml
     /// </summary>
-    public partial class UpdateTicketWindow : Window, INotifyPropertyChanged, IObserver
+    public partial class UpdateTicketWindow : Window, INotifyPropertyChanged
     {
         public Ticket Ticket { get; set; }
-        public TicketController TicketController { get; set; }
-        public TourAppointmentController TourAppointmentController { get; set; }
+        public TicketService TicketService { get; set; }
+        public TourAppointmentService TourAppointmentService { get; set; }
         public TourAppointment selectedAppointment { get; set; }
         public Tour selectedTour { get; set; }
-        public TourController TourController { get; set; }
+        public TourService TourService { get; set; }
         public List<string> StopsList { get; set; }
         
         public UpdateTicketWindow(string username, int tourAppId, int tourId)
         {
             InitializeComponent();
             DataContext = this;
-            TicketController = new TicketController();
-            TourAppointmentController = new TourAppointmentController();
-            TourController = new TourController();
+            TicketService = new TicketService(new TicketRepository());
+            TourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
+            TourService = new TourService(new TourRepository());
 
-            selectedTour = TourController.GetOne(tourId);
-            Ticket = TicketController.GetGuest2Ticket(username, tourAppId);
-            selectedAppointment = TourAppointmentController.GetOne(tourAppId);
+            selectedTour = TourService.GetOne(tourId);
+            //Ticket = TicketService.GetGuest2Ticket(username, tourAppId);
+            selectedAppointment = TourAppointmentService.GetOne(tourAppId);
 
-            slider.Maximum = selectedAppointment.AvailableSeats + Ticket.NumberOfGuests;
+            //slider.Maximum = selectedAppointment.AvailableSeats + Ticket.NumberOfGuests;
 
             StopsList = selectedTour.StopsList;
             StopsList.RemoveAt(StopsList.Count() - 1);
@@ -64,8 +65,8 @@ namespace ProjectTourism.View.Guest2View.TicketView
         
         private void UpdateTicket(object sender, RoutedEventArgs e)
         {
-            TicketController.Update(Ticket);
-            TourAppointmentController.UpdateAppointmentTicket(selectedAppointment.Id, Ticket);
+            TicketService.Update(Ticket);
+            //TourAppointmentService.UpdateAppointmentTicket(selectedAppointment.Id, Ticket);
             Close();
         }
 

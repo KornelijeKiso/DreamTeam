@@ -16,7 +16,6 @@ using System.Windows.Shapes;
 using ProjectTourism.Model;
 using ProjectTourism.WPF.ViewModel;
 using ProjectTourism.WPF.View.Guest2View.TicketView;
-using ProjectTourism.Observer;
 using System.Globalization;
 
 namespace ProjectTourism.WPF.View.Guest2View.TicketView
@@ -24,7 +23,7 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
     /// <summary>
     /// Interaction logic for CreateTicketWindow.xaml
     /// </summary>
-    public partial class CreateTicketWindow : Window, INotifyPropertyChanged, IObserver
+    public partial class CreateTicketWindow : Window, INotifyPropertyChanged
     {
         public Guest2VM Guest2 { get; set; }
         public TourVM SelectedTour { get; set; }
