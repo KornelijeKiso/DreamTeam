@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
+using ProjectTourism.WPF.View.GuideView.TourView;
 using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.GuideView.TourView
@@ -41,11 +42,30 @@ namespace ProjectTourism.View.GuideView.TourView
                 SelectedTourAppointment = tourStopsWindow.TourAppointment;
             }
             else
-                MessageBox.Show("You must choose a route which you want to start.");
+                MessageBox.Show("You must choose an appointment which you would like to start.");
         }
+        private void ReviewButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedTourAppointment != null)
+                ShowReviewWindow();
+            else
+                MessageBox.Show("You must choose an appointment which reviews you would like to see.");
+        }
+
+        private void ShowReviewWindow()
+        {
+            if (SelectedTourAppointment.TicketGrades.Count > 0)
+            {
+                HideTodaysToursContent();
+                ContentArea.Content = new ReviewsWindow(SelectedTourAppointment);
+            }
+            else
+                MessageBox.Show("There are no reviews for this appointment!");
+        }
+
         private void HideTodaysToursContent()
         {
-            List<UIElement> elementsToHide = new List<UIElement> { StartTourButton, TodaysToursLabel, DataGridTourAppointments };
+            List<UIElement> elementsToHide = new List<UIElement> { StartTourButton, TodaysToursLabel, DataGridTourAppointments, ReviewButton };
             elementsToHide.ForEach(element => element.Visibility = Visibility.Hidden);
         }
         public void Update() { }
