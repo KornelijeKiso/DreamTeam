@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectTourism.Domain.IRepositories;
-using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.WPF.ViewModel;
 
@@ -43,6 +42,7 @@ namespace ProjectTourism.Services
         {
             return TourRepository.GetAll();
         }
+
         public Tour? Identify(Tour tour)
         {
             foreach (var existingTour in TourRepository.GetAll())

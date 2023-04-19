@@ -1,5 +1,4 @@
 ﻿using ProjectTourism.Model;
-using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using ProjectTourism.Domain.IRepositories;
@@ -25,7 +24,7 @@ namespace ProjectTourism.View.Guest2View
     /// <summary>
     /// Interaction logic for CreateGuest2Window.xaml
     /// </summary>
-    public partial class CreateGuest2Window : Window, INotifyPropertyChanged, IObserver
+    public partial class CreateGuest2Window : Window, INotifyPropertyChanged
     {
         public Guest2VM Guest2 { get; set; }
         public UserVM UserVM { get; set; }
@@ -48,11 +47,6 @@ namespace ProjectTourism.View.Guest2View
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-
-        public void Update()
-        {
-            throw new NotImplementedException();
-        }
 
         private void CreateClick(object sender, RoutedEventArgs e)
         {

@@ -1,6 +1,4 @@
 ﻿using ProjectTourism.Model;
-using ProjectTourism.ModelDAO;
-using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.WPF.ViewModel;
@@ -15,26 +13,32 @@ namespace ProjectTourism.Services
     public class TicketService
     {
         private ITicketRepository TicketRepository;
+
         public TicketService(ITicketRepository itr)
         {
             TicketRepository = itr; 
         }
+
         public Ticket GetOne(int Id) 
         {
             return TicketRepository.GetOne(Id);
         }
+
         public List<Ticket> GetAll() 
         {
             return TicketRepository.GetAll();
         }
+
         public void Add(Ticket ticket) 
         {
             TicketRepository.Add(ticket);
         }
+
         public void Delete(Ticket ticket) 
         {
             TicketRepository.Delete(ticket);
         }
+
         public void Update(Ticket ticket) 
         {
             TicketRepository.Update(ticket);

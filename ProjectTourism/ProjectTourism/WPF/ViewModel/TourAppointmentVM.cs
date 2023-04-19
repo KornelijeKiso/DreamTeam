@@ -21,7 +21,6 @@ namespace ProjectTourism.WPF.ViewModel
         public TourAppointmentVM(TourAppointment tourAppointment)
         {
             _tourAppointment = tourAppointment;
-            //Synchronize();
             Tickets = new ObservableCollection<TicketVM>(_tourAppointment.Tickets.Select(r => new TicketVM(r)).ToList());
             TicketGrades = new ObservableCollection<TicketGradeVM>(_tourAppointment.TicketGrades.Select(r => new TicketGradeVM(r)).ToList());
         }
@@ -30,15 +29,6 @@ namespace ProjectTourism.WPF.ViewModel
         {
             TourService tourService = new TourService(new TourRepository());
             _tourAppointment.Tour = tourService.GetOne(_tourAppointment.TourId);
-
-            //TicketService ticketService = new TicketService(new TicketRepository());
-            //_tourAppointment.Tickets = ticketService.GetByAppointment(_tourAppointment.Id);
-
-            //if (_tourAppointment.Tickets.Count > 0)
-            //{
-            //    TicketGradeService ticketGradeService = new TicketGradeService(new TicketGradeRepository());
-            //    _tourAppointment.TicketGrades = ticketGradeService.GetAllByTourAppointment(_tourAppointment);
-            //}
         }
 
         public TourAppointmentVM(Tour tour, DateTime date)

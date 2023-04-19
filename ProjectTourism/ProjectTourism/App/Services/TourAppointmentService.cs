@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectTourism.Domain.IRepositories;
-using ProjectTourism.FileHandler;
 using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.WPF.ViewModel;
@@ -44,6 +43,7 @@ namespace ProjectTourism.Services
         {
             return TourAppointmentRepository.GetAll();
         }
+       
         public void Update(TourAppointment tourApp)
         {
             TourAppointmentRepository.Update(tourApp);

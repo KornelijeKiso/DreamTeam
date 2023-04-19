@@ -35,17 +35,20 @@ namespace ProjectTourism.View.GuideView.TourView
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
             if (SelectedAppointment != null)
-            {
-                if(SelectedAppointment.TourDateTime > DateTime.Now.AddHours(48)) {
-                    MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel this appointment?", "Delete appointment", MessageBoxButton.YesNo, MessageBoxImage.Question);
-                    if (result == MessageBoxResult.Yes)
-                        Guide.CancelAppointment(SelectedAppointment);
-                }
-                else
-                    MessageBox.Show("The tour can not be canceled because the cancelation time is at least 48 hours before start.");
-            }
+                CancelChosenAppointment();
             else
                 MessageBox.Show("You must choose an appointment which you would like to cancel!");
+        }
+        private void CancelChosenAppointment()
+        {
+            if (SelectedAppointment.TourDateTime > DateTime.Now.AddHours(48))
+            {
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel this appointment?", "Delete appointment", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                    Guide.CancelAppointment(SelectedAppointment);
+            }
+            else
+                MessageBox.Show("The tour can not be canceled because the cancelation time is at least 48 hours before start.");
         }
         public void Update() { }
 

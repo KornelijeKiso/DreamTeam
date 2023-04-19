@@ -1,6 +1,5 @@
 ﻿using ProjectTourism.FileHandler;
 using ProjectTourism.Model;
-using ProjectTourism.ModelDAO;
 using ProjectTourism.Domain.IRepositories;
 using System;
 using System.Collections.Generic;
@@ -18,6 +17,19 @@ namespace ProjectTourism.Repositories
         {
             FileHandler = new VoucherFileHandler();
             Vouchers = FileHandler.Load();
+            CheckIfValid();
+        }
+
+        private void CheckIfValid()
+        {
+            foreach (var voucher in Vouchers)
+            {
+                if (voucher.Status == STATUS.VALID && (DateTime.Compare(voucher.ValidDue, DateTime.Now) < 0))
+                {
+                    voucher.Status = STATUS.INVALID;
+                }
+            }
+            FileHandler.Save(Vouchers);
         }
         private int GenerateId()
         {
@@ -91,7 +103,7 @@ namespace ProjectTourism.Repositories
 
             foreach (var voucher in Vouchers)
             {
-                if (voucher.Guest2Username == guest2username)
+                if (voucher.Guest2Username.Equals(guest2username))
                 {
                     guest2Vouchers.Add(voucher);
                 }

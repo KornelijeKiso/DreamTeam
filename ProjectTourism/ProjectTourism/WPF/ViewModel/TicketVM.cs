@@ -1,7 +1,6 @@
 ﻿using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
-using ProjectTourism.Observer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,18 +19,6 @@ namespace ProjectTourism.WPF.ViewModel
         public TicketVM(Ticket ticket)
         {
             _ticket = ticket;
-            //Synchronize();
-        }
-        private void Synchronize()
-        {
-            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
-            _ticket.TourAppointment = tourAppointmentService.GetOne(_ticket.TourAppointmentId);
-
-            Guest2Service guest2Service = new Guest2Service(new Guest2Repository());
-            _ticket.Guest2 = guest2Service.GetOne(_ticket.Guest2Username);
-
-            //TicketGradeService ticketGradeService = new TicketGradeService(new TicketGradeRepository());
-            //_ticket.TicketGrade = ticketGradeService.GetOne(_ticket.TicketGradeId);
         }
         public void CreateTicket(Ticket ticket)
         {
@@ -194,18 +181,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        //public int TicketGradeId
-        //{
-        //    get => _ticket.TicketGradeId;
-        //    set
-        //    {
-        //        if (value != _ticket.TicketGradeId)
-        //        {
-        //            _ticket.TicketGradeId = value;
-        //            OnPropertyChanged();
-        //        }
-        //    }
-        //}
         public TicketGradeVM TicketGrade
         {
             get => new TicketGradeVM(_ticket.TicketGrade);

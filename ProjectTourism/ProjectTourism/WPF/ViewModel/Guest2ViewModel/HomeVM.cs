@@ -7,7 +7,6 @@ using System.Windows.Input;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using ProjectTourism.WPF.View.Guest2View.TicketView;
-using ProjectTourism.Observer;
 using ProjectTourism.Utilities;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
@@ -20,8 +19,6 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public TourService TourService { get; set; }
         public TourVM? SelectedTour { get; set; }
         public ObservableCollection<TourVM> Tours { get; set; }
-        //public TourAppointmentService TourAppointmentService { get; set; }
-
         public string searchLocation { get; set; }
         public string searchLanguage { get; set; }
         public string searchDuration { get; set; }
@@ -32,14 +29,12 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             SetGuest2();
 
             TourService = new TourService(new TourRepository());
-            Tours = new ObservableCollection<TourVM>(TourService.GetAll().Select(x => new TourVM(x)).ToList());
+            Tours = Guest2.Tours;
 
             searchLocation = "";
             searchLanguage = "";
             searchDuration = "";
             searchMaxNumberOfGuests = "";
-
-            //TourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
         }
         public void SetGuest2()
         {
@@ -56,7 +51,6 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                 Tours.Add(tour);
             }
         }
-
         private void SearchLocation(ObservableCollection<TourVM> tours)
         {
             List<TourVM> toursList = new List<TourVM>();
@@ -146,7 +140,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         
         public void Search_Click()
         {
-            UpdateToursList(TourService.GetAll().Select(x => new TourVM(x)).ToList());
+            UpdateToursList(Guest2.Tours.ToList());
             SearchOne();
         }
 
