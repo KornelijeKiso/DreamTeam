@@ -14,21 +14,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using ProjectTourism.Model;
-using ProjectTourism.Observer;
-using ProjectTourism.View.Guest2View.TicketView;
-using ProjectTourism.WPF.ViewModel;
-using ProjectTourism.WPF.ViewModel.Guest2ViewModel;
-using ProjectTourism.Services;
-using ProjectTourism.Repositories;
-using ProjectTourism.Utilities;
 
 namespace ProjectTourism.WPF.View.Guest2View
 {
     /// <summary>
     /// Interaction logic for Guest2MainWindow.xaml
     /// </summary>
-    public partial class Guest2MainWindow : Window//, INotifyPropertyChanged//, IObserver
+    public partial class Guest2MainWindow : Window
     {
         public Guest2MainWindow()
         {
