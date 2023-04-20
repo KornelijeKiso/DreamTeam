@@ -385,9 +385,13 @@
             </Button>
             
             <!-- MAKE A REPORT BUTTON -->
-            <!--Style="{StaticResource button}"-->
+            <!--Style="{StaticResource button}"
+            // TO DO - move command to other button
+            -->
             <Button x:Name="MakeReport" 
-                    Grid.Column="3">
+                    Grid.Column="3"
+                    Command="{Binding Guest2AttendanceCommand}"
+                    >
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Height" Value="40"/>

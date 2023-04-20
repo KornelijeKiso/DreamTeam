@@ -10,6 +10,8 @@ using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using ProjectTourism.WPF.Guest2View.TicketView;
 using System.Windows;
+using ProjectTourism.WPF.View.Guest2View.TicketView;
+
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
@@ -118,6 +120,27 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         {
             GradeTicketWindow gradeTicketWindow = new GradeTicketWindow(SelectedTicket, Guest2);
             gradeTicketWindow.ShowDialog();
+        }
+
+        private ICommand _Guest2AttendanceCommand;
+        public ICommand Guest2AttendanceCommand
+        {
+            get
+            {
+                return _Guest2AttendanceCommand ?? (_Guest2AttendanceCommand = new CommandHandler(() => Guest2Attendance_Click(), () => CanAttend));
+            }
+        }
+        public bool CanAttend
+        {
+            get
+            {
+                return (SelectedTicket != null && Guest2 != null && SelectedTicket.TourAppointment.State == TOURSTATE.STARTED);
+            }
+        }
+        public void Guest2Attendance_Click()
+        {
+            Guest2AttendanceWindow guest2AttendanceWindow = new Guest2AttendanceWindow(SelectedTicket, Guest2);
+            guest2AttendanceWindow.ShowDialog();
         }
 
     }
