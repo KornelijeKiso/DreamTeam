@@ -26,7 +26,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         public ObservableCollection<double> TourAppPercentage { get; set; }
         public int SelectedYear { get; set; }
         public List<int> Years { get; set; }
-        public ObservableCollection<double> AgeGroups { get; set; }
+        public ObservableCollection<int> AgeGroups { get; set; }
         public TourStatisticsWindow(string username)
         {
             InitializeComponent();
@@ -36,7 +36,6 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             SetVisits();
             SetComboBox();
 
-            StatsLabels.Visibility = Visibility.Collapsed;
             Update();
         }
         private void StatsButton_Click(object sender, RoutedEventArgs e)
@@ -44,7 +43,8 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             FieldSet.Header = SelectedTourApp.Tour.Name;
             CalculateTicketPercentage(SelectedTourApp);
             CalculateAgeStats(SelectedTourApp);
-            StatsLabels.Visibility = Visibility.Visible;
+            AgeGropsCanvas.Children.Clear();
+            DrawTourAppPercentageStats(TourAppPercentage[0]/100, TourAppPercentage[1]/100, AgeGroups);
         }
         private void SetModels(string username)
         {
@@ -54,7 +54,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             TourApps = new List<TourAppointmentVM>(Guide.TourAppointments);
             TourAppsObs = new ObservableCollection<TourAppointmentVM>(TourApps);
             Years = new List<int>(GetYears());
-            AgeGroups = new ObservableCollection<double>();
+            AgeGroups = new ObservableCollection<int>();
         }
         private void SetVisits()
         {
@@ -113,9 +113,9 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                     group3++;
             }
             AgeGroups.Clear();
-            AgeGroups.Add(Math.Round(group1 != 0 ? (double)(group1) / (group1 + group2 + group3) * 100 : 0));
-            AgeGroups.Add(Math.Round(group2 != 0 ? (double)(group2) / (group1 + group2 + group3) * 100 : 0));
-            AgeGroups.Add(Math.Round(group3 != 0 ? (double)(group3) / (group1 + group2 + group3) * 100 : 0));
+            AgeGroups.Add(group1);
+            AgeGroups.Add(group2);
+            AgeGroups.Add(group3);
         }
         private void Update()
         {
@@ -125,6 +125,162 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 if(tourApp.State == TOURSTATE.FINISHED)
                     TourAppsObs.Add(tourApp);
             }
+        }
+        private void DrawBlockChart(ObservableCollection<int> ageGroups)
+        {
+            AgeGropsCanvas.Children.Clear();
+
+            int chartWidth = 100;
+            int chartHeight = 120;
+            int barWidth = chartWidth / ageGroups.Count;
+            int maxValue = ageGroups.Max();
+            double scale = (double)chartHeight / maxValue;
+
+            DrawBars(ageGroups, barWidth, chartHeight, scale);
+            DrawLabels(ageGroups, barWidth, chartHeight);
+            DrawAxes(chartHeight, chartWidth);
+        }
+        private void DrawBars(ObservableCollection<int> ageGroups, int barWidth, int chartHeight, double scale)
+        {
+            for (int i = 0; i < ageGroups.Count; i++)
+            {
+                Rectangle bar = new Rectangle();
+                bar.Width = barWidth - 2;
+                bar.Height = ageGroups[i] * scale;
+                bar.Fill = Brushes.Blue;
+                bar.Stroke = Brushes.Black;
+                bar.StrokeThickness = 1;
+                Canvas.SetLeft(bar, i * barWidth + 1);
+                Canvas.SetTop(bar, chartHeight - bar.Height + 20);
+                AgeGropsCanvas.Children.Add(bar);
+            }
+        }
+        private void DrawLabels(ObservableCollection<int> ageGroups, int barWidth, int chartHeight)
+        {
+            for (int i = 0; i < ageGroups.Count; i++)
+            {
+                TextBlock label = new TextBlock();
+                if (i == 0)
+                    label.Text = "<18";
+                else if (i == 1)
+                    label.Text = "18-50";
+                else if (i == 2)
+                    label.Text = "50+";
+                label.TextAlignment = TextAlignment.Center;
+                label.Width = barWidth;
+                Canvas.SetLeft(label, i * barWidth);
+                Canvas.SetTop(label, chartHeight + 25);
+                AgeGropsCanvas.Children.Add(label);
+            }
+        }
+        private void DrawAxes(int chartHeight, int chartWidth)
+        {
+            Line xAxis = new Line();
+            xAxis.X1 = 0;
+            xAxis.X2 = chartWidth;
+            xAxis.Y1 = chartHeight + 20;
+            xAxis.Y2 = chartHeight + 20;
+            xAxis.Stroke = Brushes.Black;
+            xAxis.StrokeThickness = 1;
+            AgeGropsCanvas.Children.Add(xAxis);
+
+            Line yAxis = new Line();
+            yAxis.X1 = 0;
+            yAxis.X2 = 0;
+            yAxis.Y1 = 20;
+            yAxis.Y2 = chartHeight + 20;
+            yAxis.Stroke = Brushes.Black;
+            yAxis.StrokeThickness = 1;
+            AgeGropsCanvas.Children.Add(yAxis);
+        }
+        private void DrawTourAppPercentageStats(double tickets, double vouchers, ObservableCollection<int> ageGroups)
+        {
+            PieChartCanvas.Children.Clear();
+
+            if (tickets == 0 && vouchers == 0)
+            {
+                TextBlock label = new TextBlock();
+                label.Text = "There were no tickets or vouchers for this appointment";
+                label.TextAlignment = TextAlignment.Left;
+                label.Width = 400;
+                label.Height = 50;
+                Canvas.SetLeft(label, -30);
+                Canvas.SetTop(label, 50);
+                PieChartCanvas.Children.Add(label);
+
+                Image sadGhostImage = new Image();
+                sadGhostImage.Source = new BitmapImage(new Uri("https://img.icons8.com/color-glass/256/sad-ghost.png"));
+                sadGhostImage.Width = 80;
+                sadGhostImage.Height = 80;
+                sadGhostImage.Margin = new Thickness(120, 90, 30, 380);
+                PieChartCanvas.Children.Add(sadGhostImage);
+                return;
+            }
+            else
+            {
+                DrawPieChart(tickets, vouchers);
+                DrawBlockChart(ageGroups);
+            }
+        }
+        private void DrawPieChart(double tickets, double vouchers)
+        {
+            PieChartCanvas.Children.Clear();
+            double[] values = { tickets, vouchers };
+
+            double chartSize = 150;
+            double centerX = chartSize / 2;
+            double centerY = chartSize / 2;
+            double radius = chartSize / 2;
+            double startAngle = -90;
+
+            for (int i = 0; i < values.Length; i++)
+            {
+                Polygon slice = DrawSlice(values[i], startAngle, centerX, centerY, radius);
+                slice.Fill = i % 2 == 1 ? new SolidColorBrush(Color.FromRgb(0, 122, 204)) : new SolidColorBrush(Color.FromRgb(108, 206, 255));
+                slice.Stroke = Brushes.Black;
+                slice.StrokeThickness = 1;
+                PieChartCanvas.Children.Add(slice);
+
+                TextBlock label = CreateLabel(values[i], i, chartSize);
+                double labelAngle = startAngle + values[i] * 180;
+                SetLabelPosition(label, labelAngle, centerX, centerY, radius);
+                PieChartCanvas.Children.Add(label);
+
+                startAngle += values[i] * 360;
+            }
+        }
+        private Polygon DrawSlice(double value, double startAngle, double centerX, double centerY, double radius)
+        {
+            double sweepAngle = value * 360;
+            double endAngle = startAngle + sweepAngle;
+            Point startPoint = new Point(centerX, centerY);
+            Point endPoint = new Point(centerX + radius * Math.Cos(endAngle * Math.PI / 180), centerY + radius * Math.Sin(endAngle * Math.PI / 180));
+            PointCollection points = new PointCollection();
+            points.Add(startPoint);
+            for (int j = (int)startAngle; j <= endAngle; j++)
+            {
+                double x = centerX + radius * Math.Cos(j * Math.PI / 180);
+                double y = centerY + radius * Math.Sin(j * Math.PI / 180);
+                points.Add(new Point(x, y));
+            }
+            points.Add(endPoint);
+            points.Add(startPoint);
+            return new Polygon() { Points = points };
+        }
+        private TextBlock CreateLabel(double value, int index, double chartSize)
+        {
+            TextBlock label = new TextBlock();
+            label.Text = index == 0 ? $"{value:#0% tickets}" : $"{value:#0% vouchers}";
+            label.TextAlignment = TextAlignment.Center;
+            label.Width = chartSize;
+            return label;
+        }
+        private void SetLabelPosition(TextBlock label, double labelAngle, double centerX, double centerY, double radius)
+        {
+            double labelX = centerX + radius * 0.7 * Math.Cos(labelAngle * Math.PI / 180) - label.ActualWidth / 2;
+            double labelY = centerY + radius * 0.7 * Math.Sin(labelAngle * Math.PI / 180) - label.ActualHeight / 2;
+            Canvas.SetLeft(label, labelX);
+            Canvas.SetTop(label, labelY);
         }
     }
 }

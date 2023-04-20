@@ -101,35 +101,14 @@
         
         <Grid x:Name="StatsGrid">
             <GroupBox x:Name="FieldSet" Header="Tour statistics" Margin="759,167,0,0" Height="371" Width="450" FontSize="15" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="#FF61676B" Background="#FF9BC8EC" FontWeight="SemiBold">
-                <StackPanel x:Name="StatsLabels">
-                    <TextBlock Margin="0,0,0,-7">
-                        <Run Text="Tickets: "/>
-                        <Run Text="{Binding TourAppPercentage[0]}"/>
-                        <Run Text="%"/>
-                    </TextBlock>
-                    <TextBlock Margin="0,0,0,-7">
-                        <Run Text="Vouchers: "/>
-                        <Run Text="{Binding TourAppPercentage[1]}"/>
-                        <Run Text="%"/>
-                    </TextBlock>
-                    <TextBlock Margin="0,0,0,-7">
-                        <Run Text="Under 18: "/>
-                        <Run Text="{Binding AgeGroups[0]}"/>
-                        <Run Text="%"/>
-                    </TextBlock>
-                    <TextBlock Margin="0,0,0,-7">
-                        <Run Text="[18-50]: "/>
-                        <Run Text="{Binding AgeGroups[1]}"/>
-                        <Run Text="%"/>
-                    </TextBlock>
-                    <TextBlock Margin="0,0,0,-7">
-                        <Run Text="Over 50: "/>
-                        <Run Text="{Binding AgeGroups[2]}"/>
-                        <Run Text="%"/>
-                    </TextBlock>
-                </StackPanel>
-
+                <Grid>
+                    <Canvas x:Name="PieChartCanvas" Margin="47,43,490,171"/>
+                </Grid>
+                
             </GroupBox>
+            <Grid>
+                <Canvas x:Name="AgeGropsCanvas" Margin="1037,360,45,201"/>
+            </Grid>
         </Grid>
         <Label Content="Visits" HorizontalAlignment="Left" Height="41" Margin="504,228,0,0" VerticalAlignment="Top" Width="84" FontSize="15"/>
         <ComboBox x:Name="comboboxYears" SelectionChanged="YearsComboBox_SelectionChanged" HorizontalAlignment="Left" Height="43" Margin="50,167,0,0" VerticalAlignment="Top" Width="132" FontSize="20"/>
