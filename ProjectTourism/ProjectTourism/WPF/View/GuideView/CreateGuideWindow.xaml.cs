@@ -1,6 +1,4 @@
-﻿using ProjectTourism.Controller;
-using ProjectTourism.Model;
-using ProjectTourism.Observer;
+﻿using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using ProjectTourism.Domain.IRepositories;
@@ -26,7 +24,7 @@ namespace ProjectTourism.View.GuideView
     /// <summary>
     /// Interaction logic for CreateGuideWindow.xaml
     /// </summary>
-    public partial class CreateGuideWindow : Window, INotifyPropertyChanged, IObserver
+    public partial class CreateGuideWindow : Window, INotifyPropertyChanged
     {
         public GuideVM Guide { get; set; }
         public UserVM UserVM { get; set; }

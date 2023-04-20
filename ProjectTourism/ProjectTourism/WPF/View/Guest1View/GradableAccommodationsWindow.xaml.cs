@@ -1,5 +1,4 @@
 ﻿using ProjectTourism.Model;
-using ProjectTourism.Observer;
 using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;

@@ -1,5 +1,4 @@
-﻿using ProjectTourism.Controller;
-using ProjectTourism.Model;
+﻿using ProjectTourism.Model;
 using ProjectTourism.View.Guest1View;
 using ProjectTourism.View.GuideView;
 using ProjectTourism.View.OwnerView;
@@ -8,7 +7,6 @@ using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using ProjectTourism.WPF.ViewModel;
 using ProjectTourism.Domain.IRepositories;
-using ProjectTourism.Observer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,7 +28,7 @@ namespace ProjectTourism.View.UserView
     /// <summary>
     /// Interaction logic for CreateUserView.xaml
     /// </summary>
-    public partial class CreateUserWindow : Window, INotifyPropertyChanged, IObserver
+    public partial class CreateUserWindow : Window, INotifyPropertyChanged
     {
         public UserVM User { get; set; }
         public UserService UserService { get; set; }

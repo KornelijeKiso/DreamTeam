@@ -1,7 +1,6 @@
 ﻿using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
-using ProjectTourism.Observer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

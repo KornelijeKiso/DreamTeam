@@ -1,5 +1,4 @@
 ﻿using ProjectTourism.Model;
-using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using ProjectTourism.Domain.IRepositories;
@@ -25,7 +24,7 @@ namespace ProjectTourism.View.Guest1View
     /// <summary>
     /// Interaction logic for CreateGuest1Window.xaml
     /// </summary>
-    public partial class CreateGuest1Window : Window, INotifyPropertyChanged, IObserver
+    public partial class CreateGuest1Window : Window, INotifyPropertyChanged
     {
         public Guest1VM Guest1VM { get; set; }
         public UserVM UserVM { get; set; }

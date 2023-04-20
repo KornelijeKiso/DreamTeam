@@ -1,5 +1,4 @@
-﻿using ProjectTourism.Controller;
-using ProjectTourism.Model;
+﻿using ProjectTourism.Model;
 using ProjectTourism.View.GuideView;
 using ProjectTourism.View.OwnerView;
 using ProjectTourism.View.Guest1View;

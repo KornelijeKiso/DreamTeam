@@ -1,5 +1,4 @@
 ﻿using ProjectTourism.Model;
-using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using ProjectTourism.View.OwnerView;
@@ -27,7 +26,7 @@ namespace ProjectTourism.WPF.View.OwnerView
     /// <summary>
     /// Interaction logic for ReservationsMenuItem.xaml
     /// </summary>
-    public partial class ReservationsMenuItem : UserControl, INotifyPropertyChanged, IObserver
+    public partial class ReservationsMenuItem : UserControl, INotifyPropertyChanged
     {
         public OwnerVM Owner { get; set; }
         public ReservationVM SelectedReservation { get; set; }

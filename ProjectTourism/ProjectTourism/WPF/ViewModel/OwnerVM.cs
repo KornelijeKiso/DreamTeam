@@ -1,5 +1,4 @@
 ﻿using ProjectTourism.Model;
-using ProjectTourism.Observer;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using System;
