@@ -95,19 +95,64 @@
                             <DataGridTemplateColumn Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <GroupBox BorderBrush="Black" FontSize="12" Height="50" 
-                                                  VerticalAlignment="Top" Margin="5 5 5 5"
-                                                  Header="Status">
-                                            <Label FontSize="14">
-                                                <Label.Content>
-                                                    <TextBlock>
-                                                        <TextBlock.Text>
-                                                            <Binding Path="TourAppointment.State"/>
-                                                        </TextBlock.Text>
-                                                    </TextBlock>
-                                                </Label.Content>
-                                            </Label>
-                                        </GroupBox>
+                                        <StackPanel>
+                                            <GroupBox BorderBrush="Black" FontSize="12" Height="50" 
+                                                      VerticalAlignment="Top" Margin="5 5 5 5"
+                                                      Header="Status">
+                                                <Label FontSize="14">
+                                                    <Label.Content>
+                                                        <TextBlock>
+                                                            <TextBlock.Text>
+                                                                <Binding Path="TourAppointment.State"/>
+                                                            </TextBlock.Text>
+                                                        </TextBlock>
+                                                    </Label.Content>
+                                                </Label>
+                                            </GroupBox>
+                                            
+                                            <!-- VIEW DETAILS BUTTON -->
+                                            <Button x:Name="ViewTicketDetailsButton"
+                                                    Command="{Binding Path=DataContext.Guest2AttendanceCommand,
+                                                              RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"
+                                                    >
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Setter Property="Height" Value="30"/>
+                                                        <Setter Property="Width" Value="80"/>
+                                                        <Setter Property="Margin" Value="0 0 0 0"/>
+                                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                                        <Setter Property="BorderThickness" Value="1"/>
+
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                                    <Border x:Name="border"
+                                                                            BorderThickness="1"
+                                                                            Background="Black">
+                                                                        <TextBlock Text="View details"
+                                                                                   FontFamily="/Fonts/#Rubik" 
+                                                                                   FontSize="14"
+                                                                                   Foreground="#DBDBDB" 
+                                                                                   HorizontalAlignment="Center"
+                                                                                   VerticalAlignment="Center" />
+                                                                    </Border>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <Trigger Property="IsMouseOver"
+                                                                                 Value="True"   >
+                                                                            <Setter Property="Background"
+                                                                                    TargetName="border"
+                                                                                    Value="#272B2F" />
+                                                                        </Trigger>
+                                                                        <Trigger Property="IsPressed" Value="True" />
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
+                                        </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -385,9 +430,9 @@
             </Button>
             
             <!-- MAKE A REPORT BUTTON -->
-            <!--Style="{StaticResource button}"-->
+            <!--Style="{StaticResource button}"  -->
             <Button x:Name="MakeReport" 
-                    Grid.Column="3">
+                    Grid.Column="3"                    >
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Height" Value="40"/>
