@@ -3,6 +3,7 @@ using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -19,6 +20,31 @@ namespace ProjectTourism.WPF.ViewModel
         public TicketVM(Ticket ticket)
         {
             _ticket = ticket;
+        }
+        public void ConfirmAttendance(Ticket ticket)
+        {
+            TicketService ticketService = new TicketService(new TicketRepository());
+            ticket.HasGuestConfirmed = true;
+            ticketService.Update(ticket);
+        }
+        public Ticket UpdateTicketTourAppointmentData(Ticket ticket)
+        {
+            TourService tourService = new TourService(new TourRepository());
+            GuideService guideService = new GuideService(new GuideRepository());
+            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
+            LocationService locationService = new LocationService(new LocationRepository());
+
+            TourAppointment updatedAppointment = tourAppointmentService.GetOne(ticket.TourAppointmentId);
+            updatedAppointment.Tickets = new List<Ticket>();
+            updatedAppointment.TicketGrades = new List<TicketGrade>();
+            updatedAppointment.Tour = tourService.GetOne(updatedAppointment.TourId);
+            updatedAppointment.Tour.Location = locationService.GetOne(updatedAppointment.Tour.LocationId);
+            updatedAppointment.Tour.Guide = guideService.GetOne(updatedAppointment.Tour.GuideUsername);
+            updatedAppointment.Tour.TourAppointments = tourAppointmentService.GetAllByTour(updatedAppointment.TourId);
+            updatedAppointment.Tour.StopsList = tourService.LoadStops(updatedAppointment.Tour);
+
+            ticket.TourAppointment = updatedAppointment;
+            return ticket;
         }
         public void CreateTicket(Ticket ticket)
         {

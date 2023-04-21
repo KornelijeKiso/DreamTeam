@@ -11,7 +11,6 @@
         Background="LightBlue"
         WindowStyle="None"
         >
-    <!--WindowStyle="None"-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -214,13 +213,11 @@
                             <GroupBox Header="Current checkpoint" FontFamily="/Fonts/#Rubik"
                                       Foreground="#DBDBDB" FontSize="12" Margin="5 0 5 0"
                                       Height="50" MaxWidth="250"    >
-                                <Label FontFamily="/Fonts/#Rubik"
+                                <Label x:Name="CurrentTourStopLabel"
+                                       FontFamily="/Fonts/#Rubik"
                                        Foreground="#DBDBDB"
                                        FontSize="14"
-                                       Content="{Binding Path=Ticket.TourAppointment.CurrentTourStop}"/>
-                                <!--        TO DO -> FIX
-                                            DOESN'T CHANGE WHEN THE DATA IN CSV IS CHANGED !!!                
-                                , UpdateSourceTrigger=PropertyChanged     -->
+                                       Content="{Binding Path=Ticket.TourAppointment.CurrentTourStop, UpdateSourceTrigger=PropertyChanged}"/>
                             </GroupBox>
                         </StackPanel>
                     </Grid>

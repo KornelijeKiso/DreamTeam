@@ -74,6 +74,7 @@ namespace ProjectTourism.Repositories
                     existingTicket.NumberOfGuests = ticket.NumberOfGuests;
                     existingTicket.TourStop = ticket.TourStop;
                     existingTicket.HasGuideChecked = ticket.HasGuideChecked;
+                    existingTicket.HasGuestConfirmed = ticket.HasGuestConfirmed;
                     break;
                 }
             }

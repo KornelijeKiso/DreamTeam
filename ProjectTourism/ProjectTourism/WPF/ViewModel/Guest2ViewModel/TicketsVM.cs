@@ -134,7 +134,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         {
             get
             {
-                return (SelectedTicket != null && Guest2 != null && SelectedTicket.TourAppointment.State == TOURSTATE.STARTED);
+                return (SelectedTicket != null && Guest2 != null);  //&& SelectedTicket.TourAppointment.State == TOURSTATE.STARTED);
             }
         }
         public void Guest2Attendance_Click()
