@@ -153,8 +153,18 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 Canvas.SetLeft(bar, i * barWidth + 1);
                 Canvas.SetTop(bar, chartHeight - bar.Height + 20);
                 AgeGropsCanvas.Children.Add(bar);
+
+                // add a TextBlock for the age group value on top of the bar
+                TextBlock label = new TextBlock();
+                label.Text = ageGroups[i].ToString();
+                label.TextAlignment = TextAlignment.Center;
+                label.Width = barWidth;
+                Canvas.SetLeft(label, i * barWidth);
+                Canvas.SetTop(label, chartHeight - bar.Height + 5);
+                AgeGropsCanvas.Children.Add(label);
             }
         }
+
         private void DrawLabels(ObservableCollection<int> ageGroups, int barWidth, int chartHeight)
         {
             for (int i = 0; i < ageGroups.Count; i++)
