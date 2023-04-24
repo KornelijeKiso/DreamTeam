@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.Model;
 using ProjectTourism.Repositories;
+using ProjectTourism.Repositories.IRepositories;
 using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.Services
@@ -13,12 +14,10 @@ namespace ProjectTourism.Services
     public class TourAppointmentService
     {
         private ITourAppointmentRepository TourAppointmentRepository;
-        
-        public TourAppointmentService(ITourAppointmentRepository tourAppointmentRepo)
+        public TourAppointmentService()
         {
-            TourAppointmentRepository = tourAppointmentRepo;
+            TourAppointmentRepository = Injector.Injector.CreateInstance<ITourAppointmentRepository>();
         }
-
         public void MakeTourAppointments(Tour tour)
         {
             foreach (var date in tour.dates)

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.Model;
+using ProjectTourism.Repositories.IRepositories;
 using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.Services
@@ -12,9 +13,9 @@ namespace ProjectTourism.Services
     public class GuideService
     {
         private IGuideRepository GuideRepository;
-        public GuideService(IGuideRepository iGuideRepository)
+        public GuideService()
         {
-            GuideRepository = iGuideRepository;
+            GuideRepository = Injector.Injector.CreateInstance<IGuideRepository>();
         }
         public void Add(Guide guide)
         {

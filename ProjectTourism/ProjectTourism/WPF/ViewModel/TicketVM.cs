@@ -23,15 +23,15 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public void ConfirmAttendance(Ticket ticket)
         {
-            TicketService ticketService = new TicketService(new TicketRepository());
+            TicketService ticketService = new TicketService();
             ticket.HasGuestConfirmed = true;
             ticketService.Update(ticket);
         }
         public Ticket UpdateTicketTourAppointmentData(Ticket ticket)
         {
-            TourService tourService = new TourService(new TourRepository());
-            GuideService guideService = new GuideService(new GuideRepository());
-            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
+            TourService tourService = new TourService();
+            GuideService guideService = new GuideService();
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
             LocationService locationService = new LocationService();
 
             TourAppointment updatedAppointment = tourAppointmentService.GetOne(ticket.TourAppointmentId);
@@ -48,12 +48,12 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public void CreateTicket(Ticket ticket)
         {
-            TicketService ticketService = new TicketService(new TicketRepository());
+            TicketService ticketService = new TicketService();
             ticketService.Add(ticket);
         }
         public TicketVM GetLast()
         {
-            TicketService ticketService = new TicketService(new TicketRepository());
+            TicketService ticketService = new TicketService();
             List<Ticket> tickets = ticketService.GetAll();
             Ticket last = tickets.Last();
             return new TicketVM(last);
@@ -61,7 +61,7 @@ namespace ProjectTourism.WPF.ViewModel
 
         public void RemoveLast()
         {
-            TicketService ticketService = new TicketService(new TicketRepository());
+            TicketService ticketService = new TicketService();
             List<Ticket> tickets = ticketService.GetAll();
             Ticket last = tickets.Last();
             ticketService.Delete(last);

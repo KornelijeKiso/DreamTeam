@@ -7,38 +7,33 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectTourism.Repositories.IRepositories;
 
 namespace ProjectTourism.Services
 {
     public class TicketService
     {
         private ITicketRepository TicketRepository;
-
-        public TicketService(ITicketRepository itr)
+        public TicketService()
         {
-            TicketRepository = itr; 
+            TicketRepository = Injector.Injector.CreateInstance<ITicketRepository>(); 
         }
-
         public Ticket GetOne(int Id) 
         {
             return TicketRepository.GetOne(Id);
         }
-
         public List<Ticket> GetAll() 
         {
             return TicketRepository.GetAll();
         }
-
         public void Add(Ticket ticket) 
         {
             TicketRepository.Add(ticket);
         }
-
         public void Delete(Ticket ticket) 
         {
             TicketRepository.Delete(ticket);
         }
-
         public void Update(Ticket ticket) 
         {
             TicketRepository.Update(ticket);

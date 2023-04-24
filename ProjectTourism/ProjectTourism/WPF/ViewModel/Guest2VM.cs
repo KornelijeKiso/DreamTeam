@@ -35,10 +35,10 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public void Synchronize(string username)
         {
-            Guest2Service guest2Service = new Guest2Service(new Guest2Repository());
+            Guest2Service guest2Service = new Guest2Service();
             _guest2 = guest2Service.GetOne(username);
             
-            TourService tourService = new TourService(new TourRepository());
+            TourService tourService = new TourService();
             Tours = new ObservableCollection<TourVM>(tourService.GetAll().Select(r => new TourVM(r)).ToList());
             SynchronizeTours(Tours);
 
@@ -48,13 +48,13 @@ namespace ProjectTourism.WPF.ViewModel
 
         private void SynchronizeVouchersList(Guest2 _guest2)
         {
-            TicketService ticketService = new TicketService(new TicketRepository());
-            VoucherService voucherService = new VoucherService(new VoucherRepository());
-            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
-            TourService tourService = new TourService(new TourRepository());
-            TicketGradeService ticketGradeService = new TicketGradeService(new TicketGradeRepository());
+            TicketService ticketService = new TicketService();
+            VoucherService voucherService = new VoucherService();
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
+            TourService tourService = new TourService();
+            TicketGradeService ticketGradeService = new TicketGradeService();
             LocationService locationService = new LocationService();
-            GuideService guideService = new GuideService(new GuideRepository());
+            GuideService guideService = new GuideService();
 
             _guest2.Vouchers = new List<Voucher>();
             foreach (var voucher in voucherService.GetAllByGuest2(_guest2.Username))
@@ -88,13 +88,13 @@ namespace ProjectTourism.WPF.ViewModel
         }
         private void SynchronizeTicketsList(Guest2 _guest2)
         {
-            TicketService ticketService = new TicketService(new TicketRepository());
-            VoucherService voucherService = new VoucherService(new VoucherRepository());
-            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
-            TourService tourService = new TourService(new TourRepository());
-            TicketGradeService ticketGradeService = new TicketGradeService(new TicketGradeRepository());
+            TicketService ticketService = new TicketService();
+            VoucherService voucherService = new VoucherService();
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
+            TourService tourService = new TourService();
+            TicketGradeService ticketGradeService = new TicketGradeService();
             LocationService locationService = new LocationService();
-            GuideService guideService = new GuideService(new GuideRepository());
+            GuideService guideService = new GuideService();
 
             _guest2.Tickets = new List<Ticket>();
             foreach (var ticket in ticketService.GetByGuest2(_guest2.Username))
@@ -116,9 +116,9 @@ namespace ProjectTourism.WPF.ViewModel
 
         private void SynchronizeTours(ObservableCollection<TourVM> Tours)
         {
-            TourService tourService = new TourService(new TourRepository());
-            GuideService guideService = new GuideService(new GuideRepository());
-            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
+            TourService tourService = new TourService();
+            GuideService guideService = new GuideService();
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
             LocationService locationService = new LocationService();
 
             foreach (var tour in Tours)
@@ -141,7 +141,7 @@ namespace ProjectTourism.WPF.ViewModel
 
         public void GradeATicket(TicketGradeVM ticketGrade)
         {
-            TicketGradeService ticketGradeService = new TicketGradeService(new TicketGradeRepository());
+            TicketGradeService ticketGradeService = new TicketGradeService();
             foreach (var ticket in Tickets)
             {
                 if (ticket.Id == ticketGrade.Id)

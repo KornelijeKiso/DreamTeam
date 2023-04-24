@@ -1,6 +1,7 @@
 ﻿using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.Model;
 using ProjectTourism.Repositories;
+using ProjectTourism.Repositories.IRepositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +13,9 @@ namespace ProjectTourism.Services
     public class Guest2Service
     {
         private IGuest2Repository Guest2Repository;
-        public Guest2Service(IGuest2Repository ig2r)
+        public Guest2Service()
         {
-            Guest2Repository = ig2r;
+            Guest2Repository = Injector.Injector.CreateInstance<IGuest2Repository>();
         }
         public Guest2 GetOne(string username)
         {

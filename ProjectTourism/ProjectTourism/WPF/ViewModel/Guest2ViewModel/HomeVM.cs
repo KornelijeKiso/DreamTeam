@@ -28,7 +28,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         {
             SetGuest2();
 
-            TourService = new TourService(new TourRepository());
+            TourService = new TourService();
             Tours = Guest2.Tours;
 
             searchLocation = "";
@@ -38,7 +38,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         }
         public void SetGuest2()
         {
-            CurrentUserService = new CurrentUserService(new CurrentUserRepository());
+            CurrentUserService = new CurrentUserService();
             CurrentUser = new UserVM(CurrentUserService.GetUser());
             Guest2 = new Guest2VM(CurrentUser.Username);
         }

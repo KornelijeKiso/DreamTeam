@@ -29,7 +29,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 
         private void SetGuest2()
         {
-            CurrentUserService = new CurrentUserService(new CurrentUserRepository());
+            CurrentUserService = new CurrentUserService();
             CurrentUser = new UserVM(CurrentUserService.GetUser());
             Guest2 = new Guest2VM(CurrentUser.Username);
         }

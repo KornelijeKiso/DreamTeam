@@ -26,7 +26,7 @@ namespace ProjectTourism.WPF.ViewModel
             _voucher.Ticket = ticket.GetTicket();
             _voucher.Status = STATUS.USED;
             _voucher.UsedOnDate = DateTime.Now;
-            VoucherService voucherService = new VoucherService(new VoucherRepository());
+            VoucherService voucherService = new VoucherService();
             voucherService.Update(_voucher);
         }
 

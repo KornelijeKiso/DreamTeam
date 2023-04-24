@@ -14,9 +14,9 @@ namespace ProjectTourism.Services
     {
         private ICanceledTourAppointmentsRepository CanceledTourAppointmentsRepo;
 
-        public CanceledTourAppointmentsService(ICanceledTourAppointmentsRepository iar)
+        public CanceledTourAppointmentsService()
         {
-            CanceledTourAppointmentsRepo = iar;
+            CanceledTourAppointmentsRepo = Injector.Injector.CreateInstance<ICanceledTourAppointmentsRepository>();
         }
         public void Add(TourAppointment tourApp)
         {

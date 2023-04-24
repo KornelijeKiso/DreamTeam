@@ -27,13 +27,13 @@ namespace ProjectTourism.WPF.ViewModel
 
         private void Synchronize()
         {
-            TourService tourService = new TourService(new TourRepository());
+            TourService tourService = new TourService();
             _tourAppointment.Tour = tourService.GetOne(_tourAppointment.TourId);
         }
 
         public TourAppointmentVM(Tour tour, DateTime date)
         {
-            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
             _tourAppointment = tourAppointmentService.GetByDate(tour.Id, date);
             Synchronize();
             Tickets = new ObservableCollection<TicketVM>(_tourAppointment.Tickets.Select(r => new TicketVM(r)).ToList());
@@ -41,7 +41,7 @@ namespace ProjectTourism.WPF.ViewModel
 
         public void UpdateTourAppointmentVM(TourAppointmentVM tourAppointmentVM)
         {
-            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
             tourAppointmentService.Update(tourAppointmentVM.GetTourAppointment());
         }
         public TourAppointment GetTourAppointment()

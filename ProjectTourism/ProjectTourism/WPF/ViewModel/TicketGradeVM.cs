@@ -21,10 +21,10 @@ namespace ProjectTourism.WPF.ViewModel
 
         public bool IsAlreadyGraded(Ticket ticket)
         {
-            TicketService ticketService = new TicketService(new TicketRepository());
+            TicketService ticketService = new TicketService();
             _ticketGrade.Ticket = ticketService.GetOne(ticket.Id);
             
-            TicketGradeService ticketGradeService = new TicketGradeService(new TicketGradeRepository());
+            TicketGradeService ticketGradeService = new TicketGradeService();
             List<TicketGrade> grades = ticketGradeService.GetAll();
             foreach(TicketGrade grade in grades)
             {

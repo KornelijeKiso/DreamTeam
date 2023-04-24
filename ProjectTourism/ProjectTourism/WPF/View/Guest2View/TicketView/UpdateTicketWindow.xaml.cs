@@ -37,9 +37,9 @@ namespace ProjectTourism.View.Guest2View.TicketView
         {
             InitializeComponent();
             DataContext = this;
-            TicketService = new TicketService(new TicketRepository());
-            TourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
-            TourService = new TourService(new TourRepository());
+            TicketService = new TicketService();
+            TourAppointmentService = new TourAppointmentService();
+            TourService = new TourService();
 
             selectedTour = TourService.GetOne(tourId);
             //Ticket = TicketService.GetGuest2Ticket(username, tourAppId);

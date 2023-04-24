@@ -32,14 +32,14 @@ namespace ProjectTourism.WPF.ViewModel
         }
         private void Synchronize(string username)
         {
-            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
-            TourService tourService = new TourService(new TourRepository());
-            TicketService ticketService = new TicketService(new TicketRepository());
-            TicketGradeService ticketGradeService = new TicketGradeService(new TicketGradeRepository());
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
+            TourService tourService = new TourService();
+            TicketService ticketService = new TicketService();
+            TicketGradeService ticketGradeService = new TicketGradeService();
             LocationService locationService = new LocationService();
-            GuideService guideService = new GuideService(new GuideRepository());
-            Guest2Service guest2Service = new Guest2Service(new Guest2Repository());
-            VoucherService voucherService = new VoucherService(new VoucherRepository());
+            GuideService guideService = new GuideService();
+            Guest2Service guest2Service = new Guest2Service();
+            VoucherService voucherService = new VoucherService();
 
             _guide = guideService.GetOne(username);
             foreach (var tour in tourService.GetAll())
@@ -86,23 +86,23 @@ namespace ProjectTourism.WPF.ViewModel
 
         public void ReportTicketGrade(TicketVM ticket)
         {
-            TicketGradeService ticketGradeService = new TicketGradeService(new TicketGradeRepository());
+            TicketGradeService ticketGradeService = new TicketGradeService();
             ticket.TicketGrade.IsNotReported = false;
             ticketGradeService.Update(ticket.TicketGrade.GetTicketGrade());
         }
         public void CancelAppointment(TourAppointmentVM tourApp)
         {
-            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
-            CanceledTourAppointmentsService canceledTourAppointmentsService = new CanceledTourAppointmentsService(new CanceledTourAppointmentsRepository());
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
+            CanceledTourAppointmentsService canceledTourAppointmentsService = new CanceledTourAppointmentsService();
             TourAppointments.Remove(tourApp);
             tourAppointmentService.Delete(tourApp.Id);
             canceledTourAppointmentsService.Add(tourApp.GetTourAppointment());
         }
         public string NextStop(TourAppointment tourApp)
         {
-            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
-            TourService tourService = new TourService(new TourRepository());
-            GuideService guideService = new GuideService(new GuideRepository());
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
+            TourService tourService = new TourService();
+            GuideService guideService = new GuideService();
 
             string currentStop = tourApp.CurrentTourStop;
             int stopIndex = CalculateStopIndex(tourApp, currentStop);
@@ -136,8 +136,8 @@ namespace ProjectTourism.WPF.ViewModel
 
         public void EndTour(TourAppointmentVM tourApp)
         {
-            GuideService guideService = new GuideService(new GuideRepository());
-            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
+            GuideService guideService = new GuideService();
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
 
             tourApp.CurrentTourStop = tourApp.Tour.StopsList.Last();
             tourApp.State = TOURSTATE.FINISHED;
@@ -148,8 +148,8 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public string FinishTourAndReturnStop(TourAppointmentVM tourApp)
         {
-            GuideService guideService = new GuideService(new GuideRepository());
-            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
+            GuideService guideService = new GuideService();
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
 
             tourApp.CurrentTourStop = tourApp.Tour.StopsList.Last();
             tourApp.State = TOURSTATE.FINISHED;
@@ -163,14 +163,14 @@ namespace ProjectTourism.WPF.ViewModel
         public void CheckTicket(TicketVM ticket)
         {
             ticket.HasGuideChecked = true;
-            TicketService ticketService = new TicketService(new TicketRepository());
+            TicketService ticketService = new TicketService();
             ticketService.Update(ticket.GetTicket());
         }
 
         public void EmergencyStop(TourAppointmentVM tourApp)
         {
-            GuideService guideService = new GuideService(new GuideRepository());
-            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
+            GuideService guideService = new GuideService();
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
 
             tourApp.State = TOURSTATE.STOPPED;
             tourApp.IsNotFinished = false;
@@ -182,9 +182,9 @@ namespace ProjectTourism.WPF.ViewModel
 
         public void AddTour(TourVM NewTour, LocationVM NewLocation)
         {
-            TourService tourService = new TourService(new TourRepository());
+            TourService tourService = new TourService();
             LocationService locationService = new LocationService();
-            TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
 
             Location location = new Location(NewLocation.City, NewLocation.Country);
             location.Id = locationService.AddAndReturnId(location);
