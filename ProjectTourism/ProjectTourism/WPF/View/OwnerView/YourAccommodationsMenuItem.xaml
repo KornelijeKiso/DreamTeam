@@ -43,7 +43,7 @@
             </DataGrid.CellStyle>
             <DataGrid.Columns>
 
-                <DataGridTemplateColumn Width="130">
+                <DataGridTemplateColumn Width="160">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Image Stretch="Fill" Source="{Binding Path=Pictures[0]}"/>
@@ -53,32 +53,63 @@
                 <DataGridTemplateColumn Width="577">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Vertical" >
-                                <Label Content="{Binding Path=Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
-                                <Label Margin="0,0,0,-7">
-                                    <Label.Content>
-                                        <TextBlock>
-                                            <TextBlock.Text>
-                                                <MultiBinding StringFormat="{}{0}, {1}">
-                                                    <Binding Path="Location.City"/>
-                                                    <Binding Path="Location.Country"/>
-                                                </MultiBinding>
-                                            </TextBlock.Text>
-                                        </TextBlock>
-                                    </Label.Content>
-                                </Label>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label Content="Number of guests :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Content="{Binding Path=MaxNumberOfGuests}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                            <StackPanel Orientation="Vertical" Margin="8 0 0 0">
+                                <Label Content="{Binding Path=Name}" FontWeight="SemiBold" Margin="0,-3,0,-4" FontSize="15"></Label>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Source="https://img.icons8.com/external-xnimrodx-blue-xnimrodx/2x/external-correct-location-xnimrodx-blue-xnimrodx.png"
+                                           Margin="0 3 0 0" Height="17"></Image>
+                                    <Label Margin="-4,-3,0,-7" FontSize="14">
+                                        <Label.Content>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0}, {1}">
+                                                        <Binding Path="Location.City"/>
+                                                        <Binding Path="Location.Country"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Label.Content>
+                                    </Label>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label Content="Minimal number of days for reservation :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Content="{Binding Path=MinDaysForReservation}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label Content="Cancellation deadline :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Content="{Binding Path=CancellationDeadline}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
-                                </StackPanel>
+                                <GroupBox Margin="-320 10 0 30" Height="67" Width="250"
+                                          BorderBrush="DodgerBlue" BorderThickness="1">
+                                    <!--<GroupBox.Header>
+                                        <Image Source="https://img.icons8.com/external-others-inmotus-design/2x/external-Info-round-icons-others-inmotus-design-4.png" Height="14"></Image>
+                                    </GroupBox.Header>-->
+                                    <StackPanel Margin="0 5 0 0">
+                                        <StackPanel Orientation="Horizontal" Margin="0,-5,0,-7">
+                                            <Label Content="Number of guests :" Margin="0,0,-7,-7" ></Label>
+                                            <Label Content="{Binding Path=MaxNumberOfGuests}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                            <Label Content="Minimal number of days for reservation :" Margin="0,0,-7,-7" ></Label>
+                                            <Label Content="{Binding Path=MinDaysForReservation}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                            <Label Content="Cancellation deadline :" Margin="0,0,-7,-7" ></Label>
+                                            <Label ContentStringFormat="{}{0} days" Content="{Binding Path=CancellationDeadline}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </GroupBox>
+
+                                <Image Source="{Binding Path=TypeIcon}" Margin="10 -135 0 0" Height="40"></Image>
+                                <Label Content="{Binding Path=TypeString}" Margin="257 -52 0 0" Foreground="DodgerBlue" FontWeight="SemiBold"></Label>
+                                    <Button BorderBrush="DodgerBlue" BorderThickness="2" Content="Renovate" Height="25" Width="100" Margin="205 -85 0 0">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="5"/>
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
+                                <Button BorderBrush="DodgerBlue" BorderThickness="2" Content="Statistics" Height="25" Width="100" Margin="205 -151 0 0">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="5"/>
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
+                                <Image Margin="205 -249 0 0" Source="https://img.icons8.com/3d-fluency/2x/prize.png" Width="38"></Image>
+                                <Label Margin="355 -116 0 0" Foreground="DarkRed" Content="Renovated" ></Label>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
