@@ -37,7 +37,7 @@ namespace ProjectTourism.View.UserView
             InitializeComponent();
             DataContext = this;
             User = new UserVM(new User());
-            UserService = new UserService(new UserRepository());
+            UserService = new UserService();
         }
         public event PropertyChangedEventHandler? PropertyChanged;
 

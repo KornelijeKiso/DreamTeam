@@ -31,9 +31,9 @@ namespace ProjectTourism.WPF.ViewModel
         }
         private void Synchronize(string username)
         {
-            OwnerService ownerService = new OwnerService(new OwnerRepository());
-            AccommodationService accommodationService = new AccommodationService(new AccommodationRepository());
-            LocationService locationService = new LocationService(new LocationRepository());
+            OwnerService ownerService = new OwnerService();
+            AccommodationService accommodationService = new AccommodationService();
+            LocationService locationService = new LocationService();
 
             _owner = ownerService.GetOne(username);
             _owner.Accommodations = accommodationService.GetAllByOwner(_owner.Username);
@@ -47,11 +47,11 @@ namespace ProjectTourism.WPF.ViewModel
         }
         private List<Reservation> SynchronizeReservations(Accommodation accommodation)
         {
-            ReservationService reservationService = new ReservationService(new ReservationRepository());
-            Guest1GradeService guest1GradeService = new Guest1GradeService(new Guest1GradeRepository());
-            Guest1Service guest1Service = new Guest1Service(new Guest1Repository());
-            AccommodationGradeService accommodationGradeService = new AccommodationGradeService(new AccommodationGradeRepository());
-            PostponeRequestService postponeRequestService = new PostponeRequestService(new PostponeRequestRepository());
+            ReservationService reservationService = new ReservationService();
+            Guest1GradeService guest1GradeService = new Guest1GradeService();
+            Guest1Service guest1Service = new Guest1Service();
+            AccommodationGradeService accommodationGradeService = new AccommodationGradeService();
+            PostponeRequestService postponeRequestService = new PostponeRequestService();
 
             List<Reservation> reservations = reservationService.GetAllByAccommodation(accommodation.Id);
             foreach (Reservation reservation in reservations)
@@ -67,8 +67,8 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public void AddAccommodation(AccommodationVM newAccommodation, LocationVM newLocation)
         {
-            AccommodationService accommodationService = new AccommodationService(new AccommodationRepository());
-            LocationService locationService = new LocationService(new LocationRepository());
+            AccommodationService accommodationService = new AccommodationService();
+            LocationService locationService = new LocationService();
             Location location = new Location(newLocation.City, newLocation.Country);
             location.Id = locationService.AddAndReturnId(location);
             newLocation.Id = location.Id;
@@ -82,7 +82,7 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public void GradeAGuest(Guest1GradeVM grade)
         {
-            Guest1GradeService guest1GradeService = new Guest1GradeService(new Guest1GradeRepository());
+            Guest1GradeService guest1GradeService = new Guest1GradeService();
             var reservation = Reservations.ToList().Find(r=>r.Id == grade.ReservationId);
             reservation.Guest1Grade = grade;
             reservation.Graded = true;

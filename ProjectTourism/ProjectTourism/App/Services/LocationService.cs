@@ -13,9 +13,9 @@ namespace ProjectTourism.Services
     public class LocationService
     {
         private ILocationRepository LocationRepo;
-        public LocationService(ILocationRepository ilr)
+        public LocationService()
         {
-            LocationRepo = ilr;
+            LocationRepo = Injector.Injector.CreateInstance<ILocationRepository>();
         }
         public int AddAndReturnId(Location location)
         {

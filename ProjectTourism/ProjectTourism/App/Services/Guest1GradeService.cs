@@ -13,9 +13,9 @@ namespace ProjectTourism.Services
     public class Guest1GradeService
     {
         private IGuest1GradeRepository Guest1GradeRepo;
-        public Guest1GradeService(IGuest1GradeRepository ig1gr)
+        public Guest1GradeService()
         {
-            Guest1GradeRepo = ig1gr;
+            Guest1GradeRepo = Injector.Injector.CreateInstance<IGuest1GradeRepository>();
         }
         public void Add(Guest1Grade guest1Grade)
         {

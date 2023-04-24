@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ProjectTourism.Repositories
 {
-    public class CanceledReservationRepository : IReservationRepository
+    public class CanceledReservationRepository : ICanceledReservationRepository
     {
         public CanceledReservationFileHandler FileHandler { get; set; }
         public List<Reservation> Reservations { get; set; }

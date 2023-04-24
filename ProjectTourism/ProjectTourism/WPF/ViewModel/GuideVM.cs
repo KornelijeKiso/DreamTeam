@@ -36,7 +36,7 @@ namespace ProjectTourism.WPF.ViewModel
             TourService tourService = new TourService(new TourRepository());
             TicketService ticketService = new TicketService(new TicketRepository());
             TicketGradeService ticketGradeService = new TicketGradeService(new TicketGradeRepository());
-            LocationService locationService = new LocationService(new LocationRepository());
+            LocationService locationService = new LocationService();
             GuideService guideService = new GuideService(new GuideRepository());
             Guest2Service guest2Service = new Guest2Service(new Guest2Repository());
             VoucherService voucherService = new VoucherService(new VoucherRepository());
@@ -183,7 +183,7 @@ namespace ProjectTourism.WPF.ViewModel
         public void AddTour(TourVM NewTour, LocationVM NewLocation)
         {
             TourService tourService = new TourService(new TourRepository());
-            LocationService locationService = new LocationService(new LocationRepository());
+            LocationService locationService = new LocationService();
             TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
 
             Location location = new Location(NewLocation.City, NewLocation.Country);

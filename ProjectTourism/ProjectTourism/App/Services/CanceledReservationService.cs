@@ -1,4 +1,5 @@
-﻿using ProjectTourism.Model;
+﻿using ProjectTourism.Domain.IRepositories;
+using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.Repositories.IRepositories;
 using ProjectTourism.WPF.ViewModel;
@@ -12,10 +13,10 @@ namespace ProjectTourism.Services
 {
     public class CanceledReservationService
     {
-        private IReservationRepository CanceledReservationRepo;
-        public CanceledReservationService(IReservationRepository icrr)
+        private ICanceledReservationRepository CanceledReservationRepo;
+        public CanceledReservationService()
         {
-            CanceledReservationRepo = icrr;
+            CanceledReservationRepo = Injector.Injector.CreateInstance<ICanceledReservationRepository>(); ;
         }
         public void Add(Reservation reservation)
         {

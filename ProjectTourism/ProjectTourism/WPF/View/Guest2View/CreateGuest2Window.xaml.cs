@@ -36,7 +36,7 @@ namespace ProjectTourism.View.Guest2View
             InitializeComponent();
             DataContext = this;
             Guest2Service = new Guest2Service(new Guest2Repository());
-            UserService = new UserService(new UserRepository());
+            UserService = new UserService();
             Guest2 = new Guest2VM(new Guest2(userVM.GetUser()));
             UserVM = userVM;
         }

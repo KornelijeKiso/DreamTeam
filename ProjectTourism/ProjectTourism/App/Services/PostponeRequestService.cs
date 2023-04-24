@@ -14,9 +14,9 @@ namespace ProjectTourism.Services
     public class PostponeRequestService
     {
         private IPostponeRequestRepository PostponeRequestRepo;
-        public PostponeRequestService(IPostponeRequestRepository iprr)
+        public PostponeRequestService()
         {
-            PostponeRequestRepo = iprr;
+            PostponeRequestRepo = Injector.Injector.CreateInstance<IPostponeRequestRepository>();
         }
         public void Add(PostponeRequest postponeRequest)
         {

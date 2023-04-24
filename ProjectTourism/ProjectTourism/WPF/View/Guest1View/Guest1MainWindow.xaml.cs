@@ -48,7 +48,7 @@ namespace ProjectTourism.View.Guest1View
 
             Guest1VM = new Guest1VM(username);
 
-            AccommodationService accommodationService = new AccommodationService(new AccommodationRepository());
+            AccommodationService accommodationService = new AccommodationService();
             FilteredAccommodations = new ObservableCollection<AccommodationVM>(accommodationService.GetAll().Select(r => new AccommodationVM(r)).ToList().OrderByDescending(a => a.Owner.IsSuperHost).ToList());
             AccommodationVMs = new ObservableCollection<AccommodationVM>(accommodationService.GetAll().Select(r => new AccommodationVM(r)).ToList().OrderByDescending(a => a.Owner.IsSuperHost).ToList());
 
@@ -85,7 +85,7 @@ namespace ProjectTourism.View.Guest1View
         {
             if (!reservationStart.Equals(""))
             {
-                ReservationService reservationService = new ReservationService(new ReservationRepository());
+                ReservationService reservationService = new ReservationService();
                 ReservationVM reservationVM = new ReservationVM(new Reservation());
                 reservationVM.StartDate = reservationStart;
                 reservationVM.EndDate = reservationEnd;

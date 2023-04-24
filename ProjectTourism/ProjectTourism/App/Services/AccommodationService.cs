@@ -1,4 +1,5 @@
-﻿using ProjectTourism.Model;
+﻿using ProjectTourism.Domain.IRepositories;
+using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.Repositories.IRepositories;
 using ProjectTourism.WPF.ViewModel;
@@ -13,9 +14,9 @@ namespace ProjectTourism.Services
     public class AccommodationService
     {
         private IAccommodationRepository AccommodationRepo;
-        public AccommodationService(IAccommodationRepository iar)
+        public AccommodationService()
         {
-            AccommodationRepo= iar;
+            AccommodationRepo= Injector.Injector.CreateInstance<IAccommodationRepository>();
         }
         public void Add(Accommodation accommodation)
         {

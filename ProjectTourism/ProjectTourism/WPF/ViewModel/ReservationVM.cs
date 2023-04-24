@@ -25,7 +25,7 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public void Update()
         {
-            ReservationService reservationService = new ReservationService(new ReservationRepository());
+            ReservationService reservationService = new ReservationService();
             reservationService.Update(this.GetReservation());
         }
 
@@ -254,7 +254,7 @@ namespace ProjectTourism.WPF.ViewModel
         public string GetPostponeConflictMessage()
         {
             Reservation reservation = new Reservation(_reservation);
-            ReservationService reservationService = new ReservationService(new ReservationRepository());
+            ReservationService reservationService = new ReservationService();
             reservation.StartDate = PostponeRequest.NewStartDate;
             reservation.EndDate = PostponeRequest.NewEndDate;
             if (reservationService.IsPossible(reservation))

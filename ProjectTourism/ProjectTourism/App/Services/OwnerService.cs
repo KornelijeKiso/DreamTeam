@@ -13,9 +13,9 @@ namespace ProjectTourism.Services
     public class OwnerService
     {
         private IOwnerRepository OwnerRepo;
-        public OwnerService(IOwnerRepository ior)
+        public OwnerService()
         {
-            OwnerRepo = ior;
+            OwnerRepo = Injector.Injector.CreateInstance<IOwnerRepository>();
         }
         public void Add(Owner owner)
         {

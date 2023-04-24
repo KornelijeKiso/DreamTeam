@@ -37,8 +37,8 @@ namespace ProjectTourism.View.Guest1View
             DataContext = this;
             Guest1VM = new Guest1VM(new Guest1(userVM.GetUser()));
             UserVM = userVM;
-            Guest1Service = new Guest1Service(new Guest1Repository());
-            UserService = new UserService(new UserRepository());
+            Guest1Service = new Guest1Service();
+            UserService = new UserService();
         }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

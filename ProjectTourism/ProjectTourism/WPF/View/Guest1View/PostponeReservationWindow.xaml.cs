@@ -47,7 +47,7 @@ namespace ProjectTourism.WPF.View.Guest1View
             EndDatePicker.DisplayDate = DateTime.Now;
             endingDate = DateOnly.FromDateTime(DateTime.Now);
             EndDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1, 1, 1), DateTime.Now.AddDays(-1)));
-            ReservationService reservationService = new ReservationService(new ReservationRepository());
+            ReservationService reservationService = new ReservationService();
             ReservationVMs = new ObservableCollection<ReservationVM>(reservationService.GetAll().Select(r => new ReservationVM(r)).Reverse().ToList());
 
             foreach (ReservationVM reservationVM in ReservationVMs)

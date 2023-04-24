@@ -13,9 +13,9 @@ namespace ProjectTourism.Services
     public class UserService
     {
         private IUserRepository UserRepo;
-        public UserService(IUserRepository iur)
+        public UserService()
         {
-            UserRepo = iur;
+            UserRepo = Injector.Injector.CreateInstance<IUserRepository>();
         }
         public void Add(UserVM user)
         {

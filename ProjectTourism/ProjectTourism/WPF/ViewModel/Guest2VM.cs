@@ -53,7 +53,7 @@ namespace ProjectTourism.WPF.ViewModel
             TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
             TourService tourService = new TourService(new TourRepository());
             TicketGradeService ticketGradeService = new TicketGradeService(new TicketGradeRepository());
-            LocationService locationService = new LocationService(new LocationRepository());
+            LocationService locationService = new LocationService();
             GuideService guideService = new GuideService(new GuideRepository());
 
             _guest2.Vouchers = new List<Voucher>();
@@ -93,7 +93,7 @@ namespace ProjectTourism.WPF.ViewModel
             TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
             TourService tourService = new TourService(new TourRepository());
             TicketGradeService ticketGradeService = new TicketGradeService(new TicketGradeRepository());
-            LocationService locationService = new LocationService(new LocationRepository());
+            LocationService locationService = new LocationService();
             GuideService guideService = new GuideService(new GuideRepository());
 
             _guest2.Tickets = new List<Ticket>();
@@ -119,7 +119,7 @@ namespace ProjectTourism.WPF.ViewModel
             TourService tourService = new TourService(new TourRepository());
             GuideService guideService = new GuideService(new GuideRepository());
             TourAppointmentService tourAppointmentService = new TourAppointmentService(new TourAppointmentRepository());
-            LocationService locationService = new LocationService(new LocationRepository());
+            LocationService locationService = new LocationService();
 
             foreach (var tour in Tours)
             {

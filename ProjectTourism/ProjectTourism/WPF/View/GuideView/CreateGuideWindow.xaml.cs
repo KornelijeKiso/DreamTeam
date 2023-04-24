@@ -37,7 +37,7 @@ namespace ProjectTourism.View.GuideView
             Guide = new GuideVM(new Guide(userVM.GetUser()));
             UserVM = userVM;
             GuideService = new GuideService(new GuideRepository());
-            UserService = new UserService(new UserRepository());
+            UserService = new UserService();
         }
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

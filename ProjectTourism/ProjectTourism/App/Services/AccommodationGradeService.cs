@@ -13,9 +13,9 @@ namespace ProjectTourism.Services
     public class AccommodationGradeService
     {
         private IAccommodationGradeRepository AccommodationGradeRepo;
-        public AccommodationGradeService(IAccommodationGradeRepository iagr)
+        public AccommodationGradeService()
         {
-            AccommodationGradeRepo = iagr;
+            AccommodationGradeRepo = Injector.Injector.CreateInstance<IAccommodationGradeRepository>(); ;
         }
         public void Add(AccommodationGrade accommodationGrade)
         {

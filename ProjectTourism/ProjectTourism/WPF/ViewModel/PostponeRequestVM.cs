@@ -27,7 +27,7 @@ namespace ProjectTourism.WPF.ViewModel
 
         public void Update()
         {
-            PostponeRequestService postponeRequestService = new PostponeRequestService(new PostponeRequestRepository());
+            PostponeRequestService postponeRequestService = new PostponeRequestService();
             postponeRequestService.Update(this.GetPostponeRequest());
         }
         public int Id
