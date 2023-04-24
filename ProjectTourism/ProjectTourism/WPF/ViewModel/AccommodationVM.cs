@@ -36,6 +36,30 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+        public string TypeIcon
+        {
+            get
+            {
+                switch (_accommodation.Type)
+                {
+                    case ACCOMMODATIONTYPE.APARTMENT: return "https://img.icons8.com/external-xnimrodx-blue-xnimrodx/512/external-hotel-resort-xnimrodx-blue-xnimrodx.png";
+                    case ACCOMMODATIONTYPE.HOUSE: return "https://img.icons8.com/external-xnimrodx-blue-xnimrodx/2x/external-house-town-xnimrodx-blue-xnimrodx-4.png";
+                    default: return "https://img.icons8.com/external-xnimrodx-blue-xnimrodx/512/external-hut-resort-xnimrodx-blue-xnimrodx.png";
+                }
+            }
+        }
+        public string TypeString
+        {
+            get
+            {
+                switch (_accommodation.Type)
+                {
+                    case ACCOMMODATIONTYPE.APARTMENT: return "Apartment";
+                    case ACCOMMODATIONTYPE.HOUSE: return "   House  ";
+                    default: return "     Hut   ";
+                }
+            }
+        }
         public string PictureURLs
         {
             get => _accommodation.PictureURLs;
