@@ -50,8 +50,11 @@ namespace ProjectTourism.WPF.ViewModel
                     tour.Guide = _guide;
                     tour.Location = locationService.GetOne(tour.LocationId);
                     SynchronizeTourAppointments(tourAppointmentService, ticketService, ticketGradeService, guest2Service, voucherService, tour);
-                    _guide.Tours.Add(tour);
-                    _guide.TourAppointments.AddRange(tour.TourAppointments);
+                    if (!_guide.Tours.Contains(tour))
+                    {
+                        _guide.Tours.Add(tour);
+                        _guide.TourAppointments.AddRange(tour.TourAppointments);
+                    }
                 }
             }
         }

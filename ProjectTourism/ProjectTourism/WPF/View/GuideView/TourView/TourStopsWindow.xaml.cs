@@ -110,8 +110,6 @@ namespace ProjectTourism.View.GuideView.TourView
         private void EmergencyStopButton_Click(object sender, RoutedEventArgs e)
         {
             TourAppointment.Tour.Guide.EmergencyStop(TourAppointment);
-            MainGuideWindow mainGuideWindow = new MainGuideWindow(Guide.Username);
-            mainGuideWindow.ShowDialog();
         }
         private void TicketStatusButton_Click(object sender, RoutedEventArgs e)
         {
