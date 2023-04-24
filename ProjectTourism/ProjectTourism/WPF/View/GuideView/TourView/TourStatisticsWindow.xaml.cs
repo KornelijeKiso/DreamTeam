@@ -214,7 +214,6 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 label.TextAlignment = TextAlignment.Left;
                 label.Width = 400;
                 label.Height = 50;
-                Canvas.SetLeft(label, -30);
                 Canvas.SetTop(label, 50);
                 PieChartCanvas.Children.Add(label);
 
@@ -222,7 +221,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 sadGhostImage.Source = new BitmapImage(new Uri("https://img.icons8.com/color-glass/256/sad-ghost.png"));
                 sadGhostImage.Width = 80;
                 sadGhostImage.Height = 80;
-                sadGhostImage.Margin = new Thickness(120, 90, 30, 380);
+                sadGhostImage.Margin = new Thickness(150, 90, 30, 480);
                 PieChartCanvas.Children.Add(sadGhostImage);
                 return;
             }

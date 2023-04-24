@@ -172,6 +172,8 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
+        public bool CanBeCanceled { get => _tourAppointment.TourDateTime > DateTime.Now.AddHours(48); }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
