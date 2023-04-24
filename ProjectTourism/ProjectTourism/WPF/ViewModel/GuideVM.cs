@@ -96,10 +96,8 @@ namespace ProjectTourism.WPF.ViewModel
         public void CancelAppointment(TourAppointmentVM tourApp)
         {
             TourAppointmentService tourAppointmentService = new TourAppointmentService();
-            CanceledTourAppointmentsService canceledTourAppointmentsService = new CanceledTourAppointmentsService();
-            TourAppointments.Remove(tourApp);
-            tourAppointmentService.Delete(tourApp.Id);
-            canceledTourAppointmentsService.Add(tourApp.GetTourAppointment());
+            tourApp.State = TOURSTATE.CANCELED;
+            tourAppointmentService.Update(tourApp.GetTourAppointment());
         }
         public string NextStop(TourAppointment tourApp)
         {

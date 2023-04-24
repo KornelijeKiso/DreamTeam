@@ -26,11 +26,10 @@ namespace ProjectTourism.View.GuideView.TourView
         public TourAppointmentVM SelectedAppointment { get; set; }
         public GuideVM Guide { get; set; }
         public ObservableCollection<TourAppointmentVM> FinishedApps { get; set; }
-        //public ObservableCollection<TourAppointmentVM> CanceledApps { get; set; }
+        public ObservableCollection<TourAppointmentVM> CanceledApps { get; set; }
         public ObservableCollection<TourAppointmentVM> ReadyApps { get; set; }
         public ObservableCollection<TourAppointmentVM> StoppedApps { get; set; }
         public ObservableCollection<TourAppointmentVM> SortedFinishedApps { get; set; }
-        //public ObservableCollection<TourAppointmentVM> SortedCanceledApps { get; set; }
         public ObservableCollection<TourAppointmentVM> SortedReadyApps { get; set; }
         public ObservableCollection<TourAppointmentVM> SortedStoppedApps { get; set; }
         public ViewAllAppointmentsWindow(string username)
@@ -51,7 +50,7 @@ namespace ProjectTourism.View.GuideView.TourView
         private void InitializeApps()
         {
             FinishedApps = new ObservableCollection<TourAppointmentVM>();
-            //CanceledApps = new ObservableCollection<TourAppointmentVM>();
+            CanceledApps = new ObservableCollection<TourAppointmentVM>();
             ReadyApps = new ObservableCollection<TourAppointmentVM>();
             StoppedApps = new ObservableCollection<TourAppointmentVM>();
         }
@@ -63,8 +62,10 @@ namespace ProjectTourism.View.GuideView.TourView
                     FinishedApps.Add(tourApp);
                 else if (tourApp.State == TOURSTATE.READY)
                     ReadyApps.Add(tourApp);
-                else if(tourApp.State == TOURSTATE.STOPPED)
+                else if (tourApp.State == TOURSTATE.STOPPED)
                     StoppedApps.Add(tourApp);
+                else if (tourApp.State == TOURSTATE.CANCELED)
+                    CanceledApps.Add(tourApp);
             }
         }
         private void QuitButton_Click(object sender, RoutedEventArgs e)
@@ -75,6 +76,7 @@ namespace ProjectTourism.View.GuideView.TourView
             {
                 Guide.CancelAppointment(SelectedAppointment);
                 MessageBox.Show(name + " has been succesfully deleted!");
+                CanceledApps.Add(SelectedAppointment);
                 SortedReadyApps.Remove(SelectedAppointment);
             }
         }

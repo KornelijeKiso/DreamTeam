@@ -21,7 +21,6 @@ namespace Injector
             _implementations.Add(typeof(IAccommodationGradeRepository), new AccommodationGradeRepository());
             _implementations.Add(typeof(IAccommodationRepository), new AccommodationRepository());
             _implementations.Add(typeof(ICanceledReservationRepository), new CanceledReservationRepository());
-            _implementations.Add(typeof(ICanceledTourAppointmentsRepository), new CanceledTourAppointmentsRepository());
             _implementations.Add(typeof(ICurrentUserRepository), new CurrentUserRepository());
             _implementations.Add(typeof(IGuest1GradeRepository), new Guest1GradeRepository());
             _implementations.Add(typeof(IGuest1Repository), new Guest1Repository());

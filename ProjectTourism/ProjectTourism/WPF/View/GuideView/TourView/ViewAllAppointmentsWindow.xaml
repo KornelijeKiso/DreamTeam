@@ -347,6 +347,82 @@
                     </DataGrid>
                 </Grid>
             </TabItem>
+
+            <TabItem Header="Canceled" Height="40" Width="70">
+                <Grid>
+                    <DataGrid x:Name="DataGridCanceledTours" 
+                    ItemsSource="{Binding CanceledApps, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged}"
+                    SelectionMode="Single"
+                    VerticalScrollBarVisibility="Visible" 
+                    GridLinesVisibility="Horizontal"
+                    IsReadOnly="True" AutoGenerateColumns="False" Margin="10,10,10,10" RowHeight="50">
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
+                        </DataGrid.Resources>
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Style>
+                        </DataGrid.CellStyle>
+                        <DataGrid.Columns>
+
+                            <DataGridTemplateColumn Width="*" Header="Name">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical" >
+                                            <Label Content="{Binding Path=Tour.Name}" Margin="0,-3,0,-7" FontWeight="SemiBold" ></Label>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
+                                                <Label Margin="0,0,0,-7">
+                                                    <Label.Content>
+                                                        <TextBlock>
+                                                            <TextBlock.Text>
+                                                                <MultiBinding StringFormat="{}{0}, {1}">
+                                                                    <Binding Path="Tour.Location.Country" />
+                                                                    <Binding Path="Tour.Location.City" />
+                                                                </MultiBinding>
+                                                            </TextBlock.Text>
+                                                        </TextBlock>
+                                                    </Label.Content>
+                                                </Label>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="100" Header="Time">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <Label.Content>
+                                                <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0:d2}:{1:d2}">
+                                                            <Binding Path="TourDateTime.Hour" />
+                                                            <Binding Path="TourDateTime.Minute" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </Label.Content>
+                                        </Label>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+                            <DataGridTemplateColumn Width="80" Header="Date" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Path=TourDateTime.Date}" VerticalAlignment="Center" FontSize="15"></Label>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
         </TabControl>
 
         <Label Content="All appointments" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="377" FontSize="40"/>

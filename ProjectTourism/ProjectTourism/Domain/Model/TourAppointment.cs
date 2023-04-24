@@ -83,6 +83,8 @@ namespace ProjectTourism.Model
                     { State = TOURSTATE.FINISHED; IsNotFinished = false; break; }
                 case "STOPPED":
                     { State = TOURSTATE.STOPPED; IsNotFinished = false; break; }
+                case "CANCELED":
+                    { State = TOURSTATE.CANCELED; IsNotFinished = false; break; }
                 default:
                     { State = TOURSTATE.READY; IsNotFinished = true; break; }
             }
