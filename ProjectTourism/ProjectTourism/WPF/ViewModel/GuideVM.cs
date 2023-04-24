@@ -59,7 +59,6 @@ namespace ProjectTourism.WPF.ViewModel
                         if (!_guide.TourAppointments.Contains(app))
                             _guide.TourAppointments.Add(app);
                     }
-                    //_guide.TourAppointments.AddRange(tour.TourAppointments);
                 }
             }
         }
