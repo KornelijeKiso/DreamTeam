@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.Repositories;
 using ProjectTourism.WPF.ViewModel;
+using ProjectTourism.Repositories.IRepositories;
 
 namespace ProjectTourism.Services
 {
@@ -14,9 +15,9 @@ namespace ProjectTourism.Services
     {
         private ITourRepository TourRepository;
 
-        public TourService(ITourRepository tourRepository)
+        public TourService()
         {
-            TourRepository = tourRepository;
+            TourRepository = Injector.Injector.CreateInstance<ITourRepository>();
         }
         public int AddAndReturnId(Tour tour)
         {

@@ -57,6 +57,16 @@
                                     <Label Content="State :" Margin="0,0,-7,-7" ></Label>
                                     <Label Content="{Binding State}" Margin="0,0,0,-7" FontWeight="Bold"></Label>
                                 </StackPanel>
+                                <Button HorizontalAlignment="Right" Height="35" Width="35" Margin="0, -25, 10, 0" Click="ManageButton_Click">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="https://img.icons8.com/pulsar-color/1x/go.png" />
+                                    </Button.Background>
+                                </Button>
+                                <Button HorizontalAlignment="Right" Height="35" Width="35" Margin="0, -35, 60, 0" Click="ReviewsButton_Click">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="https://img.icons8.com/pulsar-color/256/comments.png" />
+                                    </Button.Background>
+                                </Button>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -81,8 +91,6 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Button x:Name="StartTourButton" Content="Manage" HorizontalAlignment="Left" Height="49" Margin="1069,147,0,0" VerticalAlignment="Top" Width="123" Click="StartTourButton_Click"/>
-        <Button x:Name="ReviewButton" Content="Reviews" HorizontalAlignment="Left" Height="49" Margin="1069,227,0,0" VerticalAlignment="Top" Width="123" Click="ReviewButton_Click"/>
         <Label Name="TodaysToursLabel" Content="Today's tours" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         <ContentControl x:Name="ContentArea"></ContentControl>
     </Grid>

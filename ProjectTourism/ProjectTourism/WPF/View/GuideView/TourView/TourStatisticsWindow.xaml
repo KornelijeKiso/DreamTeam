@@ -12,7 +12,7 @@
                     SelectedItem="{Binding SelectedTourApp, UpdateSourceTrigger=PropertyChanged}"
                     SelectionMode="Single"
                     VerticalScrollBarVisibility="Visible" 
-                    IsReadOnly="True" AutoGenerateColumns="False" Margin="50,263,684,49" RowHeight="100" HeadersVisibility="None" >
+                    IsReadOnly="True" AutoGenerateColumns="False" Margin="50,263,586,49" RowHeight="100" >
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
             </DataGrid.Resources>
@@ -22,7 +22,7 @@
                 </Style>
             </DataGrid.CellStyle>
             <DataGrid.Columns>
-
+        
                 <DataGridTemplateColumn Width="120" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -32,7 +32,12 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Width="*">
+                <DataGridTemplateColumn Width="*" Header="Tour info">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" >
@@ -69,14 +74,19 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Width="100">
+                <DataGridTemplateColumn Width="100" Header="Time">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Label Margin="0,0,0,-7" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Label.Content>
                                     <TextBlock>
                                         <TextBlock.Text>
-                                            <MultiBinding StringFormat="{} {0}:{1}">
+                                            <MultiBinding StringFormat="{}{0:d2}:{1:d2}">
                                                 <Binding Path="TourDateTime.Hour" />
                                                 <Binding Path="TourDateTime.Minute" />
                                             </MultiBinding>
@@ -87,30 +97,34 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                
-                <DataGridTemplateColumn Width="80" >
+
+                <DataGridTemplateColumn Width="80" Header="Visits" >
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Label Content="{Binding Visits}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="15" Margin="0,0,0,-7"></Label>
+                            <Label Content="{Binding Visits}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Margin="0,0,0,-7"></Label>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                
+
             </DataGrid.Columns>
         </DataGrid>
-        
+
         <Grid x:Name="StatsGrid">
-            <GroupBox x:Name="FieldSet" Header="Tour statistics" Margin="759,167,0,0" Height="371" Width="450" FontSize="15" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="#FF61676B" Background="#FF9BC8EC" FontWeight="SemiBold">
+            <GroupBox x:Name="FieldSet" Header="Tour statistics" Margin="767,250,0,0" Height="387" Width="462" FontSize="15" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="#FF61676B" Background="#FF9BC8EC" FontWeight="SemiBold">
                 <Grid>
-                    <Canvas x:Name="PieChartCanvas" Margin="47,43,490,171"/>
+                    <Canvas x:Name="PieChartCanvas" Margin="33,52,405,162"/>
                 </Grid>
-                
+
             </GroupBox>
             <Grid>
-                <Canvas x:Name="AgeGropsCanvas" Margin="1037,360,45,201"/>
+                <Canvas x:Name="AgeGropsCanvas" Margin="1074,460,50,70"/>
             </Grid>
         </Grid>
-        <Label Content="Visits" HorizontalAlignment="Left" Height="41" Margin="504,228,0,0" VerticalAlignment="Top" Width="84" FontSize="15"/>
         <ComboBox x:Name="comboboxYears" SelectionChanged="YearsComboBox_SelectionChanged" HorizontalAlignment="Left" Height="43" Margin="50,167,0,0" VerticalAlignment="Top" Width="132" FontSize="20"/>
     </Grid>
 </UserControl>

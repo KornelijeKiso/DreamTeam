@@ -25,7 +25,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public UserVM CurrentUser { get; set; }
         public void SetGuest2()
         {
-            CurrentUserService = new CurrentUserService(new CurrentUserRepository());
+            CurrentUserService = new CurrentUserService();
             CurrentUser = new UserVM(CurrentUserService.GetUser());
             Guest2 = new Guest2VM(CurrentUser.Username);
         }

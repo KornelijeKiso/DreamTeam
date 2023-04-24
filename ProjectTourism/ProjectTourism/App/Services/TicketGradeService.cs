@@ -1,6 +1,7 @@
 ﻿using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.Model;
 using ProjectTourism.Repositories;
+using ProjectTourism.Repositories.IRepositories;
 using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,9 @@ namespace ProjectTourism.Services
     {
         private ITicketGradeRepository TicketGradeRepository;
 
-        public TicketGradeService(ITicketGradeRepository itgr)
+        public TicketGradeService()
         {
-            TicketGradeRepository = itgr;
+            TicketGradeRepository = Injector.Injector.CreateInstance<ITicketGradeRepository>();
         }
         public void Update(TicketGrade ticketGrade)
         {

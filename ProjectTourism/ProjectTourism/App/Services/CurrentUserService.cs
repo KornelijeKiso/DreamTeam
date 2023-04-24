@@ -1,6 +1,7 @@
 ﻿using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.Model;
 using ProjectTourism.Repositories;
+using ProjectTourism.Repositories.IRepositories;
 using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -13,9 +14,9 @@ namespace ProjectTourism.Services
     public class CurrentUserService
     {
         private ICurrentUserRepository CurrentUserRepo;
-        public CurrentUserService(ICurrentUserRepository icur)
+        public CurrentUserService()
         {
-            CurrentUserRepo = icur;
+            CurrentUserRepo = Injector.Injector.CreateInstance<ICurrentUserRepository>();
         }
         public void Add(User user)
         {

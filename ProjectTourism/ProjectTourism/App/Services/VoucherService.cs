@@ -7,16 +7,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectTourism.Repositories.IRepositories;
 
 namespace ProjectTourism.Services
 {
     public class VoucherService
     {
         private IVoucherRepository VoucherRepository;
-
-        public VoucherService(IVoucherRepository ivr)
+        public VoucherService()
         {
-            VoucherRepository = ivr;
+            VoucherRepository = Injector.Injector.CreateInstance<IVoucherRepository>();
         }
         public Voucher GetOne(int id)
         {
@@ -42,7 +42,6 @@ namespace ProjectTourism.Services
         {
             VoucherRepository.Update(voucher);
         }
-
         public List<Voucher> GetAllByGuest2(string guest2username)
         {
             return VoucherRepository.GetAllByGuest2(guest2username);

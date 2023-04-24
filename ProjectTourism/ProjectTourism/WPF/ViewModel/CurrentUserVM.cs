@@ -31,13 +31,13 @@ namespace ProjectTourism.WPF.ViewModel
 
         private void LoginCurrentUser()
         {
-            CurrentUserService currentUserService = new CurrentUserService(new CurrentUserRepository());
+            CurrentUserService currentUserService = new CurrentUserService();
             currentUserService.Add(_current);
         }
 
         public void LogoutCurrentUser()
         {
-            CurrentUserService currentUserService = new CurrentUserService(new CurrentUserRepository());
+            CurrentUserService currentUserService = new CurrentUserService();
             currentUserService.Delete();
         }
 

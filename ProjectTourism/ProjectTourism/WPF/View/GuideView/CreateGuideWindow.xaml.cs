@@ -36,7 +36,7 @@ namespace ProjectTourism.View.GuideView
             DataContext = this;
             Guide = new GuideVM(new Guide(userVM.GetUser()));
             UserVM = userVM;
-            GuideService = new GuideService(new GuideRepository());
+            GuideService = new GuideService();
             UserService = new UserService();
         }
 
