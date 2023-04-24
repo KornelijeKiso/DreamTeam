@@ -32,7 +32,7 @@ namespace ProjectTourism.View.GuideView.TourView
             DataContext = this;
             Guide = new GuideVM(username);
         }
-        private void StartTourButton_Click(object sender, RoutedEventArgs e)
+        private void ManageButton_Click(object sender, RoutedEventArgs e)
         {
             if (SelectedTourAppointment != null)
             {
@@ -44,7 +44,7 @@ namespace ProjectTourism.View.GuideView.TourView
             else
                 MessageBox.Show("You must choose an appointment which you would like to start.");
         }
-        private void ReviewButton_Click(object sender, RoutedEventArgs e)
+        private void ReviewsButton_Click(object sender, RoutedEventArgs e)
         {
             if (SelectedTourAppointment != null)
             {
@@ -53,7 +53,6 @@ namespace ProjectTourism.View.GuideView.TourView
                 else
                     MessageBox.Show("The selected appointment was not finished yet!");
             }
-                
             else
                 MessageBox.Show("You must choose an appointment which reviews you would like to see.");
         }
@@ -71,7 +70,7 @@ namespace ProjectTourism.View.GuideView.TourView
 
         private void HideTodaysToursContent()
         {
-            List<UIElement> elementsToHide = new List<UIElement> { StartTourButton, TodaysToursLabel, DataGridTourAppointments, ReviewButton };
+            List<UIElement> elementsToHide = new List<UIElement> { TodaysToursLabel, DataGridTourAppointments };
             elementsToHide.ForEach(element => element.Visibility = Visibility.Hidden);
         }
         public void Update() { }
