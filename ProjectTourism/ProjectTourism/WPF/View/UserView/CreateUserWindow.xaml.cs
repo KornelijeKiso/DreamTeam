@@ -31,21 +31,12 @@ namespace ProjectTourism.View.UserView
     public partial class CreateUserWindow : Window, INotifyPropertyChanged
     {
         public UserVM User { get; set; }
-        public UserService UserService { get; set; }
         public CreateUserWindow()
         {
             InitializeComponent();
             DataContext = this;
             User = new UserVM(new User());
-            UserService = new UserService();
         }
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
         private void CreateUserClick(object sender, RoutedEventArgs e)
         {
             UserTypeComboBox();
@@ -77,15 +68,13 @@ namespace ProjectTourism.View.UserView
                 }
             }
             else
-            {
                 MessageBox.Show("You have not entered the data correctly.");
-            }
         }
 
         private bool IsValidUsername()
         {
             string username = txtUsername.Text;
-            if (UserService.UsernameAlreadyInUse(username))
+            if (User.IsUsernameAlreadyInUse(username))
             {
                 MessageBox.Show("Username already in use.");
                 return false;
@@ -117,5 +106,10 @@ namespace ProjectTourism.View.UserView
             }
         }
         public void Update() { }
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
     }
 }

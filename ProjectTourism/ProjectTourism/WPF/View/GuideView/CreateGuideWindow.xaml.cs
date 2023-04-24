@@ -28,48 +28,34 @@ namespace ProjectTourism.View.GuideView
     {
         public GuideVM Guide { get; set; }
         public UserVM UserVM { get; set; }
-        public GuideService GuideService { get; set; }
-        public UserService UserService { get; set; }
         public CreateGuideWindow(UserVM userVM)
         {
             InitializeComponent();
             DataContext = this;
             Guide = new GuideVM(new Guide(userVM.GetUser()));
             UserVM = userVM;
-            GuideService = new GuideService();
-            UserService = new UserService();
         }
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public void Update()
-        {
-
-        }
-
         private void CreateGuideButton_Click(object sender, RoutedEventArgs e)
         {
             if (NameSurnameNotNull())
             {
-                UserService.Add(UserVM);
-                GuideService.Add(Guide.GetGuide());
+                UserVM.Add(UserVM);
+                Guide.Add(Guide.GetGuide());
                 Close();
             }
             else
-            {
                 MessageBox.Show("You have not entered the data correctly.");
-            }
         }
-
         private bool NameSurnameNotNull()
         {
             return Guide.GetGuide().FirstName != null
                && Guide.GetGuide().LastName != null;
+        }
+        public void Update() { }
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

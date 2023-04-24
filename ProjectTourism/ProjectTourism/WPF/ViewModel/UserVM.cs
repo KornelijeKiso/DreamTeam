@@ -39,6 +39,16 @@ namespace ProjectTourism.WPF.ViewModel
             return _user;
         }
 
+        public void Add(UserVM user)
+        {
+            UserService userService = new UserService();
+            userService.Add(user);
+        }
+        public bool IsUsernameAlreadyInUse(string username)
+        {
+            UserService userService = new UserService();
+            return userService.UsernameAlreadyInUse(username);
+        }
         public USERTYPE Type
         {
             get => _user.Type;

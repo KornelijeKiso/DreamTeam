@@ -59,6 +59,11 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
+        public void Add(Guide Guide)
+        {
+            GuideService guideService = new GuideService();
+            guideService.Add(Guide);
+        }
         private static void SynchronizeTourAppointments(TourAppointmentService tourAppointmentService, TicketService ticketService, TicketGradeService ticketGradeService, Guest2Service guest2Service, VoucherService voucherService, Tour tour)
         {
             foreach (var tourApp in tourAppointmentService.GetAllByTour(tour.Id))
