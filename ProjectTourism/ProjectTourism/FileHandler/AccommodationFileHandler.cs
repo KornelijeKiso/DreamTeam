@@ -16,7 +16,6 @@ namespace ProjectTourism.FileHandler
         public AccommodationFileHandler()
         {
             Serializer = new Serializer<Accommodation>();
-            Accommodations = Serializer.fromCSV(Filename);
         }
 
         public List<Accommodation> Load()

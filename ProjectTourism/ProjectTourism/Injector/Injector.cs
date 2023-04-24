@@ -37,6 +37,7 @@ namespace Injector
             _implementations.Add(typeof(IUserRepository), new UserRepository());
             _implementations.Add(typeof(IVoucherRepository), new VoucherRepository());
             _implementations.Add(typeof(ITicketRepository), new TicketRepository());
+            _implementations.Add(typeof(IRenovationRepository), new RenovationRepository());
         }
 
         public static T CreateInstance<T>()

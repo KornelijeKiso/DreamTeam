@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProjectTourism.WPF.View.OwnerView"
+             xmlns:conv="clr-namespace:ProjectTourism.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="640" d:DesignWidth="1000">
     <UserControl.Resources>
@@ -14,7 +15,7 @@
             </StackPanel>
 
         </ControlTemplate>
-        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </UserControl.Resources>
     <Grid>
         <DataGrid x:Name="DataGridAccommodations" HeadersVisibility="None" ItemsSource="{Binding Path=Owner.Accommodations, UpdateSourceTrigger=PropertyChanged}"
@@ -94,22 +95,22 @@
 
                                 <Image Source="{Binding Path=TypeIcon}" Margin="10 -135 0 0" Height="40"></Image>
                                 <Label Content="{Binding Path=TypeString}" Margin="257 -52 0 0" Foreground="DodgerBlue" FontWeight="SemiBold"></Label>
-                                    <Button BorderBrush="DodgerBlue" BorderThickness="2" Content="Renovate" Height="25" Width="100" Margin="205 -85 0 0">
+                                <Button BorderBrush="DodgerBlue" Click="RegisterAccommodationClick" BorderThickness="2" Content="Renovate" Height="25" Width="100" Margin="205 -85 0 0">
                                     <Button.Resources>
                                         <Style TargetType="Border">
                                             <Setter Property="CornerRadius" Value="5"/>
                                         </Style>
                                     </Button.Resources>
                                 </Button>
-                                <Button BorderBrush="DodgerBlue" BorderThickness="2" Content="Statistics" Height="25" Width="100" Margin="205 -151 0 0">
+                                <Button BorderBrush="DodgerBlue" Click="RegisterAccommodationClick" BorderThickness="2" Content="Statistics" Height="25" Width="100" Margin="205 -151 0 0">
                                     <Button.Resources>
                                         <Style TargetType="Border">
                                             <Setter Property="CornerRadius" Value="5"/>
                                         </Style>
                                     </Button.Resources>
                                 </Button>
-                                <Image Margin="205 -249 0 0" Source="https://img.icons8.com/3d-fluency/2x/prize.png" Width="38"></Image>
-                                <Label Margin="355 -116 0 0" Foreground="DarkRed" Content="Renovated" ></Label>
+                                <Image Margin="205 -249 0 0" Source="https://img.icons8.com/3d-fluency/2x/prize.png" Width="38" Visibility="{Binding Path=IsRecentlyRenovated, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Image>
+                                <Label Margin="355 -116 0 0" Foreground="DarkRed" Content="Renovated" Visibility="{Binding Path=IsRecentlyRenovated, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Label>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

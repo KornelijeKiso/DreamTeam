@@ -1,6 +1,8 @@
-﻿using ProjectTourism.Model;
+﻿using ProjectTourism.Domain.Model;
+using ProjectTourism.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -15,6 +17,8 @@ namespace ProjectTourism.WPF.ViewModel
         public AccommodationVM(Accommodation accommodation)
         {
             _accommodation= accommodation;
+            Reservations = new ObservableCollection<ReservationVM>(_accommodation.Reservations.Select(r => new ReservationVM(r)).Reverse().ToList());
+            Renovations = new ObservableCollection<RenovationVM>(_accommodation.Renovations.Select(r => new RenovationVM(r)).Reverse().ToList());
         }
         public AccommodationVM(AccommodationVM accommodation)
         {
@@ -185,7 +189,13 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        
+        public bool IsRecentlyRenovated
+        {
+            get => Renovations.ToList().Find(r=>r.EndDate>DateOnly.FromDateTime(DateTime.Now.AddYears(-1)) && r.EndDate<DateOnly.FromDateTime(DateTime.Now)) != null;
+        }
+        public ObservableCollection<ReservationVM> Reservations { get; set; }
+        public ObservableCollection<RenovationVM> Renovations { get; set; }
+
         public void SetLocation(Location location)
         {
             Location = new LocationVM(location);
