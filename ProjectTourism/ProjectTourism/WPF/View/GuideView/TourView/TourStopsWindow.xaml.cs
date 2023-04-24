@@ -48,11 +48,9 @@ namespace ProjectTourism.View.GuideView.TourView
             if (SelectedTourAppointment.CurrentTourStop.Equals(SelectedTourAppointment.Tour.Finish))
             {
                 EmergencyStopButton.IsEnabled = false;
-                ReviewsButton.IsEnabled = true;
                 StopPassedButton.IsEnabled = false;
                 TourAppointment.Tour.Guide.EndTour(SelectedTourAppointment);
             }
-
         }
         private void EmergencyButtonSet()
         {

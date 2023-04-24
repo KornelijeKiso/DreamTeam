@@ -1,10 +1,7 @@
 ﻿using ProjectTourism.Model;
 using ProjectTourism.View.Guest1View;
 using ProjectTourism.View.GuideView;
-using ProjectTourism.View.OwnerView;
 using ProjectTourism.View.Guest2View;
-using ProjectTourism.Repositories;
-using ProjectTourism.Services;
 using ProjectTourism.WPF.ViewModel;
 using ProjectTourism.Domain.IRepositories;
 using System;

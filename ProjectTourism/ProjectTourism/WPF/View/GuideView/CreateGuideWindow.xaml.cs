@@ -1,7 +1,4 @@
 ﻿using ProjectTourism.Model;
-using ProjectTourism.Repositories;
-using ProjectTourism.Services;
-using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;

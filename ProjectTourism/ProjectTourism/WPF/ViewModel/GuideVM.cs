@@ -53,8 +53,13 @@ namespace ProjectTourism.WPF.ViewModel
                     if (!_guide.Tours.Contains(tour))
                     {
                         _guide.Tours.Add(tour);
-                        _guide.TourAppointments.AddRange(tour.TourAppointments);
                     }
+                    foreach(var app in tour.TourAppointments)
+                    {
+                        if (!_guide.TourAppointments.Contains(app))
+                            _guide.TourAppointments.Add(app);
+                    }
+                    //_guide.TourAppointments.AddRange(tour.TourAppointments);
                 }
             }
         }
@@ -91,7 +96,6 @@ namespace ProjectTourism.WPF.ViewModel
                 ticket.TourAppointment = tourApp;
             }
         }
-
         public void ReportTicketGrade(TicketVM ticket)
         {
             TicketGradeService ticketGradeService = new TicketGradeService();
@@ -107,7 +111,6 @@ namespace ProjectTourism.WPF.ViewModel
         public string NextStop(TourAppointment tourApp)
         {
             TourAppointmentService tourAppointmentService = new TourAppointmentService();
-            TourService tourService = new TourService();
             GuideService guideService = new GuideService();
 
             string currentStop = tourApp.CurrentTourStop;
@@ -147,8 +150,6 @@ namespace ProjectTourism.WPF.ViewModel
 
             tourApp.CurrentTourStop = tourApp.Tour.StopsList.Last();
             tourApp.State = TOURSTATE.FINISHED;
-            tourApp.IsFinished = true;
-            tourApp.IsNotFinished = false;
             tourAppointmentService.Update(tourApp.GetTourAppointment());
             guideService.Update(_guide);
         }
@@ -159,8 +160,6 @@ namespace ProjectTourism.WPF.ViewModel
 
             tourApp.CurrentTourStop = tourApp.Tour.StopsList.Last();
             tourApp.State = TOURSTATE.FINISHED;
-            tourApp.IsFinished = true;
-            tourApp.IsNotFinished = false;
             tourAppointmentService.Update(tourApp.GetTourAppointment());
             _guide.HasTourStarted = false;
             guideService.Update(_guide);
@@ -179,8 +178,6 @@ namespace ProjectTourism.WPF.ViewModel
             TourAppointmentService tourAppointmentService = new TourAppointmentService();
 
             tourApp.State = TOURSTATE.STOPPED;
-            tourApp.IsNotFinished = false;
-            tourApp.IsFinished = true;
             tourAppointmentService.Update(tourApp.GetTourAppointment());
             _guide.HasTourStarted = false;
             guideService.Update(_guide);

@@ -4,7 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.GuideView.TourView"
+        xmlns:conv="clr-namespace:ProjectTourism.Converters"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <DataGrid x:Name="DataGridTourAppointments" 
                 ItemsSource="{Binding Path=Guide.TodaysAppointments, UpdateSourceTrigger=PropertyChanged}"
@@ -62,7 +68,7 @@
                                         <ImageBrush ImageSource="https://img.icons8.com/pulsar-color/1x/go.png" />
                                     </Button.Background>
                                 </Button>
-                                <Button HorizontalAlignment="Right" Height="35" Width="35" Margin="0, -35, 60, 0" Click="ReviewsButton_Click">
+                                <Button Visibility="{Binding IsReviewVisible, Converter={conv:BoolToVisibilityConverter}}" HorizontalAlignment="Right" Height="35" Width="35" Margin="0, -35, 60, 0" Click="ReviewsButton_Click">
                                     <Button.Background>
                                         <ImageBrush ImageSource="https://img.icons8.com/pulsar-color/256/comments.png" />
                                     </Button.Background>

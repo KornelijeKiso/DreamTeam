@@ -14,9 +14,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using ProjectTourism.Model;
-using ProjectTourism.Repositories;
-using ProjectTourism.Services;
 using ProjectTourism.View.GuideView.TourView;
 using ProjectTourism.View.TourView;
 using ProjectTourism.WPF.View.GuideView.TourView;
@@ -47,19 +44,16 @@ namespace ProjectTourism.View.GuideView
             ContentArea.Content = new ViewAllAppointmentsWindow(Username);
             e.Handled = true;
         }
-
         private void ProfileLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             ContentArea.Content = new ProfileWindow(Username);
             e.Handled = true;
         }
-
         private void RequestsLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             ContentArea.Content = new RequestsWindow();
             e.Handled = true;
         }
-
         private void LiveTourMonitorLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
             ContentArea.Content = new LiveToursTrackingWindow(Username);

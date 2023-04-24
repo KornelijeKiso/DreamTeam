@@ -18,6 +18,7 @@ using ProjectTourism.Services;
 using ProjectTourism.WPF.ViewModel;
 using ProjectTourism.Repositories;
 using System.Runtime.CompilerServices;
+using ProjectTourism.WPF.View.GuideView.TourView;
 
 namespace ProjectTourism.View.GuideView.TourView
 {
@@ -38,8 +39,36 @@ namespace ProjectTourism.View.GuideView.TourView
             DataContext = this;
             Guide = new GuideVM(username);
             InitializeApps();
-            ManageAppointments(Guide);
+            Update(Guide);
             SortByDate();
+        }
+        private void ReviewsButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectedAppointment != null)
+            {
+                if (SelectedAppointment.State == TOURSTATE.FINISHED || SelectedAppointment.State == TOURSTATE.STOPPED)
+                    ShowReviewWindow();
+                else
+                    MessageBox.Show("The selected appointment was not finished yet!");
+            }
+            else
+                MessageBox.Show("You must choose an appointment which reviews you would like to see.");
+        }
+        private void ShowReviewWindow()
+        {
+            if (SelectedAppointment.TicketGrades.Count > 0)
+            {
+                HideAllAppsContent();
+                ContentArea.Content = new ReviewsWindow(SelectedAppointment);
+            }
+            else
+                MessageBox.Show("There are no reviews for this appointment!");
+        }
+
+        public void HideAllAppsContent()
+        {
+            List<UIElement> elementsToHide = new List<UIElement> { grid };
+            elementsToHide.ForEach(element => element.Visibility = Visibility.Hidden);
         }
         private void SortByDate()
         {
@@ -54,20 +83,6 @@ namespace ProjectTourism.View.GuideView.TourView
             ReadyApps = new ObservableCollection<TourAppointmentVM>();
             StoppedApps = new ObservableCollection<TourAppointmentVM>();
         }
-        private void ManageAppointments(GuideVM guide)
-        {
-            foreach(var tourApp in guide.TourAppointments)
-            {
-                if (tourApp.State == TOURSTATE.FINISHED)
-                    FinishedApps.Add(tourApp);
-                else if (tourApp.State == TOURSTATE.READY)
-                    ReadyApps.Add(tourApp);
-                else if (tourApp.State == TOURSTATE.STOPPED)
-                    StoppedApps.Add(tourApp);
-                else if (tourApp.State == TOURSTATE.CANCELED)
-                    CanceledApps.Add(tourApp);
-            }
-        }
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
             string name = new string(SelectedAppointment.Tour.Name);
@@ -80,8 +95,20 @@ namespace ProjectTourism.View.GuideView.TourView
                 SortedReadyApps.Remove(SelectedAppointment);
             }
         }
-        public void Update() { }
-
+        private void Update(GuideVM guide)
+        {
+            foreach (var tourApp in guide.TourAppointments)
+            {
+                if (tourApp.State == TOURSTATE.FINISHED)
+                    FinishedApps.Add(tourApp);
+                else if (tourApp.State == TOURSTATE.READY)
+                    ReadyApps.Add(tourApp);
+                else if (tourApp.State == TOURSTATE.STOPPED)
+                    StoppedApps.Add(tourApp);
+                else if (tourApp.State == TOURSTATE.CANCELED)
+                    CanceledApps.Add(tourApp);
+            }
+        }
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

@@ -26,9 +26,6 @@ namespace ProjectTourism.Model
         public List<Ticket> Tickets;
         public int AvailableSeats;
         public TOURSTATE State;
-        public bool IsNotFinished;
-        public bool IsFinished;
-        public int Visits;
         public List<TicketGrade> TicketGrades { get; set; }
 
         public TourAppointment()
@@ -44,8 +41,6 @@ namespace ProjectTourism.Model
             Tour = tour;
             CurrentTourStop = Tour.Start;
             AvailableSeats = Tour.MaxNumberOfGuests;
-            IsNotFinished = true;
-            IsFinished = false;
             State = TOURSTATE.READY;
             Tickets = new List<Ticket>();
             TicketGrades = new List<TicketGrade>();
@@ -76,17 +71,17 @@ namespace ProjectTourism.Model
             switch (values[5])
             {
                 case "READY":
-                    { State = TOURSTATE.READY; IsNotFinished = true; break; }
+                    { State = TOURSTATE.READY; break; }
                 case "STARTED":
-                    { State = TOURSTATE.STARTED; IsNotFinished = true; break; }
+                    { State = TOURSTATE.STARTED;break; }
                 case "FINISHED":
-                    { State = TOURSTATE.FINISHED; IsNotFinished = false; break; }
+                    { State = TOURSTATE.FINISHED; break; }
                 case "STOPPED":
-                    { State = TOURSTATE.STOPPED; IsNotFinished = false; break; }
+                    { State = TOURSTATE.STOPPED; break; }
                 case "CANCELED":
-                    { State = TOURSTATE.CANCELED; IsNotFinished = false; break; }
+                    { State = TOURSTATE.CANCELED; break; }
                 default:
-                    { State = TOURSTATE.READY; IsNotFinished = true; break; }
+                    { State = TOURSTATE.READY; break; }
             }
         }
     }

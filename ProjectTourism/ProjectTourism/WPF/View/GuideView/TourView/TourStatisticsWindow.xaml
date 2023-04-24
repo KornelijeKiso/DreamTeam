@@ -42,9 +42,10 @@
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" >
                                 <Label Content="{Binding Path=Tour.Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
+                                <Label Content="Statistics" HorizontalAlignment="Right" Margin="0, -5, 0, 0"></Label>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Margin="0,0,0,-7">
+                                    <Label Content="Location :" Margin="0,-15,-7,-7" ></Label>
+                                    <Label Margin="0,-15,0,-7">
                                         <Label.Content>
                                             <TextBlock>
                                                 <TextBlock.Text>
@@ -59,16 +60,17 @@
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
                                     <Label Content="Language :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Content="{Binding Path=Tour.Language}" Margin="0,-0.8,0,0"></Label>
+                                    <Label Content="{Binding Path=Tour.Language}" Margin="0,0.8,0,0"></Label>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label ContentStringFormat="Duration : {0}h" Content="{Binding Path=Tour.Duration}" Margin="0,0,-7,-7" ></Label>
+                                <StackPanel Orientation="Horizontal" Margin="0,-2,0,-7">
+                                    <Label ContentStringFormat="Duration : {0}h" Content="{Binding Path=Tour.Duration}" Margin="0,-2,-7,-7" ></Label>
                                 </StackPanel>
-                                <Button HorizontalAlignment="Right" Height="35" Width="35" Margin="0, -25, 10, 0" Click="StatsButton_Click">
+                                <Button HorizontalAlignment="Right" Height="35" Width="35" Margin="0, -28, 10, 0" Click="StatsButton_Click">
                                     <Button.Background>
                                         <ImageBrush ImageSource="https://i.pinimg.com/564x/df/f9/82/dff9823eb1ec2d29b41913332689b8f7.jpg" />
                                     </Button.Background>
                                 </Button>
+
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
