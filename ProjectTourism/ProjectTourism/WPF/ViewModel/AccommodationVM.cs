@@ -211,6 +211,13 @@ namespace ProjectTourism.WPF.ViewModel
             RenovationService renovationService = new RenovationService();
             renovationService.Cancel(renovation.GetRenovation());
         }
+        public void ScheduleNewRenovation(RenovationVM renovation)
+        {
+            Renovations.Insert(0,renovation);
+            renovation.AccommodationId = Id;
+            RenovationService renovationService = new RenovationService();
+            renovationService.Schedule(renovation.GetRenovation());
+        }
         public void SetLocation(Location location)
         {
             Location = new LocationVM(location);

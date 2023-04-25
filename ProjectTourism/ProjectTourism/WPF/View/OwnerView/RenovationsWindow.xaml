@@ -88,8 +88,8 @@
                             </StackPanel>
                         </GroupBox>
                         <Label Content="Description" Margin="10 -3 0 0" FontSize="13"></Label>
-                        <TextBox Width="310" Height="60" BorderBrush="Green" BorderThickness="2"></TextBox>
-                        <Button Margin="0 10 0 0" Width="130" Content="Schedule renovation" FontSize="13" FontWeight="Normal" Height="28">
+                        <TextBox Width="310" Height="60" BorderBrush="Green" BorderThickness="2" Text="{Binding NewRenovation.Description}"></TextBox>
+                        <Button Margin="0 10 0 0" Width="130" Content="Schedule renovation" FontSize="13" FontWeight="Normal" Height="28" Click="ScheduleRenovationClick">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="5"/>

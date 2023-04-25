@@ -24,9 +24,11 @@ namespace ProjectTourism.WPF.View.OwnerView
     {
         public AccommodationVM Accommodation { get; set; }
         public RenovationVM SelectedRenovation { get; set; }
+        public RenovationVM NewRenovation { get; set; }
         public RenovationsWindow(AccommodationVM accommodation)
         {
             Accommodation = accommodation;
+            NewRenovation = new RenovationVM();
             InitializeComponent();
             DataContext = this;
         }
@@ -35,8 +37,11 @@ namespace ProjectTourism.WPF.View.OwnerView
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        private void CancelRenovationClick(object sender, RoutedEventArgs e)
+        public void ScheduleRenovationClick(object sender, RoutedEventArgs e)
+        {
+            Accommodation.ScheduleNewRenovation(NewRenovation);
+        }
+        public void CancelRenovationClick(object sender, RoutedEventArgs e)
         {
             Accommodation.CancelRenovation(SelectedRenovation);
         }
