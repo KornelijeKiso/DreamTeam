@@ -43,7 +43,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             SearchedNumberOfGuests = "";
             SearchedLanguage = "";
         }
-        private void InitializeUpdatedList()
+        private void SetUpdatedList()
         {
             UpdatedList.Clear();
             UpdatedList.AddRange(RequestList);
@@ -57,12 +57,12 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                     RequestList.Add(request);
             }
             Update();
-            InitializeUpdatedList();
+            SetUpdatedList();
         }
         private void FilterByNumberOfGuests()
         {
             if (SearchedLocation.Equals(""))
-                InitializeUpdatedList();
+                SetUpdatedList();
 
             RequestList.Clear();
             foreach (var request in UpdatedList)
@@ -71,11 +71,19 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                     RequestList.Add(request);
             }
             Update();
-            UpdatedList = RequestList;
+            SetUpdatedList();
         }
         private void FilterByLanguage()
         {
-
+            if(SearchedLocation.Equals("") && SearchedNumberOfGuests.Equals(""))
+                SetUpdatedList();
+            RequestList.Clear();
+            foreach (var request in UpdatedList)
+            {
+                if (request.Language.ToLower().Contains(SearchedLanguage.ToLower()))
+                    RequestList.Add(request);
+            }
+            Update();
         }
         private void Search_Click(object sender, RoutedEventArgs e)
         {
