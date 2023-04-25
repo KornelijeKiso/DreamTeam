@@ -51,7 +51,7 @@ namespace ProjectTourism.View.GuideView
         }
         private void RequestsLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            ContentArea.Content = new RequestsWindow();
+            ContentArea.Content = new RequestsWindow(Username);
             e.Handled = true;
         }
         private void LiveTourMonitorLink_RequestNavigate(object sender, RequestNavigateEventArgs e)

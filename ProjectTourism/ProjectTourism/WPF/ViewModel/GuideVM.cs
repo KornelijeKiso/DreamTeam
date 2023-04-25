@@ -204,9 +204,24 @@ namespace ProjectTourism.WPF.ViewModel
         {
             return _guide;
         }
+
+        public ObservableCollection<RequestVM> GetAllRequests()
+        {
+            RequestService requestService = new RequestService();
+            LocationService locationService = new LocationService();
+            ObservableCollection<RequestVM> requests = new ObservableCollection<RequestVM>();
+
+            foreach(var request in requestService.GetAll())
+            {
+                request.Location = locationService.GetOne(request.LocationId);
+                requests.Add(new RequestVM(request));
+            }
+            return requests;
+        }
         public ObservableCollection<TourVM> Tours { get; set; }
         public ObservableCollection<TourAppointmentVM> TourAppointments { get; set; }
         public ObservableCollection<TourAppointmentVM> TodaysAppointments { get; set; }
+        public ObservableCollection<RequestVM> Requests { get => GetAllRequests(); }
         public bool? IsSuperGuide
         {
             get => _guide.IsSuperGuide;

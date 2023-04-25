@@ -7,5 +7,160 @@
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
         <Label Content="Requests" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
+        <DataGrid  Name="DataGridRow" RowHeight="100" CanUserAddRows="False" HorizontalAlignment="Left" Height="438" VerticalAlignment="Top" Width="745" 
+            SelectedItem="{Binding SelectedRequest, UpdateSourceTrigger=PropertyChanged}" 
+            ItemsSource="{Binding Path=Guide.Requests, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="40,183,0,0">
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
+            </DataGrid.Resources>
+            <DataGrid.Columns>
+
+                <DataGridTemplateColumn Header="City" Width="75">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=Location.City}" TextWrapping="Wrap"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Country" Width="80">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=Location.Country}" TextWrapping="Wrap"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Description" Width="230">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Description}" TextWrapping="Wrap"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Number of guests" Width="105">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding NumberOfGuests}" TextWrapping="Wrap"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Language" Width="70">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Language}" TextWrapping="Wrap"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Date" Width="80">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding StartDate}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Header="Guest username" Width="*">
+                    <DataGridTemplateColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                        </Style>
+                    </DataGridTemplateColumn.HeaderStyle>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Guest2Username}" TextWrapping="Wrap"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Border x:Name="rectangle" Background="#FF9BC8EC" BorderBrush="#FF9BC8EC" BorderThickness="1" CornerRadius="30" Margin="855,183,77,233"/>
+
+
+        <Grid Margin="880,202,102,274">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label x:Name="CityLabel" Grid.Row="0" Grid.Column="0" Content="City"/>
+            <Label x:Name="CountryLabel" Grid.Row="1" Grid.Column="0" Content="Country"/>
+            <Label x:Name="NumberOfGuestsLabel" Grid.Row="2" Grid.Column="0" Content="Number of guests"/>
+            <Label x:Name="LanguageLabel" Grid.Row="3" Grid.Column="0" Content="Language"/>
+            <Label x:Name="StartDateLabel" Grid.Row="4" Grid.Column="0" Content="Start date"/>
+            <Label x:Name="EndDateLabel" Grid.Row="5" Grid.Column="0" Content="End date"/>
+
+            <TextBox x:Name="textbox1" Grid.Row="0" Grid.Column="1" Margin="0,2,0,8"/>
+            <TextBox x:Name="textbox2" Grid.Row="1" Grid.Column="1" Margin="0,2,0,8"/>
+            <TextBox x:Name="textbox3" Grid.Row="2" Grid.Column="1" Margin="0,2,0,8"/>
+            <TextBox x:Name="textbox4" Grid.Row="3" Grid.Column="1" Margin="0,2,0,8"/>
+            <DatePicker x:Name="textbox5" Grid.Row="4" Grid.Column="1" Margin="0,0,0,8"/>
+            <DatePicker x:Name="textbox6" Grid.Row="5" Grid.Column="1" Margin="0,0,0,8"/>
+
+        </Grid>
+        <Button Content="Search" HorizontalAlignment="Left" Height="31" Margin="983,410,0,0" VerticalAlignment="Top" Width="92">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Content="Accept" HorizontalAlignment="Left" Height="31" Margin="1059,590,0,0" VerticalAlignment="Top" Width="92">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button Content="Dismiss" HorizontalAlignment="Left" Height="31" Margin="926,590,0,0" VerticalAlignment="Top" Width="92">
+            <Button.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
     </Grid>
+
 </UserControl>

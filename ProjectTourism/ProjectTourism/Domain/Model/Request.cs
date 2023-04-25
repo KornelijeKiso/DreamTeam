@@ -15,13 +15,12 @@ namespace ProjectTourism.Domain.Model
         public string Description;
         public string Language;
         public int NumberOfGuests;
-        public DateTime StartDate;
-        public DateTime EndDate;
+        public DateOnly StartDate;
+        public DateOnly EndDate;
+        public string Guest2Username;
 
-        public Request()
-        {
+        public Request() { }
 
-        }
         public Request(Request request)
         {
             Id = request.Id;
@@ -31,6 +30,7 @@ namespace ProjectTourism.Domain.Model
             NumberOfGuests = request.NumberOfGuests;
             StartDate = request.StartDate;
             EndDate = request.EndDate;
+            Guest2Username = request.Guest2Username;
         }
         public void FromCSV(string[] values)
         {
@@ -39,8 +39,9 @@ namespace ProjectTourism.Domain.Model
             Description = values[2];
             Language = values[3];
             NumberOfGuests = int.Parse(values[4]);
-            StartDate = DateTime.Parse(values[5]);
-            EndDate = DateTime.Parse(values[6]);
+            StartDate = DateOnly.Parse(values[5]);
+            EndDate = DateOnly.Parse(values[6]);
+            Guest2Username = values[7];
         }
 
         public string[] ToCSV()
@@ -53,7 +54,8 @@ namespace ProjectTourism.Domain.Model
                 Language,
                 NumberOfGuests.ToString(),
                 StartDate.ToString(),
-                EndDate.ToString()
+                EndDate.ToString(),
+                Guest2Username
             };
             return csvValues;
         }

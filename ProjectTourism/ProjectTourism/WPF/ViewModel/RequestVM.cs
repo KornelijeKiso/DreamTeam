@@ -98,7 +98,7 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public DateTime StartDate
+        public DateOnly StartDate
         {
             get => _request.StartDate;
             set
@@ -110,7 +110,7 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public DateTime EndDate
+        public DateOnly EndDate
         {
             get => _request.EndDate;
             set
@@ -118,6 +118,19 @@ namespace ProjectTourism.WPF.ViewModel
                 if (value != _request.EndDate)
                 {
                     _request.EndDate = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string Guest2Username
+        {
+            get => _request.Guest2Username;
+            set
+            {
+                if(value != _request.Guest2Username)
+                {
+                    _request.Guest2Username = value;
                     OnPropertyChanged();
                 }
             }

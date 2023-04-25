@@ -11,15 +11,20 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.GuideView.TourView
 {
     public partial class RequestsWindow : UserControl
     {
-        public RequestsWindow()
+        public RequestVM SelectedRequest { get; set; }
+        public List<RequestVM> Requests { get; set; }
+        public GuideVM Guide { get; set; }
+        public RequestsWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
+            Guide = new GuideVM(username);
         }
     }
 }
