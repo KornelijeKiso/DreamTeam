@@ -227,6 +227,11 @@
                                                     </Label.Content>
                                                 </Label>
                                             </StackPanel>
+                                            <Button Visibility="{Binding IsReviewVisible, Converter={conv:BoolToVisibilityConverter}}" HorizontalAlignment="Right" Height="35" Width="35" Margin="0, -20, 10, 0" Click="ReviewsButton_Click">
+                                                <Button.Background>
+                                                    <ImageBrush ImageSource="https://img.icons8.com/pulsar-color/256/comments.png" />
+                                                </Button.Background>
+                                            </Button>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
