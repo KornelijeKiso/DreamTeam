@@ -16,7 +16,6 @@ namespace ProjectTourism.FileHandler
         public CanceledReservationFileHandler()
         {
             Serializer = new Serializer<Reservation>();
-            Reservations = Serializer.fromCSV(Filename);
         }
 
         public List<Reservation> Load()

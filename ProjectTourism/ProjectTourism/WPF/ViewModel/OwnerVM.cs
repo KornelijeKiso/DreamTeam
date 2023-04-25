@@ -34,12 +34,14 @@ namespace ProjectTourism.WPF.ViewModel
             OwnerService ownerService = new OwnerService();
             AccommodationService accommodationService = new AccommodationService();
             LocationService locationService = new LocationService();
+            RenovationService renovationService = new RenovationService();
 
             _owner = ownerService.GetOne(username);
             _owner.Accommodations = accommodationService.GetAllByOwner(_owner.Username);
             _owner.Reservations = new List<Reservation>();
             foreach (Accommodation accommodation in _owner.Accommodations)
             {
+                accommodation.Renovations = renovationService.GetAllByAccommodation(accommodation.Id);
                 accommodation.Location = locationService.GetOne(accommodation.LocationId);
                 accommodation.Reservations = SynchronizeReservations(accommodation);
                 _owner.Reservations.AddRange(accommodation.Reservations);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectTourism.Domain.Model;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,6 +31,7 @@ namespace ProjectTourism.Model
         public string OwnerUsername;
         public Owner Owner;
         public List<Reservation> Reservations { get; set; }
+        public List<Renovation> Renovations { get; set; }
         public Accommodation()
         {
             CancellationDeadline = 1;
@@ -37,6 +39,7 @@ namespace ProjectTourism.Model
             MinDaysForReservation= 1;
             PictureURLs = "";
             Reservations = new List<Reservation>();
+            Renovations = new List<Renovation>();
         }
         public Accommodation(Accommodation accommodation)
         {
@@ -52,6 +55,7 @@ namespace ProjectTourism.Model
             MinDaysForReservation = accommodation.MinDaysForReservation;
             CancellationDeadline= accommodation.CancellationDeadline;  
             Reservations = new List<Reservation>();
+            Renovations = new List<Renovation>();
         }
         public void SetLocation(Location location)
         {
@@ -117,6 +121,7 @@ namespace ProjectTourism.Model
             Name = values[7];
             PictureURLs = values[8];
             Reservations = new List<Reservation>();
+            Renovations = new List<Renovation>();
         }
 
         
