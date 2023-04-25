@@ -54,18 +54,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public AccommodationVM Accommodation
-        {
-            get => new AccommodationVM(_renovation.Accommodation);
-            set
-            {
-                if (value.GetAccommodation() != _renovation.Accommodation)
-                {
-                    _renovation.Accommodation = value.GetAccommodation();
-                    OnPropertyChanged();
-                }
-            }
-        }
         public DateOnly StartDate
         {
             get => _renovation.StartDate;
@@ -102,8 +90,17 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
-        
-        
+        public bool Finished
+        {
+            get => EndDate < DateOnly.FromDateTime(DateTime.Now);
+        }
+        public bool NotFinished
+        {
+            get => !Finished;
+        }
+        public bool Cancellable
+        {
+            get=> StartDate>DateOnly.FromDateTime(DateTime.Now.AddDays(5));
+        }
     }
 }

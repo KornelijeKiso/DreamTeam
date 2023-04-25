@@ -1,5 +1,6 @@
 ﻿using ProjectTourism.Domain.Model;
 using ProjectTourism.Model;
+using ProjectTourism.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -204,6 +205,12 @@ namespace ProjectTourism.WPF.ViewModel
         public ObservableCollection<ReservationVM> Reservations { get; set; }
         public ObservableCollection<RenovationVM> Renovations { get; set; }
 
+        public void CancelRenovation(RenovationVM renovation)
+        {
+            Renovations.Remove(renovation);
+            RenovationService renovationService = new RenovationService();
+            renovationService.Cancel(renovation.GetRenovation());
+        }
         public void SetLocation(Location location)
         {
             Location = new LocationVM(location);

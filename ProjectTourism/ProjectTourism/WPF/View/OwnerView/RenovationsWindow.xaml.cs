@@ -23,6 +23,7 @@ namespace ProjectTourism.WPF.View.OwnerView
     public partial class RenovationsWindow : Window, INotifyPropertyChanged
     {
         public AccommodationVM Accommodation { get; set; }
+        public RenovationVM SelectedRenovation { get; set; }
         public RenovationsWindow(AccommodationVM accommodation)
         {
             Accommodation = accommodation;
@@ -33,6 +34,11 @@ namespace ProjectTourism.WPF.View.OwnerView
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void CancelRenovationClick(object sender, RoutedEventArgs e)
+        {
+            Accommodation.CancelRenovation(SelectedRenovation);
         }
     }
 }
