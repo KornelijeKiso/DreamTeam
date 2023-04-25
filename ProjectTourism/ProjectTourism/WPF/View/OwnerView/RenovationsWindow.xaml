@@ -1,0 +1,76 @@
+﻿<Window x:Class="ProjectTourism.WPF.View.OwnerView.RenovationsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectTourism.WPF.View.OwnerView"
+        xmlns:conv="clr-namespace:ProjectTourism.Converters"
+        mc:Ignorable="d"
+        Title="Renovations" Height="690" Width="900" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary>
+            <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <StackPanel Margin="20 20 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Horizontal">
+            <Border BorderThickness="2" BorderBrush="DodgerBlue">
+                <Image Stretch="Fill" Margin="4" 
+               Source="{Binding Path=Accommodation.Pictures[0], UpdateSourceTrigger=PropertyChanged}"
+               Height="160" Width="160"></Image>
+            </Border>
+            <StackPanel Orientation="Vertical" Margin="15 0 0 0">
+                <Label Content="{Binding Accommodation.Name}" FontWeight="DemiBold" FontSize="20"></Label>
+                <StackPanel Orientation="Horizontal">
+                    <Image Height="25" Source="https://img.icons8.com/color/2x/place-marker.png"></Image>
+                    <Label FontSize="16">
+                        <Label.Content>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0}, {1}">
+                                        <Binding Path="Accommodation.Location.City"/>
+                                        <Binding Path="Accommodation.Location.Country"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </Label.Content>
+                    </Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Image Height="25" Source="https://img.icons8.com/ios-glyphs/512/user.png"></Image>
+                    <Label ContentStringFormat="{}{0} guests" FontSize="16" Content="{Binding Accommodation.MaxNumberOfGuests}"></Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Image Height="25" Source="https://img.icons8.com/fluency/512/calendar-plus.png"></Image>
+                    <Label ContentStringFormat="{}{0} days for reservation minimum" FontSize="16" Content="{Binding Accommodation.MinDaysForReservation}"></Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Image Height="25" Source="https://img.icons8.com/color/512/event-declined.png"></Image>
+                    <Label ContentStringFormat="Free cancellation - {0} days before reservation" FontSize="16" Content="{Binding Accommodation.CancellationDeadline}"></Label>
+                </StackPanel>
+            </StackPanel>
+            <GroupBox Width="190" BorderBrush="DodgerBlue" Margin="100 0 0 0">
+                <StackPanel Orientation="Vertical" >
+                    <Label Content="Last renovation :" FontSize="16" HorizontalAlignment="Center"></Label>
+                    <Label Content="{Binding Path=Accommodation.Renovations[0].EndDate}" FontSize="16" HorizontalAlignment="Center" Margin="0 -7 0 0"></Label>
+                    <StackPanel Orientation="Vertical" Visibility="{Binding Path=Accommodation.IsRecentlyRenovated, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
+                        <Image Source="https://img.icons8.com/3d-fluency/2x/prize.png" Width="68"></Image>
+                        <Label Foreground="DarkRed" Content="Recently Renovated" FontSize="14" HorizontalAlignment="Center"></Label>
+                    </StackPanel>
+                    
+                </StackPanel>
+            </GroupBox>
+        </StackPanel>
+        <StackPanel Margin="620 55 0 0" Orientation="Vertical" Visibility="{Binding Path=Accommodation.NeverRenovated, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
+            <Image Source="https://img.icons8.com/ios/512/maintenance.png" Width="68"></Image>
+            <TextBlock Foreground="Black" TextWrapping="Wrap" Text="You haven't renovated this" Margin="0 10"  FontSize="11" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Foreground="Black" TextWrapping="Wrap" Text="accommodation since you've" Margin="0 -10"  FontSize="11" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Foreground="Black" TextWrapping="Wrap" Text="opened it." Margin="0 5"  FontSize="11" HorizontalAlignment="Center"></TextBlock>
+        </StackPanel>
+        <StackPanel Margin="620 80 0 0" Orientation="Vertical" Visibility="{Binding Path=Accommodation.IsNotRecentlyRenovated, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
+            <Image Source="https://img.icons8.com/color/512/renovate.png" Width="68"></Image>
+            <TextBlock Foreground="Black" TextWrapping="Wrap" Text="You haven't renovated this" Margin="0 0"  FontSize="11" HorizontalAlignment="Center"></TextBlock>
+            <TextBlock Foreground="Black" TextWrapping="Wrap" Text="accommodation in the last year." Margin="0 0"  FontSize="11" HorizontalAlignment="Center"></TextBlock>
+        </StackPanel>
+    </Grid>
+</Window>

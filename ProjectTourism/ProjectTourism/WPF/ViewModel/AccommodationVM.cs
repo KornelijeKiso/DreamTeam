@@ -193,6 +193,14 @@ namespace ProjectTourism.WPF.ViewModel
         {
             get => Renovations.ToList().Find(r=>r.EndDate>DateOnly.FromDateTime(DateTime.Now.AddYears(-1)) && r.EndDate<DateOnly.FromDateTime(DateTime.Now)) != null;
         }
+        public bool NeverRenovated
+        {
+            get => Renovations.Count == 0;
+        }
+        public bool IsNotRecentlyRenovated
+        {
+            get=>!IsRecentlyRenovated && !NeverRenovated;
+        }
         public ObservableCollection<ReservationVM> Reservations { get; set; }
         public ObservableCollection<RenovationVM> Renovations { get; set; }
 

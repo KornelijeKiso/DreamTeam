@@ -127,6 +127,11 @@ namespace ProjectTourism.WPF.View.OwnerView
             }
         }
 
+        public void RenovateClick(object sender, RoutedEventArgs e)
+        {
+            RenovationsWindow renovationsWindow = new RenovationsWindow(SelectedAccommodation);
+            renovationsWindow.ShowDialog();
+        }
         private void RegisterNewAccommodation()
         {
             HandleTypeCombobox();
