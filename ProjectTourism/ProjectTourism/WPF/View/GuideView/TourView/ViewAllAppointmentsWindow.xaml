@@ -341,7 +341,7 @@
             </TabItem>
         </TabControl>
 
-        <Label Content="All appointments" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="377" FontSize="40"/>
+        <Label x:Name="AllAppsLabel" Content="All appointments" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="377" FontSize="40"/>
         <ContentControl x:Name="ContentArea"></ContentControl>
     </Grid>
 

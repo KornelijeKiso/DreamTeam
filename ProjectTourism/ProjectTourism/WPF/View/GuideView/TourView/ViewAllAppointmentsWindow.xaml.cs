@@ -44,31 +44,8 @@ namespace ProjectTourism.View.GuideView.TourView
         }
         private void ReviewsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedAppointment != null)
-            {
-                if (SelectedAppointment.State == TOURSTATE.FINISHED || SelectedAppointment.State == TOURSTATE.STOPPED)
-                    ShowReviewWindow();
-                else
-                    MessageBox.Show("The selected appointment was not finished yet!");
-            }
-            else
-                MessageBox.Show("You must choose an appointment which reviews you would like to see.");
-        }
-        private void ShowReviewWindow()
-        {
-            if (SelectedAppointment.TicketGrades.Count > 0)
-            {
-                HideAllAppsContent();
-                ContentArea.Content = new ReviewsWindow(SelectedAppointment);
-            }
-            else
-                MessageBox.Show("There are no reviews for this appointment!");
-        }
-
-        public void HideAllAppsContent()
-        {
-            List<UIElement> elementsToHide = new List<UIElement> { grid };
-            elementsToHide.ForEach(element => element.Visibility = Visibility.Hidden);
+            AllAppsLabel.Visibility = Visibility.Hidden;
+            ContentArea.Content = new ReviewsWindow(SelectedAppointment);
         }
         private void SortByDate()
         {

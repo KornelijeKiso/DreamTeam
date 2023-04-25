@@ -11,7 +11,7 @@
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
+    <Grid x:Name="grid">
         <Button x:Name="StopPassedButton" IsEnabled="{Binding TourAppointment.IsNotFinished}" Content="Start" HorizontalAlignment="Left" Height="48" Margin="1064,466,0,0" VerticalAlignment="Top" Width="134" Click="CheckpointPassedButton_Click"/>
         <Button IsCancel="True" x:Name="EmergencyStopButton" IsEnabled="{Binding TourAppointment.IsNotFinished}" Content="Emergency stop" HorizontalAlignment="Left" Height="46" Margin="1064,540,0,0" VerticalAlignment="Top" Width="134" Background="#FFEF4343" Click="EmergencyStopButton_Click"/>
         <Label Name="CurrentTourStopLabel" Content="Current tour stop" HorizontalAlignment="Left" Margin="104,52,0,0" VerticalAlignment="Top" FontSize="22"/>

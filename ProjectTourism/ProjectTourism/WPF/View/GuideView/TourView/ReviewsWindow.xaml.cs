@@ -37,13 +37,12 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             Guide = new GuideVM(tourApp.Tour.GuideUsername);
             Update();
         }
-
         private void BadReviewButton_Click(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show(SelectedTicket.Guest2Username + "'s ticket has been reported!");
             Guide.ReportTicketGrade(SelectedTicket);
             Update();
         }
-
         public void Update()
         {
             Tickets.Clear();
