@@ -33,7 +33,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             DataContext = this;
 
             SetModels(username);
-            SetVisits();
+            TourApps.Sort((t1, t2) => t2.Visits.CompareTo(t1.Visits));
             SetComboBox();
 
             Update();
@@ -56,11 +56,6 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             Years = new List<int>(GetYears());
             AgeGroups = new ObservableCollection<int>();
         }
-        private void SetVisits()
-        {
-            TourApps.ForEach(tourApp => tourApp.Visits = tourApp.Tickets.Count);
-            TourApps.Sort((t1, t2) => t2.Visits.CompareTo(t1.Visits));
-        }
         private void SetComboBox()
         {
             comboboxYears.ItemsSource = Years;
@@ -73,7 +68,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             TourApps.Clear();
             Guide.TourAppointments.Where(tourApp => tourApp.TourDateTime.Year == SelectedYear && tourApp.State.Equals(TOURSTATE.FINISHED))
                                   .ToList().ForEach(tourApp => TourApps.Add(tourApp));
-            SetVisits();
+            TourApps.Sort((t1, t2) => t2.Visits.CompareTo(t1.Visits)); 
             Update();
         }
         private List<int> GetYears()

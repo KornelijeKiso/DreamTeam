@@ -34,40 +34,16 @@ namespace ProjectTourism.View.GuideView.TourView
         }
         private void ManageButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedTourAppointment != null)
-            {
-                TourStopsWindow tourStopsWindow = new TourStopsWindow(SelectedTourAppointment);
-                HideTodaysToursContent();
-                ContentArea.Content = new TourStopsWindow(SelectedTourAppointment);
-                SelectedTourAppointment = tourStopsWindow.TourAppointment;
-            }
-            else
-                MessageBox.Show("You must choose an appointment which you would like to start.");
+            TourStopsWindow tourStopsWindow = new TourStopsWindow(SelectedTourAppointment);
+            HideTodaysToursContent();
+            ContentArea.Content = tourStopsWindow;
+            SelectedTourAppointment = tourStopsWindow.TourAppointment;
         }
         private void ReviewsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (SelectedTourAppointment != null)
-            {
-                if (SelectedTourAppointment.State == TOURSTATE.FINISHED || SelectedTourAppointment.State == TOURSTATE.STOPPED)
-                    ShowReviewWindow();
-                else
-                    MessageBox.Show("The selected appointment was not finished yet!");
-            }
-            else
-                MessageBox.Show("You must choose an appointment which reviews you would like to see.");
+            HideTodaysToursContent();
+            ContentArea.Content = new ReviewsWindow(SelectedTourAppointment);
         }
-
-        private void ShowReviewWindow()
-        {
-            if (SelectedTourAppointment.TicketGrades.Count > 0)
-            {
-                HideTodaysToursContent();
-                ContentArea.Content = new ReviewsWindow(SelectedTourAppointment);
-            }
-            else
-                MessageBox.Show("There are no reviews for this appointment!");
-        }
-
         private void HideTodaysToursContent()
         {
             List<UIElement> elementsToHide = new List<UIElement> { TodaysToursLabel, DataGridTourAppointments };

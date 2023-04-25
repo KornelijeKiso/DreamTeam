@@ -11,7 +11,7 @@ using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 
-public enum TOURSTATE { READY, STARTED, FINISHED, STOPPED };
+public enum TOURSTATE { READY, STARTED, FINISHED, STOPPED, CANCELED };
 
 namespace ProjectTourism.WPF.ViewModel
 {
@@ -48,6 +48,23 @@ namespace ProjectTourism.WPF.ViewModel
         {
             return _tourAppointment;
         }
+
+        private bool AreThereAnyReviews()
+        {
+            foreach(var ticket in _tourAppointment.Tickets)
+            {
+                if(ticket.TicketGrade != null)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool IsNotFinished { get => _tourAppointment.State != TOURSTATE.FINISHED && _tourAppointment.State != TOURSTATE.STOPPED; }
+        public bool IsFinished { get => _tourAppointment.State == TOURSTATE.FINISHED || _tourAppointment.State == TOURSTATE.STOPPED; }
+        public bool IsReviewVisible { get => ((_tourAppointment.State == TOURSTATE.FINISHED || _tourAppointment.State == TOURSTATE.STOPPED) && AreThereAnyReviews()); }
+        public int Visits { get => _tourAppointment.Tickets.Count; }
         public int Id
         {
             get => _tourAppointment.Id;
@@ -56,18 +73,6 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_tourAppointment.Id != value)
                 {
                     _tourAppointment.Id = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public int Visits
-        {
-            get => _tourAppointment.Visits;
-            set
-            {
-                if (value != _tourAppointment.Visits)
-                {
-                    _tourAppointment.Visits = value;
                     OnPropertyChanged();
                 }
             }
@@ -142,31 +147,6 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_tourAppointment.State != value)
                 {
                     _tourAppointment.State = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public bool IsNotFinished
-        {
-            get => _tourAppointment.IsNotFinished;
-            set
-            {
-                if (_tourAppointment.IsNotFinished != value)
-                {
-                    _tourAppointment.IsNotFinished = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public bool IsFinished
-        {
-            get => _tourAppointment.IsFinished;
-            set
-            {
-                if (_tourAppointment.IsFinished != value)
-                {
-                    _tourAppointment.IsFinished = value;
                     OnPropertyChanged();
                 }
             }

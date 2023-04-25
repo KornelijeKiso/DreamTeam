@@ -50,12 +50,24 @@ namespace ProjectTourism.WPF.ViewModel
                     tour.Guide = _guide;
                     tour.Location = locationService.GetOne(tour.LocationId);
                     SynchronizeTourAppointments(tourAppointmentService, ticketService, ticketGradeService, guest2Service, voucherService, tour);
-                    _guide.Tours.Add(tour);
-                    _guide.TourAppointments.AddRange(tour.TourAppointments);
+                    if (!_guide.Tours.Contains(tour))
+                    {
+                        _guide.Tours.Add(tour);
+                    }
+                    foreach(var app in tour.TourAppointments)
+                    {
+                        if (!_guide.TourAppointments.Contains(app))
+                            _guide.TourAppointments.Add(app);
+                    }
                 }
             }
         }
 
+        public void Add(Guide Guide)
+        {
+            GuideService guideService = new GuideService();
+            guideService.Add(Guide);
+        }
         private static void SynchronizeTourAppointments(TourAppointmentService tourAppointmentService, TicketService ticketService, TicketGradeService ticketGradeService, Guest2Service guest2Service, VoucherService voucherService, Tour tour)
         {
             foreach (var tourApp in tourAppointmentService.GetAllByTour(tour.Id))
@@ -83,7 +95,6 @@ namespace ProjectTourism.WPF.ViewModel
                 ticket.TourAppointment = tourApp;
             }
         }
-
         public void ReportTicketGrade(TicketVM ticket)
         {
             TicketGradeService ticketGradeService = new TicketGradeService();
@@ -93,15 +104,12 @@ namespace ProjectTourism.WPF.ViewModel
         public void CancelAppointment(TourAppointmentVM tourApp)
         {
             TourAppointmentService tourAppointmentService = new TourAppointmentService();
-            CanceledTourAppointmentsService canceledTourAppointmentsService = new CanceledTourAppointmentsService();
-            TourAppointments.Remove(tourApp);
-            tourAppointmentService.Delete(tourApp.Id);
-            canceledTourAppointmentsService.Add(tourApp.GetTourAppointment());
+            tourApp.State = TOURSTATE.CANCELED;
+            tourAppointmentService.Update(tourApp.GetTourAppointment());
         }
         public string NextStop(TourAppointment tourApp)
         {
             TourAppointmentService tourAppointmentService = new TourAppointmentService();
-            TourService tourService = new TourService();
             GuideService guideService = new GuideService();
 
             string currentStop = tourApp.CurrentTourStop;
@@ -141,8 +149,6 @@ namespace ProjectTourism.WPF.ViewModel
 
             tourApp.CurrentTourStop = tourApp.Tour.StopsList.Last();
             tourApp.State = TOURSTATE.FINISHED;
-            tourApp.IsFinished = true;
-            tourApp.IsNotFinished = false;
             tourAppointmentService.Update(tourApp.GetTourAppointment());
             guideService.Update(_guide);
         }
@@ -153,8 +159,6 @@ namespace ProjectTourism.WPF.ViewModel
 
             tourApp.CurrentTourStop = tourApp.Tour.StopsList.Last();
             tourApp.State = TOURSTATE.FINISHED;
-            tourApp.IsFinished = true;
-            tourApp.IsNotFinished = false;
             tourAppointmentService.Update(tourApp.GetTourAppointment());
             _guide.HasTourStarted = false;
             guideService.Update(_guide);
@@ -173,8 +177,6 @@ namespace ProjectTourism.WPF.ViewModel
             TourAppointmentService tourAppointmentService = new TourAppointmentService();
 
             tourApp.State = TOURSTATE.STOPPED;
-            tourApp.IsNotFinished = false;
-            tourApp.IsFinished = true;
             tourAppointmentService.Update(tourApp.GetTourAppointment());
             _guide.HasTourStarted = false;
             guideService.Update(_guide);

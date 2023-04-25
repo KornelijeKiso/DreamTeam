@@ -3,9 +3,6 @@ using ProjectTourism.View.GuideView;
 using ProjectTourism.View.OwnerView;
 using ProjectTourism.View.Guest1View;
 using ProjectTourism.WPF.View.Guest2View;
-using ProjectTourism.Repositories;
-using ProjectTourism.Services;
-using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -32,24 +29,14 @@ namespace ProjectTourism.View.UserView
     {
         public UserVM UserVM { get; set; }
         public CurrentUserVM CurrentUserVM { get; set; }
-        
-
         public IdentifyUserWindow()
         {
             InitializeComponent();
         }
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
         private void LogInClick(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtUsername.Text) || string.IsNullOrWhiteSpace(txtPassword.Password))
-            {
                 MessageBox.Show("Write your username and password.");
-            }
             else
             {
                 UserVM = new UserVM(txtUsername.Text);
@@ -96,23 +83,24 @@ namespace ProjectTourism.View.UserView
                         }
                     }
                     else
-                    {
                         MessageBox.Show("Incorrect password.");
-                    }
                 }
             }
         }
-
         private void CreateUserClick(object sender, RoutedEventArgs e)
         {
             CreateUserWindow CreateUser = new CreateUserWindow();
             CreateUser.ShowDialog();
         }
-
         private void Clear()
         {
             txtUsername.Text = string.Empty;
             txtPassword.Password = string.Empty;
+        }
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

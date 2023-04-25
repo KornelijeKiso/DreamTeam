@@ -34,8 +34,7 @@ namespace ProjectTourism.View.GuideView.TourView
         public TourAppointmentVM TourAppointment { get; set; }
         public TicketVM SelectedTicket { get; set; }
         public GuideVM Guide { get; set; }
-        public ObservableCollection<TicketVM> Tickets { get; set; } 
-
+        public ObservableCollection<TicketVM> Tickets { get; set; }
         public TourStopsWindow(TourAppointmentVM SelectedTourAppointment)
         {
             InitializeComponent();
@@ -48,11 +47,9 @@ namespace ProjectTourism.View.GuideView.TourView
             if (SelectedTourAppointment.CurrentTourStop.Equals(SelectedTourAppointment.Tour.Finish))
             {
                 EmergencyStopButton.IsEnabled = false;
-                ReviewsButton.IsEnabled = true;
                 StopPassedButton.IsEnabled = false;
                 TourAppointment.Tour.Guide.EndTour(SelectedTourAppointment);
             }
-
         }
         private void EmergencyButtonSet()
         {
@@ -77,9 +74,9 @@ namespace ProjectTourism.View.GuideView.TourView
         }
         public void NextStop()
         {
-            int nextStopIndex = PassedButtonClicks() + 1;
             StopPassedButton.Content = "Stop passed";
             StopTextBox.Text = TourAppointment.Tour.Guide.NextStop(TourAppointment.GetTourAppointment()).Trim();
+            TourStatusTextBox.Text = TOURSTATE.STARTED.ToString();
         }
         private bool CanGuidePassStop()
         {
@@ -94,7 +91,10 @@ namespace ProjectTourism.View.GuideView.TourView
             if (CanGuidePassStop())
             {
                 if (IsNextStopFinish())
+                {
                     TourAppointment.Tour.Guide.FinishTourAndReturnStop(TourAppointment);
+                    StopPassedButton.IsEnabled = false;
+                }
                 else 
                     NextStop();
             }
@@ -110,8 +110,12 @@ namespace ProjectTourism.View.GuideView.TourView
         private void EmergencyStopButton_Click(object sender, RoutedEventArgs e)
         {
             TourAppointment.Tour.Guide.EmergencyStop(TourAppointment);
-            MainGuideWindow mainGuideWindow = new MainGuideWindow(Guide.Username);
-            mainGuideWindow.ShowDialog();
+            ReviewsButton.Visibility = Visibility.Hidden;
+            TourStateLabel.Visibility = Visibility.Hidden;
+            grid.Visibility = Visibility.Hidden;
+            StopPassedButton.Visibility = Visibility.Hidden;
+            EmergencyStopButton.Visibility = Visibility.Hidden;
+            ContentArea.Content = new LiveToursTrackingWindow(Guide.Username);
         }
         private void TicketStatusButton_Click(object sender, RoutedEventArgs e)
         {
