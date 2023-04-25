@@ -9,7 +9,7 @@
         <Label Content="Requests" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         <DataGrid  Name="DataGridRow" RowHeight="100" CanUserAddRows="False" HorizontalAlignment="Left" Height="438" VerticalAlignment="Top" Width="745" 
             SelectedItem="{Binding SelectedRequest, UpdateSourceTrigger=PropertyChanged}" 
-            ItemsSource="{Binding Path=Guide.Requests, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="40,183,0,0">
+            ItemsSource="{Binding Requests, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="40,183,0,0">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
             </DataGrid.Resources>
@@ -112,9 +112,8 @@
         <Border x:Name="rectangle" Background="#FF9BC8EC" BorderBrush="#FF9BC8EC" BorderThickness="1" CornerRadius="30" Margin="855,183,77,233"/>
 
 
-        <Grid Margin="880,202,102,274">
+        <Grid Margin="880,202,102,294">
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -125,36 +124,34 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label x:Name="CityLabel" Grid.Row="0" Grid.Column="0" Content="City"/>
-            <Label x:Name="CountryLabel" Grid.Row="1" Grid.Column="0" Content="Country"/>
-            <Label x:Name="NumberOfGuestsLabel" Grid.Row="2" Grid.Column="0" Content="Number of guests"/>
-            <Label x:Name="LanguageLabel" Grid.Row="3" Grid.Column="0" Content="Language"/>
-            <Label x:Name="StartDateLabel" Grid.Row="4" Grid.Column="0" Content="Start date"/>
-            <Label x:Name="EndDateLabel" Grid.Row="5" Grid.Column="0" Content="End date"/>
+            <Label Grid.Row="0" Grid.Column="0" Content="Location"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="Number of guests"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="Language"/>
+            <Label Grid.Row="3" Grid.Column="0" Content="Start date"/>
+            <Label Grid.Row="4" Grid.Column="0" Content="End date"/>
 
-            <TextBox x:Name="textbox1" Grid.Row="0" Grid.Column="1" Margin="0,2,0,8"/>
-            <TextBox x:Name="textbox2" Grid.Row="1" Grid.Column="1" Margin="0,2,0,8"/>
-            <TextBox x:Name="textbox3" Grid.Row="2" Grid.Column="1" Margin="0,2,0,8"/>
-            <TextBox x:Name="textbox4" Grid.Row="3" Grid.Column="1" Margin="0,2,0,8"/>
-            <DatePicker x:Name="textbox5" Grid.Row="4" Grid.Column="1" Margin="0,0,0,8"/>
-            <DatePicker x:Name="textbox6" Grid.Row="5" Grid.Column="1" Margin="0,0,0,8"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="0,8,0,8" Text="{Binding Path=SearchedLocation, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="0,8,0,8" Text="{Binding Path=SearchedNumberOfGuests, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Margin="0,8,0,8" Text="{Binding Path=SearchedLanguage, UpdateSourceTrigger=PropertyChanged}"/>
+            <DatePicker Grid.Row="3" Grid.Column="1" Margin="0,0,0,8"/>
+            <DatePicker Grid.Row="4" Grid.Column="1" Margin="0,0,0,8"/>
 
         </Grid>
-        <Button Content="Search" HorizontalAlignment="Left" Height="31" Margin="983,410,0,0" VerticalAlignment="Top" Width="92">
+        <Button Content="Search" Click="Search_Click" HorizontalAlignment="Left" Height="31" Margin="983,410,0,0" VerticalAlignment="Top" Width="92">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Content="Accept" HorizontalAlignment="Left" Height="31" Margin="1059,590,0,0" VerticalAlignment="Top" Width="92">
+        <Button Content="Accept" HorizontalAlignment="Left" Height="31" Margin="1059,590,0,0" VerticalAlignment="Top" Width="92" Click="Accept_Click">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button Content="Dismiss" HorizontalAlignment="Left" Height="31" Margin="926,590,0,0" VerticalAlignment="Top" Width="92">
+        <Button Content="Dismiss" HorizontalAlignment="Left" Height="31" Margin="926,590,0,0" VerticalAlignment="Top" Width="92" Click="Dismiss_Click">
             <Button.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="5"/>

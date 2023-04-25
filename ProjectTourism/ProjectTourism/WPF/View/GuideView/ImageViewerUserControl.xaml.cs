@@ -19,9 +19,6 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.GuideView
 {
-    /// <summary>
-    /// Interaction logic for ImageViewerUserControl.xaml
-    /// </summary>
     public partial class ImageViewerUserControl : UserControl, INotifyPropertyChanged
     {
         public TourVM Tour { get; set; }
@@ -63,21 +60,18 @@ namespace ProjectTourism.WPF.View.GuideView
         {
             BlackBackground.Visibility = Visibility.Hidden;
         }
-
         private void Left_Click(object sender, RoutedEventArgs e)
         {
             if (i > 0) i--;
             else i = Tour.Pictures.Length - 1;
             Picture = Tour.Pictures[i];
         }
-
         private void Right_Click(object sender, RoutedEventArgs e)
         {
             if (i < Tour.Pictures.Length - 1) i++;
             else i = 0;
             Picture = Tour.Pictures[i];
         }
-
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

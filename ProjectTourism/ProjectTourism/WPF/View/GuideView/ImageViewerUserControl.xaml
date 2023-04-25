@@ -15,7 +15,10 @@
                 <ImageBrush ImageSource="https://img.icons8.com/office/1x/close-window.png" />
             </Button.Background>
         </Button>
-        <Image Margin="241,105,241,105" Source="{Binding Picture, UpdateSourceTrigger=PropertyChanged}"/>
+        <Border Margin="241,105,241,105" BorderThickness="3" BorderBrush="AliceBlue">
+            <Image Stretch="UniformToFill" Source="{Binding Picture, UpdateSourceTrigger=PropertyChanged}" />
+        </Border>
+
         <Button Click="Left_Click" HorizontalAlignment="Left" Height="44" Margin="460,626,0,0" VerticalAlignment="Top" Width="44">
             <Button.Background>
                 <ImageBrush ImageSource="https://img.icons8.com/ultraviolet/1x/less-than-2.png" />
