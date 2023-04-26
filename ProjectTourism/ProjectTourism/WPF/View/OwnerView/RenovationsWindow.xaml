@@ -143,9 +143,9 @@
                         </DataGrid.Columns>
                     </DataGrid>
                     <Button IsCancel="True" Content="Cancel" Margin="370 20 0 0" Height="30" Width="80"></Button>
-                    <StackPanel Margin="0 -270 0 0" Orientation="Vertical" Visibility="{Binding Path=Accommodation.NoRenovations, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
+                    <StackPanel Margin="0 -280 0 0" Orientation="Vertical" Visibility="{Binding Path=Accommodation.NoRenovations, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
                         <Image Source="https://img.icons8.com/pulsar-line/2x/sad.png" Height="70"></Image>
-                        <TextBlock Width="200" TextWrapping="Wrap" TextAlignment="Center" Text="You don't have any previosly scheduled renovations for this accommodation."></TextBlock>
+                        <TextBlock Width="200" TextWrapping="Wrap" Margin="0 10 0 0" TextAlignment="Center" Text="You don't have any previously scheduled renovations for this accommodation."></TextBlock>
                     </StackPanel>
                 </StackPanel>
             </StackPanel>

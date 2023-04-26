@@ -213,7 +213,11 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public RenovationVM LastRenovation
         {
-            get => Renovations.ToList().Find(r => r.Finished);
+            get
+            {
+                if (Renovations == null) return null;
+                else return Renovations.ToList().Find(r => r.Finished);
+            }
         }
         public bool NeverRenovated
         {
@@ -234,11 +238,11 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public void ScheduleNewRenovation(RenovationVM renovation)
         {
-            Renovations.Insert(0,renovation);
-            NoRenovations = false;
-            renovation.AccommodationId = Id;
             RenovationService renovationService = new RenovationService();
-            renovationService.Schedule(renovation.GetRenovation());
+            Renovation ren = new Renovation(renovation.GetRenovation());
+            renovationService.Schedule(new Renovation(ren));
+            Renovations.Insert(0, new RenovationVM(ren));
+            NoRenovations = false;
         }
         public void SetLocation(Location location)
         {

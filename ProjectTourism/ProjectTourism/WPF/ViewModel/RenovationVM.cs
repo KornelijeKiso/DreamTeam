@@ -102,5 +102,16 @@ namespace ProjectTourism.WPF.ViewModel
         {
             get=> StartDate>DateOnly.FromDateTime(DateTime.Now.AddDays(5));
         }
+        public void Reset()
+        {
+            StartDate = new DateOnly();
+            EndDate = new DateOnly();
+            Description = null;
+            Id = 0;
+            _renovation.StartDate = new DateOnly();
+            _renovation.EndDate = new DateOnly();
+            _renovation.Description = null;
+            _renovation.Id = 0;
+        }
     }
 }

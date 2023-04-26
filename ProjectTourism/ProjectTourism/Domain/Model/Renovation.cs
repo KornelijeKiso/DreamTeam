@@ -18,6 +18,13 @@ namespace ProjectTourism.Domain.Model
         public DateOnly EndDate;
         public string Description;
         public Renovation() { }
+        public Renovation(Renovation r)
+        {
+            StartDate = r.StartDate;
+            EndDate = r.EndDate;
+            Description = r.Description;
+            AccommodationId = r.AccommodationId;
+        }
         public new string[] ToCSV()
         {
             string[] csvValues =

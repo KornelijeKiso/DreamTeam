@@ -29,6 +29,7 @@ namespace ProjectTourism.WPF.View.OwnerView
         {
             Accommodation = accommodation;
             NewRenovation = new RenovationVM();
+            NewRenovation.AccommodationId = Accommodation.Id;
             InitializeComponent();
             DataContext = this;
         }
@@ -40,6 +41,7 @@ namespace ProjectTourism.WPF.View.OwnerView
         public void ScheduleRenovationClick(object sender, RoutedEventArgs e)
         {
             Accommodation.ScheduleNewRenovation(NewRenovation);
+            NewRenovation.Reset();
         }
         public void CancelRenovationClick(object sender, RoutedEventArgs e)
         {
