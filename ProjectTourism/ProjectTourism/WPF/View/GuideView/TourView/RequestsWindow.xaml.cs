@@ -48,7 +48,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         {
             Requests = new ObservableCollection<RequestVM>();
             foreach (var request in Guide.Requests)
-                if (request.State != REQUESTSTATE.DISMISSED)
+                if (request.State == REQUESTSTATE.PENDING)
                     Requests.Add(request);
         }
         private void SetStartSearchedValues()
