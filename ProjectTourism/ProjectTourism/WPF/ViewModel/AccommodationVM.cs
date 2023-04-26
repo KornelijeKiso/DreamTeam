@@ -19,7 +19,7 @@ namespace ProjectTourism.WPF.ViewModel
         {
             _accommodation= accommodation;
             Reservations = new ObservableCollection<ReservationVM>(_accommodation.Reservations.Select(r => new ReservationVM(r)).Reverse().ToList());
-            Renovations = new ObservableCollection<RenovationVM>(_accommodation.Renovations.Select(r => new RenovationVM(r)).Reverse().ToList());
+            Renovations = new ObservableCollection<RenovationVM>(_accommodation.Renovations.Select(r => new RenovationVM(r)).ToList().OrderByDescending(r=>r.EndDate));
         }
         public AccommodationVM(AccommodationVM accommodation)
         {
@@ -192,11 +192,32 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public bool IsRecentlyRenovated
         {
-            get => Renovations.ToList().Find(r=>r.EndDate>DateOnly.FromDateTime(DateTime.Now.AddYears(-1)) && r.EndDate<DateOnly.FromDateTime(DateTime.Now)) != null;
+            get
+            {
+                if (NeverRenovated) return false;
+                else return LastRenovation.EndDate > DateOnly.FromDateTime(DateTime.Now.AddYears(-1));
+            }
+        }
+        private bool _NoRenovations;
+        public bool NoRenovations
+        {
+            get => _NoRenovations=Renovations.Count == 0;
+            set
+            {
+                if(value!= _NoRenovations)
+                {
+                    _NoRenovations=value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public RenovationVM LastRenovation
+        {
+            get => Renovations.ToList().Find(r => r.Finished);
         }
         public bool NeverRenovated
         {
-            get => Renovations.Count == 0;
+            get => LastRenovation==null;
         }
         public bool IsNotRecentlyRenovated
         {
@@ -214,6 +235,7 @@ namespace ProjectTourism.WPF.ViewModel
         public void ScheduleNewRenovation(RenovationVM renovation)
         {
             Renovations.Insert(0,renovation);
+            NoRenovations = false;
             renovation.AccommodationId = Id;
             RenovationService renovationService = new RenovationService();
             renovationService.Schedule(renovation.GetRenovation());
