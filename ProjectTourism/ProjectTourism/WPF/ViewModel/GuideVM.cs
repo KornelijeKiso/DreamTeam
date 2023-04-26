@@ -54,7 +54,7 @@ namespace ProjectTourism.WPF.ViewModel
                     {
                         _guide.Tours.Add(tour);
                     }
-                    foreach(var app in tour.TourAppointments)
+                    foreach (var app in tour.TourAppointments)
                     {
                         if (!_guide.TourAppointments.Contains(app))
                             _guide.TourAppointments.Add(app);
@@ -62,7 +62,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
         public void DismissRequest(RequestVM request)
         {
             RequestService requestService = new RequestService();
@@ -80,6 +79,15 @@ namespace ProjectTourism.WPF.ViewModel
             GuideService guideService = new GuideService();
             guideService.Add(Guide);
         }
+        public bool CanGuideAcceptAppointment(DateTime dateTime)
+        {
+            foreach(var tourApp in TourAppointments)
+            {
+                if (tourApp.TourDateTime.Date == dateTime.Date && tourApp.TourDateTime.AddHours(tourApp.Tour.Duration) > dateTime)
+                    return false;
+            }
+            return true;
+        }
         private static void SynchronizeTourAppointments(TourAppointmentService tourAppointmentService, TicketService ticketService, TicketGradeService ticketGradeService, Guest2Service guest2Service, VoucherService voucherService, Tour tour)
         {
             foreach (var tourApp in tourAppointmentService.GetAllByTour(tour.Id))
@@ -91,7 +99,6 @@ namespace ProjectTourism.WPF.ViewModel
                 tour.TourAppointments.Add(tourApp);
             }
         }
-
         private static void SynchronizeTickets(TicketService ticketService, TicketGradeService ticketGradeService, Guest2Service guest2Service, VoucherService voucherService, TourAppointment tourApp)
         {
             foreach (var ticket in ticketService.GetByAppointment(tourApp.Id))
@@ -133,7 +140,6 @@ namespace ProjectTourism.WPF.ViewModel
             guideService.Update(_guide);
             return tourApp.CurrentTourStop;
         }
-
         private static void MoveCurrentStop(TourAppointment tourApp, int stopIndex)
         {
             if (stopIndex == tourApp.Tour.StopsList.Count)
@@ -141,7 +147,6 @@ namespace ProjectTourism.WPF.ViewModel
             else
                 tourApp.CurrentTourStop = tourApp.Tour.StopsList[stopIndex + 1];
         }
-
         private static int CalculateStopIndex(TourAppointment tourApp, string currentStop)
         {
             int stopIndex = 0;
@@ -153,7 +158,6 @@ namespace ProjectTourism.WPF.ViewModel
             }
             return stopIndex;
         }
-
         public void EndTour(TourAppointmentVM tourApp)
         {
             GuideService guideService = new GuideService();
@@ -182,7 +186,6 @@ namespace ProjectTourism.WPF.ViewModel
             TicketService ticketService = new TicketService();
             ticketService.Update(ticket.GetTicket());
         }
-
         public void EmergencyStop(TourAppointmentVM tourApp)
         {
             GuideService guideService = new GuideService();
@@ -193,7 +196,6 @@ namespace ProjectTourism.WPF.ViewModel
             _guide.HasTourStarted = false;
             guideService.Update(_guide);
         }
-
         public void AddTour(TourVM NewTour, LocationVM NewLocation)
         {
             TourService tourService = new TourService();
@@ -216,20 +218,20 @@ namespace ProjectTourism.WPF.ViewModel
         {
             return _guide;
         }
-
         public ObservableCollection<RequestVM> GetAllRequests()
         {
             RequestService requestService = new RequestService();
             LocationService locationService = new LocationService();
             ObservableCollection<RequestVM> requests = new ObservableCollection<RequestVM>();
 
-            foreach(var request in requestService.GetAll())
+            foreach (var request in requestService.GetAll())
             {
                 request.Location = locationService.GetOne(request.LocationId);
                 requests.Add(new RequestVM(request));
             }
             return requests;
         }
+
         public ObservableCollection<TourVM> Tours { get; set; }
         public ObservableCollection<TourAppointmentVM> TourAppointments { get; set; }
         public ObservableCollection<TourAppointmentVM> TodaysAppointments { get; set; }
