@@ -153,7 +153,8 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         }
         private void Dismiss_Click(object sender, RoutedEventArgs e)
         {
-
+            Guide.DismissRequest(SelectedRequest);
+            Requests.Remove(SelectedRequest);
         }
         private void Update()
         {

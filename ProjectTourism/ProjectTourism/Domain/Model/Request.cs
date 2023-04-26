@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectTourism.Model;
+using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.Domain.Model
 {
@@ -18,7 +19,7 @@ namespace ProjectTourism.Domain.Model
         public DateOnly StartDate;
         public DateOnly EndDate;
         public string Guest2Username;
-
+        public REQUESTSTATE State;
         public Request() { }
 
         public Request(Request request)
@@ -42,6 +43,13 @@ namespace ProjectTourism.Domain.Model
             StartDate = DateOnly.Parse(values[5]);
             EndDate = DateOnly.Parse(values[6]);
             Guest2Username = values[7];
+            switch (values[8])
+            {
+                case "PENDING": State = REQUESTSTATE.PENDING; break;
+                case "ACCEPTED": State = REQUESTSTATE.ACCEPTED; break;
+                case "DISMISSED": State = REQUESTSTATE.DISMISSED; break;
+                default: State = REQUESTSTATE.PENDING;break;
+            }
         }
 
         public string[] ToCSV()
@@ -55,7 +63,8 @@ namespace ProjectTourism.Domain.Model
                 NumberOfGuests.ToString(),
                 StartDate.ToString(),
                 EndDate.ToString(),
-                Guest2Username
+                Guest2Username, 
+                State.ToString()
             };
             return csvValues;
         }
