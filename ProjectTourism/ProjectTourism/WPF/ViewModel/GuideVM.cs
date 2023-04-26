@@ -69,6 +69,12 @@ namespace ProjectTourism.WPF.ViewModel
             request.State = REQUESTSTATE.DISMISSED;
             requestService.Update(request.GetRequest());
         }
+        public void AcceptRequest(RequestVM request)
+        {
+            RequestService requestService = new RequestService();
+            request.State = REQUESTSTATE.ACCEPTED;
+            requestService.Update(request.GetRequest());
+        }
         public void Add(Guide Guide)
         {
             GuideService guideService = new GuideService();

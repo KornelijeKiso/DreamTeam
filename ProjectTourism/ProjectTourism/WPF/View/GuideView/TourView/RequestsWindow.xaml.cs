@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,11 +14,13 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProjectTourism.Model;
+using ProjectTourism.View.TourView;
 using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.GuideView.TourView
 {
-    public partial class RequestsWindow : UserControl
+    public partial class RequestsWindow : UserControl, INotifyPropertyChanged
     {
         public RequestVM SelectedRequest { get; set; }
         public ObservableCollection<RequestVM> Requests { get; set; }
@@ -35,10 +39,17 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             InitializeComponent();
             DataContext = this;
             Guide = new GuideVM(username);
-            Requests = Guide.Requests;
+            SetRequests();
             RequestList = new List<RequestVM>(Requests);
             UpdatedList= new List<RequestVM>();
             SetStartSearchedValues();
+        }
+        public void SetRequests()
+        {
+            Requests = new ObservableCollection<RequestVM>();
+            foreach (var request in Guide.Requests)
+                if (request.State != REQUESTSTATE.DISMISSED)
+                    Requests.Add(request);
         }
         private void SetStartSearchedValues()
         {
@@ -61,7 +72,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 if (request.Location.City.ToLower().Contains(SearchedLocation.ToLower()) || request.Location.Country.ToLower().Contains(SearchedLocation.ToLower()))
                     RequestList.Add(request);
             }
-            Update();
+            UpdateRequests();
             SetUpdatedList();
         }
         private void FilterByNumberOfGuests()
@@ -75,7 +86,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 if (request.NumberOfGuests >= int.Parse(SearchedNumberOfGuests))
                     RequestList.Add(request);
             }
-            Update();
+            UpdateRequests();
             SetUpdatedList();
         }
         private void FilterByLanguage()
@@ -88,7 +99,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 if (request.Language.ToLower().Contains(SearchedLanguage.ToLower()))
                     RequestList.Add(request);
             }
-            Update();
+            UpdateRequests();
             SetUpdatedList();
         }
         private void FilterByStartDate()
@@ -101,7 +112,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 if (SearchedStartDate <= DateTime.Parse(request.StartDate.ToShortDateString()))
                     RequestList.Add(request);
             }
-            Update();
+            UpdateRequests();
             SetUpdatedList();
         }
 
@@ -115,7 +126,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 if (SearchedEndDate >= DateTime.Parse(request.EndDate.ToShortDateString()))
                     RequestList.Add(request);
             }
-            Update();
+            UpdateRequests();
             SetUpdatedList();
         }
         private void Search_Click(object sender, RoutedEventArgs e)
@@ -136,9 +147,8 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 RequestList.Clear();
                 RequestList.AddRange(Guide.Requests);
             }
-            Update();
+            UpdateRequests();
         }
-
         private void InitializeComponents()
         {
             Requests.Clear();
@@ -146,23 +156,41 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 Requests.Add(req);
             RequestList = new List<RequestVM>(Requests);
         }
-
+        public void HideRequestsContent()
+        {
+            List<UIElement> elementsToHide = new List<UIElement> { RequestsLabel, DataGridRow, rectangle, searchGrid, SearchButton };
+            elementsToHide.ForEach(element => element.Visibility = Visibility.Hidden);
+        }
         private void Accept_Click(object sender, RoutedEventArgs e)
         {
-
+            HideRequestsContent();
+            ContentArea.Content = new AcceptedRequestUserControl(Guide, SelectedRequest);
+            Guide.AcceptRequest(SelectedRequest);
+            RequestList.Remove(SelectedRequest);
+            UpdateRequests();
         }
         private void Dismiss_Click(object sender, RoutedEventArgs e)
         {
-            Guide.DismissRequest(SelectedRequest);
-            Requests.Remove(SelectedRequest);
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to dismiss this request?", "Dismiss request", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                Guide.DismissRequest(SelectedRequest);
+                Requests.Remove(SelectedRequest);
+            }
         }
-        private void Update()
+        private void UpdateRequests()
         {
             Requests.Clear();
             foreach (var request in RequestList)
             {
                 Requests.Add(request);
             }
+        }
+        public void Update() { }
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
