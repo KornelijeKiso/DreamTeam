@@ -88,10 +88,10 @@
                     </DataGridTemplateColumn.HeaderStyle>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
                                 <TextBlock Text="{Binding StartDate, StringFormat='yyyy-MM-dd'}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                <TextBlock Text="-" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding StartDate, StringFormat='yyyy-MM-dd'}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Image Height="20" Width="20" Source="https://img.icons8.com/material-outlined/256/expand-arrow.png"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding EndDate, StringFormat='yyyy-MM-dd'}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
