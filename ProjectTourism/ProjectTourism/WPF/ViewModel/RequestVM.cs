@@ -10,6 +10,7 @@ using ProjectTourism.Model;
 
 namespace ProjectTourism.WPF.ViewModel
 {
+    public enum REQUESTSTATE { PENDING, ACCEPTED, DISMISSED}
     public class RequestVM : INotifyPropertyChanged
     {
         private Request _request;
@@ -131,6 +132,19 @@ namespace ProjectTourism.WPF.ViewModel
                 if(value != _request.Guest2Username)
                 {
                     _request.Guest2Username = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public REQUESTSTATE State
+        {
+            get => _request.State;
+            set
+            {
+                if (value != _request.State)
+                {
+                    _request.State = value;
                     OnPropertyChanged();
                 }
             }
