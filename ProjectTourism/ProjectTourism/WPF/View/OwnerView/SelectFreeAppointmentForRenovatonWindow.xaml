@@ -1,0 +1,64 @@
+﻿<Window x:Class="ProjectTourism.WPF.View.OwnerView.SelectFreeAppointmentForRenovatonWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectTourism.WPF.View.OwnerView"
+        xmlns:conv="clr-namespace:ProjectTourism.Converters"
+        mc:Ignorable="d"
+        Title="Select Free Appointment For Renovaton" Height="400" Width="400" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <ResourceDictionary>
+            <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <TextBlock TextWrapping="Wrap" Margin="20" FontSize="16" TextAlignment="Justify">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="In period from {0} to {1} we offer you these free appointments for your {2}-days long renovation :">
+                        <Binding Path="RenovationAppointment.StartDate"/>
+                        <Binding Path="RenovationAppointment.EndDate"/>
+                        <Binding Path="RenovationAppointment.Duration"/>
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <DataGrid Margin="50 0 50 0" SelectedItem="{Binding SelectedRenovation, UpdateSourceTrigger=PropertyChanged}" Background="LightSkyBlue" BorderBrush="DeepSkyBlue" BorderThickness="2" HeadersVisibility="None" ItemsSource="{Binding OfferedAppointments}" Height="200" RowHeight="30" HorizontalScrollBarVisibility="Disabled" AutoGenerateColumns="False" CanUserAddRows="False">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Width="290">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Label FontWeight="SemiBold" FontSize="14" HorizontalContentAlignment="Center">
+                                    <Label.Content>
+                                        <TextBlock TextAlignment="Center">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0} - {1}">
+                                                    <Binding Path="StartDate"/>
+                                                    <Binding Path="EndDate"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Label.Content>
+                                </Label>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button Content="Select" Click="SelectClick" Height="30" Width ="100" Margin="0 10 0 0">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="5"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+            <Button IsCancel="True" Content="Cancel" Margin ="300 -25 20 0"></Button>
+            <StackPanel Margin="0 -190 0 0" Orientation="Vertical" Visibility="{Binding Path=NoAppointments, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
+                <Image Source="https://img.icons8.com/pulsar-line/2x/sad.png" Height="50"></Image>
+                <TextBlock Width="160" TextWrapping="Wrap" Margin="0 10 0 0" TextAlignment="Center" Text="Sorry, in this period you don't have any free appointments for renovation."></TextBlock>
+            </StackPanel>
+        </StackPanel>
+        
+
+    </Grid>
+</Window>

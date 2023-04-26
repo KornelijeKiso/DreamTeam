@@ -25,10 +25,13 @@ namespace ProjectTourism.WPF.View.OwnerView
         public AccommodationVM Accommodation { get; set; }
         public RenovationVM SelectedRenovation { get; set; }
         public RenovationVM NewRenovation { get; set; }
+        public RenovationAppointmentVM RenovationAppointment {get; set;}
         public RenovationsWindow(AccommodationVM accommodation)
         {
             Accommodation = accommodation;
             NewRenovation = new RenovationVM();
+            RenovationAppointment = new RenovationAppointmentVM();
+            RenovationAppointment.AccommodationId = Accommodation.Id;
             NewRenovation.AccommodationId = Accommodation.Id;
             InitializeComponent();
             DataContext = this;
@@ -40,8 +43,24 @@ namespace ProjectTourism.WPF.View.OwnerView
         }
         public void ScheduleRenovationClick(object sender, RoutedEventArgs e)
         {
-            Accommodation.ScheduleNewRenovation(NewRenovation);
-            NewRenovation.Reset();
+            if (SelectedFreeAppointment.Text.ToString() == "") MessageBox.Show("You have to select appointment for your renovation.");
+            else
+            {
+                Accommodation.ScheduleNewRenovation(NewRenovation);
+                NewRenovation.Reset();
+                SelectedFreeAppointment.Text = "";
+            }
+        }
+        public void SelectFreeAppointmentClick(object sender, RoutedEventArgs e)
+        {
+            SelectFreeAppointmentForRenovatonWindow selectFreeAppointmentForRenovatonWindow = new SelectFreeAppointmentForRenovatonWindow(RenovationAppointment);
+            selectFreeAppointmentForRenovatonWindow.ShowDialog();
+            if (selectFreeAppointmentForRenovatonWindow.SelectedRenovation != null)
+            {
+                SelectedFreeAppointment.Text = selectFreeAppointmentForRenovatonWindow.SelectedRenovation.StartDate.ToString() + " - " + selectFreeAppointmentForRenovatonWindow.SelectedRenovation.EndDate.ToString();
+                NewRenovation.StartDate = selectFreeAppointmentForRenovatonWindow.SelectedRenovation.StartDate;
+                NewRenovation.EndDate = selectFreeAppointmentForRenovatonWindow.SelectedRenovation.EndDate;
+            }
         }
         public void CancelRenovationClick(object sender, RoutedEventArgs e)
         {

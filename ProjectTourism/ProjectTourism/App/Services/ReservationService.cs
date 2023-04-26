@@ -1,4 +1,5 @@
 ﻿using ProjectTourism.Domain.IRepositories;
+using ProjectTourism.Domain.Model;
 using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.Repositories.IRepositories;
@@ -45,12 +46,18 @@ namespace ProjectTourism.Services
         }
         public bool IsPossible(Reservation reservation)
         {
+            List<Renovation> RenovationsForSameAccommdoation = new RenovationService().GetAllByAccommodation(reservation.AccommodationId);
             List<Reservation> ReservationsForSameAccommodation = ReservationRepo.GetAllByAccommodation(reservation.AccommodationId);
-            return ReservationsForSameAccommodation.Find(res => Conflict(reservation, res)) == null;
+            return ReservationsForSameAccommodation.Find(res => Conflict(reservation, res)) == null
+                && RenovationsForSameAccommdoation.Find(ren => RenovationConflict(reservation, ren)) == null;
         }
         private bool Conflict(Reservation reservation, Reservation existingReservation)
         {
-            return !(reservation.StartDate > existingReservation.EndDate || reservation.EndDate < existingReservation.StartDate) && reservation.Id!=existingReservation.Id;
+            return !(reservation.StartDate >= existingReservation.EndDate || reservation.EndDate <= existingReservation.StartDate) && reservation.Id!=existingReservation.Id;
+        }
+        private bool RenovationConflict(Reservation reservation, Renovation renovation)
+        {
+            return !(reservation.StartDate > renovation.EndDate || reservation.EndDate < renovation.StartDate);
         }
     }
 }

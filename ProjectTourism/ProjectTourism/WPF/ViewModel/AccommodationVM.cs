@@ -235,6 +235,7 @@ namespace ProjectTourism.WPF.ViewModel
             Renovations.Remove(renovation);
             RenovationService renovationService = new RenovationService();
             renovationService.Cancel(renovation.GetRenovation());
+            NoRenovations = Renovations.Count == 0;
         }
         public void ScheduleNewRenovation(RenovationVM renovation)
         {

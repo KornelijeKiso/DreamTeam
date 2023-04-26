@@ -72,19 +72,19 @@
                             <StackPanel Orientation="Vertical">
                                 <StackPanel Orientation="Horizontal" Width="250">
                                     <Label Content="Enter start date :" FontWeight="Normal"></Label>
-                                    <DatePicker Height="24" Margin="30 3 0 0"></DatePicker>
+                                    <DatePicker Height="24" Width="110" Margin="30 3 0 0" SelectedDate="{Binding RenovationAppointment.StartDateWrapper, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Width="250">
                                     <Label Content="Enter end date :" FontWeight="Normal"></Label>
-                                    <DatePicker Height="24" Margin="34 3 0 0"></DatePicker>
+                                    <DatePicker Height="24" Width="110" Margin="34 3 0 0" SelectedDate="{Binding RenovationAppointment.EndDateWrapper, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Width="250">
                                     <Label Content="Enter duration :" FontWeight="Normal"></Label>
-                                    <TextBox Height="24" Margin="36 3 0 0" Width="110"></TextBox>
+                                    <TextBox Height="24" Margin="36 3 0 0" Width="110" Text="{Binding RenovationAppointment.Duration, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                                 </StackPanel>
-                                <Button Margin="0 30 0 0" FontWeight="Normal" Width="200"  Content="Select free appointment" FontSize="12"  Height="28"></Button>
+                                <Button Margin="0 30 0 0" Click="SelectFreeAppointmentClick" FontWeight="Normal" Width="200"  Content="Select free appointment" FontSize="12"  Height="28"></Button>
                                 <Label Content="Selected appointment :" FontSize="12" Margin="5 0"></Label>
-                                <RichTextBox IsEnabled="False" Margin="0 -5 0 0" Height="30" Width="280"></RichTextBox>
+                                <TextBox Name="SelectedFreeAppointment" IsEnabled="False" TextAlignment="Center" FontSize="15" Padding="3"  Margin="0 -5 0 0" Height="30" Width="280"></TextBox>
                             </StackPanel>
                         </GroupBox>
                         <Label Content="Description" Margin="10 -3 0 0" FontSize="13"></Label>
