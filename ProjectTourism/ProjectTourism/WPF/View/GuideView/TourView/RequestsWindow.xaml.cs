@@ -26,7 +26,10 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         public string SearchedLocation { get; set; }
         public string SearchedNumberOfGuests { get; set; }
         public string SearchedLanguage { get; set; }
-        
+        public DateTime SearchedStartDate { get; set; }
+        public DateTime SearchedEndDate { get; set; }
+
+
         public RequestsWindow(string username)
         {
             InitializeComponent();
@@ -42,6 +45,8 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             SearchedLocation = "";
             SearchedNumberOfGuests = "";
             SearchedLanguage = "";
+            SearchedStartDate = DateTime.Today;
+            SearchedEndDate = DateTime.Today;
         }
         private void SetUpdatedList()
         {
@@ -84,6 +89,34 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                     RequestList.Add(request);
             }
             Update();
+            SetUpdatedList();
+        }
+        private void FilterByStartDate()
+        {
+            if (SearchedLocation.Equals("") && SearchedNumberOfGuests.Equals("") && SearchedLanguage.Equals(""))
+                SetUpdatedList();
+            RequestList.Clear();
+            foreach (var request in UpdatedList)
+            {
+                if (SearchedStartDate <= DateTime.Parse(request.StartDate.ToShortDateString()))
+                    RequestList.Add(request);
+            }
+            Update();
+            SetUpdatedList();
+        }
+
+        private void FilterByEndDate()
+        {
+            if (SearchedLocation.Equals("") && SearchedNumberOfGuests.Equals("") && SearchedLanguage.Equals("") && SearchedStartDate.Date == DateTime.Today.Date)
+                SetUpdatedList();
+            RequestList.Clear();
+            foreach (var request in UpdatedList)
+            {
+                if (SearchedEndDate >= DateTime.Parse(request.EndDate.ToShortDateString()))
+                    RequestList.Add(request);
+            }
+            Update();
+            SetUpdatedList();
         }
         private void Search_Click(object sender, RoutedEventArgs e)
         {
@@ -94,7 +127,11 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 FilterByNumberOfGuests();
             if (!SearchedLanguage.Equals(""))
                 FilterByLanguage();
-            if (SearchedLocation.Equals("") && SearchedNumberOfGuests.Equals("") && SearchedLanguage.Equals(""))
+            if (SearchedStartDate.Date != DateTime.Today.Date)
+                FilterByStartDate();
+            if (SearchedEndDate.Date != DateTime.Today.Date)
+                FilterByEndDate();
+            if (SearchedLocation.Equals("") && SearchedNumberOfGuests.Equals("") && SearchedLanguage.Equals("") && SearchedStartDate.Date == DateTime.Today.Date && SearchedEndDate.Date == DateTime.Today.Date)
             {
                 RequestList.Clear();
                 RequestList.AddRange(Guide.Requests);

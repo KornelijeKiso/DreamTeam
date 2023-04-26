@@ -88,10 +88,15 @@
                     </DataGridTemplateColumn.HeaderStyle>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding StartDate}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Text="{Binding StartDate, StringFormat='yyyy-MM-dd'}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <TextBlock Text="-" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <TextBlock Text="{Binding StartDate, StringFormat='yyyy-MM-dd'}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+
 
                 <DataGridTemplateColumn Header="Guest username" Width="*">
                     <DataGridTemplateColumn.HeaderStyle>
@@ -133,8 +138,8 @@
             <TextBox Grid.Row="0" Grid.Column="1" Margin="0,8,0,8" Text="{Binding Path=SearchedLocation, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBox Grid.Row="1" Grid.Column="1" Margin="0,8,0,8" Text="{Binding Path=SearchedNumberOfGuests, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBox Grid.Row="2" Grid.Column="1" Margin="0,8,0,8" Text="{Binding Path=SearchedLanguage, UpdateSourceTrigger=PropertyChanged}"/>
-            <DatePicker Grid.Row="3" Grid.Column="1" Margin="0,0,0,8"/>
-            <DatePicker Grid.Row="4" Grid.Column="1" Margin="0,0,0,8"/>
+            <DatePicker Grid.Row="3" Grid.Column="1" Margin="0,0,0,8" SelectedDate="{Binding Path=SearchedStartDate, UpdateSourceTrigger=PropertyChanged}"/>
+            <DatePicker Grid.Row="4" Grid.Column="1" Margin="0,0,0,8" SelectedDate="{Binding Path=SearchedEndDate, UpdateSourceTrigger=PropertyChanged}"/>
 
         </Grid>
         <Button Content="Search" Click="Search_Click" HorizontalAlignment="Left" Height="31" Margin="983,410,0,0" VerticalAlignment="Top" Width="92">
