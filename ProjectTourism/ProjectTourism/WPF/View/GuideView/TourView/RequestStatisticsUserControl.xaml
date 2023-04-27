@@ -9,10 +9,10 @@
     <Grid>
         <Label x:Name="RequestsLabel" Content="Request statistics" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="329" FontSize="40"/>
         <DataGrid x:Name="DataGridStats" 
-                    ItemsSource="{Binding Requests, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{Binding Stats, UpdateSourceTrigger=PropertyChanged}"
                     SelectionMode="Single"
                     VerticalScrollBarVisibility="Visible" 
-                    IsReadOnly="True" AutoGenerateColumns="False" Margin="40,131,431,110" RowHeight="100" >
+                    IsReadOnly="True" AutoGenerateColumns="False" Margin="40,131,900,110" RowHeight="100" >
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
             </DataGrid.Resources>
@@ -31,7 +31,7 @@
                     </DataGridTemplateColumn.HeaderStyle>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Label Content="{Binding Year, UpdateSourceTrigger=PropertyChanged}"></Label>
+                            <Label VerticalAlignment="Center" HorizontalAlignment="Center" Content="{Binding Year, UpdateSourceTrigger=PropertyChanged}"></Label>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -44,7 +44,7 @@
                     </DataGridTemplateColumn.HeaderStyle>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Label Content="{Binding Stats, UpdateSourceTrigger=PropertyChanged}"></Label>
+                            <Label VerticalAlignment="Center" HorizontalAlignment="Center" Content="{Binding StatsForThatYear, UpdateSourceTrigger=PropertyChanged}"></Label>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -57,7 +57,32 @@
                     </DataGridTemplateColumn.HeaderStyle>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Label Content="{Binding Visits}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Margin="0,0,0,-7"></Label>
+                            <StackPanel>
+                                <Button HorizontalAlignment="Right" Height="35" Width="35" Margin="0, 30, 25, 0" Click="MonthStatsButton_Click">
+                                    <Button.Background>
+                                        <ImageBrush ImageSource="https://i.pinimg.com/564x/df/f9/82/dff9823eb1ec2d29b41913332689b8f7.jpg" />
+                                    </Button.Background>
+                                    <Button.Style>
+                                        <Style TargetType="{x:Type Button}">
+                                            <Setter Property="Background" Value="Green"/>
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="{x:Type Button}">
+                                                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="Red"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

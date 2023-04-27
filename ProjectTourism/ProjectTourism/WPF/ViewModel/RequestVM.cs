@@ -24,20 +24,8 @@ namespace ProjectTourism.WPF.ViewModel
         {
             _request = new Request(request.GetRequest());
         }
-
         public RequestVM() { }
-        public ObservableCollection<int> GetYears()
-        {
-            ObservableCollection<RequestVM> Requests = new ObservableCollection<RequestVM>();
-            Requests = GetAll();
-            List<int> years = new List<int>();
-            Requests.ToList().ForEach(request => { if (!years.Contains(request.CreationDateTime.Year)) years.Add(request.CreationDateTime.Year); });
-            years.Sort();
-            years.Reverse();
-
-            ObservableCollection<int> YearsList = new ObservableCollection<int>(years);
-            return YearsList;
-        }
+        
         public Request GetRequest()
         {
             return _request;
@@ -51,6 +39,28 @@ namespace ProjectTourism.WPF.ViewModel
                 requests.Add(new RequestVM(req));
             }
             return requests;
+        }
+        public ObservableCollection<int> Years()
+        {
+            ObservableCollection<RequestVM> Requests = new ObservableCollection<RequestVM>();
+            Requests = GetAll();
+            List<int> years = new List<int>();
+            Requests.ToList().ForEach(request => { if (!years.Contains(request.CreationDateTime.Year)) years.Add(request.CreationDateTime.Year); });
+            years.Sort();
+            years.Reverse();
+
+            ObservableCollection<int> YearsList = new ObservableCollection<int>(years);
+            return YearsList;
+        }
+        public int StatForYear(int year)
+        {
+            int ReqCounter = 0;
+            foreach(var request in GetAll())
+            {
+                if (request.CreationDateTime.Year == year)
+                    ReqCounter++;
+            }
+            return ReqCounter;
         }
         public int Id
         {
