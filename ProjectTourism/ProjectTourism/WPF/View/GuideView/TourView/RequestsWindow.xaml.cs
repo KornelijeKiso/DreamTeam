@@ -13,6 +13,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ProjectTourism.Model;
 using ProjectTourism.View.TourView;
@@ -43,6 +44,12 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             RequestList = new List<RequestVM>(Requests);
             UpdatedList= new List<RequestVM>();
             SetStartSearchedValues();
+        }
+        private void RequestStatisticslink_Click(object sender, RoutedEventArgs e)
+        {
+            HideRequestsContent();
+            ContentArea.Content = new RequestStatisticsUserControl();
+            e.Handled = true;
         }
         public void SetRequests()
         {
@@ -158,7 +165,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         }
         public void HideRequestsContent()
         {
-            List<UIElement> elementsToHide = new List<UIElement> { RequestsLabel, DataGridRow, rectangle, searchGrid, SearchButton };
+            List<UIElement> elementsToHide = new List<UIElement> { RequestsLabel, DataGridRow, rectangle, searchGrid, SearchButton, StatsLink };
             elementsToHide.ForEach(element => element.Visibility = Visibility.Hidden);
         }
         private void Accept_Click(object sender, RoutedEventArgs e)
