@@ -164,9 +164,10 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         private void Accept_Click(object sender, RoutedEventArgs e)
         {
             HideRequestsContent();
-            ContentArea.Content = new AcceptedRequestUserControl(Guide, SelectedRequest);
-            Guide.AcceptRequest(SelectedRequest);
-            RequestList.Remove(SelectedRequest);
+            AcceptedRequestUserControl acceptedRequestUserControl = new AcceptedRequestUserControl(Guide, SelectedRequest);
+            ContentArea.Content = acceptedRequestUserControl;
+            if (acceptedRequestUserControl.Request.State == REQUESTSTATE.ACCEPTED)
+                RequestList.Remove(SelectedRequest);
             UpdateRequests();
         }
         private void Dismiss_Click(object sender, RoutedEventArgs e)

@@ -39,6 +39,7 @@ namespace ProjectTourism.View.TourView
             Guide = guide;
             SetModels();
             LanguageComboBox.ItemsSource = LanguagesObservable;
+            calendar.BlackoutDates.AddDatesInPast();
         }
         private List<string> SetLanguages()
         {

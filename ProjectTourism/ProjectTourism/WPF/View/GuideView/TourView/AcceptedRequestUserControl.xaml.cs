@@ -39,12 +39,22 @@ namespace ProjectTourism.View.TourView
             Guide = guide;
             Request = request;
             SetModels();
-            NewTour.Language = Request.Language;
-            NewTour.Description = Request.Description;
-            NewTour.MaxNumberOfGuests = Request.NumberOfGuests;
-            NewLocation.Country = Request.Location.Country;
-            NewLocation.City = Request.Location.City;
+            SetBlackoutDates();
         }
+
+        private void SetBlackoutDates()
+        {
+            calendar.BlackoutDates.AddDatesInPast();
+
+            DateTime EndDate = DateTime.Parse(Request.EndDate.ToString());
+            CalendarDateRange blackoutRange = new CalendarDateRange(EndDate.AddDays(1), new DateTime(9999, 12, 31));
+            calendar.BlackoutDates.Add(blackoutRange);
+
+            DateTime StartDate = DateTime.Parse(Request.StartDate.ToString());
+            blackoutRange = new CalendarDateRange(DateTime.Today, StartDate.AddDays(-1));
+            calendar.BlackoutDates.Add(blackoutRange);
+        }
+
         private void SetModels()
         {
             NewTour = new TourVM(new Tour());
@@ -52,6 +62,11 @@ namespace ProjectTourism.View.TourView
             NewTour.GuideUsername = Guide.Username;
             NewTour.Guide = Guide;
             NewLocation = new LocationVM(new Location());
+            NewTour.Language = Request.Language;
+            NewTour.Description = Request.Description;
+            NewTour.MaxNumberOfGuests = Request.NumberOfGuests;
+            NewLocation.Country = Request.Location.Country;
+            NewLocation.City = Request.Location.City;
         }
         private void SaveTour_Click(object sender, RoutedEventArgs e)
         {
@@ -61,7 +76,11 @@ namespace ProjectTourism.View.TourView
                 return;
             }
             if (NewTour.IsValid && NewLocation.IsValid)
+            {
                 AddTour();
+                Guide.AcceptRequest(Request);
+            }
+                
             else
                 MessageBox.Show("Tour can not be made because the fields were not entered correctly.");
         }
