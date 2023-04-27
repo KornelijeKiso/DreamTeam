@@ -53,6 +53,11 @@ namespace ProjectTourism.WPF.View.OwnerView
         }
         public void SelectFreeAppointmentClick(object sender, RoutedEventArgs e)
         {
+            if (string.IsNullOrEmpty(DurationTextBox.Text.ToString()))
+            {
+                MessageBox.Show("Enter a duration.");
+                return;
+            }
             SelectFreeAppointmentForRenovatonWindow selectFreeAppointmentForRenovatonWindow = new SelectFreeAppointmentForRenovatonWindow(RenovationAppointment);
             selectFreeAppointmentForRenovatonWindow.ShowDialog();
             if (selectFreeAppointmentForRenovatonWindow.SelectedRenovation != null)
@@ -62,6 +67,29 @@ namespace ProjectTourism.WPF.View.OwnerView
                 NewRenovation.EndDate = selectFreeAppointmentForRenovatonWindow.SelectedRenovation.EndDate;
             }
         }
+        public void DeclineClick(object sender, RoutedEventArgs e)
+        {
+            SelectedFreeAppointment.Text = "";
+        }
+        private void IntegerValidation(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, e.Text.Length - 1))
+            {
+                e.Handled = true;
+            }
+            else
+            {
+                int res;
+                if (int.TryParse(DurationTextBox.Text.ToString(), out res))
+                {
+                    if(res == 0)
+                    {
+                        e.Handled = true;
+                    }
+                }
+            }
+        }
+
         public void CancelRenovationClick(object sender, RoutedEventArgs e)
         {
             Accommodation.CancelRenovation(SelectedRenovation);

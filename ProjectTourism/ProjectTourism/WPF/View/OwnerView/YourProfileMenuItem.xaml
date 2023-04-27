@@ -45,7 +45,7 @@
                HorizontalAlignment="Left" Margin="70 340 0 0" FontSize="16" FontWeight="Bold" Foreground="DarkGoldenrod"></Label>
         <Label ContentStringFormat="{}{0} Reservations" Content="{Binding Owner.NumberOfReservations}" VerticalAlignment="Top"
                HorizontalAlignment="Left" Margin="70 365 0 0" FontSize="16" FontWeight="Bold" Foreground="DarkGoldenrod"></Label>
-        <Label ContentStringFormat="{}{0} Renovations" Content="0" VerticalAlignment="Top"
+        <Label ContentStringFormat="{}{0} Renovations" Content="{Binding Owner.NumberOfRenovations}" VerticalAlignment="Top"
                HorizontalAlignment="Left" Margin="70 390 0 0" FontSize="16" FontWeight="Bold" Foreground="DarkGoldenrod"></Label>
         <GroupBox Header="Last year" Margin="75 430 0 0" Height="150" Width="300" BorderBrush="DarkBlue" FontSize="15"
                   Foreground="DarkSlateGray" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left"></GroupBox>

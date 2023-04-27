@@ -7,11 +7,13 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace ProjectTourism.WPF.ViewModel
 {
-    public class RenovationAppointmentVM:INotifyPropertyChanged
+    public class RenovationAppointmentVM:INotifyPropertyChanged,IDataErrorInfo
     {
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -26,6 +28,7 @@ namespace ProjectTourism.WPF.ViewModel
         {
             _StartDate = DateOnly.FromDateTime(DateTime.Now);
             _EndDate = _StartDate.AddDays(10);
+            Duration = 3;
         }
         public DateOnly StartDate
         {
@@ -68,7 +71,7 @@ namespace ProjectTourism.WPF.ViewModel
             {
                 if (value != _Duration)
                 {
-                    _Duration = value;
+                    if (value <= 0) _Duration = 1; else _Duration =value;
                     OnPropertyChanged();
                 }
             }
@@ -86,6 +89,38 @@ namespace ProjectTourism.WPF.ViewModel
         public ObservableCollection<RenovationVM> OfferedAppointments()
         {
             return new ObservableCollection<RenovationVM>(new RenovationService().OfferAppointments(StartDate, EndDate, Duration, AccommodationId).Select(a=>new RenovationVM(a)).ToList());
+        }
+        private Regex _DurationRegex = new Regex("[1-9]|[1-9][0-9]{1,2}|1[0-9]{3}|2000");
+        public string Error => null;
+        public string? this[string columnName]
+        {
+            get
+            {
+                if (columnName == "Duration")
+                {
+                    if (string.IsNullOrEmpty(Duration.ToString()))
+                        return "Duration is required!";
+                    if (!_DurationRegex.Match(Duration.ToString()).Success)
+                        return "Duration must be a positive number!";
+                }
+
+                return null;
+            }
+        }
+        private readonly string[] _validatedProperties = { "Name" };
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+
+                return true;
+            }
         }
     }
 }

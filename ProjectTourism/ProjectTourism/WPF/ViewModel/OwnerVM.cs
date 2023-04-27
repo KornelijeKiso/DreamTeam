@@ -184,6 +184,10 @@ namespace ProjectTourism.WPF.ViewModel
         {
             get => _owner.Accommodations.Count();
         }
+        public int NumberOfRenovations
+        {
+            get=> _owner.Accommodations.Where(a=> a.Renovations!=null).Sum(a=> a.Renovations.Count());
+        }
         public double AverageGrade
         {
             get => CalculateAverageGrade();

@@ -52,7 +52,7 @@
                     </Style>
                 </Button.Resources>
             </Button>
-            <Button IsCancel="True" Content="Cancel" Margin ="300 -25 20 0"></Button>
+            <Button Click="CancelClick"  Content="Cancel" Margin ="300 -25 20 0"></Button>
             <StackPanel Margin="0 -190 0 0" Orientation="Vertical" Visibility="{Binding Path=NoAppointments, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
                 <Image Source="https://img.icons8.com/pulsar-line/2x/sad.png" Height="50"></Image>
                 <TextBlock Width="160" TextWrapping="Wrap" Margin="0 10 0 0" TextAlignment="Center" Text="Sorry, in this period you don't have any free appointments for renovation."></TextBlock>

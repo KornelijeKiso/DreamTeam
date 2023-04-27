@@ -201,7 +201,11 @@ namespace ProjectTourism.WPF.ViewModel
         private bool _NoRenovations;
         public bool NoRenovations
         {
-            get => _NoRenovations=Renovations.Count == 0;
+            get
+            {
+                if(Renovations==null) return _NoRenovations=true;
+                else return NoRenovations=Renovations.Count==0;
+            }
             set
             {
                 if(value!= _NoRenovations)

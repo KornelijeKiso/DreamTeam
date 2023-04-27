@@ -41,5 +41,10 @@ namespace ProjectTourism.WPF.View.OwnerView
                 Close();
             }
         }
+        public void CancelClick(object sender, RoutedEventArgs e)
+        {
+            SelectedRenovation = null;
+            Close();
+        }
     }
 }
