@@ -7,7 +7,7 @@
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
         <Label Content="Tour statistics" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
-        <DataGrid x:Name="DataGridTours" 
+        <DataGrid x:Name="DataGridTours" PreviewMouseLeftButtonDown="DataGridTours_PreviewMouseLeftButtonDown"  
                     ItemsSource="{Binding TourAppsObs, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedTourApp, UpdateSourceTrigger=PropertyChanged}"
                     SelectionMode="Single"
@@ -42,7 +42,6 @@
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" >
                                 <Label Content="{Binding Path=Tour.Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
-                                <Label Content="Statistics" HorizontalAlignment="Right" Margin="0, -5, 0, 0"></Label>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
                                     <Label Content="Location :" Margin="0,-15,-7,-7" ></Label>
                                     <Label Margin="0,-15,0,-7">
@@ -65,31 +64,6 @@
                                 <StackPanel Orientation="Horizontal" Margin="0,-2,0,-7">
                                     <Label ContentStringFormat="Duration : {0}h" Content="{Binding Path=Tour.Duration}" Margin="0,-2,-7,-7" ></Label>
                                 </StackPanel>
-                                <Button HorizontalAlignment="Right" Height="35" Width="35" Margin="0, -28, 10, 0" Click="StatsButton_Click">
-                                    <Button.Background>
-                                        <ImageBrush ImageSource="https://i.pinimg.com/564x/df/f9/82/dff9823eb1ec2d29b41913332689b8f7.jpg" />
-                                    </Button.Background>
-                                    <Button.Style>
-                                        <Style TargetType="{x:Type Button}">
-                                            <Setter Property="Background" Value="Green"/>
-                                            <Setter Property="Template">
-                                                <Setter.Value>
-                                                    <ControlTemplate TargetType="{x:Type Button}">
-                                                        <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
-                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                                        </Border>
-                                                    </ControlTemplate>
-                                                </Setter.Value>
-                                            </Setter>
-                                            <Style.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter Property="Background" Value="Red"/>
-                                                </Trigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Button.Style>
-                                </Button>
-
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
