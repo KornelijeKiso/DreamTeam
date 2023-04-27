@@ -20,6 +20,7 @@ namespace ProjectTourism.Domain.Model
         public DateOnly EndDate;
         public string Guest2Username;
         public REQUESTSTATE State;
+        public DateTime CreationDateTime;
         public Request() { }
 
         public Request(Request request)
@@ -32,6 +33,8 @@ namespace ProjectTourism.Domain.Model
             StartDate = request.StartDate;
             EndDate = request.EndDate;
             Guest2Username = request.Guest2Username;
+            State = request.State;
+            CreationDateTime = request.CreationDateTime;
         }
         public void FromCSV(string[] values)
         {
@@ -50,6 +53,7 @@ namespace ProjectTourism.Domain.Model
                 case "DISMISSED": State = REQUESTSTATE.DISMISSED; break;
                 default: State = REQUESTSTATE.PENDING;break;
             }
+            CreationDateTime = DateTime.Parse(values[9]);
         }
 
         public string[] ToCSV()
@@ -64,7 +68,8 @@ namespace ProjectTourism.Domain.Model
                 StartDate.ToString(),
                 EndDate.ToString(),
                 Guest2Username, 
-                State.ToString()
+                State.ToString(), 
+                CreationDateTime.ToString()
             };
             return csvValues;
         }

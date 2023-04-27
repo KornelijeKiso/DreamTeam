@@ -231,6 +231,9 @@
                 </Style>
             </Button.Resources>
         </Button>
+        <TextBlock x:Name="StatsLink" Margin="40,626,1020,18" FontSize="18">
+            <Hyperlink Click="RequestStatisticslink_Click">Request statistics</Hyperlink>
+        </TextBlock>
         <ContentControl x:Name="ContentArea"></ContentControl>        
     </Grid>
 </UserControl>

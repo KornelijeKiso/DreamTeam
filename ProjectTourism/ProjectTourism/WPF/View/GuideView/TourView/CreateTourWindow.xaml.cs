@@ -39,6 +39,7 @@ namespace ProjectTourism.View.TourView
             Guide = guide;
             SetModels();
             LanguageComboBox.ItemsSource = LanguagesObservable;
+            calendar.BlackoutDates.AddDatesInPast();
         }
         private List<string> SetLanguages()
         {
@@ -102,7 +103,11 @@ namespace ProjectTourism.View.TourView
             {
                 foreach (DateTime date in calendar.SelectedDates)
                 {
-                    AddTimeToDate(hours, minutes, date);
+                    DateTime possibleDate = new DateTime(date.Year, date.Month, date.Day, hours, minutes, 0);
+                    if (Guide.CanGuideAcceptAppointment(possibleDate))
+                        AddTimeToDate(hours, minutes, date);
+                    else
+                        MessageBox.Show("Guide is already busy in selected appointment!");
                 }
                 UpdateAppointmentsListBox();
             }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -7,10 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using ProjectTourism.Domain.Model;
 using ProjectTourism.Model;
+using ProjectTourism.Services;
 
 namespace ProjectTourism.WPF.ViewModel
 {
-    public enum REQUESTSTATE { PENDING, ACCEPTED, DISMISSED}
+    public enum REQUESTSTATE { PENDING, ACCEPTED, DISMISSED }
     public class RequestVM : INotifyPropertyChanged
     {
         private Request _request;
@@ -22,11 +24,44 @@ namespace ProjectTourism.WPF.ViewModel
         {
             _request = new Request(request.GetRequest());
         }
+        public RequestVM() { }
+        
         public Request GetRequest()
         {
             return _request;
         }
+        public ObservableCollection<RequestVM> GetAll()
+        {
+            RequestService requestService = new RequestService();
+            ObservableCollection<RequestVM> requests = new ObservableCollection<RequestVM>();
+            foreach(var req in requestService.GetAll())
+            {
+                requests.Add(new RequestVM(req));
+            }
+            return requests;
+        }
+        public ObservableCollection<int> Years()
+        {
+            ObservableCollection<RequestVM> Requests = new ObservableCollection<RequestVM>();
+            Requests = GetAll();
+            List<int> years = new List<int>();
+            Requests.ToList().ForEach(request => { if (!years.Contains(request.CreationDateTime.Year)) years.Add(request.CreationDateTime.Year); });
+            years.Sort();
+            years.Reverse();
 
+            ObservableCollection<int> YearsList = new ObservableCollection<int>(years);
+            return YearsList;
+        }
+        public int StatForYear(int year)
+        {
+            int ReqCounter = 0;
+            foreach(var request in GetAll())
+            {
+                if (request.CreationDateTime.Year == year)
+                    ReqCounter++;
+            }
+            return ReqCounter;
+        }
         public int Id
         {
             get => _request.Id;
@@ -123,7 +158,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
         public string Guest2Username
         {
             get => _request.Guest2Username;
@@ -136,7 +170,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
         public REQUESTSTATE State
         {
             get => _request.State;
@@ -145,6 +178,19 @@ namespace ProjectTourism.WPF.ViewModel
                 if (value != _request.State)
                 {
                     _request.State = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public DateTime CreationDateTime
+        {
+            get => _request.CreationDateTime;
+            set
+            {
+                if (value != _request.CreationDateTime)
+                {
+                    _request.CreationDateTime = value;
                     OnPropertyChanged();
                 }
             }
