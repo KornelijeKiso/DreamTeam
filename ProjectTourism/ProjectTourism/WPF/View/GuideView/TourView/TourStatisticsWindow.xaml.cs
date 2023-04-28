@@ -38,13 +38,18 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
 
             Update();
         }
-        private void StatsButton_Click(object sender, RoutedEventArgs e)
+        private void DataGridTours_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            FieldSet.Header = SelectedTourApp.Tour.Name;
-            CalculateTicketPercentage(SelectedTourApp);
-            CalculateAgeStats(SelectedTourApp);
-            AgeGropsCanvas.Children.Clear();
-            DrawTourAppPercentageStats(TourAppPercentage[0]/100, TourAppPercentage[1]/100, AgeGroups);
+            var row = ItemsControl.ContainerFromElement((DataGrid)sender, e.OriginalSource as DependencyObject) as DataGridRow;
+            if (row != null)
+            {
+                var item = row.Item as TourAppointmentVM;
+                FieldSet.Header = item.Tour.Name;
+                CalculateTicketPercentage(item);
+                CalculateAgeStats(item);
+                AgeGropsCanvas.Children.Clear();
+                DrawTourAppPercentageStats(TourAppPercentage[0] / 100, TourAppPercentage[1] / 100, AgeGroups);
+            }
         }
         private void SetModels(string username)
         {
@@ -159,7 +164,6 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 AgeGropsCanvas.Children.Add(label);
             }
         }
-
         private void DrawLabels(ObservableCollection<int> ageGroups, int barWidth, int chartHeight)
         {
             for (int i = 0; i < ageGroups.Count; i++)
