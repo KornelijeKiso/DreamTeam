@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
-    <Grid x:Name="BlackBackground">
+    <Grid x:Name="BlackBackground" MouseDown="BlackBackground_MouseDown">
         <Grid.Background >
             <SolidColorBrush  Color="Black" Opacity="0.75"/>
         </Grid.Background>
@@ -15,7 +15,7 @@
                 <ImageBrush ImageSource="https://img.icons8.com/office/1x/close-window.png" />
             </Button.Background>
         </Button>
-        <Border Margin="241,105,241,105" BorderThickness="3" BorderBrush="AliceBlue">
+        <Border x:Name="ImageBorder" Margin="241,105,241,105" BorderThickness="3" BorderBrush="AliceBlue">
             <Image Stretch="UniformToFill" Source="{Binding Picture, UpdateSourceTrigger=PropertyChanged}" />
         </Border>
 

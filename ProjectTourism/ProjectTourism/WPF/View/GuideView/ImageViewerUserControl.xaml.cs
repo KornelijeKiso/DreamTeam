@@ -58,6 +58,27 @@ namespace ProjectTourism.WPF.View.GuideView
         }
         private void ExitButtonClick(object sender, RoutedEventArgs e)
         {
+            HideImageViewer();
+        }
+
+        private void BlackBackground_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (!IsMouseOverImageBorder(e))
+            {
+                HideImageViewer();
+            }
+        }
+
+        private bool IsMouseOverImageBorder(MouseButtonEventArgs e)
+        {
+            var position = e.GetPosition(ImageBorder);
+            var rect = new Rect(0, 0, ImageBorder.ActualWidth, ImageBorder.ActualHeight);
+            return rect.Contains(position);
+        }
+
+
+        private void HideImageViewer()
+        {
             BlackBackground.Visibility = Visibility.Hidden;
         }
         private void Left_Click(object sender, RoutedEventArgs e)
