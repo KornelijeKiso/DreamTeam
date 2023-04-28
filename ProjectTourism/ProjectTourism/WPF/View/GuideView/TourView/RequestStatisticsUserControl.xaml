@@ -53,7 +53,7 @@
             </DataGrid.Columns>
         </DataGrid>
         <Grid>
-            <Canvas x:Name="AgeGropsCanvas" Margin="541,211,48,43" RenderTransformOrigin="0.5,0.5">
+            <Canvas x:Name="StatsCanvas" Margin="541,211,48,43" RenderTransformOrigin="0.5,0.5">
                 <Canvas.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="-1" ScaleY="-1"/>
@@ -64,5 +64,7 @@
                 </Canvas.RenderTransform>
             </Canvas>
         </Grid>
+        <ComboBox x:Name="LanguageComboBox" ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" SelectionChanged="LanguagesComboBox_SelectionChanged" FontSize="15" Margin="900,200,220,440"></ComboBox>
+        <ComboBox x:Name="LocationComboBox" ItemsSource="{Binding Locations}" SelectedItem="{Binding SelectedLocation}" SelectionChanged="LocationComboBox_SelectionChanged" FontSize="15" Margin="900,290,222,350"></ComboBox>
     </Grid>
 </UserControl>

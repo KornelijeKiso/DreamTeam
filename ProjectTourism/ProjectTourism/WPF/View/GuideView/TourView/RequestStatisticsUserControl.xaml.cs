@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.RightsManagement;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ProjectTourism.WPF.ViewModel;
+using static ProjectTourism.WPF.View.GuideView.TourView.RequestStatisticsUserControl;
 
 namespace ProjectTourism.WPF.View.GuideView.TourView
 {
@@ -25,21 +27,78 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             public int StatsForThatYear { get; set; }
         }
         public RequestVM Request { get; set; }
-        public List<int> nizovi { get; set; } 
         public ObservableCollection<Stat> Stats { get; set; }
         public ObservableCollection<int> MonthlyStats { get; set; }
         public Stat SelectedStat { get; set; }
+        public ObservableCollection<string> Languages { get; set; }
+        public string SelectedLanguage { get; set; }
+        public ObservableCollection<string> Locations { get; set; }
+        public string SelectedLocation { get; set; }
+        public bool WasLanguageChosen { get; set; }
+        public bool WasLocationChosen { get; set; }
 
         public RequestStatisticsUserControl()
         {
             InitializeComponent();
             DataContext = this;
 
+            SetAttributes();
+            CalculateYearStats();
+            SetLanguagesAndLocations();
+        }
+        private void SetAttributes()
+        {
             Request = new RequestVM();
             Stats = new ObservableCollection<Stat>();
-            CalculateYearStats();
+            Languages = new ObservableCollection<string>();
+            Locations = new ObservableCollection<string>();
+            WasLocationChosen = false;
+            WasLocationChosen = false;
+        }
+        private void SetLanguagesAndLocations()
+        {
+            Request.GetAllLanguages().ToList().ForEach(language => Languages.Add(language));
+            Request.GetAllLocations().ToList().ForEach(location => Locations.Add(location));
+        }
+        private void LanguagesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateStats();
+        }
+        private void LocationComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateStats();
+        }
+        private void UpdateStats()
+        {
+            StatsCanvas.Children.Clear();
+
+            if (SelectedLanguage != null || SelectedLocation != null)
+            {
+                WasLanguageChosen = SelectedLanguage != null;
+                WasLocationChosen = SelectedLocation != null;
+
+                CalculateStats();
+            }
         }
 
+        private void CalculateStats()
+        {
+            Stats.Clear();
+            foreach (var year in Request.Years())
+            {
+                Stat stat = new Stat();
+                stat.Year = year;
+
+                if (WasLanguageChosen && !WasLocationChosen)
+                    stat.StatsForThatYear = Request.StatForYearLanguageFiltered(year, SelectedLanguage);
+                else if (!WasLanguageChosen && WasLocationChosen)
+                    stat.StatsForThatYear = Request.StatForYearLocationFiltered(year, SelectedLocation);
+                else
+                    stat.StatsForThatYear = Request.StatForYearLanguageAndLocationFiltered(year, SelectedLanguage, SelectedLocation);
+
+                Stats.Add(stat);
+            }
+        }
         private void CalculateYearStats()
         {
             foreach (var year in Request.Years())
@@ -52,18 +111,28 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         }
         private void DataGridStats_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            StatsCanvas.Children.Clear();
             MonthlyStats = new ObservableCollection<int>();
-            foreach (var stat in Request.MonthlyStats(SelectedStat.Year))
-            {
-                MonthlyStats.Add(stat);
-            }
-            DrawBlockChart(MonthlyStats);
+            List<int> CalculatedList = new List<int>();
+            if (WasLanguageChosen && !WasLocationChosen)
+                CalculatedList = Request.MonthlyStatsForLanguage(SelectedStat.Year, SelectedLanguage);
+            else if (WasLocationChosen && !WasLanguageChosen)
+                CalculatedList = Request.MonthlyStatsForLocation(SelectedStat.Year, SelectedLocation);
+            else if(WasLanguageChosen && WasLocationChosen)
+                CalculatedList = Request.MonthlyStatsForLanguageAndLocation(SelectedStat.Year, SelectedLanguage, SelectedLocation);
+            else
+                CalculatedList = Request.MonthlyStats(SelectedStat.Year);
+
+            CalculatedList.ToList().ForEach(stat => MonthlyStats.Add(stat));
+
+            if (!MonthlyStats.All(item => item == 0))
+                DrawBlockChart(MonthlyStats);
         }
         private void DrawBlockChart(ObservableCollection<int> monthlyStats)
         {
-            AgeGropsCanvas.Children.Clear();
+            StatsCanvas.Children.Clear();
 
-            int chartWidth = 200;
+            int chartWidth = 300;
             int chartHeight = 120;
             int barWidth = chartWidth / monthlyStats.Count;
             int maxValue = monthlyStats.Max();
@@ -85,7 +154,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 bar.StrokeThickness = 1;
                 Canvas.SetLeft(bar, i * barWidth + 1);
                 Canvas.SetTop(bar, chartHeight - bar.Height + 20);
-                AgeGropsCanvas.Children.Add(bar);
+                StatsCanvas.Children.Add(bar);
 
                 TextBlock label = new TextBlock();
                 label.Text = monthlyStats[i].ToString();
@@ -93,7 +162,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 label.Width = barWidth;
                 Canvas.SetLeft(label, i * barWidth);
                 Canvas.SetTop(label, chartHeight - bar.Height + 5);
-                AgeGropsCanvas.Children.Add(label);
+                StatsCanvas.Children.Add(label);
             }
         }
         private void DrawLabels(ObservableCollection<int> monthlyStats, int barWidth, int chartHeight)
@@ -111,7 +180,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 label.Width = barWidth;
                 Canvas.SetLeft(label, i * barWidth);
                 Canvas.SetTop(label, chartHeight + 25);
-                AgeGropsCanvas.Children.Add(label);
+                StatsCanvas.Children.Add(label);
             }
         }
         private void DrawAxes(int chartHeight, int chartWidth)
@@ -123,7 +192,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             xAxis.Y2 = chartHeight + 20;
             xAxis.Stroke = Brushes.Black;
             xAxis.StrokeThickness = 1;
-            AgeGropsCanvas.Children.Add(xAxis);
+            StatsCanvas.Children.Add(xAxis);
 
             Line yAxis = new Line();
             yAxis.X1 = 0;
@@ -132,7 +201,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             yAxis.Y2 = chartHeight + 20;
             yAxis.Stroke = Brushes.Black;
             yAxis.StrokeThickness = 1;
-            AgeGropsCanvas.Children.Add(yAxis);
+            StatsCanvas.Children.Add(yAxis);
         }
     }
 }

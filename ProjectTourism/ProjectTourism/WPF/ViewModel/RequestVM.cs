@@ -30,6 +30,26 @@ namespace ProjectTourism.WPF.ViewModel
         {
             return _request;
         }
+        public ObservableCollection<string> GetAllLanguages()
+        {
+            ObservableCollection<string> languages = new ObservableCollection<string>();
+            foreach(var request in GetAll())
+            {
+                if(!languages.Contains(request.Language))
+                    languages.Add(request.Language);
+            }
+            return languages;
+        }
+        public ObservableCollection<string> GetAllLocations()
+        {
+            ObservableCollection<string> locations = new ObservableCollection<string>();
+            foreach (var request in GetAll())
+            {
+                if (!locations.Contains(request.Location.City + ", " + request.Location.Country))
+                    locations.Add(request.Location.City + ", " + request.Location.Country);
+            }
+            return locations;
+        }
         public ObservableCollection<RequestVM> GetAll()
         {
             RequestService requestService = new RequestService();
@@ -73,12 +93,76 @@ namespace ProjectTourism.WPF.ViewModel
             }
             return ReqCounter;
         }
+
+        public int StatForYearLanguageFiltered(int year, string language)
+        {
+            int ReqCounter = 0;
+            foreach (var request in GetAll())
+            {
+                if (request.CreationDateTime.Year == year && request.Language.Equals(language))
+                    ReqCounter++;
+            }
+            return ReqCounter;
+        }
+        public int StatForYearLocationFiltered(int year, string location)
+        {
+            int ReqCounter = 0;
+            foreach (var request in GetAll())
+            {
+                if (request.CreationDateTime.Year == year && (request.Location.City.ToString() + ", " + request.Location.Country.ToString()).Equals(location))
+                    ReqCounter++;
+            }
+            return ReqCounter;
+        }
+        public int StatForYearLanguageAndLocationFiltered(int year, string language, string location)
+        {
+            int ReqCounter = 0;
+            foreach (var request in GetAll())
+            {
+                if (request.CreationDateTime.Year == year && request.Language.Equals(language) && (request.Location.City.ToString() + ", " + request.Location.Country.ToString()).Equals(location))
+                    ReqCounter++;
+            }
+            return ReqCounter;
+        }
         public List<int> MonthlyStats(int year)
         {
             List<int> months = Enumerable.Repeat(0, 12).ToList();
             foreach (var request in GetAllByYear(year) )
             {
                 months[request.CreationDateTime.Month-1]++;
+            }
+            return months;
+        }
+
+        public List<int> MonthlyStatsForLanguage(int year, string language)
+        {
+            List<int> months = Enumerable.Repeat(0, 12).ToList();
+            foreach (var request in GetAllByYear(year))
+            {
+                if(request.Language.Equals(language))
+                    months[request.CreationDateTime.Month - 1]++;
+            }
+            return months;
+        }
+
+        public List<int> MonthlyStatsForLocation(int year, string location)
+        {
+            List<int> months = Enumerable.Repeat(0, 12).ToList();
+            foreach (var request in GetAllByYear(year))
+            {
+                if ((request.Location.City.ToString() + ", " + request.Location.Country.ToString()).Equals(location))
+                    months[request.CreationDateTime.Month - 1]++;
+            }
+            return months;
+        }
+
+        public List<int> MonthlyStatsForLanguageAndLocation(int year, string language, string location)
+        {
+            List<int> months = Enumerable.Repeat(0, 12).ToList();
+            foreach (var request in GetAllByYear(year))
+            {
+                if (request.Language.Equals(language) && (request.Location.City.ToString() + ", " + request.Location.Country.ToString()).Equals(location))
+                    months[request.CreationDateTime.Month - 1]++;
             }
             return months;
         }
