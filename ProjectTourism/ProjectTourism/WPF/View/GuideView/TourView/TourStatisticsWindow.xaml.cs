@@ -164,7 +164,6 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 AgeGropsCanvas.Children.Add(label);
             }
         }
-
         private void DrawLabels(ObservableCollection<int> ageGroups, int barWidth, int chartHeight)
         {
             for (int i = 0; i < ageGroups.Count; i++)

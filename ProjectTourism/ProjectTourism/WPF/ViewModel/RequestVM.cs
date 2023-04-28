@@ -40,6 +40,17 @@ namespace ProjectTourism.WPF.ViewModel
             }
             return requests;
         }
+        public ObservableCollection<RequestVM> GetAllByYear(int year)
+        {
+            RequestService requestService = new RequestService();
+            ObservableCollection<RequestVM> requests = new ObservableCollection<RequestVM>();
+            foreach (var req in requestService.GetAll())
+            {
+                if(req.CreationDateTime.Year == year)
+                    requests.Add(new RequestVM(req));
+            }
+            return requests;
+        }
         public ObservableCollection<int> Years()
         {
             ObservableCollection<RequestVM> Requests = new ObservableCollection<RequestVM>();
@@ -61,6 +72,15 @@ namespace ProjectTourism.WPF.ViewModel
                     ReqCounter++;
             }
             return ReqCounter;
+        }
+        public List<int> MonthlyStats(int year)
+        {
+            List<int> months = Enumerable.Repeat(0, 12).ToList();
+            foreach (var request in GetAllByYear(year) )
+            {
+                months[request.CreationDateTime.Month-1]++;
+            }
+            return months;
         }
         public int Id
         {
@@ -201,5 +221,7 @@ namespace ProjectTourism.WPF.ViewModel
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        
     }
 }
