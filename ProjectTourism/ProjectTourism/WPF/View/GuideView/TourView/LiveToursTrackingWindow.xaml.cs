@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
+using ProjectTourism.WPF.View.GuideView;
 using ProjectTourism.WPF.View.GuideView.TourView;
 using ProjectTourism.WPF.ViewModel;
 
@@ -31,6 +32,10 @@ namespace ProjectTourism.View.GuideView.TourView
             InitializeComponent();
             DataContext = this;
             Guide = new GuideVM(username);
+        }
+        private void ImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            ContentArea.Content = new ImageViewerUserControl(SelectedTourAppointment.Tour);
         }
         private void ManageButton_Click(object sender, RoutedEventArgs e)
         {
