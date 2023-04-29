@@ -60,7 +60,6 @@ namespace ProjectTourism.WPF.View.GuideView
         {
             HideImageViewer();
         }
-
         private void BlackBackground_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (!IsMouseOverImageBorder(e))
@@ -68,15 +67,12 @@ namespace ProjectTourism.WPF.View.GuideView
                 HideImageViewer();
             }
         }
-
         private bool IsMouseOverImageBorder(MouseButtonEventArgs e)
         {
             var position = e.GetPosition(ImageBorder);
             var rect = new Rect(0, 0, ImageBorder.ActualWidth, ImageBorder.ActualHeight);
             return rect.Contains(position);
         }
-
-
         private void HideImageViewer()
         {
             BlackBackground.Visibility = Visibility.Hidden;

@@ -38,6 +38,10 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
 
             Update();
         }
+        private void ImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            ContentArea.Content = new ImageViewerUserControl(SelectedTourApp.Tour);
+        }
         private void DataGridTours_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var row = ItemsControl.ContainerFromElement((DataGrid)sender, e.OriginalSource as DependencyObject) as DataGridRow;
