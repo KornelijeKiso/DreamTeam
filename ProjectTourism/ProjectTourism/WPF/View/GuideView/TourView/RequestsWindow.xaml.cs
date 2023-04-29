@@ -165,7 +165,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         }
         public void HideRequestsContent()
         {
-            List<UIElement> elementsToHide = new List<UIElement> { RequestsLabel, DataGridRow, rectangle, searchGrid, SearchButton, StatsLink };
+            List<UIElement> elementsToHide = new List<UIElement> { RequestsLabel, DataGridRow, rectangle, searchGrid, SearchButton, StatsLink, StatsImage };
             elementsToHide.ForEach(element => element.Visibility = Visibility.Hidden);
         }
         private void Accept_Click(object sender, RoutedEventArgs e)

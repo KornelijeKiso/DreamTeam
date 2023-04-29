@@ -232,9 +232,9 @@
             </Button.Resources>
         </Button>
         <StackPanel Orientation="Horizontal" Margin="40,626,1020,18">
-            <Image Source="https://cdn-icons-png.flaticon.com/512/7794/7794652.png" Width="20" Height="20" Margin="0,0,5,0"/>
+            <Image x:Name="StatsImage" Source="https://cdn-icons-png.flaticon.com/512/1325/1325099.png" Width="20" Height="20" Margin="0,-9,5,0"/>
             <TextBlock x:Name="StatsLink" FontSize="18">
-        <Hyperlink Click="RequestStatisticslink_Click">Request statistics</Hyperlink>
+        <Hyperlink Click="RequestStatisticslink_Click" FontSize="19">Request statistics</Hyperlink>
             </TextBlock>
         </StackPanel>
 
