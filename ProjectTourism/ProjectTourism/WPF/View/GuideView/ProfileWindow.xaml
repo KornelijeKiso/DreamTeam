@@ -20,7 +20,7 @@
             </Label.Content>
         </Label>
         <Label x:Name="usernamelabel" ContentStringFormat="@{0}" Content="{Binding Guide.Username}" HorizontalAlignment="Left" Height="58" Margin="40,93,0,0" VerticalAlignment="Top" Width="283" FontSize="28" Foreground="#FFB7A8A8"/>
-        <Border x:Name="rectangle" Background="#FF9BC8EC" BorderBrush="#FF9BC8EC" BorderThickness="1" CornerRadius="30" Margin="69,216,617,117"/>
+        <Border x:Name="rectangle" Background="#FF9BC8EC" BorderBrush="Black" BorderThickness="1" CornerRadius="30" Margin="69,216,617,117"/>
         <Grid Margin="114,238,662,117">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
