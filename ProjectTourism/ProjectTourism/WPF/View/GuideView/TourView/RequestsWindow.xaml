@@ -9,7 +9,7 @@
         <Label x:Name="RequestsLabel" Content="Requests" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         <DataGrid FontSize="12" Name="DataGridRow" RowHeight="100" CanUserAddRows="False" HorizontalAlignment="Left" Height="438" VerticalAlignment="Top" Width="872"
             SelectedItem="{Binding SelectedRequest, UpdateSourceTrigger=PropertyChanged}" 
-            ItemsSource="{Binding Requests, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="40,183,0,0">
+            ItemsSource="{Binding Requests, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="40,175,0,0">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
             </DataGrid.Resources>
@@ -107,7 +107,7 @@
                 </DataGridTemplateColumn>
 
 
-                <DataGridTemplateColumn Header="Guest username" Width="*">
+                <DataGridTemplateColumn Header="Guest username" Width="95">
                     <DataGridTemplateColumn.HeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -197,7 +197,7 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Border x:Name="rectangle" Background="#FF9BC8EC" BorderBrush="#FF9BC8EC" BorderThickness="1" CornerRadius="30" Margin="917,175,15,241"/>
+        <Border x:Name="rectangle" Background="#FF9BC8EC" BorderBrush="Black" BorderThickness="1" CornerRadius="30" Margin="917,175,15,241"/>
 
         <Grid x:Name="searchGrid" Margin="942,194,40,302">
             <Grid.RowDefinitions>
@@ -231,9 +231,13 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <TextBlock x:Name="StatsLink" Margin="40,626,1020,18" FontSize="18">
-            <Hyperlink Click="RequestStatisticslink_Click">Request statistics</Hyperlink>
-        </TextBlock>
+        <StackPanel Orientation="Horizontal" Margin="40,626,1020,18">
+            <Image Source="https://cdn-icons-png.flaticon.com/512/1325/1325099.png" Width="20" Height="20" Margin="0,-9,5,0"/>
+            <TextBlock x:Name="StatsLink" FontSize="19">
+        <Hyperlink Click="RequestStatisticslink_Click" >Request statistics</Hyperlink>
+            </TextBlock>
+        </StackPanel>
+
         <ContentControl x:Name="ContentArea"></ContentControl>        
     </Grid>
 </UserControl>
