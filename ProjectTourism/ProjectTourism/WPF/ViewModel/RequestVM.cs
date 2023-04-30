@@ -30,6 +30,30 @@ namespace ProjectTourism.WPF.ViewModel
         {
             return _request;
         }
+        public List<string> RequestLanguagesInLastYear()
+        {
+            RequestService requestService = new RequestService();
+            List<string> languages = new List<string>();
+
+            foreach (var request in requestService.GetAll())
+            {
+                if (request.CreationDateTime >= DateTime.UtcNow.AddYears(-1))
+                    languages.Add(request.Language);
+            }
+            return languages;
+        }
+        public List<string> RequestLocationsInLastYear()
+        {
+            RequestService requestService = new RequestService();
+            List<string> locations = new List<string>();
+
+            foreach (var request in requestService.GetAll())
+            {
+                if (request.CreationDateTime >= DateTime.UtcNow.AddYears(-1))
+                    locations.Add(request.Location.City + ", " + request.Location.Country);
+            }
+            return locations;
+        }
         public ObservableCollection<string> GetAllLanguages()
         {
             ObservableCollection<string> languages = new ObservableCollection<string>();

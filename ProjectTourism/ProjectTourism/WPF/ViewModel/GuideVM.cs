@@ -62,83 +62,10 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
-        public List<string> RequestLanguagesInLastYear()
+        public void Add(Guide Guide)
         {
-            RequestService requestService = new RequestService();
-            List<string> languages = new List<string>();
-
-            foreach (var request in requestService.GetAll())
-            {
-                if(request.CreationDateTime >= DateTime.UtcNow.AddYears(-1))
-                    languages.Add(request.Language);
-            }
-            return languages;
-        }
-
-        public List<string> RequestLocationsInLastYear()
-        {
-            RequestService requestService = new RequestService();
-            List<string> locations = new List<string>();
-
-            foreach (var request in requestService.GetAll())
-            {
-                if (request.CreationDateTime >= DateTime.UtcNow.AddYears(-1))
-                    locations.Add(request.Location.City + ", " + request.Location.Country);
-            }
-            return locations;
-        }
-
-        public string FindMostRequestedLanguageInLastYear()
-        {
-            Dictionary<string, int> languageCounts = new Dictionary<string, int>();
-
-            foreach (string language in RequestLanguagesInLastYear())
-            {
-                if (languageCounts.ContainsKey(language))
-                    languageCounts[language]++;
-                else
-                    languageCounts[language] = 1;
-            }
-
-            string mostCommonLanguage = null;
-            int highestCount = 0;
-
-            foreach (KeyValuePair<string, int> pair in languageCounts)
-            {
-                if (pair.Value > highestCount)
-                {
-                    mostCommonLanguage = pair.Key;
-                    highestCount = pair.Value;
-                }
-            }
-            return mostCommonLanguage;
-        }
-
-        public string FindMostRequestedLocationInLastYear()
-        {
-            Dictionary<string, int> locationCounts = new Dictionary<string, int>();
-
-            foreach (string location in RequestLocationsInLastYear())
-            {
-                if (locationCounts.ContainsKey(location))
-                    locationCounts[location]++;
-                else
-                    locationCounts[location] = 1;
-            }
-
-            string mostCommonLocation = null;
-            int highestCount = 0;
-
-            foreach (KeyValuePair<string, int> pair in locationCounts)
-            {
-                if (pair.Value > highestCount)
-                {
-                    mostCommonLocation = pair.Key;
-                    highestCount = pair.Value;
-                }
-            }
-            return mostCommonLocation;
+            GuideService guideService = new GuideService();
+            guideService.Add(Guide);
         }
         public void DismissRequest(RequestVM request)
         {
@@ -152,20 +79,8 @@ namespace ProjectTourism.WPF.ViewModel
             request.State = REQUESTSTATE.ACCEPTED;
             requestService.Update(request.GetRequest());
         }
-        public void Add(Guide Guide)
-        {
-            GuideService guideService = new GuideService();
-            guideService.Add(Guide);
-        }
-        public bool CanGuideAcceptAppointment(DateTime dateTime)
-        {
-            foreach(var tourApp in TourAppointments)
-            {
-                if (tourApp.TourDateTime.Date == dateTime.Date && tourApp.TourDateTime.AddHours(tourApp.Tour.Duration) > dateTime)
-                    return false;
-            }
-            return true;
-        }
+        
+        
         private static void SynchronizeTourAppointments(TourAppointmentService tourAppointmentService, TicketService ticketService, TicketGradeService ticketGradeService, Guest2Service guest2Service, VoucherService voucherService, Tour tour)
         {
             foreach (var tourApp in tourAppointmentService.GetAllByTour(tour.Id))
@@ -308,6 +223,15 @@ namespace ProjectTourism.WPF.ViewModel
                 requests.Add(new RequestVM(request));
             }
             return requests;
+        }
+        public bool CanGuideAcceptAppointment(DateTime dateTime)
+        {
+            foreach (var tourApp in TourAppointments)
+            {
+                if (tourApp.TourDateTime.Date == dateTime.Date && tourApp.TourDateTime.AddHours(tourApp.Tour.Duration) > dateTime)
+                    return false;
+            }
+            return true;
         }
 
         public ObservableCollection<TourVM> Tours { get; set; }

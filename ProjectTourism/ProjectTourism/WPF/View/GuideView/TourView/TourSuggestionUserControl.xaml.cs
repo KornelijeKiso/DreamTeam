@@ -48,10 +48,45 @@ namespace ProjectTourism.View.TourView
             NewTour.Guide = Guide;
             NewLocation = new LocationVM(new Location());
 
-            NewTour.Language = Guide.FindMostRequestedLanguageInLastYear();
-            string MostCommonLocation = Guide.FindMostRequestedLocationInLastYear();
-            NewLocation.City = MostCommonLocation.Split(",")[0];
-            NewLocation.Country = MostCommonLocation.Split(",")[1].Trim();
+            if (Guide.Requests.Count > 0)
+            {
+                NewTour.Language = FindMostFrequentItem(Guide.Requests[0].RequestLanguagesInLastYear());
+                string MostCommonLocation = FindMostFrequentItem(Guide.Requests[0].RequestLocationsInLastYear());
+                NewLocation.City = MostCommonLocation.Split(",")[0];
+                NewLocation.Country = MostCommonLocation.Split(",")[1].Trim();
+            }
+            else
+            {
+                MessageBox.Show("There are no requests yet!");
+                HideTourCreateContents();
+                ContentArea.Content = new RequestsWindow(Guide.Username);
+            }
+        }
+        public string FindMostFrequentItem<T>(List<T> items)
+        {
+            Dictionary<T, int> counts = new Dictionary<T, int>();
+
+            foreach (T item in items)
+            {
+                if (counts.ContainsKey(item))
+                    counts[item]++;
+                else
+                    counts[item] = 1;
+            }
+
+            T mostFrequentItem = default(T);
+            int highestCount = 0;
+
+            foreach (KeyValuePair<T, int> pair in counts)
+            {
+                if (pair.Value > highestCount)
+                {
+                    mostFrequentItem = pair.Key;
+                    highestCount = pair.Value;
+                }
+            }
+
+            return mostFrequentItem.ToString();
         }
         private void SaveTour_Click(object sender, RoutedEventArgs e)
         {
