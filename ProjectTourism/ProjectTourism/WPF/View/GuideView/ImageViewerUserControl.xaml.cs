@@ -54,7 +54,8 @@ namespace ProjectTourism.WPF.View.GuideView
             DataContext = this;
             Tour = tour;
             i = 0;
-            Picture = Tour.Pictures[i];
+            if(Tour.Pictures != null)
+                Picture = Tour.Pictures[i];
         }
         private void ExitButtonClick(object sender, RoutedEventArgs e)
         {

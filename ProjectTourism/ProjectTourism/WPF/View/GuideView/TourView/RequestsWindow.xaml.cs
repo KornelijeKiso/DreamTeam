@@ -45,10 +45,16 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             UpdatedList= new List<RequestVM>();
             SetStartSearchedValues();
         }
-        private void RequestStatisticslink_Click(object sender, RoutedEventArgs e)
+        private void RequestStatisticsLink_Click(object sender, RoutedEventArgs e)
         {
             HideRequestsContent();
             ContentArea.Content = new RequestStatisticsUserControl();
+            e.Handled = true;
+        }
+        private void TourSuggestionLink_Click(object sender, RoutedEventArgs e)
+        {
+            HideRequestsContent();
+            ContentArea.Content = new TourSuggestionUserControl(Guide);
             e.Handled = true;
         }
         public void SetRequests()
@@ -165,7 +171,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         }
         public void HideRequestsContent()
         {
-            List<UIElement> elementsToHide = new List<UIElement> { RequestsLabel, DataGridRow, rectangle, searchGrid, SearchButton, StatsLink, StatsImage };
+            List<UIElement> elementsToHide = new List<UIElement> { RequestsLabel, DataGridRow, rectangle, searchGrid, SearchButton, StatsLink, StatsImage, TourSuggestionImage, TourSuggestionLink };
             elementsToHide.ForEach(element => element.Visibility = Visibility.Hidden);
         }
         private void Accept_Click(object sender, RoutedEventArgs e)

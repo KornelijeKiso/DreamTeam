@@ -234,8 +234,13 @@
         <StackPanel Orientation="Horizontal" Margin="40,626,1020,18">
             <Image x:Name="StatsImage" Source="https://cdn-icons-png.flaticon.com/512/1325/1325099.png" Width="20" Height="20" Margin="0,-9,5,0"/>
             <TextBlock x:Name="StatsLink" FontSize="19">
-        <Hyperlink Click="RequestStatisticslink_Click" >Request statistics</Hyperlink>
+        <Hyperlink Click="RequestStatisticsLink_Click" >Request statistics</Hyperlink>
             </TextBlock>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Margin="256,626,804,18">
+            <Image x:Name="TourSuggestionImage" Source="https://cdn-icons-png.flaticon.com/512/1325/1325099.png" Width="20" Height="20" Margin="0,-9,5,0"/>
+            <TextBlock x:Name="TourSuggestionLink" FontSize="19"><Hyperlink Click="TourSuggestionLink_Click" ><Run Text="Tour suggestion"/></Hyperlink></TextBlock>
         </StackPanel>
 
         <ContentControl x:Name="ContentArea"></ContentControl>        

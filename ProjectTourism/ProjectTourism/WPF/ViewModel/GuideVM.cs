@@ -62,6 +62,84 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+
+        public List<string> RequestLanguagesInLastYear()
+        {
+            RequestService requestService = new RequestService();
+            List<string> languages = new List<string>();
+
+            foreach (var request in requestService.GetAll())
+            {
+                if(request.CreationDateTime >= DateTime.UtcNow.AddYears(-1))
+                    languages.Add(request.Language);
+            }
+            return languages;
+        }
+
+        public List<string> RequestLocationsInLastYear()
+        {
+            RequestService requestService = new RequestService();
+            List<string> locations = new List<string>();
+
+            foreach (var request in requestService.GetAll())
+            {
+                if (request.CreationDateTime >= DateTime.UtcNow.AddYears(-1))
+                    locations.Add(request.Location.City + ", " + request.Location.Country);
+            }
+            return locations;
+        }
+
+        public string FindMostRequestedLanguageInLastYear()
+        {
+            Dictionary<string, int> languageCounts = new Dictionary<string, int>();
+
+            foreach (string language in RequestLanguagesInLastYear())
+            {
+                if (languageCounts.ContainsKey(language))
+                    languageCounts[language]++;
+                else
+                    languageCounts[language] = 1;
+            }
+
+            string mostCommonLanguage = null;
+            int highestCount = 0;
+
+            foreach (KeyValuePair<string, int> pair in languageCounts)
+            {
+                if (pair.Value > highestCount)
+                {
+                    mostCommonLanguage = pair.Key;
+                    highestCount = pair.Value;
+                }
+            }
+            return mostCommonLanguage;
+        }
+
+        public string FindMostRequestedLocationInLastYear()
+        {
+            Dictionary<string, int> locationCounts = new Dictionary<string, int>();
+
+            foreach (string location in RequestLocationsInLastYear())
+            {
+                if (locationCounts.ContainsKey(location))
+                    locationCounts[location]++;
+                else
+                    locationCounts[location] = 1;
+            }
+
+            string mostCommonLocation = null;
+            int highestCount = 0;
+
+            foreach (KeyValuePair<string, int> pair in locationCounts)
+            {
+                if (pair.Value > highestCount)
+                {
+                    mostCommonLocation = pair.Key;
+                    highestCount = pair.Value;
+                }
+            }
+            return mostCommonLocation;
+        }
         public void DismissRequest(RequestVM request)
         {
             RequestService requestService = new RequestService();

@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProjectTourism.Domain.Model;
 using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
@@ -24,37 +25,21 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.TourView
 {
-    public partial class AcceptedRequestUserControl : UserControl, INotifyPropertyChanged
+    public partial class TourSuggestionUserControl : UserControl, INotifyPropertyChanged
     {
-        public RequestVM Request { get; set; }
         public TourVM NewTour { get; set; }
         public LocationVM NewLocation { get; set; }
         public GuideVM Guide { get; set; }
         public TourAppointmentVM TourAppointment { get; set; }
         private Dictionary<DateTime, List<TimeSpan>> appointments = new Dictionary<DateTime, List<TimeSpan>>();
-        public AcceptedRequestUserControl(GuideVM guide, RequestVM request)
+        public TourSuggestionUserControl(GuideVM guide)
         {
             InitializeComponent();
             DataContext = this;
             Guide = guide;
-            Request = request;
             SetModels();
-            SetBlackoutDates();
-        }
-
-        private void SetBlackoutDates()
-        {
             calendar.BlackoutDates.AddDatesInPast();
-
-            DateTime EndDate = DateTime.Parse(Request.EndDate.ToString());
-            CalendarDateRange blackoutRange = new CalendarDateRange(EndDate.AddDays(1), new DateTime(9999, 12, 31));
-            calendar.BlackoutDates.Add(blackoutRange);
-
-            DateTime StartDate = DateTime.Parse(Request.StartDate.ToString());
-            blackoutRange = new CalendarDateRange(DateTime.Today.AddDays(-1), StartDate.AddDays(-1));
-            calendar.BlackoutDates.Add(blackoutRange);
         }
-
         private void SetModels()
         {
             NewTour = new TourVM(new Tour());
@@ -62,11 +47,11 @@ namespace ProjectTourism.View.TourView
             NewTour.GuideUsername = Guide.Username;
             NewTour.Guide = Guide;
             NewLocation = new LocationVM(new Location());
-            NewTour.Language = Request.Language;
-            NewTour.Description = Request.Description;
-            NewTour.MaxNumberOfGuests = Request.NumberOfGuests;
-            NewLocation.Country = Request.Location.Country;
-            NewLocation.City = Request.Location.City;
+
+            NewTour.Language = Guide.FindMostRequestedLanguageInLastYear();
+            string MostCommonLocation = Guide.FindMostRequestedLocationInLastYear();
+            NewLocation.City = MostCommonLocation.Split(",")[0];
+            NewLocation.Country = MostCommonLocation.Split(",")[1].Trim();
         }
         private void SaveTour_Click(object sender, RoutedEventArgs e)
         {
@@ -76,10 +61,7 @@ namespace ProjectTourism.View.TourView
                 return;
             }
             if (NewTour.IsValid && NewLocation.IsValid)
-            {
                 AddTour();
-                Guide.AcceptRequest(Request);
-            }
                 
             else
                 MessageBox.Show("Tour can not be made because the fields were not entered correctly.");
