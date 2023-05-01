@@ -52,6 +52,7 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250*"></ColumnDefinition>
@@ -79,10 +80,10 @@
             <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding Path = NewTour.Finish, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>
             <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding Path = NewTour.Duration, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>
             <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding Path = NewTour.PictureURLs}" Margin="0,8,0,8"/>
-            <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding Path = NewTour.Description}" Margin="0,8,0,8"/>
+            <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding Path = NewTour.Description}" Grid.RowSpan="2" Margin="0,8,0,8" TextWrapping="Wrap"/>
         </Grid>
         <WrapPanel Margin="586,274,536,338">
-            <Button IsDefault="True" x:Name="AddLanguageButton" Content="Add language" HorizontalAlignment="Left" Margin="4, -2, 0, 0" Height="33"  VerticalAlignment="Top" Width="86" Click="AddLanguageButton_Click"/>
+            <Button IsDefault="True" x:Name="AddLanguageButton" Content="Add language" HorizontalAlignment="Left" Margin="4, -15, 0, 0" Height="28"  VerticalAlignment="Top" Width="86" Click="AddLanguageButton_Click"/>
         </WrapPanel>
         <WrapPanel x:Name="SaveButton" Margin="1114,608,27,24">
             <Button Content="Save" Click="SaveTour_Click" HorizontalAlignment="Center" Height="43" Margin="25, 0, 0, 0" VerticalAlignment="Center" Width="95"/>

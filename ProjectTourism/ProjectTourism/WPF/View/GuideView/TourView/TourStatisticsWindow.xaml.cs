@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -36,6 +37,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             TourApps.Sort((t1, t2) => t2.Visits.CompareTo(t1.Visits));
             SetComboBox();
 
+            HideInstructions();
             Update();
         }
         private void ImageButton_Click(object sender, RoutedEventArgs e)
@@ -47,6 +49,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             var row = ItemsControl.ContainerFromElement((DataGrid)sender, e.OriginalSource as DependencyObject) as DataGridRow;
             if (row != null)
             {
+                UnhideStatsInstructions();
                 var item = row.Item as TourAppointmentVM;
                 FieldSet.Header = item.Tour.Name;
                 CalculateTicketPercentage(item);
@@ -55,6 +58,20 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 DrawTourAppPercentageStats(TourAppPercentage[0] / 100, TourAppPercentage[1] / 100, AgeGroups);
             }
         }
+        private void UnhideStatsInstructions()
+        {
+            List<UIElement> elementsToHide = new List<UIElement> { Label1, Label2, StatsImage };
+            elementsToHide.ForEach(element => element.Visibility = Visibility.Hidden);
+
+            List<UIElement> elementsToUnhide = new List<UIElement> { Label3, Label4, Label5, Rectangle1, Rectangle2 };
+            elementsToUnhide.ForEach(element => element.Visibility = Visibility.Visible);
+        }
+        private void HideInstructions()
+        {
+            List<UIElement> elementsToHide = new List<UIElement> { Label3, Label4, Label5, Rectangle1, Rectangle2 };
+            elementsToHide.ForEach(element => element.Visibility = Visibility.Hidden);
+        }
+
         private void SetModels(string username)
         {
             Guide = new GuideVM(username);
@@ -128,6 +145,35 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             {
                 if(tourApp.State == TOURSTATE.FINISHED)
                     TourAppsObs.Add(tourApp);
+            }
+        }
+        private void DrawTourAppPercentageStats(double tickets, double vouchers, ObservableCollection<int> ageGroups)
+        {
+            PieChartCanvas.Children.Clear();
+
+            if (tickets == 0 && vouchers == 0)
+            {
+                HideInstructions();
+                TextBlock label = new TextBlock();
+                label.Text = "There were no tickets or vouchers for this appointment";
+                label.TextAlignment = TextAlignment.Left;
+                label.Width = 400;
+                label.Height = 50;
+                Canvas.SetTop(label, 50);
+                PieChartCanvas.Children.Add(label);
+
+                Image sadGhostImage = new Image();
+                sadGhostImage.Source = new BitmapImage(new Uri("https://img.icons8.com/color-glass/256/sad-ghost.png"));
+                sadGhostImage.Width = 80;
+                sadGhostImage.Height = 80;
+                sadGhostImage.Margin = new Thickness(150, 90, 30, 480);
+                PieChartCanvas.Children.Add(sadGhostImage);
+                return;
+            }
+            else
+            {
+                DrawPieChart(tickets, vouchers);
+                DrawBlockChart(ageGroups);
             }
         }
         private void DrawBlockChart(ObservableCollection<int> ageGroups)
@@ -206,34 +252,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             yAxis.StrokeThickness = 1;
             AgeGropsCanvas.Children.Add(yAxis);
         }
-        private void DrawTourAppPercentageStats(double tickets, double vouchers, ObservableCollection<int> ageGroups)
-        {
-            PieChartCanvas.Children.Clear();
-
-            if (tickets == 0 && vouchers == 0)
-            {
-                TextBlock label = new TextBlock();
-                label.Text = "There were no tickets or vouchers for this appointment";
-                label.TextAlignment = TextAlignment.Left;
-                label.Width = 400;
-                label.Height = 50;
-                Canvas.SetTop(label, 50);
-                PieChartCanvas.Children.Add(label);
-
-                Image sadGhostImage = new Image();
-                sadGhostImage.Source = new BitmapImage(new Uri("https://img.icons8.com/color-glass/256/sad-ghost.png"));
-                sadGhostImage.Width = 80;
-                sadGhostImage.Height = 80;
-                sadGhostImage.Margin = new Thickness(150, 90, 30, 480);
-                PieChartCanvas.Children.Add(sadGhostImage);
-                return;
-            }
-            else
-            {
-                DrawPieChart(tickets, vouchers);
-                DrawBlockChart(ageGroups);
-            }
-        }
+        
         private void DrawPieChart(double tickets, double vouchers)
         {
             PieChartCanvas.Children.Clear();
@@ -282,15 +301,15 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         private TextBlock CreateLabel(double value, int index, double chartSize)
         {
             TextBlock label = new TextBlock();
-            label.Text = index == 0 ? $"{value:#0% tickets}" : $"{value:#0% vouchers}";
+            label.Text = index == 0 ? $"{value:#0%}" : $"{value:#0%}";
             label.TextAlignment = TextAlignment.Center;
             label.Width = chartSize;
             return label;
         }
         private void SetLabelPosition(TextBlock label, double labelAngle, double centerX, double centerY, double radius)
         {
-            double labelX = centerX + radius * 0.7 * Math.Cos(labelAngle * Math.PI / 180) - label.ActualWidth / 2;
-            double labelY = centerY + radius * 0.7 * Math.Sin(labelAngle * Math.PI / 180) - label.ActualHeight / 2;
+            double labelX = centerX + radius * 0.1 * Math.Cos(labelAngle * Math.PI / 180) - label.ActualWidth / 2;
+            double labelY = centerY + radius * 0.8 * Math.Sin(labelAngle * Math.PI / 180) - label.ActualHeight / 2;
             Canvas.SetLeft(label, labelX);
             Canvas.SetTop(label, labelY);
         }

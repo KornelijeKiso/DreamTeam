@@ -52,6 +52,7 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250*"></ColumnDefinition>
@@ -79,7 +80,7 @@
             <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding Path = NewTour.Finish, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>
             <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding Path = NewTour.Duration, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>
             <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding Path = NewTour.PictureURLs}" Margin="0,8,0,8"/>
-            <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding Path = NewTour.Description}" Margin="0,8,0,8" IsReadOnly="True"/>
+            <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding Path = NewTour.Description}" Margin="0,8,0,8" IsReadOnly="True" Grid.RowSpan="2" TextWrapping="Wrap"/>
         </Grid>
         <WrapPanel x:Name="SaveButton" Margin="1114,608,27,24">
             <Button Content="Save" Click="SaveTour_Click" HorizontalAlignment="Center" Height="43" Margin="25, 0, 0, 0" VerticalAlignment="Center" Width="95"/>

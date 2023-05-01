@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Guide window" Height="720" Width="1280" WindowStartupLocation="CenterScreen">
     <Grid>
-        <Grid Margin="180,202,596,153">
+        <Grid Margin="117,183,640,125">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -38,7 +38,7 @@
             <TextBox x:Name="textbox2" Grid.Row="3" Grid.Column="1" Text="{Binding Guide.PhoneNumber}" Margin="0,8,0,8" IsReadOnly="True" IsEnabled="False"/>
             <TextBox x:Name="textbox3" Grid.Row="4" Grid.Column="1" Text="{Binding Guide.Language}" Margin="0,8,0,8"/>
             <TextBox x:Name="textbox5" Grid.Row="5" Grid.Column="1" Text="{Binding Guide.MaxNumberOfGuests}" Margin="0,8,0,8"/>
-            <TextBox x:Name="textbox4" Grid.Row="6" Grid.Column="1" Text="{Binding Guide.Biography}" Margin="0,8,0,8" Grid.RowSpan="2"/>
+            <TextBox x:Name="textbox4" Grid.Row="6" Grid.Column="1" Text="{Binding Guide.Biography}" Margin="0,8,0,8" Grid.RowSpan="2" TextWrapping="Wrap"/>
         </Grid>
         <Button x:Name="CreateGuideButton" Content="Create" HorizontalAlignment="Left" Height="36" Margin="1074,614,0,0" VerticalAlignment="Top" Width="110" Click="CreateGuideButton_Click"/>
 
