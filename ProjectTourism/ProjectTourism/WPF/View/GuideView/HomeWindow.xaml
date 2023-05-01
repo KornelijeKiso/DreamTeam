@@ -7,10 +7,17 @@
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
         <Label Name="HomeLabel" Content="Home" HorizontalAlignment="Left" Height="124" Margin="25,29,0,0" VerticalAlignment="Top" Width="182" FontSize="60"/>
-        <Label Name="UpcomingLabel" Content="Upcoming..." HorizontalAlignment="Left" Margin="62,217,0,0" VerticalAlignment="Top" FontSize="32"/>
+        <Label Name="UpcomingLabel" Content="Upcoming..." HorizontalAlignment="Left" Margin="20,217,0,0" VerticalAlignment="Top" FontSize="32"/>
         <Label Name="WelcomeLabel" Content="Welcome!" HorizontalAlignment="Left" Height="124" Margin="952,570,0,0" VerticalAlignment="Top" Width="296" FontSize="60"/>
         <Button x:Name="AllToursButton" Content="All tours" HorizontalAlignment="Left" Height="54" Margin="60,600,0,0" VerticalAlignment="Top" Width="112" Click="AllToursButton_Click"/>
         <Button x:Name="AddNewTourButton" Content="Add a new tour" HorizontalAlignment="Left" Height="54" Margin="212,600,0,0" VerticalAlignment="Top" Width="111" Click="AddNewTourButton_Click"/>
-        <ContentControl x:Name="ContentArea"></ContentControl>
+        <ContentControl x:Name="ContentArea"/>
+        <Grid Margin="25,275,906,158">
+            <Border x:Name="ImageBorder" Margin="0,0,0,62" BorderThickness="3" BorderBrush="Black">
+                <Image x:Name="UpcomingImage" Source="{Binding UpcomingTourPicture}" HorizontalAlignment="Left" Height="253" Margin="0,0,0,0" VerticalAlignment="Top" Width="352" Stretch="Fill"/>
+            </Border>
+            <Label Margin="0, 190, 0, 0" FontSize="17" HorizontalAlignment="Center" x:Name="UpcomingLabelName"></Label>
+        </Grid>
+        
     </Grid>
 </UserControl>

@@ -62,6 +62,49 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+        public List<TourAppointmentVM> FindGuidesReadyAppointments()
+        {
+            List<TourAppointmentVM> readyTourApps = new List<TourAppointmentVM>();
+            foreach(var tourApp in TourAppointments)
+            {
+                if(tourApp.State == TOURSTATE.READY && tourApp.TourDateTime >= DateTime.Now)
+                    readyTourApps.Add(tourApp);
+            }
+            return readyTourApps;
+        }
+        public TourAppointmentVM FindGuidesUpcomingTourApp()
+        {
+            List<TourAppointmentVM> ReadyAppointments = new List<TourAppointmentVM>();
+            ReadyAppointments = FindGuidesReadyAppointments();
+            if (ReadyAppointments.Count == 0)
+            {
+                return null;
+            }
+            TourAppointmentVM closestTourAppointment = new TourAppointmentVM(ReadyAppointments[0].GetTourAppointment());
+            TimeSpan closestDifference = closestTourAppointment.TourDateTime - DateTime.Today;
+            if (closestDifference < TimeSpan.Zero)
+            {
+                closestDifference = closestDifference.Negate();
+            }
+
+            foreach (var tourApp in ReadyAppointments)
+            {
+                TimeSpan tourAppDifference = tourApp.TourDateTime - DateTime.Today;
+                if (tourAppDifference < TimeSpan.Zero)
+                {
+                    tourAppDifference = tourAppDifference.Negate();
+                }
+
+                if (tourAppDifference < closestDifference)
+                {
+                    closestTourAppointment = new TourAppointmentVM(tourApp.GetTourAppointment());
+                    closestDifference = tourAppDifference;
+                }
+            }
+
+            return closestTourAppointment;
+        }
+
         public void Add(Guide Guide)
         {
             GuideService guideService = new GuideService();

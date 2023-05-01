@@ -28,26 +28,35 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
     public partial class HomeWindow : UserControl, INotifyPropertyChanged
     {
         public GuideVM Guide { get; set; }
+        public string UpcomingTourPicture { get; set; }
         public HomeWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
             Guide = new GuideVM(username);
+            UpcomingTourPicture = "";
+            TourAppointmentVM UpcomingTourApp = Guide.FindGuidesUpcomingTourApp();
+            if(UpcomingTourApp != null)
+            {
+                UpcomingTourPicture = UpcomingTourApp.Tour.Pictures[0];
+                UpcomingLabelName.Content = UpcomingTourApp.Tour.Name;
+            }
+            else
+                HideElements(new List<UIElement> { UpcomingLabel, ImageBorder, UpcomingImage });
+        }
+        private void HideElements(List<UIElement> elements)
+        {
+            elements.ForEach(element => element.Visibility = Visibility.Hidden);
         }
         private void AddNewTourButton_Click(object sender, RoutedEventArgs e)
         {
-            HideHomeContent();
+            HideElements(new List<UIElement> { HomeLabel, WelcomeLabel, UpcomingLabel, UpcomingLabelName, AddNewTourButton, AllToursButton, ImageBorder, UpcomingImage });
             ContentArea.Content = new CreateTourWindow(Guide);
         }
         private void AllToursButton_Click(object sender, RoutedEventArgs e)
         {
-            HideHomeContent();
+            HideElements(new List<UIElement> { HomeLabel, WelcomeLabel, UpcomingLabel, UpcomingLabelName, AddNewTourButton, AllToursButton, ImageBorder, UpcomingImage });
             ContentArea.Content = new ViewAllToursWindow(Guide.Username);
-        }
-        private void HideHomeContent()
-        {
-            List<UIElement> elementsToHide = new List<UIElement> { HomeLabel, WelcomeLabel, UpcomingLabel, AddNewTourButton, AllToursButton };
-            elementsToHide.ForEach(element => element.Visibility = Visibility.Hidden);
         }
         public void Update() { }
         public event PropertyChangedEventHandler? PropertyChanged;

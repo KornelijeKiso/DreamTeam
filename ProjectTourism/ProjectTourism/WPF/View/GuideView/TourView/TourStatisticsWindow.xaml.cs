@@ -163,7 +163,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 PieChartCanvas.Children.Add(label);
 
                 Image sadGhostImage = new Image();
-                sadGhostImage.Source = new BitmapImage(new Uri("https://img.icons8.com/color-glass/256/sad-ghost.png"));
+                sadGhostImage.Source = new BitmapImage(new Uri("https://cdn-icons-png.flaticon.com/512/1235/1235098.png"));
                 sadGhostImage.Width = 80;
                 sadGhostImage.Height = 80;
                 sadGhostImage.Margin = new Thickness(150, 90, 30, 480);
