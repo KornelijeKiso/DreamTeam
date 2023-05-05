@@ -24,6 +24,8 @@
     <None Remove="WPF\View\Guest2View\img_voucher.png" />
     <None Remove="WPF\View\Guest2View\Menu\img_voucher2.png" />
     <None Remove="WPF\View\Guest2View\Menu\img_voucher3.png" />
+    <None Remove="WPF\View\GuideView\background.jpg" />
+    <None Remove="WPF\View\GuideView\TourView\lightmaketourEDITED.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,6 +44,8 @@
     <Resource Include="WPF\View\Guest2View\img_voucher.png" />
     <Resource Include="WPF\View\Guest2View\Menu\img_voucher2.png" />
     <Resource Include="WPF\View\Guest2View\Menu\img_voucher3.png" />
+    <Resource Include="WPF\View\GuideView\background.jpg" />
+    <Resource Include="WPF\View\GuideView\TourView\lightmaketourEDITED.jpg" />
   </ItemGroup>
 
 </Project>

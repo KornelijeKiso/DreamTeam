@@ -158,6 +158,8 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
 
                 TextBlock label = new TextBlock();
                 label.Text = monthlyStats[i].ToString();
+                if (label.Text.Equals("0"))
+                    label.Text = "";
                 label.TextAlignment = TextAlignment.Center;
                 label.Width = barWidth;
                 Canvas.SetLeft(label, i * barWidth);

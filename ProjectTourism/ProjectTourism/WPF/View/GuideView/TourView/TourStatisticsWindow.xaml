@@ -133,7 +133,7 @@
         </DataGrid>
 
         <Grid x:Name="StatsGrid">
-            <GroupBox x:Name="FieldSet" Header="Tour statistics" Margin="767,250,0,0" Height="387" Width="462" FontSize="15" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="#FF61676B" Background="#FF9BC8EC" FontWeight="SemiBold">
+            <GroupBox x:Name="FieldSet" Header="Tour statistics" Margin="767,250,0,0" Height="387" Width="462" FontSize="15" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="#FF61676B" Background="LightGray" FontWeight="SemiBold">
                 <Grid>
                     <Rectangle x:Name="Rectangle1" Width="20" Height="20" Fill="#FF007ACC" Margin="255,55,175,280" RadiusX="3" RadiusY="3" Stroke="Black" StrokeThickness="1"/>
                     <Rectangle x:Name="Rectangle2" Width="20" Height="20" Fill="#6CCEFF" Margin="255,26,175,314" RadiusX="3" RadiusY="3" Stroke="Black" StrokeThickness="1"/> 

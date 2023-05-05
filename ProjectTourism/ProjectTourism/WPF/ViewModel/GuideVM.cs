@@ -110,12 +110,6 @@ namespace ProjectTourism.WPF.ViewModel
             GuideService guideService = new GuideService();
             guideService.Add(Guide);
         }
-        public void DismissRequest(RequestVM request)
-        {
-            RequestService requestService = new RequestService();
-            request.State = REQUESTSTATE.DISMISSED;
-            requestService.Update(request.GetRequest());
-        }
         public void AcceptRequest(RequestVM request)
         {
             RequestService requestService = new RequestService();

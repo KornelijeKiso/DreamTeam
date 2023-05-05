@@ -183,15 +183,6 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 RequestList.Remove(SelectedRequest);
             UpdateRequests();
         }
-        private void Dismiss_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult result = MessageBox.Show("Are you sure you want to dismiss this request?", "Dismiss request", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
-            {
-                Guide.DismissRequest(SelectedRequest);
-                Requests.Remove(SelectedRequest);
-            }
-        }
         private void UpdateRequests()
         {
             Requests.Clear();
