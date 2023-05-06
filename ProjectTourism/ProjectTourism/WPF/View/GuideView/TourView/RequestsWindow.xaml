@@ -6,10 +6,10 @@
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView.TourView"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
-        <Label x:Name="RequestsLabel" Content="Requests" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
-        <DataGrid FontSize="12" Name="DataGridRow" RowHeight="100" CanUserAddRows="False" HorizontalAlignment="Left" Height="438" VerticalAlignment="Top" Width="872"
+        <Label x:Name="RequestsLabel" Content="Requests" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
+        <DataGrid FontSize="12" Name="DataGridRow" RowHeight="100" CanUserAddRows="False" HorizontalAlignment="Left" Height="451" VerticalAlignment="Top" Width="877"
             SelectedItem="{Binding SelectedRequest, UpdateSourceTrigger=PropertyChanged}" 
-            ItemsSource="{Binding Requests, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="40,175,0,0">
+            ItemsSource="{Binding Requests, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="90,150,0,0">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
             </DataGrid.Resources>
@@ -160,9 +160,9 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Border x:Name="rectangle" Background="LightGray" BorderBrush="Black" BorderThickness="1" CornerRadius="30" Margin="917,175,15,241"/>
+        <Border x:Name="rectangle" Background="LightGray" BorderBrush="Black" BorderThickness="1" CornerRadius="30" Margin="989,175,15,251"/>
 
-        <Grid x:Name="searchGrid" Margin="942,194,40,302">
+        <Grid x:Name="searchGrid" Margin="1004,194,31,302">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -187,7 +187,7 @@
             <DatePicker Grid.Row="4" Grid.Column="1" Margin="0,0,0,8" SelectedDate="{Binding Path=SearchedEndDate, UpdateSourceTrigger=PropertyChanged}"/>
 
         </Grid>
-        <Button x:Name="SearchButton" Content="Search" Background="AliceBlue" Click="Search_Click" HorizontalAlignment="Left" Height="31" Margin="1045,402,0,0" VerticalAlignment="Top" Width="92">
+        <Button x:Name="SearchButton" Content="Search" Background="AliceBlue" Click="Search_Click" HorizontalAlignment="Left" Height="31" Margin="1078,388,0,0" VerticalAlignment="Top" Width="92">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -202,10 +202,10 @@
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="256,626,804,18">
-            <Image x:Name="TourSuggestionImage" Source="https://cdn-icons-png.flaticon.com/512/1325/1325099.png" Width="20" Height="20" Margin="0,-9,5,0"/>
+            <Image x:Name="TourSuggestionImage" Source="https://icons.iconarchive.com/icons/fatcow/farm-fresh/32/lightbulb-off-icon.png" Width="26" Height="26" Margin="0,-9,5,0"/>
             <TextBlock x:Name="TourSuggestionLink" FontSize="19"><Hyperlink Click="TourSuggestionLink_Click" ><Run Text="Tour suggestion"/></Hyperlink></TextBlock>
         </StackPanel>
 
-        <ContentControl x:Name="ContentArea"></ContentControl>        
+        <ContentControl x:Name="ContentArea"></ContentControl>
     </Grid>
 </UserControl>

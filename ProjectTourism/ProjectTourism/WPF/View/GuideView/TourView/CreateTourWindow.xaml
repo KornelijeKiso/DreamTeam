@@ -15,6 +15,7 @@
         </ControlTemplate>
     </UserControl.Resources>
     <Grid>
+        <Label Name="CreateTourLabel" Content="Create tour" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         <Image Source="/WPF/View/GuideView/TourView/lightmaketourEDITED.jpg" Margin="-13.5,60,0,-63"/>
         <Grid Margin="580,60,152,81" Height="370" Width="220" x:Name="calendargrid">
             <Rectangle Stroke="Black" Margin="0,-15,0,-20" Fill="LightGray" RadiusX="14" RadiusY="14" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="4" Name="rectangle">
@@ -90,6 +91,5 @@
             <Button Content="Save" Click="SaveTour_Click" HorizontalAlignment="Center" Height="43" Margin="25, 0, 0, 0" VerticalAlignment="Center" Width="95"/>
         </WrapPanel>
         <ContentControl x:Name="ContentArea"></ContentControl>
-        <Label Name="CreateTourLabel" Content="Create tour" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
     </Grid>
 </UserControl>

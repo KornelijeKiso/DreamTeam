@@ -26,9 +26,6 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.GuideView.TourView
 {
-    /// <summary>
-    /// Interaction logic for TourStopsWindow.xaml
-    /// </summary>
     public partial class TourStopsWindow : UserControl, INotifyPropertyChanged
     {
         public TourAppointmentVM TourAppointment { get; set; }

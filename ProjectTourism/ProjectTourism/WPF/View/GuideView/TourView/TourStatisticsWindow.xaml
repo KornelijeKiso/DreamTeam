@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView.TourView"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
-        <Label Content="Tour statistics" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
+        <Label Content="Tour statistics" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         <DataGrid x:Name="DataGridTours" PreviewMouseLeftButtonDown="DataGridTours_PreviewMouseLeftButtonDown"  
                     ItemsSource="{Binding TourAppsObs, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedTourApp, UpdateSourceTrigger=PropertyChanged}"

@@ -17,16 +17,16 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TabControl Grid.Row="1" Margin="195,38,195,92" TabStripPlacement="Left">
+        <TabControl x:Name="TabControl" Margin="210,150,280,120" TabStripPlacement="Left">
             <TabItem Header="Ready" Height="40" Width="70">
-                <Grid>
+                <Grid Height="445">
                     <DataGrid x:Name="DataGridReadyTours" 
                     ItemsSource="{Binding SortedReadyApps, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged}"
                     SelectionMode="Single"
                     VerticalScrollBarVisibility="Visible" 
                     GridLinesVisibility="Horizontal"
-                    IsReadOnly="True" AutoGenerateColumns="False" Margin="10,10,10,10" RowHeight="50">
+                    IsReadOnly="True" AutoGenerateColumns="False" Margin="10,0,10,0" Height="425" RowHeight="50">
                         <DataGrid.Resources>
                             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
                         </DataGrid.Resources>
@@ -115,7 +115,7 @@
                     SelectionMode="Single"
                     VerticalScrollBarVisibility="Visible" 
                     GridLinesVisibility="Horizontal"
-                    IsReadOnly="True" AutoGenerateColumns="False" Margin="10,10,10,10" RowHeight="50">
+                    IsReadOnly="True" AutoGenerateColumns="False" Margin="10,10,10,10" Height="425" RowHeight="50">
                         <DataGrid.Resources>
                             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
                         </DataGrid.Resources>
@@ -196,7 +196,7 @@
                     SelectionMode="Single"
                     VerticalScrollBarVisibility="Visible" 
                     GridLinesVisibility="Horizontal"
-                    IsReadOnly="True" AutoGenerateColumns="False" Margin="10,10,10,10" RowHeight="50">
+                    IsReadOnly="True" AutoGenerateColumns="False" Margin="10,10,10,10" Height="425" RowHeight="50">
                         <DataGrid.Resources>
                             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
                         </DataGrid.Resources>
@@ -277,7 +277,7 @@
                     SelectionMode="Single"
                     VerticalScrollBarVisibility="Visible" 
                     GridLinesVisibility="Horizontal"
-                    IsReadOnly="True" AutoGenerateColumns="False" Margin="10,10,10,10" RowHeight="50">
+                    IsReadOnly="True" AutoGenerateColumns="False" Margin="10,10,10,10" Height="425" RowHeight="50">
                         <DataGrid.Resources>
                             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
                         </DataGrid.Resources>
@@ -346,8 +346,8 @@
             </TabItem>
         </TabControl>
 
-        <Label x:Name="AllAppsLabel" Content="All appointments" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="377" FontSize="40"/>
-        <ContentControl x:Name="ContentArea"></ContentControl>
+        <Label x:Name="AllAppsLabel" Content="All appointments" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="377" FontSize="40"/>
+        <ContentControl x:Name="ContentArea" Margin="0,0,0,596"></ContentControl>
     </Grid>
 
 </UserControl>

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView.TourView"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
-        <Label Name="HomeLabel" Content="Home" HorizontalAlignment="Left" Height="124" Margin="25,29,0,0" VerticalAlignment="Top" Width="182" FontSize="60"/>
+        <Label Name="HomeLabel" Content="Home" HorizontalAlignment="Left" Height="124" Margin="90,25,0,0" VerticalAlignment="Top" Width="182" FontSize="60"/>
         <Label Name="UpcomingLabel" Content="Upcoming..." HorizontalAlignment="Left" Margin="20,217,0,0" VerticalAlignment="Top" FontSize="32">
             <Label.Effect>
                 <DropShadowEffect Color="LightBlue" BlurRadius="20"/>
@@ -17,7 +17,7 @@
         <Button x:Name="AddNewTourButton" Content="Add a new tour" HorizontalAlignment="Left" Height="54" Margin="212,600,0,0" VerticalAlignment="Top" Width="111" Click="AddNewTourButton_Click"/>
         <ContentControl x:Name="ContentArea"/>
         <Grid Margin="25,275,906,158">
-            <Border x:Name="ImageBorder" Margin="0,0,0,22" BorderThickness="3" BorderBrush="Black">
+            <Border x:Name="ImageBorder" Margin="0,0,0,22" CornerRadius="3" BorderThickness="3" BorderBrush="Black">
                 <Image x:Name="UpcomingImage" Source="{Binding UpcomingTourPicture}" HorizontalAlignment="Left" Height="253" Margin="0,0,0,0" VerticalAlignment="Top" Width="352" Stretch="Fill"/>
             </Border>
             <Label Margin="3, 185, 3, 25" HorizontalContentAlignment="Center" Width="340" FontSize="17" Background="AliceBlue" HorizontalAlignment="Center" x:Name="UpcomingLabelName"></Label>

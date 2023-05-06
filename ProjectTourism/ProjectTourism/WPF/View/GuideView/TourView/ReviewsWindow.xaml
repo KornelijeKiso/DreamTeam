@@ -7,7 +7,7 @@
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
 
     <Grid>
-        <Label Content="Reviews" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
+        <Label Content="Reviews" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         <DataGrid  Name="DataGridRow" RowHeight="100" CanUserAddRows="False" HorizontalAlignment="Center" Height="486" VerticalAlignment="Top" Width="1048" 
             SelectedItem="{Binding SelectedTicket, UpdateSourceTrigger=PropertyChanged}" 
             ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="0,149,0,0">

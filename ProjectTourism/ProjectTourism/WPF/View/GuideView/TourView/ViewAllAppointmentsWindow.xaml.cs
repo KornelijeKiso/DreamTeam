@@ -45,6 +45,7 @@ namespace ProjectTourism.View.GuideView.TourView
         private void ReviewsButton_Click(object sender, RoutedEventArgs e)
         {
             AllAppsLabel.Visibility = Visibility.Hidden;
+            TabControl.Visibility = Visibility.Hidden;
             ContentArea.Content = new ReviewsWindow(SelectedAppointment);
         }
         private void SortByDate()

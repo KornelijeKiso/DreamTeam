@@ -9,13 +9,49 @@
     WindowStartupLocation="CenterScreen">
     <Grid>
         <Image Source="/WPF/View/GuideView/background.jpg" Margin="-30,-47,-22,0"/>
-        <StackPanel Orientation="Horizontal" Margin="612,46,32,596">
-            <TextBlock FontSize="20"><Hyperlink x:Name="HomeLink_Click" NavigateUri="home.xaml" RequestNavigate="HomeLink_RequestNavigate"><Run Text="Home"/></Hyperlink></TextBlock>
-            <TextBlock Margin="40,0,0,0" FontSize="20"><Hyperlink x:Name="LiveTourMonitorLink" NavigateUri="home.xaml" RequestNavigate="LiveTourMonitorLink_RequestNavigate"><Run Text="Today's tours"/></Hyperlink></TextBlock>
-            <TextBlock Margin="40,0,0,0" FontSize="20"><Hyperlink x:Name="AllAppointmentsLink" NavigateUri="home.xaml" RequestNavigate="AllAppointmentsLink_RequestNavigate"><Run Text="All Appointments"/></Hyperlink></TextBlock>
-            <TextBlock Margin="40,0,0,0" FontSize="20"><Hyperlink x:Name="RequestsLink" NavigateUri="home.xaml" RequestNavigate="RequestsLink_RequestNavigate"><Run Text="Requests"/></Hyperlink></TextBlock>
-            <TextBlock Margin="40,0,0,0" FontSize="20"><Hyperlink x:Name="ProfileLink" NavigateUri="home.xaml" RequestNavigate="ProfileLink_RequestNavigate"><Run Text="Profile"/></Hyperlink></TextBlock>
+        <StackPanel Orientation="Horizontal" Margin="477,46,32,596">
+            <TextBlock FontSize="20">
+        <Hyperlink x:Name="HomeLink_Click" NavigateUri="home.xaml" RequestNavigate="HomeLink_RequestNavigate">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="https://cdn-icons-png.flaticon.com/512/1946/1946436.png" Width="18" Height="18" Margin="0,0,5,0"/>
+                <TextBlock Text="Home"/>
+            </StackPanel>
+        </Hyperlink>
+            </TextBlock>
+            <TextBlock Margin="40,0,0,0" FontSize="20">
+        <Hyperlink x:Name="LiveTourMonitorLink" NavigateUri="home.xaml" RequestNavigate="LiveTourMonitorLink_RequestNavigate">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="https://cdn-icons-png.flaticon.com/512/3253/3253051.png" Width="20" Height="20" Margin="0,0,5,0"/>
+                <TextBlock Text="Today's tours"/>
+            </StackPanel>
+        </Hyperlink>
+            </TextBlock>
+            <TextBlock Margin="40,0,0,0" FontSize="20">
+        <Hyperlink x:Name="AllAppointmentsLink" NavigateUri="home.xaml" RequestNavigate="AllAppointmentsLink_RequestNavigate">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="https://cdn-icons-png.flaticon.com/512/10302/10302455.png" Width="18" Height="18" Margin="0,0,5,0"/>
+                <TextBlock Text="All Appointments"/>
+            </StackPanel>
+        </Hyperlink>
+            </TextBlock>
+            <TextBlock Margin="40,0,0,0" FontSize="20">
+        <Hyperlink x:Name="RequestsLink" NavigateUri="home.xaml" RequestNavigate="RequestsLink_RequestNavigate">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="https://cdn-icons-png.flaticon.com/512/7358/7358481.png" Width="20" Height="20" Margin="0,0,5,0"/>
+                <TextBlock Text="Requests"/>
+            </StackPanel>
+        </Hyperlink>
+            </TextBlock>
+            <TextBlock Margin="40,0,0,0" FontSize="20">
+        <Hyperlink x:Name="ProfileLink" NavigateUri="home.xaml" RequestNavigate="ProfileLink_RequestNavigate">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="https://cdn-icons-png.flaticon.com/512/709/709722.png" Width="20" Height="20" Margin="0,0,5,0"/>
+                <TextBlock Text="Profile"/>
+            </StackPanel>
+        </Hyperlink>
+            </TextBlock>
         </StackPanel>
+
         <ContentControl x:Name="ContentArea"/>
     </Grid>
 </Window>

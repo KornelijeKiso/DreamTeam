@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Label x:Name="RequestsLabel" Content="Request statistics" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="329" FontSize="40"/>
+        <Label x:Name="RequestsLabel" Content="Request statistics" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="329" FontSize="40"/>
         <Border x:Name="rectangle" Background="#FF9BC8EC" BorderBrush="Black" BorderThickness="1" CornerRadius="20" Margin="40,140,430,51"/>
 
         <DataGrid x:Name="DataGridStats" 

@@ -12,12 +12,13 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
+        <Label Name="TodaysToursLabel" Content="Today's tours" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         <DataGrid x:Name="DataGridTourAppointments" 
                 ItemsSource="{Binding Path=Guide.TodaysAppointments, UpdateSourceTrigger=PropertyChanged}"
                 SelectedItem="{Binding SelectedTourAppointment, UpdateSourceTrigger=PropertyChanged}" 
                 SelectionMode="Single"
                 VerticalScrollBarVisibility="Visible" 
-                IsReadOnly="True" AutoGenerateColumns="False" Margin="280,151,280,81" RowHeight="110" HeadersVisibility="None" GridLinesVisibility="Horizontal" >
+                IsReadOnly="True" AutoGenerateColumns="False" Margin="280,150,280,80" RowHeight="130" HeadersVisibility="None" GridLinesVisibility="Horizontal" >
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
             </DataGrid.Resources>
@@ -27,7 +28,7 @@
                 </Style>
             </DataGrid.CellStyle>
             <DataGrid.Columns>
-                <DataGridTemplateColumn Width="140" >
+                <DataGridTemplateColumn Width="170" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button Click="ImageButton_Click">
@@ -81,14 +82,14 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="100">
+                <DataGridTemplateColumn Width="100" Header="Time">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Label Margin="0,0,0,-7" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <Label.Content>
                                     <TextBlock>
                                         <TextBlock.Text>
-                                            <MultiBinding StringFormat="{} {0}:{1}">
+                                            <MultiBinding StringFormat="{}{0:d2}:{1:d2}">
                                                 <Binding Path="TourDateTime.Hour" />
                                                 <Binding Path="TourDateTime.Minute" />
                                             </MultiBinding>
@@ -101,7 +102,6 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <Label Name="TodaysToursLabel" Content="Today's tours" HorizontalAlignment="Left" Height="78" Margin="40,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         <ContentControl x:Name="ContentArea"></ContentControl>
     </Grid>
 </UserControl>

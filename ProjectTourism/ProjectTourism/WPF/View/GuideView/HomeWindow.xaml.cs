@@ -42,7 +42,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 UpcomingLabelName.Content = UpcomingTourApp.Tour.Name;
             }
             else
-                HideElements(new List<UIElement> { UpcomingLabel, ImageBorder, UpcomingImage });
+                HideElements(new List<UIElement> { UpcomingLabel, ImageBorder, UpcomingImage, UpcomingLabelName });
         }
         private void HideElements(List<UIElement> elements)
         {

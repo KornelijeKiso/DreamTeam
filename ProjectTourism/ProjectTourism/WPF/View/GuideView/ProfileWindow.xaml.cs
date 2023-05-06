@@ -44,7 +44,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             {
                 NameSurnameLabel, usernamelabel, EmailLabel, PhoneNumberLabel, LanguagesLabel,
                 BioLabel, MaxGuestsLabel, DarkThemeLabel, textbox1, textbox2, textbox3, textbox4,
-                textbox5, toggleSwitch, rectangle, LinkSignOut, TourStatsLink
+                textbox5, toggleSwitch, rectangle, LinkSignOut, TourStatsLink, LogOutImage
             };
             profileUIElements.ForEach(element => element.Visibility = Visibility.Hidden);
         }
