@@ -102,7 +102,7 @@
                                         </Style>
                                     </Button.Resources>
                                 </Button>
-                                <Button BorderBrush="DodgerBlue" Click="RegisterAccommodationClick" BorderThickness="2" Content="Statistics" Height="25" Width="100" Margin="205 -152 0 0">
+                                <Button BorderBrush="DodgerBlue" Click="StatisticsClick" BorderThickness="2" Content="Statistics" Height="25" Width="100" Margin="205 -152 0 0">
                                     <Button.Resources>
                                         <Style TargetType="Border">
                                             <Setter Property="CornerRadius" Value="5"/>

@@ -127,6 +127,11 @@ namespace ProjectTourism.WPF.View.OwnerView
             }
         }
 
+        public void StatisticsClick(object sender,RoutedEventArgs e)
+        {
+            StatisticsWindow statisticsWindow = new StatisticsWindow(SelectedAccommodation);
+            statisticsWindow.ShowDialog();
+        }
         public void RenovateClick(object sender, RoutedEventArgs e)
         {
             RenovationsWindow renovationsWindow = new RenovationsWindow(SelectedAccommodation);

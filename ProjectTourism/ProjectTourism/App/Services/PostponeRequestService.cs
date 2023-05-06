@@ -34,6 +34,16 @@ namespace ProjectTourism.Services
         {
             return PostponeRequestRepo.GetOneByReservation(id);
         }
+
+        public PostponeRequest GetOneAcceptedByReservation(int id)
+        {
+            PostponeRequest pprequest = GetOneByReservation(id);
+            if (pprequest != null)
+            {
+                if (pprequest.Accepted) return pprequest;
+            }
+            return null;
+        }
         public List<PostponeRequest> GetAll()
         {
             return PostponeRequestRepo.GetAll();

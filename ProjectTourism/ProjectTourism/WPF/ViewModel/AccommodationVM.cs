@@ -20,6 +20,24 @@ namespace ProjectTourism.WPF.ViewModel
             _accommodation= accommodation;
             Reservations = new ObservableCollection<ReservationVM>(_accommodation.Reservations.Select(r => new ReservationVM(r)).Reverse().ToList());
             Renovations = new ObservableCollection<RenovationVM>(_accommodation.Renovations.Select(r => new RenovationVM(r)).ToList().OrderByDescending(r=>r.EndDate));
+            LoadStatistics();
+        }
+        public void LoadStatistics()
+        {
+            Dictionary<int, AccommodationStatisticsVM> dictionary = new Dictionary<int, AccommodationStatisticsVM>();
+            Stats = new ObservableCollection<AccommodationStatisticsVM>();
+            foreach(var reservation in Reservations)
+            {
+                if (!dictionary.ContainsKey(reservation.StartDate.Year)) dictionary.Add(reservation.StartDate.Year, new AccommodationStatisticsVM(this, reservation.StartDate.Year));
+            }
+            foreach(var stat in dictionary.Values)
+            {
+                Stats.Add(stat);
+            }
+        }
+        public bool IsReserved(DateOnly day)
+        {
+            return Reservations.ToList().Find(r=>r.StartDate<=day && r.EndDate>=day)!=null;
         }
         public AccommodationVM(AccommodationVM accommodation)
         {
@@ -178,6 +196,11 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+
+        public AccommodationStatisticsVM BestYear
+        {
+            get => Stats.ToList().MaxBy(s => s.Occupancy);
+        }
         public OwnerVM Owner
         {
             get => new OwnerVM(_accommodation.OwnerUsername);
@@ -233,6 +256,7 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public ObservableCollection<ReservationVM> Reservations { get; set; }
         public ObservableCollection<RenovationVM> Renovations { get; set; }
+        public ObservableCollection<AccommodationStatisticsVM> Stats { get; set; }  
 
         public void CancelRenovation(RenovationVM renovation)
         {
