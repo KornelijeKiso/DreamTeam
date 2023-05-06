@@ -68,7 +68,7 @@
                                     <Label Content="State :" Margin="0,0,-7,-7" ></Label>
                                     <Label Content="{Binding State}" Margin="0,0,0,-7" FontWeight="Bold"></Label>
                                 </StackPanel>
-                                <Button HorizontalAlignment="Right" Height="35" Width="35" Margin="0, -25, 10, 0" Click="ManageButton_Click">
+                                <Button HorizontalAlignment="Right" Height="35" Width="35" Margin="0, -20, 10, 0" Click="ManageButton_Click">
                                     <Button.Background>
                                         <ImageBrush ImageSource="https://img.icons8.com/pulsar-color/1x/go.png" />
                                     </Button.Background>
