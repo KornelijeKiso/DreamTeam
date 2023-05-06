@@ -108,6 +108,13 @@ namespace ProjectTourism.WPF.ViewModel
             CalculateOccupancy(accommodation);
             
         }
+        public AccommodationStatisticsVM(int year)
+        {
+            Year = year;
+            Month = -1;
+            Occupancy = 0;
+            Reservations = 0;
+        }
 
         public AccommodationStatisticsVM(int year, int month)
         {

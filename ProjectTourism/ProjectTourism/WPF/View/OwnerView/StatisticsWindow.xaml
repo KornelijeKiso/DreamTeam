@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.OwnerView"
         xmlns:conv="clr-namespace:ProjectTourism.Converters"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
         Title="StatisticsWindow" Height="690" Width="900" WindowStartupLocation="CenterScreen">
     <Window.Resources>
@@ -48,21 +49,75 @@
                         <Label ContentStringFormat="Free cancellation - {0} days before reservation" FontSize="16" Content="{Binding Accommodation.CancellationDeadline}"></Label>
                     </StackPanel>
                 </StackPanel>
-                <GroupBox Width="190" BorderBrush="DodgerBlue" Margin="100 0 0 0">
+                <GroupBox Width="240" BorderBrush="DodgerBlue" Header="Best Year" FontSize="15" FontWeight="SemiBold" Foreground="DodgerBlue" Margin="50 0 0 0" BorderThickness="2">
                     <StackPanel Orientation="Vertical" >
-                        <Label Content="Last renovation :" FontSize="16" HorizontalAlignment="Center"></Label>
-                        <Label Content="{Binding Path=Accommodation.LastRenovation.EndDate}" FontSize="16" HorizontalAlignment="Center" Margin="0 -7 0 0"></Label>
-                        <StackPanel Orientation="Vertical" Visibility="{Binding Path=Accommodation.IsRecentlyRenovated, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
-                            <Image Source="https://img.icons8.com/3d-fluency/2x/prize.png" Width="68"></Image>
-                            <Label Foreground="DarkRed" Content="Recently Renovated" FontSize="14" HorizontalAlignment="Center"></Label>
+                        <Label Content="{Binding Accommodation.BestYear.Year}" FontSize="26" HorizontalAlignment="Left" Margin="8 -5 0 0"></Label>
+                        <Image Source="https://pics.freeicons.io/uploads/icons/png/3030671961582884287-64.png" Width="64" Margin="-146 0 0 0"></Image>
+                        <StackPanel Orientation="Horizontal" Margin="90 9 0 0">
+                            <Image Source="https://pics.freeicons.io/uploads/icons/png/7345176951582534622-64.png" Width="20"></Image>
+                            <Label ContentStringFormat="{}{0} reservations" Content="{Binding Path=Accommodation.BestYear.Reservations}" FontSize="16" HorizontalAlignment="Center" ></Label>
                         </StackPanel>
+                        <StackPanel Orientation="Vertical" Margin="70 -135 0 0">
+                            <lvc:PieChart x:Name="myPieChart" StartingRotationAngle="0" Height="70"/>
 
+                            <Label ContentStringFormat="{}{0}% Occupancy" Content="{Binding Path=Accommodation.BestYear.Occupancy}" FontSize="16" HorizontalAlignment="Center" ></Label>
+                        </StackPanel>
                     </StackPanel>
                 </GroupBox>
             </StackPanel>
-            
+            <DataGrid Background="LightSkyBlue" SelectedItem="{Binding SelectedYear, UpdateSourceTrigger=PropertyChanged}" RowHeight="55" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False" RowHeaderWidth="0" BorderBrush="DodgerBlue" BorderThickness="2"  Margin=" 0 40 0 0" ItemsSource="{Binding Accommodation.Stats}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Height="350">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Year" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="16" VerticalAlignment="Center" FontWeight="SemiBold"  Text="{Binding Year}"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Number of reservations" Width="140">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="16" VerticalAlignment="Center" FontWeight="SemiBold"  Text="{Binding Reservations}"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Postponed Reservations" Width="140">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="16" VerticalAlignment="Center" FontWeight="SemiBold"  Text="{Binding PostponedReservations}"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Canceled Reservations" Width="140">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="16" VerticalAlignment="Center" FontWeight="SemiBold"  Text="{Binding CanceledReservations}"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Renovation Reccommendations" Width="180">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="16" VerticalAlignment="Center" FontWeight="SemiBold"  Text="{Binding RenovationReccommendations}"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Stats by months" Width="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Stats by months" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100">
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="5"/>
+                                        </Style>
+                                    </Button.Resources>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content ="Cancel" IsCancel="True" Width="80" Height="35" Margin="0 20 0 0"></Button>
         </StackPanel>
-
-       
     </Grid>
 </Window>

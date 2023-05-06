@@ -1,7 +1,10 @@
-﻿using ProjectTourism.Model;
+﻿using LiveCharts.Wpf;
+using LiveCharts;
+using ProjectTourism.Model;
 using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,11 +25,14 @@ namespace ProjectTourism.WPF.View.OwnerView
     public partial class StatisticsWindow : Window
     {
         public AccommodationVM Accommodation { get; set; }
+
         public StatisticsWindow(AccommodationVM accommodation)
         {
             Accommodation = accommodation;
             InitializeComponent();
             DataContext = this;
+            myPieChart.Series.Add(new PieSeries { Title = "Reserved", Stroke=Brushes.Black, Fill = Brushes.Orange, StrokeThickness = 2, Values = new ChartValues<double> { Accommodation.BestYear.Occupancy } });
+            myPieChart.Series.Add(new PieSeries { Title = "Free", Stroke = Brushes.Black, Fill = Brushes.White, StrokeThickness = 2, Values = new ChartValues<double> { 100 - Accommodation.BestYear.Occupancy } });
         }
     }
 }

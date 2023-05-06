@@ -199,7 +199,17 @@ namespace ProjectTourism.WPF.ViewModel
 
         public AccommodationStatisticsVM BestYear
         {
-            get => Stats.ToList().MaxBy(s => s.Occupancy);
+            get
+            {
+                if(Stats.ToList().MaxBy(s => s.Occupancy) == null)
+                {
+                    return new AccommodationStatisticsVM(DateTime.Now.Year);
+                }
+                else
+                {
+                    return Stats.ToList().MaxBy(s => s.Occupancy);
+                }
+            }
         }
         public OwnerVM Owner
         {
