@@ -17,7 +17,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public UserVM CurrentUser { get; set; }
         public Guest2VM Guest2 { get; set; }
         public RequestVM SelectedTourRequest { get; set; }
-        public ObservableCollection<RequestVM> WaitingRequests { get; set; }
+        public ObservableCollection<RequestVM> PendingRequests { get; set; }
         public ObservableCollection<RequestVM> AcceptedRequests { get; set; }
         public ObservableCollection<RequestVM> ExpiredRequests { get; set; }
         public ObservableCollection<RequestVM> OthersRequests { get; set; }
@@ -25,7 +25,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public TourRequestsVM()
         {
             SetGuest2();
-            WaitingRequests = SetWaitingRequests();
+            PendingRequests = SetPendingRequests();
             AcceptedRequests = SetAcceptedRequests();
             ExpiredRequests = SetExpiredRequests();
             OthersRequests = SetOthersRequests();
@@ -38,15 +38,15 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             Guest2 = new Guest2VM(CurrentUser.Username);
         }
 
-        private ObservableCollection<RequestVM> SetWaitingRequests()
+        private ObservableCollection<RequestVM> SetPendingRequests()
         {
-            ObservableCollection<RequestVM> waiting = new ObservableCollection<RequestVM>();
+            ObservableCollection<RequestVM> pending = new ObservableCollection<RequestVM>();
             foreach (var request in Guest2.TourRequests)
             {
                 if ((request.Guest2Username.Equals(Guest2.Username)) && (request.State == REQUESTSTATE.PENDING))
-                    waiting.Add(request);
+                    pending.Add(request);
             }
-            return waiting;
+            return pending;
         }
 
         private ObservableCollection<RequestVM> SetAcceptedRequests()

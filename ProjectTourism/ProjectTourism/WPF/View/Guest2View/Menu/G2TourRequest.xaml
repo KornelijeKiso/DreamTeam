@@ -33,28 +33,444 @@
                     </Style>
                 </TabControl.Style>
 
-                <!-- WAITING REQUESTS -->
-                <TabItem Header="Waiting" Height="20" VerticalAlignment="Top">
-                    
-                    
+                <!-- PENDING REQUESTS -->
+                <TabItem Header="Pending" Height="20" VerticalAlignment="Top">
+                    <DataGrid x:Name="DataGridWaitingRequests" Style="{StaticResource DataGrid_Style}"
+                              RowHeight="80"
+                              ItemsSource="{Binding PendingRequests, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding SelectedTourRequest, UpdateSourceTrigger=PropertyChanged}"
+                              Margin="0 0 0 0" BorderThickness="0"
+                              >
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                                             Color="#339AF0"/>
+                        </DataGrid.Resources>
+                        
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Guest's &#x0d;username"
+                                                    Width="80" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                                               Content="{Binding Path=Guest2Username}"
+                                               />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Made On"
+                                                    Width="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                                               Content="{Binding Path=CreationDateTime}"
+                                               />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Date &#x0d;Range"
+                                                    Width="100" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Label.Content>
+                                                <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0} -&#x0d;{1}">
+                                                            <Binding Path="StartDate"/>
+                                                            <Binding Path="EndDate"/>
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </Label.Content>
+                                        </Label>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Language"
+                                                    Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                                               Content="{Binding Path=Language}"
+                                               />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Location"
+                                                    Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Label.Content>
+                                                <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0}, &#x0d;{1}">
+                                                            <Binding Path="Location.Country"/>
+                                                            <Binding Path="Location.City"/>
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </Label.Content>
+                                        </Label>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Number of&#x0d; Guests"
+                                                    Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                                               Content="{Binding Path=NumberOfGuests}"
+                                               />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </TabItem>
 
                 <!-- ACCEPTED REQUESTS -->
                 <TabItem Header="Accepted" Height="20" VerticalAlignment="Top">
+                    <DataGrid x:Name="DataGridAcceptedRequests" Style="{StaticResource DataGrid_Style}"
+                              RowHeight="80"
+                              ItemsSource="{Binding AcceptedRequests, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding SelectedTourRequest, UpdateSourceTrigger=PropertyChanged}"
+                              Margin="0 0 0 0" BorderThickness="0"
+                              >
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                                             Color="#339AF0"/>
+                        </DataGrid.Resources>
 
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Guest's &#x0d;username"
+                                                    Width="80" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                                               Content="{Binding Path=Guest2Username}"
+                                               />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
+                            <DataGridTemplateColumn Header="Made On"
+                                                    Width="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                                               Content="{Binding Path=CreationDateTime}"
+                                               />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Date &#x0d;Range"
+                                                    Width="100" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Label.Content>
+                                                <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0} -&#x0d;{1}">
+                                                            <Binding Path="StartDate"/>
+                                                            <Binding Path="EndDate"/>
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </Label.Content>
+                                        </Label>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Language"
+                                                    Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                                               Content="{Binding Path=Language}"
+                                               />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Location"
+                                                    Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Label.Content>
+                                                <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0}, &#x0d;{1}">
+                                                            <Binding Path="Location.Country"/>
+                                                            <Binding Path="Location.City"/>
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </Label.Content>
+                                        </Label>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Number of&#x0d; Guests"
+                                                    Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                                               Content="{Binding Path=NumberOfGuests}"
+                                               />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </TabItem>
 
                 <!-- EXPIRED REQUESTS -->
                 <TabItem Header="Expired" Height="20" VerticalAlignment="Top">
+                    <DataGrid x:Name="DataGridExpiredRequests" Style="{StaticResource DataGrid_Style}"
+                              RowHeight="80"
+                              ItemsSource="{Binding ExpiredRequests, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding SelectedTourRequest, UpdateSourceTrigger=PropertyChanged}"
+                              Margin="0 0 0 0" BorderThickness="0"
+                              >
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                                             Color="#339AF0"/>
+                        </DataGrid.Resources>
 
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Guest's &#x0d;username"
+                                                    Width="80" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                                               Content="{Binding Path=Guest2Username}"
+                                               />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
+                            <DataGridTemplateColumn Header="Made On"
+                                                    Width="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                                               Content="{Binding Path=CreationDateTime}"
+                                               />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Date &#x0d;Range"
+                                                    Width="100" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Label.Content>
+                                                <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0} -&#x0d;{1}">
+                                                            <Binding Path="StartDate"/>
+                                                            <Binding Path="EndDate"/>
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </Label.Content>
+                                        </Label>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Language"
+                                                    Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                                               Content="{Binding Path=Language}"
+                                               />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Location"
+                                                    Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Label.Content>
+                                                <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0}, &#x0d;{1}">
+                                                            <Binding Path="Location.Country"/>
+                                                            <Binding Path="Location.City"/>
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </Label.Content>
+                                        </Label>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Number of&#x0d; Guests"
+                                                    Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                                               Content="{Binding Path=NumberOfGuests}"
+                                               />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </TabItem>
 
                 <!-- OTHER GUESTS REQUESTS -->
                 <TabItem Header="Other's requests" Height="20" VerticalAlignment="Top">
+                    <DataGrid x:Name="DataGridOthersRequests" Style="{StaticResource DataGrid_Style}"
+                              RowHeight="80"
+                              ItemsSource="{Binding OthersRequests, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding SelectedTourRequest, UpdateSourceTrigger=PropertyChanged}"
+                              Margin="0 0 0 0" BorderThickness="0"
+                              >
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                                             Color="#339AF0"/>
+                        </DataGrid.Resources>
 
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Guest's &#x0d;username"
+                                                    Width="80" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                                               Content="{Binding Path=Guest2Username}"
+                                               />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
+                            <DataGridTemplateColumn Header="State"
+                                                    Width="80" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                                               Content="{Binding Path=State}"
+                                               />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Made On"
+                                                    Width="150">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                                               Content="{Binding Path=CreationDateTime}"
+                                               />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Date &#x0d;Range"
+                                                    Width="100" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Label.Content>
+                                                <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0} -&#x0d;{1}">
+                                                            <Binding Path="StartDate"/>
+                                                            <Binding Path="EndDate"/>
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </Label.Content>
+                                        </Label>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Language"
+                                                    Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                                               Content="{Binding Path=Language}"
+                                               />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Location"
+                                                    Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center">
+                                            <Label.Content>
+                                                <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0}, &#x0d;{1}">
+                                                            <Binding Path="Location.Country"/>
+                                                            <Binding Path="Location.City"/>
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </Label.Content>
+                                        </Label>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Number of&#x0d; Guests"
+                                                    Width="100">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontFamily="/Fonts/#Rubik" FontSize="14"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                                               Content="{Binding Path=NumberOfGuests}"
+                                               />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </TabItem>
 
             </TabControl>

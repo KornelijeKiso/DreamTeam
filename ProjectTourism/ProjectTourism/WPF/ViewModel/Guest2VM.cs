@@ -120,8 +120,14 @@ namespace ProjectTourism.WPF.ViewModel
         private void SynchronizeTourRequestsList(Guest2 _guest2)
         {
             RequestService requestService = new RequestService();
+            LocationService locationService = new LocationService();
 
-            _guest2.TourRequests = requestService.GetAll(); //new List<Request>();
+            _guest2.TourRequests = new List<Request>();
+            foreach (var request in requestService.GetAll())
+            {
+                request.Location = locationService.GetOne(request.LocationId);
+                _guest2.TourRequests.Add(request);
+            }
         }
 
         private void SynchronizeTours(ObservableCollection<TourVM> Tours)
