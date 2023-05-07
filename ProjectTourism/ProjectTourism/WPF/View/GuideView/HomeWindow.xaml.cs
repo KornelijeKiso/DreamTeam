@@ -36,7 +36,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             Guide = new GuideVM(username);
             UpcomingTourPicture = "";
             TourAppointmentVM UpcomingTourApp = Guide.FindGuidesUpcomingTourApp();
-            if(UpcomingTourApp != null)
+            if(UpcomingTourApp != null && UpcomingTourApp.Tour.Pictures != null)
             {
                 UpcomingTourPicture = UpcomingTourApp.Tour.Pictures[0];
                 UpcomingLabelName.Content = UpcomingTourApp.Tour.Name;

@@ -35,7 +35,10 @@ namespace ProjectTourism.View.GuideView.TourView
         }
         private void ImageButton_Click(object sender, RoutedEventArgs e)
         {
-            ContentArea.Content = new ImageViewerUserControl(SelectedTourAppointment.Tour);
+            if (!SelectedTourAppointment.Tour.ArePicturesEmpty)
+            {
+                ContentArea.Content = new ImageViewerUserControl(SelectedTourAppointment.Tour);
+            }
         }
         private void ManageButton_Click(object sender, RoutedEventArgs e)
         {

@@ -33,10 +33,20 @@
                         <DataTemplate>
                             <Button Click="ImageButton_Click">
                                 <Button.Content>
-                                    <Image Stretch="Fill" Source="{Binding Tour.Pictures[0]}"/>
+                                    <Image Stretch="Fill">
+                                        <Image.Style>
+                                            <Style TargetType="Image">
+                                                <Setter Property="Source" Value="{Binding Tour.Pictures[0]}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=Tour.ArePicturesEmpty}" Value="True">
+                                                        <Setter Property="Source" Value="https://rdacentralwest.org.au/wp-content/themes/unbound/images/No-Image-Found-400x264.png" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Image.Style>
+                                    </Image>
                                 </Button.Content>
                             </Button>
-                            
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>

@@ -304,7 +304,7 @@ namespace ProjectTourism.WPF.ViewModel
                 return true;
             }
         }
-
+        public bool ArePicturesEmpty { get => Pictures == null; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
