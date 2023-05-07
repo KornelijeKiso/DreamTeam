@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectTourism.Domain.Model;
 //using System.Text.RegularExpressions;
 
 namespace ProjectTourism.WPF.ViewModel
@@ -23,6 +24,7 @@ namespace ProjectTourism.WPF.ViewModel
             _guest2 = guest2;
             Tickets = new ObservableCollection<TicketVM>(_guest2.Tickets.Select(r => new TicketVM(r)).ToList());
             Vouchers = new ObservableCollection<VoucherVM>(_guest2.Vouchers.Select(r => new VoucherVM(r)).ToList());
+            TourRequests = new ObservableCollection<RequestVM>(_guest2.TourRequests.Select(r => new RequestVM(r)).ToList());
             Tours = new ObservableCollection<TourVM>();
         }
 
@@ -31,7 +33,7 @@ namespace ProjectTourism.WPF.ViewModel
             Synchronize(username);
             Tickets = new ObservableCollection<TicketVM>(_guest2.Tickets.Select(r => new TicketVM(r)).ToList());
             Vouchers = new ObservableCollection<VoucherVM>(_guest2.Vouchers.Select(r => new VoucherVM(r)).ToList());
-
+            TourRequests = new ObservableCollection<RequestVM>(_guest2.TourRequests.Select(r => new RequestVM(r)).ToList());
         }
         public void Synchronize(string username)
         {
@@ -44,6 +46,7 @@ namespace ProjectTourism.WPF.ViewModel
 
             SynchronizeTicketsList(_guest2);
             SynchronizeVouchersList(_guest2);
+            SynchronizeTourRequestsList(_guest2);
         }
 
         private void SynchronizeVouchersList(Guest2 _guest2)
@@ -112,6 +115,13 @@ namespace ProjectTourism.WPF.ViewModel
                 ticket.TicketGrade = ticketGradeService.GetOneByTicket(ticket.Id);
                 _guest2.Tickets.Add(ticket);
             }
+        }
+
+        private void SynchronizeTourRequestsList(Guest2 _guest2)
+        {
+            RequestService requestService = new RequestService();
+
+            _guest2.TourRequests = requestService.GetAll(); //new List<Request>();
         }
 
         private void SynchronizeTours(ObservableCollection<TourVM> Tours)
@@ -253,6 +263,7 @@ namespace ProjectTourism.WPF.ViewModel
 
         public ObservableCollection<TicketVM> Tickets { get; set; }
         public ObservableCollection<VoucherVM> Vouchers { get; set; }
+        public ObservableCollection<RequestVM> TourRequests { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

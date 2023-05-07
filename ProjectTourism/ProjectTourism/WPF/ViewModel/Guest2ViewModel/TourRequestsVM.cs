@@ -25,9 +25,9 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public TourRequestsVM()
         {
             SetGuest2();
-            //WaitingRequests = SetWaitingRequests();
-            //AcceptedRequests = SetAcceptedRequests();
-            //ExpiredRequests = SetExpiredRequests();
+            WaitingRequests = SetWaitingRequests();
+            AcceptedRequests = SetAcceptedRequests();
+            ExpiredRequests = SetExpiredRequests();
             OthersRequests = SetOthersRequests();
         }
 
@@ -38,46 +38,47 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             Guest2 = new Guest2VM(CurrentUser.Username);
         }
 
-        //private ObservableCollection<RequestVM> SetWaitingRequests()
-        //{
-        //    ObservableCollection<RequestVM> waiting = new ObservableCollection<RequestVM>();
-        //    foreach (var request in Guest2.TourRequests)
-        //    {
-        //        if (request.State == REQUESTSTATE.PENDING)
-        //            waiting.Add(request);
-                
-        //    }
-        //    return waiting;
-        //}
+        private ObservableCollection<RequestVM> SetWaitingRequests()
+        {
+            ObservableCollection<RequestVM> waiting = new ObservableCollection<RequestVM>();
+            foreach (var request in Guest2.TourRequests)
+            {
+                if ((request.Guest2Username.Equals(Guest2.Username)) && (request.State == REQUESTSTATE.PENDING))
+                    waiting.Add(request);
+            }
+            return waiting;
+        }
 
-        //private ObservableCollection<RequestVM> SetAcceptedRequests()
-        //{
-        //    ObservableCollection<RequestVM> accepted = new ObservableCollection<RequestVM>();
-        //    foreach (var request in Guest2.TourRequests)
-        //    {
-        //        if (request.State == REQUESTSTATE.ACCEPTED)
-        //            accepted.Add(request);
+        private ObservableCollection<RequestVM> SetAcceptedRequests()
+        {
+            ObservableCollection<RequestVM> accepted = new ObservableCollection<RequestVM>();
+            foreach (var request in Guest2.TourRequests)
+            {
+                if ((request.Guest2Username.Equals(Guest2.Username)) && (request.State == REQUESTSTATE.ACCEPTED))
+                    accepted.Add(request);
+            }
+            return accepted;
+        }
 
-        //    }
-        //    return accepted;
-        //}
-
-        //private ObservableCollection<RequestVM> SetExpiredRequests()
-        //{
-        //    ObservableCollection<RequestVM> expired = new ObservableCollection<RequestVM>();
-        //    foreach (var request in Guest2.TourRequests)
-        //    {
-        //        if (request.State == REQUESTSTATE.DISMISSED)
-        //            expired.Add(request);
-
-        //    }
-        //    return expired;
-        //}
+        private ObservableCollection<RequestVM> SetExpiredRequests()
+        {
+            ObservableCollection<RequestVM> expired = new ObservableCollection<RequestVM>();
+            foreach (var request in Guest2.TourRequests)
+            {
+                if ((request.Guest2Username.Equals(Guest2.Username)) && (request.State == REQUESTSTATE.DISMISSED))
+                    expired.Add(request);
+            }
+            return expired;
+        }
 
         private ObservableCollection<RequestVM> SetOthersRequests()
         {
             ObservableCollection<RequestVM> others = new ObservableCollection<RequestVM>();
-            // set others
+            foreach (var request in Guest2.TourRequests)
+            {
+                if (!request.Guest2Username.Equals(Guest2.Username))
+                    others.Add(request);
+            }
             return others;
         }
 
