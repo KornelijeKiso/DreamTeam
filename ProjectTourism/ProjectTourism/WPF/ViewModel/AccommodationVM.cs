@@ -248,6 +248,14 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+        public bool NoReservations
+        {
+            get
+            {
+                if (Reservations == null) return true;
+                else return Reservations.Count == 0;
+            }
+        }
         public RenovationVM LastRenovation
         {
             get

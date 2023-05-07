@@ -1,0 +1,89 @@
+﻿<Window x:Class="ProjectTourism.WPF.View.OwnerView.StatsByMonthsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectTourism.WPF.View.OwnerView"
+                xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+
+        mc:Ignorable="d"
+        Title="StatsByMonthsWindow" Height="540" Width="650" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <StackPanel Orientation="Vertical" Margin="20 10 20 0">
+            <Label HorizontalAlignment="Left" Content="{Binding Accommodation.Name}" FontSize="22" FontWeight="SemiBold"></Label>
+            <Label HorizontalAlignment="Right" Content="{Binding YearlyStats.Year}" FontSize="22" Margin="0 -40 0 0" FontWeight="SemiBold"></Label>
+            <DataGrid Background="LightSkyBlue" SelectionMode="Single"  RowHeight="35" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False" RowHeaderWidth="0" BorderBrush="DodgerBlue" BorderThickness="2"  Margin=" 0 0 0 0" ItemsSource="{Binding YearlyStats.StatsByMonths}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Height="240">
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                   Color="#FFFFFF9D"/>
+                </DataGrid.Resources>
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSelected}" Value="True">
+                                <Setter Property="Foreground" Value="Black" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Month" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="16" VerticalAlignment="Center" FontWeight="SemiBold"  Text="{Binding MonthString}"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Reservations" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="16" VerticalAlignment="Center" FontWeight="SemiBold"  Text="{Binding Reservations}"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Postponed" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="16" VerticalAlignment="Center" FontWeight="SemiBold"  Text="{Binding PostponedReservations}"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Canceled" Width="100">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="16" VerticalAlignment="Center" FontWeight="SemiBold"  Text="{Binding CanceledReservations}"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Renovation Reccommendations" Width="180">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" FontSize="16" VerticalAlignment="Center" FontWeight="SemiBold"  Text="{Binding RenovationReccommendations}"></TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel Orientation="Horizontal">
+                <GroupBox Width="280" BorderBrush="DodgerBlue" Header="Best Month" FontSize="15" HorizontalAlignment="Left" FontWeight="SemiBold" Foreground="DodgerBlue" Margin="0 20 0 0" BorderThickness="2">
+                    <StackPanel Orientation="Vertical" >
+                        <StackPanel Orientation="Vertical" Width="150" HorizontalAlignment="Left">
+                            <Label Content="{Binding YearlyStats.BestMonth.MonthString}" FontSize="22" HorizontalAlignment="Left" Margin="2 -5 0 0"></Label>
+                            <Image Source="https://pics.freeicons.io/uploads/icons/png/3030671961582884287-64.png" Width="64" HorizontalAlignment="Left" Margin="20 0 0 0"></Image>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="120 9 0 0">
+                            <Image Source="https://pics.freeicons.io/uploads/icons/png/7345176951582534622-64.png" Width="20"></Image>
+                            <Label ContentStringFormat="{}{0} reservations" Content="{Binding Path=YearlyStats.BestMonth.Reservations}" FontSize="16" HorizontalAlignment="Center" ></Label>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Margin="110 -135 0 0">
+                            <lvc:PieChart x:Name="myPieChart" StartingRotationAngle="0" Height="70"/>
+
+                            <Label ContentStringFormat="{}{0}% Occupancy" Content="{Binding Path=YearlyStats.BestMonth.Occupancy}" FontSize="16" HorizontalAlignment="Center" ></Label>
+                        </StackPanel>
+                    </StackPanel>
+                </GroupBox>
+                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content ="Cancel" Click="CancelClick" Width="80" Height="35" Margin="220 -40 0 0"></Button>
+            </StackPanel>
+           </StackPanel>
+    </Grid>
+</Window>

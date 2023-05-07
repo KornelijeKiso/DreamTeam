@@ -23,7 +23,20 @@
                     </MultiBinding>
                 </TextBlock.Text>
             </TextBlock>
-            <DataGrid Margin="50 0 50 0" SelectedItem="{Binding SelectedRenovation, UpdateSourceTrigger=PropertyChanged}" Background="LightSkyBlue" BorderBrush="DeepSkyBlue" BorderThickness="2" HeadersVisibility="None" ItemsSource="{Binding OfferedAppointments}" Height="200" RowHeight="30" HorizontalScrollBarVisibility="Disabled" AutoGenerateColumns="False" CanUserAddRows="False">
+            <DataGrid Margin="50 0 50 0" SelectionMode="Single" SelectedItem="{Binding SelectedRenovation, UpdateSourceTrigger=PropertyChanged}" Background="LightSkyBlue" BorderBrush="DeepSkyBlue" BorderThickness="2" HeadersVisibility="None" ItemsSource="{Binding OfferedAppointments}" Height="200" RowHeight="30" HorizontalScrollBarVisibility="Disabled" AutoGenerateColumns="False" CanUserAddRows="False">
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                   Color="#FFFFFF9D"/>
+                </DataGrid.Resources>
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSelected}" Value="True">
+                                <Setter Property="Foreground" Value="Black" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Width="290">
                         <DataGridTemplateColumn.CellTemplate>

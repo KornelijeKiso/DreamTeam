@@ -65,7 +65,21 @@
                     </StackPanel>
                 </GroupBox>
             </StackPanel>
-            <DataGrid Background="LightSkyBlue" SelectedItem="{Binding SelectedYear, UpdateSourceTrigger=PropertyChanged}" RowHeight="55" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False" RowHeaderWidth="0" BorderBrush="DodgerBlue" BorderThickness="2"  Margin=" 0 40 0 0" ItemsSource="{Binding Accommodation.Stats}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Height="350">
+            <Label Content="Annual reservation statistics" FontSize="16" Foreground="DodgerBlue" FontWeight="SemiBold" Margin="0 10 0 0"></Label>
+            <DataGrid Background="LightSkyBlue" SelectionMode="Single" SelectedItem="{Binding SelectedYear, UpdateSourceTrigger=PropertyChanged}" RowHeight="55" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False" RowHeaderWidth="0" BorderBrush="DodgerBlue" BorderThickness="2"  Margin=" 0 0 0 0" ItemsSource="{Binding Accommodation.Stats}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Height="350">
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                   Color="#FFFFFF9D"/>
+                </DataGrid.Resources>
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSelected}" Value="True">
+                                <Setter Property="Foreground" Value="Black" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.CellStyle>
                 <DataGrid.Columns>
                     <DataGridTemplateColumn Header="Year" Width="100">
                         <DataGridTemplateColumn.CellTemplate>
@@ -105,7 +119,7 @@
                     <DataGridTemplateColumn Header="Stats by months" Width="120">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Stats by months" HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100">
+                                <Button Content="Stats by months" Click="StatsByMonthsClick"  HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100">
                                     <Button.Resources>
                                         <Style TargetType="Border">
                                             <Setter Property="CornerRadius" Value="5"/>
@@ -118,6 +132,10 @@
                 </DataGrid.Columns>
             </DataGrid>
             <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content ="Cancel" IsCancel="True" Width="80" Height="35" Margin="0 20 0 0"></Button>
+            <StackPanel Margin="0 -280 0 0" Orientation="Vertical" Visibility="{Binding Path=Accommodation.NoReservations, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
+                <Image Source="https://img.icons8.com/pulsar-line/2x/sad.png" Height="70"></Image>
+                <TextBlock Width="180" TextWrapping="Wrap" Margin="0 5 0 0" TextAlignment="Center" Text="This accommodation has never been booked."></TextBlock>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

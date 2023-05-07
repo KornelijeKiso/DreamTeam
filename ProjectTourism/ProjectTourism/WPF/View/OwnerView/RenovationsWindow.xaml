@@ -103,7 +103,20 @@
                 </GroupBox>
                 <StackPanel Orientation="Vertical" Margin="20 -10 0 0">
                     <Label Content="Previously scheduled renovations" FontSize="15" FontWeight="SemiBold"></Label>
-                    <DataGrid Width="450" Height="360" Background="LightSkyBlue" SelectedItem="{Binding SelectedRenovation, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Accommodation.Renovations}" RowHeight="55" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False" RowHeaderWidth="0" HorizontalScrollBarVisibility="Disabled" BorderBrush="DodgerBlue" BorderThickness="2" AutoGenerateColumns="False">
+                    <DataGrid Width="450" SelectionMode="Single" Height="360" Background="LightSkyBlue" SelectedItem="{Binding SelectedRenovation, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Accommodation.Renovations}" RowHeight="55" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False" RowHeaderWidth="0" HorizontalScrollBarVisibility="Disabled" BorderBrush="DodgerBlue" BorderThickness="2" AutoGenerateColumns="False">
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                   Color="#FFFFFF9D"/>
+                        </DataGrid.Resources>
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsSelected}" Value="True">
+                                        <Setter Property="Foreground" Value="Black" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.CellStyle>
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="Appointment" Width="150">
                                 <DataGridTemplateColumn.CellTemplate>
