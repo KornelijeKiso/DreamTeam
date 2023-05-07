@@ -97,6 +97,11 @@
                                             <Button.Background>
                                                 <ImageBrush ImageSource="https://img.icons8.com/pulsar-color/1x/cancel.png" />
                                             </Button.Background>
+                                            <Button.Resources>
+                                                <Style TargetType="Border">
+                                                    <Setter Property="CornerRadius" Value="25"/>
+                                                </Style>
+                                            </Button.Resources>
                                         </Button>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -150,6 +155,11 @@
                                                 <Button.Background>
                                                     <ImageBrush ImageSource="https://img.icons8.com/pulsar-color/256/comments.png" />
                                                 </Button.Background>
+                                                <Button.Resources>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="CornerRadius" Value="25"/>
+                                                    </Style>
+                                                </Button.Resources>
                                             </Button>
                                         </StackPanel>
                                     </DataTemplate>

@@ -33,21 +33,6 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             if (parentWindow != null)
                 parentWindow.Close();
         }
-        private void TourStatistics_Click(object sender, RoutedEventArgs e)
-        {
-            HideProfilesContent();
-            ContentArea.Content = new TourStatisticsWindow(Guide.Username);
-        }
-        private void HideProfilesContent()
-        {
-            profileUIElements = new List<UIElement>
-            {
-                NameSurnameLabel, usernamelabel, EmailLabel, PhoneNumberLabel, LanguagesLabel,
-                BioLabel, MaxGuestsLabel, DarkThemeLabel, textbox1, textbox2, textbox3, textbox4,
-                textbox5, toggleSwitch, rectangle, LinkSignOut, TourStatsLink, LogOutImage
-            };
-            profileUIElements.ForEach(element => element.Visibility = Visibility.Hidden);
-        }
         private void toggleSwitch_Checked(object sender, RoutedEventArgs e) { }
         private void toggleSwitch_Unchecked(object sender, RoutedEventArgs e) { }
     }

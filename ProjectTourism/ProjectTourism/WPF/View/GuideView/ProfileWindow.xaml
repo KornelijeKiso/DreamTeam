@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView.TourView"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
-        <TextBlock x:Name="TourStatsLink" Margin="69,623,1059,10" FontSize="20"><Hyperlink x:Name="TourStatisticsLink" Click="TourStatistics_Click"><Run Text="Tour statistics"/></Hyperlink></TextBlock>
         <Label x:Name="NameSurnameLabel" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40">
             <Label.Content>
                 <TextBlock>
@@ -20,7 +19,7 @@
             </Label.Content>
         </Label>
         <Label x:Name="usernamelabel" ContentStringFormat="@{0}" Content="{Binding Guide.Username}" HorizontalAlignment="Left" Height="58" Margin="90,93,0,0" VerticalAlignment="Top" Width="283" FontSize="28" Foreground="#FFB7A8A8"/>
-        <Border x:Name="rectangle" Background="LightGray" BorderBrush="Black" BorderThickness="1" CornerRadius="15" Margin="69,216,617,117"/>
+        <Border x:Name="rectangle" Background="White" BorderBrush="Black" BorderThickness="1" CornerRadius="15" Margin="69,216,617,117"/>
         <Grid Margin="114,238,662,117">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>

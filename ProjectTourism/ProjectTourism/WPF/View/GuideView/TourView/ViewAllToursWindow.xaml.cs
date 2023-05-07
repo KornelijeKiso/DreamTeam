@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using ProjectTourism.WPF.View.GuideView;
+using ProjectTourism.WPF.View.GuideView.TourView;
 using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.GuideView.TourView
@@ -31,13 +33,21 @@ namespace ProjectTourism.View.GuideView.TourView
             DataContext = this;
             Guide = new GuideVM(username);
         }
-
+        private void TourStatistics_Click(object sender, RoutedEventArgs e)
+        {
+            HideProfilesContent();
+            ContentArea.Content = new TourStatisticsWindow(Guide.Username);
+        }
+        private void HideProfilesContent()
+        {
+            List<UIElement> profileUIElements = new List<UIElement> { DataGridTours,AllToursLabel, StatsPanel };
+            profileUIElements.ForEach(element => element.Visibility = Visibility.Hidden);
+        }
         private void ImageButton_Click(object sender, RoutedEventArgs e)
         {
             ContentArea.Content = new ImageViewerUserControl(SelectedTour);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        public void Update() { }
     }
 }

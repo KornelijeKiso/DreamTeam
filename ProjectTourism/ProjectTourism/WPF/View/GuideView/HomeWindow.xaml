@@ -13,8 +13,20 @@
             </Label.Effect>
         </Label>
         <Label Name="WelcomeLabel" Content="Welcome!" HorizontalAlignment="Left" Height="124" Margin="952,570,0,0" VerticalAlignment="Top" Width="296" FontSize="60"/>
-        <Button x:Name="AllToursButton" Content="All tours" HorizontalAlignment="Left" Height="54" Margin="60,600,0,0" VerticalAlignment="Top" Width="112" Click="AllToursButton_Click"/>
-        <Button x:Name="AddNewTourButton" Content="Add a new tour" HorizontalAlignment="Left" Height="54" Margin="212,600,0,0" VerticalAlignment="Top" Width="111" Click="AddNewTourButton_Click"/>
+        <Button x:Name="AllToursButton" Content="All tours" HorizontalAlignment="Left" Height="54" Margin="60,600,0,0" VerticalAlignment="Top" Width="112" Click="AllToursButton_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="AddNewTourButton" Content="Add a new tour" HorizontalAlignment="Left" Height="54" Margin="212,600,0,0" VerticalAlignment="Top" Width="111" Click="AddNewTourButton_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
         <ContentControl x:Name="ContentArea"/>
         <Grid Margin="25,275,906,158">
             <Border x:Name="ImageBorder" Margin="0,0,0,22" CornerRadius="3" BorderThickness="3" BorderBrush="Black">
@@ -22,6 +34,5 @@
             </Border>
             <Label Margin="3, 185, 3, 25" HorizontalContentAlignment="Center" Width="340" FontSize="17" Background="AliceBlue" HorizontalAlignment="Center" x:Name="UpcomingLabelName"></Label>
         </Grid>
-        
     </Grid>
 </UserControl>

@@ -18,7 +18,7 @@
         <Label Name="CreateTourLabel" Content="Create tour" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         <Image Source="/WPF/View/GuideView/TourView/lightmaketourEDITED.jpg" Margin="-13.5,60,0,-63"/>
         <Grid Margin="580,60,152,81" Height="370" Width="220" x:Name="calendargrid">
-            <Rectangle Stroke="Black" Margin="0,-15,0,-20" Fill="LightGray" RadiusX="14" RadiusY="14" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="4" Name="rectangle">
+            <Rectangle Stroke="Black" Margin="0,-15,0,-20" Fill="#FF143675" RadiusX="14" RadiusY="14" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="4" Name="rectangle">
                 <Rectangle.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="-1"/>
@@ -32,9 +32,9 @@
             <StackPanel>
                 <Calendar x:Name="calendar" SelectionMode="MultipleRange" SelectedDatesChanged="Calendar_SelectedDatesChanged"/>
                 <StackPanel Orientation="Horizontal" Height="34" x:Name="stackpanel">
-                    <TextBlock x:Name="textblockHours" Text="Hours: " Margin="2, 5" FontSize="11" Height="19"/>
+                    <TextBlock x:Name="textblockHours" Foreground="White" Text="Hours: " Margin="3, 5" FontSize="11" Height="19"/>
                     <TextBox x:Name="hoursTextBox" Width="28" Margin="5"/>
-                    <TextBlock x:Name="textblockMinutes" Text="Minutes: " Margin="0,5" FontSize="11" Height="17"/>
+                    <TextBlock x:Name="textblockMinutes" Foreground="White" Text="Minutes: " Margin="0,5" FontSize="11" Height="17"/>
                     <TextBox x:Name="minutesTextBox" Width="28" Margin="5"/>
                     <Button x:Name="AddTimeButton" Content="Add Time" Click="AddTimeButton_Click" Margin="0,5" Height="23"/>
                 </StackPanel>
@@ -88,7 +88,13 @@
             <Button IsDefault="True" x:Name="AddLanguageButton" Content="Add language" HorizontalAlignment="Left" Margin="4, -15, 0, 0" Height="28"  VerticalAlignment="Top" Width="86" Click="AddLanguageButton_Click"/>
         </WrapPanel>
         <WrapPanel x:Name="SaveButton" Margin="1114,608,27,24">
-            <Button Content="Save" Click="SaveTour_Click" HorizontalAlignment="Center" Height="43" Margin="25, 0, 0, 0" VerticalAlignment="Center" Width="95"/>
+            <Button Content="Save" Click="SaveTour_Click" HorizontalAlignment="Center" Height="43" Margin="25, 0, 0, 0" VerticalAlignment="Center" Width="95">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
         </WrapPanel>
         <ContentControl x:Name="ContentArea"></ContentControl>
     </Grid>

@@ -129,8 +129,13 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Button x:Name="BadReviewButton" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="35" Click="Accept_Click">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="25"/>
+                                    </Style>
+                                </Button.Resources>
                                 <Button.Background>
-                                    <ImageBrush ImageSource="https://img.icons8.com/external-others-inmotus-design/1x/external-Accept-round-icons-others-inmotus-design-8.png" />
+                                    <ImageBrush ImageSource="https://cdn-icons-png.flaticon.com/512/1828/1828640.png" />
                                 </Button.Background>
                                 <Button.Style>
                                     <Style TargetType="{x:Type Button}">
@@ -160,9 +165,9 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Border x:Name="rectangle" Background="LightGray" BorderBrush="Black" BorderThickness="1" CornerRadius="30" Margin="989,175,15,251"/>
+        <Border x:Name="rectangle" Background="White" BorderBrush="Black" BorderThickness="1" CornerRadius="15" Margin="989,150,15,260"/>
 
-        <Grid x:Name="searchGrid" Margin="1004,194,31,302">
+        <Grid x:Name="searchGrid" Margin="1004,169,31,302">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -187,23 +192,23 @@
             <DatePicker Grid.Row="4" Grid.Column="1" Margin="0,0,0,8" SelectedDate="{Binding Path=SearchedEndDate, UpdateSourceTrigger=PropertyChanged}"/>
 
         </Grid>
-        <Button x:Name="SearchButton" Content="Search" Background="AliceBlue" Click="Search_Click" HorizontalAlignment="Left" Height="31" Margin="1078,388,0,0" VerticalAlignment="Top" Width="92">
+        <Button x:Name="SearchButton" Content="Search" Foreground="#FF8E98A5" Background="#FF143675" Click="Search_Click" HorizontalAlignment="Left" Height="31" Margin="1078,380,0,0" VerticalAlignment="Top" Width="92">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <StackPanel Orientation="Horizontal" Margin="40,626,1020,18">
-            <Image x:Name="StatsImage" Source="https://cdn-icons-png.flaticon.com/512/1325/1325099.png" Width="20" Height="20" Margin="0,-9,5,0"/>
-            <TextBlock x:Name="StatsLink" FontSize="19">
-        <Hyperlink Click="RequestStatisticsLink_Click" >Request statistics</Hyperlink>
+        <StackPanel Orientation="Horizontal" Margin="100,626,900,18">
+            <Image x:Name="StatsImage" Source="https://cdn-icons-png.flaticon.com/512/1325/1325099.png" Width="20" Height="20" Margin="0,-15,5,0"/>
+            <TextBlock x:Name="StatsLink" FontSize="18">
+        <Hyperlink Foreground="White" Click="RequestStatisticsLink_Click" >Request statistics</Hyperlink>
             </TextBlock>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" Margin="256,626,804,18">
-            <Image x:Name="TourSuggestionImage" Source="https://icons.iconarchive.com/icons/fatcow/farm-fresh/32/lightbulb-off-icon.png" Width="26" Height="26" Margin="0,-9,5,0"/>
-            <TextBlock x:Name="TourSuggestionLink" FontSize="19"><Hyperlink Click="TourSuggestionLink_Click" ><Run Text="Tour suggestion"/></Hyperlink></TextBlock>
+        <StackPanel Orientation="Horizontal" Margin="300,626,700,18">
+            <Image x:Name="TourSuggestionImage" Source="https://icons.iconarchive.com/icons/fatcow/farm-fresh/32/lightbulb-off-icon.png" Width="26" Height="26" Margin="0,-8,0,0"/>
+            <TextBlock x:Name="TourSuggestionLink" FontSize="18"><Hyperlink Click="TourSuggestionLink_Click" Foreground="White" ><Run Text="Tour suggestion"/></Hyperlink></TextBlock>
         </StackPanel>
 
         <ContentControl x:Name="ContentArea"></ContentControl>

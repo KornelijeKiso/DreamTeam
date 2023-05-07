@@ -124,6 +124,11 @@
                                 <Button.Background>
                                     <ImageBrush ImageSource="https://img.icons8.com/color/256/cancel.png" />
                                 </Button.Background>
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="20"/>
+                                    </Style>
+                                </Button.Resources>
                             </Button>
 
                         </DataTemplate>
