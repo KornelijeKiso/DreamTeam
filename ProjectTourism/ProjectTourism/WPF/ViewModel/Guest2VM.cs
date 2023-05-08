@@ -169,6 +169,15 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
+        public void CreateTourRequest(RequestVM tourRequest)
+        {
+            RequestService requestService = new RequestService();
+            LocationService locationService = new LocationService();
+            tourRequest.LocationId = locationService.AddAndReturnId(tourRequest.Location.GetLocation());
+            requestService.Add(tourRequest.GetRequest());
+            TourRequests.Add(tourRequest);
+        }
+
         public string Username
         {
             get => _guest2.Username;

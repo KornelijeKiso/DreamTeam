@@ -15,7 +15,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="350"/>
+            <RowDefinition Height="320"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
        
@@ -39,7 +39,7 @@
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
-                <RowDefinition Height="100"/>
+                <RowDefinition Height="80"/>
                 <RowDefinition Height="40"/>
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
@@ -51,7 +51,7 @@
             <Label Content="Coutry: " 
                    FontFamily="/Fonts/#Rubik"
                    Foreground="#DBDBDB"
-                   FontSize="18"
+                   FontSize="16"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
                    Grid.Column="0" Grid.Row="0"
@@ -60,7 +60,7 @@
                      Text="{Binding Path=TourRequest.Location.Country}"
                      Width="200" Height="30"
                      FontFamily="/Fonts/#Rubik"
-                     FontSize="18"
+                     FontSize="16"
                      VerticalAlignment="Center"
                      HorizontalAlignment="Left"
                      Grid.Column="1" Grid.Row="0"
@@ -69,7 +69,7 @@
             <Label Content="City: " 
                    FontFamily="/Fonts/#Rubik"
                    Foreground="#DBDBDB"
-                   FontSize="18"
+                   FontSize="16"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
                    Grid.Column="0" Grid.Row="1"
@@ -78,7 +78,7 @@
                      Text="{Binding Path=TourRequest.Location.City}"
                      Width="200" Height="30"
                      FontFamily="/Fonts/#Rubik"
-                     FontSize="18"
+                     FontSize="16"
                      VerticalAlignment="Center"
                      HorizontalAlignment="Left"
                      Grid.Column="1" Grid.Row="1"
@@ -87,7 +87,7 @@
             <Label Content="Language: " 
                    FontFamily="/Fonts/#Rubik"
                    Foreground="#DBDBDB"
-                   FontSize="18"
+                   FontSize="16"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
                    Grid.Column="0" Grid.Row="2"
@@ -97,7 +97,7 @@
                       ItemsSource="{Binding Path=LanguageList}"
                       Width="200" Height="30"
                       FontFamily="/Fonts/#Rubik"
-                      FontSize="18"
+                      FontSize="16"
                       VerticalAlignment="Center"
                       HorizontalAlignment="Left"
                       Grid.Column="1" Grid.Row="2"
@@ -106,7 +106,7 @@
                      Text="{Binding Path=TourRequest.Language}"
                      Width="200" Height="30"
                      FontFamily="/Fonts/#Rubik"
-                     FontSize="18"
+                     FontSize="16"
                      VerticalAlignment="Center"
                      HorizontalAlignment="Left"
                      Margin="250 0 0 0"
@@ -116,7 +116,7 @@
             <Label Content="Max Number of Guests: " 
                    FontFamily="/Fonts/#Rubik"
                    Foreground="#DBDBDB"
-                   FontSize="18"
+                   FontSize="16"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
                    Grid.Column="0" Grid.Row="3"
@@ -125,7 +125,7 @@
                      Text="{Binding Path=TourRequest.NumberOfGuests}"
                      Width="200" Height="30"
                      FontFamily="/Fonts/#Rubik"
-                     FontSize="18"
+                     FontSize="16"
                      VerticalAlignment="Center"
                      HorizontalAlignment="Left"
                      Grid.Column="1" Grid.Row="3"
@@ -134,16 +134,16 @@
             <Label Content="Description: " 
                    FontFamily="/Fonts/#Rubik"
                    Foreground="#DBDBDB"
-                   FontSize="18"
+                   FontSize="16"
                    VerticalAlignment="Top"
                    HorizontalAlignment="Right"
                    Grid.Column="0" Grid.Row="4"
                    />
             <TextBox x:Name="DescriptionText"
                      Text="{Binding Path=TourRequest.Description}"
-                     Width="200" Height="90"
+                     Width="200" Height="70" TextWrapping="Wrap"
                      FontFamily="/Fonts/#Rubik"
-                     FontSize="18"
+                     FontSize="16"
                      VerticalAlignment="Center"
                      HorizontalAlignment="Left"
                      Grid.Column="1" Grid.Row="4"
@@ -152,7 +152,7 @@
             <Label Content="Start Date: " 
                    FontFamily="/Fonts/#Rubik"
                    Foreground="#DBDBDB"
-                   FontSize="18"
+                   FontSize="16"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
                    Grid.Column="0" Grid.Row="5"
@@ -161,7 +161,7 @@
                      Text="{Binding Path=TourRequest.StartDate}"
                      Width="200" Height="30"
                      FontFamily="/Fonts/#Rubik"
-                     FontSize="18"
+                     FontSize="16"
                      VerticalAlignment="Center"
                      HorizontalAlignment="Left"
                      Grid.Column="1" Grid.Row="5"
@@ -170,7 +170,7 @@
             <Label Content="End Date: " 
                    FontFamily="/Fonts/#Rubik"
                    Foreground="#DBDBDB"
-                   FontSize="18"
+                   FontSize="16"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
                    Grid.Column="0" Grid.Row="6"
@@ -179,7 +179,7 @@
                      Text="{Binding Path=TourRequest.EndDate}"
                      Width="200" Height="30"
                      FontFamily="/Fonts/#Rubik"
-                     FontSize="18"
+                     FontSize="16"
                      VerticalAlignment="Center"
                      HorizontalAlignment="Left"
                      Grid.Column="1" Grid.Row="6"

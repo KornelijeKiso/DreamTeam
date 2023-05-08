@@ -101,6 +101,10 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         {
             CreateTourRequestWindow tourRequestWindow = new CreateTourRequestWindow(Guest2);
             tourRequestWindow.ShowDialog();
+            PendingRequests = SetPendingRequests(); // updating pending list
+            // TO DO -> new PENDING request that we just created isn't visible when the tourRequestWindow is closed,
+            //          only when we enter the RequestTour MenuItem again
+            //          FIX THIS
         }
     }
 }

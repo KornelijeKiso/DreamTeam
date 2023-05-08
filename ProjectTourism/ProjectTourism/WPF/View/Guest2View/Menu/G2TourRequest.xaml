@@ -93,7 +93,7 @@
                             </DataGridTemplateColumn>
 
                             <DataGridTemplateColumn Header="Language"
-                                                    Width="100">
+                                                    Width="80">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label FontFamily="/Fonts/#Rubik" FontSize="14"
@@ -200,7 +200,7 @@
                             </DataGridTemplateColumn>
 
                             <DataGridTemplateColumn Header="Language"
-                                                    Width="100">
+                                                    Width="80">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label FontFamily="/Fonts/#Rubik" FontSize="14"
@@ -307,7 +307,7 @@
                             </DataGridTemplateColumn>
 
                             <DataGridTemplateColumn Header="Language"
-                                                    Width="100">
+                                                    Width="80">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label FontFamily="/Fonts/#Rubik" FontSize="14"
@@ -426,7 +426,7 @@
                             </DataGridTemplateColumn>
 
                             <DataGridTemplateColumn Header="Language"
-                                                    Width="100">
+                                                    Width="80">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label FontFamily="/Fonts/#Rubik" FontSize="14"
