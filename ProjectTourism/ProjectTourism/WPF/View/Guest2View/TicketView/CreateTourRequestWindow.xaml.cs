@@ -56,18 +56,18 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
             TourRequest = new RequestVM(new Request());
             TourRequest.Guest2Username = Guest2.Username;
             TourRequest.CreationDateTime = DateTime.Now;
-            TourRequest.Location = new LocationVM(new Location()); //TourRequest.Location.Country, TourRequest.Location.City
+            TourRequest.Location = new LocationVM(new Location());
         }
 
         private void CreateTourRequest(object sender, RoutedEventArgs e)
         {
-            if (/*TourRequest.IsValid*/ TourRequest != null)
+            if (TourRequest.IsValid /*TourRequest != null*/)
             {
                 Guest2.CreateTourRequest(TourRequest);
                 Close();
             }
             else
-                MessageBox.Show("Tour Request can't be made because the fields were not entered correctly.");
+                MessageBox.Show("Tour Request can't be made because the data were not entered correctly.");
         }
     }
 }

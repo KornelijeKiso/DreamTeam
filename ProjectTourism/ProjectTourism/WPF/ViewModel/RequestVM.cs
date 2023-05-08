@@ -13,7 +13,7 @@ using ProjectTourism.Services;
 namespace ProjectTourism.WPF.ViewModel
 {
     public enum REQUESTSTATE { PENDING, ACCEPTED, DISMISSED }
-    public class RequestVM : INotifyPropertyChanged
+    public class RequestVM : INotifyPropertyChanged, IDataErrorInfo
     {
         private Request _request;
         public RequestVM(Request request)
@@ -330,6 +330,63 @@ namespace ProjectTourism.WPF.ViewModel
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        
+        // validation
+        public string Error => null;
+        public string? this[string columnName]
+        {
+            get
+            {
+                if (columnName == "Description")
+                {
+                    if (string.IsNullOrEmpty(Description))
+                        return "Description is required!";
+                }
+                else if (columnName == "Language")
+                {
+                    if (string.IsNullOrEmpty(Language))
+                        return "Language is required!";
+                }
+                else if (columnName == "NumberOfGuests")
+                {
+                    if (string.IsNullOrEmpty(NumberOfGuests.ToString()))
+                        return "Number Of Guests is required!";
+                }
+                else if (columnName == "StartDate")
+                {
+                    if (string.IsNullOrEmpty(StartDate.ToString()))
+                        return "Start Date is required!";
+                }
+                else if (columnName == "EndDate")
+                {
+                    if (string.IsNullOrEmpty(EndDate.ToString()))
+                        return "End Date is required!";
+                }
+                else if (columnName == "Location.Country")
+                {
+                    if (string.IsNullOrEmpty(Location.Country))
+                        return "Country is required!";
+                }
+                else if (columnName == "Location.City")
+                {
+                    if (string.IsNullOrEmpty(Location.City))
+                        return "City is required!";
+                }
+                return null;
+            }
+        }
+        private readonly string[] _validatedProperties = { "Description", "Language", "NumberOfGuests", "StartDate", "EndDate" , "Location.Country" , "Location.City" };
+
+        public bool IsValid
+        {
+            get
+            {
+                foreach (var property in _validatedProperties)
+                {
+                    if (this[property] != null)
+                        return false;
+                }
+                return true;
+            }
+        }
     }
 }
