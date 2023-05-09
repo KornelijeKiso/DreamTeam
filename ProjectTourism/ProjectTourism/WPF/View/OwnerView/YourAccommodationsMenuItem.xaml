@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProjectTourism.WPF.View.OwnerView"
              xmlns:conv="clr-namespace:ProjectTourism.Converters"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="640" d:DesignWidth="1000">
     <UserControl.Resources>
@@ -127,41 +128,15 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <TextBox HorizontalAlignment="Left" Margin="50,109,0,0" TextWrapping="Wrap" Text="{Binding Path=NewAccommodation.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Top" Width="196" Height="29"/>
-        <TextBox HorizontalAlignment="Left" Margin="50,163,0,0" TextWrapping="Wrap" Text="{Binding Path=NewLocation.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Top" Width="196" Height="29"/>
-        <TextBox HorizontalAlignment="Left" Margin="50,217,0,0" TextWrapping="Wrap" Text="{Binding Path=NewLocation.Country, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Top" Width="196" Height="29"/>
-        <StackPanel HorizontalAlignment="Left" Margin="50,287,0,0" Width="196" Height="28" VerticalAlignment="Top" Orientation="Horizontal">
-            <TextBox IsReadOnly="True" Text="{Binding Path=NewAccommodation.MaxNumberOfGuests}" Width="178"></TextBox>
-            <StackPanel Orientation="Vertical" Width="18">
-                <Button IsEnabled="{Binding IncDecButtons[0], UpdateSourceTrigger=PropertyChanged}" Height="14" Click="IncreaseMaxNumberOfGuestsClick">
-                    <Button.Content>
-                        <Image Source="https://img.icons8.com/ios/512/collapse-arrow.png"></Image>
-                    </Button.Content>
-                </Button>
-                <Button IsEnabled="{Binding IncDecButtons[1], UpdateSourceTrigger=PropertyChanged}" Height="14" Click="DecreaseMaxNumberOfGuestsClick">
-                    <Button.Content>
-                        <Image Source="https://img.icons8.com/ios/512/expand-arrow.png"></Image>
-                    </Button.Content>
-                </Button>
-            </StackPanel>
-        </StackPanel>
-        <StackPanel HorizontalAlignment="Left" Margin="50,341,0,0" Width="196" Height="28" VerticalAlignment="Top" Orientation="Horizontal">
-            <TextBox IsReadOnly="True" Text="{Binding Path=NewAccommodation.MinDaysForReservation}" Width="178"></TextBox>
-            <StackPanel Orientation="Vertical" Width="18">
-                <Button IsEnabled="{Binding IncDecButtons[2], UpdateSourceTrigger=PropertyChanged}" Height="14" Click="IncreaseMinDaysForReservationClick">
-                    <Button.Content>
-                        <Image Source="https://img.icons8.com/ios/512/collapse-arrow.png"></Image>
-                    </Button.Content>
-                </Button>
-                <Button IsEnabled="{Binding IncDecButtons[3], UpdateSourceTrigger=PropertyChanged}" Height="14" Click="DecreaseMinDaysForReservationClick">
-                    <Button.Content>
-                        <Image Source="https://img.icons8.com/ios/512/expand-arrow.png"></Image>
-                    </Button.Content>
-                </Button>
-            </StackPanel>
-        </StackPanel>
+        <xctk:WatermarkTextBox HorizontalAlignment="Left" Margin="50,109,0,0" TextWrapping="Wrap" Watermark="Enter accommodation name here."  Text="{Binding Path=NewAccommodation.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Top" Width="196" Height="29"/>
+        <xctk:WatermarkTextBox HorizontalAlignment="Left" Margin="50,163,0,0" TextWrapping="Wrap" Watermark="Enter city here." Text="{Binding Path=NewLocation.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Top" Width="196" Height="29"/>
+        <xctk:WatermarkTextBox HorizontalAlignment="Left" Margin="50,217,0,0" TextWrapping="Wrap" Watermark="Enter country here." Text="{Binding Path=NewLocation.Country, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Top" Width="196" Height="29"/>
+        <xctk:IntegerUpDown Name="MaxUpDown" LostFocus="ValidateNumberInput" Margin="50,287,0 0" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Width="196" Height="29" Value="{Binding NewAccommodation.MaxNumberOfGuests}" Maximum="15" Minimum="1" PreviewTextInput="IntegerUpDown_PreviewTextInput"/>
+        <xctk:IntegerUpDown Name="MinUpDown" LostFocus="ValidateNumberInput" Margin="50,341,0 0" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Width="196" Height="29" Value="{Binding NewAccommodation.MinDaysForReservation}" Maximum="7" Minimum="1" PreviewTextInput="IntegerUpDown_PreviewTextInput"/>
         <ComboBox Name="ComboDeadline" HorizontalAlignment="Left" Margin="50,395,0,0" Width="196" Height="28" VerticalAlignment="Top" ItemsSource="{Binding Deadlines}"></ComboBox>
-        <TextBox HorizontalAlignment="Left" Margin="50,503,0,0" TextWrapping="Wrap" Text="{Binding Path =NewAccommodation.PictureURLs, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="91"/>
+        <xctk:WatermarkTextBox HorizontalAlignment="Left" Margin="50,503,0,0" TextWrapping="Wrap" Text="{Binding Path =NewAccommodation.PictureURLs, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="91" Watermark="Enter comma separeted URLs.">
+            
+        </xctk:WatermarkTextBox>
         <ComboBox Name="ComboType" HorizontalAlignment="Left" Margin="50,449,0,0" VerticalAlignment="Top" Width="196" Height="29" ItemsSource="{Binding Types}">
         </ComboBox>
         <Label HorizontalAlignment="Left" Margin="50,83,0,0" VerticalAlignment="Top" Width="152">
@@ -190,6 +165,10 @@
 
         <Label Content="REGISTER A NEW ACCOMMODATION" FontSize="12" Foreground="DarkSlateGray" FontWeight="Bold" HorizontalAlignment="Left" Margin="30,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,0.708" Width="235"/>
         <Label Content="YOUR ACCOMMODATIONS" FontSize="12" Foreground="DarkSlateGray" FontWeight="Bold" HorizontalAlignment="Left" Margin="296,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,0.708" Width="176"/>
-
+        <Grid x:Name="popupContainer" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="Collapsed" Margin="0 40 0 0">
+            <Border x:Name="popupBorder" BorderBrush="Black" BorderThickness="1" Background="DimGray" Width="540" CornerRadius="10" Opacity="0.9">
+                <TextBlock x:Name="popupText" Height="60"   FontSize="15" FontWeight="SemiBold" Text="Hello, World!" Padding="10" HorizontalAlignment="Center" Opacity="1.0"  Foreground="White" VerticalAlignment="Center"/>
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>

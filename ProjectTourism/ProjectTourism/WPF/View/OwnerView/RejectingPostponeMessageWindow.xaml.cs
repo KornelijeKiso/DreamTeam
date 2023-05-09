@@ -32,6 +32,7 @@ namespace ProjectTourism.WPF.View.OwnerView
         {
             Submited = true;
             Message = textBox.Text;
+            MessageBox.Show("You have successfully rejected postpone request.");
             Close();
         }
     }

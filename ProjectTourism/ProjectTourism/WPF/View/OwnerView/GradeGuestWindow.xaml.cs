@@ -51,6 +51,7 @@ namespace ProjectTourism.View.OwnerView
                 }
             }
             Owner.GradeAGuest(GuestGrade);
+            MessageBox.Show("You have successfully graded your guest.");
             Close();
         }
 

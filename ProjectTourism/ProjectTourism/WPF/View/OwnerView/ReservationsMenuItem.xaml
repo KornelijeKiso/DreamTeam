@@ -76,11 +76,11 @@
                                         </TextBlock>
                                     </Label.Content>
                                 </Label>
-                                <Label Margin="0,5,0,0" BorderBrush="Gray" Background="#FFFFFF9D" BorderThickness="1" Width="150" Height="28">
+                                <Label Margin="0,5,0,0" BorderBrush="Gray" Background="#FFFFFF9D" BorderThickness="1" Width="160" Height="28">
                                     <Label.Content>
-                                        <TextBlock>
+                                        <TextBlock TextAlignment="Center" HorizontalAlignment="Center">
                                             <TextBlock.Text>
-                                                <MultiBinding StringFormat="{}{0} - {1}">
+                                                <MultiBinding StringFormat="{}{0} - {1}" >
                                                     <Binding Path="StartDate"/>
                                                     <Binding Path="EndDate"/>
                                                 </MultiBinding>

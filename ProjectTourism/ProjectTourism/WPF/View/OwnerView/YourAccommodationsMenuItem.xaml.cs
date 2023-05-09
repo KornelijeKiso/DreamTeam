@@ -12,6 +12,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Animation;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -20,6 +21,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit;
 
 namespace ProjectTourism.WPF.View.OwnerView
 {
@@ -35,13 +37,11 @@ namespace ProjectTourism.WPF.View.OwnerView
         public List<string> Deadlines { get; set; }
         public List<string> Types { get; set; }
         public Dictionary<string, int> Days { get; set; }
-        public ObservableCollection<bool> IncDecButtons { get; set; }
 
         public YourAccommodationsMenuItem(string username)
         {
             InitializeComponent();
             DataContext = this;
-            IncDecButtons = new ObservableCollection<bool> { true, false, true, false };
 
             InitializeDays();
             InitializeTypes();
@@ -62,7 +62,7 @@ namespace ProjectTourism.WPF.View.OwnerView
         private void InitializeNewEntities()
         {
             NewAccommodation = new AccommodationVM(new Accommodation());
-            NewLocation = new LocationVM(new Location());
+            NewLocation = new LocationVM(new ProjectTourism.Model.Location());
         }
 
         private void InitializeTypes()
@@ -123,7 +123,7 @@ namespace ProjectTourism.WPF.View.OwnerView
             }
             else
             {
-                MessageBox.Show("Not all fields are filled correctly.");
+                System.Windows.MessageBox.Show("Not all fields are filled correctly.");
             }
         }
 
@@ -142,9 +142,30 @@ namespace ProjectTourism.WPF.View.OwnerView
             HandleTypeCombobox();
             NewAccommodation.CancellationDeadline = Days[(string)ComboDeadline.SelectedValue];
             Owner.AddAccommodation(NewAccommodation, NewLocation);
+            //System.Windows.MessageBox.Show("You have successfully registered new accommodation.");
+            ShowPopupMessage("You have successfully registered new accommodation.\n You can see it in Your accommodations down below.");
             Reset();
         }
-
+        private async void ShowPopupMessage(string message)
+        {
+            popupText.Text = message;
+            popupContainer.Visibility = Visibility.Visible;
+            await Task.Delay(5000);
+            var fadeOutAnimation = new DoubleAnimation
+            {
+                From = 0.9,
+                To = 0.0,
+                Duration = TimeSpan.FromSeconds(2),
+                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
+            };
+            fadeOutAnimation.Completed += (s, e) =>
+            {
+                popupContainer.Visibility = Visibility.Collapsed;
+            };
+            popupBorder.BeginAnimation(OpacityProperty, fadeOutAnimation);
+            InitializeComponent();
+            DataContext = this;
+        }
         private void Reset()
         {
             NewAccommodation.Reset();
@@ -152,30 +173,32 @@ namespace ProjectTourism.WPF.View.OwnerView
             ComboDeadline.SelectedItem = Deadlines[0];
             ComboType.SelectedItem = Types[0];
         }
-        public void IncreaseMaxNumberOfGuestsClick(object sender, RoutedEventArgs e)
+        private void IntegerUpDown_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-                NewAccommodation.MaxNumberOfGuests++;
-                if (NewAccommodation.MaxNumberOfGuests == 15) IncDecButtons[0] = false;
-                IncDecButtons[1] = true;
+            if (!char.IsDigit(e.Text, e.Text.Length - 1))
+            {
+                e.Handled = true;
+            }
+            if (MaxUpDown.Value == 0)
+            {
+                MaxUpDown.Value = 1;
+                e.Handled = true;
+            }
+            if (MinUpDown.Value == 0)
+            {
+                MinUpDown.Value = 1;
+                e.Handled = true;
+            }
         }
-        public void DecreaseMaxNumberOfGuestsClick(object sender, RoutedEventArgs e)
+        public void ValidateNumberInput(object sender, RoutedEventArgs e)
         {
-                NewAccommodation.MaxNumberOfGuests--;
-                if (NewAccommodation.MaxNumberOfGuests == 1) IncDecButtons[1] = false;
-                IncDecButtons[0] = true;
+            var integerUpDown = (IntegerUpDown)sender;
+            int? value = integerUpDown.Value;
+            if (!value.HasValue)
+            {
+                integerUpDown.Value = 1;
+            }
         }
-        public void IncreaseMinDaysForReservationClick(object sender, RoutedEventArgs e)
-        {
-                NewAccommodation.MinDaysForReservation++;
-                if (NewAccommodation.MinDaysForReservation == 7) IncDecButtons[2] = false;
-                IncDecButtons[3] = true;
-        }
-        public void DecreaseMinDaysForReservationClick(object sender, RoutedEventArgs e)
-        {
-                NewAccommodation.MinDaysForReservation--;
-                if (NewAccommodation.MinDaysForReservation == 1) IncDecButtons[3] = false;
-                IncDecButtons[2] = true;
-        }
-        
+
     }
 }

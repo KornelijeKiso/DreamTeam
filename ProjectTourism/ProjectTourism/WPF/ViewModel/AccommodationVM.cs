@@ -42,6 +42,9 @@ namespace ProjectTourism.WPF.ViewModel
         public AccommodationVM(AccommodationVM accommodation)
         {
             _accommodation = new Accommodation(accommodation.GetAccommodation());
+            Reservations = new ObservableCollection<ReservationVM>(_accommodation.Reservations.Select(r => new ReservationVM(r)).Reverse().ToList());
+            Renovations = new ObservableCollection<RenovationVM>(_accommodation.Renovations.Select(r => new RenovationVM(r)).ToList().OrderByDescending(r => r.EndDate));
+            LoadStatistics();
         }
         public Accommodation GetAccommodation()
         {

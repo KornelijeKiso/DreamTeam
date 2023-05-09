@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Windows.Media.Animation;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit;
 
 namespace ProjectTourism.WPF.View.OwnerView
 {
@@ -43,10 +45,11 @@ namespace ProjectTourism.WPF.View.OwnerView
         }
         public void ScheduleRenovationClick(object sender, RoutedEventArgs e)
         {
-            if (SelectedFreeAppointment.Text.ToString() == "") MessageBox.Show("You have to select appointment for your renovation.");
+            if (SelectedFreeAppointment.Text.ToString() == "") System.Windows.MessageBox.Show("You have to select appointment for your renovation.");
             else
             {
                 Accommodation.ScheduleNewRenovation(NewRenovation);
+                ShowPopupMessage("You have successfully scheduled new renovation.\n You can see it in Previously scheduled renovations down below.");
                 NewRenovation.Reset();
                 SelectedFreeAppointment.Text = "";
             }
@@ -55,7 +58,7 @@ namespace ProjectTourism.WPF.View.OwnerView
         {
             if (string.IsNullOrEmpty(DurationTextBox.Text.ToString()))
             {
-                MessageBox.Show("Enter a duration.");
+                System.Windows.MessageBox.Show("Enter a duration.");
                 return;
             }
             SelectFreeAppointmentForRenovatonWindow selectFreeAppointmentForRenovatonWindow = new SelectFreeAppointmentForRenovatonWindow(RenovationAppointment);
@@ -65,6 +68,35 @@ namespace ProjectTourism.WPF.View.OwnerView
                 SelectedFreeAppointment.Text = selectFreeAppointmentForRenovatonWindow.SelectedRenovation.StartDate.ToString() + " - " + selectFreeAppointmentForRenovatonWindow.SelectedRenovation.EndDate.ToString();
                 NewRenovation.StartDate = selectFreeAppointmentForRenovatonWindow.SelectedRenovation.StartDate;
                 NewRenovation.EndDate = selectFreeAppointmentForRenovatonWindow.SelectedRenovation.EndDate;
+            }
+        }
+        private async void ShowPopupMessage(string message)
+        {
+            popupText.Text = message;
+            popupContainer.Visibility = Visibility.Visible;
+            await Task.Delay(5000);
+            var fadeOutAnimation = new DoubleAnimation
+            {
+                From = 0.9,
+                To = 0.0,
+                Duration = TimeSpan.FromSeconds(2),
+                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
+            };
+            fadeOutAnimation.Completed += (s, e) =>
+            {
+                popupContainer.Visibility = Visibility.Collapsed;
+            };
+            popupBorder.BeginAnimation(OpacityProperty, fadeOutAnimation);
+            InitializeComponent();
+            DataContext = this;
+        }
+        public void ValidateNumberInput(object sender, RoutedEventArgs e)
+        {
+            var integerUpDown = (IntegerUpDown)sender;
+            int? value = integerUpDown.Value;
+            if (!value.HasValue)
+            {
+                integerUpDown.Value = 1;
             }
         }
         public void DeclineClick(object sender, RoutedEventArgs e)
@@ -80,11 +112,12 @@ namespace ProjectTourism.WPF.View.OwnerView
             else
             {
                 int res;
-                if (int.TryParse(DurationTextBox.Text.ToString(), out res))
+                if (int.TryParse(DurationTextBox.Value.ToString(), out res))
                 {
                     if(res == 0)
                     {
                         e.Handled = true;
+                        DurationTextBox.Value = 1;
                     }
                 }
             }
@@ -93,6 +126,7 @@ namespace ProjectTourism.WPF.View.OwnerView
         public void CancelRenovationClick(object sender, RoutedEventArgs e)
         {
             Accommodation.CancelRenovation(SelectedRenovation);
+            ShowPopupMessage("You have successfully canceled renovation.\n It is now removed from your scheduled renovations.");
         }
     }
 }
