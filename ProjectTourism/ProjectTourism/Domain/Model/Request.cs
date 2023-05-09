@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,8 +44,13 @@ namespace ProjectTourism.Domain.Model
             Description = values[2];
             Language = values[3];
             NumberOfGuests = int.Parse(values[4]);
-            StartDate = DateOnly.Parse(values[5]);
-            EndDate = DateOnly.Parse(values[6]);
+            //StartDate = DateOnly.Parse(values[5]);
+            //EndDate = DateOnly.Parse(values[6]);
+            if (DateOnly.TryParse(values[5], new CultureInfo("en-GB"), DateTimeStyles.None, out var startDateTimeParsed))
+                StartDate = startDateTimeParsed;
+            if (DateOnly.TryParse(values[6], new CultureInfo("en-GB"), DateTimeStyles.None, out var endDateTimeParsed))
+                EndDate = endDateTimeParsed;
+
             Guest2Username = values[7];
             switch (values[8])
             {
@@ -53,7 +59,9 @@ namespace ProjectTourism.Domain.Model
                 case "DISMISSED": State = REQUESTSTATE.DISMISSED; break;
                 default: State = REQUESTSTATE.PENDING;break;
             }
-            CreationDateTime = DateTime.Parse(values[9]);
+            //CreationDateTime = DateTime.Parse(values[9]);
+            if (DateTime.TryParse(values[9], new CultureInfo("en-GB"), DateTimeStyles.None, out var dateTimeParsed))
+                CreationDateTime = dateTimeParsed;
         }
 
         public string[] ToCSV()
@@ -65,11 +73,11 @@ namespace ProjectTourism.Domain.Model
                 Description,
                 Language,
                 NumberOfGuests.ToString(),
-                StartDate.ToString(),
-                EndDate.ToString(),
+                StartDate.ToString("dd.MM.yyyy"),
+                EndDate.ToString("dd.MM.yyyy"),
                 Guest2Username, 
                 State.ToString(), 
-                CreationDateTime.ToString()
+                CreationDateTime.ToString("dd.MM.yyyy HH:mm")
             };
             return csvValues;
         }

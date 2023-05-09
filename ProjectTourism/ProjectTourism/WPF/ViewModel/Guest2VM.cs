@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectTourism.Domain.Model;
 //using System.Text.RegularExpressions;
 
 namespace ProjectTourism.WPF.ViewModel
@@ -23,6 +24,7 @@ namespace ProjectTourism.WPF.ViewModel
             _guest2 = guest2;
             Tickets = new ObservableCollection<TicketVM>(_guest2.Tickets.Select(r => new TicketVM(r)).ToList());
             Vouchers = new ObservableCollection<VoucherVM>(_guest2.Vouchers.Select(r => new VoucherVM(r)).ToList());
+            TourRequests = new ObservableCollection<RequestVM>(_guest2.TourRequests.Select(r => new RequestVM(r)).ToList());
             Tours = new ObservableCollection<TourVM>();
         }
 
@@ -31,7 +33,7 @@ namespace ProjectTourism.WPF.ViewModel
             Synchronize(username);
             Tickets = new ObservableCollection<TicketVM>(_guest2.Tickets.Select(r => new TicketVM(r)).ToList());
             Vouchers = new ObservableCollection<VoucherVM>(_guest2.Vouchers.Select(r => new VoucherVM(r)).ToList());
-
+            TourRequests = new ObservableCollection<RequestVM>(_guest2.TourRequests.Select(r => new RequestVM(r)).ToList());
         }
         public void Synchronize(string username)
         {
@@ -44,6 +46,7 @@ namespace ProjectTourism.WPF.ViewModel
 
             SynchronizeTicketsList(_guest2);
             SynchronizeVouchersList(_guest2);
+            SynchronizeTourRequestsList(_guest2);
         }
 
         private void SynchronizeVouchersList(Guest2 _guest2)
@@ -114,6 +117,19 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
+        private void SynchronizeTourRequestsList(Guest2 _guest2)
+        {
+            RequestService requestService = new RequestService();
+            LocationService locationService = new LocationService();
+
+            _guest2.TourRequests = new List<Request>();
+            foreach (var request in requestService.GetAll())
+            {
+                request.Location = locationService.GetOne(request.LocationId);
+                _guest2.TourRequests.Add(request);
+            }
+        }
+
         private void SynchronizeTours(ObservableCollection<TourVM> Tours)
         {
             TourService tourService = new TourService();
@@ -151,6 +167,15 @@ namespace ProjectTourism.WPF.ViewModel
                     return;
                 }    
             }
+        }
+
+        public void CreateTourRequest(RequestVM tourRequest)
+        {
+            RequestService requestService = new RequestService();
+            LocationService locationService = new LocationService();
+            tourRequest.LocationId = locationService.AddAndReturnId(tourRequest.Location.GetLocation());
+            requestService.Add(tourRequest.GetRequest());
+            TourRequests.Add(tourRequest);
         }
 
         public string Username
@@ -253,6 +278,7 @@ namespace ProjectTourism.WPF.ViewModel
 
         public ObservableCollection<TicketVM> Tickets { get; set; }
         public ObservableCollection<VoucherVM> Vouchers { get; set; }
+        public ObservableCollection<RequestVM> TourRequests { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

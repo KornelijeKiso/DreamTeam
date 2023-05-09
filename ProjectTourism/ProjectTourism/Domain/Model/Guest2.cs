@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectTourism.Domain.Model;
 
 namespace ProjectTourism.Model
 {
@@ -12,10 +13,12 @@ namespace ProjectTourism.Model
     {
         public List<Voucher> Vouchers;
         public List<Ticket> Tickets;
+        public List<Request> TourRequests;
         public Guest2()
         {
             Vouchers = new List<Voucher>();
             Tickets = new List<Ticket>();
+            TourRequests = new List<Request>();
         }
 
         public Guest2(User user)
@@ -31,6 +34,7 @@ namespace ProjectTourism.Model
 
             Vouchers = new List<Voucher>();
             Tickets = new List<Ticket>();
+            TourRequests = new List<Request>();
         }
 
         public new string[] ToCSV()
