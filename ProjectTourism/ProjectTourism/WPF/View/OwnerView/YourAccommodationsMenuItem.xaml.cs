@@ -179,8 +179,26 @@ namespace ProjectTourism.WPF.View.OwnerView
             {
                 e.Handled = true;
             }
+            if (MaxUpDown.Value == 0)
+            {
+                MaxUpDown.Value = 1;
+                e.Handled = true;
+            }
+            if (MinUpDown.Value == 0)
+            {
+                MinUpDown.Value = 1;
+                e.Handled = true;
+            }
         }
-
+        public void ValidateNumberInput(object sender, RoutedEventArgs e)
+        {
+            var integerUpDown = (IntegerUpDown)sender;
+            int? value = integerUpDown.Value;
+            if (!value.HasValue)
+            {
+                integerUpDown.Value = 1;
+            }
+        }
 
     }
 }

@@ -79,7 +79,7 @@
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Width="250">
                                     <Label Content="Enter duration :" FontWeight="Normal"></Label>
-                                    <xctk:IntegerUpDown Name="DurationTextBox" PreviewTextInput="IntegerValidation" Margin="36,3,0 0" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Width="110" Height="24" Minimum="1" Maximum="1000" Value="{Binding RenovationAppointment.Duration, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=False, ValidatesOnDataErrors=False, ValidatesOnNotifyDataErrors=False}"/>
+                                    <xctk:IntegerUpDown LostFocus="ValidateNumberInput" Name="DurationTextBox" PreviewTextInput="IntegerValidation" Margin="36,3,0 0" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Width="110" Height="24" Minimum="1" Maximum="1000" Value="{Binding RenovationAppointment.Duration, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=False, ValidatesOnDataErrors=False, ValidatesOnNotifyDataErrors=False}"/>
                                 </StackPanel>
                                 <Button Margin="0 30 0 0" Click="SelectFreeAppointmentClick" FontWeight="Normal" Width="200"  Content="Select free appointment" FontSize="12"  Height="28"></Button>
                                 <Label Content="Selected appointment :" FontSize="12" Margin="5 0"></Label>

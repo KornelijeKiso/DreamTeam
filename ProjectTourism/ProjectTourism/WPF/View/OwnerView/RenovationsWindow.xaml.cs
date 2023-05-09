@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit;
 
 namespace ProjectTourism.WPF.View.OwnerView
 {
@@ -44,7 +45,7 @@ namespace ProjectTourism.WPF.View.OwnerView
         }
         public void ScheduleRenovationClick(object sender, RoutedEventArgs e)
         {
-            if (SelectedFreeAppointment.Text.ToString() == "") MessageBox.Show("You have to select appointment for your renovation.");
+            if (SelectedFreeAppointment.Text.ToString() == "") System.Windows.MessageBox.Show("You have to select appointment for your renovation.");
             else
             {
                 Accommodation.ScheduleNewRenovation(NewRenovation);
@@ -57,7 +58,7 @@ namespace ProjectTourism.WPF.View.OwnerView
         {
             if (string.IsNullOrEmpty(DurationTextBox.Text.ToString()))
             {
-                MessageBox.Show("Enter a duration.");
+                System.Windows.MessageBox.Show("Enter a duration.");
                 return;
             }
             SelectFreeAppointmentForRenovatonWindow selectFreeAppointmentForRenovatonWindow = new SelectFreeAppointmentForRenovatonWindow(RenovationAppointment);
@@ -89,6 +90,15 @@ namespace ProjectTourism.WPF.View.OwnerView
             InitializeComponent();
             DataContext = this;
         }
+        public void ValidateNumberInput(object sender, RoutedEventArgs e)
+        {
+            var integerUpDown = (IntegerUpDown)sender;
+            int? value = integerUpDown.Value;
+            if (!value.HasValue)
+            {
+                integerUpDown.Value = 1;
+            }
+        }
         public void DeclineClick(object sender, RoutedEventArgs e)
         {
             SelectedFreeAppointment.Text = "";
@@ -116,7 +126,7 @@ namespace ProjectTourism.WPF.View.OwnerView
         public void CancelRenovationClick(object sender, RoutedEventArgs e)
         {
             Accommodation.CancelRenovation(SelectedRenovation);
-            MessageBox.Show("You have successfully canceled renovation.");
+            ShowPopupMessage("You have successfully canceled renovation.\n It is now removed from your scheduled renovations.");
         }
     }
 }
