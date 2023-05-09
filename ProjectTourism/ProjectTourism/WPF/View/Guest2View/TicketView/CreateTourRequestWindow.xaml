@@ -7,10 +7,11 @@
         mc:Ignorable="d"
         Title="Create Tour Request Window" 
         WindowStartupLocation="CenterScreen"
-        Height="480" Width="750"
+        Height="480" Width="650"
         Background="LightBlue"
+        WindowStyle="None"
         >
-        <!--WindowStyle="None"-->
+    
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -35,8 +36,9 @@
                    FontFamily="/Fonts/#Rubik"
                    Foreground="#DBDBDB"
                    FontSize="25"
-                   Height="auto" VerticalAlignment="Center"
-                   Margin="50 0 0 0"/>
+                   Height="auto" Width="auto"
+                   VerticalAlignment="Center" HorizontalAlignment="Center"
+                   Margin="0 0 20 0"/>
         </Grid>
 
         <Grid Grid.Row="1" 
@@ -52,7 +54,8 @@
                 <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="200"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
@@ -113,16 +116,26 @@
                       HorizontalAlignment="Left"
                       Grid.Column="1" Grid.Row="2"
                       />
+
+            <Label Content="Chose new language: " Height="auto" 
+                   FontFamily="/Fonts/#Rubik"
+                   Foreground="#DBDBDB"
+                   FontSize="14"
+                   VerticalAlignment="Top"
+                   HorizontalAlignment="Left"
+                   Margin="50 25 0 0"
+                   Grid.Column="2" Grid.Row="1" Grid.RowSpan="2"
+                   />
             <TextBox x:Name="LanguageText"
                      Text="{Binding Path=TourRequest.Language, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
                      Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
-                     Width="200" Height="25"
+                     Width="150" Height="25"
                      FontFamily="/Fonts/#Rubik"
                      FontSize="16"
                      VerticalAlignment="Center"
                      HorizontalAlignment="Left"
-                     Margin="250 0 0 0"
-                     Grid.Column="1" Grid.Row="2"
+                     Margin="50 0 0 0"
+                     Grid.Column="2" Grid.Row="2"
                      />
 
             <Label Content="Max Number of Guests: " 
@@ -171,16 +184,20 @@
                    HorizontalAlignment="Right"
                    Grid.Column="0" Grid.Row="5"
                    />
-            <TextBox x:Name="StartDateText"
-                     Text="{Binding Path=TourRequest.StartDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
-                     Width="200" Height="25"
-                     FontFamily="/Fonts/#Rubik"
-                     FontSize="16"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Left"
-                     Grid.Column="1" Grid.Row="5"
-                     />
+            <!--SelectedDate="{Binding Path=TourRequest.StartDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" -->
+            <DatePicker x:Name="StartDatePicker" IsTodayHighlighted="True"
+                        SelectedDateChanged="StartDateChanged"
+                        Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
+                        Width="200" Height="25"
+                        FontFamily="/Fonts/#Rubik"
+                        FontSize="16"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Grid.Column="1" Grid.Row="5"    >
+                <DatePicker.BlackoutDates>
+                    <CalendarDateRange End="01/01/1900 23:59:59" Start="01/01/0001 23:59:59"/>
+                </DatePicker.BlackoutDates>
+            </DatePicker>
 
             <Label Content="End Date: " 
                    FontFamily="/Fonts/#Rubik"
@@ -188,25 +205,75 @@
                    FontSize="16"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
-                   Grid.Column="0" Grid.Row="6"
-                   />
-            <TextBox x:Name="EndDateText"
-                     Text="{Binding Path=TourRequest.EndDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" 
-                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
-                     Width="200" Height="25"
-                     FontFamily="/Fonts/#Rubik"
-                     FontSize="16"
-                     VerticalAlignment="Center"
-                     HorizontalAlignment="Left"
-                     Grid.Column="1" Grid.Row="6"
-                     />
+                   Grid.Column="0" Grid.Row="6"     />
+            <!-- SelectedDate="{Binding Path=TourRequest.EndDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" -->
+            <DatePicker x:Name="EndDatePicker" IsTodayHighlighted="True"
+                        SelectedDateChanged="EndDateChanged"
+                        Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
+                        Width="200" Height="25"
+                        FontFamily="/Fonts/#Rubik"
+                        FontSize="16"
+                        VerticalAlignment="Center"
+                        HorizontalAlignment="Left"
+                        Grid.Column="1" Grid.Row="6"    >
+                <DatePicker.BlackoutDates>
+                    <CalendarDateRange End="01/01/1900 23:59:59" Start="01/01/0001 23:59:59"/>
+                </DatePicker.BlackoutDates>
+            </DatePicker>
         </Grid>
 
         <Grid Grid.Row="2" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="200"/>
+            </Grid.ColumnDefinitions>
+            
             <Button x:Name="CreateTourRequestButton" 
-                    Grid.Column="1"
+                    Grid.Column="0"
                     Content="CreateTourRequest" 
                     IsDefault="True" Click="CreateTourRequest"  >
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Height" Value="40"/>
+                        <Setter Property="Width" Value="150"/>
+                        <Setter Property="Margin" Value="0 0 0 20"/>
+                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="border"
+                                            BorderThickness="1"
+                                            Background="Black">
+                                        <TextBlock Text="Make a request"
+                                            FontFamily="/Fonts/#Rubik" 
+                                            FontSize="18"
+                                            Foreground="#DBDBDB" 
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver"
+                                                 Value="True"   >
+                                            <Setter Property="Background"
+                                                    TargetName="border"
+                                                    Value="#272B2F" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True" />
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+            <Button x:Name="CancelButton" 
+                    Grid.Column="1"
+                    Content="Cancel" 
+                    IsDefault="True" Click="CancelClick"  >
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Height" Value="40"/>
@@ -222,7 +289,7 @@
                                     <Border x:Name="border"
                                             BorderThickness="1"
                                             Background="Black">
-                                        <TextBlock Text="Make a request"
+                                        <TextBlock Text="Cancel"
                                             FontFamily="/Fonts/#Rubik" 
                                             FontSize="18"
                                             Foreground="#DBDBDB" 
