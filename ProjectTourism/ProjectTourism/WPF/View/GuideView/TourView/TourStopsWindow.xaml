@@ -12,9 +12,27 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid x:Name="grid">
-        <Button x:Name="ReviewsButton" Visibility="{Binding Path=TourAppointment.IsReviewVisible, Converter={conv:BoolToVisibilityConverter}}" Content="See reviews" HorizontalAlignment="Left" Height="46" Margin="1050,460,0,0" VerticalAlignment="Top" Width="130" Click="ReviewsButton_Click"/>
-        <Button x:Name="StopPassedButton" IsEnabled="{Binding TourAppointment.IsNotFinished}" Content="Start" HorizontalAlignment="Left" Height="48" Margin="1050,530,0,0" VerticalAlignment="Top" Width="130" Click="CheckpointPassedButton_Click"/>
-        <Button IsCancel="True" x:Name="EmergencyStopButton" IsEnabled="{Binding TourAppointment.IsNotFinished}" Content="Emergency stop" HorizontalAlignment="Left" Height="46" Margin="1050,600,0,0" VerticalAlignment="Top" Width="130" Background="#FFEF4343" Click="EmergencyStopButton_Click"/>
+        <Button x:Name="ReviewsButton" Visibility="{Binding Path=TourAppointment.IsReviewVisible, Converter={conv:BoolToVisibilityConverter}}" Content="See reviews" HorizontalAlignment="Left" Height="46" Margin="1050,460,0,0" VerticalAlignment="Top" Width="130" Click="ReviewsButton_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button x:Name="StopPassedButton" IsEnabled="{Binding TourAppointment.IsNotFinished}" Content="Start" HorizontalAlignment="Left" Height="48" Margin="1050,530,0,0" VerticalAlignment="Top" Width="130" Click="CheckpointPassedButton_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Button IsCancel="True" x:Name="EmergencyStopButton" IsEnabled="{Binding TourAppointment.IsNotFinished}" Content="Emergency stop" HorizontalAlignment="Left" Height="46" Margin="1050,600,0,0" VerticalAlignment="Top" Width="130" Background="#FFEF4343" Click="EmergencyStopButton_Click">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
 
         <Label Content="{Binding Path=TourAppointment.Tour.Name}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         <Label Name="CurrentTourStopLabel" Content="Current tour stop" HorizontalAlignment="Left" Margin="100,160,0,0" VerticalAlignment="Top" FontSize="22"/>

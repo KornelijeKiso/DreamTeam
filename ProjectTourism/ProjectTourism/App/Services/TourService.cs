@@ -30,10 +30,14 @@ namespace ProjectTourism.Services
 
         public List<string> LoadStops(Tour tour)
         {
-            List<string> result = tour.Stops.Split(',').ToList();
-            result.Add(tour.Finish);
-            result.Insert(0, tour.Start);
-            return result;
+            if(tour.Stops != null)
+            {
+                List<string> result = tour.Stops.Split(',').ToList();
+                result.Add(tour.Finish);
+                result.Insert(0, tour.Start);
+                return result;
+            }
+            return null;
         }
         public Tour GetOne(int id)
         {

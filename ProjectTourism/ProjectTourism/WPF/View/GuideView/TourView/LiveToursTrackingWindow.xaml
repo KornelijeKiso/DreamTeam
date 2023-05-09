@@ -28,10 +28,10 @@
                 </Style>
             </DataGrid.CellStyle>
             <DataGrid.Columns>
-                <DataGridTemplateColumn Width="170" >
+                <DataGridTemplateColumn Width="170">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Click="ImageButton_Click">
+                            <Button Click="ImageButton_Click" BorderBrush="Black" Height="110" Width="150" Background="Transparent" BorderThickness="1">
                                 <Button.Content>
                                     <Image Stretch="Fill">
                                         <Image.Style>
@@ -55,9 +55,9 @@
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" >
                                 <Label Content="{Binding Tour.Name}" FontSize="18" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Margin="0,0,0,-7">
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,-7">
+                                    <Image Source="https://cdn-icons-png.flaticon.com/512/535/535188.png" Height="17"></Image>
+                                    <Label Margin="0,-4,0,-7">
                                         <Label.Content>
                                             <TextBlock>
                                                 <TextBlock.Text>
@@ -70,23 +70,33 @@
                                         </Label.Content>
                                     </Label>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label Content="Language :" Margin="0,0,-7,-7" ></Label>
+                                <StackPanel Orientation="Horizontal" Margin="0,10,0,-7">
+                                    <Image Source="https://cdn-icons-png.flaticon.com/512/2258/2258918.png" Height="17"></Image>
                                     <Label Content="{Binding Path=Tour.Language}" Margin="0,-0.8,0,0"></Label>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label Content="State :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Content="{Binding State}" Margin="0,0,0,-7" FontWeight="Bold"></Label>
+                                <StackPanel Orientation="Horizontal" Margin="0,-4,0,-7">
+                                    <Image Source="https://cdn-icons-png.flaticon.com/512/3409/3409561.png" Height="17" Margin="5,10,0,-7" ></Image>
+                                    <Label Content="{Binding State}" Margin="-5,10,0,-7" FontWeight="Bold"></Label>
                                 </StackPanel>
-                                <Button HorizontalAlignment="Right" Height="35" Width="35" Margin="0, -20, 10, 0" Click="ManageButton_Click">
+                                <Button HorizontalAlignment="Right" Height="35" Width="35" Margin="0, -45, 10, 0" Click="ManageButton_Click">
                                     <Button.Background>
                                         <ImageBrush ImageSource="https://img.icons8.com/pulsar-color/1x/go.png" />
                                     </Button.Background>
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="25"/>
+                                        </Style>
+                                    </Button.Resources>
                                 </Button>
-                                <Button Visibility="{Binding IsReviewVisible, Converter={conv:BoolToVisibilityConverter}}" HorizontalAlignment="Right" Height="35" Width="35" Margin="0, -35, 60, 0" Click="ReviewsButton_Click">
+                                <Button Visibility="{Binding IsReviewVisible, Converter={conv:BoolToVisibilityConverter}}" HorizontalAlignment="Right" Height="35" Width="35" Margin="0, -47, 60, 0" Click="ReviewsButton_Click">
                                     <Button.Background>
                                         <ImageBrush ImageSource="https://img.icons8.com/pulsar-color/256/comments.png" />
                                     </Button.Background>
+                                    <Button.Resources>
+                                        <Style TargetType="Border">
+                                            <Setter Property="CornerRadius" Value="25"/>
+                                        </Style>
+                                    </Button.Resources>
                                 </Button>
                             </StackPanel>
                         </DataTemplate>

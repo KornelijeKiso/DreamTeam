@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.TourView"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"  d:DesignHeight="720" d:DesignWidth="1280">
     <UserControl.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
@@ -78,10 +79,10 @@
             <ComboBox Grid.Row="3" Grid.Column="1" Text="{Binding Path = NewTour.Language}" x:Name="LanguageComboBox" SelectionChanged="LanguageComboBox_SelectionChanged" Margin="0,8,100,8"/>
             <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding Path = NewTour.MaxNumberOfGuests, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>
             <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding Path = NewTour.Start, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" TextChanged="TextBox_TextChanged" Margin="0,8,0,8"/>
-            <TextBox Grid.Row="6" Grid.Column="1" Text="{Binding Path = NewTour.Stops}" Margin="0,8,0,8"/>
+            <xctk:WatermarkTextBox Watermark="Enter comma separated stops" Grid.Row="6" Grid.Column="1" Text="{Binding Path = NewTour.Stops}" Margin="0,8,0,8"/>
             <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding Path = NewTour.Finish, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>
             <TextBox Grid.Row="8" Grid.Column="1" Text="{Binding Path = NewTour.Duration, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>
-            <TextBox Grid.Row="9" Grid.Column="1" Text="{Binding Path = NewTour.PictureURLs}" Margin="0,8,0,8"/>
+            <xctk:WatermarkTextBox Watermark="Enter comma separated URLs" Grid.Row="9" Grid.Column="1" Text="{Binding Path = NewTour.PictureURLs}" Margin="0,8,0,8"/>
             <TextBox Grid.Row="10" Grid.Column="1" Text="{Binding Path = NewTour.Description}" Grid.RowSpan="2" Margin="0,8,0,8" TextWrapping="Wrap"/>
         </Grid>
         <WrapPanel Margin="586,274,536,338">

@@ -7,9 +7,9 @@
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
         <Label x:Name="RequestsLabel" Content="Requests" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
-        <DataGrid FontSize="12" Name="DataGridRow" RowHeight="100" CanUserAddRows="False" HorizontalAlignment="Left" Height="451" VerticalAlignment="Top" Width="877"
+        <DataGrid FontSize="12" Name="DataGridRow" RowHeight="100" CanUserAddRows="False" HorizontalAlignment="Left" Height="451" VerticalAlignment="Top" Width="827"
             SelectedItem="{Binding SelectedRequest, UpdateSourceTrigger=PropertyChanged}" 
-            ItemsSource="{Binding Requests, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="90,150,0,0">
+            ItemsSource="{Binding Requests, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="100,150,0,0">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
             </DataGrid.Resources>
@@ -24,7 +24,7 @@
             </DataGrid.CellStyle>
             <DataGrid.Columns>
 
-                <DataGridTemplateColumn Header="City" Width="85">
+                <DataGridTemplateColumn Header="Request info" Width="*">
                     <DataGridTemplateColumn.HeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -32,95 +32,64 @@
                     </DataGridTemplateColumn.HeaderStyle>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=Location.City}" TextWrapping="Wrap"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-                <DataGridTemplateColumn Header="Country" Width="90">
-                    <DataGridTemplateColumn.HeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTemplateColumn.HeaderStyle>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Path=Location.Country}" TextWrapping="Wrap"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-                <DataGridTemplateColumn Header="Description" Width="270">
-                    <DataGridTemplateColumn.HeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTemplateColumn.HeaderStyle>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Description}" TextWrapping="Wrap"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-                <DataGridTemplateColumn Header="Number of guests" Width="105">
-                    <DataGridTemplateColumn.HeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTemplateColumn.HeaderStyle>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding NumberOfGuests}" TextWrapping="Wrap"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-                <DataGridTemplateColumn Header="Language" Width="70">
-                    <DataGridTemplateColumn.HeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTemplateColumn.HeaderStyle>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Language}" TextWrapping="Wrap"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-                <DataGridTemplateColumn Header="Date" Width="80">
-                    <DataGridTemplateColumn.HeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTemplateColumn.HeaderStyle>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
-                                <TextBlock Text="{Binding StartDate, StringFormat='yyyy-MM-dd'}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                <Image Height="20" Width="20" Source="https://img.icons8.com/material-outlined/256/expand-arrow.png"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                <TextBlock Text="{Binding EndDate, StringFormat='yyyy-MM-dd'}" TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <StackPanel>
+                                <StackPanel>
+                                    <Label Content="{Binding Guest2Username}" FontWeight="SemiBold" FontSize="19" ContentStringFormat="{}{0}'s request" />
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" >
+                                    <StackPanel Orientation="Horizontal" Margin="14,4,0,-7">
+                                        <Image Source="https://cdn-icons-png.flaticon.com/512/535/535188.png" Height="19"></Image>
+                                        <Label>
+                                            <Label.Content>
+                                                <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0}, {1}">
+                                                            <Binding Path="Location.City" />
+                                                            <Binding Path="Location.Country" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </Label.Content>
+                                        </Label>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="14,4,0,-7">
+                                        <Image Source="https://cdn-icons-png.flaticon.com/512/2258/2258918.png" Height="19"></Image>
+                                        <Label Content="{Binding Language}"></Label>
+                                    </StackPanel>
+                                    <StackPanel Margin="-20, 0, 0, 0">
+                                        <GroupBox Header="Max number of guests" BorderThickness="1.5" BorderBrush="Black" Background="#AA8ED0FB" Height="45" Width="150" Margin="-10, -114, 0, 0"></GroupBox>
+                                        <StackPanel Margin="-12,-68,0,0">
+                                            <Label Content="{Binding NumberOfGuests}" HorizontalAlignment="Center" FontSize="19" FontWeight="SemiBold"></Label>
+                                        </StackPanel>
+                                        <GroupBox Header="Description" BorderThickness="1.5" BorderBrush="Black" Background="#AA8ED0FB" Height="90" Width="290" Margin="440, -80, 0, 0">
+                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Description}" TextWrapping="Wrap"/>
+                                        </GroupBox>
+                                    </StackPanel>
+                                    <StackPanel Margin="-30, -50, 0, 0">
+                                        <GroupBox Header="Date" Width="150" BorderThickness="1.5" BorderBrush="Black" Background="#AA8ED0FB">
+                                            <StackPanel>
+                                                <Label>
+                                                    <Label.Content>
+                                                        <TextBlock FontWeight="SemiBold">
+                                                            <TextBlock.Text>
+                                                                <MultiBinding StringFormat="{}{0} > {1}">
+                                                                    <Binding Path="StartDate" />
+                                                                    <Binding Path="EndDate" />
+                                                                </MultiBinding>
+                                                            </TextBlock.Text>
+                                                        </TextBlock>
+                                                    </Label.Content>
+                                                </Label>
+                                            </StackPanel>
+                                        </GroupBox>
+                                    </StackPanel>
+                                </StackPanel>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-
-                <DataGridTemplateColumn Header="Guest username" Width="95">
-                    <DataGridTemplateColumn.HeaderStyle>
-                        <Style TargetType="DataGridColumnHeader">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTemplateColumn.HeaderStyle>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Guest2Username}" TextWrapping="Wrap"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
-                <DataGridTemplateColumn Width="*" Header="Accept">
+                <DataGridTemplateColumn Width="80" Header="Accept">
                     <DataGridTemplateColumn.HeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -165,9 +134,9 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Border x:Name="rectangle" Background="White" BorderBrush="Black" BorderThickness="1" CornerRadius="15" Margin="989,150,15,260"/>
+        <Border x:Name="rectangle" Background="White" BorderBrush="Black" BorderThickness="1" CornerRadius="15" Margin="957,150,44,260"/>
 
-        <Grid x:Name="searchGrid" Margin="1004,169,31,302">
+        <Grid x:Name="searchGrid" Margin="974,170,71,309">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -192,7 +161,7 @@
             <DatePicker Grid.Row="4" Grid.Column="1" Margin="0,0,0,8" SelectedDate="{Binding Path=SearchedEndDate, UpdateSourceTrigger=PropertyChanged}"/>
 
         </Grid>
-        <Button x:Name="SearchButton" Content="Search" Foreground="#FF8E98A5" Background="#FF143675" Click="Search_Click" HorizontalAlignment="Left" Height="31" Margin="1078,380,0,0" VerticalAlignment="Top" Width="92">
+        <Button x:Name="SearchButton" Content="Search" Foreground="#FF8E98A5" Background="#FF143675" Click="Search_Click" HorizontalAlignment="Left" Height="31" Margin="1045,380,0,0" VerticalAlignment="Top" Width="92">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>

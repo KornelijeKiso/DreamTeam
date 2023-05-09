@@ -306,13 +306,13 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public bool ArePicturesNull()
         {
-            if(Pictures.Count() == 1)
+            if (Pictures == null)
+                return true;
+            if (Pictures.Count() == 1)
             {
                 if (Pictures[0].Equals(""))
                     return true;
             }
-            if (Pictures == null)
-                return true;
             return false;
         }
         public bool ArePicturesEmpty { get => ArePicturesNull(); }

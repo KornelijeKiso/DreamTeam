@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView.TourView"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
+        
         <Label Content="Tour statistics" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
+        
         <DataGrid x:Name="DataGridTours" PreviewMouseLeftButtonDown="DataGridTours_PreviewMouseLeftButtonDown"  
                     ItemsSource="{Binding TourAppsObs, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedTourApp, UpdateSourceTrigger=PropertyChanged}"
@@ -64,28 +66,29 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" >
-                                <Label Content="{Binding Path=Tour.Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Margin="0,0,0,-7">
+                                <Label Content="{Binding Path=Tour.Name}" FontSize="16" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
+                                <StackPanel Orientation="Horizontal" Margin="10,6,0,-7">
+                                    <Image Source="https://cdn-icons-png.flaticon.com/512/535/535188.png" Height="17"></Image>
+                                    <Label Margin="0,-3,0,-7">
                                         <Label.Content>
                                             <TextBlock>
                                                 <TextBlock.Text>
                                                     <MultiBinding StringFormat="{}{0}, {1}">
-                                                        <Binding Path="Tour.Location.Country" />
                                                         <Binding Path="Tour.Location.City" />
+                                                        <Binding Path="Tour.Location.Country" />
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
                                         </Label.Content>
                                     </Label>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label Content="Language :" Margin="0,0,-7,-7" ></Label>
+                                <StackPanel Orientation="Horizontal" Margin="10,7,0,-7">
+                                    <Image Source="https://cdn-icons-png.flaticon.com/512/2258/2258918.png" Height="17"></Image>
                                     <Label Content="{Binding Path=Tour.Language}" Margin="0,0.8,0,0"></Label>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,-2,0,-7">
-                                    <Label ContentStringFormat="Duration : {0}h" Content="{Binding Path=Tour.Duration}" Margin="0,-2,-7,-7" ></Label>
+                                <StackPanel Orientation="Horizontal" Margin="10,5,0,-7">
+                                    <Image Source="https://cdn-icons-png.flaticon.com/512/5296/5296819.png" Height="17"></Image>
+                                    <Label ContentStringFormat=" {0}h" Content="{Binding Path=Tour.Duration}" Margin="-2,-5,-7,-7" ></Label>
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>
@@ -133,10 +136,10 @@
         </DataGrid>
 
         <Grid x:Name="StatsGrid">
-            <GroupBox x:Name="FieldSet" Header="Tour statistics" Margin="767,250,0,0" Height="387" Width="462" FontSize="15" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="#FF61676B" Background="LightGray" FontWeight="SemiBold">
+            <GroupBox x:Name="FieldSet" Header="Tour statistics" Margin="767,250,0,0" Height="387" Width="462" FontSize="15" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="#FF61676B" Background="LightGray">
                 <Grid>
                     <Rectangle x:Name="Rectangle1" Width="20" Height="20" Fill="#FF007ACC" Margin="255,55,175,280" RadiusX="3" RadiusY="3" Stroke="Black" StrokeThickness="1"/>
-                    <Rectangle x:Name="Rectangle2" Width="20" Height="20" Fill="#6CCEFF" Margin="255,26,175,314" RadiusX="3" RadiusY="3" Stroke="Black" StrokeThickness="1"/> 
+                    <Rectangle x:Name="Rectangle2" Width="20" Height="20" Fill="#6CCEFF" Margin="255,26,175,314" RadiusX="3" RadiusY="3" Stroke="Black" StrokeThickness="1"/>
                     <Label x:Name="Label3" Margin="5, 270, 0, 0">Here you can see the age groups of people</Label>
                     <Label x:Name="Label4" Margin="280,20,0,0">Number of tickets</Label>
                     <Label x:Name="Label5" Margin="280,52,0,0">Number of vouchers</Label>
@@ -152,5 +155,6 @@
         <Label x:Name="Label1" Content="Select a tour of which you" FontSize="19" Margin="875, 350, 0, 0"></Label>
         <Label x:Name="Label2" Content="would like to see the statistics." FontSize="19" Margin="860, 390, 0, 0"></Label>
         <Image x:Name="StatsImage" Source="https://cdn-icons-png.flaticon.com/512/2936/2936725.png" Margin="912,467,184,121"></Image>
+        
     </Grid>
 </UserControl>

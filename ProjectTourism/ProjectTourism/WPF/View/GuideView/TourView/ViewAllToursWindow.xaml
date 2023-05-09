@@ -18,6 +18,7 @@
                     SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"
                     SelectionMode="Single"
                     VerticalScrollBarVisibility="Visible" 
+                    GridLinesVisibility="Horizontal"
                     IsReadOnly="True" AutoGenerateColumns="False" Margin="280,150,280,80" RowHeight="130" HeadersVisibility="None" >
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
@@ -32,17 +33,14 @@
                 <DataGridTemplateColumn Width="170" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Click="ImageButton_Click">
-                                <Button.Background>
-                                    <ImageBrush ImageSource="{Binding Pictures[0]}" />
-                                </Button.Background>
+                            <Button Click="ImageButton_Click" Height="110" Width="150" Background="Transparent" BorderThickness="1">
                                 <Button.Style>
                                     <Style TargetType="{x:Type Button}">
                                         <Setter Property="Background" Value="Green"/>
                                         <Setter Property="Template">
                                             <Setter.Value>
                                                 <ControlTemplate TargetType="{x:Type Button}">
-                                                    <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1">
+                                                    <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="1" >
                                                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                                     </Border>
                                                 </ControlTemplate>
@@ -52,10 +50,32 @@
                                             <Trigger Property="IsMouseOver" Value="True">
                                                 <Setter Property="Background" Value="Red"/>
                                             </Trigger>
+                                            <DataTrigger Binding="{Binding Path=ArePicturesEmpty}" Value="True">
+                                                <Setter Property="Background">
+                                                    <Setter.Value>
+                                                        <ImageBrush ImageSource="https://rdacentralwest.org.au/wp-content/themes/unbound/images/No-Image-Found-400x264.png"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
                                         </Style.Triggers>
                                     </Style>
                                 </Button.Style>
+                                <Button.Content>
+                                    <Image Stretch="Fill">
+                                        <Image.Style>
+                                            <Style TargetType="Image">
+                                                <Setter Property="Source" Value="{Binding Pictures[0]}" />
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Path=ArePicturesEmpty}" Value="True">
+                                                        <Setter Property="Source" Value="https://rdacentralwest.org.au/wp-content/themes/unbound/images/No-Image-Found-400x264.png" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Image.Style>
+                                    </Image>
+                                </Button.Content>
                             </Button>
+
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -64,32 +84,34 @@
                         <DataTemplate>
                             <StackPanel Orientation="Vertical" >
                                 <Label Content="{Binding Name}" FontSize="18" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Margin="0,0,0,-7">
+                                <StackPanel Orientation="Horizontal" Margin="10,13,0,-7">
+                                    <Image Source="https://cdn-icons-png.flaticon.com/512/535/535188.png" Height="17"></Image>
+                                    <Label FontSize="14" Margin="0,-5,0,-7">
                                         <Label.Content>
                                             <TextBlock>
                                                 <TextBlock.Text>
                                                     <MultiBinding StringFormat="{}{0}, {1}">
-                                                        <Binding Path="Location.Country" />
                                                         <Binding Path="Location.City" />
+                                                        <Binding Path="Location.Country" />
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
                                         </Label.Content>
                                     </Label>
                                 </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label Content="Language :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Content="{Binding Language}" Margin="0,-0.8,0,0"></Label>
+                                <StackPanel Orientation="Horizontal" Margin="10,13,0,-7">
+                                    <Image Source="https://cdn-icons-png.flaticon.com/512/2258/2258918.png" Height="17"></Image>
+                                    <Label FontSize="14" Content="{Binding Language}" Margin="0,-0.8,0,0"></Label>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="10,13,0,-7">
+                                    <Image Source="https://cdn-icons-png.flaticon.com/512/5296/5296819.png" Height="17"></Image>
+                                    <Label FontSize="14" Content="{Binding Duration}" Margin="0,-6,0,-7" ></Label>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label Content="Duration :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Content="{Binding Duration}" Margin="0,0,0,-7" FontWeight="Bold"></Label>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label Content="Max number of guests :" Margin="0,0,-7,-7" ></Label>
-                                    <Label Content="{Binding MaxNumberOfGuests}" Margin="0,0,0,-7" FontWeight="Bold"></Label>
+                                    <GroupBox Header="Max number of guests" BorderThickness="1.5" BorderBrush="Black" Background="#AA8ED0FB" Height="45" Width="150" Margin="330, -114, 0, 0"></GroupBox>
+                                    <StackPanel Margin="-150,-68,0,0">
+                                        <Label Content="{Binding MaxNumberOfGuests}" HorizontalAlignment="Center" FontSize="19" FontWeight="SemiBold"></Label>
+                                    </StackPanel>
                                 </StackPanel>
                             </StackPanel>
                         </DataTemplate>
