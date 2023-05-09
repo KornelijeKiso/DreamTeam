@@ -27,7 +27,7 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
     {
         public Guest2VM Guest2 { get; set; }
         public List<string> LanguageList { get; set; }
-        public RequestVM TourRequest { get; set; }
+        public TourRequestVM TourRequest { get; set; }
 
 
         public CreateTourRequestWindow(Guest2VM guest2)
@@ -54,7 +54,7 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
 
         private void SetTourRequest()
         {
-            TourRequest = new RequestVM(new Request());
+            TourRequest = new TourRequestVM(new TourRequest());
             TourRequest.Guest2Username = Guest2.Username;
             TourRequest.CreationDateTime = DateTime.Now;
             TourRequest.Location = new LocationVM(new Location());

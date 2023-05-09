@@ -48,10 +48,10 @@ namespace ProjectTourism.View.TourView
             NewTour.Guide = Guide;
             NewLocation = new LocationVM(new Location());
 
-            if (Guide.Requests.Count > 0)
+            if (Guide.TourRequests.Count > 0)
             {
-                NewTour.Language = FindMostFrequentItem(Guide.Requests[0].RequestLanguagesInLastYear());
-                string MostCommonLocation = FindMostFrequentItem(Guide.Requests[0].RequestLocationsInLastYear());
+                NewTour.Language = FindMostFrequentItem(Guide.TourRequests[0].TourRequestLanguagesInLastYear());
+                string MostCommonLocation = FindMostFrequentItem(Guide.TourRequests[0].TourRequestLocationsInLastYear());
                 NewLocation.City = MostCommonLocation.Split(",")[0];
                 NewLocation.Country = MostCommonLocation.Split(",")[1].Trim();
             }
