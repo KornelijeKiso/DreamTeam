@@ -17,6 +17,20 @@ namespace ProjectTourism.Repositories
         {
             FileHandler = new RequestFileHandler();
             Requests = FileHandler.Load();
+            CheckIfValid();
+        }
+
+        private void CheckIfValid()
+        {
+            foreach (var request in Requests)
+            {
+                if (request.State == WPF.ViewModel.REQUESTSTATE.PENDING 
+                    && (DateTime.Compare(request.StartDate.ToDateTime(TimeOnly.MinValue), DateTime.Now.AddDays(2)) < 0))
+                {
+                    request.State = WPF.ViewModel.REQUESTSTATE.DISMISSED;
+                }
+            }
+            FileHandler.Save(Requests);
         }
         public int GenerateId()
         {

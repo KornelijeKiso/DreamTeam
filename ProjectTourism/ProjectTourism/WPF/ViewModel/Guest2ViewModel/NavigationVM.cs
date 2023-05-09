@@ -34,14 +34,14 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public ICommand TicketsCommand { get; set; }
         public ICommand VouchersCommand { get; set; }
         public ICommand ProfileCommand { get; set; }
-        public ICommand SuggestTourCommand { get; set; }
+        public ICommand TourRequestsCommand { get; set; }
         public ICommand ComplexToursCommand { get; set; }
 
         private void Home(object obj) => CurrentView = new HomeVM();
         private void Tickets(object obj) => CurrentView = new TicketsVM();
         private void Vouchers(object obj) => CurrentView = new VouchersVM();
         //private void Profile(object obj) => CurrentView = new ProfileVM();
-        //private void SuggestTour(object obj) => CurrentView = new SuggestTourVM();
+        private void TourRequests(object obj) => CurrentView = new TourRequestsVM();
         //private void ComplexTour(object obj) => CurrentView = ComplexTourVM();
         public NavigationVM()
         {
@@ -51,7 +51,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             TicketsCommand = new RelayCommand(Tickets);
             VouchersCommand = new RelayCommand(Vouchers);
             //ProfileCommand = new RelayCommand(Profile);
-            //SuggestTourCommand = new RelayCommand(SuggestTour);
+            TourRequestsCommand = new RelayCommand(TourRequests);
             //ComplexToursCommand = new RelayCommand(ComplexTour);
 
             // Startup Page

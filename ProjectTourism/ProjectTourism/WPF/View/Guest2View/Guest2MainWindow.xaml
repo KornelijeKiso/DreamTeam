@@ -97,13 +97,13 @@
                         </Grid>
                     </Menu:Btn>
 
-                    <!--SUGGEST A TOUR-->
-                    <Menu:Btn   Command="{Binding SuggestTourCommand}" 
+                    <!--REQUEST A TOUR-->
+                    <Menu:Btn   Command="{Binding TourRequestsCommand}" 
                                 Style="{StaticResource BtnStyle}"   >
                         <Grid>
                             <Image Source="/WPF/View/Guest2View/img_suggest_tour.png"
                                    Style="{StaticResource Image_Style}"     />
-                            <TextBlock Text="Suggest &#x0d; a tour"
+                            <TextBlock Text="Request &#x0d; a tour"
                                        Style="{StaticResource Text_Style}"  />
                         </Grid>
                     </Menu:Btn>
