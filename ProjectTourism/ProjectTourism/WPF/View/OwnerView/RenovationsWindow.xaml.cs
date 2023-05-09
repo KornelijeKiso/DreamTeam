@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Windows.Media.Animation;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -47,7 +48,7 @@ namespace ProjectTourism.WPF.View.OwnerView
             else
             {
                 Accommodation.ScheduleNewRenovation(NewRenovation);
-                MessageBox.Show("You have successfully scheduled new renovation.");
+                ShowPopupMessage("You have successfully scheduled new renovation.\n You can see it in Previously scheduled renovations down below.");
                 NewRenovation.Reset();
                 SelectedFreeAppointment.Text = "";
             }
@@ -67,6 +68,26 @@ namespace ProjectTourism.WPF.View.OwnerView
                 NewRenovation.StartDate = selectFreeAppointmentForRenovatonWindow.SelectedRenovation.StartDate;
                 NewRenovation.EndDate = selectFreeAppointmentForRenovatonWindow.SelectedRenovation.EndDate;
             }
+        }
+        private async void ShowPopupMessage(string message)
+        {
+            popupText.Text = message;
+            popupContainer.Visibility = Visibility.Visible;
+            await Task.Delay(5000);
+            var fadeOutAnimation = new DoubleAnimation
+            {
+                From = 0.9,
+                To = 0.0,
+                Duration = TimeSpan.FromSeconds(2),
+                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
+            };
+            fadeOutAnimation.Completed += (s, e) =>
+            {
+                popupContainer.Visibility = Visibility.Collapsed;
+            };
+            popupBorder.BeginAnimation(OpacityProperty, fadeOutAnimation);
+            InitializeComponent();
+            DataContext = this;
         }
         public void DeclineClick(object sender, RoutedEventArgs e)
         {

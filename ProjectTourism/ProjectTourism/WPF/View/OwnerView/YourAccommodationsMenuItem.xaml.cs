@@ -12,6 +12,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Animation;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -36,13 +37,11 @@ namespace ProjectTourism.WPF.View.OwnerView
         public List<string> Deadlines { get; set; }
         public List<string> Types { get; set; }
         public Dictionary<string, int> Days { get; set; }
-        public ObservableCollection<bool> IncDecButtons { get; set; }
 
         public YourAccommodationsMenuItem(string username)
         {
             InitializeComponent();
             DataContext = this;
-            IncDecButtons = new ObservableCollection<bool> { true, false, true, false };
 
             InitializeDays();
             InitializeTypes();
@@ -143,10 +142,30 @@ namespace ProjectTourism.WPF.View.OwnerView
             HandleTypeCombobox();
             NewAccommodation.CancellationDeadline = Days[(string)ComboDeadline.SelectedValue];
             Owner.AddAccommodation(NewAccommodation, NewLocation);
-            System.Windows.MessageBox.Show("You have successfully registered new accommodation.");
+            //System.Windows.MessageBox.Show("You have successfully registered new accommodation.");
+            ShowPopupMessage("You have successfully registered new accommodation.\n You can see it in Your accommodations down below.");
             Reset();
         }
-
+        private async void ShowPopupMessage(string message)
+        {
+            popupText.Text = message;
+            popupContainer.Visibility = Visibility.Visible;
+            await Task.Delay(5000);
+            var fadeOutAnimation = new DoubleAnimation
+            {
+                From = 0.9,
+                To = 0.0,
+                Duration = TimeSpan.FromSeconds(2),
+                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
+            };
+            fadeOutAnimation.Completed += (s, e) =>
+            {
+                popupContainer.Visibility = Visibility.Collapsed;
+            };
+            popupBorder.BeginAnimation(OpacityProperty, fadeOutAnimation);
+            InitializeComponent();
+            DataContext = this;
+        }
         private void Reset()
         {
             NewAccommodation.Reset();

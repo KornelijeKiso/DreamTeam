@@ -165,6 +165,10 @@
 
         <Label Content="REGISTER A NEW ACCOMMODATION" FontSize="12" Foreground="DarkSlateGray" FontWeight="Bold" HorizontalAlignment="Left" Margin="30,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,0.708" Width="235"/>
         <Label Content="YOUR ACCOMMODATIONS" FontSize="12" Foreground="DarkSlateGray" FontWeight="Bold" HorizontalAlignment="Left" Margin="296,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,0.708" Width="176"/>
-
+        <Grid x:Name="popupContainer" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="Collapsed" Margin="0 40 0 0">
+            <Border x:Name="popupBorder" BorderBrush="Black" BorderThickness="1" Background="DimGray" Width="540" CornerRadius="10" Opacity="0.9">
+                <TextBlock x:Name="popupText" Height="60"   FontSize="15" FontWeight="SemiBold" Text="Hello, World!" Padding="10" HorizontalAlignment="Center" Opacity="1.0"  Foreground="White" VerticalAlignment="Center"/>
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>

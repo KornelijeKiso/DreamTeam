@@ -179,5 +179,10 @@
             <TextBlock Foreground="Black" TextWrapping="Wrap" Text="You haven't renovated this" Margin="0 0"  FontSize="11" HorizontalAlignment="Center"></TextBlock>
             <TextBlock Foreground="Black" TextWrapping="Wrap" Text="accommodation in the last year." Margin="0 0"  FontSize="11" HorizontalAlignment="Center"></TextBlock>
         </StackPanel>
+        <Grid x:Name="popupContainer" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="Collapsed" Margin="0 40 0 0">
+            <Border x:Name="popupBorder" BorderBrush="Black" BorderThickness="1" Background="DimGray" Width="540" CornerRadius="10" Opacity="0.9">
+                <TextBlock x:Name="popupText" Height="60"   FontSize="15" FontWeight="SemiBold" Text="Hello, World!" Padding="10" HorizontalAlignment="Center" Opacity="1.0"  Foreground="White" VerticalAlignment="Center"/>
+            </Border>
+        </Grid>
     </Grid>
 </Window>
