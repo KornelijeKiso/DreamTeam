@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProjectTourism.View.OwnerView"
         mc:Ignorable="d"
         Name="OwnerWindow"
-        Title="MainOwnerWindow" Height="720" WindowStartupLocation="CenterScreen" Width="1000" HorizontalAlignment="Center" VerticalAlignment="Top" Loaded="AreAllGuestsGraded">
+        Title="MainOwnerWindow" Height="720" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" Width="1000" HorizontalAlignment="Center" VerticalAlignment="Top" Loaded="AreAllGuestsGraded">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -20,14 +20,14 @@
     
     <Grid Margin="0,0,0,0">
 
-        <Menu Margin="15,0,15,640" BorderThickness="1" BorderBrush="DodgerBlue">
+        <Menu Margin="0,0,0,640" BorderThickness="1" BorderBrush="DodgerBlue">
             <Menu.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Rows="1" HorizontalAlignment="Center"/>
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
 
-            <MenuItem Name="ProfileItem" FontSize="14" Click="SwitchToYourProfile" BorderBrush="DodgerBlue">
+            <MenuItem Name="ProfileItem" FontSize="14" Click="SwitchToYourProfile" BorderBrush="DodgerBlue" Width="167">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="       Your Profile   " HorizontalAlignment="Center" Margin="0 3 0 0"/>
@@ -35,7 +35,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem Name="AccommodationsItem" FontSize="14" Click="SwitchToMyAccommodations" BorderBrush="DodgerBlue">
+            <MenuItem Name="AccommodationsItem" FontSize="14" Click="SwitchToMyAccommodations" BorderBrush="DodgerBlue" Width="166">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text=" Accommodations  " HorizontalAlignment="Center" Margin="0 3 0 0"/>
@@ -43,7 +43,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem Name="ReservationsItem" FontSize="14" Click="SwitchToReservations" BorderBrush="DodgerBlue">
+            <MenuItem Name="ReservationsItem" FontSize="14" Click="SwitchToReservations" BorderBrush="DodgerBlue" Width="167">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="     Reservations    " HorizontalAlignment="Center" Margin="0 3 0 0"/>
@@ -51,7 +51,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem Name="NotificationsItem" FontSize="14" BorderBrush="DodgerBlue">
+            <MenuItem Name="NotificationsItem" FontSize="14" BorderBrush="DodgerBlue" Width="167">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="    Notifications    " HorizontalAlignment="Center" Margin="0 3 0 0"/>
@@ -59,7 +59,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem Name="ForumsItem" FontSize="14" BorderBrush="DodgerBlue">
+            <MenuItem Name="ForumsItem" FontSize="14" BorderBrush="DodgerBlue" Width="166">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="        Forums    " HorizontalAlignment="Center" Margin="0 3 0 0"/>
@@ -67,7 +67,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem Name="HelpItem" FontSize="14" BorderBrush="DodgerBlue">
+            <MenuItem Name="HelpItem" FontSize="14" BorderBrush="DodgerBlue" Width="167">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="         Help    " HorizontalAlignment="Center" Margin="0 3 0 0"/>

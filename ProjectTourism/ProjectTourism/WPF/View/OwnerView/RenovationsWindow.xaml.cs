@@ -47,6 +47,7 @@ namespace ProjectTourism.WPF.View.OwnerView
             else
             {
                 Accommodation.ScheduleNewRenovation(NewRenovation);
+                MessageBox.Show("You have successfully scheduled new renovation.");
                 NewRenovation.Reset();
                 SelectedFreeAppointment.Text = "";
             }
@@ -94,6 +95,7 @@ namespace ProjectTourism.WPF.View.OwnerView
         public void CancelRenovationClick(object sender, RoutedEventArgs e)
         {
             Accommodation.CancelRenovation(SelectedRenovation);
+            MessageBox.Show("You have successfully canceled renovation.");
         }
     }
 }

@@ -7,7 +7,7 @@
         xmlns:conv="clr-namespace:ProjectTourism.Converters"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="Renovations" Height="690" Width="900" WindowStartupLocation="CenterScreen">
+        Title="Renovations" Height="690" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Window.Resources>
         <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Window.Resources>

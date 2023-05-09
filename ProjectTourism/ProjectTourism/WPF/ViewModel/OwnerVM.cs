@@ -26,9 +26,8 @@ namespace ProjectTourism.WPF.ViewModel
         public OwnerVM(string username)
         {
             Synchronize(username);
-            Accommodations = new ObservableCollection<AccommodationVM>(_owner.Accommodations.Select(r => new AccommodationVM(r)).ToList());
-            Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).Reverse().ToList());
         }
+    
         private void Synchronize(string username)
         {
             OwnerService ownerService = new OwnerService();
@@ -46,6 +45,8 @@ namespace ProjectTourism.WPF.ViewModel
                 accommodation.Reservations = SynchronizeReservations(accommodation);
                 _owner.Reservations.AddRange(accommodation.Reservations);
             }
+            Accommodations = new ObservableCollection<AccommodationVM>(_owner.Accommodations.Select(r => new AccommodationVM(r)).ToList());
+            Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).Reverse().ToList());
         }
         private List<Reservation> SynchronizeReservations(Accommodation accommodation)
         {
@@ -72,15 +73,11 @@ namespace ProjectTourism.WPF.ViewModel
             AccommodationService accommodationService = new AccommodationService();
             LocationService locationService = new LocationService();
             Location location = new Location(newLocation.City, newLocation.Country);
-            location.Id = locationService.AddAndReturnId(location);
-            newLocation.Id = location.Id;
-            newAccommodation.SetLocation(location);
-
-            accommodationService.Add(newAccommodation.GetAccommodation());
-            AccommodationVM accommodation = new AccommodationVM(newAccommodation);
-            accommodation.Location = new LocationVM(locationService.GetOne(location.Id));
-            Accommodations.Add(accommodation);
-            _owner.Accommodations.Add(accommodation.GetAccommodation());
+            int id = locationService.AddAndReturnId(location);
+            Accommodation accommodationToAdd = new Accommodation(newAccommodation.GetAccommodation());
+            accommodationToAdd.LocationId = id;
+            accommodationService.Add(accommodationToAdd);
+            Synchronize(Username);
         }
         public void GradeAGuest(Guest1GradeVM grade)
         {
@@ -192,8 +189,32 @@ namespace ProjectTourism.WPF.ViewModel
         {
             get => CalculateAverageGrade();
         }
-        public ObservableCollection<AccommodationVM> Accommodations { get; set; }
-        public ObservableCollection<ReservationVM> Reservations{ get; set; }
+        private ObservableCollection<AccommodationVM> _Accommodations;
+        public ObservableCollection<AccommodationVM> Accommodations
+        { 
+            get => _Accommodations;
+            set 
+            {
+                if (value != _Accommodations)
+                {
+                    _Accommodations = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private ObservableCollection<ReservationVM> _Reservations;
+        public ObservableCollection<ReservationVM> Reservations
+        {
+            get => _Reservations;
+            set
+            {
+                if (value != _Reservations)
+                {
+                    _Reservations = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 

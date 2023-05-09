@@ -143,6 +143,7 @@ namespace ProjectTourism.WPF.View.OwnerView
             HandleTypeCombobox();
             NewAccommodation.CancellationDeadline = Days[(string)ComboDeadline.SelectedValue];
             Owner.AddAccommodation(NewAccommodation, NewLocation);
+            System.Windows.MessageBox.Show("You have successfully registered new accommodation.");
             Reset();
         }
 
@@ -152,30 +153,6 @@ namespace ProjectTourism.WPF.View.OwnerView
             NewLocation.Reset();
             ComboDeadline.SelectedItem = Deadlines[0];
             ComboType.SelectedItem = Types[0];
-        }
-        public void IncreaseMaxNumberOfGuestsClick(object sender, RoutedEventArgs e)
-        {
-                NewAccommodation.MaxNumberOfGuests++;
-                if (NewAccommodation.MaxNumberOfGuests == 15) IncDecButtons[0] = false;
-                IncDecButtons[1] = true;
-        }
-        public void DecreaseMaxNumberOfGuestsClick(object sender, RoutedEventArgs e)
-        {
-                NewAccommodation.MaxNumberOfGuests--;
-                if (NewAccommodation.MaxNumberOfGuests == 1) IncDecButtons[1] = false;
-                IncDecButtons[0] = true;
-        }
-        public void IncreaseMinDaysForReservationClick(object sender, RoutedEventArgs e)
-        {
-                NewAccommodation.MinDaysForReservation++;
-                if (NewAccommodation.MinDaysForReservation == 7) IncDecButtons[2] = false;
-                IncDecButtons[3] = true;
-        }
-        public void DecreaseMinDaysForReservationClick(object sender, RoutedEventArgs e)
-        {
-                NewAccommodation.MinDaysForReservation--;
-                if (NewAccommodation.MinDaysForReservation == 1) IncDecButtons[3] = false;
-                IncDecButtons[2] = true;
         }
         private void IntegerUpDown_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {

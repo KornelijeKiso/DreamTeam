@@ -32,6 +32,7 @@ namespace ProjectTourism.WPF.View.OwnerView
         public void AcceptClick(object sender, RoutedEventArgs e)
         {
             Reservation.AcceptPostpone();
+            MessageBox.Show("You have successfully accepted postpone request.");
             Close();
         }
 
@@ -41,6 +42,7 @@ namespace ProjectTourism.WPF.View.OwnerView
             rejectingPostponeMessageWindow.ShowDialog();
             if (rejectingPostponeMessageWindow.Submited)
             {
+                
                 Reservation.RejectPostpone(rejectingPostponeMessageWindow.Message);
                 Close();
             }

@@ -4,11 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.OwnerView"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="RejectingPostponeMessageWindow" Height="300" Width="400" WindowStartupLocation="CenterScreen">
+        Title="RejectingPostponeMessageWindow" Height="300" Width="400" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
         <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30 20 0 0" Width="340" Height="40" TextWrapping="Wrap" TextAlignment="Justify" Text="If you want, you can enter a message for the guest explaining why you rejected his request."></TextBlock>
-        <TextBox Name="textBox"  BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30 70 0 0" Width="340" Height="140" TextWrapping="Wrap"></TextBox>
+        <xctk:WatermarkTextBox Name="textBox" Watermark="Enter explanation message here."  BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30 70 0 0" Width="340" Height="140" TextWrapping="Wrap"></xctk:WatermarkTextBox>
       
         <Button Content="Submit" Margin="0 200 0 0" Height="20" Width="60" Click="SubmitClick">
             <Button.Resources>
