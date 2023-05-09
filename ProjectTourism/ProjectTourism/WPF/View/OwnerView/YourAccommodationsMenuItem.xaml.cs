@@ -20,6 +20,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Xceed.Wpf.Toolkit;
 
 namespace ProjectTourism.WPF.View.OwnerView
 {
@@ -62,7 +63,7 @@ namespace ProjectTourism.WPF.View.OwnerView
         private void InitializeNewEntities()
         {
             NewAccommodation = new AccommodationVM(new Accommodation());
-            NewLocation = new LocationVM(new Location());
+            NewLocation = new LocationVM(new ProjectTourism.Model.Location());
         }
 
         private void InitializeTypes()
@@ -123,7 +124,7 @@ namespace ProjectTourism.WPF.View.OwnerView
             }
             else
             {
-                MessageBox.Show("Not all fields are filled correctly.");
+                System.Windows.MessageBox.Show("Not all fields are filled correctly.");
             }
         }
 
@@ -176,6 +177,14 @@ namespace ProjectTourism.WPF.View.OwnerView
                 if (NewAccommodation.MinDaysForReservation == 1) IncDecButtons[3] = false;
                 IncDecButtons[2] = true;
         }
-        
+        private void IntegerUpDown_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (!char.IsDigit(e.Text, e.Text.Length - 1))
+            {
+                e.Handled = true;
+            }
+        }
+
+
     }
 }

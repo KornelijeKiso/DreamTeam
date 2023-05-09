@@ -80,11 +80,12 @@ namespace ProjectTourism.WPF.View.OwnerView
             else
             {
                 int res;
-                if (int.TryParse(DurationTextBox.Text.ToString(), out res))
+                if (int.TryParse(DurationTextBox.Value.ToString(), out res))
                 {
                     if(res == 0)
                     {
                         e.Handled = true;
+                        DurationTextBox.Value = 1;
                     }
                 }
             }
