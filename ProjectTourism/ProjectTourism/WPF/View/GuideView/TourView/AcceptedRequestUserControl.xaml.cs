@@ -26,18 +26,18 @@ namespace ProjectTourism.View.TourView
 {
     public partial class AcceptedRequestUserControl : UserControl, INotifyPropertyChanged
     {
-        public RequestVM Request { get; set; }
+        public TourRequestVM TourRequest { get; set; }
         public TourVM NewTour { get; set; }
         public LocationVM NewLocation { get; set; }
         public GuideVM Guide { get; set; }
         public TourAppointmentVM TourAppointment { get; set; }
         private Dictionary<DateTime, List<TimeSpan>> appointments = new Dictionary<DateTime, List<TimeSpan>>();
-        public AcceptedRequestUserControl(GuideVM guide, RequestVM request)
+        public AcceptedRequestUserControl(GuideVM guide, TourRequestVM tourRequest)
         {
             InitializeComponent();
             DataContext = this;
             Guide = guide;
-            Request = request;
+            TourRequest = tourRequest;
             SetModels();
             SetBlackoutDates();
         }
@@ -46,11 +46,11 @@ namespace ProjectTourism.View.TourView
         {
             calendar.BlackoutDates.AddDatesInPast();
 
-            DateTime EndDate = DateTime.Parse(Request.EndDate.ToString());
+            DateTime EndDate = DateTime.Parse(TourRequest.EndDate.ToString());
             CalendarDateRange blackoutRange = new CalendarDateRange(EndDate.AddDays(1), new DateTime(9999, 12, 31));
             calendar.BlackoutDates.Add(blackoutRange);
 
-            DateTime StartDate = DateTime.Parse(Request.StartDate.ToString());
+            DateTime StartDate = DateTime.Parse(TourRequest.StartDate.ToString());
             blackoutRange = new CalendarDateRange(DateTime.Today.AddDays(-1), StartDate.AddDays(-1));
             calendar.BlackoutDates.Add(blackoutRange);
         }
@@ -62,11 +62,11 @@ namespace ProjectTourism.View.TourView
             NewTour.GuideUsername = Guide.Username;
             NewTour.Guide = Guide;
             NewLocation = new LocationVM(new Location());
-            NewTour.Language = Request.Language;
-            NewTour.Description = Request.Description;
-            NewTour.MaxNumberOfGuests = Request.NumberOfGuests;
-            NewLocation.Country = Request.Location.Country;
-            NewLocation.City = Request.Location.City;
+            NewTour.Language = TourRequest.Language;
+            NewTour.Description = TourRequest.Description;
+            NewTour.MaxNumberOfGuests = TourRequest.NumberOfGuests;
+            NewLocation.Country = TourRequest.Location.Country;
+            NewLocation.City = TourRequest.Location.City;
         }
         private void SaveTour_Click(object sender, RoutedEventArgs e)
         {
@@ -78,7 +78,7 @@ namespace ProjectTourism.View.TourView
             if (NewTour.IsValid && NewLocation.IsValid)
             {
                 AddTour();
-                Guide.AcceptRequest(Request);
+                Guide.AcceptTourRequest(TourRequest);
             }
                 
             else

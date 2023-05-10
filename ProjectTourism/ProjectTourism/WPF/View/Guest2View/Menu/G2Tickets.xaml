@@ -20,12 +20,8 @@
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
 
-        <!--
-        Height="300" Width="550"
-        Guest2.Tickets.TourAppointment.Tour
-        -->
+        
         <Grid Grid.Row="0">
-            <!--SelectionChanged="{Binding TabControlCommand}"-->
             <TabControl x:Name="TabControl" SelectionChanged="ItemsShown"
                         Margin="20 0 20 20"
                         >
@@ -50,14 +46,9 @@
                                              Color="#339AF0"/>
                         </DataGrid.Resources>
 
-                        <!--<DataGrid.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="BorderThickness" Value="0"/>
-                            </Style>
-                        </DataGrid.CellStyle>-->
                         <DataGrid.Columns>
 
-                            <DataGridTemplateColumn Width="120" >
+                            <DataGridTemplateColumn Width="150" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Image Stretch="Fill" 
@@ -65,29 +56,71 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Width="350">
+                            <DataGridTemplateColumn Width="300">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical" >
-                                            <Label Content="{Binding Path=TourAppointment.Tour.Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                                <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
-                                                <Label Content="{Binding Path=TourAppointment.Tour.Location.Country}" Margin="0,0,0,-7"></Label>
-                                                <Label Content="," Margin="0,0,0,-7"></Label>
-                                                <Label Content="{Binding Path=TourAppointment.Tour.Location.City}" Margin="0,0,0,-7"></Label>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                                <Label Content="Language :" Margin="0,0,-7,-7" ></Label>
-                                                <Label Content="{Binding Path=TourAppointment.Tour.Language}" Margin="0,0,0,-7"></Label>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                                <Label Content="Duration :" Margin="0,0,-7,-7" ></Label>
-                                                <Label Content="{Binding Path=TourAppointment.Tour.Duration}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                                <Label Content="Max number of guests :" Margin="0,0,-7,-7" ></Label>
-                                                <Label Content="{Binding Path=TourAppointment.Tour.MaxNumberOfGuests}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
-                                            </StackPanel>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="16" FontWeight="SemiBold" Height="auto"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}{0} ">
+                                                                <Binding Path="TourAppointment.Tour.Name"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Location : {0}, {1}">
+                                                                <Binding Path="TourAppointment.Tour.Location.Country"/>
+                                                                <Binding Path="TourAppointment.Tour.Location.City"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Language : {0}">
+                                                                <Binding Path="TourAppointment.Tour.Language"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Duration : {0}">
+                                                                <Binding Path="TourAppointment.Tour.Duration"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Max number of guests : {0}">
+                                                                <Binding Path="TourAppointment.Tour.MaxNumberOfGuests"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -172,14 +205,9 @@
                                              Color="#339AF0"/>
                         </DataGrid.Resources>
 
-                        <!--<DataGrid.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="BorderThickness" Value="0"/>
-                            </Style>
-                        </DataGrid.CellStyle>-->
                         <DataGrid.Columns>
 
-                            <DataGridTemplateColumn Width="120" >
+                            <DataGridTemplateColumn Width="150" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Image Stretch="Fill" 
@@ -187,29 +215,71 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Width="350">
+                            <DataGridTemplateColumn Width="300">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical" >
-                                            <Label Content="{Binding Path=TourAppointment.Tour.Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                                <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
-                                                <Label Content="{Binding Path=TourAppointment.Tour.Location.Country}" Margin="0,0,0,-7"></Label>
-                                                <Label Content="," Margin="0,0,0,-7"></Label>
-                                                <Label Content="{Binding Path=TourAppointment.Tour.Location.City}" Margin="0,0,0,-7"></Label>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                                <Label Content="Language :" Margin="0,0,-7,-7" ></Label>
-                                                <Label Content="{Binding Path=TourAppointment.Tour.Language}" Margin="0,0,0,-7"></Label>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                                <Label Content="Duration :" Margin="0,0,-7,-7" ></Label>
-                                                <Label Content="{Binding Path=TourAppointment.Tour.Duration}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                                <Label Content="Max number of guests :" Margin="0,0,-7,-7" ></Label>
-                                                <Label Content="{Binding Path=TourAppointment.Tour.MaxNumberOfGuests}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
-                                            </StackPanel>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="16" FontWeight="SemiBold" Height="auto"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}{0} ">
+                                                                <Binding Path="TourAppointment.Tour.Name"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Location : {0}, {1}">
+                                                                <Binding Path="TourAppointment.Tour.Location.Country"/>
+                                                                <Binding Path="TourAppointment.Tour.Location.City"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Language : {0}">
+                                                                <Binding Path="TourAppointment.Tour.Language"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Duration : {0}">
+                                                                <Binding Path="TourAppointment.Tour.Duration"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Max number of guests : {0}">
+                                                                <Binding Path="TourAppointment.Tour.MaxNumberOfGuests"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -261,14 +331,9 @@
                                              Color="#339AF0"/>
                         </DataGrid.Resources>
 
-                        <!--<DataGrid.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="BorderThickness" Value="0"/>
-                            </Style>
-                        </DataGrid.CellStyle>-->
                         <DataGrid.Columns>
 
-                            <DataGridTemplateColumn Width="120" >
+                            <DataGridTemplateColumn Width="150" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Image Stretch="Fill" 
@@ -276,29 +341,71 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Width="350">
+                            <DataGridTemplateColumn Width="300">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical" >
-                                            <Label Content="{Binding Path=TourAppointment.Tour.Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                                <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
-                                                <Label Content="{Binding Path=TourAppointment.Tour.Location.Country}" Margin="0,0,0,-7"></Label>
-                                                <Label Content="," Margin="0,0,0,-7"></Label>
-                                                <Label Content="{Binding Path=TourAppointment.Tour.Location.City}" Margin="0,0,0,-7"></Label>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                                <Label Content="Language :" Margin="0,0,-7,-7" ></Label>
-                                                <Label Content="{Binding Path=TourAppointment.Tour.Language}" Margin="0,0,0,-7"></Label>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                                <Label Content="Duration :" Margin="0,0,-7,-7" ></Label>
-                                                <Label Content="{Binding Path=TourAppointment.Tour.Duration}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                                <Label Content="Max number of guests :" Margin="0,0,-7,-7" ></Label>
-                                                <Label Content="{Binding Path=TourAppointment.Tour.MaxNumberOfGuests}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
-                                            </StackPanel>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="16" FontWeight="SemiBold" Height="auto"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}{0} ">
+                                                                <Binding Path="TourAppointment.Tour.Name"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Location : {0}, {1}">
+                                                                <Binding Path="TourAppointment.Tour.Location.Country"/>
+                                                                <Binding Path="TourAppointment.Tour.Location.City"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Language : {0}">
+                                                                <Binding Path="TourAppointment.Tour.Language"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Duration : {0}">
+                                                                <Binding Path="TourAppointment.Tour.Duration"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Max number of guests : {0}">
+                                                                <Binding Path="TourAppointment.Tour.MaxNumberOfGuests"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -329,7 +436,114 @@
 
                 <!-- CANCELED TICKETS -->
                 <TabItem Header="Canceled By Guide" Height="20" VerticalAlignment="Top">
+                    <DataGrid x:Name="DataGridCanceledTickets" Style="{StaticResource DataGrid_Style}"
+                              ItemsSource="{Binding CanceledTickets, UpdateSourceTrigger=PropertyChanged}"
+                              Margin="0 0 0 0" BorderThickness="0"  >
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                                             Color="#339AF0"/>
+                        </DataGrid.Resources>
 
+                        <DataGrid.Columns>
+
+                            <DataGridTemplateColumn Width="150" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Stretch="Fill" 
+                                   Source="{Binding Path=TourAppointment.Tour.Pictures[0]}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="300">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical" >
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="16" FontWeight="SemiBold" Height="auto"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}{0} ">
+                                                                <Binding Path="TourAppointment.Tour.Name"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Location : {0}, {1}">
+                                                                <Binding Path="TourAppointment.Tour.Location.Country"/>
+                                                                <Binding Path="TourAppointment.Tour.Location.City"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Language : {0}">
+                                                                <Binding Path="TourAppointment.Tour.Language"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Duration : {0}">
+                                                                <Binding Path="TourAppointment.Tour.Duration"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Max number of guests : {0}">
+                                                                <Binding Path="TourAppointment.Tour.MaxNumberOfGuests"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <GroupBox BorderBrush="Black" FontSize="12" Height="50" 
+                                                  VerticalAlignment="Top" Margin="5 5 5 5"
+                                                  Header="Status">
+                                            <Label FontSize="14">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <Binding Path="TourAppointment.State"/>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                        </GroupBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </TabItem>
 
             </TabControl>

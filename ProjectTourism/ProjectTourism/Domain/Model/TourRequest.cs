@@ -9,7 +9,7 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.Domain.Model
 {
-    public class Request : Serializable
+    public class TourRequest : Serializable
     {
         public int Id;
         public Location Location;
@@ -22,20 +22,20 @@ namespace ProjectTourism.Domain.Model
         public string Guest2Username;
         public REQUESTSTATE State;
         public DateTime CreationDateTime;
-        public Request() { }
+        public TourRequest() { }
 
-        public Request(Request request)
+        public TourRequest(TourRequest tourRequest)
         {
-            Id = request.Id;
-            Location = request.Location;
-            Description = request.Description;
-            Language = request.Language;
-            NumberOfGuests = request.NumberOfGuests;
-            StartDate = request.StartDate;
-            EndDate = request.EndDate;
-            Guest2Username = request.Guest2Username;
-            State = request.State;
-            CreationDateTime = request.CreationDateTime;
+            Id = tourRequest.Id;
+            Location = tourRequest.Location;
+            Description = tourRequest.Description;
+            Language = tourRequest.Language;
+            NumberOfGuests = tourRequest.NumberOfGuests;
+            StartDate = tourRequest.StartDate;
+            EndDate = tourRequest.EndDate;
+            Guest2Username = tourRequest.Guest2Username;
+            State = tourRequest.State;
+            CreationDateTime = tourRequest.CreationDateTime;
         }
         public void FromCSV(string[] values)
         {
@@ -44,8 +44,7 @@ namespace ProjectTourism.Domain.Model
             Description = values[2];
             Language = values[3];
             NumberOfGuests = int.Parse(values[4]);
-            //StartDate = DateOnly.Parse(values[5]);
-            //EndDate = DateOnly.Parse(values[6]);
+            
             if (DateOnly.TryParse(values[5], new CultureInfo("en-GB"), DateTimeStyles.None, out var startDateTimeParsed))
                 StartDate = startDateTimeParsed;
             if (DateOnly.TryParse(values[6], new CultureInfo("en-GB"), DateTimeStyles.None, out var endDateTimeParsed))
@@ -56,10 +55,10 @@ namespace ProjectTourism.Domain.Model
             {
                 case "PENDING": State = REQUESTSTATE.PENDING; break;
                 case "ACCEPTED": State = REQUESTSTATE.ACCEPTED; break;
-                case "DISMISSED": State = REQUESTSTATE.DISMISSED; break;
+                case "EXPIRED": State = REQUESTSTATE.EXPIRED; break;
                 default: State = REQUESTSTATE.PENDING;break;
             }
-            //CreationDateTime = DateTime.Parse(values[9]);
+            
             if (DateTime.TryParse(values[9], new CultureInfo("en-GB"), DateTimeStyles.None, out var dateTimeParsed))
                 CreationDateTime = dateTimeParsed;
         }

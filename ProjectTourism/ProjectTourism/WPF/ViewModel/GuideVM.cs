@@ -110,11 +110,11 @@ namespace ProjectTourism.WPF.ViewModel
             GuideService guideService = new GuideService();
             guideService.Add(Guide);
         }
-        public void AcceptRequest(RequestVM request)
+        public void AcceptTourRequest(TourRequestVM tourRequest)
         {
-            RequestService requestService = new RequestService();
-            request.State = REQUESTSTATE.ACCEPTED;
-            requestService.Update(request.GetRequest());
+            TourRequestService tourRequestService = new TourRequestService();
+            tourRequest.State = REQUESTSTATE.ACCEPTED;
+            tourRequestService.Update(tourRequest.GetTourRequest());
         }
         
         
@@ -248,18 +248,18 @@ namespace ProjectTourism.WPF.ViewModel
         {
             return _guide;
         }
-        public ObservableCollection<RequestVM> GetAllRequests()
+        public ObservableCollection<TourRequestVM> GetAllTourRequests()
         {
-            RequestService requestService = new RequestService();
+            TourRequestService tourRequestService = new TourRequestService();
             LocationService locationService = new LocationService();
-            ObservableCollection<RequestVM> requests = new ObservableCollection<RequestVM>();
+            ObservableCollection<TourRequestVM> tourRequests = new ObservableCollection<TourRequestVM>();
 
-            foreach (var request in requestService.GetAll())
+            foreach (var tourRequest in tourRequestService.GetAll())
             {
-                request.Location = locationService.GetOne(request.LocationId);
-                requests.Add(new RequestVM(request));
+                tourRequest.Location = locationService.GetOne(tourRequest.LocationId);
+                tourRequests.Add(new TourRequestVM(tourRequest));
             }
-            return requests;
+            return tourRequests;
         }
         public bool CanGuideAcceptAppointment(DateTime dateTime)
         {
@@ -274,7 +274,7 @@ namespace ProjectTourism.WPF.ViewModel
         public ObservableCollection<TourVM> Tours { get; set; }
         public ObservableCollection<TourAppointmentVM> TourAppointments { get; set; }
         public ObservableCollection<TourAppointmentVM> TodaysAppointments { get; set; }
-        public ObservableCollection<RequestVM> Requests { get => GetAllRequests(); }
+        public ObservableCollection<TourRequestVM> TourRequests { get => GetAllTourRequests(); }
         public bool? IsSuperGuide
         {
             get => _guide.IsSuperGuide;

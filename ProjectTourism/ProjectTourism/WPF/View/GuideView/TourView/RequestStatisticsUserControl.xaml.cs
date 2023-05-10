@@ -26,7 +26,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             public int Year { get; set; }
             public int StatsForThatYear { get; set; }
         }
-        public RequestVM Request { get; set; }
+        public TourRequestVM TourRequest { get; set; }
         public ObservableCollection<Stat> Stats { get; set; }
         public ObservableCollection<int> MonthlyStats { get; set; }
         public Stat SelectedStat { get; set; }
@@ -48,7 +48,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         }
         private void SetAttributes()
         {
-            Request = new RequestVM();
+            TourRequest = new TourRequestVM();
             Stats = new ObservableCollection<Stat>();
             Languages = new ObservableCollection<string>();
             Locations = new ObservableCollection<string>();
@@ -57,8 +57,8 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         }
         private void SetLanguagesAndLocations()
         {
-            Request.GetAllLanguages().ToList().ForEach(language => Languages.Add(language));
-            Request.GetAllLocations().ToList().ForEach(location => Locations.Add(location));
+            TourRequest.GetAllLanguages().ToList().ForEach(language => Languages.Add(language));
+            TourRequest.GetAllLocations().ToList().ForEach(location => Locations.Add(location));
         }
         private void LanguagesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -84,28 +84,28 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         private void CalculateStats()
         {
             Stats.Clear();
-            foreach (var year in Request.Years())
+            foreach (var year in TourRequest.Years())
             {
                 Stat stat = new Stat();
                 stat.Year = year;
 
                 if (WasLanguageChosen && !WasLocationChosen)
-                    stat.StatsForThatYear = Request.StatForYearLanguageFiltered(year, SelectedLanguage);
+                    stat.StatsForThatYear = TourRequest.StatForYearLanguageFiltered(year, SelectedLanguage);
                 else if (!WasLanguageChosen && WasLocationChosen)
-                    stat.StatsForThatYear = Request.StatForYearLocationFiltered(year, SelectedLocation);
+                    stat.StatsForThatYear = TourRequest.StatForYearLocationFiltered(year, SelectedLocation);
                 else
-                    stat.StatsForThatYear = Request.StatForYearLanguageAndLocationFiltered(year, SelectedLanguage, SelectedLocation);
+                    stat.StatsForThatYear = TourRequest.StatForYearLanguageAndLocationFiltered(year, SelectedLanguage, SelectedLocation);
 
                 Stats.Add(stat);
             }
         }
         private void CalculateYearStats()
         {
-            foreach (var year in Request.Years())
+            foreach (var year in TourRequest.Years())
             {
                 Stat stat = new Stat();
                 stat.Year = year;
-                stat.StatsForThatYear = Request.StatForYear(year);
+                stat.StatsForThatYear = TourRequest.StatForYear(year);
                 Stats.Add(stat);
             }
         }
@@ -115,13 +115,13 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             MonthlyStats = new ObservableCollection<int>();
             List<int> CalculatedList = new List<int>();
             if (WasLanguageChosen && !WasLocationChosen)
-                CalculatedList = Request.MonthlyStatsForLanguage(SelectedStat.Year, SelectedLanguage);
+                CalculatedList = TourRequest.MonthlyStatsForLanguage(SelectedStat.Year, SelectedLanguage);
             else if (WasLocationChosen && !WasLanguageChosen)
-                CalculatedList = Request.MonthlyStatsForLocation(SelectedStat.Year, SelectedLocation);
+                CalculatedList = TourRequest.MonthlyStatsForLocation(SelectedStat.Year, SelectedLocation);
             else if(WasLanguageChosen && WasLocationChosen)
-                CalculatedList = Request.MonthlyStatsForLanguageAndLocation(SelectedStat.Year, SelectedLanguage, SelectedLocation);
+                CalculatedList = TourRequest.MonthlyStatsForLanguageAndLocation(SelectedStat.Year, SelectedLanguage, SelectedLocation);
             else
-                CalculatedList = Request.MonthlyStats(SelectedStat.Year);
+                CalculatedList = TourRequest.MonthlyStats(SelectedStat.Year);
 
             CalculatedList.ToList().ForEach(stat => MonthlyStats.Add(stat));
 

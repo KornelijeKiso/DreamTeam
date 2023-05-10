@@ -23,10 +23,10 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
 {
     public partial class RequestsWindow : UserControl, INotifyPropertyChanged
     {
-        public RequestVM SelectedRequest { get; set; }
-        public ObservableCollection<RequestVM> Requests { get; set; }
-        public List<RequestVM> RequestList { get; set; }
-        public List<RequestVM> UpdatedList { get; set; }
+        public TourRequestVM SelectedTourRequest { get; set; }
+        public ObservableCollection<TourRequestVM> TourRequests { get; set; }
+        public List<TourRequestVM> TourRequestList { get; set; }
+        public List<TourRequestVM> UpdatedList { get; set; }
         public GuideVM Guide { get; set; }
         public string SearchedLocation { get; set; }
         public string SearchedNumberOfGuests { get; set; }
@@ -41,8 +41,8 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             DataContext = this;
             Guide = new GuideVM(username);
             SetRequests();
-            RequestList = new List<RequestVM>(Requests);
-            UpdatedList= new List<RequestVM>();
+            TourRequestList = new List<TourRequestVM>(TourRequests);
+            UpdatedList= new List<TourRequestVM>();
             SetStartSearchedValues();
         }
         private void RequestStatisticsLink_Click(object sender, RoutedEventArgs e)
@@ -59,10 +59,10 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         }
         public void SetRequests()
         {
-            Requests = new ObservableCollection<RequestVM>();
-            foreach (var request in Guide.Requests)
+            TourRequests = new ObservableCollection<TourRequestVM>();
+            foreach (var request in Guide.TourRequests)
                 if (request.State == REQUESTSTATE.PENDING)
-                    Requests.Add(request);
+                    TourRequests.Add(request);
         }
         private void SetStartSearchedValues()
         {
@@ -75,15 +75,15 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         private void SetUpdatedList()
         {
             UpdatedList.Clear();
-            UpdatedList.AddRange(RequestList);
+            UpdatedList.AddRange(TourRequestList);
         }
         private void FilterByLocation()
         {
-            RequestList.Clear();
-            foreach (var request in Guide.Requests)
+            TourRequestList.Clear();
+            foreach (var tourRequest in Guide.TourRequests)
             {
-                if (request.Location.City.ToLower().Contains(SearchedLocation.ToLower()) || request.Location.Country.ToLower().Contains(SearchedLocation.ToLower()))
-                    RequestList.Add(request);
+                if (tourRequest.Location.City.ToLower().Contains(SearchedLocation.ToLower()) || tourRequest.Location.Country.ToLower().Contains(SearchedLocation.ToLower()))
+                    TourRequestList.Add(tourRequest);
             }
             UpdateRequests();
             SetUpdatedList();
@@ -93,11 +93,11 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             if (SearchedLocation.Equals(""))
                 SetUpdatedList();
 
-            RequestList.Clear();
-            foreach (var request in UpdatedList)
+            TourRequestList.Clear();
+            foreach (var tourRequest in UpdatedList)
             {
-                if (request.NumberOfGuests >= int.Parse(SearchedNumberOfGuests))
-                    RequestList.Add(request);
+                if (tourRequest.NumberOfGuests >= int.Parse(SearchedNumberOfGuests))
+                    TourRequestList.Add(tourRequest);
             }
             UpdateRequests();
             SetUpdatedList();
@@ -106,11 +106,11 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         {
             if(SearchedLocation.Equals("") && SearchedNumberOfGuests.Equals(""))
                 SetUpdatedList();
-            RequestList.Clear();
-            foreach (var request in UpdatedList)
+            TourRequestList.Clear();
+            foreach (var tourRequest in UpdatedList)
             {
-                if (request.Language.ToLower().Contains(SearchedLanguage.ToLower()))
-                    RequestList.Add(request);
+                if (tourRequest.Language.ToLower().Contains(SearchedLanguage.ToLower()))
+                    TourRequestList.Add(tourRequest);
             }
             UpdateRequests();
             SetUpdatedList();
@@ -119,11 +119,11 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         {
             if (SearchedLocation.Equals("") && SearchedNumberOfGuests.Equals("") && SearchedLanguage.Equals(""))
                 SetUpdatedList();
-            RequestList.Clear();
-            foreach (var request in UpdatedList)
+            TourRequestList.Clear();
+            foreach (var tourRequest in UpdatedList)
             {
-                if (SearchedStartDate <= DateTime.Parse(request.StartDate.ToShortDateString()))
-                    RequestList.Add(request);
+                if (SearchedStartDate <= DateTime.Parse(tourRequest.StartDate.ToShortDateString()))
+                    TourRequestList.Add(tourRequest);
             }
             UpdateRequests();
             SetUpdatedList();
@@ -133,11 +133,11 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         {
             if (SearchedLocation.Equals("") && SearchedNumberOfGuests.Equals("") && SearchedLanguage.Equals("") && SearchedStartDate.Date == DateTime.Today.Date)
                 SetUpdatedList();
-            RequestList.Clear();
-            foreach (var request in UpdatedList)
+            TourRequestList.Clear();
+            foreach (var tourRequest in UpdatedList)
             {
-                if (SearchedEndDate >= DateTime.Parse(request.EndDate.ToShortDateString()))
-                    RequestList.Add(request);
+                if (SearchedEndDate >= DateTime.Parse(tourRequest.EndDate.ToShortDateString()))
+                    TourRequestList.Add(tourRequest);
             }
             UpdateRequests();
             SetUpdatedList();
@@ -157,17 +157,17 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 FilterByEndDate();
             if (SearchedLocation.Equals("") && SearchedNumberOfGuests.Equals("") && SearchedLanguage.Equals("") && SearchedStartDate.Date == DateTime.Today.Date && SearchedEndDate.Date == DateTime.Today.Date)
             {
-                RequestList.Clear();
-                RequestList.AddRange(Guide.Requests);
+                TourRequestList.Clear();
+                TourRequestList.AddRange(Guide.TourRequests);
             }
             UpdateRequests();
         }
         private void InitializeComponents()
         {
-            Requests.Clear();
-            foreach (var req in Guide.Requests)
-                Requests.Add(req);
-            RequestList = new List<RequestVM>(Requests);
+            TourRequests.Clear();
+            foreach (var tourRequest in Guide.TourRequests)
+                TourRequests.Add(tourRequest);
+            TourRequestList = new List<TourRequestVM>(TourRequests);
         }
         public void HideRequestsContent()
         {
@@ -177,18 +177,18 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         private void Accept_Click(object sender, RoutedEventArgs e)
         {
             HideRequestsContent();
-            AcceptedRequestUserControl acceptedRequestUserControl = new AcceptedRequestUserControl(Guide, SelectedRequest);
+            AcceptedRequestUserControl acceptedRequestUserControl = new AcceptedRequestUserControl(Guide, SelectedTourRequest);
             ContentArea.Content = acceptedRequestUserControl;
-            if (acceptedRequestUserControl.Request.State == REQUESTSTATE.ACCEPTED)
-                RequestList.Remove(SelectedRequest);
+            if (acceptedRequestUserControl.TourRequest.State == REQUESTSTATE.ACCEPTED)
+                TourRequestList.Remove(SelectedTourRequest);
             UpdateRequests();
         }
         private void UpdateRequests()
         {
-            Requests.Clear();
-            foreach (var request in RequestList)
+            TourRequests.Clear();
+            foreach (var tourRequest in TourRequestList)
             {
-                Requests.Add(request);
+                TourRequests.Add(tourRequest);
             }
         }
         public void Update() { }

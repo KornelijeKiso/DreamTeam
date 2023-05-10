@@ -24,7 +24,7 @@ namespace ProjectTourism.WPF.ViewModel
             _guest2 = guest2;
             Tickets = new ObservableCollection<TicketVM>(_guest2.Tickets.Select(r => new TicketVM(r)).ToList());
             Vouchers = new ObservableCollection<VoucherVM>(_guest2.Vouchers.Select(r => new VoucherVM(r)).ToList());
-            TourRequests = new ObservableCollection<RequestVM>(_guest2.TourRequests.Select(r => new RequestVM(r)).ToList());
+            TourRequests = new ObservableCollection<TourRequestVM>(_guest2.TourRequests.Select(r => new TourRequestVM(r)).ToList());
             Tours = new ObservableCollection<TourVM>();
         }
 
@@ -33,7 +33,7 @@ namespace ProjectTourism.WPF.ViewModel
             Synchronize(username);
             Tickets = new ObservableCollection<TicketVM>(_guest2.Tickets.Select(r => new TicketVM(r)).ToList());
             Vouchers = new ObservableCollection<VoucherVM>(_guest2.Vouchers.Select(r => new VoucherVM(r)).ToList());
-            TourRequests = new ObservableCollection<RequestVM>(_guest2.TourRequests.Select(r => new RequestVM(r)).ToList());
+            TourRequests = new ObservableCollection<TourRequestVM>(_guest2.TourRequests.Select(r => new TourRequestVM(r)).ToList());
         }
         public void Synchronize(string username)
         {
@@ -119,10 +119,10 @@ namespace ProjectTourism.WPF.ViewModel
 
         private void SynchronizeTourRequestsList(Guest2 _guest2)
         {
-            RequestService requestService = new RequestService();
+            TourRequestService requestService = new TourRequestService();
             LocationService locationService = new LocationService();
 
-            _guest2.TourRequests = new List<Request>();
+            _guest2.TourRequests = new List<TourRequest>();
             foreach (var request in requestService.GetAll())
             {
                 request.Location = locationService.GetOne(request.LocationId);
@@ -169,12 +169,12 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
-        public void CreateTourRequest(RequestVM tourRequest)
+        public void CreateTourRequest(TourRequestVM tourRequest)
         {
-            RequestService requestService = new RequestService();
+            TourRequestService requestService = new TourRequestService();
             LocationService locationService = new LocationService();
             tourRequest.LocationId = locationService.AddAndReturnId(tourRequest.Location.GetLocation());
-            requestService.Add(tourRequest.GetRequest());
+            requestService.Add(tourRequest.GetTourRequest());
             TourRequests.Add(tourRequest);
         }
 
@@ -278,7 +278,7 @@ namespace ProjectTourism.WPF.ViewModel
 
         public ObservableCollection<TicketVM> Tickets { get; set; }
         public ObservableCollection<VoucherVM> Vouchers { get; set; }
-        public ObservableCollection<RequestVM> TourRequests { get; set; }
+        public ObservableCollection<TourRequestVM> TourRequests { get; set; }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

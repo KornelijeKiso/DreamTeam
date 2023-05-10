@@ -16,9 +16,9 @@
         <view:G2Vouchers />
     </DataTemplate>
 
-    <!--<DataTemplate DataType="{x:Type vm:ProfileVM}">
-        <view:Profile />
-    </DataTemplate>-->
+    <DataTemplate DataType="{x:Type vm:ProfileVM}">
+        <view:G2Profile />
+    </DataTemplate>
     
     <DataTemplate DataType="{x:Type vm:TourRequestsVM}">
         <view:G2TourRequest />

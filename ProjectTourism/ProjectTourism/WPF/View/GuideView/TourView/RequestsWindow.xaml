@@ -8,8 +8,8 @@
     <Grid>
         <Label x:Name="RequestsLabel" Content="Requests" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         <DataGrid FontSize="12" Name="DataGridRow" RowHeight="100" CanUserAddRows="False" HorizontalAlignment="Left" Height="451" VerticalAlignment="Top" Width="827"
-            SelectedItem="{Binding SelectedRequest, UpdateSourceTrigger=PropertyChanged}" 
-            ItemsSource="{Binding Requests, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="100,150,0,0">
+            SelectedItem="{Binding SelectedTourRequest, UpdateSourceTrigger=PropertyChanged}" 
+            ItemsSource="{Binding TourRequests, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="100,150,0,0">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
             </DataGrid.Resources>

@@ -40,7 +40,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         private void Home(object obj) => CurrentView = new HomeVM();
         private void Tickets(object obj) => CurrentView = new TicketsVM();
         private void Vouchers(object obj) => CurrentView = new VouchersVM();
-        //private void Profile(object obj) => CurrentView = new ProfileVM();
+        private void Profile(object obj) => CurrentView = new ProfileVM();
         private void TourRequests(object obj) => CurrentView = new TourRequestsVM();
         //private void ComplexTour(object obj) => CurrentView = ComplexTourVM();
         public NavigationVM()
@@ -50,7 +50,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             HomeCommand = new RelayCommand(Home);
             TicketsCommand = new RelayCommand(Tickets);
             VouchersCommand = new RelayCommand(Vouchers);
-            //ProfileCommand = new RelayCommand(Profile);
+            ProfileCommand = new RelayCommand(Profile);
             TourRequestsCommand = new RelayCommand(TourRequests);
             //ComplexToursCommand = new RelayCommand(ComplexTour);
 

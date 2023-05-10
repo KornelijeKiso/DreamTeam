@@ -27,11 +27,13 @@
         <Setter Property="Margin"
                 Value="20 20 20 20" />
         <Setter Property="RowHeight"
-                Value="120" />
+                Value="150" />
         <Setter Property="ColumnWidth"
                 Value="*" />
+        <!--<Setter Property="Background"
+                Value="#272B2F" />-->      <!--"#339AF0" color of icons-->
         <Setter Property="Background"
-                Value="#272B2F" />      <!--"#339AF0" color of icons-->
+                Value="LightBlue" />
         <Setter Property="BorderThickness"
                 Value="3" />
         <Setter Property="BorderBrush"

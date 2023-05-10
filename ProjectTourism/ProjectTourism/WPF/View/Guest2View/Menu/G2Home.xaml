@@ -16,9 +16,9 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="320"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="70"/>
+            <RowDefinition Height="350"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0"  >
@@ -34,6 +34,7 @@
                 <RowDefinition Height="30"/>
             </Grid.RowDefinitions>
 
+            
             <Label x:Name="LabelLocation" Content="Location" 
                    HorizontalAlignment="Left"
                    VerticalAlignment="Center" 
@@ -92,7 +93,7 @@
             
             <!-- SEARCH BUTTON -->
             <Button x:Name="Search" Style="{StaticResource Search}"
-                    Grid.Row="0" Grid.RowSpan="2" Grid.Column="4" 
+                    Grid.Row="0" Grid.RowSpan="2" Grid.Column="4"
                     Command="{Binding SearchCommand}"
                     >
                 <!--click DODAJ -->
@@ -100,24 +101,19 @@
         </Grid>
 
         <Grid Grid.Row="1" >
-            
+
             <DataGrid x:Name="DataGridTours"  Style="{StaticResource DataGrid_Style}" 
-                    ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" 
-                      Grid.Row="2" Grid.ColumnSpan="5"
-                     >
+                      ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" 
+                      Grid.Row="2"
+                      Margin="20 20 30 10"      >
                 <DataGrid.Resources>
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
                    Color="#339AF0"/>
                 </DataGrid.Resources>
-                <!--<DataGrid.CellStyle>
-                    <Style TargetType="DataGridCell">
-                        <Setter Property="BorderThickness" Value="0"/>
-                    </Style>
-                </DataGrid.CellStyle>-->
+                
                 <DataGrid.Columns>
-
-                    <DataGridTemplateColumn Width="120" >
+                    <DataGridTemplateColumn Width="150" >
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Image Stretch="Fill" 
@@ -125,29 +121,113 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
+
                     <DataGridTemplateColumn Width="*">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Vertical" >
-                                    <Label Content="{Binding Path=Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
-                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                        <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
-                                        <Label Content="{Binding Path=Location.Country}" Margin="0,0,0,-7"></Label>
-                                        <Label Content="," Margin="0,0,0,-7"></Label>
-                                        <Label Content="{Binding Path=Location.City}" Margin="0,0,0,-7"></Label>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                        <Label Content="Language :" Margin="0,0,-7,-7" ></Label>
-                                        <Label Content="{Binding Path=Language}" Margin="0,0,0,-7"></Label>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                        <Label Content="Duration :" Margin="0,0,-7,-7" ></Label>
-                                        <Label Content="{Binding Path=Duration}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                        <Label Content="Max number of guests :" Margin="0,0,-7,-7" ></Label>
-                                        <Label Content="{Binding Path=MaxNumberOfGuests}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
-                                    </StackPanel>
+                                    <Label FontFamily="/Fonts/#Rubik" FontSize="16" FontWeight="SemiBold" Height="auto"
+                                           VerticalAlignment="Center" HorizontalAlignment="Left">
+                                        <Label.Content>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0} ">
+                                                        <Binding Path="Name"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Label.Content>
+                                    </Label>
+                                    <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                           VerticalAlignment="Center" HorizontalAlignment="Left">
+                                        <Label.Content>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}Location : {0}, {1}">
+                                                        <Binding Path="Location.Country"/>
+                                                        <Binding Path="Location.City"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Label.Content>
+                                    </Label>
+                                    <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                           VerticalAlignment="Center" HorizontalAlignment="Left">
+                                        <Label.Content>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}Language : {0}">
+                                                        <Binding Path="Language"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Label.Content>
+                                    </Label>
+                                    <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                           VerticalAlignment="Center" HorizontalAlignment="Left">
+                                        <Label.Content>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}Duration : {0}">
+                                                        <Binding Path="Duration"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Label.Content>
+                                    </Label>
+                                    <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                           VerticalAlignment="Center" HorizontalAlignment="Left">
+                                        <Label.Content>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}Max number of guests : {0}">
+                                                        <Binding Path="MaxNumberOfGuests"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Label.Content>
+                                    </Label>
+
+                                    <!-- TO DO -> DISPLAY ALL DATA, ADD BUTTON FOR EXPANDING -->
+                                    <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                           VerticalAlignment="Center" HorizontalAlignment="Left">
+                                        <Label.Content>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}Guide : {0} {1}">
+                                                        <Binding Path="Guide.FirstName"/>
+                                                        <Binding Path="Guide.LastName"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Label.Content>
+                                    </Label>
+                                    <!-- TO DO -> DISPLAY ALL DATES -->
+                                    <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                           VerticalAlignment="Center" HorizontalAlignment="Left">
+                                        <Label.Content>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}Dates : {0}">
+                                                        <Binding Path="TourAppointments[0].TourDateTime"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Label.Content>
+                                    </Label>
+                                    <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="auto"
+                                           VerticalAlignment="Center" HorizontalAlignment="Left">
+                                        <Label.Content>
+                                            <TextBlock TextWrapping="Wrap">
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}Description : {0} ">
+                                                        <Binding Path="Description"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Label.Content>
+                                    </Label>
+                                    
                                 </StackPanel>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
@@ -159,9 +239,8 @@
 
         <Grid Grid.Row="2" >
             <!-- BUY TICKET   -->
-
             <Button x:Name="BuyTicket" Style="{StaticResource BuyTickets_button}"
-                    Margin="0 0 20 40" 
+                    Margin="0 0 30 40" 
                     Command="{Binding BuyTicketCommand}">
             </Button>
         </Grid>
