@@ -49,7 +49,7 @@
                         </DataGrid.CellStyle>-->
                         <DataGrid.Columns>
 
-                            <DataGridTemplateColumn Width="120" >
+                            <DataGridTemplateColumn Width="150" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Image Stretch="Fill" 
@@ -57,29 +57,71 @@
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Width="350">
+                            <DataGridTemplateColumn Width="300">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical" >
-                                            <Label Content="{Binding Path=Ticket.TourAppointment.Tour.Name}" FontWeight="SemiBold" Margin="0,-3,0,-7" ></Label>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                                <Label Content="Location :" Margin="0,0,-7,-7" ></Label>
-                                                <Label Content="{Binding Path=Ticket.TourAppointment.Tour.Location.Country}" Margin="0,0,0,-7"></Label>
-                                                <Label Content="," Margin="0,0,0,-7"></Label>
-                                                <Label Content="{Binding Path=Ticket.TourAppointment.Tour.Location.City}" Margin="0,0,0,-7"></Label>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                                <Label Content="Language :" Margin="0,0,-7,-7" ></Label>
-                                                <Label Content="{Binding Path=Ticket.TourAppointment.Tour.Language}" Margin="0,0,0,-7"></Label>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                                <Label Content="Duration :" Margin="0,0,-7,-7" ></Label>
-                                                <Label Content="{Binding Path=Ticket.TourAppointment.Tour.Duration}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                                <Label Content="Max number of guests :" Margin="0,0,-7,-7" ></Label>
-                                                <Label Content="{Binding Path=Ticket.TourAppointment.Tour.MaxNumberOfGuests}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
-                                            </StackPanel>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="16" FontWeight="SemiBold" Height="auto"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}{0} ">
+                                                                <Binding Path="Ticket.TourAppointment.Tour.Name"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Location : {0}, {1}">
+                                                                <Binding Path="Ticket.TourAppointment.Tour.Location.Country"/>
+                                                                <Binding Path="Ticket.TourAppointment.Tour.Location.City"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Language : {0}">
+                                                                <Binding Path="Ticket.TourAppointment.Tour.Language"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Duration : {0}">
+                                                                <Binding Path="Ticket.TourAppointment.Tour.Duration"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Max number of guests : {0}">
+                                                                <Binding Path="Ticket.TourAppointment.Tour.MaxNumberOfGuests"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -140,7 +182,7 @@
                             </Style>
                         </DataGrid.CellStyle>-->
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Width="120" >
+                            <DataGridTemplateColumn Width="150" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Image Stretch="Fill" Source="/WPF/View/Guest2View/Menu/img_voucher2.png"/>
@@ -151,18 +193,42 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical" >
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                                <Label Content="Date of winning :" Margin="0,0,-7,-7" ></Label>
-                                                <Label Content="{Binding Path=ValidFrom}" Margin="0,0,0,-7"></Label>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                                <Label Content="Valid until :" Margin="0,0,-7,-7" ></Label>
-                                                <Label Content="{Binding Path=ValidDue}" Margin="0,0,0,-7"></Label>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                                <Label Content="Reason for the reward :" Margin="0,0,-7,-7" ></Label>
-                                                <Label Content="{Binding Path=Description}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
-                                            </StackPanel>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Date of winning : {0}">
+                                                                <Binding Path="ValidFrom"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Valid until : {0}">
+                                                                <Binding Path="ValidDue"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Reason for the reward : {0}">
+                                                                <Binding Path="Description"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -188,7 +254,7 @@
                             </Style>
                         </DataGrid.CellStyle>-->
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Width="120" >
+                            <DataGridTemplateColumn Width="150" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Image Stretch="Fill" Source="/WPF/View/Guest2View/Menu/img_voucher3.png"/>
@@ -199,18 +265,42 @@
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical" >
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                                <Label Content="Date of winning :" Margin="0,0,-7,-7" ></Label>
-                                                <Label Content="{Binding Path=ValidFrom}" Margin="0,0,0,-7"></Label>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                                <Label Content="Valid until :" Margin="0,0,-7,-7" ></Label>
-                                                <Label Content="{Binding Path=ValidDue}" Margin="0,0,0,-7"></Label>
-                                            </StackPanel>
-                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                                <Label Content="Reason for the reward :" Margin="0,0,-7,-7" ></Label>
-                                                <Label Content="{Binding Path=Description}" FontWeight="Bold" Margin="0,-0.8,0,0"></Label>
-                                            </StackPanel>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Date of winning : {0}">
+                                                                <Binding Path="ValidFrom"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Valid until : {0}">
+                                                                <Binding Path="ValidDue"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Reason for the reward : {0}">
+                                                                <Binding Path="Description"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
