@@ -42,11 +42,6 @@
                                              Color="#339AF0"/>
                         </DataGrid.Resources>
 
-                        <!--<DataGrid.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="BorderThickness" Value="0"/>
-                            </Style>
-                        </DataGrid.CellStyle>-->
                         <DataGrid.Columns>
 
                             <DataGridTemplateColumn Width="150" >
@@ -176,11 +171,6 @@
                                              Color="#339AF0"/>
                         </DataGrid.Resources>
 
-                        <!--<DataGrid.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="BorderThickness" Value="0"/>
-                            </Style>
-                        </DataGrid.CellStyle>-->
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Width="150" >
                                 <DataGridTemplateColumn.CellTemplate>
@@ -248,11 +238,6 @@
                                              Color="#339AF0"/>
                         </DataGrid.Resources>
 
-                        <!--<DataGrid.CellStyle>
-                            <Style TargetType="DataGridCell">
-                                <Setter Property="BorderThickness" Value="0"/>
-                            </Style>
-                        </DataGrid.CellStyle>-->
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Width="150" >
                                 <DataGridTemplateColumn.CellTemplate>

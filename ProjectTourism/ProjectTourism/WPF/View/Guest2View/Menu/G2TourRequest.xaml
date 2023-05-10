@@ -126,7 +126,7 @@
                             </DataGridTemplateColumn>
 
                             <DataGridTemplateColumn Header="Number of&#x0d; Guests"
-                                                    Width="100">
+                                                    Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label FontFamily="/Fonts/#Rubik" FontSize="14"
@@ -233,7 +233,7 @@
                             </DataGridTemplateColumn>
 
                             <DataGridTemplateColumn Header="Number of&#x0d; Guests"
-                                                    Width="100">
+                                                    Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label FontFamily="/Fonts/#Rubik" FontSize="14"
@@ -340,7 +340,7 @@
                             </DataGridTemplateColumn>
 
                             <DataGridTemplateColumn Header="Number of&#x0d; Guests"
-                                                    Width="100">
+                                                    Width="*">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Label FontFamily="/Fonts/#Rubik" FontSize="14"
