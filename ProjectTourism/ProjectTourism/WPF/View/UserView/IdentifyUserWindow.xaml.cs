@@ -28,7 +28,6 @@ namespace ProjectTourism.View.UserView
     public partial class IdentifyUserWindow : Window
     {
         public UserVM UserVM { get; set; }
-        public CurrentUserVM CurrentUserVM { get; set; }
         public IdentifyUserWindow()
         {
             InitializeComponent();
