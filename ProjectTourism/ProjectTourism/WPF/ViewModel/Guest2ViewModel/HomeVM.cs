@@ -13,8 +13,6 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
     public class HomeVM : ViewModelBase
     {
-        public CurrentUserService CurrentUserService { get; set; }
-        public UserVM CurrentUser { get; set; }
         public Guest2VM Guest2 { get; set; }
         public TourService TourService { get; set; }
         public TourVM? SelectedTour { get; set; }
@@ -23,10 +21,11 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public string searchLanguage { get; set; }
         public string searchDuration { get; set; }
         public string searchMaxNumberOfGuests { get; set; }
-
-        public HomeVM()
+        
+        public HomeVM() { }
+        public HomeVM(Guest2VM guest2)
         {
-            SetGuest2();
+            Guest2 = guest2;
 
             TourService = new TourService();
             Tours = Guest2.Tours;
@@ -36,13 +35,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             searchDuration = "";
             searchMaxNumberOfGuests = "";
         }
-        public void SetGuest2()
-        {
-            CurrentUserService = new CurrentUserService();
-            CurrentUser = new UserVM(CurrentUserService.GetUser());
-            Guest2 = new Guest2VM(CurrentUser.Username);
-        }
-
+        
         public void UpdateToursList(List<TourVM> tours)
         {
             Tours.Clear();

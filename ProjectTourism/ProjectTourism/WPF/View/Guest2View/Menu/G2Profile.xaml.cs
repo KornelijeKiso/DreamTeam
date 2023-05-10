@@ -23,6 +23,7 @@ namespace ProjectTourism.WPF.View.Guest2View.Menu
         public G2Profile()
         {
             InitializeComponent();
+            //DataContext = ProfileVM(guest2);
         }
     }
 }

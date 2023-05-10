@@ -10,9 +10,9 @@
         d:DesignWidth="700"
         Style="{StaticResource Page_Style}"     >
     
-    <UserControl.DataContext>
+    <!--<UserControl.DataContext>
         <vm:HomeVM />
-    </UserControl.DataContext>
+    </UserControl.DataContext>-->
     
     <Grid>
         <Grid.RowDefinitions>

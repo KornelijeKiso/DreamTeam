@@ -17,8 +17,6 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
     public class TicketsVM : ViewModelBase
     {
-        public CurrentUserService CurrentUserService { get; set; }
-        public UserVM CurrentUser { get; set; }
         public Guest2VM Guest2 { get; set; }
         public TicketVM SelectedTicket { get; set; }
         public ObservableCollection<TicketVM> UpcomingTickets { get; set; }
@@ -27,21 +25,16 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public ObservableCollection<TicketVM> CanceledTickets { get; set; }
         public TicketGradeVM TicketGradeVM { get; set; }
 
-        public TicketsVM()
+        public TicketsVM() { }
+        public TicketsVM(Guest2VM guest2)
         {
-            SetGuest2();
+            Guest2 = guest2;
             UpcomingTickets = SetUpcomingTickets();
             AttendedTickets = SetAttendedTickets();
             SkippedTickets = SetSkippedTickets();
             CanceledTickets = SetCancecledByGuideTickets();
         }
-        private void SetGuest2()
-        {
-            CurrentUserService = new CurrentUserService();
-            CurrentUser = new UserVM(CurrentUserService.GetUser());
-            Guest2 = new Guest2VM(CurrentUser.Username);
-        }
-
+        
         private ObservableCollection<TicketVM> SetUpcomingTickets()
         {
             ObservableCollection<TicketVM> upcoming = new ObservableCollection<TicketVM>();

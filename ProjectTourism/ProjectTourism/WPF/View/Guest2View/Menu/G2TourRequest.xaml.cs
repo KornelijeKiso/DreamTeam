@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ProjectTourism.WPF.ViewModel.Guest2ViewModel;
+using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.Guest2View.Menu
 {
@@ -20,9 +22,10 @@ namespace ProjectTourism.WPF.View.Guest2View.Menu
     /// </summary>
     public partial class G2TourRequest : UserControl
     {
-        public G2TourRequest()
+        public G2TourRequest(Guest2VM guest2)
         {
             InitializeComponent();
+            DataContext = new TourRequestsVM(guest2);
         }
     }
 }

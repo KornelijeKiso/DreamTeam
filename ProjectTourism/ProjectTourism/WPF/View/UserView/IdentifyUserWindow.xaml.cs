@@ -73,10 +73,8 @@ namespace ProjectTourism.View.UserView
                                 }
                             case USERTYPE.GUEST2:
                                 {
-                                    CurrentUserVM = new CurrentUserVM(UserVM);
-                                    Guest2MainWindow mainGuest2Window = new Guest2MainWindow();
+                                    Guest2MainWindow mainGuest2Window = new Guest2MainWindow(UserVM.Username);
                                     mainGuest2Window.ShowDialog();
-                                    CurrentUserVM.LogoutCurrentUser();
                                     Clear();
                                     break;
                                 }

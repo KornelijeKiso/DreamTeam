@@ -13,25 +13,17 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
     public class VouchersVM : ViewModelBase
     {
         public Guest2VM Guest2 { get; set; }
-        public CurrentUserService CurrentUserService { get; set; }
-        public UserVM CurrentUser { get; set; }
         public ObservableCollection<VoucherVM> UsedVouchers { get; set; }
         public ObservableCollection<VoucherVM> UnusedVouchers { get; set; }
         public ObservableCollection<VoucherVM> ExpiredVouchers { get; set; }
 
-        public VouchersVM()
+        public VouchersVM() { }
+        public VouchersVM(Guest2VM guest2)
         {
-            SetGuest2();
+            Guest2 = guest2;
             UsedVouchers = SetUsedVouchers();
             UnusedVouchers = SetUnusedVouchers();
             ExpiredVouchers = SetExpiredVouchers();
-        }
-
-        private void SetGuest2()
-        {
-            CurrentUserService = new CurrentUserService();
-            CurrentUser = new UserVM(CurrentUserService.GetUser());
-            Guest2 = new Guest2VM(CurrentUser.Username);
         }
 
         private ObservableCollection<VoucherVM> SetUsedVouchers()

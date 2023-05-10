@@ -10,12 +10,10 @@
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         Title="Guest2 Main Window" Height="550" Width="850">
-    
-   
-    <Window.DataContext>
+       
+    <!--<Window.DataContext>
         <vm:NavigationVM />
-    </Window.DataContext>
-   
+    </Window.DataContext>-->
 
     <Grid>
         <Grid>
@@ -118,10 +116,8 @@
                                        Style="{StaticResource Text_Style}"  />
                         </Grid>
                     </Menu:Btn>
-
                 </StackPanel>
-
-
+                
             </Grid>
             
             <Grid Grid.Column="1" Grid.Row="1" >

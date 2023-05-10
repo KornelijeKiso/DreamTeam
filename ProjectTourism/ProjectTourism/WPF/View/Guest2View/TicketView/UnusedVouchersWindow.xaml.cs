@@ -28,11 +28,11 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
         public TicketVM TicketVM { get; set; }
         public bool IsUsed { get; set; }
 
-        public UnusedVouchersWindow(TicketVM ticketVM)
+        public UnusedVouchersWindow(Guest2VM guest2, TicketVM ticketVM)
         {
             InitializeComponent();
             DataContext = this;
-            VouchersVM = new VouchersVM();
+            VouchersVM = new VouchersVM(guest2);
             TicketVM = ticketVM;
             IsUsed = false;
         }

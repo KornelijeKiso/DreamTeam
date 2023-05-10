@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProjectTourism.WPF.ViewModel.Guest2ViewModel;
+using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.Guest2View.Menu
 {
@@ -19,9 +21,10 @@ namespace ProjectTourism.WPF.View.Guest2View.Menu
     /// </summary>
     public partial class G2Home : UserControl
     {
-        public G2Home()
+        public G2Home(Guest2VM guest2)
         {
             InitializeComponent();
+            DataContext = new HomeVM(guest2);
         }
     }
 }
