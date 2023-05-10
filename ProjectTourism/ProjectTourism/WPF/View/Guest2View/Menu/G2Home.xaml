@@ -106,7 +106,7 @@
                       ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" 
                       Grid.Row="2"
-                      RowHeight="150" Margin="20 20 30 10"      >
+                      Margin="20 20 30 10"      >
                 <DataGrid.Resources>
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
                    Color="#339AF0"/>

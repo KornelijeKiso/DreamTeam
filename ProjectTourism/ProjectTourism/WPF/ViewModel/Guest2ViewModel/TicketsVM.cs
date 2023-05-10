@@ -24,7 +24,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public ObservableCollection<TicketVM> UpcomingTickets { get; set; }
         public ObservableCollection<TicketVM> AttendedTickets { get; set; }
         public ObservableCollection<TicketVM> SkippedTickets { get; set; }
-        //public ObservableCollection<TicketVM> CancecledByGuideTickets { get; set; }
+        public ObservableCollection<TicketVM> CanceledTickets { get; set; }
         public TicketGradeVM TicketGradeVM { get; set; }
 
         public TicketsVM()
@@ -33,7 +33,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             UpcomingTickets = SetUpcomingTickets();
             AttendedTickets = SetAttendedTickets();
             SkippedTickets = SetSkippedTickets();
-            //CancecledByGuideTickets = SetCancecledByGuideTickets();
+            CanceledTickets = SetCancecledByGuideTickets();
         }
         private void SetGuest2()
         {
@@ -98,6 +98,23 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                 && !ticketVM.HasGuestConfirmed
                 && (ticketVM.TourAppointment.State == TOURSTATE.FINISHED
                 || ticketVM.TourAppointment.State == TOURSTATE.STOPPED);
+        }
+
+        private ObservableCollection<TicketVM> SetCancecledByGuideTickets()
+        {
+            ObservableCollection<TicketVM> canceled = new ObservableCollection<TicketVM>();
+            foreach (var ticket in Guest2.Tickets)
+            {
+                if (IsCanceled(ticket))
+                {
+                    canceled.Add(ticket);
+                }
+            }
+            return canceled;
+        }
+        private bool IsCanceled(TicketVM ticketVM)
+        {
+            return ticketVM.TourAppointment.State == TOURSTATE.CANCELED;
         }
 
         private ICommand _GradeTicketCommand;
