@@ -21,8 +21,25 @@ namespace ProjectTourism.WPF.ViewModel
             _owner = owner;
             Accommodations = new ObservableCollection<AccommodationVM>(_owner.Accommodations.Select(r => new AccommodationVM(r)).ToList());
             Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).Reverse().ToList());
+            SetDestinations();
         }
-
+        public void SetDestinations()
+        {
+            Dictionary<int, DestinationVM> locations = new Dictionary<int, DestinationVM>();
+            foreach(var accommodation in Accommodations)
+            {
+                if (!locations.ContainsKey(accommodation.LocationId))
+                {
+                    locations.Add(accommodation.LocationId, new DestinationVM(accommodation.Location));
+                }
+                locations[accommodation.LocationId].Accommodations.Add(accommodation);
+                locations[accommodation.LocationId].Reservations.AddRange(accommodation.Reservations);
+            }
+            PopularDestination = locations.Values.ToList().OrderByDescending(a => a.Occupancy).FirstOrDefault();
+            UnpopularDestination = locations.Values.ToList().OrderByDescending(a => a.Occupancy).LastOrDefault();
+        }
+        public DestinationVM PopularDestination { get; set; }
+        public DestinationVM UnpopularDestination { get; set; }
         public OwnerVM(string username)
         {
             Synchronize(username);
@@ -47,6 +64,7 @@ namespace ProjectTourism.WPF.ViewModel
             }
             Accommodations = new ObservableCollection<AccommodationVM>(_owner.Accommodations.Select(r => new AccommodationVM(r)).ToList());
             Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).Reverse().ToList());
+            SetDestinations();
         }
         private List<Reservation> SynchronizeReservations(Accommodation accommodation)
         {

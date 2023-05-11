@@ -12,8 +12,8 @@
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <TextBlock Margin="860 80 0 0" FontSize="19">
+    <Grid Margin="60 20 0 0">
+        <TextBlock Margin="820 40 0 0" FontSize="19">
             <Hyperlink Click="LogOutClick">Log out</Hyperlink>
         </TextBlock>
         <Image VerticalAlignment="Top" HorizontalAlignment="Left" Source="https://img.icons8.com/cotton/2x/user-male-circle.png" Width="128" Height="128" Margin="51 103 0 0"></Image>
@@ -30,24 +30,19 @@
                 </TextBlock>
             </Label.Content>
         </Label>
-        <!--<Button VerticalAlignment="Top" HorizontalAlignment="Left" Margin="350 123 0 0" Height="30" Width="30">
-            <Button.Content>
-                <Image Source="https://img.icons8.com/ios-glyphs/512/pencil.png"></Image>
-            </Button.Content>
-        </Button>-->
         <Label VerticalAlignment="Top" HorizontalAlignment="Left" Margin="190 163 0 0" ContentStringFormat="Tel-number : {0}" FontSize="14" Content="{Binding Owner.PhoneNumber}"></Label>
         <Label VerticalAlignment="Top" HorizontalAlignment="Left" Margin="190 183 0 0" ContentStringFormat="E-mail : {0}" FontSize="14" Content="{Binding Owner.Email}"></Label>
         <Label VerticalAlignment="Top" HorizontalAlignment="Left" Margin="190 203 0 0" FontSize="14" Content="Status : Owner"></Label>
-        <Line X1="50" Y1="270" X2="410" Y2="270" Stroke="DarkBlue" StrokeThickness="2"/>
+        <Line X1="50" Y1="270" X2="400" Y2="270" Stroke="DodgerBlue" StrokeThickness="2"/>
 
-        <GroupBox Header="Profile lifetime stats" Margin="50 300 0 0" Height="300" Width="350" BorderBrush="DarkBlue" FontSize="15" Foreground="DarkSlateGray" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left"></GroupBox>
+        <GroupBox Header="Profile lifetime stats" Margin="50 300 0 0" Height="300" Width="350" BorderBrush="DodgerBlue" FontSize="15" Foreground="DarkSlateGray" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left"></GroupBox>
         <Label ContentStringFormat="{}{0} Accommodations" Content="{Binding Owner.NumberOfAccommodations}" VerticalAlignment="Top"
                HorizontalAlignment="Left" Margin="70 340 0 0" FontSize="16" FontWeight="Bold" Foreground="DarkGoldenrod"></Label>
         <Label ContentStringFormat="{}{0} Reservations" Content="{Binding Owner.NumberOfReservations}" VerticalAlignment="Top"
                HorizontalAlignment="Left" Margin="70 365 0 0" FontSize="16" FontWeight="Bold" Foreground="DarkGoldenrod"></Label>
         <Label ContentStringFormat="{}{0} Renovations" Content="{Binding Owner.NumberOfRenovations}" VerticalAlignment="Top"
                HorizontalAlignment="Left" Margin="70 390 0 0" FontSize="16" FontWeight="Bold" Foreground="DarkGoldenrod"></Label>
-        <GroupBox Header="Last year" Margin="75 430 0 0" Height="150" Width="300" BorderBrush="DarkBlue" FontSize="15"
+        <GroupBox Header="Last year" Margin="75 430 0 0" Height="150" Width="300" BorderBrush="DodgerBlue" FontSize="15"
                   Foreground="DarkSlateGray" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left"></GroupBox>
         <Rectangle VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" Height="80" Margin="110 470 0 0" Stroke="DarkGoldenrod" StrokeThickness="2"></Rectangle>
         <Rectangle VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" Height="80" Margin="240 470 0 0" Stroke="DarkGoldenrod" StrokeThickness="2"></Rectangle>
@@ -57,5 +52,61 @@
         <Label Content="{Binding Owner.NumberOfReviews}" VerticalAlignment="Top" FontSize="30" HorizontalAlignment="Left" Margin="275 490 0 0" FontWeight="Bold" Foreground="DarkRed"></Label>
         <Image HorizontalAlignment="Left" Name="SuperHostIcon" Stretch="Fill" Margin="310, 330, 0, 0" VerticalAlignment="Top" Width="70" Height="70" Source="https://img.icons8.com/external-vectorslab-flat-vectorslab/2x/external-trophy-project-management-and-web-marketing-vectorslab-flat-vectorslab.png" Visibility="{Binding Path=Owner.IsSuperHost, Converter={conv:BoolToVisibilityConverter}}"></Image>
         <Label Name="SuperHostLabel" VerticalAlignment="Top" Margin="307,395,0,0" FontWeight="SemiBold" Foreground="DarkRed" HorizontalAlignment="Left" Width="90" FontSize="14" Height="30" Content="Super host" Visibility="{Binding Path=Owner.IsSuperHost, Converter={conv:BoolToVisibilityConverter}}"></Label>
+        <GroupBox FontSize="15" Foreground="DarkSlateGray" Header="Our recommendations" BorderBrush="DodgerBlue" BorderThickness="2" Width="300" Height="520" Margin="300 20 0 0">
+            <StackPanel>
+                <GroupBox Margin="20" Height="210" BorderBrush="ForestGreen" BorderThickness="3" FontSize="15" Header="Popular destination"  Foreground="DarkSlateGray" Background="White">
+                    <StackPanel>
+                        <Label Margin="-4,10,0,-7" FontSize="17" FontWeight="SemiBold" HorizontalAlignment="Center">
+                            <Label.Content>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0}, {1}">
+                                            <Binding Path="Owner.PopularDestination.Location.City"/>
+                                            <Binding Path="Owner.PopularDestination.Location.Country"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Label.Content>
+                        </Label>
+                        <StackPanel Orientation="Horizontal" Margin="15 9 0 0">
+                            <Image Source="https://pics.freeicons.io/uploads/icons/png/7345176951582534622-64.png" Width="20"></Image>
+                            <Label ContentStringFormat="{}{0} reservations" Content="{Binding Path=Owner.PopularDestination.NumberOfReservations}" FontSize="16" HorizontalAlignment="Center" ></Label>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="15 0 0 0">
+                            <Image Source="https://pics.freeicons.io/uploads/icons/png/10900188291655473166-64.png" Width="20"></Image>
+                            <Label ContentStringFormat="{}{0}% occupancy" Content="{Binding Path=Owner.PopularDestination.Occupancy}" FontSize="16" HorizontalAlignment="Center" ></Label>
+                        </StackPanel>
+                        <TextBlock TextWrapping="Wrap" HorizontalAlignment="Left" TextAlignment="Left" FontSize="13" Margin="10 5 10 0" Text="There is a great opportunity to register a few more accommodations on this popular destination"></TextBlock>
+                    </StackPanel>
+                </GroupBox>
+                <GroupBox Margin="20 0 20 20" Height="210" BorderBrush="DarkRed" BorderThickness="3" FontSize="15" Header="Unpopular destination" Background="White"  Foreground="DarkSlateGray">
+                    <StackPanel>
+                        <Label Margin="-4,10,0,-7" FontSize="17" FontWeight="SemiBold" HorizontalAlignment="Center">
+                            <Label.Content>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0}, {1}">
+                                            <Binding Path="Owner.UnpopularDestination.Location.City"/>
+                                            <Binding Path="Owner.UnpopularDestination.Location.Country"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Label.Content>
+                        </Label>
+                        <StackPanel Orientation="Horizontal" Margin="15 9 0 0">
+                            <Image Source="https://pics.freeicons.io/uploads/icons/png/7345176951582534622-64.png" Width="20"></Image>
+                            <Label ContentStringFormat="{}{0} reservations" Content="{Binding Path=Owner.UnpopularDestination.NumberOfReservations}" FontSize="16" HorizontalAlignment="Center" ></Label>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="15 0 0 0">
+                            <Image Source="https://pics.freeicons.io/uploads/icons/png/10900188291655473166-64.png" Width="20"></Image>
+                            <Label ContentStringFormat="{}{0}% occupancy" Content="{Binding Path=Owner.UnpopularDestination.Occupancy}" FontSize="16" HorizontalAlignment="Center" ></Label>
+                        </StackPanel>
+                        <TextBlock TextWrapping="Wrap" HorizontalAlignment="Left" TextAlignment="Left" FontSize="13" Margin="10 5 10 0" Text="You may consider the option of renovating or maybe closing accommodations on this location"></TextBlock>
+                    </StackPanel>
+                </GroupBox>
+            </StackPanel>
+        </GroupBox>
+        <Image Source="https://pics.freeicons.io/uploads/icons/png/184585736316315917534153-512.png" Height="40" Margin="520 80 0 0"></Image>
+        <Image Source="https://pics.freeicons.io/uploads/icons/png/796497161678643396-64.png" Height="35" Margin="520 -380 0 0"></Image>
     </Grid>
 </UserControl>
