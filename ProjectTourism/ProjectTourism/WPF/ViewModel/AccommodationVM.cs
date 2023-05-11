@@ -290,7 +290,7 @@ namespace ProjectTourism.WPF.ViewModel
         {
             RenovationService renovationService = new RenovationService();
             Renovation ren = new Renovation(renovation.GetRenovation());
-            renovationService.Schedule(new Renovation(ren));
+            ren.Id = renovationService.ScheduleAndReturnId(new Renovation(ren));
             Renovations.Insert(0, new RenovationVM(ren));
             NoRenovations = false;
         }

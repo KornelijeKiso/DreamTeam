@@ -25,11 +25,12 @@ namespace ProjectTourism.Repositories
             if (Renovations == null) return 0;
             else return Renovations.Last().Id + 1;
         }
-        public void Add(Renovation renovation)
+        public int AddAndReturnId(Renovation renovation)
         {
             renovation.Id = GenerateId();
             Renovations.Add(renovation);
             FileHandler.Save(Renovations);
+            return renovation.Id;
         }
 
         public void Delete(Renovation renovation)

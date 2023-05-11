@@ -29,9 +29,9 @@ namespace ProjectTourism.Services
         {
             RenovationRepo.Delete(renovation);
         }
-        public void Schedule(Renovation renovation)
+        public int ScheduleAndReturnId(Renovation renovation)
         {
-            RenovationRepo.Add(renovation);
+            return RenovationRepo.AddAndReturnId(renovation);
         }
         public Renovation GetOne(int id)
         {
