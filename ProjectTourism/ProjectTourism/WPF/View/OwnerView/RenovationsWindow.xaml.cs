@@ -74,21 +74,14 @@ namespace ProjectTourism.WPF.View.OwnerView
         {
             popupText.Text = message;
             popupContainer.Visibility = Visibility.Visible;
-            await Task.Delay(5000);
-            var fadeOutAnimation = new DoubleAnimation
+            await Task.Delay(4000);
+            for (int i = 0; i < 20; i++)
             {
-                From = 0.9,
-                To = 0.0,
-                Duration = TimeSpan.FromSeconds(2),
-                EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
-            };
-            fadeOutAnimation.Completed += (s, e) =>
-            {
-                popupContainer.Visibility = Visibility.Collapsed;
-            };
-            popupBorder.BeginAnimation(OpacityProperty, fadeOutAnimation);
-            InitializeComponent();
-            DataContext = this;
+                await Task.Delay(9);
+                popupContainer.Opacity += -0.05;
+            }
+            popupContainer.Visibility = Visibility.Collapsed;
+            popupContainer.Opacity = 1.0;
         }
         public void ValidateNumberInput(object sender, RoutedEventArgs e)
         {
