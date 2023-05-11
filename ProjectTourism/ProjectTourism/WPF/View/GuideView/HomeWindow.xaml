@@ -29,7 +29,7 @@
         </Button>
         <ContentControl x:Name="ContentArea">
             <ComboBox x:Name="LocalizationComboBox" SelectionChanged="Localization_SelectionChanged" HorizontalAlignment="Left" Height="28" Margin="1156,140,0,0" VerticalAlignment="Top" Width="96">
-                <ComboBoxItem IsSelected="True">ENG</ComboBoxItem>
+                <ComboBoxItem>ENG</ComboBoxItem>
                 <ComboBoxItem>SRB</ComboBoxItem>
             </ComboBox>
         </ContentControl>

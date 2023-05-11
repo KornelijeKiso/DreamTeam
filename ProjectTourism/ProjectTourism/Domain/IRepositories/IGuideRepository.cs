@@ -14,6 +14,7 @@ namespace ProjectTourism.Domain.IRepositories
         List<Guide> GetAll();
         void Add(Guide guide);
         void Update(Guide guide);
+        void UpdateLocalization(Guide guide);
         void Delete(Guide guide);
     }
 }
