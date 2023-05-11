@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.TourView"
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:ns="clr-namespace:ProjectTourism.Localization"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"  d:DesignHeight="720" d:DesignWidth="1280">
     <UserControl.Resources>
@@ -61,17 +62,17 @@
                 <ColumnDefinition Width="250*"></ColumnDefinition>
                 <ColumnDefinition Width="247*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Content="Name" Margin="0,6,0,7"/>
-            <Label Grid.Row="1" Grid.Column="0" Content="Country" Margin="0,6,0,7"/>
-            <Label Grid.Row="2" Grid.Column="0" Content="City" Margin="0,6,0,6"/>
-            <Label Grid.Row="3" Grid.Column="0" Content="Language" Margin="0,7,0,6"/>
-            <Label Grid.Row="4" Grid.Column="0" Content="Maximum number of guests" Margin="0,6,0,7"/>
-            <Label Grid.Row="5" Grid.Column="0" Content="Start" Margin="0,6,0,7"/>
-            <Label Grid.Row="6" Grid.Column="0" Content="Stops" Margin="0,6,0,6"/>
-            <Label Grid.Row="7" Grid.Column="0" Content="Finish" Margin="0,7,0,6"/>
-            <Label Grid.Row="8" Grid.Column="0" Content="Duration" Margin="0,6,0,7"/>
-            <Label Grid.Row="9" Grid.Column="0" Content="Images" Margin="0,6,0,6"/>
-            <Label Grid.Row="10" Grid.Column="0" Content="Description" Margin="0,7,0,6"/>
+            <Label Grid.Row="0" Grid.Column="0" Content="{ns:Loc Name}" Margin="0,6,0,7"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="{ns:Loc Country}" Margin="0,6,0,7"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="{ns:Loc City}" Margin="0,6,0,6"/>
+            <Label Grid.Row="3" Grid.Column="0" Content="{ns:Loc Language}" Margin="0,7,0,6"/>
+            <Label Grid.Row="4" Grid.Column="0" Content="{ns:Loc MaxNumberOfGuests}" Margin="0,6,0,7"/>
+            <Label Grid.Row="5" Grid.Column="0" Content="{ns:Loc Start}" Margin="0,6,0,7"/>
+            <Label Grid.Row="6" Grid.Column="0" Content="{ns:Loc Stops}" Margin="0,6,0,6"/>
+            <Label Grid.Row="7" Grid.Column="0" Content="{ns:Loc Finish}" Margin="0,7,0,6"/>
+            <Label Grid.Row="8" Grid.Column="0" Content="{ns:Loc Duration}" Margin="0,6,0,7"/>
+            <Label Grid.Row="9" Grid.Column="0" Content="{ns:Loc Images}" Margin="0,6,0,6"/>
+            <Label Grid.Row="10" Grid.Column="0" Content="{ns:Loc Description}" Margin="0,7,0,6"/>
 
             <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path = NewTour.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>
             <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path = NewLocation.Country, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" Margin="0,8,0,8"/>

@@ -27,12 +27,16 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
 {
     public partial class HomeWindow : UserControl, INotifyPropertyChanged
     {
+        private App app;
+        private const string SRB = "sr-Latn-RS";
+        private const string ENG = "en-US";
         public GuideVM Guide { get; set; }
         public string UpcomingTourPicture { get; set; }
         public HomeWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
+
             Guide = new GuideVM(username);
             UpcomingTourPicture = "";
             TourAppointmentVM UpcomingTourApp = Guide.FindGuidesUpcomingTourApp();
@@ -64,5 +68,43 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        private void Localization_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            App app = (App)Application.Current;
+
+            ComboBoxItem selectedItem = LocalizationComboBox.SelectedItem as ComboBoxItem;
+
+            if (selectedItem != null)
+            {
+                string selectedLanguage = selectedItem.Content as string;
+
+                if (selectedLanguage != null)
+                {
+                    switch (selectedLanguage)
+                    {
+                        case "ENG":
+                            {
+                                app.ChangeLanguage("ENG");
+                                LocalizationComboBox.SelectedIndex = 0;
+                                break;
+                            }
+                            
+                        case "SRB":
+                            {
+                                app.ChangeLanguage("SRB");
+                                LocalizationComboBox.SelectedIndex = 1;
+                                break;
+                            }
+                            
+                        default:
+                            app.ChangeLanguage("ENG");
+                            break;
+                    }
+                }
+            }
+        }
+
+
     }
 }
