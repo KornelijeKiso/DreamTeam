@@ -12,7 +12,7 @@ namespace ProjectTourism.Domain.IRepositories
     {
         Renovation GetOne(int renovationId);
         List<Renovation> GetAll();
-        void Add(Renovation renovation);
+        int AddAndReturnId(Renovation renovation);
         void Delete(Renovation renovation);
         List<Renovation> GetAllByAccommodation(int accommodationId);
     }
