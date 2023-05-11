@@ -99,20 +99,20 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                     {
                         case "ENG":
                             {
-                                app.ChangeLanguage("ENG");
+                                app.ChangeLanguage("en-US");
                                 Guide.ChangeLocalization();
                                 LocalizationComboBox.Text = "ENG";
                                 break;
                             }
                         case "SRB":
                             {
-                                app.ChangeLanguage("SRB");
+                                app.ChangeLanguage("sr-Latn-RS");
                                 Guide.ChangeLocalization();
                                 LocalizationComboBox.Text = "SRB";
                                 break;
                             }
                         default:
-                            app.ChangeLanguage("ENG");
+                            app.ChangeLanguage("en-US");
                             break;
                     }
                 }
