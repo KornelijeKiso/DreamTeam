@@ -117,11 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AddANewTour" xml:space="preserve">
+    <value>Add a new tour</value>
+  </data>
+  <data name="AgeGroupsDescription" xml:space="preserve">
+    <value>Here you can see the age groups of people</value>
+  </data>
+  <data name="AllAppointments" xml:space="preserve">
+    <value>All appointments</value>
+  </data>
+  <data name="AllTours" xml:space="preserve">
+    <value>All tours</value>
+  </data>
+  <data name="AllToursLabel" xml:space="preserve">
+    <value>All tours</value>
+  </data>
   <data name="City" xml:space="preserve">
     <value>City</value>
   </data>
+  <data name="CityRequired" xml:space="preserve">
+    <value>City is required!</value>
+  </data>
   <data name="Country" xml:space="preserve">
     <value>Country</value>
+  </data>
+  <data name="CountryRequired" xml:space="preserve">
+    <value>Country required!</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
@@ -129,8 +150,35 @@
   <data name="Duration" xml:space="preserve">
     <value>Duration</value>
   </data>
+  <data name="EnterFinish" xml:space="preserve">
+    <value>Enter finish point</value>
+  </data>
+  <data name="EnterNameLabel" xml:space="preserve">
+    <value>Enter name</value>
+  </data>
+  <data name="EnterPositiveNumber" xml:space="preserve">
+    <value>Enter positive number</value>
+  </data>
+  <data name="EnterStart" xml:space="preserve">
+    <value>Enter start point</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
   <data name="Finish" xml:space="preserve">
     <value>Finish</value>
+  </data>
+  <data name="FinishRequired" xml:space="preserve">
+    <value>Finish point is required!</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="HomeLabel" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Hours: </value>
   </data>
   <data name="Images" xml:space="preserve">
     <value>Images</value>
@@ -141,13 +189,70 @@
   <data name="MaxNumberOfGuests" xml:space="preserve">
     <value>Max number of guests</value>
   </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Minutes:</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="NoTicketsLabel" xml:space="preserve">
+    <value>There were no tickets or vouchers for this appointment</value>
+  </data>
+  <data name="NumberMustBePositive" xml:space="preserve">
+    <value>The number must be positive!</value>
+  </data>
+  <data name="NumberOfTickets" xml:space="preserve">
+    <value>Number of tickets</value>
+  </data>
+  <data name="NumberOfVouchers" xml:space="preserve">
+    <value>Number of vouchers</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="Requests" xml:space="preserve">
+    <value>Requests</value>
+  </data>
+  <data name="RequiredNameLabel" xml:space="preserve">
+    <value>Name is required!</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="StartPointRequired" xml:space="preserve">
+    <value>Start point required!</value>
+  </data>
+  <data name="StatisticsLabel1" xml:space="preserve">
+    <value>Select a tour of which you would like to see the statistics.</value>
+  </data>
   <data name="Stops" xml:space="preserve">
     <value>Stops</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="TodaysTours" xml:space="preserve">
+    <value>Today's tours</value>
+  </data>
+  <data name="TourInfo" xml:space="preserve">
+    <value>Tour info</value>
+  </data>
+  <data name="TourStatistic" xml:space="preserve">
+    <value>Appointment statistics</value>
+  </data>
+  <data name="TourStatistics" xml:space="preserve">
+    <value>Tour statistics</value>
+  </data>
+  <data name="UpcomingLabel" xml:space="preserve">
+    <value>Upcoming...</value>
+  </data>
+  <data name="Visits" xml:space="preserve">
+    <value>Visits</value>
+  </data>
+  <data name="WelcomeLabel" xml:space="preserve">
+    <value>Welcome!</value>
   </data>
 </root>

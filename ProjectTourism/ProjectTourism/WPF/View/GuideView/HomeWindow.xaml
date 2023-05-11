@@ -4,23 +4,24 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView.TourView"
+        xmlns:ns="clr-namespace:ProjectTourism.Localization"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
-        <Label Name="HomeLabel" Content="Home" HorizontalAlignment="Left" Height="124" Margin="90,25,0,0" VerticalAlignment="Top" Width="182" FontSize="60"/>
-        <Label Name="UpcomingLabel" Content="Upcoming..." HorizontalAlignment="Left" Margin="20,217,0,0" VerticalAlignment="Top" FontSize="32">
+        <Label Name="HomeLabel" Content="{ns:Loc HomeLabel}" HorizontalAlignment="Left" Height="124" Margin="78,25,0,0" VerticalAlignment="Top" Width="500" FontSize="58"/>
+        <Label Name="UpcomingLabel" Content="{ns:Loc UpcomingLabel}" HorizontalAlignment="Left" Margin="20,217,0,0" VerticalAlignment="Top" FontSize="32">
             <Label.Effect>
                 <DropShadowEffect Color="LightBlue" BlurRadius="20"/>
             </Label.Effect>
         </Label>
-        <Label Name="WelcomeLabel" Content="Welcome!" HorizontalAlignment="Left" Height="124" Margin="952,570,0,0" VerticalAlignment="Top" Width="296" FontSize="60"/>
-        <Button x:Name="AllToursButton" Content="All tours" HorizontalAlignment="Left" Height="54" Margin="60,600,0,0" VerticalAlignment="Top" Width="112" Click="AllToursButton_Click">
+        <Label Name="WelcomeLabel" Content="{ns:Loc WelcomeLabel}" HorizontalAlignment="Left" Height="124" Margin="944,570,0,0" VerticalAlignment="Top" Width="326" FontSize="60"/>
+        <Button x:Name="AllToursButton" Content="{ns:Loc AllTours}" HorizontalAlignment="Left" Height="54" Margin="60,600,0,0" VerticalAlignment="Top" Width="112" Click="AllToursButton_Click">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>
                 </Style>
             </Button.Resources>
         </Button>
-        <Button x:Name="AddNewTourButton" Content="Add a new tour" HorizontalAlignment="Left" Height="54" Margin="212,600,0,0" VerticalAlignment="Top" Width="111" Click="AddNewTourButton_Click">
+        <Button x:Name="AddNewTourButton" Content="{ns:Loc AddANewTour}" HorizontalAlignment="Left" Height="54" Margin="212,600,0,0" VerticalAlignment="Top" Width="111" Click="AddNewTourButton_Click">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="10"/>

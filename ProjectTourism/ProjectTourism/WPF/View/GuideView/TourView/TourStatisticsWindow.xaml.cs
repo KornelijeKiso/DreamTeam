@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProjectTourism.Localization;
 using ProjectTourism.Model;
 using ProjectTourism.View.GuideView.TourView;
 using ProjectTourism.WPF.ViewModel;
@@ -38,6 +39,9 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             TourApps.Sort((t1, t2) => t2.Visits.CompareTo(t1.Visits));
             SetComboBox();
 
+            StatsSadImage.Visibility = Visibility.Hidden;
+            SadLabel.Visibility = Visibility.Hidden;
+
             HideInstructions();
             Update();
         }
@@ -61,7 +65,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         }
         private void UnhideStatsInstructions()
         {
-            List<UIElement> elementsToHide = new List<UIElement> { Label1, Label2, StatsImage };
+            List<UIElement> elementsToHide = new List<UIElement> { Label1, StatsImage };
             elementsToHide.ForEach(element => element.Visibility = Visibility.Hidden);
 
             List<UIElement> elementsToUnhide = new List<UIElement> { Label3, Label4, Label5, Rectangle1, Rectangle2 };
@@ -155,24 +159,14 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             if (tickets == 0 && vouchers == 0)
             {
                 HideInstructions();
-                TextBlock label = new TextBlock();
-                label.Text = "There were no tickets or vouchers for this appointment";
-                label.TextAlignment = TextAlignment.Left;
-                label.Width = 400;
-                label.Height = 50;
-                Canvas.SetTop(label, 50);
-                PieChartCanvas.Children.Add(label);
-
-                Image sadGhostImage = new Image();
-                sadGhostImage.Source = new BitmapImage(new Uri("https://cdn-icons-png.flaticon.com/512/1235/1235098.png"));
-                sadGhostImage.Width = 80;
-                sadGhostImage.Height = 80;
-                sadGhostImage.Margin = new Thickness(150, 90, 30, 480);
-                PieChartCanvas.Children.Add(sadGhostImage);
+                StatsSadImage.Visibility = Visibility.Visible;
+                SadLabel.Visibility = Visibility.Visible;
                 return;
             }
             else
             {
+                StatsSadImage.Visibility = Visibility.Hidden;
+                SadLabel.Visibility = Visibility.Hidden;
                 DrawPieChart(tickets, vouchers);
                 DrawBlockChart(ageGroups);
             }

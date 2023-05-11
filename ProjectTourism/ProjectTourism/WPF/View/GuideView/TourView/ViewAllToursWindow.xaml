@@ -4,15 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.GuideView.TourView"
+        xmlns:ns="clr-namespace:ProjectTourism.Localization"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
         <StackPanel x:Name="StatsPanel" Orientation="Horizontal" Margin="100,626,900,18">
             <Image Source="https://cdn-icons-png.flaticon.com/512/1325/1325099.png" Width="20" Height="20" Margin="0,-15,5,0"/>
             <TextBlock FontSize="18">
-        <Hyperlink Foreground="White" Click="TourStatistics_Click">Tour statistics</Hyperlink>
+        <Hyperlink Click="TourStatistics_Click">
+            <TextBlock Foreground="White" Text="{ns:Loc TourStatistics}">
+                                
+            </TextBlock>
+        </Hyperlink>
             </TextBlock>
         </StackPanel>
-        <Label x:Name="AllToursLabel" Content="All tours" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
+        <Label x:Name="AllToursLabel" Content="{ns:Loc AllToursLabel}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         <DataGrid x:Name="DataGridTours" 
                     ItemsSource="{Binding Guide.Tours, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"
@@ -108,7 +113,7 @@
                                     <Label FontSize="14" Content="{Binding Duration}" Margin="0,-6,0,-7" ></Label>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <GroupBox Header="Max number of guests" BorderThickness="1.5" BorderBrush="Black" Background="#AA8ED0FB" Height="45" Width="150" Margin="330, -114, 0, 0"></GroupBox>
+                                    <GroupBox Header="{ns:Loc MaxNumberOfGuests}" BorderThickness="1.5" BorderBrush="Black" Background="#AA8ED0FB" Height="45" Width="150" Margin="330, -114, 0, 0"></GroupBox>
                                     <StackPanel Margin="-150,-68,0,0">
                                         <Label Content="{Binding MaxNumberOfGuests}" HorizontalAlignment="Center" FontSize="19" FontWeight="SemiBold"></Label>
                                     </StackPanel>
