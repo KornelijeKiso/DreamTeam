@@ -62,6 +62,12 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+
+        public void ChangeLocalization()
+        {
+            GuideService guideService = new GuideService();
+            guideService.UpdateLocalization(_guide);
+        }
         public List<TourAppointmentVM> FindGuidesReadyAppointments()
         {
             List<TourAppointmentVM> readyTourApps = new List<TourAppointmentVM>();
@@ -417,6 +423,19 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_guide.Language != value)
                 {
                     _guide.Language = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public string Localization
+        {
+            get => _guide.Localization;
+            set
+            {
+                if (_guide.Localization != value)
+                {
+                    _guide.Localization = value;
                     OnPropertyChanged();
                 }
             }

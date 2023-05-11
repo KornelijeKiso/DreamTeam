@@ -27,7 +27,12 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <ContentControl x:Name="ContentArea"/>
+        <ContentControl x:Name="ContentArea">
+            <ComboBox x:Name="LocalizationComboBox" SelectionChanged="Localization_SelectionChanged" HorizontalAlignment="Left" Height="28" Margin="1156,140,0,0" VerticalAlignment="Top" Width="96">
+                <ComboBoxItem>ENG</ComboBoxItem>
+                <ComboBoxItem>SRB</ComboBoxItem>
+            </ComboBox>
+        </ContentControl>
         <Grid Margin="25,275,906,158">
             <Border x:Name="ImageBorder" Margin="0,0,0,22" CornerRadius="3" BorderThickness="3" BorderBrush="Black">
                 <Image x:Name="UpcomingImage" Source="{Binding UpcomingTourPicture}" HorizontalAlignment="Left" Height="253" Margin="0,0,0,0" VerticalAlignment="Top" Width="352" Stretch="Fill"/>

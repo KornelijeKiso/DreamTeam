@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using ProjectTourism.Localization;
 
 namespace ProjectTourism
 {
@@ -16,6 +17,10 @@ namespace ProjectTourism
         public App()
         {
             Injector.Injector.BindComponents();
+        }
+        public void ChangeLanguage(string lang)
+        {
+            TranslationSource.Instance.CurrentCulture = new System.Globalization.CultureInfo(lang);
         }
     }
 }

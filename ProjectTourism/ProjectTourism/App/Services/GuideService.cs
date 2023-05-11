@@ -37,5 +37,9 @@ namespace ProjectTourism.Services
         {
             GuideRepository.Update(guide);
         }
+        public void UpdateLocalization(Guide guide)
+        {
+            GuideRepository.UpdateLocalization(guide);
+        }
     }
 }
