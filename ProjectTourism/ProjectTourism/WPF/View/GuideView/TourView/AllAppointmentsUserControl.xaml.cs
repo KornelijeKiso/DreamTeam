@@ -22,7 +22,7 @@ using ProjectTourism.WPF.View.GuideView.TourView;
 
 namespace ProjectTourism.View.GuideView.TourView
 {
-    public partial class ViewAllAppointmentsWindow : UserControl, INotifyPropertyChanged
+    public partial class AllAppointmentsUserControl : UserControl, INotifyPropertyChanged
     {
         public TourAppointmentVM SelectedAppointment { get; set; }
         public GuideVM Guide { get; set; }
@@ -33,7 +33,7 @@ namespace ProjectTourism.View.GuideView.TourView
         public ObservableCollection<TourAppointmentVM> SortedFinishedApps { get; set; }
         public ObservableCollection<TourAppointmentVM> SortedReadyApps { get; set; }
         public ObservableCollection<TourAppointmentVM> SortedStoppedApps { get; set; }
-        public ViewAllAppointmentsWindow(string username)
+        public AllAppointmentsUserControl(string username)
         {
             InitializeComponent();
             DataContext = this;
@@ -46,7 +46,7 @@ namespace ProjectTourism.View.GuideView.TourView
         {
             AllAppsLabel.Visibility = Visibility.Hidden;
             TabControl.Visibility = Visibility.Hidden;
-            ContentArea.Content = new ReviewsWindow(SelectedAppointment);
+            ContentArea.Content = new ReviewsUserControl(SelectedAppointment);
         }
         private void SortByDate()
         {

@@ -32,31 +32,31 @@ namespace ProjectTourism.View.GuideView
             InitializeComponent();
             DataContext = this;
             Username = username;
-            ContentArea.Content = new HomeWindow(username);
+            ContentArea.Content = new HomeUserControl(username);
         }
         private void HomeLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            ContentArea.Content = new HomeWindow(Username);
+            ContentArea.Content = new HomeUserControl(Username);
             e.Handled = true;
         }
         private void AllAppointmentsLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            ContentArea.Content = new ViewAllAppointmentsWindow(Username);
+            ContentArea.Content = new AllAppointmentsUserControl(Username);
             e.Handled = true;
         }
         private void ProfileLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            ContentArea.Content = new ProfileWindow(Username);
+            ContentArea.Content = new ProfileUserControl(Username);
             e.Handled = true;
         }
         private void RequestsLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            ContentArea.Content = new RequestsWindow(Username);
+            ContentArea.Content = new RequestsUserControl(Username);
             e.Handled = true;
         }
         private void LiveTourMonitorLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
         {
-            ContentArea.Content = new LiveToursTrackingWindow(Username);
+            ContentArea.Content = new TodaysToursUserControl(Username);
             e.Handled = true;
         }
 

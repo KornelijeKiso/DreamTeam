@@ -8,6 +8,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using ProjectTourism.Localization;
+using System.Windows.Controls;
+using System.Windows.Data;
 using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
@@ -244,46 +247,100 @@ namespace ProjectTourism.WPF.ViewModel
                 if (columnName == "Name")
                 {
                     if (string.IsNullOrEmpty(Name))
-                        return "Name is required!";
+                    {
+                        TextBlock label = new TextBlock();
+                        LocExtension locExtension = new LocExtension("RequiredNameLabel");
+                        BindingOperations.SetBinding(label, TextBlock.TextProperty, locExtension.ProvideValue(null) as BindingBase);
+                        return label.Text;
+                    }
+                        
                     Match match = _NameRegex.Match(Name);
                     if (!match.Success)
-                        return "Enter name";
+                    {
+                        TextBlock label = new TextBlock();
+                        LocExtension locExtension = new LocExtension("EnterNameLabel");
+                        BindingOperations.SetBinding(label, TextBlock.TextProperty, locExtension.ProvideValue(null) as BindingBase);
+                        return label.Text;
+                    }
                 }
                 else if (columnName == "MaxNumberOfGuests")
                 {
                     if (string.IsNullOrEmpty(MaxNumberOfGuests.ToString()))
-                        return "Number must be positive!";
+                    {
+                        TextBlock label = new TextBlock();
+                        LocExtension locExtension = new LocExtension("NumberMustBePositive");
+                        BindingOperations.SetBinding(label, TextBlock.TextProperty, locExtension.ProvideValue(null) as BindingBase);
+                        return label.Text;
+                    }
                     Match match = _PositiveNumberRegex.Match(MaxNumberOfGuests.ToString());
                     if (!match.Success)
-                        return "Enter positive number";
+                    {
+                        TextBlock label = new TextBlock();
+                        LocExtension locExtension = new LocExtension("EnterPositiveNumber");
+                        BindingOperations.SetBinding(label, TextBlock.TextProperty, locExtension.ProvideValue(null) as BindingBase);
+                        return label.Text;
+                    }
                 }
                 else if (columnName == "Start")
                 {
                     if (string.IsNullOrEmpty(Start))
-                        return "Start point required!";
+                    {
+                        TextBlock label = new TextBlock();
+                        LocExtension locExtension = new LocExtension("StartPointRequired");
+                        BindingOperations.SetBinding(label, TextBlock.TextProperty, locExtension.ProvideValue(null) as BindingBase);
+                        return label.Text;
+                    }
                     Match match = _StartRegex.Match(Start);
                     if (!match.Success)
-                        return "Enter start";
+                    {
+                        TextBlock label = new TextBlock();
+                        LocExtension locExtension = new LocExtension("EnterStart");
+                        BindingOperations.SetBinding(label, TextBlock.TextProperty, locExtension.ProvideValue(null) as BindingBase);
+                        return label.Text;
+                    }
                 }
                 else if (columnName == "Finish")
                 {
                     if (string.IsNullOrEmpty(Finish))
-                        return "Finish point is required!";
+                    {
+                        TextBlock label = new TextBlock();
+                        LocExtension locExtension = new LocExtension("FinishRequired");
+                        BindingOperations.SetBinding(label, TextBlock.TextProperty, locExtension.ProvideValue(null) as BindingBase);
+                        return label.Text;
+                    }
                     Match match = _StartRegex.Match(Finish);
                     if (!match.Success)
-                        return "Enter finish";
+                    {
+                        TextBlock label = new TextBlock();
+                        LocExtension locExtension = new LocExtension("EnterFinish");
+                        BindingOperations.SetBinding(label, TextBlock.TextProperty, locExtension.ProvideValue(null) as BindingBase);
+                        return label.Text;
+                    }
                 }
                 else if (columnName == "Duration")
                 {
                     if (string.IsNullOrEmpty(Duration.ToString()))
-                        return "Number must be positive!";
+                    {
+                        TextBlock label = new TextBlock();
+                        LocExtension locExtension = new LocExtension("NumberMustBePositive");
+                        BindingOperations.SetBinding(label, TextBlock.TextProperty, locExtension.ProvideValue(null) as BindingBase);
+                        return label.Text;
+                    }
                     Match match = _PositiveNumberRegex.Match(Duration.ToString());
                     if (!match.Success)
-                        return "Enter positive number";
+                    {
+                        TextBlock label = new TextBlock();
+                        LocExtension locExtension = new LocExtension("EnterPositiveNumber");
+                        BindingOperations.SetBinding(label, TextBlock.TextProperty, locExtension.ProvideValue(null) as BindingBase);
+                        return label.Text;
+                    }
                 }
                 else
                 {
-                    return "Error";
+                    TextBlock label = new TextBlock();
+                    LocExtension locExtension = new LocExtension("Error");
+                    BindingOperations.SetBinding(label, TextBlock.TextProperty, locExtension.ProvideValue(null) as BindingBase);
+                    return label.Text;
                 }
                 return null;
             }

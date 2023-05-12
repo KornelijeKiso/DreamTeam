@@ -21,7 +21,7 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.GuideView.TourView
 {
-    public partial class RequestsWindow : UserControl, INotifyPropertyChanged
+    public partial class RequestsUserControl : UserControl, INotifyPropertyChanged
     {
         public TourRequestVM SelectedTourRequest { get; set; }
         public ObservableCollection<TourRequestVM> TourRequests { get; set; }
@@ -35,7 +35,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         public DateTime SearchedEndDate { get; set; }
 
 
-        public RequestsWindow(string username)
+        public RequestsUserControl(string username)
         {
             InitializeComponent();
             DataContext = this;

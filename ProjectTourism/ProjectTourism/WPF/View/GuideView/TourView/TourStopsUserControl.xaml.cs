@@ -26,13 +26,13 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.GuideView.TourView
 {
-    public partial class TourStopsWindow : UserControl, INotifyPropertyChanged
+    public partial class TourStopsUserControl : UserControl, INotifyPropertyChanged
     {
         public TourAppointmentVM TourAppointment { get; set; }
         public TicketVM SelectedTicket { get; set; }
         public GuideVM Guide { get; set; }
         public ObservableCollection<TicketVM> Tickets { get; set; }
-        public TourStopsWindow(TourAppointmentVM SelectedTourAppointment)
+        public TourStopsUserControl(TourAppointmentVM SelectedTourAppointment)
         {
             InitializeComponent();
             DataContext = this;
@@ -112,7 +112,7 @@ namespace ProjectTourism.View.GuideView.TourView
             grid.Visibility = Visibility.Hidden;
             StopPassedButton.Visibility = Visibility.Hidden;
             EmergencyStopButton.Visibility = Visibility.Hidden;
-            ContentArea.Content = new LiveToursTrackingWindow(Guide.Username);
+            ContentArea.Content = new TodaysToursUserControl(Guide.Username);
         }
         private void TicketStatusButton_Click(object sender, RoutedEventArgs e)
         {
@@ -127,7 +127,7 @@ namespace ProjectTourism.View.GuideView.TourView
             if (TourAppointment.Tickets.Count != 0 && TourAppointment.TicketGrades.Count != 0)
             {
                 HideTourStopsContent();
-                ContentArea.Content = new ReviewsWindow(TourAppointment);
+                ContentArea.Content = new ReviewsUserControl(TourAppointment);
             }
             else
                 MessageBox.Show("There are no reviews for this appointment!");

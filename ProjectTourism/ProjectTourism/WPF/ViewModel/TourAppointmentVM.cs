@@ -65,6 +65,7 @@ namespace ProjectTourism.WPF.ViewModel
         public bool IsFinished { get => _tourAppointment.State == TOURSTATE.FINISHED || _tourAppointment.State == TOURSTATE.STOPPED; }
         public bool IsReviewVisible { get => ((_tourAppointment.State == TOURSTATE.FINISHED || _tourAppointment.State == TOURSTATE.STOPPED) && AreThereAnyReviews()); }
         public int Visits { get => _tourAppointment.Tickets.Count; }
+        public bool AppointmentNotVisited { get => Visits == 0; }
         public int Id
         {
             get => _tourAppointment.Id;

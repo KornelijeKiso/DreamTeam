@@ -1,13 +1,15 @@
-﻿<UserControl x:Class="ProjectTourism.WPF.View.GuideView.TourView.TourStatisticsWindow"
+﻿<UserControl x:Class="ProjectTourism.WPF.View.GuideView.TourView.TourStatisticsUserControl"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView.TourView"
+        xmlns:ns="clr-namespace:ProjectTourism.Localization"
+        xmlns:conv="clr-namespace:ProjectTourism.Converters"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
-        
-        <Label Content="Tour statistics" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
+
+        <Label Content="{ns:Loc TourStatistics}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         
         <DataGrid x:Name="DataGridTours" PreviewMouseLeftButtonDown="DataGridTours_PreviewMouseLeftButtonDown"  
                     ItemsSource="{Binding TourAppsObs, UpdateSourceTrigger=PropertyChanged}"
@@ -57,7 +59,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Width="*" Header="Tour info">
+                <DataGridTemplateColumn Width="*" Header="{ns:Loc TourInfo}">
                     <DataGridTemplateColumn.HeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -95,7 +97,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Width="100" Header="Time">
+                <DataGridTemplateColumn Width="100" Header="{ns:Loc Time}">
                     <DataGridTemplateColumn.HeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -119,7 +121,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Width="80" Header="Visits" >
+                <DataGridTemplateColumn Width="80" Header="{ns:Loc Visits}" >
                     <DataGridTemplateColumn.HeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -136,13 +138,13 @@
         </DataGrid>
 
         <Grid x:Name="StatsGrid">
-            <GroupBox x:Name="FieldSet" Header="Tour statistics" Margin="767,250,0,0" Height="387" Width="462" FontSize="15" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="#FF61676B" Background="LightGray">
+            <GroupBox x:Name="FieldSet" Header="{ns:Loc TourStatistic}" Margin="767,250,0,0" Height="387" Width="462" FontSize="15" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Left" BorderBrush="#FF61676B" Background="LightGray">
                 <Grid>
                     <Rectangle x:Name="Rectangle1" Width="20" Height="20" Fill="#FF007ACC" Margin="255,55,175,280" RadiusX="3" RadiusY="3" Stroke="Black" StrokeThickness="1"/>
                     <Rectangle x:Name="Rectangle2" Width="20" Height="20" Fill="#6CCEFF" Margin="255,26,175,314" RadiusX="3" RadiusY="3" Stroke="Black" StrokeThickness="1"/>
-                    <Label x:Name="Label3" Margin="5, 270, 0, 0">Here you can see the age groups of people</Label>
-                    <Label x:Name="Label4" Margin="280,20,0,0">Number of tickets</Label>
-                    <Label x:Name="Label5" Margin="280,52,0,0">Number of vouchers</Label>
+                    <Label x:Name="Label3" Margin="5, 270, 0, 0" Content="{ns:Loc AgeGroupsDescription}"/>
+                    <Label x:Name="Label4" Margin="280,20,0,0" Content="{ns:Loc NumberOfTickets}"/>
+                    <Label x:Name="Label5" Margin="280,52,0,0" Content="{ns:Loc NumberOfVouchers}"/>
                     <Canvas x:Name="PieChartCanvas" Margin="33,52,405,162"/>
                 </Grid>
             </GroupBox>
@@ -152,9 +154,20 @@
         </Grid>
         <ComboBox x:Name="comboboxYears" SelectionChanged="YearsComboBox_SelectionChanged" HorizontalAlignment="Left" Height="43" Margin="50,167,0,0" VerticalAlignment="Top" Width="132" FontSize="20"/>
         <ContentControl x:Name="ContentArea"></ContentControl>
-        <Label x:Name="Label1" Content="Select a tour of which you" FontSize="19" Margin="875, 350, 0, 0"></Label>
-        <Label x:Name="Label2" Content="would like to see the statistics." FontSize="19" Margin="860, 390, 0, 0"></Label>
+        <Grid Margin="875,344,130,165">
+            <Label x:Name="Label1" FontSize="19">
+                <TextBlock TextWrapping="Wrap" Text="{ns:Loc StatisticsLabel1}" TextAlignment="Center"/>
+            </Label>
+        </Grid>
+
+        <Grid Margin="875,344,130,165">
+            <Label x:Name="SadLabel" FontSize="19">
+                <TextBlock TextWrapping="Wrap" Text="{ns:Loc NoTicketsLabel}" TextAlignment="Center"/>
+            </Label>
+        </Grid>
+
         <Image x:Name="StatsImage" Source="https://cdn-icons-png.flaticon.com/512/2936/2936725.png" Margin="912,467,184,121"></Image>
-        
+        <Image x:Name="StatsSadImage" Source="https://cdn-icons-png.flaticon.com/512/1235/1235098.png" Margin="912,467,184,121"></Image>
+
     </Grid>
 </UserControl>

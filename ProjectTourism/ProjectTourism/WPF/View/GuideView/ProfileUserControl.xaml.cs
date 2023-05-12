@@ -17,11 +17,11 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.GuideView.TourView
 {
-    public partial class ProfileWindow : UserControl
+    public partial class ProfileUserControl : UserControl
     {
         public GuideVM Guide { get; set; }
         private List<UIElement> profileUIElements;
-        public ProfileWindow(string username)
+        public ProfileUserControl(string username)
         {
             InitializeComponent();
             DataContext = this;

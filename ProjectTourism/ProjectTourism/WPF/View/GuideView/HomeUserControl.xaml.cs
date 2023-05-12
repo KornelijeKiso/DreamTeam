@@ -25,13 +25,13 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.GuideView.TourView
 {
-    public partial class HomeWindow : UserControl, INotifyPropertyChanged
+    public partial class HomeUserControl : UserControl, INotifyPropertyChanged
     {
         private App app;
         public GuideVM Guide { get; set; }
         public string UpcomingTourPicture { get; set; }
         public string Username { get; set; }
-        public HomeWindow(string username)
+        public HomeUserControl(string username)
         {
             Username = username;
             app = (App)Application.Current;
@@ -78,12 +78,12 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         private void AddNewTourButton_Click(object sender, RoutedEventArgs e)
         {
             HideElements(new List<UIElement> { HomeLabel, WelcomeLabel, UpcomingLabel, UpcomingLabelName, AddNewTourButton, AllToursButton, ImageBorder, UpcomingImage });
-            ContentArea.Content = new CreateTourWindow(Guide);
+            ContentArea.Content = new CreateTourUserControl(Guide);
         }
         private void AllToursButton_Click(object sender, RoutedEventArgs e)
         {
             HideElements(new List<UIElement> { HomeLabel, WelcomeLabel, UpcomingLabel, UpcomingLabelName, AddNewTourButton, AllToursButton, ImageBorder, UpcomingImage });
-            ContentArea.Content = new ViewAllToursWindow(Guide.Username);
+            ContentArea.Content = new AllToursUserControl(Guide.Username);
         }
         private void Localization_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
