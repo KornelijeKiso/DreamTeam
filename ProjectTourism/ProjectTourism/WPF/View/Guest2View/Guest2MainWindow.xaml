@@ -9,7 +9,9 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
-        Title="Guest2 Main Window" Height="550" Width="850">
+        Title="Guest2 Main Window" 
+        Height="550" Width="850"
+        ResizeMode="CanMinimize">
        
     <!--<Window.DataContext>
         <vm:NavigationVM />

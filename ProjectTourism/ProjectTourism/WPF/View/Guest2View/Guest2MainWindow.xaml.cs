@@ -23,10 +23,13 @@ namespace ProjectTourism.WPF.View.Guest2View
     /// </summary>
     public partial class Guest2MainWindow : Window
     {
+        public NavigationVM _NavigationVM { get; set; }
         public Guest2MainWindow(string username)
         {
             InitializeComponent();
-            DataContext = new NavigationVM(username);
+            //this._NavigationVM = new NavigationVM(username, this.frame.NavigationService);
+            this._NavigationVM = new NavigationVM(username);
+            this.DataContext = this._NavigationVM;
         }
 
         private void LogOut_Click(object sender, RoutedEventArgs e)

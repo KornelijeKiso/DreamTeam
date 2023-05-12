@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace ProjectTourism.Utilities
 {
-    class RelayCommand : ICommand
+    public class RelayCommand : ICommand
     {
         private readonly Action<object> _execute;
         private readonly Func<object, bool> _canExecute;

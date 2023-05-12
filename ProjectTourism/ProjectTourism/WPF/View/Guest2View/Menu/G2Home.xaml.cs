@@ -21,6 +21,11 @@ namespace ProjectTourism.WPF.View.Guest2View.Menu
     /// </summary>
     public partial class G2Home : UserControl
     {
+        public G2Home()
+        {
+            InitializeComponent();
+            //DataContext = new HomeVM(guest2);
+        }
         public G2Home(Guest2VM guest2)
         {
             InitializeComponent();

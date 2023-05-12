@@ -19,10 +19,17 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             get { return _currentView; }
             set { _currentView = value; OnPropertyChanged(); }
         }
-
+        
         public Guest2VM Guest2 { get; set; }
         public string Username { get; set; }
 
+        //public RelayCommand NavigateHomeCommand { get; set; }
+        //public RelayCommand NavigateTicketsCommand { get; set; }
+        //public RelayCommand NavigateVouchersCommand { get; set; }
+        //public RelayCommand NavigateProfileCommand { get; set; }
+        //public RelayCommand NavigateTourRequestsCommand { get; set; }
+        //public RelayCommand NavigateComplexToursCommand { get; set; }
+       
         public ICommand HomeCommand { get; set; }
         public ICommand TicketsCommand { get; set; }
         public ICommand VouchersCommand { get; set; }

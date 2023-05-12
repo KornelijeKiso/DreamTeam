@@ -22,6 +22,11 @@ namespace ProjectTourism.WPF.View.Guest2View.Menu
     /// </summary>
     public partial class G2Vouchers : UserControl
     {
+        public G2Vouchers()
+        {
+            InitializeComponent();
+            //DataContext = new VouchersVM(guest2);
+        }
         public G2Vouchers(Guest2VM guest2)
         {
             InitializeComponent();
