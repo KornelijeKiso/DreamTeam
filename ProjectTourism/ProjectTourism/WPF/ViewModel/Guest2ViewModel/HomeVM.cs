@@ -16,7 +16,10 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public Guest2VM Guest2 { get; set; }
         public TourService TourService { get; set; }
         public TourVM? SelectedTour { get; set; }
-        public ObservableCollection<TourVM> Tours { get; set; }
+        public ObservableCollection<TourVM> AvailableTours { get; set; }
+        //public ObservableCollection<TourVM> ReservedTours { get; set; }
+        public ObservableCollection<TourVM> UnavailableTours { get; set; }
+        public ObservableCollection<TourVM> OldTours { get; set; }
         public string searchLocation { get; set; }
         public string searchLanguage { get; set; }
         public string searchDuration { get; set; }
@@ -28,7 +31,10 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             Guest2 = guest2;
 
             TourService = new TourService();
-            Tours = Guest2.Tours;
+            //ReservedTours = SetAlreadyReservedTours(RemoveOldTours(Guest2.Tours));
+            OldTours = SetOldTours(Guest2.Tours);
+            UnavailableTours = SetUnavailableTours(RemoveOldTours(Guest2.Tours));
+            AvailableTours = SetAvailableTours(RemoveOldTours(Guest2.Tours));
 
             searchLocation = "";
             searchLanguage = "";
@@ -38,12 +44,102 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         
         public void UpdateToursList(List<TourVM> tours)
         {
-            Tours.Clear();
+            AvailableTours.Clear();
             foreach (TourVM tour in tours)
             {
-                Tours.Add(tour);
+                AvailableTours.Add(tour);
             }
         }
+        
+        private bool IsOldTour(TourVM tour)
+        {
+            bool result = false;
+            foreach (TourAppointmentVM tourApp in tour.TourAppointments)
+            {
+                if (tourApp.TourDateTime >= DateTime.Now)
+                    return false;
+                else
+                    result = true;
+            }
+            return result;
+        }
+        private ObservableCollection<TourVM> SetOldTours(ObservableCollection<TourVM> tours)
+        {
+            ObservableCollection<TourVM> oldTours = new ObservableCollection<TourVM>();
+            foreach (TourVM tour in tours)
+            {
+                if (IsOldTour(tour))
+                    oldTours.Add(tour);
+            }
+            return oldTours;
+        }
+        private ObservableCollection<TourVM> RemoveOldTours(ObservableCollection<TourVM> tours)
+        {
+            ObservableCollection<TourVM> onlyNewTours = new ObservableCollection<TourVM>();
+            foreach (TourVM tour in tours)
+            {
+                if (!IsOldTour(tour))
+                    onlyNewTours.Add(tour);
+            }
+            return onlyNewTours;
+        }
+
+        //private bool IsReserved(TourVM tour)
+        //{
+        //    foreach (var ticket in Guest2.Tickets)
+        //    {   
+        //        foreach (var tourApp in tour.TourAppointments)
+        //        {
+        //            if (!IsOldTour(tour) 
+        //                && ticket.TourAppointment.Id == tourApp.Id 
+        //                && ticket.TourAppointment.State == TOURSTATE.READY)
+        //                return true;
+        //        }
+        //    }    
+        //    return false;
+        //}
+        //private ObservableCollection<TourVM> SetAlreadyReservedTours(ObservableCollection<TourVM> tours)
+        //{
+        //    ObservableCollection<TourVM> reservedTours = new ObservableCollection<TourVM>();
+        //    foreach(TourVM tour in tours)
+        //    {
+        //        if (IsReserved(tour))
+        //            reservedTours.Add(tour);
+        //    }
+        //    return reservedTours;
+        //}
+
+        private bool IsAvailable(TourVM tour)
+        {
+            foreach (TourAppointmentVM tourApp in tour.TourAppointments)
+            {
+                if (tourApp.State == TOURSTATE.READY && tourApp.AvailableSeats != 0 && tourApp.TourDateTime >= DateTime.Now)
+                    return true;
+            }
+            return false;
+        }
+        private ObservableCollection<TourVM> SetUnavailableTours(ObservableCollection<TourVM> tours)
+        {
+            ObservableCollection<TourVM> unavailableTours = new ObservableCollection<TourVM>();
+            foreach (TourVM tour in tours)
+            {
+                if (!IsAvailable(tour))
+                    unavailableTours.Add(tour);
+            }
+            return unavailableTours;
+        }
+        private ObservableCollection<TourVM> SetAvailableTours(ObservableCollection<TourVM> tours)
+        {
+            ObservableCollection<TourVM> availableTours = new ObservableCollection<TourVM>();
+            foreach (TourVM tour in tours)
+            {
+                if (IsAvailable(tour))
+                    availableTours.Add(tour);
+            }
+            return availableTours;
+        }
+
+
         private void SearchLocation(ObservableCollection<TourVM> tours)
         {
             List<TourVM> toursList = new List<TourVM>();
@@ -116,10 +212,10 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 
         private void SearchOne()
         {
-            SearchLocation(Tours);
-            SearchDuration(Tours);
-            SearchLanguage(Tours);
-            SearchMaxNumberOfGuests(Tours);
+            SearchLocation(AvailableTours);
+            SearchDuration(AvailableTours);
+            SearchLanguage(AvailableTours);
+            SearchMaxNumberOfGuests(AvailableTours);
         }
 
         private ICommand _SearchCommand;

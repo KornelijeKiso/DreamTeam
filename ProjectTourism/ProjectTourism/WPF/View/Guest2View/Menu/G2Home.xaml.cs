@@ -31,5 +31,24 @@ namespace ProjectTourism.WPF.View.Guest2View.Menu
             InitializeComponent();
             DataContext = new HomeVM(guest2);
         }
+
+        private void ItemsShown(object sender, SelectionChangedEventArgs e)
+        {
+            switch (TabControl.SelectedIndex)
+            {
+                case 0:
+                    {
+                        BuyTicket.Visibility = Visibility.Visible;
+                        BuyTicket.IsEnabled = true;
+                        break;
+                    }
+                default:
+                    {
+                        BuyTicket.Visibility = Visibility.Collapsed;
+                        BuyTicket.IsEnabled = false;
+                        break;
+                    }
+            }
+        }
     }
 }
