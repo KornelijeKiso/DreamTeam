@@ -29,6 +29,7 @@ namespace ProjectTourism.View.OwnerView
     public partial class MainOwnerWindow : Window, INotifyPropertyChanged
     {
         public OwnerVM Owner { get; set; }
+        public NotificationVM SelectedNotification { get; set; }
 
         public MainOwnerWindow(string username)
         {
@@ -49,6 +50,7 @@ namespace ProjectTourism.View.OwnerView
             ForumsItem.Background = Brushes.Transparent;
             NotificationsItem.Background = Brushes.Transparent;
             ProfileItem.Background = Brushes.Transparent;
+            Notifications.Visibility = Visibility.Collapsed;
         }
         public void SwitchToReservations(object sender, EventArgs e)
         {
@@ -59,6 +61,7 @@ namespace ProjectTourism.View.OwnerView
             ForumsItem.Background = Brushes.Transparent;
             NotificationsItem.Background = Brushes.Transparent;
             ProfileItem.Background = Brushes.Transparent;
+            Notifications.Visibility = Visibility.Collapsed;
         }
         public void SwitchToYourProfile(object sender, EventArgs e)
         {
@@ -69,8 +72,22 @@ namespace ProjectTourism.View.OwnerView
             ForumsItem.Background = Brushes.Transparent;
             NotificationsItem.Background = Brushes.Transparent;
             ProfileItem.Background = Brushes.DeepSkyBlue;
+            Notifications.Visibility = Visibility.Collapsed;
         }
 
+        public void CloseNotificationsClick(object sender, EventArgs e)
+        {
+            Notifications.Visibility = Visibility.Collapsed;
+            Owner.SeenNotifications();
+        }
+        public void ShowNotifications(object sender, EventArgs e)
+        {
+            Notifications.Visibility = Visibility.Visible;
+        }
+        public void DismissNotificationClick(object sender, EventArgs e)
+        {
+            Owner.DismissNotification(SelectedNotification);
+        }
         private void SetOwner(string username)
         {
             Owner = new OwnerVM(username);
