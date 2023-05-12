@@ -117,6 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Accept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
   <data name="Add" xml:space="preserve">
     <value>Add</value>
   </data>
@@ -135,11 +138,29 @@
   <data name="AllAppointments" xml:space="preserve">
     <value>All appointments</value>
   </data>
+  <data name="AllApps" xml:space="preserve">
+    <value>All appointments</value>
+  </data>
   <data name="AllTours" xml:space="preserve">
     <value>All tours</value>
   </data>
   <data name="AllToursLabel" xml:space="preserve">
     <value>All tours</value>
+  </data>
+  <data name="Biography" xml:space="preserve">
+    <value>Biography</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CancelAppQuestion" xml:space="preserve">
+    <value>Are you sure you want to cancel this appointment?</value>
+  </data>
+  <data name="Canceled" xml:space="preserve">
+    <value>Canceled</value>
+  </data>
+  <data name="CheckpointArrival" xml:space="preserve">
+    <value>Checkpoint arrival</value>
   </data>
   <data name="City" xml:space="preserve">
     <value>City</value>
@@ -147,17 +168,35 @@
   <data name="CityRequired" xml:space="preserve">
     <value>City is required!</value>
   </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
   <data name="Country" xml:space="preserve">
     <value>Country</value>
   </data>
   <data name="CountryRequired" xml:space="preserve">
     <value>Country required!</value>
   </data>
+  <data name="CurrentTourStop" xml:space="preserve">
+    <value>Current tour stop</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="DeleteApp" xml:space="preserve">
+    <value>Delete appointment</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
   <data name="Duration" xml:space="preserve">
     <value>Duration</value>
+  </data>
+  <data name="EmergencyStop" xml:space="preserve">
+    <value>Emergency stop</value>
+  </data>
+  <data name="EndDate" xml:space="preserve">
+    <value>End date</value>
   </data>
   <data name="EnterALanguage" xml:space="preserve">
     <value>Enter a language of the route:</value>
@@ -180,11 +219,29 @@
   <data name="Finish" xml:space="preserve">
     <value>Finish</value>
   </data>
+  <data name="Finished" xml:space="preserve">
+    <value>Finished</value>
+  </data>
   <data name="FinishRequired" xml:space="preserve">
     <value>Finish point is required!</value>
   </data>
+  <data name="GuestUsername" xml:space="preserve">
+    <value>Guest username</value>
+  </data>
   <data name="GuideAlreadyBusy" xml:space="preserve">
     <value>Guide is already busy in selected appointment!</value>
+  </data>
+  <data name="GuideAlreadyStartedTourError" xml:space="preserve">
+    <value>Guide has already started a tour!</value>
+  </data>
+  <data name="GuidesKnowledge" xml:space="preserve">
+    <value>Guide's knowledge</value>
+  </data>
+  <data name="GuidesLanguage" xml:space="preserve">
+    <value>Guides language</value>
+  </data>
+  <data name="Here" xml:space="preserve">
+    <value>Here</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
@@ -198,11 +255,20 @@
   <data name="Images" xml:space="preserve">
     <value>Images</value>
   </data>
+  <data name="Interesting" xml:space="preserve">
+    <value>Interesting</value>
+  </data>
   <data name="InvalidTime" xml:space="preserve">
     <value>Invalid time entered.</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Log out</value>
   </data>
   <data name="MaxNumberOfGuests" xml:space="preserve">
     <value>Max number of guests</value>
@@ -219,11 +285,20 @@
   <data name="NoGoodFieldsError" xml:space="preserve">
     <value>Tour can not be made because the fields were not entered correctly.</value>
   </data>
+  <data name="NoReviewsError" xml:space="preserve">
+    <value>There are no reviews for this appointment!</value>
+  </data>
   <data name="NoTicketsLabel" xml:space="preserve">
     <value>There were no tickets or vouchers for this appointment</value>
   </data>
   <data name="NumberMustBePositive" xml:space="preserve">
     <value>The number must be positive!</value>
+  </data>
+  <data name="NumberOfGuests" xml:space="preserve">
+    <value>Number of guests</value>
+  </data>
+  <data name="NumberOfRequests" xml:space="preserve">
+    <value>Number of requests</value>
   </data>
   <data name="NumberOfTickets" xml:space="preserve">
     <value>Number of tickets</value>
@@ -231,38 +306,101 @@
   <data name="NumberOfVouchers" xml:space="preserve">
     <value>Number of vouchers</value>
   </data>
+  <data name="PhoneNumber" xml:space="preserve">
+    <value>Phone number</value>
+  </data>
+  <data name="Pictures" xml:space="preserve">
+    <value>Pictures</value>
+  </data>
   <data name="Profile" xml:space="preserve">
     <value>Profile</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Report</value>
+  </data>
+  <data name="ReportReview" xml:space="preserve">
+    <value>Report review</value>
+  </data>
+  <data name="ReportReviewQuestion" xml:space="preserve">
+    <value>Are you sure you want to report a review by </value>
   </data>
   <data name="Requests" xml:space="preserve">
     <value>Requests</value>
   </data>
+  <data name="RequestStatistics" xml:space="preserve">
+    <value>Request statistics</value>
+  </data>
   <data name="RequiredNameLabel" xml:space="preserve">
     <value>Name is required!</value>
+  </data>
+  <data name="ReviewHasBeenReported" xml:space="preserve">
+    <value> has been successfuly reported!</value>
+  </data>
+  <data name="ReviewReported" xml:space="preserve">
+    <value>Review made by </value>
+  </data>
+  <data name="Reviews" xml:space="preserve">
+    <value>Reviews</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SearchParameters" xml:space="preserve">
+    <value>Search parameters</value>
+  </data>
+  <data name="SeeReviews" xml:space="preserve">
+    <value>See reviews</value>
+  </data>
+  <data name="SelectAYear" xml:space="preserve">
+    <value>Select a year of which you would like to see monthly report</value>
+  </data>
+  <data name="SpokenLanguages" xml:space="preserve">
+    <value>Spoken languages</value>
+  </data>
   <data name="Start" xml:space="preserve">
     <value>Start</value>
+  </data>
+  <data name="StartDate" xml:space="preserve">
+    <value>Start date</value>
   </data>
   <data name="StartPointRequired" xml:space="preserve">
     <value>Start point required!</value>
   </data>
+  <data name="StartTour" xml:space="preserve">
+    <value>Start</value>
+  </data>
   <data name="StatisticsLabel1" xml:space="preserve">
     <value>Select a tour of which you would like to see the statistics.</value>
+  </data>
+  <data name="Stopped" xml:space="preserve">
+    <value>Stopped</value>
   </data>
   <data name="Stops" xml:space="preserve">
     <value>Stops</value>
   </data>
+  <data name="SucecssfulDeletation" xml:space="preserve">
+    <value>has been succesfully deleted!</value>
+  </data>
+  <data name="Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
   <data name="Time" xml:space="preserve">
     <value>Time</value>
   </data>
-  <data name="TodaysTours" xml:space="preserve">
-    <value>Today's tours</value>
+  <data name="TodaysAppointments" xml:space="preserve">
+    <value>Today's appointments</value>
   </data>
   <data name="TourInfo" xml:space="preserve">
     <value>Tour info</value>
+  </data>
+  <data name="TourState" xml:space="preserve">
+    <value>Tour state</value>
   </data>
   <data name="TourStatistic" xml:space="preserve">
     <value>Appointment statistics</value>
@@ -270,8 +408,14 @@
   <data name="TourStatistics" xml:space="preserve">
     <value>Tour statistics</value>
   </data>
+  <data name="TourSuggestion" xml:space="preserve">
+    <value>Tour suggestion</value>
+  </data>
   <data name="UpcomingLabel" xml:space="preserve">
     <value>Upcoming...</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Username</value>
   </data>
   <data name="Visits" xml:space="preserve">
     <value>Visits</value>
@@ -284,5 +428,8 @@
   </data>
   <data name="WelcomeLabel" xml:space="preserve">
     <value>Welcome!</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Year</value>
   </data>
 </root>

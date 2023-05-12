@@ -4,10 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView.TourView"
+             xmlns:ns="clr-namespace:ProjectTourism.Localization"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Label x:Name="RequestsLabel" Content="Request statistics" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="329" FontSize="40"/>
+        <Label x:Name="RequestsLabel" Content="{ns:Loc RequestStatistics}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="329" FontSize="40"/>
         <Border x:Name="rectangle" Background="White" BorderBrush="Black" BorderThickness="1" CornerRadius="15" Margin="40,140,430,51"/>
 
         <DataGrid x:Name="DataGridStats" 
@@ -27,7 +28,7 @@
             </DataGrid.CellStyle>
             <DataGrid.Columns>
 
-                <DataGridTemplateColumn Width="*" Header="Year" >
+                <DataGridTemplateColumn Width="*" Header="{ns:Loc Year}" >
                     <DataGridTemplateColumn.HeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -40,7 +41,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Width="*" Header="Number of requests">
+                <DataGridTemplateColumn Width="*" Header="{ns:Loc NumberOfRequests}">
                     <DataGridTemplateColumn.HeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -56,7 +57,7 @@
         </DataGrid>
 
         <Grid>
-            <Label Content="Select a year of which you would like to see monthly report" FontSize="17" Margin="370, 170, 0, 0"></Label>
+            <Label Content="{ns:Loc SelectAYear}" FontSize="17" Margin="370, 170, 0, 0"></Label>
             <Canvas x:Name="StatsCanvas" Margin="460,310,48,43" RenderTransformOrigin="0.5,0.5">
                 <Canvas.RenderTransform>
                     <TransformGroup>
@@ -71,14 +72,14 @@
                 <GroupBox.Header>
                     <StackPanel Orientation="Horizontal">
                         <Image Source="https://cdn-icons-png.flaticon.com/512/3031/3031293.png" Width="20" Height="20" Margin="0,0,5,0"/>
-                        <TextBlock Text="Search parameters"/>
+                        <TextBlock Text="{ns:Loc SearchParameters}"/>
                     </StackPanel>
                 </GroupBox.Header>
             </GroupBox>
 
         </Grid>
-        <Label Content="Language" Margin="930, 200, 0, 0" FontSize="15" ></Label>
-        <Label Content="Location" Margin="930, 270, 0, 0" FontSize="15" ></Label>
+        <Label Content="{ns:Loc Language}" Margin="930, 200, 0, 0" FontSize="15" ></Label>
+        <Label Content="{ns:Loc Location}" Margin="930, 270, 0, 0" FontSize="15" ></Label>
         <ComboBox x:Name="LanguageComboBox" ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" SelectionChanged="LanguagesComboBox_SelectionChanged" FontSize="15" Margin="930,230,100,415"></ComboBox>
         <ComboBox x:Name="LocationComboBox" ItemsSource="{Binding Locations}" SelectedItem="{Binding SelectedLocation}" SelectionChanged="LocationComboBox_SelectionChanged" FontSize="15" Margin="930,300,100,345"></ComboBox>
     </Grid>
