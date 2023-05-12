@@ -23,11 +23,11 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.GuideView.TourView
 {
-    public partial class ViewAllToursWindow : UserControl, INotifyPropertyChanged
+    public partial class AllToursUserControl : UserControl, INotifyPropertyChanged
     {
         public GuideVM Guide { get; set; }
         public TourVM SelectedTour { get; set; }
-        public ViewAllToursWindow(string username)
+        public AllToursUserControl(string username)
         {
             InitializeComponent();
             DataContext = this;
@@ -36,7 +36,7 @@ namespace ProjectTourism.View.GuideView.TourView
         private void TourStatistics_Click(object sender, RoutedEventArgs e)
         {
             HideProfilesContent();
-            ContentArea.Content = new TourStatisticsWindow(Guide.Username);
+            ContentArea.Content = new TourStatisticsUserControl(Guide.Username);
         }
         private void HideProfilesContent()
         {

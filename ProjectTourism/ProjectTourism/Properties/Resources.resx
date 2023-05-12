@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
   <data name="AddANewTour" xml:space="preserve">
     <value>Dodaj novu turu</value>
+  </data>
+  <data name="AddLanguage" xml:space="preserve">
+    <value>Dodaj jezik</value>
+  </data>
+  <data name="AddTime" xml:space="preserve">
+    <value>Dodaj vreme</value>
   </data>
   <data name="AgeGroupsDescription" xml:space="preserve">
     <value>Ovde možete videti starosne grupe ljudi</value>
@@ -150,6 +159,9 @@
   <data name="Duration" xml:space="preserve">
     <value>Trajanje</value>
   </data>
+  <data name="EnterALanguage" xml:space="preserve">
+    <value>Unesite jezik rute:</value>
+  </data>
   <data name="EnterFinish" xml:space="preserve">
     <value>Unesite cilj</value>
   </data>
@@ -171,6 +183,9 @@
   <data name="FinishRequired" xml:space="preserve">
     <value>Cilj je neophodan!</value>
   </data>
+  <data name="GuideAlreadyBusy" xml:space="preserve">
+    <value>Vodič je zauzet u izabranom terminu!</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Početna</value>
   </data>
@@ -183,6 +198,9 @@
   <data name="Images" xml:space="preserve">
     <value>Fotografije</value>
   </data>
+  <data name="InvalidTime" xml:space="preserve">
+    <value>Vreme nije uneto dobro!</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>Jezik</value>
   </data>
@@ -194,6 +212,12 @@
   </data>
   <data name="Name" xml:space="preserve">
     <value>Naziv</value>
+  </data>
+  <data name="NoDatesError" xml:space="preserve">
+    <value>Niste izabrali nijedan datum za ovu turu!</value>
+  </data>
+  <data name="NoGoodFieldsError" xml:space="preserve">
+    <value>Tura ne može biti napravljena zato što nisu dobro ispunjena sva polja!</value>
   </data>
   <data name="NoTicketsLabel" xml:space="preserve">
     <value>Ne postoje karte ni vaučeri u ovom terminu.</value>
@@ -251,6 +275,12 @@
   </data>
   <data name="Visits" xml:space="preserve">
     <value>Posete</value>
+  </data>
+  <data name="WatermarkStops" xml:space="preserve">
+    <value>Unesite zarezom odvojene stanice</value>
+  </data>
+  <data name="WatermarkURLs" xml:space="preserve">
+    <value>Unesite zarezom odvojene URL-ove</value>
   </data>
   <data name="WelcomeLabel" xml:space="preserve">
     <value>Dobrodošli!</value>

@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>Add</value>
+  </data>
   <data name="AddANewTour" xml:space="preserve">
     <value>Add a new tour</value>
+  </data>
+  <data name="AddLanguage" xml:space="preserve">
+    <value>Add language</value>
+  </data>
+  <data name="AddTime" xml:space="preserve">
+    <value>Add time</value>
   </data>
   <data name="AgeGroupsDescription" xml:space="preserve">
     <value>Here you can see the age groups of people</value>
@@ -150,6 +159,9 @@
   <data name="Duration" xml:space="preserve">
     <value>Duration</value>
   </data>
+  <data name="EnterALanguage" xml:space="preserve">
+    <value>Enter a language of the route:</value>
+  </data>
   <data name="EnterFinish" xml:space="preserve">
     <value>Enter finish point</value>
   </data>
@@ -171,6 +183,9 @@
   <data name="FinishRequired" xml:space="preserve">
     <value>Finish point is required!</value>
   </data>
+  <data name="GuideAlreadyBusy" xml:space="preserve">
+    <value>Guide is already busy in selected appointment!</value>
+  </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
   </data>
@@ -183,6 +198,9 @@
   <data name="Images" xml:space="preserve">
     <value>Images</value>
   </data>
+  <data name="InvalidTime" xml:space="preserve">
+    <value>Invalid time entered.</value>
+  </data>
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
@@ -194,6 +212,12 @@
   </data>
   <data name="Name" xml:space="preserve">
     <value>Name</value>
+  </data>
+  <data name="NoDatesError" xml:space="preserve">
+    <value>You did not choose any dates for this tour!</value>
+  </data>
+  <data name="NoGoodFieldsError" xml:space="preserve">
+    <value>Tour can not be made because the fields were not entered correctly.</value>
   </data>
   <data name="NoTicketsLabel" xml:space="preserve">
     <value>There were no tickets or vouchers for this appointment</value>
@@ -251,6 +275,12 @@
   </data>
   <data name="Visits" xml:space="preserve">
     <value>Visits</value>
+  </data>
+  <data name="WatermarkStops" xml:space="preserve">
+    <value>Enter comma separated stops</value>
+  </data>
+  <data name="WatermarkURLs" xml:space="preserve">
+    <value>Enter comma separated URLs</value>
   </data>
   <data name="WelcomeLabel" xml:space="preserve">
     <value>Welcome!</value>

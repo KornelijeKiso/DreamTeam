@@ -23,11 +23,11 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.GuideView.TourView
 {
-    public partial class LiveToursTrackingWindow : UserControl, INotifyPropertyChanged
+    public partial class TodaysToursUserControl : UserControl, INotifyPropertyChanged
     {
         public GuideVM Guide { get; set; }
         public TourAppointmentVM SelectedTourAppointment { get; set; }
-        public LiveToursTrackingWindow(string username)
+        public TodaysToursUserControl(string username)
         {
             InitializeComponent();
             DataContext = this;
@@ -42,7 +42,7 @@ namespace ProjectTourism.View.GuideView.TourView
         }
         private void ManageButton_Click(object sender, RoutedEventArgs e)
         {
-            TourStopsWindow tourStopsWindow = new TourStopsWindow(SelectedTourAppointment);
+            TourStopsUserControl tourStopsWindow = new TourStopsUserControl(SelectedTourAppointment);
             HideTodaysToursContent();
             ContentArea.Content = tourStopsWindow;
             SelectedTourAppointment = tourStopsWindow.TourAppointment;
@@ -50,7 +50,7 @@ namespace ProjectTourism.View.GuideView.TourView
         private void ReviewsButton_Click(object sender, RoutedEventArgs e)
         {
             HideTodaysToursContent();
-            ContentArea.Content = new ReviewsWindow(SelectedTourAppointment);
+            ContentArea.Content = new ReviewsUserControl(SelectedTourAppointment);
         }
         private void HideTodaysToursContent()
         {

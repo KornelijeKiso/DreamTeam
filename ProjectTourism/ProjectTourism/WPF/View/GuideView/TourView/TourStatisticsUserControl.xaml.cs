@@ -20,7 +20,7 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.GuideView.TourView
 {
-    public partial class TourStatisticsWindow : UserControl
+    public partial class TourStatisticsUserControl : UserControl
     {
         public GuideVM Guide { get; set; }
         public List<TourAppointmentVM> TourApps { get; set; }
@@ -30,7 +30,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         public int SelectedYear { get; set; }
         public List<int> Years { get; set; }
         public ObservableCollection<int> AgeGroups { get; set; }
-        public TourStatisticsWindow(string username)
+        public TourStatisticsUserControl(string username)
         {
             InitializeComponent();
             DataContext = this;
