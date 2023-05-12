@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProjectTourism.WPF.ViewModel.Guest2ViewModel;
 
 namespace ProjectTourism.WPF.View.Guest2View
 {
@@ -22,9 +23,13 @@ namespace ProjectTourism.WPF.View.Guest2View
     /// </summary>
     public partial class Guest2MainWindow : Window
     {
-        public Guest2MainWindow()
+        public NavigationVM _NavigationVM { get; set; }
+        public Guest2MainWindow(string username)
         {
             InitializeComponent();
+            //this._NavigationVM = new NavigationVM(username, this.frame.NavigationService);
+            this._NavigationVM = new NavigationVM(username);
+            this.DataContext = this._NavigationVM;
         }
 
         private void LogOut_Click(object sender, RoutedEventArgs e)

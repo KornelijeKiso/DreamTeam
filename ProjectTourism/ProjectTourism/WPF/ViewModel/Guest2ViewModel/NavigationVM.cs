@@ -19,17 +19,17 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             get { return _currentView; }
             set { _currentView = value; OnPropertyChanged(); }
         }
-
+        
         public Guest2VM Guest2 { get; set; }
-        public CurrentUserService CurrentUserService { get; set; }
-        public UserVM CurrentUser { get; set; }
-        public void SetGuest2()
-        {
-            CurrentUserService = new CurrentUserService();
-            CurrentUser = new UserVM(CurrentUserService.GetUser());
-            Guest2 = new Guest2VM(CurrentUser.Username);
-        }
+        public string Username { get; set; }
 
+        //public RelayCommand NavigateHomeCommand { get; set; }
+        //public RelayCommand NavigateTicketsCommand { get; set; }
+        //public RelayCommand NavigateVouchersCommand { get; set; }
+        //public RelayCommand NavigateProfileCommand { get; set; }
+        //public RelayCommand NavigateTourRequestsCommand { get; set; }
+        //public RelayCommand NavigateComplexToursCommand { get; set; }
+       
         public ICommand HomeCommand { get; set; }
         public ICommand TicketsCommand { get; set; }
         public ICommand VouchersCommand { get; set; }
@@ -37,15 +37,16 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public ICommand TourRequestsCommand { get; set; }
         public ICommand ComplexToursCommand { get; set; }
 
-        private void Home(object obj) => CurrentView = new HomeVM();
-        private void Tickets(object obj) => CurrentView = new TicketsVM();
-        private void Vouchers(object obj) => CurrentView = new VouchersVM();
-        private void Profile(object obj) => CurrentView = new ProfileVM();
-        private void TourRequests(object obj) => CurrentView = new TourRequestsVM();
-        //private void ComplexTour(object obj) => CurrentView = ComplexTourVM();
-        public NavigationVM()
+        private void Home(object obj) => CurrentView = new HomeVM(Guest2);
+        private void Tickets(object obj) => CurrentView = new TicketsVM(Guest2);
+        private void Vouchers(object obj) => CurrentView = new VouchersVM(Guest2);
+        private void Profile(object obj) => CurrentView = new ProfileVM(Guest2);
+        private void TourRequests(object obj) => CurrentView = new TourRequestsVM(Guest2);
+        //private void ComplexTour(object obj) => CurrentView = ComplexTourVM(Guest2);
+        public NavigationVM(string username)
         {
-            SetGuest2();
+            Username = username;
+            Guest2 = new Guest2VM(Username);
 
             HomeCommand = new RelayCommand(Home);
             TicketsCommand = new RelayCommand(Tickets);
@@ -55,7 +56,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             //ComplexToursCommand = new RelayCommand(ComplexTour);
 
             // Startup Page
-            CurrentView = new HomeVM();
+            CurrentView = new HomeVM(Guest2);
         }
     }
 }

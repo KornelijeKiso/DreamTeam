@@ -11,21 +11,13 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
     public class ProfileVM : ViewModelBase
     {
-        public CurrentUserService CurrentUserService { get; set; }
-        public UserVM CurrentUser { get; set; }
         public Guest2VM Guest2 { get; set; }
 
-        public ProfileVM()
+        public ProfileVM() { }
+        public ProfileVM(Guest2VM guest2)
         {
-            SetGuest2();
-        }
+            Guest2 = guest2;
 
-        public void SetGuest2()
-        {
-            CurrentUserService = new CurrentUserService();
-            CurrentUser = new UserVM(CurrentUserService.GetUser());
-            Guest2 = new Guest2VM(CurrentUser.Username);
         }
-
     }
 }

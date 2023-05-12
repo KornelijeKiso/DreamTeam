@@ -4,10 +4,11 @@
                     xmlns:view="clr-namespace:ProjectTourism.WPF.View.Guest2View.Menu"
                     >
 
+    
     <DataTemplate DataType="{x:Type vm:HomeVM}">
         <view:G2Home />
     </DataTemplate>
-
+    
     <DataTemplate DataType="{x:Type vm:TicketsVM}">
         <view:G2Tickets />
     </DataTemplate>
@@ -23,6 +24,7 @@
     <DataTemplate DataType="{x:Type vm:TourRequestsVM}">
         <view:G2TourRequest />
     </DataTemplate>
+    
 
     <!--<DataTemplate DataType="{x:Type vm:ComplexTourVM}">
         <view:ComplexTours />

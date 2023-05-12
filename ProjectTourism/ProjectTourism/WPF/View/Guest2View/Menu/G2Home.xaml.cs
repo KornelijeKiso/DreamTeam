@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProjectTourism.WPF.ViewModel.Guest2ViewModel;
+using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.Guest2View.Menu
 {
@@ -22,6 +24,31 @@ namespace ProjectTourism.WPF.View.Guest2View.Menu
         public G2Home()
         {
             InitializeComponent();
+            //DataContext = new HomeVM(guest2);
+        }
+        public G2Home(Guest2VM guest2)
+        {
+            InitializeComponent();
+            DataContext = new HomeVM(guest2);
+        }
+
+        private void ItemsShown(object sender, SelectionChangedEventArgs e)
+        {
+            switch (TabControl.SelectedIndex)
+            {
+                case 0:
+                    {
+                        BuyTicket.Visibility = Visibility.Visible;
+                        BuyTicket.IsEnabled = true;
+                        break;
+                    }
+                default:
+                    {
+                        BuyTicket.Visibility = Visibility.Collapsed;
+                        BuyTicket.IsEnabled = false;
+                        break;
+                    }
+            }
         }
     }
 }

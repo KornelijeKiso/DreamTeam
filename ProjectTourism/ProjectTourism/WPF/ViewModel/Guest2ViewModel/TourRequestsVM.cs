@@ -13,8 +13,6 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
     public class TourRequestsVM : ViewModelBase
     {
-        public CurrentUserService CurrentUserService { get; set; }
-        public UserVM CurrentUser { get; set; }
         public Guest2VM Guest2 { get; set; }
         public TourRequestVM SelectedTourRequest { get; set; }
         public ObservableCollection<TourRequestVM> PendingRequests { get; set; }
@@ -22,20 +20,14 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public ObservableCollection<TourRequestVM> ExpiredRequests { get; set; }
         public ObservableCollection<TourRequestVM> OthersRequests { get; set; }
 
-        public TourRequestsVM()
+        public TourRequestsVM() { }
+        public TourRequestsVM(Guest2VM guest2)
         {
-            SetGuest2();
+            Guest2 = guest2;
             PendingRequests = SetPendingRequests();
             AcceptedRequests = SetAcceptedRequests();
             ExpiredRequests = SetExpiredRequests();
             OthersRequests = SetOthersRequests();
-        }
-
-        private void SetGuest2()
-        {
-            CurrentUserService = new CurrentUserService();
-            CurrentUser = new UserVM(CurrentUserService.GetUser());
-            Guest2 = new Guest2VM(CurrentUser.Username);
         }
 
         private ObservableCollection<TourRequestVM> SetPendingRequests()

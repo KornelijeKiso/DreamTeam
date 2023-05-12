@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ProjectTourism.WPF.ViewModel.Guest2ViewModel;
+using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.Guest2View.Menu
 {
@@ -23,6 +25,12 @@ namespace ProjectTourism.WPF.View.Guest2View.Menu
         public G2Vouchers()
         {
             InitializeComponent();
+            //DataContext = new VouchersVM(guest2);
+        }
+        public G2Vouchers(Guest2VM guest2)
+        {
+            InitializeComponent();
+            DataContext = new VouchersVM(guest2);
         }
     }
 }

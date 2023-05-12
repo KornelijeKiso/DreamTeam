@@ -155,7 +155,7 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
             {
                 Ticket.CreateTicket(new Ticket(selectedAppointment.Id, StopsComboBox.Text, Guest2.Username, int.Parse(sliderText.Text)));
                 Ticket = Ticket.GetLast();
-                UnusedVouchersWindow unusedVouchersWindow = new UnusedVouchersWindow(Ticket);
+                UnusedVouchersWindow unusedVouchersWindow = new UnusedVouchersWindow(Guest2, Ticket);
                 unusedVouchersWindow.ShowDialog();
                 if (unusedVouchersWindow.IsUsed)
                 {

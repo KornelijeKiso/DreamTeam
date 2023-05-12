@@ -10,238 +10,590 @@
         d:DesignWidth="700"
         Style="{StaticResource Page_Style}"     >
     
-    <UserControl.DataContext>
-        <vm:HomeVM />
-    </UserControl.DataContext>
-    
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="70"/>
-            <RowDefinition Height="350"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="300"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0"  >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="160" />
-                <ColumnDefinition Width="140" />
-                <ColumnDefinition Width="100" />
-                <ColumnDefinition Width="120" />
-                <ColumnDefinition Width="160" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="40"/>
-                <RowDefinition Height="30"/>
-            </Grid.RowDefinitions>
+            <GroupBox Header="Search" Height="auto" Margin="20 0 30 0"
+                      BorderBrush="Black" BorderThickness="1"
+                      FontFamily="Fonts/#Rubik" FontSize="16"
+                      
+                      >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160" />
+                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="120" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="30"/>
+                    </Grid.RowDefinitions>
 
-            
-            <Label x:Name="LabelLocation" Content="Location" 
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Center" 
-                   Height="30" Width="auto" Margin="20 15 0 0"
-                   Grid.Row="0" Grid.Column="0"     />
-            <TextBox 
-                 x:Name="tbLocation" 
-                 Text="{Binding Path=searchLocation, UpdateSourceTrigger=PropertyChanged}"
-                 HorizontalAlignment="Left"
-                 VerticalAlignment="Center"
-                 Height="30" Width="120" Margin="20 0 0 0"
-                 Grid.Row="1" Grid.Column="0"   >
-            </TextBox>
+                    <Label x:Name="LabelLocation" Content="Location" 
+                           FontFamily="/Fonts/#Rubik" FontSize="14"
+                           HorizontalAlignment="Left" VerticalAlignment="Center" 
+                           Height="30" Width="auto" Margin="20 15 0 0"
+                           Grid.Row="0" Grid.Column="0"     />
+                    <TextBox x:Name="tbLocation" FontFamily="/Fonts/#Rubik" FontSize="14"
+                             Text="{Binding Path=searchLocation, UpdateSourceTrigger=PropertyChanged}"
+                             HorizontalAlignment="Left" VerticalAlignment="Center"
+                             Height="30" Width="120" Margin="20 0 0 0"
+                             Grid.Row="1" Grid.Column="0"   >
+                    </TextBox>
 
-            <Label x:Name="LabelLanguage" Content="Language" 
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Center" 
-                   Height="30" Width="auto" Margin="0 15 0 0"
-                   Grid.Row="0" Grid.Column="1"     />
-            <TextBox 
-                 x:Name="tbLanguage" 
-                 Text="{Binding Path=searchLanguage, UpdateSourceTrigger=PropertyChanged}"
-                 HorizontalAlignment="Left"
-                 VerticalAlignment="Center"
-                 Height="30" Width="120" 
-                 Grid.Row="1" Grid.Column="1"   >
-            </TextBox>
+                    <Label x:Name="LabelLanguage" Content="Language" 
+                           FontFamily="/Fonts/#Rubik" FontSize="14"
+                           HorizontalAlignment="Left" VerticalAlignment="Center" 
+                           Height="30" Width="auto" Margin="0 15 0 0"
+                           Grid.Row="0" Grid.Column="1"     />
+                    <TextBox x:Name="tbLanguage" FontFamily="/Fonts/#Rubik" FontSize="14"
+                             Text="{Binding Path=searchLanguage, UpdateSourceTrigger=PropertyChanged}"
+                             HorizontalAlignment="Left" VerticalAlignment="Center"
+                             Height="30" Width="120" 
+                             Grid.Row="1" Grid.Column="1"   >
+                    </TextBox>
 
-            <Label x:Name="LabelDuration" Content="Duration" 
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Center" 
-                   Height="30" Width="auto" Margin="0 15 0 0"
-                   Grid.Row="0" Grid.Column="2"     />
-            <TextBox 
-                 x:Name="tbDuration" 
-                 Text="{Binding Path=searchDuration, UpdateSourceTrigger=PropertyChanged}"
-                 HorizontalAlignment="Left"
-                 VerticalAlignment="Center"
-                 Height="30" Width="80" 
-                 Grid.Row="1" Grid.Column="2"   >
-            </TextBox>
+                    <Label x:Name="LabelDuration" Content="Duration" 
+                           FontFamily="/Fonts/#Rubik" FontSize="14"
+                           HorizontalAlignment="Left" VerticalAlignment="Center" 
+                           Height="30" Width="auto" Margin="0 15 0 0"
+                           Grid.Row="0" Grid.Column="2"     />
+                    <TextBox x:Name="tbDuration" FontFamily="/Fonts/#Rubik" FontSize="14"
+                             Text="{Binding Path=searchDuration, UpdateSourceTrigger=PropertyChanged}"
+                             HorizontalAlignment="Left" VerticalAlignment="Center"
+                             Height="30" Width="80" 
+                                Grid.Row="1" Grid.Column="2"   >
+                    </TextBox>
 
-            <Label x:Name="LabelMaxNumberOfGuests" Content="Max Number &#x0d;Of Guests" 
-                   HorizontalAlignment="Left"
-                   VerticalAlignment="Center" 
-                   Height="50" Width="auto" Margin="0 5 0 0"
-                   Grid.Row="0" Grid.Column="3"     />
-            <TextBox 
-                 x:Name="tbMaxNumberOfGuests" 
-                 Text="{Binding Path=searchMaxNumberOfGuests, UpdateSourceTrigger=PropertyChanged}"
-                 HorizontalAlignment="Left"
-                 VerticalAlignment="Center"
-                 Height="30" Width="80" 
-                 Grid.Row="1" Grid.Column="3"   >
-            </TextBox>
-            
-            <!-- SEARCH BUTTON -->
-            <Button x:Name="Search" Style="{StaticResource Search}"
-                    Grid.Row="0" Grid.RowSpan="2" Grid.Column="4"
-                    Command="{Binding SearchCommand}"
-                    >
-                <!--click DODAJ -->
-            </Button>
+                    <Label x:Name="LabelMaxNumberOfGuests" Content="Max Number &#x0d;Of Guests" 
+                           FontFamily="/Fonts/#Rubik" FontSize="14"
+                           HorizontalAlignment="Left" VerticalAlignment="Center" 
+                           Height="50" Width="auto" Margin="0 5 0 0"
+                           Grid.Row="0" Grid.Column="3"     />
+                    <TextBox x:Name="tbMaxNumberOfGuests" FontFamily="/Fonts/#Rubik" FontSize="14"
+                             Text="{Binding Path=searchMaxNumberOfGuests, UpdateSourceTrigger=PropertyChanged}"
+                             HorizontalAlignment="Left" VerticalAlignment="Center"
+                             Height="30" Width="80" 
+                             Grid.Row="1" Grid.Column="3"   >
+                    </TextBox>
+
+                    <!-- SEARCH BUTTON -->
+                    <Button x:Name="Search" Style="{StaticResource Search}"
+                            Grid.Row="0" Grid.RowSpan="2" Grid.Column="4"
+                            Command="{Binding SearchCommand}"               />
+                </Grid>
+            </GroupBox>
         </Grid>
 
         <Grid Grid.Row="1" >
+            <TabControl x:Name="TabControl" SelectionChanged="ItemsShown"
+                        Margin="20 10 30 10"
+                        >
+                <TabControl.Style>
+                    <Style TargetType="TabControl">
+                        <Setter Property="FontFamily" Value="/Fonts/#Rubik" />
+                        <Setter Property="FontSize" Value="16" />
+                        <Setter Property="Foreground" Value="#DBDBDB" />
+                        <Setter Property="BorderBrush" Value="Black" />
+                        <Setter Property="BorderThickness" Value="3" />
+                    </Style>
+                </TabControl.Style>
 
-            <DataGrid x:Name="DataGridTours"  Style="{StaticResource DataGrid_Style}" 
-                      ItemsSource="{Binding Tours, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" 
-                      Grid.Row="2"
-                      Margin="20 20 30 10"      >
-                <DataGrid.Resources>
-                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
-                   Color="#339AF0"/>
-                </DataGrid.Resources>
-                
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Width="150" >
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Stretch="Fill" 
+                <TabItem Header="Available Tours" Height="20" VerticalAlignment="Top">
+                    <DataGrid x:Name="DataGridTours" 
+                              ItemsSource="{Binding AvailableTours, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" 
+                              Height="auto" Width="auto" Margin="0 0 0 0"
+                              SelectionMode="Single" 
+                              AutoGenerateColumns="False" IsReadOnly="True"
+                              VerticalScrollBarVisibility="Visible"
+                              RowHeight="150" ColumnWidth="*"
+                              Background="LightBlue" RowBackground="LightBlue"
+                              BorderThickness="0" BorderBrush="Black"
+                              >
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                                             Color="#339AF0"/>
+                        </DataGrid.Resources>
+
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="150" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Stretch="Fill" 
                                    Source="{Binding Path=Pictures[0]}"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
 
-                    <DataGridTemplateColumn Width="*">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Vertical" >
-                                    <Label FontFamily="/Fonts/#Rubik" FontSize="16" FontWeight="SemiBold" Height="auto"
-                                           VerticalAlignment="Center" HorizontalAlignment="Left">
-                                        <Label.Content>
-                                            <TextBlock>
-                                                <TextBlock.Text>
-                                                    <MultiBinding StringFormat="{}{0} ">
-                                                        <Binding Path="Name"/>
-                                                    </MultiBinding>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                        </Label.Content>
-                                    </Label>
-                                    <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
-                                           VerticalAlignment="Center" HorizontalAlignment="Left">
-                                        <Label.Content>
-                                            <TextBlock>
-                                                <TextBlock.Text>
-                                                    <MultiBinding StringFormat="{}Location : {0}, {1}">
-                                                        <Binding Path="Location.Country"/>
-                                                        <Binding Path="Location.City"/>
-                                                    </MultiBinding>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                        </Label.Content>
-                                    </Label>
-                                    <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
-                                           VerticalAlignment="Center" HorizontalAlignment="Left">
-                                        <Label.Content>
-                                            <TextBlock>
-                                                <TextBlock.Text>
-                                                    <MultiBinding StringFormat="{}Language : {0}">
-                                                        <Binding Path="Language"/>
-                                                    </MultiBinding>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                        </Label.Content>
-                                    </Label>
-                                    <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
-                                           VerticalAlignment="Center" HorizontalAlignment="Left">
-                                        <Label.Content>
-                                            <TextBlock>
-                                                <TextBlock.Text>
-                                                    <MultiBinding StringFormat="{}Duration : {0}">
-                                                        <Binding Path="Duration"/>
-                                                    </MultiBinding>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                        </Label.Content>
-                                    </Label>
-                                    <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
-                                           VerticalAlignment="Center" HorizontalAlignment="Left">
-                                        <Label.Content>
-                                            <TextBlock>
-                                                <TextBlock.Text>
-                                                    <MultiBinding StringFormat="{}Max number of guests : {0}">
-                                                        <Binding Path="MaxNumberOfGuests"/>
-                                                    </MultiBinding>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                        </Label.Content>
-                                    </Label>
+                            <DataGridTemplateColumn Width="270">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical" >
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="16" FontWeight="SemiBold" Height="auto"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}{0} ">
+                                                                <Binding Path="Name"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Location : {0}, {1}">
+                                                                <Binding Path="Location.Country"/>
+                                                                <Binding Path="Location.City"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Language : {0}">
+                                                                <Binding Path="Language"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Duration : {0}">
+                                                                <Binding Path="Duration"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Max number of guests : {0}">
+                                                                <Binding Path="MaxNumberOfGuests"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
 
-                                    <!-- TO DO -> DISPLAY ALL DATA, ADD BUTTON FOR EXPANDING -->
-                                    <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
-                                           VerticalAlignment="Center" HorizontalAlignment="Left">
-                                        <Label.Content>
-                                            <TextBlock>
-                                                <TextBlock.Text>
-                                                    <MultiBinding StringFormat="{}Guide : {0} {1}">
-                                                        <Binding Path="Guide.FirstName"/>
-                                                        <Binding Path="Guide.LastName"/>
-                                                    </MultiBinding>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                        </Label.Content>
-                                    </Label>
-                                    <!-- TO DO -> DISPLAY ALL DATES -->
-                                    <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
-                                           VerticalAlignment="Center" HorizontalAlignment="Left">
-                                        <Label.Content>
-                                            <TextBlock>
-                                                <TextBlock.Text>
-                                                    <MultiBinding StringFormat="{}Dates : {0}">
-                                                        <Binding Path="TourAppointments[0].TourDateTime"/>
-                                                    </MultiBinding>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                        </Label.Content>
-                                    </Label>
-                                    <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="auto"
-                                           VerticalAlignment="Center" HorizontalAlignment="Left">
-                                        <Label.Content>
-                                            <TextBlock TextWrapping="Wrap">
-                                                <TextBlock.Text>
-                                                    <MultiBinding StringFormat="{}Description : {0} ">
-                                                        <Binding Path="Description"/>
-                                                    </MultiBinding>
-                                                </TextBlock.Text>
-                                            </TextBlock>
-                                        </Label.Content>
-                                    </Label>
-                                    
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-            
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Guide : {0} {1}">
+                                                                <Binding Path="Guide.FirstName"/>
+                                                                <Binding Path="Guide.LastName"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+
+                                            <!-- TO DO -> DISPLAY ALL DATA, ADD BUTTON FOR EXPANDING -->
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="auto"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock TextWrapping="Wrap">
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Description : {0} ">
+                                                                <Binding Path="Description"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <ListView x:Name="AvailableTourAppointmentsListView" ItemsSource="{Binding Path=TourAppointments}" 
+                                                      FontFamily="/Fonts/#Rubik" FontSize="12"
+                                                      VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                      Background="LightBlue">
+                                                <ListView.View>
+                                                    <GridView x:Name="AvailableTourAppointmentsGridView" >
+                                                        <GridViewColumn Width="auto" Header="Date" DisplayMemberBinding="{Binding Path=TourDateTime}"/>
+                                                        <GridViewColumn Width="auto" Header="Available &#x0d;seats" DisplayMemberBinding="{Binding Path=AvailableSeats}"/>
+                                                    </GridView>
+                                                </ListView.View>
+                                            </ListView>
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+
+                <!--<TabItem Header="Already reserved" Height="20" VerticalAlignment="Top"></TabItem>-->
+                
+                <TabItem Header="Unavailable Tours" Height="20" VerticalAlignment="Top">
+                    <DataGrid x:Name="DataGridUnavailableTours" 
+                              ItemsSource="{Binding UnavailableTours, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" 
+                              Height="auto" Width="auto" Margin="0 0 0 0"
+                              SelectionMode="Single" 
+                              AutoGenerateColumns="False" IsReadOnly="True"
+                              VerticalScrollBarVisibility="Visible"
+                              RowHeight="150" ColumnWidth="*"
+                              Background="LightBlue" RowBackground="LightBlue"
+                              BorderThickness="0" BorderBrush="Black"
+                              >
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                                             Color="#339AF0"/>
+                        </DataGrid.Resources>
+
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="150" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Stretch="Fill" 
+                                   Source="{Binding Path=Pictures[0]}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="270">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical" >
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="16" FontWeight="SemiBold" Height="auto"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}{0} ">
+                                                                <Binding Path="Name"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Location : {0}, {1}">
+                                                                <Binding Path="Location.Country"/>
+                                                                <Binding Path="Location.City"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Language : {0}">
+                                                                <Binding Path="Language"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Duration : {0}">
+                                                                <Binding Path="Duration"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Max number of guests : {0}">
+                                                                <Binding Path="MaxNumberOfGuests"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Guide : {0} {1}">
+                                                                <Binding Path="Guide.FirstName"/>
+                                                                <Binding Path="Guide.LastName"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <!-- TO DO -> DISPLAY ALL DATA, ADD BUTTON FOR EXPANDING -->
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="auto"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock TextWrapping="Wrap">
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Description : {0} ">
+                                                                <Binding Path="Description"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <ListView x:Name="UnavailableTourAppointmentsListView" ItemsSource="{Binding Path=TourAppointments}" 
+                                                      FontFamily="/Fonts/#Rubik" FontSize="12"
+                                                      VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                      Background="LightBlue">
+                                                <ListView.View>
+                                                    <GridView x:Name="UnavailableTourAppointmentsGridView" >
+                                                        <GridViewColumn Width="auto" Header="Date" DisplayMemberBinding="{Binding Path=TourDateTime}"/>
+                                                        <GridViewColumn Width="auto" Header="Available &#x0d;seats" DisplayMemberBinding="{Binding Path=AvailableSeats}"/>
+                                                        <GridViewColumn Width="auto" Header="State" DisplayMemberBinding="{Binding Path=State}"/>
+                                                    </GridView>
+                                                </ListView.View>
+                                            </ListView>
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+
+                <TabItem Header="Old Tours" Height="20" VerticalAlignment="Top">
+                    <DataGrid x:Name="DataGridOldTours" 
+                              ItemsSource="{Binding OldTours, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding Path=SelectedTour, UpdateSourceTrigger=PropertyChanged}" 
+                              Height="auto" Width="auto" Margin="0 0 0 0"
+                              SelectionMode="Single" 
+                              AutoGenerateColumns="False" IsReadOnly="True"
+                              VerticalScrollBarVisibility="Visible"
+                              RowHeight="150" ColumnWidth="*"
+                              Background="LightBlue" RowBackground="LightBlue"
+                              BorderThickness="0" BorderBrush="Black"
+                              >
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                                             Color="#339AF0"/>
+                        </DataGrid.Resources>
+
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="150" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Stretch="Fill" 
+                                   Source="{Binding Path=Pictures[0]}"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="270">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical" >
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="16" FontWeight="SemiBold" Height="auto"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}{0} ">
+                                                                <Binding Path="Name"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Location : {0}, {1}">
+                                                                <Binding Path="Location.Country"/>
+                                                                <Binding Path="Location.City"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Language : {0}">
+                                                                <Binding Path="Language"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Duration : {0}">
+                                                                <Binding Path="Duration"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Max number of guests : {0}">
+                                                                <Binding Path="MaxNumberOfGuests"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Guide : {0} {1}">
+                                                                <Binding Path="Guide.FirstName"/>
+                                                                <Binding Path="Guide.LastName"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <!-- TO DO -> DISPLAY ALL DATA, ADD BUTTON FOR EXPANDING -->
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="auto"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock TextWrapping="Wrap">
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Description : {0} ">
+                                                                <Binding Path="Description"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <ListView x:Name="OldTourAppointmentsListView" ItemsSource="{Binding Path=TourAppointments}" 
+                                                      FontFamily="/Fonts/#Rubik" FontSize="12"
+                                                      VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                      Background="LightBlue">
+                                                <ListView.View>
+                                                    <GridView x:Name="OldTourAppointmentsGridView" >
+                                                        <GridViewColumn Width="auto" Header="Date" DisplayMemberBinding="{Binding Path=TourDateTime}"/>
+                                                        <GridViewColumn Width="auto" Header="State" DisplayMemberBinding="{Binding Path=State}"/>
+                                                    </GridView>
+                                                </ListView.View>
+                                            </ListView>
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+            </TabControl>
         </Grid>
+
 
         <Grid Grid.Row="2" >
             <!-- BUY TICKET   -->
-            <Button x:Name="BuyTicket" Style="{StaticResource BuyTickets_button}"
-                    Margin="0 0 30 40" 
+            <Button x:Name="BuyTicket"
                     Command="{Binding BuyTicketCommand}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Height" Value="40"/>
+                        <Setter Property="Width" Value="150"/>
+                        <Setter Property="Margin" Value="0 0 30 40"/>
+                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="border"
+                                            BorderThickness="1"
+                                            Background="Black">
+                                        <TextBlock Text="Buy a Ticket"
+                                            FontFamily="/Fonts/#Rubik" 
+                                            FontSize="18"
+                                            Foreground="#DBDBDB" 
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver"
+                                                 Value="True"   >
+                                            <Setter Property="Background"
+                                                    TargetName="border"
+                                                    Value="#272B2F" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True" />
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
             </Button>
         </Grid>
 

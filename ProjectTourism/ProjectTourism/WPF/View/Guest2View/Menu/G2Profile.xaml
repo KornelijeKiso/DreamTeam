@@ -9,9 +9,9 @@
              d:DesignHeight="500" 
              d:DesignWidth="700"
              Style="{StaticResource Page_Style}"    >
-    <UserControl.DataContext>
+    <!--<UserControl.DataContext>
         <vm:ProfileVM />
-    </UserControl.DataContext>
+    </UserControl.DataContext>-->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="400"/>

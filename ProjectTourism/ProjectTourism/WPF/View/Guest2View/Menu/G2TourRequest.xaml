@@ -9,9 +9,9 @@
              d:DesignHeight="550" 
              d:DesignWidth="700"
              Style="{StaticResource Page_Style}"        >
-    <UserControl.DataContext>
+    <!--<UserControl.DataContext>
         <vm:TourRequestsVM />
-    </UserControl.DataContext>
+    </UserControl.DataContext>-->
     
     <Grid>
         <Grid.RowDefinitions>
