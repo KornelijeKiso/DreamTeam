@@ -4,10 +4,11 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView.TourView"
+        xmlns:ns="clr-namespace:ProjectTourism.Localization"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
 
     <Grid>
-        <Label Content="Reviews" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
+        <Label Content="{ns:Loc Reviews}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         <DataGrid  Name="DataGridRow" RowHeight="100" CanUserAddRows="False" HorizontalAlignment="Center" Height="486" VerticalAlignment="Top" Width="1048" 
             SelectedItem="{Binding SelectedTicket, UpdateSourceTrigger=PropertyChanged}" 
             ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="0,149,0,0">
@@ -16,7 +17,7 @@
             </DataGrid.Resources>
             <DataGrid.Columns>
 
-                <DataGridTemplateColumn Header="Guest username" Width="150">
+                <DataGridTemplateColumn Header="{ns:Loc GuestUsername}" Width="150">
                     <DataGridTemplateColumn.HeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -29,7 +30,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Checkpoint arrival" Width="150">
+                <DataGridTemplateColumn Header="{ns:Loc CheckpointArrival}" Width="150">
                     <DataGridTemplateColumn.HeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -42,7 +43,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Header="Comment" Width="150">
+                <DataGridTemplateColumn Header="{ns:Loc Comment}" Width="150">
                     <DataGridTemplateColumn.HeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -55,7 +56,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTextColumn Header="Guide's knowledge" FontSize="18"  Width="120" Binding="{Binding Path=TicketGrade.Grades[GuidesKnowledge]}">
+                <DataGridTextColumn Header="{ns:Loc GuidesKnowledge}" FontSize="18"  Width="120" Binding="{Binding Path=TicketGrade.Grades[GuidesKnowledge]}">
                     <DataGridTextColumn.HeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -69,7 +70,7 @@
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
 
-                <DataGridTextColumn Header="Guide's language" FontSize="18"  Width="110" Binding="{Binding Path=TicketGrade.Grades[GuidesLanguage]}">
+                <DataGridTextColumn Header="{ns:Loc GuidesLanguage}" FontSize="18"  Width="110" Binding="{Binding Path=TicketGrade.Grades[GuidesLanguage]}">
                     <DataGridTextColumn.HeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -83,7 +84,7 @@
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
 
-                <DataGridTextColumn Header="Interesting" FontSize="18" Width="*" Binding="{Binding Path=TicketGrade.Grades[Interesting]}">
+                <DataGridTextColumn Header="{ns:Loc Interesting}" FontSize="18" Width="*" Binding="{Binding Path=TicketGrade.Grades[Interesting]}">
                     <DataGridTextColumn.HeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -98,7 +99,7 @@
                 </DataGridTextColumn>
 
 
-                <DataGridTemplateColumn Width="150" Header="Picture">
+                <DataGridTemplateColumn Width="150" Header="{ns:Loc Pictures}">
                     <DataGridTemplateColumn.HeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -111,7 +112,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Width="100" Header="Report">
+                <DataGridTemplateColumn Width="100" Header="{ns:Loc Report}">
                     <DataGridTemplateColumn.HeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>

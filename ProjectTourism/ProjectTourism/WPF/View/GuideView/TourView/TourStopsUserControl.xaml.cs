@@ -18,6 +18,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProjectTourism.Localization;
 using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
@@ -92,11 +93,11 @@ namespace ProjectTourism.View.GuideView.TourView
                     TourAppointment.Tour.Guide.FinishTourAndReturnStop(TourAppointment);
                     StopPassedButton.IsEnabled = false;
                 }
-                else 
+                else
                     NextStop();
             }
             else
-                MessageBox.Show("Guide has already started a tour!");
+                ShowLocalizedErrorMessage("GuideAlreadyStartedTourError");
             EmergencyButtonSet();
         }
         private bool IsNextStopFinish()
@@ -130,7 +131,20 @@ namespace ProjectTourism.View.GuideView.TourView
                 ContentArea.Content = new ReviewsUserControl(TourAppointment);
             }
             else
-                MessageBox.Show("There are no reviews for this appointment!");
+                ShowLocalizedErrorMessage("NoReviewsError");
+        }
+        void ShowLocalizedErrorMessage(string resourceKey)
+        {
+            string errorMessage = GetLocalizedErrorMessage(resourceKey);
+            MessageBox.Show(errorMessage);
+        }
+
+        string GetLocalizedErrorMessage(string resourceKey)
+        {
+            TextBlock Templabel = new TextBlock();
+            LocExtension locExtension = new LocExtension(resourceKey);
+            BindingOperations.SetBinding(Templabel, TextBlock.TextProperty, locExtension.ProvideValue(null) as BindingBase);
+            return Templabel.Text;
         }
         private void HideTourStopsContent()
         {
