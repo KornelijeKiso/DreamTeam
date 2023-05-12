@@ -107,7 +107,7 @@
                                         <TextBlock Text="{Binding Text}" Foreground="Black" TextWrapping="Wrap" Width="370" HorizontalAlignment="Left" Margin="5 2 0 0" FontSize="11"></TextBlock>
                                         <StackPanel Orientation="Horizontal">
                                             <Label Content="{Binding Time}" Foreground="Gray" FontWeight="SemiBold"></Label>
-                                            <TextBlock  FontSize="14" Margin="210 3 0 0">
+                                            <TextBlock  FontSize="14" Margin="204 3 0 0">
                                                 <Hyperlink Click="DismissNotificationClick">Dismiss</Hyperlink>
                                             </TextBlock>
                                         </StackPanel>

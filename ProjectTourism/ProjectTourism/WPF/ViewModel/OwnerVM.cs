@@ -52,7 +52,6 @@ namespace ProjectTourism.WPF.ViewModel
 
         public void SetTimer()
         {
-            
             timer.Elapsed += TimerElapsed;
             timer.AutoReset = true;
             timer.Start();
@@ -96,7 +95,7 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
             Accommodations = new ObservableCollection<AccommodationVM>(_owner.Accommodations.Select(r => new AccommodationVM(r)).ToList());
-            Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).Reverse().ToList());
+            Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).ToList());
             SetDestinations();
             Notifications = new ObservableCollection<NotificationVM>(new NotificationService().GetAllByOwner(_owner.Username).Select(r => new NotificationVM(r)).Reverse().ToList());
         }
