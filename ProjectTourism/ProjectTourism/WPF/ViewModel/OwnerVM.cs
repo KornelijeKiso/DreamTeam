@@ -33,7 +33,7 @@ namespace ProjectTourism.WPF.ViewModel
                     locations.Add(accommodation.LocationId, new DestinationVM(accommodation.Location));
                 }
                 locations[accommodation.LocationId].Accommodations.Add(accommodation);
-                locations[accommodation.LocationId].Reservations.AddRange(accommodation.Reservations);
+                locations[accommodation.LocationId].Reservations.AddRange(accommodation.Reservations.ToList().Where(r=>r.StartDate<DateOnly.FromDateTime(DateTime.Now) && r.EndDate>DateOnly.FromDateTime(DateTime.Now).AddYears(-1)));
             }
             PopularDestination = locations.Values.ToList().OrderByDescending(a => a.Occupancy).FirstOrDefault();
             UnpopularDestination = locations.Values.ToList().OrderByDescending(a => a.Occupancy).LastOrDefault();

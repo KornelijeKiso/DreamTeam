@@ -106,7 +106,7 @@
                 </GroupBox>
             </StackPanel>
         </GroupBox>
-        <Image Source="https://pics.freeicons.io/uploads/icons/png/184585736316315917534153-512.png" Height="40" Margin="520 80 0 0"></Image>
-        <Image Source="https://pics.freeicons.io/uploads/icons/png/796497161678643396-64.png" Height="35" Margin="520 -380 0 0"></Image>
+        <Image Source="https://img.icons8.com/?size=512&amp;id=A0GYKsn29Bu2&amp;format=png" Height="50" Margin="530 80 0 0"></Image>
+        <Image Source="https://img.icons8.com/?size=2x&amp;id=q7KYqH8P4joH&amp;format=png" Height="50" Margin="530 -380 0 0"></Image>
     </Grid>
 </UserControl>
