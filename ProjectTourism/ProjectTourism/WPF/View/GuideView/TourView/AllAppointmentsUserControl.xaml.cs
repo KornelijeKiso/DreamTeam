@@ -19,6 +19,7 @@ using ProjectTourism.WPF.ViewModel;
 using ProjectTourism.Repositories;
 using System.Runtime.CompilerServices;
 using ProjectTourism.WPF.View.GuideView.TourView;
+using ProjectTourism.Localization;
 
 namespace ProjectTourism.View.GuideView.TourView
 {
@@ -64,14 +65,21 @@ namespace ProjectTourism.View.GuideView.TourView
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
             string name = new string(SelectedAppointment.Tour.Name);
-            MessageBoxResult result = MessageBox.Show("Are you sure you want to cancel this appointment?", "Delete appointment", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result = MessageBox.Show(GetLocalizedErrorMessage("CancelAppQuestion"), GetLocalizedErrorMessage("DeleteApp"), MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 Guide.CancelAppointment(SelectedAppointment);
-                MessageBox.Show(name + " has been succesfully deleted!");
+                MessageBox.Show(name + GetLocalizedErrorMessage("SucecssfulDeletation"));
                 CanceledApps.Add(SelectedAppointment);
                 SortedReadyApps.Remove(SelectedAppointment);
             }
+        }
+        string GetLocalizedErrorMessage(string resourceKey)
+        {
+            TextBlock Templabel = new TextBlock();
+            LocExtension locExtension = new LocExtension(resourceKey);
+            BindingOperations.SetBinding(Templabel, TextBlock.TextProperty, locExtension.ProvideValue(null) as BindingBase);
+            return Templabel.Text;
         }
         private void Update(GuideVM guide)
         {

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView.TourView"
+        xmlns:ns="clr-namespace:ProjectTourism.Localization"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
         <Label x:Name="NameSurnameLabel" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40">
@@ -35,11 +36,11 @@
                 <ColumnDefinition Width="247*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label x:Name="EmailLabel" Grid.Row="0" Grid.Column="0" Content="Email" Margin="0,6,0,6"/>
-            <Label x:Name="PhoneNumberLabel" Grid.Row="1" Grid.Column="0" Content="Phone number" Margin="0,6,0,6"/>
-            <Label x:Name="LanguagesLabel" Grid.Row="2" Grid.Column="0" Content="Spoken languages" Margin="0,6,0,6"/>
-            <Label x:Name="BioLabel" Grid.Row="3" Grid.Column="0" Content="Biography" Margin="0,6,0,6"/>
+            <Label x:Name="PhoneNumberLabel" Grid.Row="1" Grid.Column="0" Content="{ns:Loc PhoneNumber}" Margin="0,6,0,6"/>
+            <Label x:Name="LanguagesLabel" Grid.Row="2" Grid.Column="0" Content="{ns:Loc SpokenLanguages}" Margin="0,6,0,6"/>
+            <Label x:Name="BioLabel" Grid.Row="3" Grid.Column="0" Content="{ns:Loc Biography}" Margin="0,6,0,6"/>
             <Label x:Name="MaxGuestsLabel" Grid.Row="5" Grid.Column="0" Content="" Margin="0,6,0,6"/>
-            <Label x:Name="DarkThemeLabel" Grid.Row="6" Grid.Column="0" Content="Dark theme" Margin="0,6,0,6"/>
+            <Label x:Name="DarkThemeLabel" Grid.Row="6" Grid.Column="0" Content="{ns:Loc Theme}" Margin="0,6,0,6"/>
 
             <TextBox x:Name="textbox1" Grid.Row="0" Grid.Column="1" Text="{Binding Guide.Email}" Margin="0,8,0,8" IsReadOnly="True"/>
             <TextBox x:Name="textbox2" Grid.Row="1" Grid.Column="1" Text="{Binding Guide.PhoneNumber}" Margin="0,8,0,8" IsReadOnly="True"/>
@@ -54,7 +55,7 @@
             <Image x:Name="LogOutImage" Source="https://cdn-icons-png.flaticon.com/512/10521/10521967.png" Width="22" Height="22" Margin="0,-4,5,0"/>
             <TextBlock x:Name="LinkSignOut" FontSize="20">
         <Hyperlink x:Name="SignOutLink" Click="SignOutLink_Click">
-            <Run Text="Log out"/>
+            <Run Text="{ns:Loc LogOut}"/>
         </Hyperlink>
             </TextBlock>
         </StackPanel>

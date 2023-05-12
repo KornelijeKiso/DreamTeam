@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.GuideView.TourView"
         xmlns:conv="clr-namespace:ProjectTourism.Converters"
+        xmlns:ns="clr-namespace:ProjectTourism.Localization"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -12,7 +13,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <Label Name="TodaysToursLabel" Content="Today's tours" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
+        <Label Name="TodaysToursLabel" Content="{ns:Loc TodaysAppointments}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="300" FontSize="40"/>
         <DataGrid x:Name="DataGridTourAppointments" 
                 ItemsSource="{Binding Path=Guide.TodaysAppointments, UpdateSourceTrigger=PropertyChanged}"
                 SelectedItem="{Binding SelectedTourAppointment, UpdateSourceTrigger=PropertyChanged}" 
@@ -102,7 +103,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="100" Header="Time">
+                <DataGridTemplateColumn Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">
