@@ -25,11 +25,12 @@ namespace ProjectTourism.Repositories
             if (AccommodationGrades == null) return 0;
             else return AccommodationGrades.Last().Id + 1;
         }
-        public void Add(AccommodationGrade accommodationGrade)
+        public int Add(AccommodationGrade accommodationGrade)
         {
             accommodationGrade.Id = GenerateId();
             AccommodationGrades.Add(accommodationGrade);
             FileHandler.Save(AccommodationGrades);
+            return accommodationGrade.Id;
         }
 
         public void Delete(AccommodationGrade accommodationGrade)

@@ -11,7 +11,7 @@ namespace ProjectTourism.Domain.IRepositories
     {
         AccommodationGrade GetOne(int accommodationGradeId);
         List<AccommodationGrade> GetAll();
-        void Add(AccommodationGrade accommodationGrade);
+        int Add(AccommodationGrade accommodationGrade);
         void Delete(AccommodationGrade accommodationGrade);
         void Update(AccommodationGrade accommodationGrade);
         AccommodationGrade GetOneByReservation(int reservationId);

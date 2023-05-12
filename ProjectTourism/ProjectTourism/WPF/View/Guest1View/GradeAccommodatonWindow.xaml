@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest1View"
         mc:Ignorable="d"
-        Title="GradeAccommodatonWindow" Height="630" Width="500">
+        Title="GradeAccommodatonWindow" Height="750" Width="430">
     <Grid >
 
         <StackPanel Margin="0,0,0,-15">
@@ -62,6 +62,12 @@
                 </StackPanel>
             </GroupBox>
             <Button Content="Submit" FontSize="14" Click="GradeClick" IsDefault="True" BorderThickness="2" BorderBrush="Black" Margin="0 0 0 0" Width="91"></Button>
+            
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" Margin="20, 620, 20, 20">
+            <TextBlock x:Name="StatsLink" FontSize="18">
+        <Hyperlink Foreground="Blue" Click="RenovationRecommendationClick" >Request statistics</Hyperlink>
+            </TextBlock>
         </StackPanel>
     </Grid>
 </Window>

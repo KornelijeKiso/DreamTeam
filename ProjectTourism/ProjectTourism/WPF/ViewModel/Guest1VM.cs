@@ -66,8 +66,17 @@ namespace ProjectTourism.WPF.ViewModel
         public void GradeAccommodation(AccommodationGradeVM grade)
         {
             AccommodationGradeService accommodationGradeService = new AccommodationGradeService();
+            RenovationRecommendationService renovationRecommendationService = new RenovationRecommendationService();
             var reservation = Reservations.ToList().Find(r => r.Id == grade.ReservationId);
-            accommodationGradeService.Add(grade.GetAccommodationGrade());
+            if (grade.RenovationRecommendation != null)
+            {
+                grade.RenovationRecommendation.AccommodationGradeId = accommodationGradeService.Add(grade.GetAccommodationGrade());
+                renovationRecommendationService.Add(grade.RenovationRecommendation.GetRenovationRecommendation());
+            }
+            else
+            {
+                accommodationGradeService.Add(grade.GetAccommodationGrade());
+            }
         }
         public void CancelReservation(ReservationVM reservationVM)
         {

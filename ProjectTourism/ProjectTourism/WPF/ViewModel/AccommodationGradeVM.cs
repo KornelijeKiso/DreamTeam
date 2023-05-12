@@ -20,6 +20,7 @@ namespace ProjectTourism.WPF.ViewModel
         {
             return _accommodationGrade;
         }
+        public RenovationRecommendationVM RenovationRecommendation { get; set; }
         public int Id
         {
             get => _accommodationGrade.Id;

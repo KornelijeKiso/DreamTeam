@@ -37,6 +37,13 @@ namespace ProjectTourism.WPF.View.Guest1View
             AccommodationGradeVM.Reservation = reservationVM;
         }
 
+        private void RenovationRecommendationClick(object sender, RoutedEventArgs e)
+        {
+            RenovationRecommendationWindow renovationRecommendationWindow = new RenovationRecommendationWindow();
+            renovationRecommendationWindow.ShowDialog();
+            AccommodationGradeVM.RenovationRecommendation = renovationRecommendationWindow.renovationRecommendationVM;
+
+        }
         private void GradeClick(object sender, RoutedEventArgs e)
         {
             GradePriceAndQuality();
