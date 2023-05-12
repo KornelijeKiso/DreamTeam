@@ -21,18 +21,15 @@ namespace ProjectTourism.WPF.View.OwnerView
     public partial class PostponeRequestWindow : Window
     {
         public ReservationVM Reservation { get; set; }
-        public bool Accepted { get; set; }
         public PostponeRequestWindow(ReservationVM reservation)
         {
             InitializeComponent();
             DataContext = this;
             Reservation = reservation;
-            Accepted = false;
         }
         public void AcceptClick(object sender, RoutedEventArgs e)
         {
             Reservation.AcceptPostpone();
-            MessageBox.Show("You have successfully accepted postpone request.");
             Close();
         }
 

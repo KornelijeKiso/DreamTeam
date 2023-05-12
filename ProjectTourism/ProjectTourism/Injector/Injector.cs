@@ -40,6 +40,7 @@ namespace Injector
             _implementations.Add(typeof(ITourRequestRepository), new TourRequestRepository());
             _implementations.Add(typeof(IRenovationRecommendationRepository), new RenovationRecommendationRepository());
 
+            _implementations.Add(typeof(INotificationRepository), new NotificationRepository());
         }
 
         public static T CreateInstance<T>()

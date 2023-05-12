@@ -93,12 +93,17 @@ namespace ProjectTourism.WPF.ViewModel
         }
         private string[] GetPictureURLsFromCSV()
         {
-            string[] pictures = PictureURLs.Split(',');
-            foreach (var picture in pictures)
+            if (PictureURLs != null)
             {
-                picture.Trim();
+                string[] pictures = PictureURLs.Split(',');
+                foreach (var picture in pictures)
+                {
+                    picture.Trim();
+                }
+                return pictures;
             }
-            return pictures;
+            string[] pictures2 = { "" };
+            return pictures2;
         }
         public string PictureURLs
         {

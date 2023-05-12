@@ -14,6 +14,7 @@ namespace ProjectTourism.Model
         public bool HasTourStarted;
         public string Biography;
         public string Language;
+        public string Localization;
         public List<Tour> Tours;
         public List<TourAppointment> TourAppointments;
 
@@ -46,7 +47,7 @@ namespace ProjectTourism.Model
         {
             string?[] csvValues =
             {
-                 Username, Biography, Language, HasTourStarted.ToString()
+                 Username, Biography, Language, HasTourStarted.ToString(), Localization
             };
             return csvValues;
         }
@@ -57,6 +58,7 @@ namespace ProjectTourism.Model
             Biography = values[1];
             Language = values[2];
             HasTourStarted = bool.Parse(values[3]);
+            Localization = values[4];
         }
     }
 }

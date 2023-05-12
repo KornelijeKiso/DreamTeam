@@ -19,14 +19,16 @@ namespace ProjectTourism.Repositories
             FileHandler = new LocationFileHandler();
             Locations = FileHandler.Load();
         }
-        public int GenerateId()
+        public int GenerateId(Location location)
         {
             if (Locations == null) return 0;
             else return Locations.Last().Id + 1;
         }
         public int AddAndReturnId(Location location)
         {
-            location.Id = GenerateId();
+            Location l = Locations.Find(lo => lo.City.Equals(location.City) && lo.Country.Equals(location.Country));
+            if (l != null) return l.Id;
+            location.Id = GenerateId(location);
             Locations.Add(location);
             FileHandler.Save(Locations);
             return location.Id;

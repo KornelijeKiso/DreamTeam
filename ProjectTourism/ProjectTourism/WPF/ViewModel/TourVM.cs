@@ -8,6 +8,9 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using ProjectTourism.Localization;
+using System.Windows.Controls;
+using System.Windows.Data;
 using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
@@ -241,53 +244,71 @@ namespace ProjectTourism.WPF.ViewModel
         {
             get
             {
+                string? error = null;
+
                 if (columnName == "Name")
                 {
-                    if (string.IsNullOrEmpty(Name))
-                        return "Name is required!";
-                    Match match = _NameRegex.Match(Name);
-                    if (!match.Success)
-                        return "Enter name";
+                    error = ValidateRequiredField(Name, "RequiredNameLabel")
+                        ?? ValidateRegexMatch(Name, _NameRegex, "EnterNameLabel");
                 }
                 else if (columnName == "MaxNumberOfGuests")
                 {
-                    if (string.IsNullOrEmpty(MaxNumberOfGuests.ToString()))
-                        return "Number must be positive!";
-                    Match match = _PositiveNumberRegex.Match(MaxNumberOfGuests.ToString());
-                    if (!match.Success)
-                        return "Enter positive number";
+                    error = ValidateRequiredField(MaxNumberOfGuests.ToString(), "NumberMustBePositive")
+                        ?? ValidateRegexMatch(MaxNumberOfGuests.ToString(), _PositiveNumberRegex, "EnterPositiveNumber");
                 }
                 else if (columnName == "Start")
                 {
-                    if (string.IsNullOrEmpty(Start))
-                        return "Start point required!";
-                    Match match = _StartRegex.Match(Start);
-                    if (!match.Success)
-                        return "Enter start";
+                    error = ValidateRequiredField(Start, "StartPointRequired")
+                        ?? ValidateRegexMatch(Start, _StartRegex, "EnterStart");
                 }
                 else if (columnName == "Finish")
                 {
-                    if (string.IsNullOrEmpty(Finish))
-                        return "Finish point is required!";
-                    Match match = _StartRegex.Match(Finish);
-                    if (!match.Success)
-                        return "Enter finish";
+                    error = ValidateRequiredField(Finish, "FinishRequired")
+                        ?? ValidateRegexMatch(Finish, _StartRegex, "EnterFinish");
                 }
                 else if (columnName == "Duration")
                 {
-                    if (string.IsNullOrEmpty(Duration.ToString()))
-                        return "Number must be positive!";
-                    Match match = _PositiveNumberRegex.Match(Duration.ToString());
-                    if (!match.Success)
-                        return "Enter positive number";
+                    error = ValidateRequiredField(Duration.ToString(), "NumberMustBePositive")
+                        ?? ValidateRegexMatch(Duration.ToString(), _PositiveNumberRegex, "EnterPositiveNumber");
                 }
                 else
                 {
-                    return "Error";
+                    error = GetLocalizedErrorMessage("Error");
                 }
-                return null;
+
+                return error;
             }
         }
+
+        string? ValidateRequiredField(string value, string resourceKey)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return GetLocalizedErrorMessage(resourceKey);
+            }
+
+            return null;
+        }
+
+        string? ValidateRegexMatch(string value, Regex regex, string resourceKey)
+        {
+            Match match = regex.Match(value);
+            if (!match.Success)
+            {
+                return GetLocalizedErrorMessage(resourceKey);
+            }
+
+            return null;
+        }
+
+        string GetLocalizedErrorMessage(string resourceKey)
+        {
+            TextBlock label = new TextBlock();
+            LocExtension locExtension = new LocExtension(resourceKey);
+            BindingOperations.SetBinding(label, TextBlock.TextProperty, locExtension.ProvideValue(null) as BindingBase);
+            return label.Text;
+        }
+
 
         private readonly string[] _validatedProperties = {"Name", "MaxNumberOfGuests", "Start", "Finish","Duration" };
 

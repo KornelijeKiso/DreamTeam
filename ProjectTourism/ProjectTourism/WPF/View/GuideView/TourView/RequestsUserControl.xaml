@@ -1,12 +1,13 @@
-﻿<UserControl x:Class="ProjectTourism.WPF.View.GuideView.TourView.RequestsWindow"
+﻿<UserControl x:Class="ProjectTourism.WPF.View.GuideView.TourView.RequestsUserControl"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView.TourView"
+        xmlns:ns="clr-namespace:ProjectTourism.Localization"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <Grid>
-        <Label x:Name="RequestsLabel" Content="Requests" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
+        <Label x:Name="RequestsLabel" Content="{ns:Loc Requests}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         <DataGrid FontSize="12" Name="DataGridRow" RowHeight="100" CanUserAddRows="False" HorizontalAlignment="Left" Height="451" VerticalAlignment="Top" Width="827"
             SelectedItem="{Binding SelectedTourRequest, UpdateSourceTrigger=PropertyChanged}" 
             ItemsSource="{Binding TourRequests, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="100,150,0,0">
@@ -57,16 +58,16 @@
                                         <Label Content="{Binding Language}"></Label>
                                     </StackPanel>
                                     <StackPanel Margin="-20, 0, 0, 0">
-                                        <GroupBox Header="Max number of guests" BorderThickness="1.5" BorderBrush="Black" Background="#AA8ED0FB" Height="45" Width="150" Margin="-10, -114, 0, 0"></GroupBox>
+                                        <GroupBox Header="{ns:Loc MaxNumberOfGuests}" BorderThickness="1.5" BorderBrush="Black" Background="#AA8ED0FB" Height="45" Width="150" Margin="-10, -114, 0, 0"></GroupBox>
                                         <StackPanel Margin="-12,-68,0,0">
                                             <Label Content="{Binding NumberOfGuests}" HorizontalAlignment="Center" FontSize="19" FontWeight="SemiBold"></Label>
                                         </StackPanel>
-                                        <GroupBox Header="Description" BorderThickness="1.5" BorderBrush="Black" Background="#AA8ED0FB" Height="90" Width="290" Margin="440, -80, 0, 0">
+                                        <GroupBox Header="{ns:Loc Description}" BorderThickness="1.5" BorderBrush="Black" Background="#AA8ED0FB" Height="90" Width="290" Margin="440, -80, 0, 0">
                                             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Description}" TextWrapping="Wrap"/>
                                         </GroupBox>
                                     </StackPanel>
                                     <StackPanel Margin="-30, -50, 0, 0">
-                                        <GroupBox Header="Date" Width="150" BorderThickness="1.5" BorderBrush="Black" Background="#AA8ED0FB">
+                                        <GroupBox Header="{ns:Loc Date}" Width="150" BorderThickness="1.5" BorderBrush="Black" Background="#AA8ED0FB">
                                             <StackPanel>
                                                 <Label>
                                                     <Label.Content>
@@ -89,7 +90,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <DataGridTemplateColumn Width="80" Header="Accept">
+                <DataGridTemplateColumn Width="80" Header="{ns:Loc Accept}">
                     <DataGridTemplateColumn.HeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -148,11 +149,11 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Label Grid.Row="0" Grid.Column="0" Content="Location"/>
-            <Label Grid.Row="1" Grid.Column="0" Content="Number of guests"/>
-            <Label Grid.Row="2" Grid.Column="0" Content="Language"/>
-            <Label Grid.Row="3" Grid.Column="0" Content="Start date"/>
-            <Label Grid.Row="4" Grid.Column="0" Content="End date"/>
+            <Label Grid.Row="0" Grid.Column="0" Content="{ns:Loc Location}"/>
+            <Label Grid.Row="1" Grid.Column="0" Content="{ns:Loc NumberOfGuests}"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="{ns:Loc Language}"/>
+            <Label Grid.Row="3" Grid.Column="0" Content="{ns:Loc StartDate}"/>
+            <Label Grid.Row="4" Grid.Column="0" Content="{ns:Loc EndDate}"/>
 
             <TextBox Grid.Row="0" Grid.Column="1" Margin="0,8,0,8" Text="{Binding Path=SearchedLocation, UpdateSourceTrigger=PropertyChanged}"/>
             <TextBox Grid.Row="1" Grid.Column="1" Margin="0,8,0,8" Text="{Binding Path=SearchedNumberOfGuests, UpdateSourceTrigger=PropertyChanged}"/>
@@ -161,7 +162,7 @@
             <DatePicker Grid.Row="4" Grid.Column="1" Margin="0,0,0,8" SelectedDate="{Binding Path=SearchedEndDate, UpdateSourceTrigger=PropertyChanged}"/>
 
         </Grid>
-        <Button x:Name="SearchButton" Content="Search" Foreground="#FF8E98A5" Background="#FF143675" Click="Search_Click" HorizontalAlignment="Left" Height="31" Margin="1045,380,0,0" VerticalAlignment="Top" Width="92">
+        <Button x:Name="SearchButton" Content="{ns:Loc Search}" Foreground="#FF8E98A5" Background="#FF143675" Click="Search_Click" HorizontalAlignment="Left" Height="31" Margin="1045,380,0,0" VerticalAlignment="Top" Width="92">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -171,13 +172,19 @@
         <StackPanel Orientation="Horizontal" Margin="100,626,900,18">
             <Image x:Name="StatsImage" Source="https://cdn-icons-png.flaticon.com/512/1325/1325099.png" Width="20" Height="20" Margin="0,-15,5,0"/>
             <TextBlock x:Name="StatsLink" FontSize="18">
-        <Hyperlink Foreground="White" Click="RequestStatisticsLink_Click" >Request statistics</Hyperlink>
+                <Hyperlink Foreground="White" Click="RequestStatisticsLink_Click">
+                    <TextBlock Text="{ns:Loc RequestStatistics}"></TextBlock>
+                </Hyperlink>
             </TextBlock>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal" Margin="300,626,700,18">
             <Image x:Name="TourSuggestionImage" Source="https://icons.iconarchive.com/icons/fatcow/farm-fresh/32/lightbulb-off-icon.png" Width="26" Height="26" Margin="0,-8,0,0"/>
-            <TextBlock x:Name="TourSuggestionLink" FontSize="18"><Hyperlink Click="TourSuggestionLink_Click" Foreground="White" ><Run Text="Tour suggestion"/></Hyperlink></TextBlock>
+            <TextBlock x:Name="TourSuggestionLink" FontSize="18">
+                <Hyperlink Click="TourSuggestionLink_Click" Foreground="White">
+                    <Run Text="{ns:Loc TourSuggestion}"/>
+                </Hyperlink>
+            </TextBlock>
         </StackPanel>
 
         <ContentControl x:Name="ContentArea"></ContentControl>

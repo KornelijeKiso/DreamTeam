@@ -53,7 +53,7 @@ namespace ProjectTourism.View.UserView
                             case USERTYPE.OWNER:
                                 {
                                     MainOwnerWindow mainOwnerWindow = new MainOwnerWindow(UserVM.Username);
-                                    mainOwnerWindow.ShowDialog();
+                                    mainOwnerWindow.Show();
                                     Clear();
                                     break;
                                 }
@@ -67,7 +67,7 @@ namespace ProjectTourism.View.UserView
                             case USERTYPE.GUEST1:
                                 {
                                     Guest1MainWindow guest1mainWindow = new Guest1MainWindow(UserVM.Username);
-                                    guest1mainWindow.ShowDialog();
+                                    guest1mainWindow.Show();
                                     Clear();
                                     break;
                                 }

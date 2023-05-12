@@ -18,6 +18,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProjectTourism.Localization;
 using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
@@ -26,13 +27,13 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.GuideView.TourView
 {
-    public partial class TourStopsWindow : UserControl, INotifyPropertyChanged
+    public partial class TourStopsUserControl : UserControl, INotifyPropertyChanged
     {
         public TourAppointmentVM TourAppointment { get; set; }
         public TicketVM SelectedTicket { get; set; }
         public GuideVM Guide { get; set; }
         public ObservableCollection<TicketVM> Tickets { get; set; }
-        public TourStopsWindow(TourAppointmentVM SelectedTourAppointment)
+        public TourStopsUserControl(TourAppointmentVM SelectedTourAppointment)
         {
             InitializeComponent();
             DataContext = this;
@@ -92,11 +93,11 @@ namespace ProjectTourism.View.GuideView.TourView
                     TourAppointment.Tour.Guide.FinishTourAndReturnStop(TourAppointment);
                     StopPassedButton.IsEnabled = false;
                 }
-                else 
+                else
                     NextStop();
             }
             else
-                MessageBox.Show("Guide has already started a tour!");
+                ShowLocalizedErrorMessage("GuideAlreadyStartedTourError");
             EmergencyButtonSet();
         }
         private bool IsNextStopFinish()
@@ -112,7 +113,7 @@ namespace ProjectTourism.View.GuideView.TourView
             grid.Visibility = Visibility.Hidden;
             StopPassedButton.Visibility = Visibility.Hidden;
             EmergencyStopButton.Visibility = Visibility.Hidden;
-            ContentArea.Content = new LiveToursTrackingWindow(Guide.Username);
+            ContentArea.Content = new TodaysToursUserControl(Guide.Username);
         }
         private void TicketStatusButton_Click(object sender, RoutedEventArgs e)
         {
@@ -127,10 +128,23 @@ namespace ProjectTourism.View.GuideView.TourView
             if (TourAppointment.Tickets.Count != 0 && TourAppointment.TicketGrades.Count != 0)
             {
                 HideTourStopsContent();
-                ContentArea.Content = new ReviewsWindow(TourAppointment);
+                ContentArea.Content = new ReviewsUserControl(TourAppointment);
             }
             else
-                MessageBox.Show("There are no reviews for this appointment!");
+                ShowLocalizedErrorMessage("NoReviewsError");
+        }
+        void ShowLocalizedErrorMessage(string resourceKey)
+        {
+            string errorMessage = GetLocalizedErrorMessage(resourceKey);
+            MessageBox.Show(errorMessage);
+        }
+
+        string GetLocalizedErrorMessage(string resourceKey)
+        {
+            TextBlock Templabel = new TextBlock();
+            LocExtension locExtension = new LocExtension(resourceKey);
+            BindingOperations.SetBinding(Templabel, TextBlock.TextProperty, locExtension.ProvideValue(null) as BindingBase);
+            return Templabel.Text;
         }
         private void HideTourStopsContent()
         {

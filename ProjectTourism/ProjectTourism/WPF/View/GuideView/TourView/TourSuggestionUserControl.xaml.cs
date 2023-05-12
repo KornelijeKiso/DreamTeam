@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ProjectTourism.Domain.Model;
+using ProjectTourism.Localization;
 using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
@@ -59,7 +60,7 @@ namespace ProjectTourism.View.TourView
             {
                 MessageBox.Show("There are no requests yet!");
                 HideTourCreateContents();
-                ContentArea.Content = new RequestsWindow(Guide.Username);
+                ContentArea.Content = new RequestsUserControl(Guide.Username);
             }
         }
         public string FindMostFrequentItem<T>(List<T> items)
@@ -92,21 +93,34 @@ namespace ProjectTourism.View.TourView
         {
             if (appointmentsListBox.Items.Count == 0)
             {
-                MessageBox.Show("You did not choose any dates for this tour!");
+                ShowLocalizedErrorMessage("NoDatesError");
                 return;
             }
             if (NewTour.IsValid && NewLocation.IsValid)
                 AddTour();
                 
             else
-                MessageBox.Show("Tour can not be made because the fields were not entered correctly.");
+                ShowLocalizedErrorMessage("NoGoodFieldsError");
+        }
+        void ShowLocalizedErrorMessage(string resourceKey)
+        {
+            string errorMessage = GetLocalizedErrorMessage(resourceKey);
+            MessageBox.Show(errorMessage);
+        }
+
+        string GetLocalizedErrorMessage(string resourceKey)
+        {
+            TextBlock Templabel = new TextBlock();
+            LocExtension locExtension = new LocExtension(resourceKey);
+            BindingOperations.SetBinding(Templabel, TextBlock.TextProperty, locExtension.ProvideValue(null) as BindingBase);
+            return Templabel.Text;
         }
         private void AddTour()
         {
             SaveDates();
             Guide.AddTour(NewTour, NewLocation);
             HideTourCreateContents();
-            ContentArea.Content = new HomeWindow(NewTour.Guide.Username);
+            ContentArea.Content = new HomeUserControl(NewTour.Guide.Username);
         }
         private void HideTourCreateContents()
         {
@@ -130,12 +144,12 @@ namespace ProjectTourism.View.TourView
                     if (Guide.CanGuideAcceptAppointment(possibleDate))
                         AddTimeToDate(hours, minutes, date);
                     else
-                        MessageBox.Show("Guide is already busy in selected appointment!");
+                        ShowLocalizedErrorMessage("GuideAlreadyBusy");
                 }
                 UpdateAppointmentsListBox();
             }
             else
-                MessageBox.Show("Invalid time entered.");
+                ShowLocalizedErrorMessage("InvalidTime");
         }
         private void AddTimeToDate(int hours, int minutes, DateTime date)
         {

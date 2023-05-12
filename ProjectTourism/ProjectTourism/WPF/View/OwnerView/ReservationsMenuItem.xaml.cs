@@ -51,21 +51,42 @@ namespace ProjectTourism.WPF.View.OwnerView
         }
         public void GradeGuestClick(object sender, RoutedEventArgs e)
         {
+            Owner.timer.Stop();
             Button button = (Button)sender;
             GradeGuestWindow gradeGuestWindow = new GradeGuestWindow(SelectedReservation, Owner);
             gradeGuestWindow.ShowDialog();
-            Update();
+            if (SelectedReservation.Graded) ShowPopupMessage("You have successfully graded your guest.\n You are now able to see guests review if guest left it.");
+            Owner.SetTimer();
         }
         public void SeeReviewClick(object sender, RoutedEventArgs e)
         {
+            Owner.timer.Stop();
             Guest1ReviewWindow guestsReviewWindow = new Guest1ReviewWindow(SelectedReservation);
             guestsReviewWindow.ShowDialog();
+            Owner.SetTimer();
         }
 
         private void PostponeRequestClick(object sender, RoutedEventArgs e)
         {
+            Owner.timer.Stop();
             PostponeRequestWindow postponeRequestWindow = new PostponeRequestWindow(SelectedReservation);
             postponeRequestWindow.ShowDialog();
+            if (SelectedReservation.PostponeRequest.Accepted) ShowPopupMessage("You have successfully accepted postpone request.\n Reservation is postponed for the appointment requested by guest.");
+            if (SelectedReservation.PostponeRequest.Rejected) ShowPopupMessage("You have successfully rejected postpone request.\n Your guest will be informed about this action.");
+            Owner.SetTimer();
+        }
+        private async void ShowPopupMessage(string message)
+        {
+            popupText.Text = message;
+            popupContainer.Visibility = Visibility.Visible;
+            await Task.Delay(4000);
+            for (int i = 0; i < 20; i++)
+            {
+                await Task.Delay(9);
+                popupContainer.Opacity += -0.05;
+            }
+            popupContainer.Visibility = Visibility.Collapsed;
+            popupContainer.Opacity = 1.0;
         }
     }
 }
