@@ -21,13 +21,13 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.GuideView.TourView
 {
-    public partial class ReviewsWindow : UserControl, INotifyPropertyChanged
+    public partial class ReviewsUserControl : UserControl, INotifyPropertyChanged
     {
         public TicketVM SelectedTicket { get; set; }
         public ObservableCollection<TicketVM> Tickets { get; set; }
         public List<TicketVM> TicketsList { get; set; }
         public GuideVM Guide { get; set; }
-        public ReviewsWindow(TourAppointmentVM tourApp)
+        public ReviewsUserControl(TourAppointmentVM tourApp)
         {
             InitializeComponent();
             DataContext = this;

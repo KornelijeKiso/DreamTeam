@@ -1,4 +1,5 @@
-﻿using ProjectTourism.Model;
+﻿using ProjectTourism.Localization;
+using ProjectTourism.Model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,6 +7,8 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace ProjectTourism.WPF.ViewModel
 {
@@ -77,15 +80,19 @@ namespace ProjectTourism.WPF.ViewModel
         {
             get
             {
-                if (columnName == "City")
+                if (columnName == "City" && string.IsNullOrEmpty(City))
                 {
-                    if (string.IsNullOrEmpty(City))
-                        return "City is required!";
+                    TextBlock label = new TextBlock();
+                    LocExtension locExtension = new LocExtension("CityRequired");
+                    BindingOperations.SetBinding(label, TextBlock.TextProperty, locExtension.ProvideValue(null) as BindingBase);
+                    return label.Text;
                 }
-                else if (columnName == "Country")
+                else if (columnName == "Country" && string.IsNullOrEmpty(Country))
                 {
-                    if (string.IsNullOrEmpty(Country))
-                        return "Country is required!";
+                    TextBlock label = new TextBlock();
+                    LocExtension locExtension = new LocExtension("CountryRequired");
+                    BindingOperations.SetBinding(label, TextBlock.TextProperty, locExtension.ProvideValue(null) as BindingBase);
+                    return label.Text;
                 }
 
                 return null;

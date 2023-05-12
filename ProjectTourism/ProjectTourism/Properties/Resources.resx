@@ -117,11 +117,41 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Add" xml:space="preserve">
+    <value>Dodaj</value>
+  </data>
+  <data name="AddANewTour" xml:space="preserve">
+    <value>Dodaj novu turu</value>
+  </data>
+  <data name="AddLanguage" xml:space="preserve">
+    <value>Dodaj jezik</value>
+  </data>
+  <data name="AddTime" xml:space="preserve">
+    <value>Dodaj vreme</value>
+  </data>
+  <data name="AgeGroupsDescription" xml:space="preserve">
+    <value>Ovde možete videti starosne grupe ljudi</value>
+  </data>
+  <data name="AllAppointments" xml:space="preserve">
+    <value>Svi termini</value>
+  </data>
+  <data name="AllTours" xml:space="preserve">
+    <value>Sve ture</value>
+  </data>
+  <data name="AllToursLabel" xml:space="preserve">
+    <value>Ture</value>
+  </data>
   <data name="City" xml:space="preserve">
     <value>Grad</value>
   </data>
+  <data name="CityRequired" xml:space="preserve">
+    <value>Grad je obavezan!</value>
+  </data>
   <data name="Country" xml:space="preserve">
     <value>Država</value>
+  </data>
+  <data name="CountryRequired" xml:space="preserve">
+    <value>Država je obavezna!</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Opis</value>
@@ -129,11 +159,47 @@
   <data name="Duration" xml:space="preserve">
     <value>Trajanje</value>
   </data>
+  <data name="EnterALanguage" xml:space="preserve">
+    <value>Unesite jezik rute:</value>
+  </data>
+  <data name="EnterFinish" xml:space="preserve">
+    <value>Unesite cilj</value>
+  </data>
+  <data name="EnterNameLabel" xml:space="preserve">
+    <value>Unesite naziv</value>
+  </data>
+  <data name="EnterPositiveNumber" xml:space="preserve">
+    <value>Unesite pozitivan broj</value>
+  </data>
+  <data name="EnterStart" xml:space="preserve">
+    <value>Unesite početnu stanicu</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Greška</value>
+  </data>
   <data name="Finish" xml:space="preserve">
     <value>Cilj</value>
   </data>
+  <data name="FinishRequired" xml:space="preserve">
+    <value>Cilj je neophodan!</value>
+  </data>
+  <data name="GuideAlreadyBusy" xml:space="preserve">
+    <value>Vodič je zauzet u izabranom terminu!</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Početna</value>
+  </data>
+  <data name="HomeLabel" xml:space="preserve">
+    <value>Početna strana</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>   Sat: </value>
+  </data>
   <data name="Images" xml:space="preserve">
     <value>Fotografije</value>
+  </data>
+  <data name="InvalidTime" xml:space="preserve">
+    <value>Vreme nije uneto dobro!</value>
   </data>
   <data name="Language" xml:space="preserve">
     <value>Jezik</value>
@@ -141,13 +207,82 @@
   <data name="MaxNumberOfGuests" xml:space="preserve">
     <value>Maksimalan broj gostiju</value>
   </data>
+  <data name="Minutes" xml:space="preserve">
+    <value> Minut:</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Naziv</value>
+  </data>
+  <data name="NoDatesError" xml:space="preserve">
+    <value>Niste izabrali nijedan datum za ovu turu!</value>
+  </data>
+  <data name="NoGoodFieldsError" xml:space="preserve">
+    <value>Tura ne može biti napravljena zato što nisu dobro ispunjena sva polja!</value>
+  </data>
+  <data name="NoTicketsLabel" xml:space="preserve">
+    <value>Ne postoje karte ni vaučeri u ovom terminu.</value>
+  </data>
+  <data name="NumberMustBePositive" xml:space="preserve">
+    <value>Broj mora biti pozitivan!</value>
+  </data>
+  <data name="NumberOfTickets" xml:space="preserve">
+    <value>Broj karata</value>
+  </data>
+  <data name="NumberOfVouchers" xml:space="preserve">
+    <value>Broj vaučera</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profil</value>
+  </data>
+  <data name="Requests" xml:space="preserve">
+    <value>Zahtevi</value>
+  </data>
+  <data name="RequiredNameLabel" xml:space="preserve">
+    <value>Ime je obavezno!</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Sačuvaj</value>
   </data>
   <data name="Start" xml:space="preserve">
     <value>Početak</value>
   </data>
+  <data name="StartPointRequired" xml:space="preserve">
+    <value>Početna stanica je obavezna!</value>
+  </data>
+  <data name="StatisticsLabel1" xml:space="preserve">
+    <value>Izaberite turu od koje biste voleli da vidite statistiku.</value>
+  </data>
   <data name="Stops" xml:space="preserve">
     <value>Stanice</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>Vreme</value>
+  </data>
+  <data name="TodaysTours" xml:space="preserve">
+    <value>Današnje ture</value>
+  </data>
+  <data name="TourInfo" xml:space="preserve">
+    <value>Informacije o turi</value>
+  </data>
+  <data name="TourStatistic" xml:space="preserve">
+    <value>Statistika termina</value>
+  </data>
+  <data name="TourStatistics" xml:space="preserve">
+    <value>Statistika tura</value>
+  </data>
+  <data name="UpcomingLabel" xml:space="preserve">
+    <value>Sledi...</value>
+  </data>
+  <data name="Visits" xml:space="preserve">
+    <value>Posete</value>
+  </data>
+  <data name="WatermarkStops" xml:space="preserve">
+    <value>Unesite zarezom odvojene stanice</value>
+  </data>
+  <data name="WatermarkURLs" xml:space="preserve">
+    <value>Unesite zarezom odvojene URL-ove</value>
+  </data>
+  <data name="WelcomeLabel" xml:space="preserve">
+    <value>Dobrodošli!</value>
   </data>
 </root>
