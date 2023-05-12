@@ -17,7 +17,7 @@ namespace ProjectTourism.WPF.ViewModel
     public class OwnerVM : INotifyPropertyChanged
     {
         private Owner _owner;
-        private Timer timer;
+        public Timer timer;
         public OwnerVM(Owner owner)
         {
             _owner = owner;
@@ -46,11 +46,18 @@ namespace ProjectTourism.WPF.ViewModel
         public OwnerVM(string username)
         {
             Synchronize(username);
-            timer = new Timer(20000); 
+            timer = new Timer(5000);
+            SetTimer();
+        }
+
+        public void SetTimer()
+        {
+            
             timer.Elapsed += TimerElapsed;
             timer.AutoReset = true;
             timer.Start();
         }
+
         private void TimerElapsed(object sender, ElapsedEventArgs e)
         {
             Synchronize(Username);
