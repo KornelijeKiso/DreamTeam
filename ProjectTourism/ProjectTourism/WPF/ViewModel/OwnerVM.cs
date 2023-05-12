@@ -10,12 +10,14 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace ProjectTourism.WPF.ViewModel
 {
     public class OwnerVM : INotifyPropertyChanged
     {
         private Owner _owner;
+        private Timer timer;
         public OwnerVM(Owner owner)
         {
             _owner = owner;
@@ -44,11 +46,24 @@ namespace ProjectTourism.WPF.ViewModel
         public OwnerVM(string username)
         {
             Synchronize(username);
+            timer = new Timer(20000); 
+            timer.Elapsed += TimerElapsed;
+            timer.AutoReset = true;
+            timer.Start();
+        }
+        private void TimerElapsed(object sender, ElapsedEventArgs e)
+        {
+            Synchronize(Username);
         }
         public void DismissNotification(NotificationVM notification)
         {
             Notifications.Remove(notification);
             new NotificationService().Dismiss(notification.GetNotification());
+        }
+        public void DismissAllNotification()
+        {
+            Notifications.Clear();
+            new NotificationService().DismissAll();
         }
         private void Synchronize(string username)
         {
@@ -65,7 +80,13 @@ namespace ProjectTourism.WPF.ViewModel
                 accommodation.Renovations = renovationService.GetAllByAccommodation(accommodation.Id);
                 accommodation.Location = locationService.GetOne(accommodation.LocationId);
                 accommodation.Reservations = SynchronizeReservations(accommodation);
-                _owner.Reservations.AddRange(accommodation.Reservations);
+                if (accommodation.Reservations != null && accommodation.Reservations.Any())
+                {
+                    foreach (Reservation reservation in accommodation.Reservations)
+                    {
+                        _owner.Reservations.Add(reservation);
+                    }
+                }
             }
             Accommodations = new ObservableCollection<AccommodationVM>(_owner.Accommodations.Select(r => new AccommodationVM(r)).ToList());
             Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).Reverse().ToList());
@@ -89,7 +110,6 @@ namespace ProjectTourism.WPF.ViewModel
                 reservation.AccommodationGrade = accommodationGradeService.GetOneByReservation(reservation.Id);
                 reservation.Guest1Grade = guest1GradeService.GetOneByReservation(reservation.Id);
             }
-
             return reservations;
         }
         public void AddAccommodation(AccommodationVM newAccommodation, LocationVM newLocation)

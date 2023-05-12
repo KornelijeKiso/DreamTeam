@@ -37,6 +37,11 @@ namespace ProjectTourism.Repositories
             Notifications.Remove(GetOne(notification.Id));
             FileHandler.Save(Notifications);
         }
+        public void DeleteAll()
+        {
+            Notifications.Clear();
+            FileHandler.Save(Notifications);
+        }
 
         public List<Notification> GetAll()
         {

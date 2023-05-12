@@ -24,6 +24,10 @@ namespace ProjectTourism.Services
         {
             NotificationRepo.Delete(notification);
         }
+        public void DismissAll()
+        {
+            NotificationRepo.DeleteAll();
+        }
         public Notification GetOne(int id)
         {
             return NotificationRepo.GetOne(id);

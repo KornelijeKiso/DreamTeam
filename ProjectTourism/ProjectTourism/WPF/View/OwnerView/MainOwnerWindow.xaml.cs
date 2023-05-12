@@ -51,6 +51,7 @@ namespace ProjectTourism.View.OwnerView
             NotificationsItem.Background = Brushes.Transparent;
             ProfileItem.Background = Brushes.Transparent;
             Notifications.Visibility = Visibility.Collapsed;
+            Owner.SeenNotifications();
         }
         public void SwitchToReservations(object sender, EventArgs e)
         {
@@ -62,6 +63,7 @@ namespace ProjectTourism.View.OwnerView
             NotificationsItem.Background = Brushes.Transparent;
             ProfileItem.Background = Brushes.Transparent;
             Notifications.Visibility = Visibility.Collapsed;
+            Owner.SeenNotifications();
         }
         public void SwitchToYourProfile(object sender, EventArgs e)
         {
@@ -73,6 +75,7 @@ namespace ProjectTourism.View.OwnerView
             NotificationsItem.Background = Brushes.Transparent;
             ProfileItem.Background = Brushes.DeepSkyBlue;
             Notifications.Visibility = Visibility.Collapsed;
+            Owner.SeenNotifications();
         }
 
         public void CloseNotificationsClick(object sender, EventArgs e)
@@ -87,6 +90,10 @@ namespace ProjectTourism.View.OwnerView
         public void DismissNotificationClick(object sender, EventArgs e)
         {
             Owner.DismissNotification(SelectedNotification);
+        }
+        public void DismissAllNotificationClick(object sender, EventArgs e)
+        {
+            Owner.DismissAllNotification();
         }
         private void SetOwner(string username)
         {

@@ -14,6 +14,7 @@ namespace ProjectTourism.Domain.IRepositories
         List<Notification> GetAll();
         void Add(Notification notification);
         void Delete(Notification notification);
+        void DeleteAll();
         List<Notification> GetAllByOwner(string ownerUsername);
         void Seen();
     }
