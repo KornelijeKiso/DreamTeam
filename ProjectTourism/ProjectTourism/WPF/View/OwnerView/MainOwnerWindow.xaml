@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.OwnerView"
+        xmlns:conv="clr-namespace:ProjectTourism.Converters"
         mc:Ignorable="d"
         Name="OwnerWindow"
         Title="MainOwnerWindow" Height="720" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" Width="1000" HorizontalAlignment="Center" VerticalAlignment="Top" Loaded="AreAllGuestsGraded">
@@ -13,9 +14,8 @@
                 <AdornedElementPlaceholder x:Name="textBox" />
                 <TextBlock Text="{Binding [0].ErrorContent}" Foreground="BlueViolet" HorizontalAlignment="Right"/>
             </StackPanel>
-
         </ControlTemplate>
-        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Window.Resources>
     
     <Grid Margin="0,0,0,0">
@@ -51,7 +51,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem Name="NotificationsItem" FontSize="14" BorderBrush="DodgerBlue" Width="167">
+            <MenuItem Name="NotificationsItem" FontSize="14" Click="ShowNotifications" BorderBrush="DodgerBlue" Width="167">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="    Notifications    " HorizontalAlignment="Center" Margin="0 3 0 0"/>
@@ -77,7 +77,46 @@
             </MenuItem>
         </Menu>
         <ContentControl x:Name="Content"/>
-
-    </Grid>
+        <Grid Name="Notifications" Visibility="Collapsed">
+            <Line X1="575" Y1="42" X2="400" Y2="270" Stroke="Black" StrokeThickness="2"/>
+            <Line X1="575" Y1="42" X2="750" Y2="270" Stroke="Black" StrokeThickness="2"/>
+            <Rectangle Height="350" Width="400" Fill="LightGray" StrokeThickness="2" RadiusX="10" RadiusY="10" VerticalAlignment="Top" Stroke="Black" Margin="180 60 0 0">
+                <Rectangle.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Rectangle.Resources>
+            </Rectangle>
+            <Rectangle Fill="LightGray" Stroke="LightGray" Height="10" Width="25" Margin="165 -561 0 0" RadiusX="12" RadiusY="12"></Rectangle>
+            <StackPanel VerticalAlignment="Top" Margin="180 65 0 0">
+                <Label Content="Notifications" FontSize="15" FontWeight="SemiBold" Foreground="Black" Margin="350 0 0 0"></Label>
+                <DataGrid Height="275" Width="395" HeadersVisibility="None" ItemsSource="{Binding Owner.Notifications}"
+                          CanUserAddRows="False" CanUserDeleteRows="False" SelectedItem="{Binding SelectedNotification, UpdateSourceTrigger=PropertyChanged}" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False"
+                          RowHeight="80" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible"
+                          RowBackground="White" Background="LightSkyBlue">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Width="400">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Label Content="{Binding Title}" Margin="0 -3" FontWeight="Bold" FontSize="14"></Label>
+                                        <TextBlock Text="{Binding Text}" Foreground="Black" TextWrapping="Wrap" Width="370" HorizontalAlignment="Left" Margin="5 2 0 0" FontSize="11"></TextBlock>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="{Binding Time}" Foreground="Gray" FontWeight="SemiBold"></Label>
+                                            <TextBlock  FontSize="14" Margin="210 3 0 0">
+                                                <Hyperlink Click="DismissNotificationClick">Dismiss</Hyperlink>
+                                            </TextBlock>
+                                        </StackPanel>
+                                        <Label Content="NEW" Foreground="Orange" Margin="330 -83 0 0" FontWeight="Bold" FontSize="14" Visibility="{Binding New, Converter={conv:BoolToVisibilityConverter}}"></Label>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Button Content="Close" Click="CloseNotificationsClick" Height="30" Width="80" Margin="305 4 0 0" Background="White"></Button>
+            </StackPanel>
+        </Grid>
+        </Grid>
 </Window>
 

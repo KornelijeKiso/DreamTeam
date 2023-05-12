@@ -67,6 +67,11 @@ namespace ProjectTourism.WPF.ViewModel
         {
             AccommodationGradeService accommodationGradeService = new AccommodationGradeService();
             var reservation = Reservations.ToList().Find(r => r.Id == grade.ReservationId);
+            var accommodation = new AccommodationService().GetOne(reservation.AccommodationId);
+            new NotificationService().Add(new Notification("Guest left a review", 
+                                                            FirstName +" "+ LastName+" ("+Username+")"+" left a review for his visit at "+accommodation.Name+". You can see it in your reservations.",
+                                                            accommodation.OwnerUsername));
+            
             accommodationGradeService.Add(grade.GetAccommodationGrade());
         }
         public void CancelReservation(ReservationVM reservationVM)
@@ -76,6 +81,10 @@ namespace ProjectTourism.WPF.ViewModel
             MyReservations.Remove(reservationVM);
             reservationService.Cancel(reservationVM.GetReservation());
             canceledReservationService.Add(reservationVM.GetReservation());
+            var accommodation = new AccommodationService().GetOne(reservationVM.AccommodationId);
+            new NotificationService().Add(new Notification("Reservation cancellation",
+                                                            FirstName + " " + LastName + " (" + Username + ")" + " canceled his reservation at " + accommodation.Name +" scheduled for "+reservationVM.StartDate +". It is now removed from your reservations.",
+                                                            accommodation.OwnerUsername));
         }
         public bool ProcessReservation(ReservationVM reservationVM)
         {
@@ -83,6 +92,10 @@ namespace ProjectTourism.WPF.ViewModel
             if (reservationService.IsPossible(reservationVM.GetReservation()))
             {
                 BookAccommodation(reservationVM);
+                var accommodation = new AccommodationService().GetOne(reservationVM.AccommodationId);
+                new NotificationService().Add(new Notification("New reservation",
+                                                                FirstName + " " + LastName + " (" + Username + ")" + " booked " + accommodation.Name + " from " + reservationVM.StartDate +" to "+reservationVM.EndDate+ ". You can see it in your reservations.",
+                                                                accommodation.OwnerUsername));
                 return true;
             }
             else
@@ -97,6 +110,10 @@ namespace ProjectTourism.WPF.ViewModel
             if (reservationService.IsPossible(reservationVM.GetReservation()))
             {
                 SendRequest(reservationVM);
+                var accommodation = new AccommodationService().GetOne(reservationVM.AccommodationId);
+                new NotificationService().Add(new Notification("Reservation postpone request",
+                                                                FirstName + " " + LastName + " (" + Username + ")" + " made a request to postpone his reservation scheduled for "+reservationVM.StartDate+" at " + accommodation.Name + ". You can see it in your reservations.",
+                                                                accommodation.OwnerUsername));
                 return true;
             }
             else

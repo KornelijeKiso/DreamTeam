@@ -22,6 +22,7 @@ namespace ProjectTourism.WPF.ViewModel
             Accommodations = new ObservableCollection<AccommodationVM>(_owner.Accommodations.Select(r => new AccommodationVM(r)).ToList());
             Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).Reverse().ToList());
             SetDestinations();
+
         }
         public void SetDestinations()
         {
@@ -44,7 +45,11 @@ namespace ProjectTourism.WPF.ViewModel
         {
             Synchronize(username);
         }
-    
+        public void DismissNotification(NotificationVM notification)
+        {
+            Notifications.Remove(notification);
+            new NotificationService().Dismiss(notification.GetNotification());
+        }
         private void Synchronize(string username)
         {
             OwnerService ownerService = new OwnerService();
@@ -65,6 +70,7 @@ namespace ProjectTourism.WPF.ViewModel
             Accommodations = new ObservableCollection<AccommodationVM>(_owner.Accommodations.Select(r => new AccommodationVM(r)).ToList());
             Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).Reverse().ToList());
             SetDestinations();
+            Notifications = new ObservableCollection<NotificationVM>(new NotificationService().GetAllByOwner(_owner.Username).Select(r => new NotificationVM(r)).Reverse().ToList());
         }
         private List<Reservation> SynchronizeReservations(Accommodation accommodation)
         {
@@ -220,6 +226,19 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+        private ObservableCollection<NotificationVM> _Notifications;
+        public ObservableCollection<NotificationVM> Notifications
+        {
+            get => _Notifications;
+            set
+            {
+                if (value != _Notifications)
+                {
+                    _Notifications = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private ObservableCollection<ReservationVM> _Reservations;
         public ObservableCollection<ReservationVM> Reservations
         {
@@ -236,6 +255,11 @@ namespace ProjectTourism.WPF.ViewModel
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
+        public void SeenNotifications()
+        {
+            foreach (var n in Notifications) n.New = false;
+            new NotificationService().Seen();
+        }
         private double CalculateAverageGrade()
         {
             try
