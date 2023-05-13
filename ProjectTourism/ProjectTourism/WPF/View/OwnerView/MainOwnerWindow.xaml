@@ -79,8 +79,23 @@
         <ContentControl x:Name="Content"/>
         <Image Source="https://img.icons8.com/?size=512&amp;id=Zyo5wDjgJxRW&amp;format=png" Height="13" Margin="270 -650 0 0" Visibility="{Binding Path=Owner.HasNewNotifications, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Image>
         <Grid Name="Notifications" Visibility="Collapsed">
-            <Line X1="575" Y1="42" X2="400" Y2="270" Stroke="Black" StrokeThickness="2"/>
-            <Line X1="575" Y1="42" X2="750" Y2="270" Stroke="Black" StrokeThickness="2"/>
+            <Grid>
+                <Line X1="575" Y1="42" X2="400" Y2="270" Stroke="Black" StrokeThickness="2"/>
+                <Line X1="575" Y1="42" X2="750" Y2="270" Stroke="Black" StrokeThickness="2"/>
+
+                <Path Fill="LightGray">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathFigure StartPoint="576,44">
+                                <LineSegment Point="400,270"/>
+                                <LineSegment Point="730,270"/>
+                                <LineSegment Point="574,42"/>
+                            </PathFigure>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+            </Grid>
+
             <Rectangle Height="350" Width="400" Fill="LightGray" StrokeThickness="2" RadiusX="10" RadiusY="10" VerticalAlignment="Top" Stroke="Black" Margin="180 60 0 0">
                 <Rectangle.Resources>
                     <Style TargetType="Border">

@@ -74,50 +74,48 @@ namespace ProjectTourism.WPF.ViewModel
         }
         private void Synchronize(string username)
         {
-            OwnerService ownerService = new OwnerService();
-            AccommodationService accommodationService = new AccommodationService();
-            LocationService locationService = new LocationService();
-            RenovationService renovationService = new RenovationService();
-
-            _owner = ownerService.GetOne(username);
-            _owner.Accommodations = accommodationService.GetAllByOwner(_owner.Username);
+            _owner = new OwnerService().GetOne(username);
+            _owner.Accommodations = new AccommodationService().GetAllByOwner(_owner.Username);
             _owner.Reservations = new List<Reservation>();
             foreach (Accommodation accommodation in _owner.Accommodations)
             {
-                accommodation.Renovations = renovationService.GetAllByAccommodation(accommodation.Id);
-                accommodation.Location = locationService.GetOne(accommodation.LocationId);
+                accommodation.Renovations = new RenovationService().GetAllByAccommodation(accommodation.Id);
+                accommodation.Location = new LocationService().GetOne(accommodation.LocationId);
                 accommodation.Reservations = SynchronizeReservations(accommodation);
-                if (accommodation.Reservations != null && accommodation.Reservations.Any())
-                {
-                    foreach (Reservation reservation in accommodation.Reservations)
-                    {
-                        _owner.Reservations.Add(reservation);
-                    }
-                }
+                AddReservationsToOwner(accommodation);
             }
             Accommodations = new ObservableCollection<AccommodationVM>(_owner.Accommodations.Select(r => new AccommodationVM(r)).ToList());
-            Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).ToList());
+            Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).Reverse().ToList());
             SetDestinations();
+            LoadNotifications();
+        }
+
+        private void AddReservationsToOwner(Accommodation accommodation)
+        {
+            if (accommodation.Reservations != null && accommodation.Reservations.Any())
+            {
+                foreach (Reservation reservation in accommodation.Reservations)
+                    _owner.Reservations.Add(reservation);
+            }
+        }
+
+        private void LoadNotifications()
+        {
             Notifications = new ObservableCollection<NotificationVM>(new NotificationService().GetAllByOwner(_owner.Username).Select(r => new NotificationVM(r)).Reverse().ToList());
-            HasNewNotifications = Notifications.ToList().Any(n=>n.New);
+            HasNewNotifications = Notifications.ToList().Any(n => n.New);
             NoNotifications = !Notifications.ToList().Any();
         }
+
         private List<Reservation> SynchronizeReservations(Accommodation accommodation)
         {
-            ReservationService reservationService = new ReservationService();
-            Guest1GradeService guest1GradeService = new Guest1GradeService();
-            Guest1Service guest1Service = new Guest1Service();
-            AccommodationGradeService accommodationGradeService = new AccommodationGradeService();
-            PostponeRequestService postponeRequestService = new PostponeRequestService();
-
-            List<Reservation> reservations = reservationService.GetAllByAccommodation(accommodation.Id);
+            List<Reservation> reservations = new ReservationService().GetAllByAccommodation(accommodation.Id);
             foreach (Reservation reservation in reservations)
             {
-                reservation.PostponeRequest = postponeRequestService.GetOneByReservation(reservation.Id);
-                reservation.Guest1 = guest1Service.GetOne(reservation.Guest1Username);
+                reservation.PostponeRequest = new PostponeRequestService().GetOneByReservation(reservation.Id);
+                reservation.Guest1 = new Guest1Service().GetOne(reservation.Guest1Username);
                 reservation.Accommodation = accommodation;
-                reservation.AccommodationGrade = accommodationGradeService.GetOneByReservation(reservation.Id);
-                reservation.Guest1Grade = guest1GradeService.GetOneByReservation(reservation.Id);
+                reservation.AccommodationGrade = new AccommodationGradeService().GetOneByReservation(reservation.Id);
+                reservation.Guest1Grade = new Guest1GradeService().GetOneByReservation(reservation.Id);
             }
             return reservations;
         }

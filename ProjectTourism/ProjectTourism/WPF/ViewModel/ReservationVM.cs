@@ -166,9 +166,9 @@ namespace ProjectTourism.WPF.ViewModel
         }
         private bool IsPostponeRequested()
         {
-            if (PostponeRequest.GetPostponeRequest() != null)
+            if (_reservation.PostponeRequest != null)
             {
-                return !PostponeRequest.Accepted && !PostponeRequest.Rejected && StartDate>DateOnly.FromDateTime(DateTime.Now);
+                return !_reservation.PostponeRequest.Accepted && !_reservation.PostponeRequest.Rejected && StartDate>DateOnly.FromDateTime(DateTime.Now);
             }
             else return false;
         }
