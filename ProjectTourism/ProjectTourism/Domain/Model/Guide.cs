@@ -1,17 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ProjectTourism.Model
 {
     public class Guide : User, Serializable
     {
         public bool? IsSuperGuide;
-        public bool HasTourStarted;
         public string Biography;
         public string Language;
         public string Localization;
@@ -21,7 +14,6 @@ namespace ProjectTourism.Model
         public Guide()
         {
             IsSuperGuide = false;
-            HasTourStarted = false;
             Tours = new List<Tour>();
             TourAppointments = new List<TourAppointment>();
         }
@@ -39,7 +31,6 @@ namespace ProjectTourism.Model
             IsSuperGuide = false;
             Biography = "";
             Language = "";
-            HasTourStarted = false;
             Tours = new List<Tour>();
             TourAppointments = new List<TourAppointment>();
         }
@@ -47,7 +38,7 @@ namespace ProjectTourism.Model
         {
             string?[] csvValues =
             {
-                 Username, Biography, Language, HasTourStarted.ToString(), Localization
+                 Username, Biography, Language, Localization
             };
             return csvValues;
         }
@@ -57,8 +48,7 @@ namespace ProjectTourism.Model
             Username = values[0];
             Biography = values[1];
             Language = values[2];
-            HasTourStarted = bool.Parse(values[3]);
-            Localization = values[4];
+            Localization = values[3];
         }
     }
 }

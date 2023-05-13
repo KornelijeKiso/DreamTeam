@@ -4,22 +4,12 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
-using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ProjectTourism.Localization;
 using ProjectTourism.Model;
-using ProjectTourism.Repositories;
-using ProjectTourism.Services;
 using ProjectTourism.View.GuideView.TourView;
 using ProjectTourism.WPF.View.GuideView.TourView;
 using ProjectTourism.WPF.ViewModel;
@@ -101,11 +91,10 @@ namespace ProjectTourism.View.TourView
 
             List<UIElement> elementsToHide = new List<UIElement>
             { textblockHours,textblockMinutes,hoursTextBox,minutesTextBox,appointmentsListBox,AddTimeButton,
-                calendar,LanguageComboBox,rectangle,SaveButton,AddLanguageButton,CreateTourLabel };
+                calendar,LanguageComboBox,rectangle,SaveButton,AddLanguageButton,CreateTourLabel, datagrid, BackgroundImage };
 
             elementsToHide.ForEach(element => element.Visibility = Visibility.Hidden);
         }
-        
         private void AddLanguageButton_Click(object sender, RoutedEventArgs e)
         {
             LanguageAdditionWindow languageAdditionWindow = new LanguageAdditionWindow(LanguagesObservable);
@@ -177,7 +166,6 @@ namespace ProjectTourism.View.TourView
             hoursTextBox.Text = "";
             minutesTextBox.Text = "";
         }
-        public void Update() { }
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e) { }
         private void LanguageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e) { }
 

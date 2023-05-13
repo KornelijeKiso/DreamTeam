@@ -39,6 +39,17 @@ namespace ProjectTourism.WPF.ViewModel
             return _ticketGrade;
         }
 
+        public string[] GetPictureURLsFromCSV()
+        {
+            string[] pictures = PictureURLs.Split(',');
+            foreach (var picture in pictures)
+            {
+                picture.Trim();
+            }
+            return pictures;
+        }
+
+        public string[] Pictures { get => GetPictureURLsFromCSV(); }
         public int Id
         {
             get => _ticketGrade.Id;
@@ -105,7 +116,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
         public string? PictureURLs
         {
             get => _ticketGrade.PictureURLs;
@@ -115,20 +125,6 @@ namespace ProjectTourism.WPF.ViewModel
                 OnPropertyChanged();
             }
         }
-
-        public string[] Pictures
-        {
-            get => _ticketGrade.Pictures;
-            set
-            {
-                if (value != _ticketGrade.Pictures)
-                {
-                    _ticketGrade.Pictures = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         public bool IsNotReported
         {
             get => _ticketGrade.IsNotReported;

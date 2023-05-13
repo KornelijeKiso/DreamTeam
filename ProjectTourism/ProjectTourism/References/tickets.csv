@@ -21,7 +21,7 @@
 20|34|mika|2|Vienna Center|False|False
 21|41|teja|2|Foca Park|False|False
 22|16|mika|2|the Acropolis|False|False
-23|44|teja|1|Palic bus station|False|False
+23|44|teja|1|Palic bus station|True|False
 24|44|mika|2|Palic bus station|True|False
-25|44|jel|1|Palic bus station|True|False
+25|44|jel|1|Palic bus station|True|True
 26|43|jel|1|Palic bus station|False|False

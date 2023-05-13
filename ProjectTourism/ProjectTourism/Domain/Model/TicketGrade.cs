@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-
+﻿using System.Collections.Generic;
 
 namespace ProjectTourism.Model
 {
@@ -19,10 +11,7 @@ namespace ProjectTourism.Model
         public Dictionary<string, int> Grades;
         public string Comment;
         public string? PictureURLs;
-        public string[] Pictures;
         public bool IsNotReported;
-
-
         public TicketGrade()
         {
             Grades = new Dictionary<string, int>();
@@ -32,17 +21,6 @@ namespace ProjectTourism.Model
             }
             IsNotReported = true;
         }
-
-        public string[] GetPictureURLsFromCSV()
-        {
-            string[] pictures = PictureURLs.Split(',');
-            foreach (var picture in pictures)
-            {
-                picture.Trim();
-            }
-            return pictures;
-        }
-
         public string[] ToCSV()
         {
             List<string> csv = new List<string>();
@@ -70,7 +48,6 @@ namespace ProjectTourism.Model
             Comment = values[5];
             PictureURLs = values[6];
             IsNotReported = bool.Parse(values[7]);
-            Pictures = GetPictureURLsFromCSV();
         }
     }
 }

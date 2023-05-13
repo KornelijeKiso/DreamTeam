@@ -67,8 +67,6 @@ namespace ProjectTourism.WPF.ViewModel
                     if (!_guide.TourAppointments.Contains(app)) 
                         _guide.TourAppointments.Add(app);
                 }
-               // _guide.TourAppointments.AddRange(tour.TourAppointments);
-               
             }
             Tours = new ObservableCollection<TourVM>(_guide.Tours.Select(r => new TourVM(r)).ToList());
             TourAppointments = new ObservableCollection<TourAppointmentVM>(_guide.TourAppointments.Select(r => new TourAppointmentVM(r)).ToList());
@@ -187,8 +185,6 @@ namespace ProjectTourism.WPF.ViewModel
             MoveCurrentStop(tourApp, stopIndex);
             tourApp.State = TOURSTATE.STARTED;
             tourAppointmentService.Update(tourApp);
-            _guide.HasTourStarted = true;
-            guideService.Update(_guide);
             return tourApp.CurrentTourStop;
         }
         private static void MoveCurrentStop(TourAppointment tourApp, int stopIndex)
@@ -217,7 +213,6 @@ namespace ProjectTourism.WPF.ViewModel
             tourApp.CurrentTourStop = tourApp.Tour.StopsList.Last();
             tourApp.State = TOURSTATE.FINISHED;
             tourAppointmentService.Update(tourApp.GetTourAppointment());
-            guideService.Update(_guide);
         }
         public string FinishTourAndReturnStop(TourAppointmentVM tourApp)
         {
@@ -227,8 +222,6 @@ namespace ProjectTourism.WPF.ViewModel
             tourApp.CurrentTourStop = tourApp.Tour.StopsList.Last();
             tourApp.State = TOURSTATE.FINISHED;
             tourAppointmentService.Update(tourApp.GetTourAppointment());
-            _guide.HasTourStarted = false;
-            guideService.Update(_guide);
             return tourApp.Tour.StopsList.Last();
         }
         public void CheckTicket(TicketVM ticket)
@@ -244,7 +237,6 @@ namespace ProjectTourism.WPF.ViewModel
 
             tourApp.State = TOURSTATE.STOPPED;
             tourAppointmentService.Update(tourApp.GetTourAppointment());
-            _guide.HasTourStarted = false;
             guideService.Update(_guide);
         }
         public void AddTour(TourVM NewTour, LocationVM NewLocation)
@@ -345,11 +337,26 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
+        private bool HasGuideStartedTour()
+        {
+            foreach(var tourApp in TourAppointments)
+            {
+                if(tourApp.State.Equals(TOURSTATE.STARTED)) 
+                    return true;
+            }
+            return false;
+        }
+        public bool HasTourStarted
+        {
+            get => HasGuideStartedTour();
+        }
+
         private void SortByDate()
         {
             FinishedApps = new ObservableCollection<TourAppointmentVM>(TourAppointments.Where(t => t.State == TOURSTATE.FINISHED).OrderByDescending(a => a.TourDateTime));
             ReadyApps = new ObservableCollection<TourAppointmentVM>(TourAppointments.Where(t => t.State == TOURSTATE.READY).OrderByDescending(a => a.TourDateTime));
             StoppedApps = new ObservableCollection<TourAppointmentVM>(TourAppointments.Where(t => t.State == TOURSTATE.STOPPED).OrderByDescending(a => a.TourDateTime));
+            CanceledApps = new ObservableCollection<TourAppointmentVM>(TourAppointments.Where(t => t.State == TOURSTATE.CANCELED).OrderByDescending(a => a.TourDateTime));
         }
 
         private ObservableCollection<TourVM> _Tours;
@@ -412,18 +419,6 @@ namespace ProjectTourism.WPF.ViewModel
                 if (_guide.IsSuperGuide != value)
                 {
                     _guide.IsSuperGuide = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public bool HasTourStarted
-        {
-            get => _guide.HasTourStarted;
-            set
-            {
-                if (_guide.HasTourStarted != value)
-                {
-                    _guide.HasTourStarted = value;
                     OnPropertyChanged();
                 }
             }

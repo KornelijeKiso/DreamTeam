@@ -1,18 +1,6 @@
 ﻿using System;
-using System.CodeDom.Compiler;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-
 
 namespace ProjectTourism.Model
 {
@@ -27,13 +15,11 @@ namespace ProjectTourism.Model
         public int AvailableSeats;
         public TOURSTATE State;
         public List<TicketGrade> TicketGrades { get; set; }
-
         public TourAppointment()
         { 
             Tickets = new List<Ticket>();
             TicketGrades = new List<TicketGrade>();
         }
-
         public TourAppointment(DateTime tourDateTime, int tourId, Tour tour)
         {
             TourDateTime = tourDateTime;
@@ -45,7 +31,6 @@ namespace ProjectTourism.Model
             Tickets = new List<Ticket>();
             TicketGrades = new List<TicketGrade>();
         }
-
         public string[] ToCSV()
         {
             string[] csvValues =
@@ -59,7 +44,6 @@ namespace ProjectTourism.Model
             };
             return csvValues;
         }
-
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);

@@ -44,6 +44,7 @@ namespace ProjectTourism.View.GuideView.TourView
         
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
+            Guide.Timer.Stop();
             string name = new string(SelectedAppointment.Tour.Name);
             MessageBoxResult result = MessageBox.Show(GetLocalizedErrorMessage("CancelAppQuestion"), GetLocalizedErrorMessage("DeleteApp"), MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
@@ -53,6 +54,7 @@ namespace ProjectTourism.View.GuideView.TourView
                 Guide.CanceledApps.Add(SelectedAppointment);
                 Guide.ReadyApps.Remove(SelectedAppointment);
             }
+            Guide.SetTimer();
         }
         string GetLocalizedErrorMessage(string resourceKey)
         {

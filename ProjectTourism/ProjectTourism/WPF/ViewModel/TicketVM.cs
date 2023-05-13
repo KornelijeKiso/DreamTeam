@@ -1,14 +1,9 @@
 ﻿using ProjectTourism.Model;
-using ProjectTourism.Repositories;
 using ProjectTourism.Services;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace ProjectTourism.WPF.ViewModel
@@ -71,6 +66,23 @@ namespace ProjectTourism.WPF.ViewModel
             return _ticket;
         }
 
+        private SolidColorBrush SetButtonColor()
+        {
+            if (_ticket.HasGuestConfirmed)
+                return Brushes.Green;
+            else if (HasGuideChecked)
+                return Brushes.IndianRed;
+            return Brushes.Transparent;
+        }
+        public SolidColorBrush ButtonColor
+        {
+            get => SetButtonColor();
+            set
+            {
+                OnPropertyChanged();
+            }
+        }
+
         public int Id
         {
             get => _ticket.Id;
@@ -92,18 +104,6 @@ namespace ProjectTourism.WPF.ViewModel
                 if (value != _ticket.HasVoucher)
                 {
                     _ticket.HasVoucher = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public SolidColorBrush ButtonColor
-        {
-            get => _ticket.ButtonColor;
-            set
-            {
-                if (value != _ticket.ButtonColor)
-                {
-                    _ticket.ButtonColor = value;
                     OnPropertyChanged();
                 }
             }
@@ -220,14 +220,12 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
-
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        // validation
         public string Error => null;
         public string? this[string columnName]
         {
