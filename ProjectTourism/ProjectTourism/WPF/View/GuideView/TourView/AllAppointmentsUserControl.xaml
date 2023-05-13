@@ -22,7 +22,7 @@
             <TabItem Header="{ns:Loc Ready}" Height="40" Width="78">
                 <Grid Height="445">
                     <DataGrid x:Name="DataGridReadyTours" 
-                    ItemsSource="{Binding SortedReadyApps, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{Binding Path=Guide.ReadyApps, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged}"
                     SelectionMode="Single"
                     VerticalScrollBarVisibility="Visible" 
@@ -116,7 +116,7 @@
             <TabItem Header="{ns:Loc Finished}" Height="40" Width="78">
                 <Grid>
                     <DataGrid x:Name="DataGridFinishedTours" 
-                    ItemsSource="{Binding SortedFinishedApps, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{Binding Path=Guide.FinishedApps, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged}"
                     SelectionMode="Single"
                     VerticalScrollBarVisibility="Visible" 
@@ -202,7 +202,7 @@
             <TabItem Header="{ns:Loc Stopped}" Height="40" Width="78">
                 <Grid>
                     <DataGrid x:Name="DataGridStoppedTours" 
-                    ItemsSource="{Binding SortedStoppedApps, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{Binding Path=Guide.StoppedApps, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged}"
                     SelectionMode="Single"
                     VerticalScrollBarVisibility="Visible" 
@@ -283,7 +283,7 @@
             <TabItem Header="{ns:Loc Canceled}" Height="40" Width="78">
                 <Grid>
                     <DataGrid x:Name="DataGridCanceledTours" 
-                    ItemsSource="{Binding CanceledApps, UpdateSourceTrigger=PropertyChanged}"
+                    ItemsSource="{Binding Path=Guide.CanceledApps, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged}"
                     SelectionMode="Single"
                     VerticalScrollBarVisibility="Visible" 
