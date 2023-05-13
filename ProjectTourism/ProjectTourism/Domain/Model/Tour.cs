@@ -18,7 +18,6 @@ namespace ProjectTourism.Model
         public List<DateTime> dates { get; set; }
         public double Duration;
         public string? PictureURLs;
-        public string[] Pictures;
         public string GuideUsername;
         public List<string> StopsList { get; set; }
         public Guide Guide;
@@ -43,19 +42,10 @@ namespace ProjectTourism.Model
             Duration = t.Duration;
             PictureURLs = t.PictureURLs;
             GuideUsername = t.GuideUsername;
-            Pictures = t.Pictures;
             StopsList = t.StopsList;
             dates = t.dates;
         }        
-        public string[] GetPictureURLsFromCSV()
-        {
-            string[] pictures = PictureURLs.Split(',');
-            foreach (var picture in pictures)
-            {
-                picture.Trim();
-            }
-            return pictures;
-        }
+        
         private List<string> GetStops(string start, string stops, string finish)
         {
             List<string> listStops = new List<string>();
@@ -83,7 +73,6 @@ namespace ProjectTourism.Model
             PictureURLs = values[9];
             GuideUsername = values[10];
             LocationId = int.Parse(values[11]);
-            Pictures = GetPictureURLsFromCSV();
             StopsList = GetStops(Start, Stops, Finish);
         }
         public string[] ToCSV()

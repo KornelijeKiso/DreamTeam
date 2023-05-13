@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ProjectTourism.Model;
 using ProjectTourism.WPF.ViewModel;
 
@@ -23,7 +19,6 @@ namespace ProjectTourism.Domain.Model
         public REQUESTSTATE State;
         public DateTime CreationDateTime;
         public TourRequest() { }
-
         public TourRequest(TourRequest tourRequest)
         {
             Id = tourRequest.Id;

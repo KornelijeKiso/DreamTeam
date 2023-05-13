@@ -23,7 +23,15 @@ namespace ProjectTourism.WPF.ViewModel
             TourAppointments = new ObservableCollection<TourAppointmentVM>(_tour.TourAppointments.Select(r => new TourAppointmentVM(r)).ToList());
         }
         public ObservableCollection<TourAppointmentVM> TourAppointments { get; set; }
-        
+        public string[] GetPictureURLsFromCSV()
+        {
+            string[] pictures = PictureURLs.Split(',');
+            foreach (var picture in pictures)
+            {
+                picture.Trim();
+            }
+            return pictures;
+        }
 
         public List<DateTime> dates
         {
@@ -190,14 +198,15 @@ namespace ProjectTourism.WPF.ViewModel
                 OnPropertyChanged();
             }
         }
+        private string[] _Pictures;
         public string[] Pictures
         {
-            get => _tour.Pictures;
+            get => _Pictures = GetPictureURLsFromCSV();
             set
             {
-                if (value != _tour.Pictures)
+                if (value != _Pictures)
                 {
-                    _tour.Pictures = value;
+                    _Pictures = value;
                     OnPropertyChanged();
                 }
             }

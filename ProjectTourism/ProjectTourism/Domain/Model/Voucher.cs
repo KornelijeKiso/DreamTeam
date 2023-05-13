@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
 public enum STATUS { USED, VALID, INVALID };
 
 namespace ProjectTourism.Model
@@ -28,7 +21,6 @@ namespace ProjectTourism.Model
         {
             TicketId = -1;
         }
-
         public Voucher(string guest2username, DateTime validFrom, DateTime validDue, STATUS status, string description, int ticketId)
         {
             Guest2Username = guest2username;
@@ -38,7 +30,6 @@ namespace ProjectTourism.Model
             Description = description;
             TicketId = ticketId;
         }
-
         public string[] ToCSV()
         {
             string[] csvValues =
@@ -54,7 +45,6 @@ namespace ProjectTourism.Model
             };
             return csvValues;
         }
-
         public void FromCSV(string[] values)
         {
             Id = Convert.ToInt32(values[0]);
