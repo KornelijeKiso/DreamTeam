@@ -19,7 +19,13 @@
         </Grid.RowDefinitions>
 
         <TabControl x:Name="TabControl" Margin="210,150,280,120" TabStripPlacement="Left">
-            <TabItem Header="{ns:Loc Ready}" Height="40" Width="78">
+            <TabItem Height="40" Width="120">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/6288/6288427.png" Height="30" Margin="0,0,5,0" />
+                        <TextBlock VerticalAlignment="Center" Text="{ns:Loc Ready}" />
+                    </StackPanel>
+                </TabItem.Header>
                 <Grid Height="445">
                     <DataGrid x:Name="DataGridReadyTours" 
                     ItemsSource="{Binding Path=Guide.ReadyApps, UpdateSourceTrigger=PropertyChanged}"
@@ -113,7 +119,13 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="{ns:Loc Finished}" Height="40" Width="78">
+            <TabItem Height="40" Width="120">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/6288/6288419.png" Height="30" Margin="0,0,5,0" />
+                        <TextBlock VerticalAlignment="Center"  Text="{ns:Loc Finished}" />
+                    </StackPanel>
+                </TabItem.Header>
                 <Grid>
                     <DataGrid x:Name="DataGridFinishedTours" 
                     ItemsSource="{Binding Path=Guide.FinishedApps, UpdateSourceTrigger=PropertyChanged}"
@@ -199,7 +211,13 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="{ns:Loc Stopped}" Height="40" Width="78">
+            <TabItem Height="40" Width="120">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/8962/8962810.png" Height="30" Margin="0,0,5,0" />
+                        <TextBlock VerticalAlignment="Center" Text="{ns:Loc Stopped}" />
+                    </StackPanel>
+                </TabItem.Header>
                 <Grid>
                     <DataGrid x:Name="DataGridStoppedTours" 
                     ItemsSource="{Binding Path=Guide.StoppedApps, UpdateSourceTrigger=PropertyChanged}"
@@ -280,10 +298,98 @@
                 </Grid>
             </TabItem>
 
-            <TabItem Header="{ns:Loc Canceled}" Height="40" Width="78">
+            <TabItem Height="40" Width="120">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/2173/2173964.png" Height="30" Margin="0,0,5,0" />
+                        <TextBlock VerticalAlignment="Center" Text="{ns:Loc Canceled}" />
+                    </StackPanel>
+                </TabItem.Header>
                 <Grid>
                     <DataGrid x:Name="DataGridCanceledTours" 
                     ItemsSource="{Binding Path=Guide.CanceledApps, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged}"
+                    SelectionMode="Single"
+                    VerticalScrollBarVisibility="Visible" 
+                    GridLinesVisibility="Horizontal"
+                    IsReadOnly="True" AutoGenerateColumns="False" Margin="10,10,10,10" Height="425" RowHeight="50">
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
+                        </DataGrid.Resources>
+                        <DataGrid.CellStyle>
+                            <Style TargetType="DataGridCell">
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Style>
+                        </DataGrid.CellStyle>
+                        <DataGrid.Columns>
+
+                            <DataGridTemplateColumn Width="*" Header="{ns:Loc Name}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical" >
+                                            <Label Content="{Binding Path=Tour.Name}" Margin="0,-3,0,-7" FontWeight="SemiBold" ></Label>
+                                            <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
+                                                <Image Margin="10, 5, 0, 0" Source="https://cdn-icons-png.flaticon.com/512/535/535188.png" Height="17"></Image>
+                                                <Label Margin="0,0,0,-7">
+                                                    <Label.Content>
+                                                        <TextBlock>
+                                                            <TextBlock.Text>
+                                                                <MultiBinding StringFormat="{}{0}, {1}">
+                                                                    <Binding Path="Tour.Location.City" />
+                                                                    <Binding Path="Tour.Location.Country" />
+                                                                </MultiBinding>
+                                                            </TextBlock.Text>
+                                                        </TextBlock>
+                                                    </Label.Content>
+                                                </Label>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Width="100" Header="{ns:Loc Time}">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <Label.Content>
+                                                <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding StringFormat="{}{0:d2}:{1:d2}">
+                                                            <Binding Path="TourDateTime.Hour" />
+                                                            <Binding Path="TourDateTime.Minute" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </Label.Content>
+                                        </Label>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+
+                            <DataGridTemplateColumn Width="80" Header="{ns:Loc Date}" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Label Content="{Binding Path=TourDateTime.Date}" VerticalAlignment="Center" FontSize="15"></Label>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </TabItem>
+
+            <TabItem Height="40" Width="120">
+                <TabItem.Header>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/3105/3105653.png" Height="30" Margin="0,0,5,0" />
+                        <TextBlock VerticalAlignment="Center" Text="{ns:Loc Expired}" />
+                    </StackPanel>
+                </TabItem.Header>
+                <Grid>
+                    <DataGrid x:Name="DataGridExpiredTours" 
+                    ItemsSource="{Binding Path=Guide.ExpiredApps, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged}"
                     SelectionMode="Single"
                     VerticalScrollBarVisibility="Visible" 

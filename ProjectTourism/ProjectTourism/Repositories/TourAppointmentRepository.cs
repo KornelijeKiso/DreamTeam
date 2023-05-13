@@ -85,6 +85,8 @@ namespace ProjectTourism.Repositories
                 if (tourApp.Id == tourAppointment.Id)
                 {
                     tourApp.State = tourAppointment.State;
+                    if (tourApp.State == TOURSTATE.READY && tourApp.TourDateTime < DateTime.Now)
+                        tourApp.State = TOURSTATE.EXPIRED;
                     tourApp.CurrentTourStop = tourAppointment.CurrentTourStop;
                     tourApp.AvailableSeats = tourAppointment.AvailableSeats;
                 }

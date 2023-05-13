@@ -219,6 +219,9 @@
   <data name="Error" xml:space="preserve">
     <value>Greška</value>
   </data>
+  <data name="Expired" xml:space="preserve">
+    <value>Isteklo</value>
+  </data>
   <data name="Finish" xml:space="preserve">
     <value>Cilj</value>
   </data>

@@ -64,6 +64,8 @@ namespace ProjectTourism.Model
                     { State = TOURSTATE.STOPPED; break; }
                 case "CANCELED":
                     { State = TOURSTATE.CANCELED; break; }
+                case "EXPIRED":
+                    { State = TOURSTATE.EXPIRED; break; }
                 default:
                     { State = TOURSTATE.READY; break; }
             }

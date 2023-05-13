@@ -1,13 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.Model;
-using ProjectTourism.Repositories;
-using ProjectTourism.Repositories.IRepositories;
-using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.Services
 {
@@ -42,7 +36,6 @@ namespace ProjectTourism.Services
         {
             return TourAppointmentRepository.GetAll();
         }
-       
         public void Update(TourAppointment tourApp)
         {
             TourAppointmentRepository.Update(tourApp);

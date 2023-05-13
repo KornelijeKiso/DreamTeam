@@ -1,29 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
+﻿using System.Windows;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ProjectTourism.View.GuideView.TourView;
-using ProjectTourism.View.TourView;
 using ProjectTourism.WPF.View.GuideView.TourView;
-using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.GuideView
 {
-    /// <summary>
-    /// Interaction logic for MainGuideWindow.xaml
-    /// </summary>
     public partial class MainGuideWindow : Window
     {
         public string Username { get; set; }
