@@ -38,7 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Images\GuideLightBackground.jpg" />
+    <Resource Include="Images\Guide\LightBackground.jpg" />
     <Resource Include="Style\Guest2Style\img_demo.png" />
     <Resource Include="Style\Guest2Style\img_profile.png" />
     <Resource Include="Style\Guest2Style\img_search.png" />
@@ -50,7 +50,7 @@
     <Resource Include="WPF\View\Guest2View\img_voucher.png" />
     <Resource Include="WPF\View\Guest2View\Menu\img_voucher2.png" />
     <Resource Include="WPF\View\Guest2View\Menu\img_voucher3.png" />
-    <Resource Include="Images\LightMakeTour.jpg" />
+    <Resource Include="Images\Guide\LightMakeTour.jpg" />
   </ItemGroup>
 
   <ItemGroup>
