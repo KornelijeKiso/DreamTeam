@@ -35,7 +35,8 @@
                         <DataTemplate>
                             <StackPanel>
                                 <StackPanel>
-                                    <Label Content="{Binding Guest2Username}" FontWeight="SemiBold" FontSize="19" ContentStringFormat="{}{0}'s request" />
+                                    <Label Content="{ns:Loc GuestsRequest}" FontWeight="SemiBold" FontSize="19" />
+                                    <Label Content="{Binding Guest2Username}" FontWeight="SemiBold" FontSize="19" Margin="152, -36, 0, 0"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical" >
                                     <StackPanel Orientation="Horizontal" Margin="14,4,0,-7">

@@ -9,7 +9,7 @@
     Title="Guide window" Height="720" Width="1280"
     WindowStartupLocation="CenterScreen">
     <Grid>
-        <Image Source="/WPF/View/GuideView/background.jpg" Margin="-30,-47,-22,0"/>
+        <Image Source="../../../Images/Guide/LightBackground.jpg" Margin="-30,-47,-22,0"/>
         <StackPanel Orientation="Horizontal" Margin="419,46,20,596" HorizontalAlignment="Right">
             <TextBlock FontSize="20">
         <Hyperlink x:Name="HomeLink_Click" NavigateUri="home.xaml" RequestNavigate="HomeLink_RequestNavigate">

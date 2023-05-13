@@ -110,7 +110,7 @@
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="10,13,0,-7">
                                     <Image Source="https://cdn-icons-png.flaticon.com/512/5296/5296819.png" Height="17"></Image>
-                                    <Label FontSize="14" Content="{Binding Duration}" Margin="0,-6,0,-7" ></Label>
+                                    <Label FontSize="14" ContentStringFormat=" {0}h" Content="{Binding Duration}" Margin="-4,-6,0,-7" ></Label>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
                                     <GroupBox Header="{ns:Loc MaxNumberOfGuests}" BorderThickness="1.5" BorderBrush="Black" Background="#AA8ED0FB" Height="45" Width="150" Margin="330, -114, 0, 0"></GroupBox>
