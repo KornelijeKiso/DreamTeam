@@ -141,7 +141,7 @@
                             <Setter Property="BorderBrush" Value="LightSkyBlue"/>
                             <Style.Triggers>
                                 <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="BorderThickness" Value="0,12,0,12"/>
+                                    <Setter Property="BorderThickness" Value="0,2,0,2"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
