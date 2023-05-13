@@ -59,7 +59,7 @@ namespace ProjectTourism.View.UserView
                             case USERTYPE.GUIDE:
                                 {
                                     MainGuideWindow mainGuideWindow = new MainGuideWindow(UserVM.Username);
-                                    mainGuideWindow.ShowDialog();
+                                    mainGuideWindow.Show();
                                     Clear();
                                     break;
                                 }
@@ -73,7 +73,7 @@ namespace ProjectTourism.View.UserView
                             case USERTYPE.GUEST2:
                                 {
                                     Guest2MainWindow mainGuest2Window = new Guest2MainWindow(UserVM.Username);
-                                    mainGuest2Window.ShowDialog();
+                                    mainGuest2Window.Show();
                                     Clear();
                                     break;
                                 }
