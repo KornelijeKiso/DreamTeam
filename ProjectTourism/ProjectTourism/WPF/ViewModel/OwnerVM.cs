@@ -1,4 +1,5 @@
-﻿using ProjectTourism.Model;
+﻿using ProjectTourism.Domain.Model;
+using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using System;
@@ -98,6 +99,8 @@ namespace ProjectTourism.WPF.ViewModel
             Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).ToList());
             SetDestinations();
             Notifications = new ObservableCollection<NotificationVM>(new NotificationService().GetAllByOwner(_owner.Username).Select(r => new NotificationVM(r)).Reverse().ToList());
+            HasNewNotifications = Notifications.ToList().Any(n=>n.New);
+            NoNotifications = !Notifications.ToList().Any();
         }
         private List<Reservation> SynchronizeReservations(Accommodation accommodation)
         {
@@ -151,6 +154,19 @@ namespace ProjectTourism.WPF.ViewModel
                 if (value != _owner.Username)
                 {
                     _owner.Username = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private bool _HasNewNotifications;
+        public bool HasNewNotifications
+        {
+            get => _HasNewNotifications;
+            set
+            {
+                if(value!=_HasNewNotifications)
+                {
+                    _HasNewNotifications = value;
                     OnPropertyChanged();
                 }
             }
@@ -285,6 +301,23 @@ namespace ProjectTourism.WPF.ViewModel
         {
             foreach (var n in Notifications) n.New = false;
             new NotificationService().Seen();
+        }
+        private bool _NoNotifications;
+        public bool NoNotifications
+        {
+            get
+            {
+                if (Notifications == null) return _NoNotifications = true;
+                else return NoNotifications = Notifications.Count == 0;
+            }
+            set
+            {
+                if (value != _NoNotifications)
+                {
+                    _NoNotifications = value;
+                    OnPropertyChanged();
+                }
+            }
         }
         private double CalculateAverageGrade()
         {

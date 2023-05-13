@@ -77,6 +77,7 @@
             </MenuItem>
         </Menu>
         <ContentControl x:Name="Content"/>
+        <Image Source="https://img.icons8.com/?size=512&amp;id=Zyo5wDjgJxRW&amp;format=png" Height="13" Margin="270 -650 0 0" Visibility="{Binding Path=Owner.HasNewNotifications, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Image>
         <Grid Name="Notifications" Visibility="Collapsed">
             <Line X1="575" Y1="42" X2="400" Y2="270" Stroke="Black" StrokeThickness="2"/>
             <Line X1="575" Y1="42" X2="750" Y2="270" Stroke="Black" StrokeThickness="2"/>
@@ -122,6 +123,10 @@
                 <TextBlock  FontSize="14" Margin="-270 -25 0 0" Width="100">
                      <Hyperlink Click="DismissAllNotificationClick">Dismiss all</Hyperlink>
                 </TextBlock>
+                <StackPanel Visibility="{Binding Path=Owner.NoNotifications, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
+                    <Image Source="https://img.icons8.com/?size=512&amp;id=WCdM5tqPxmns&amp;format=png" Height="70" Margin="0 -380 0 0"></Image>
+                    <TextBlock Text="There are no active notifications." Margin="310 -255 0 0" Height="40" Foreground="Gray" FontSize="14"></TextBlock>
+                </StackPanel>
             </StackPanel>
         </Grid>
         </Grid>
