@@ -70,7 +70,7 @@ namespace ProjectTourism.WPF.ViewModel
         public void DismissAllNotification()
         {
             Notifications.Clear();
-            new NotificationService().DismissAll();
+            new NotificationService().DismissAll(Username);
         }
         private void Synchronize(string username)
         {
