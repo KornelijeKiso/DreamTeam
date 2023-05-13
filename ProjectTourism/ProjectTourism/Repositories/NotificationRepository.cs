@@ -37,9 +37,9 @@ namespace ProjectTourism.Repositories
             Notifications.Remove(GetOne(notification.Id));
             FileHandler.Save(Notifications);
         }
-        public void DeleteAll()
+        public void DeleteAll(string username)
         {
-            Notifications.Clear();
+            Notifications.RemoveAll(n=>n.OwnerUsername.Equals(username));
             FileHandler.Save(Notifications);
         }
 
