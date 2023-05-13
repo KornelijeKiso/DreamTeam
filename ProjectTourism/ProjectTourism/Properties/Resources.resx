@@ -151,7 +151,7 @@
     <value>Biografija</value>
   </data>
   <data name="Cancel" xml:space="preserve">
-    <value>Poništi</value>
+    <value>Otkaži</value>
   </data>
   <data name="CancelAppQuestion" xml:space="preserve">
     <value>Da li ste sigurni da želite da otkažete izabrani termin?</value>
@@ -176,6 +176,9 @@
   </data>
   <data name="CountryRequired" xml:space="preserve">
     <value>Država je obavezna!</value>
+  </data>
+  <data name="CreateCustomTour" xml:space="preserve">
+    <value>Zahtevana tura</value>
   </data>
   <data name="CurrentTourStop" xml:space="preserve">
     <value>Trenutna stanica</value>
@@ -224,6 +227,9 @@
   </data>
   <data name="FinishRequired" xml:space="preserve">
     <value>Cilj je neophodan!</value>
+  </data>
+  <data name="GuestsRequest" xml:space="preserve">
+    <value> Zahtev korisnika </value>
   </data>
   <data name="GuestUsername" xml:space="preserve">
     <value>Korisničko ime gosta</value>
@@ -376,7 +382,7 @@
     <value>Započni</value>
   </data>
   <data name="StatisticsLabel1" xml:space="preserve">
-    <value>Izaberite turu od koje biste voleli da vidite statistiku.</value>
+    <value>Izaberite turu čiju biste statistiku voleli da vidite.</value>
   </data>
   <data name="Stopped" xml:space="preserve">
     <value>Zaustavljeno</value>
