@@ -177,6 +177,9 @@
   <data name="CountryRequired" xml:space="preserve">
     <value>Country required!</value>
   </data>
+  <data name="CreateCustomTour" xml:space="preserve">
+    <value>Create custom tour</value>
+  </data>
   <data name="CurrentTourStop" xml:space="preserve">
     <value>Current tour stop</value>
   </data>
@@ -224,6 +227,9 @@
   </data>
   <data name="FinishRequired" xml:space="preserve">
     <value>Finish point is required!</value>
+  </data>
+  <data name="GuestsRequest" xml:space="preserve">
+    <value>Request made by  </value>
   </data>
   <data name="GuestUsername" xml:space="preserve">
     <value>Guest username</value>

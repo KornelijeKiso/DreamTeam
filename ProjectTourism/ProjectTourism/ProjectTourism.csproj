@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Images\GuideLightBackground.jpg" />
     <None Remove="Style\Guest2Style\img_demo.png" />
     <None Remove="Style\Guest2Style\img_profile.png" />
     <None Remove="Style\Guest2Style\img_search.png" />
@@ -24,7 +25,6 @@
     <None Remove="WPF\View\Guest2View\img_voucher.png" />
     <None Remove="WPF\View\Guest2View\Menu\img_voucher2.png" />
     <None Remove="WPF\View\Guest2View\Menu\img_voucher3.png" />
-    <None Remove="WPF\View\GuideView\background.jpg" />
     <None Remove="WPF\View\GuideView\TourView\lightmaketourEDITED.jpg" />
   </ItemGroup>
 
@@ -38,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\GuideLightBackground.jpg" />
     <Resource Include="Style\Guest2Style\img_demo.png" />
     <Resource Include="Style\Guest2Style\img_profile.png" />
     <Resource Include="Style\Guest2Style\img_search.png" />
@@ -49,8 +50,7 @@
     <Resource Include="WPF\View\Guest2View\img_voucher.png" />
     <Resource Include="WPF\View\Guest2View\Menu\img_voucher2.png" />
     <Resource Include="WPF\View\Guest2View\Menu\img_voucher3.png" />
-    <Resource Include="WPF\View\GuideView\background.jpg" />
-    <Resource Include="WPF\View\GuideView\TourView\lightmaketourEDITED.jpg" />
+    <Resource Include="Images\LightMakeTour.jpg" />
   </ItemGroup>
 
   <ItemGroup>

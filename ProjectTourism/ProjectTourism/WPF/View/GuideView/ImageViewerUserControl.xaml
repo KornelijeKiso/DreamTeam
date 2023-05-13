@@ -10,24 +10,24 @@
         <Grid.Background >
             <SolidColorBrush  Color="Black" Opacity="0.75"/>
         </Grid.Background>
-        <Button Click="ExitButtonClick" HorizontalAlignment="Left" Margin="28,10,0,0" VerticalAlignment="Top" Height="35" Width="35">
-            <Button.Background>
-                <ImageBrush ImageSource="https://img.icons8.com/office/1x/close-window.png" />
-            </Button.Background>
+        <Button Click="ExitButtonClick" HorizontalAlignment="Left" Margin="1220,10,0,0" VerticalAlignment="Top" Height="35" Width="35">
+            <Button.Content>
+                <Image Source="https://img.icons8.com/office/1x/close-window.png" />
+            </Button.Content>
         </Button>
         <Border x:Name="ImageBorder" Margin="241,105,241,105" BorderThickness="3" BorderBrush="AliceBlue">
             <Image Stretch="UniformToFill" Source="{Binding Picture, UpdateSourceTrigger=PropertyChanged}" />
         </Border>
 
         <Button Click="Left_Click" HorizontalAlignment="Left" Height="44" Margin="460,626,0,0" VerticalAlignment="Top" Width="44">
-            <Button.Background>
-                <ImageBrush ImageSource="https://img.icons8.com/ultraviolet/1x/less-than-2.png" />
-            </Button.Background>
+            <Button.Content>
+                <Image Source="https://img.icons8.com/ultraviolet/1x/less-than-2.png" />
+            </Button.Content>
         </Button>
         <Button Click="Right_Click" HorizontalAlignment="Left" Height="44" Margin="736,626,0,0" VerticalAlignment="Top" Width="44">
-            <Button.Background>
-                <ImageBrush ImageSource="https://img.icons8.com/ultraviolet/256/more-than-2.png" />
-            </Button.Background>
+            <Button.Content>
+                <Image Source="https://img.icons8.com/ultraviolet/256/more-than-2.png" />
+            </Button.Content>
         </Button>
     </Grid>
 </UserControl>
