@@ -13,7 +13,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <Label Name="TodaysToursLabel" Content="{ns:Loc TodaysAppointments}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="300" FontSize="40"/>
+        <Label Name="TodaysToursLabel" Content="{ns:Loc TodaysAppointments}" HorizontalAlignment="Left" Height="78" Margin="71,38,0,0" VerticalAlignment="Top" Width="400" FontSize="35"/>
         <DataGrid x:Name="DataGridTourAppointments" 
                 ItemsSource="{Binding Path=Guide.TodaysAppointments, UpdateSourceTrigger=PropertyChanged}"
                 SelectedItem="{Binding SelectedTourAppointment, UpdateSourceTrigger=PropertyChanged}" 

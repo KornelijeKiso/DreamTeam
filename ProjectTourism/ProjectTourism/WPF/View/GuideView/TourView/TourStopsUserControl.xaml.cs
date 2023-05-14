@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -104,11 +105,11 @@ namespace ProjectTourism.View.GuideView.TourView
         private void EmergencyStopButton_Click(object sender, RoutedEventArgs e)
         {
             TourAppointment.Tour.Guide.EmergencyStop(TourAppointment);
-            ReviewsButton.Visibility = Visibility.Hidden;
-            TourStateLabel.Visibility = Visibility.Hidden;
-            grid.Visibility = Visibility.Hidden;
-            StopPassedButton.Visibility = Visibility.Hidden;
-            EmergencyStopButton.Visibility = Visibility.Hidden;
+
+            List<UIElement> elementsToHide = new List<UIElement>
+            { ReviewsButton, TourStateLabel, StopPassedButton, EmergencyStopButton, Grid1, TourNameLabel, CurrentTourStopLabel,TourStateLabel, StopTextBox, TourStatusTextBox };
+
+            elementsToHide.ForEach(element => element.Visibility = Visibility.Hidden);
             ContentArea.Content = new TodaysToursUserControl(Guide.Username);
         }
         private void TicketStatusButton_Click(object sender, RoutedEventArgs e)
