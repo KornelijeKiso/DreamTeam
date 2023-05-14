@@ -16,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProjectTourism.DTO;
 
 namespace ProjectTourism.WPF.View.OwnerView
 {
@@ -24,10 +25,10 @@ namespace ProjectTourism.WPF.View.OwnerView
     /// </summary>
     public partial class StatisticsWindow : Window
     {
-        public AccommodationVM Accommodation { get; set; }
+        public AccommodationDTO Accommodation { get; set; }
         public AccommodationStatisticsVM SelectedYear { get; set; }
 
-        public StatisticsWindow(AccommodationVM accommodation)
+        public StatisticsWindow(AccommodationDTO accommodation)
         {
             Accommodation = accommodation;
             InitializeComponent();

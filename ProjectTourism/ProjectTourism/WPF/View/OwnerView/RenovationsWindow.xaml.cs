@@ -16,6 +16,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Xceed.Wpf.Toolkit;
+using ProjectTourism.DTO;
+using ProjectTourism.Domain.Model;
+using ProjectTourism.Services;
 
 namespace ProjectTourism.WPF.View.OwnerView
 {
@@ -24,11 +27,11 @@ namespace ProjectTourism.WPF.View.OwnerView
     /// </summary>
     public partial class RenovationsWindow : Window, INotifyPropertyChanged
     {
-        public AccommodationVM Accommodation { get; set; }
-        public RenovationVM SelectedRenovation { get; set; }
+        public AccommodationDTO Accommodation { get; set; }
+        public RenovationDTO SelectedRenovation { get; set; }
         public RenovationVM NewRenovation { get; set; }
         public RenovationAppointmentVM RenovationAppointment {get; set;}
-        public RenovationsWindow(AccommodationVM accommodation)
+        public RenovationsWindow(AccommodationDTO accommodation)
         {
             Accommodation = accommodation;
             NewRenovation = new RenovationVM();
@@ -48,11 +51,19 @@ namespace ProjectTourism.WPF.View.OwnerView
             if (SelectedFreeAppointment.Text.ToString() == "") System.Windows.MessageBox.Show("You have to select appointment for your renovation.");
             else
             {
-                Accommodation.ScheduleNewRenovation(NewRenovation);
+                ScheduleNewRenovation(NewRenovation);
                 ShowPopupMessage("You have successfully scheduled new renovation.\n You can see it in Previously scheduled renovations down below.");
                 NewRenovation.Reset();
                 SelectedFreeAppointment.Text = "";
             }
+        }
+        public void ScheduleNewRenovation(RenovationVM renovation)
+        {
+            RenovationService renovationService = new RenovationService();
+            Renovation ren = new Renovation(renovation.GetRenovation());
+            ren.Id = renovationService.ScheduleAndReturnId(new Renovation(ren));
+            Accommodation.Renovations.Insert(0, new RenovationDTO(ren));
+            Accommodation.NoRenovations = false;
         }
         public void SelectFreeAppointmentClick(object sender, RoutedEventArgs e)
         {
@@ -118,8 +129,15 @@ namespace ProjectTourism.WPF.View.OwnerView
 
         public void CancelRenovationClick(object sender, RoutedEventArgs e)
         {
-            Accommodation.CancelRenovation(SelectedRenovation);
+            CancelRenovation(SelectedRenovation);
             ShowPopupMessage("You have successfully canceled renovation.\n It is now removed from your scheduled renovations.");
+        }
+        public void CancelRenovation(RenovationDTO renovation)
+        {
+            Accommodation.Renovations.Remove(renovation);
+            RenovationService renovationService = new RenovationService();
+            renovationService.Cancel(renovation.GetRenovation());
+            Accommodation.NoRenovations = Accommodation.Renovations.Count == 0;
         }
     }
 }

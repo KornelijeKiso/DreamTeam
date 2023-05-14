@@ -1,49 +1,28 @@
-﻿using ProjectTourism.Domain.Model;
-using ProjectTourism.Model;
-using ProjectTourism.Repositories;
+﻿using ProjectTourism.Model;
 using ProjectTourism.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace ProjectTourism.WPF.ViewModel
+namespace ProjectTourism.DTO
 {
-    public class OwnerVM : INotifyPropertyChanged
+    public class OwnerDTO:INotifyPropertyChanged
     {
         private Owner _owner;
         public Timer timer;
-        public OwnerVM(Owner owner)
+        public OwnerDTO(Owner owner)
         {
             _owner = owner;
-            Accommodations = new ObservableCollection<AccommodationVM>(_owner.Accommodations.Select(r => new AccommodationVM(r)).ToList());
-            Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).Reverse().ToList());
-            SetDestinations();
+            Accommodations = new ObservableCollection<AccommodationDTO>(_owner.Accommodations.Select(r => new AccommodationDTO(r)).ToList());
+            Reservations = new ObservableCollection<ReservationDTO>(_owner.Reservations.Select(r => new ReservationDTO(r)).Reverse().ToList());
         }
-        public void SetDestinations()
-        {
-            Dictionary<int, DestinationVM> locations = new Dictionary<int, DestinationVM>();
-            foreach(var accommodation in Accommodations)
-            {
-                if (!locations.ContainsKey(accommodation.LocationId))
-                {
-                    locations.Add(accommodation.LocationId, new DestinationVM(accommodation.Location));
-                }
-                locations[accommodation.LocationId].Accommodations.Add(accommodation);
-                locations[accommodation.LocationId].Reservations.AddRange(accommodation.Reservations.ToList().Where(r=>r.StartDate<DateOnly.FromDateTime(DateTime.Now) && r.EndDate>DateOnly.FromDateTime(DateTime.Now).AddYears(-1)));
-            }
-            PopularDestination = locations.Values.ToList().OrderByDescending(a => a.Occupancy).FirstOrDefault();
-            UnpopularDestination = locations.Values.ToList().OrderByDescending(a => a.Occupancy).LastOrDefault();
-        }
-        public DestinationVM PopularDestination { get; set; }
-        public DestinationVM UnpopularDestination { get; set; }
-        public OwnerVM(string username)
+        public OwnerDTO(string username)
         {
             Synchronize(username);
             timer = new Timer(5000);
@@ -61,7 +40,7 @@ namespace ProjectTourism.WPF.ViewModel
         {
             Synchronize(Username);
         }
-        public void DismissNotification(NotificationVM notification)
+        public void DismissNotification(NotificationDTO notification)
         {
             Notifications.Remove(notification);
             new NotificationService().Dismiss(notification.GetNotification());
@@ -71,7 +50,7 @@ namespace ProjectTourism.WPF.ViewModel
             Notifications.Clear();
             new NotificationService().DismissAll(Username);
         }
-        private void Synchronize(string username)
+        public void Synchronize(string username)
         {
             _owner = new OwnerService().GetOne(username);
             _owner.Accommodations = new AccommodationService().GetAllByOwner(_owner.Username);
@@ -83,12 +62,25 @@ namespace ProjectTourism.WPF.ViewModel
                 accommodation.Reservations = SynchronizeReservations(accommodation);
                 AddReservationsToOwner(accommodation);
             }
-            Accommodations = new ObservableCollection<AccommodationVM>(_owner.Accommodations.Select(r => new AccommodationVM(r)).ToList());
-            Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).Reverse().ToList());
-            SetDestinations();
+            Accommodations = new ObservableCollection<AccommodationDTO>(_owner.Accommodations.Select(r => new AccommodationDTO(r)).ToList());
+            Reservations = new ObservableCollection<ReservationDTO>(_owner.Reservations.Select(r => new ReservationDTO(r)).Reverse().ToList());
+            SetPopularAndUnpopularDestination();
             LoadNotifications();
         }
 
+        public void SetPopularAndUnpopularDestination()
+        {
+            Dictionary<int, DestinationDTO> locations = new Dictionary<int, DestinationDTO>();
+            foreach (var accommodation in Accommodations)
+            {
+                if (!locations.ContainsKey(accommodation.LocationId))
+                    locations.Add(accommodation.LocationId, new DestinationDTO(accommodation.Location));
+                locations[accommodation.LocationId].Accommodations.Add(accommodation);
+                locations[accommodation.LocationId].Reservations.AddRange(accommodation.Reservations.ToList().Where(r => r.StartDate < DateOnly.FromDateTime(DateTime.Now) && r.EndDate > DateOnly.FromDateTime(DateTime.Now).AddYears(-1)));
+            }
+            PopularDestination = locations.Values.ToList().OrderByDescending(a => a.Occupancy).FirstOrDefault();
+            UnpopularDestination = locations.Values.ToList().OrderByDescending(a => a.Occupancy).LastOrDefault();
+        }
         private void AddReservationsToOwner(Accommodation accommodation)
         {
             if (accommodation.Reservations != null && accommodation.Reservations.Any())
@@ -100,7 +92,7 @@ namespace ProjectTourism.WPF.ViewModel
 
         private void LoadNotifications()
         {
-            Notifications = new ObservableCollection<NotificationVM>(new NotificationService().GetAllByOwner(_owner.Username).Select(r => new NotificationVM(r)).Reverse().ToList());
+            Notifications = new ObservableCollection<NotificationDTO>(new NotificationService().GetAllByOwner(_owner.Username).Select(r => new NotificationDTO(r)).Reverse().ToList());
             HasNewNotifications = Notifications.ToList().Any(n => n.New);
             NoNotifications = !Notifications.ToList().Any();
         }
@@ -117,27 +109,6 @@ namespace ProjectTourism.WPF.ViewModel
                 reservation.Guest1Grade = new Guest1GradeService().GetOneByReservation(reservation.Id);
             }
             return reservations;
-        }
-        public void AddAccommodation(AccommodationVM newAccommodation, LocationVM newLocation)
-        {
-            AccommodationService accommodationService = new AccommodationService();
-            LocationService locationService = new LocationService();
-            Location location = new Location(newLocation.City, newLocation.Country);
-            int id = locationService.AddAndReturnId(location);
-            Accommodation accommodationToAdd = new Accommodation(newAccommodation.GetAccommodation());
-            accommodationToAdd.LocationId = id;
-            accommodationService.Add(accommodationToAdd);
-            Synchronize(Username);
-        }
-        public void GradeAGuest(Guest1GradeVM grade)
-        {
-            Guest1GradeService guest1GradeService = new Guest1GradeService();
-            var reservation = Reservations.ToList().Find(r=>r.Id == grade.ReservationId);
-            reservation.Guest1Grade = grade;
-            reservation.Graded = true;
-            reservation.CanBeGraded = false;
-            reservation.VisibleReview = reservation.AccommodationGraded;
-            guest1GradeService.Add(grade.GetGuest1Grade());
         }
         public Owner GetOwner()
         {
@@ -161,7 +132,7 @@ namespace ProjectTourism.WPF.ViewModel
             get => _HasNewNotifications;
             set
             {
-                if(value!=_HasNewNotifications)
+                if (value != _HasNewNotifications)
                 {
                     _HasNewNotifications = value;
                     OnPropertyChanged();
@@ -230,11 +201,11 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public bool IsSuperHost
         {
-            get => AverageGrade>4.5 && NumberOfReviews>2;
+            get => AverageGrade > 4.5 && NumberOfReviews > 2;
         }
         public int NumberOfReviews
         {
-            get => _owner.Reservations.Count(res=>res.AccommodationGrade!=null);
+            get => _owner.Reservations.Count(res => res.AccommodationGrade != null);
         }
         public int NumberOfReservations
         {
@@ -246,17 +217,20 @@ namespace ProjectTourism.WPF.ViewModel
         }
         public int NumberOfRenovations
         {
-            get=> _owner.Accommodations.Where(a=> a.Renovations!=null).Sum(a=> a.Renovations.Count());
+            get => _owner.Accommodations.Where(a => a.Renovations != null).Sum(a => a.Renovations.Count());
         }
         public double AverageGrade
         {
             get => CalculateAverageGrade();
         }
-        private ObservableCollection<AccommodationVM> _Accommodations;
-        public ObservableCollection<AccommodationVM> Accommodations
-        { 
+        public DestinationDTO PopularDestination { get; set; }
+        public DestinationDTO UnpopularDestination { get; set; }
+
+        private ObservableCollection<AccommodationDTO> _Accommodations;
+        public ObservableCollection<AccommodationDTO> Accommodations
+        {
             get => _Accommodations;
-            set 
+            set
             {
                 if (value != _Accommodations)
                 {
@@ -265,8 +239,8 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        private ObservableCollection<NotificationVM> _Notifications;
-        public ObservableCollection<NotificationVM> Notifications
+        private ObservableCollection<NotificationDTO> _Notifications;
+        public ObservableCollection<NotificationDTO> Notifications
         {
             get => _Notifications;
             set
@@ -278,8 +252,8 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        private ObservableCollection<ReservationVM> _Reservations;
-        public ObservableCollection<ReservationVM> Reservations
+        private ObservableCollection<ReservationDTO> _Reservations;
+        public ObservableCollection<ReservationDTO> Reservations
         {
             get => _Reservations;
             set

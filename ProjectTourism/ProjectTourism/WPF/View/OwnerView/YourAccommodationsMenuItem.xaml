@@ -6,6 +6,8 @@
              xmlns:local="clr-namespace:ProjectTourism.WPF.View.OwnerView"
              xmlns:conv="clr-namespace:ProjectTourism.Converters"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:vm="clr-namespace:ProjectTourism.WPF.ViewModel.OwnerViewModel"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
              mc:Ignorable="d" 
              d:DesignHeight="640" d:DesignWidth="1000">
     <UserControl.Resources>
@@ -14,10 +16,12 @@
                 <AdornedElementPlaceholder x:Name="textBox" />
                 <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" HorizontalAlignment="Right"/>
             </StackPanel>
-
         </ControlTemplate>
         <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </UserControl.Resources>
+    <UserControl.DataContext>
+        <vm:YourAccommodationsMenuItemVM/>
+    </UserControl.DataContext>
     <Grid>
         <DataGrid x:Name="DataGridAccommodations" HeadersVisibility="None" ItemsSource="{Binding Path=Owner.Accommodations, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" GridLinesVisibility="All"
@@ -96,14 +100,14 @@
 
                                 <Image Source="{Binding Path=TypeIcon}" Margin="10 -135 0 0" Height="40"></Image>
                                 <Label Content="{Binding Path=TypeString}" Margin="257 -52 0 0" Foreground="DodgerBlue" FontWeight="SemiBold"></Label>
-                                <Button BorderBrush="DodgerBlue" Click="RenovateClick" BorderThickness="2" Content="Renovate" Height="25" Width="100" Margin="205 -90 0 0">
+                                <Button BorderBrush="DodgerBlue" Command="{Binding DataContext.RenovateClickCommand, RelativeSource={RelativeSource AncestorType={x:Type local:YourAccommodationsMenuItem}}}" BorderThickness="2" Content="Renovate" Height="25" Width="100" Margin="205 -90 0 0">
                                     <Button.Resources>
                                         <Style TargetType="Border">
                                             <Setter Property="CornerRadius" Value="5"/>
                                         </Style>
                                     </Button.Resources>
                                 </Button>
-                                <Button BorderBrush="DodgerBlue" Click="StatisticsClick" BorderThickness="2" Content="Statistics" Height="25" Width="100" Margin="205 -152 0 0">
+                                <Button BorderBrush="DodgerBlue" Command="{Binding DataContext.StatisticsClickCommand, RelativeSource={RelativeSource AncestorType={x:Type local:YourAccommodationsMenuItem}}}" BorderThickness="2" Content="Statistics" Height="25" Width="100" Margin="205 -152 0 0">
                                     <Button.Resources>
                                         <Style TargetType="Border">
                                             <Setter Property="CornerRadius" Value="5"/>
@@ -121,7 +125,7 @@
 
 
         <Rectangle HorizontalAlignment="Left" StrokeThickness="3" Height="569" Fill="LightYellow" Stroke="DodgerBlue" VerticalAlignment="Top" Width="235" Margin="30,79,0,34"/>
-        <Button Content="Submit" BorderBrush="DodgerBlue" BorderThickness="2" HorizontalAlignment="Left" IsDefault="True" Margin="100,605,0,0" VerticalAlignment="Top" Height="30" Width="96" Click="RegisterAccommodationClick">
+        <Button Content="Submit" BorderBrush="DodgerBlue" BorderThickness="2" HorizontalAlignment="Left" IsDefault="True" Margin="100,605,0,0" VerticalAlignment="Top" Height="30" Width="96" Command="{Binding RegisterAccommodationClickCommand}">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
@@ -131,13 +135,14 @@
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Margin="50,109,0,0" TextWrapping="Wrap" Watermark="Enter accommodation name here."  Text="{Binding Path=NewAccommodation.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Top" Width="196" Height="29"/>
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Margin="50,163,0,0" TextWrapping="Wrap" Watermark="Enter city here." Text="{Binding Path=NewLocation.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Top" Width="196" Height="29"/>
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Margin="50,217,0,0" TextWrapping="Wrap" Watermark="Enter country here." Text="{Binding Path=NewLocation.Country, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Top" Width="196" Height="29"/>
-        <xctk:IntegerUpDown Name="MaxUpDown" LostFocus="ValidateNumberInput" Margin="50,287,0 0" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Width="196" Height="29" Value="{Binding NewAccommodation.MaxNumberOfGuests}" Maximum="15" Minimum="1" PreviewTextInput="IntegerUpDown_PreviewTextInput"/>
+        <xctk:IntegerUpDown Name="MaxUpDown" LostFocus="ValidateNumberInput" Margin="50,287,0 0" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Width="196" Height="29" Value="{Binding NewAccommodation.MaxNumberOfGuests}" Maximum="15" Minimum="1" PreviewTextInput="IntegerUpDown_PreviewTextInput">
+        </xctk:IntegerUpDown>
         <xctk:IntegerUpDown Name="MinUpDown" LostFocus="ValidateNumberInput" Margin="50,341,0 0" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Width="196" Height="29" Value="{Binding NewAccommodation.MinDaysForReservation}" Maximum="7" Minimum="1" PreviewTextInput="IntegerUpDown_PreviewTextInput"/>
-        <ComboBox Name="ComboDeadline" HorizontalAlignment="Left" Margin="50,395,0,0" Width="196" Height="28" VerticalAlignment="Top" ItemsSource="{Binding Deadlines}"></ComboBox>
+        <ComboBox Name="ComboDeadlin" SelectedItem="{Binding ComboDeadline.SelectedItem,UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding ComboDeadline.SelectedValue,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="50,395,0,0" Width="196" Height="28" VerticalAlignment="Top" ItemsSource="{Binding Deadlines}"></ComboBox>
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Margin="50,503,0,0" TextWrapping="Wrap" Text="{Binding Path =NewAccommodation.PictureURLs, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="91" Watermark="Enter comma separeted URLs.">
             
         </xctk:WatermarkTextBox>
-        <ComboBox Name="ComboType" HorizontalAlignment="Left" Margin="50,449,0,0" VerticalAlignment="Top" Width="196" Height="29" ItemsSource="{Binding Types}">
+        <ComboBox Name="ComboTyp" SelectedValue="{Binding ComboType.SelectedValue,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding ComboType.SelectedItem,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="50,449,0,0" VerticalAlignment="Top" Width="196" Height="29" ItemsSource="{Binding Types}">
         </ComboBox>
         <Label HorizontalAlignment="Left" Margin="50,83,0,0" VerticalAlignment="Top" Width="152">
             <Span>
@@ -165,9 +170,9 @@
 
         <Label Content="REGISTER A NEW ACCOMMODATION" FontSize="12" Foreground="DarkSlateGray" FontWeight="Bold" HorizontalAlignment="Left" Margin="30,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,0.708" Width="235"/>
         <Label Content="YOUR ACCOMMODATIONS" FontSize="12" Foreground="DarkSlateGray" FontWeight="Bold" HorizontalAlignment="Left" Margin="296,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,0.708" Width="176"/>
-        <Grid x:Name="popupContainer" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="Collapsed" Margin="0 40 0 0">
+        <Grid x:Name="popupContaine" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="{Binding popupContainer.Visibility}" Opacity="{Binding popupContainer.Opacity}" Margin="0 40 0 0">
             <Border x:Name="popupBorder" BorderBrush="Black" BorderThickness="1" Background="DimGray" Width="540" CornerRadius="10" Opacity="0.9">
-                <TextBlock x:Name="popupText" Height="60"   FontSize="15" FontWeight="SemiBold" Text="Hello, World!" Padding="10" HorizontalAlignment="Center" Opacity="1.0"  Foreground="White" VerticalAlignment="Center"/>
+                <TextBlock x:Name="popupText" Height="60" FontSize="15" FontWeight="SemiBold" Text="{Binding popupText.Text, UpdateSourceTrigger=PropertyChanged}" Padding="10" HorizontalAlignment="Center" Opacity="1.0"  Foreground="White" VerticalAlignment="Center"/>
             </Border>
         </Grid>
     </Grid>

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.OwnerView"
         xmlns:conv="clr-namespace:ProjectTourism.Converters"
+        xmlns:vm="clr-namespace:ProjectTourism.WPF.ViewModel.OwnerViewModel"
         mc:Ignorable="d"
         Name="OwnerWindow"
         Title="MainOwnerWindow" Height="720" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" Width="1000" HorizontalAlignment="Center" VerticalAlignment="Top" Loaded="AreAllGuestsGraded">
@@ -17,7 +18,9 @@
         </ControlTemplate>
         <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Window.Resources>
-    
+    <Window.DataContext>
+        <vm:MainOwnerWindowVM/>
+    </Window.DataContext>
     <Grid Margin="0,0,0,0">
 
         <Menu Margin="0,0,0,640" BorderThickness="1" BorderBrush="DodgerBlue">
@@ -27,7 +30,7 @@
                 </ItemsPanelTemplate>
             </Menu.ItemsPanel>
 
-            <MenuItem Name="ProfileItem" FontSize="14" Click="SwitchToYourProfile" BorderBrush="DodgerBlue" Width="167">
+            <MenuItem Name="ProfileItem" FontSize="14" Command="{Binding SwitchToYourProfileCommand}" Background="{Binding ProfileItem.Background}" BorderBrush="DodgerBlue" Width="167">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="       Your Profile   " HorizontalAlignment="Center" Margin="0 3 0 0"/>
@@ -35,7 +38,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem Name="AccommodationsItem" FontSize="14" Click="SwitchToMyAccommodations" BorderBrush="DodgerBlue" Width="166">
+            <MenuItem Name="AccommodationsItem" FontSize="14" Command="{Binding SwitchToMyAccommodationsCommand}" Background="{Binding AccommodationsItem.Background}" BorderBrush="DodgerBlue" Width="166">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text=" Accommodations  " HorizontalAlignment="Center" Margin="0 3 0 0"/>
@@ -43,7 +46,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem Name="ReservationsItem" FontSize="14" Click="SwitchToReservations" BorderBrush="DodgerBlue" Width="167">
+            <MenuItem Name="ReservationsItem" FontSize="14" Command="{Binding SwitchToReservationsCommand}" Background="{Binding ReservationsItem.Background}" BorderBrush="DodgerBlue" Width="167">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="     Reservations    " HorizontalAlignment="Center" Margin="0 3 0 0"/>
@@ -51,7 +54,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem Name="NotificationsItem" FontSize="14" Click="ShowNotifications" BorderBrush="DodgerBlue" Width="167">
+            <MenuItem Name="NotificationsItem" FontSize="14" Command="{Binding ShowNotificationsCommand}" Background="{Binding NotificationsItem.Background}" BorderBrush="DodgerBlue" Width="167">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="    Notifications    " HorizontalAlignment="Center" Margin="0 3 0 0"/>
@@ -59,7 +62,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem Name="ForumsItem" FontSize="14" BorderBrush="DodgerBlue" Width="166">
+            <MenuItem Name="ForumsItem" FontSize="14" Background="{Binding ForumsItem.Background}" BorderBrush="DodgerBlue" Width="166">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="        Forums    " HorizontalAlignment="Center" Margin="0 3 0 0"/>
@@ -67,7 +70,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem Name="HelpItem" FontSize="14" BorderBrush="DodgerBlue" Width="167">
+            <MenuItem Name="HelpItem" FontSize="14" Background="{Binding HelpItem.Background}" BorderBrush="DodgerBlue" Width="167">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="         Help    " HorizontalAlignment="Center" Margin="0 3 0 0"/>
@@ -76,9 +79,9 @@
                 </MenuItem.Header>
             </MenuItem>
         </Menu>
-        <ContentControl x:Name="Content"/>
+        <ContentControl x:Name="Content" Content="{Binding Content, UpdateSourceTrigger=PropertyChanged}"/>
         <Image Source="https://img.icons8.com/?size=512&amp;id=Zyo5wDjgJxRW&amp;format=png" Height="13" Margin="270 -650 0 0" Visibility="{Binding Path=Owner.HasNewNotifications, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Image>
-        <Grid Name="Notifications" Visibility="Collapsed" Margin="-17 0 0 0">
+        <Grid Name="Notifications" Visibility="{Binding NotificationsVisibility, UpdateSourceTrigger=PropertyChanged}" Margin="-17 0 0 0">
             <Grid>
                 <Line X1="589" Y1="41" X2="413" Y2="270" Stroke="Black" StrokeThickness="2"/>
                 <Line X1="589" Y1="41" X2="763" Y2="270" Stroke="Black" StrokeThickness="2"/>
@@ -156,7 +159,7 @@
                                         <StackPanel Orientation="Horizontal">
                                             <Label Content="{Binding Time}" Foreground="Gray" FontWeight="SemiBold"></Label>
                                             <TextBlock  FontSize="14" Margin="218 3 0 0">
-                                                <Hyperlink Click="DismissNotificationClick">Dismiss</Hyperlink>
+                                                <Hyperlink Name="dismiss" Command="{Binding DataContext.DismissNotificationCommand, RelativeSource={RelativeSource AncestorType={x:Type local:MainOwnerWindow}}}">Dismiss</Hyperlink>
                                             </TextBlock>
                                         </StackPanel>
                                         <Label Content="NEW" Foreground="Orange" Margin="335 -123 0 0" Height="40" FontWeight="Bold" FontSize="14" Visibility="{Binding New, Converter={conv:BoolToVisibilityConverter}}"></Label>
@@ -166,9 +169,9 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
-                <Button Content="Close" Click="CloseNotificationsClick" Height="30" Width="80" Margin="305 4 0 0" Background="White"></Button>
+                <Button Content="Close" Command="{Binding CloseNotificationsCommand}" Height="30" Width="80" Margin="305 4 0 0" Background="White"></Button>
                 <TextBlock  FontSize="14" Margin="-270 -25 0 0" Width="100">
-                     <Hyperlink Click="DismissAllNotificationClick">Dismiss all</Hyperlink>
+                     <Hyperlink Name="dismissAll" Command="{Binding DismissAllNotificationsCommand}">Dismiss all</Hyperlink>
                 </TextBlock>
                 <StackPanel Visibility="{Binding Path=Owner.NoNotifications, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
                     <Image Source="https://img.icons8.com/?size=512&amp;id=WCdM5tqPxmns&amp;format=png" Height="70" Margin="0 -380 0 0"></Image>
