@@ -408,6 +408,9 @@
   <data name="TodaysAppointments" xml:space="preserve">
     <value>Today's appointments</value>
   </data>
+  <data name="TourAdded" xml:space="preserve">
+    <value>Your tour has been successfuly added!</value>
+  </data>
   <data name="TourInfo" xml:space="preserve">
     <value>Tour info</value>
   </data>

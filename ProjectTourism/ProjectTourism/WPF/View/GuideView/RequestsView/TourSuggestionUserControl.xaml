@@ -96,6 +96,11 @@
                 </Button.Resources>
             </Button>
         </WrapPanel>
+        <Grid x:Name="popupContainer" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="Collapsed" Margin="0 50 0 0">
+            <Border x:Name="popupBorder" Background="DarkGray" Width="540" CornerRadius="5" Opacity="0.9">
+                <TextBlock x:Name="popupText" Margin="0, 15, 0, 0" Height="60" FontSize="15" FontWeight="SemiBold" Padding="10" HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center"/>
+            </Border>
+        </Grid>
         <ContentControl x:Name="ContentArea"></ContentControl>
     </Grid>
 </UserControl>

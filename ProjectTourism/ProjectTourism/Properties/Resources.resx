@@ -408,6 +408,9 @@
   <data name="TodaysAppointments" xml:space="preserve">
     <value>Današnji termini</value>
   </data>
+  <data name="TourAdded" xml:space="preserve">
+    <value>Vaša tura je uspešno dodata!</value>
+  </data>
   <data name="TourInfo" xml:space="preserve">
     <value>Informacije o turi</value>
   </data>
