@@ -12,7 +12,7 @@
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid x:Name="grid">
+    <Grid>
         <Button x:Name="ReviewsButton" Visibility="{Binding Path=TourAppointment.IsReviewVisible, Converter={conv:BoolToVisibilityConverter}}" Content="{ns:Loc SeeReviews}" HorizontalAlignment="Left" Height="46" Margin="1050,460,0,0" VerticalAlignment="Top" Width="130" Click="ReviewsButton_Click">
             <Button.Resources>
                 <Style TargetType="Border">
@@ -35,7 +35,7 @@
             </Button.Resources>
         </Button>
 
-        <Label Content="{Binding Path=TourAppointment.Tour.Name}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
+        <Label x:Name="TourNameLabel" Content="{Binding Path=TourAppointment.Tour.Name}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         <Label Name="CurrentTourStopLabel" Content="{ns:Loc CurrentTourStop}" HorizontalAlignment="Left" Margin="100,160,0,0" VerticalAlignment="Top" FontSize="22"/>
         <Label Name="TourStateLabel" Content="{ns:Loc TourState}" HorizontalAlignment="Left" Margin="980,160,0,0" VerticalAlignment="Top" FontSize="22"/>
 

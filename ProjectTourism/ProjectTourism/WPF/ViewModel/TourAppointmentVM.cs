@@ -11,7 +11,7 @@ using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 
-public enum TOURSTATE { READY, STARTED, FINISHED, STOPPED, CANCELED };
+public enum TOURSTATE { READY, STARTED, FINISHED, STOPPED, CANCELED, EXPIRED };
 
 namespace ProjectTourism.WPF.ViewModel
 {

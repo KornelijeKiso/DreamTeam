@@ -219,6 +219,9 @@
   <data name="Error" xml:space="preserve">
     <value>Greška</value>
   </data>
+  <data name="Expired" xml:space="preserve">
+    <value>Isteklo</value>
+  </data>
   <data name="Finish" xml:space="preserve">
     <value>Cilj</value>
   </data>
@@ -296,6 +299,9 @@
   </data>
   <data name="NoTicketsLabel" xml:space="preserve">
     <value>Ne postoje karte ni vaučeri u ovom terminu.</value>
+  </data>
+  <data name="NoTodaysApps" xml:space="preserve">
+    <value>Danas nema aktivnih termina</value>
   </data>
   <data name="NumberMustBePositive" xml:space="preserve">
     <value>Broj mora biti pozitivan!</value>
@@ -401,6 +407,9 @@
   </data>
   <data name="TodaysAppointments" xml:space="preserve">
     <value>Današnji termini</value>
+  </data>
+  <data name="TourAdded" xml:space="preserve">
+    <value>Vaša tura je uspešno dodata!</value>
   </data>
   <data name="TourInfo" xml:space="preserve">
     <value>Informacije o turi</value>

@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -50,6 +51,19 @@ namespace ProjectTourism.View.TourView
             NewLocation = new LocationVM(new Location());
             LanguagesObservable = new ObservableCollection<string>(SetLanguages());
         }
+        private async void ShowPopupMessage(string message)
+        {
+            popupText.Text = message;
+            popupContainer.Visibility = Visibility.Visible;
+            await Task.Delay(2500);
+            for (int i = 0; i < 20; i++)
+            {
+                await Task.Delay(9);
+                popupContainer.Opacity += -0.05;
+            }
+            popupContainer.Visibility = Visibility.Collapsed;
+            popupContainer.Opacity = 1.0;
+        }
         private void SaveTour_Click(object sender, RoutedEventArgs e)
         {
             if (appointmentsListBox.Items.Count == 0)
@@ -59,7 +73,10 @@ namespace ProjectTourism.View.TourView
             }
 
             if (NewTour.IsValid && NewLocation.IsValid)
+            {
                 AddTour();
+                ShowPopupMessage(GetLocalizedErrorMessage("TourAdded"));
+            }
             else
                 ShowLocalizedErrorMessage("NoGoodFieldsError");
         }

@@ -13,7 +13,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <Label Name="TodaysToursLabel" Content="{ns:Loc TodaysAppointments}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="300" FontSize="40"/>
+        <Label Name="TodaysToursLabel" Content="{ns:Loc TodaysAppointments}" HorizontalAlignment="Left" Height="78" Margin="71,38,0,0" VerticalAlignment="Top" Width="400" FontSize="35"/>
         <DataGrid x:Name="DataGridTourAppointments" 
                 ItemsSource="{Binding Path=Guide.TodaysAppointments, UpdateSourceTrigger=PropertyChanged}"
                 SelectedItem="{Binding SelectedTourAppointment, UpdateSourceTrigger=PropertyChanged}" 
@@ -123,6 +123,8 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <Label Content="{ns:Loc NoTodaysApps}" Foreground="Gray" FontSize="20" Visibility="{Binding Path=Guide.IsTodaysAppsImageVisible, Converter={conv:BoolToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, -50, 0, 0"></Label>
+        <Image Source="https://img.icons8.com/?size=512&amp;id=iL8weHUJ5bVa&amp;format=png" Visibility="{Binding Path=Guide.IsTodaysAppsImageVisible, Converter={conv:BoolToVisibilityConverter}}" Margin="534,360,534,146"/>
         <ContentControl x:Name="ContentArea"></ContentControl>
     </Grid>
 </UserControl>

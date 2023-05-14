@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProjectTourism.Model
 {
@@ -13,7 +7,6 @@ namespace ProjectTourism.Model
     public class User : Serializable
     {
         public USERTYPE Type;
-
         public string Username;
         public string Password;
         public string FirstName;
@@ -22,16 +15,12 @@ namespace ProjectTourism.Model
         public string Email;
         public string PhoneNumber;
 
-        public User()
-        {
-
-        }
+        public User() { }
         public User(string username, string password)
         {
             Username = username;
             Password = password;
         }
-
         public User(string username, string password, string firstName, string lastName, DateTime birthday, string email, string phoneNumber)
         {
             Username = username;
@@ -42,7 +31,6 @@ namespace ProjectTourism.Model
             Email = email;
             PhoneNumber = phoneNumber;
         }
-
         public string[] ToCSV()
         {
             int type;

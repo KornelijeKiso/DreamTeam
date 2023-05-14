@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
@@ -48,17 +49,19 @@ namespace ProjectTourism.View.GuideView.TourView
         public int PassedButtonClicks()
         {
             int number = 0;
-            foreach (var stop in TourAppointment.Tour.StopsList)
+            if(TourAppointment.Tour.StopsList != null)
             {
-                if (stop.Equals(TourAppointment.CurrentTourStop))
-                    break;
-                number++;
+                foreach (var stop in TourAppointment.Tour.StopsList)
+                {
+                    if (stop.Equals(TourAppointment.CurrentTourStop))
+                        break;
+                    number++;
+                }
             }
             return number;
         }
         public void NextStop()
         {
-            StopPassedButton.Content = "Stop passed";
             StopTextBox.Text = TourAppointment.Tour.Guide.NextStop(TourAppointment.GetTourAppointment()).Trim();
             TourStatusTextBox.Text = TOURSTATE.STARTED.ToString();
         }
@@ -74,13 +77,21 @@ namespace ProjectTourism.View.GuideView.TourView
             Guide = new GuideVM(TourAppointment.Tour.Guide.GetGuide());
             if (CanGuidePassStop())
             {
-                if (IsNextStopFinish())
+                if(TourAppointment.Tour.Stops != null)
+                {
+                    if (IsNextStopFinish())
+                    {
+                        TourAppointment.Tour.Guide.FinishTourAndReturnStop(TourAppointment);
+                        StopPassedButton.IsEnabled = false;
+                    }
+                    else
+                        NextStop();
+                }
+                else
                 {
                     TourAppointment.Tour.Guide.FinishTourAndReturnStop(TourAppointment);
                     StopPassedButton.IsEnabled = false;
                 }
-                else
-                    NextStop();
             }
             else
                 ShowLocalizedErrorMessage("GuideAlreadyStartedTourError");
@@ -89,16 +100,16 @@ namespace ProjectTourism.View.GuideView.TourView
         private bool IsNextStopFinish()
         {
             //if we are on the one before last or if the stops are null
-            return PassedButtonClicks() == TourAppointment.Tour.StopsList.Count() - 2 || TourAppointment.Tour.Stops.Equals(""); 
+            return PassedButtonClicks() == TourAppointment.Tour.StopsList.Count() - 2 || TourAppointment.Tour.Stops.Equals("") ; //TourAppointment.Tour.Stops.Equals("");
         }
         private void EmergencyStopButton_Click(object sender, RoutedEventArgs e)
         {
             TourAppointment.Tour.Guide.EmergencyStop(TourAppointment);
-            ReviewsButton.Visibility = Visibility.Hidden;
-            TourStateLabel.Visibility = Visibility.Hidden;
-            grid.Visibility = Visibility.Hidden;
-            StopPassedButton.Visibility = Visibility.Hidden;
-            EmergencyStopButton.Visibility = Visibility.Hidden;
+
+            List<UIElement> elementsToHide = new List<UIElement>
+            { ReviewsButton, TourStateLabel, StopPassedButton, EmergencyStopButton, Grid1, TourNameLabel, CurrentTourStopLabel,TourStateLabel, StopTextBox, TourStatusTextBox };
+
+            elementsToHide.ForEach(element => element.Visibility = Visibility.Hidden);
             ContentArea.Content = new TodaysToursUserControl(Guide.Username);
         }
         private void TicketStatusButton_Click(object sender, RoutedEventArgs e)

@@ -7,7 +7,7 @@
     xmlns:ns="clr-namespace:ProjectTourism.Localization"
     mc:Ignorable="d"
     Title="Guide window" Height="720" Width="1280"
-    WindowStartupLocation="CenterScreen">
+    WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
         <Image Source="../../../Images/Guide/LightBackground.jpg" Margin="-30,-47,-22,0"/>
         <StackPanel Orientation="Horizontal" Margin="419,46,20,596" HorizontalAlignment="Right">

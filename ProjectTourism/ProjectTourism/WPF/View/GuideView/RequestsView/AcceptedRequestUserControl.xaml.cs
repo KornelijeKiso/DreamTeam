@@ -1,25 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ProjectTourism.Localization;
 using ProjectTourism.Model;
-using ProjectTourism.Repositories;
-using ProjectTourism.Services;
-using ProjectTourism.View.GuideView.TourView;
 using ProjectTourism.WPF.View.GuideView.TourView;
 using ProjectTourism.WPF.ViewModel;
 
@@ -80,10 +70,24 @@ namespace ProjectTourism.View.TourView
             {
                 AddTour();
                 Guide.AcceptTourRequest(TourRequest);
+                ShowPopupMessage(GetLocalizedErrorMessage("TourAdded"));
             }
                 
             else
                 ShowLocalizedErrorMessage("NoGoodFieldsError");
+        }
+        private async void ShowPopupMessage(string message)
+        {
+            popupText.Text = message;
+            popupContainer.Visibility = Visibility.Visible;
+            await Task.Delay(2500);
+            for (int i = 0; i < 20; i++)
+            {
+                await Task.Delay(9);
+                popupContainer.Opacity += -0.05;
+            }
+            popupContainer.Visibility = Visibility.Collapsed;
+            popupContainer.Opacity = 1.0;
         }
         void ShowLocalizedErrorMessage(string resourceKey)
         {
