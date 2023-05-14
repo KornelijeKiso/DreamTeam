@@ -300,6 +300,9 @@
   <data name="NoTicketsLabel" xml:space="preserve">
     <value>There were no tickets or vouchers for this appointment</value>
   </data>
+  <data name="NoTodaysApps" xml:space="preserve">
+    <value>There are no active today's appointments</value>
+  </data>
   <data name="NumberMustBePositive" xml:space="preserve">
     <value>The number must be positive!</value>
   </data>

@@ -300,6 +300,9 @@
   <data name="NoTicketsLabel" xml:space="preserve">
     <value>Ne postoje karte ni vaučeri u ovom terminu.</value>
   </data>
+  <data name="NoTodaysApps" xml:space="preserve">
+    <value>Danas nema aktivnih termina</value>
+  </data>
   <data name="NumberMustBePositive" xml:space="preserve">
     <value>Broj mora biti pozitivan!</value>
   </data>

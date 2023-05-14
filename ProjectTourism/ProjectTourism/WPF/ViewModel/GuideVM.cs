@@ -208,7 +208,7 @@ namespace ProjectTourism.WPF.ViewModel
         {
             TourAppointmentService tourAppointmentService = new TourAppointmentService();
 
-            tourApp.CurrentTourStop = tourApp.Tour.StopsList.Last();
+            tourApp.CurrentTourStop = tourApp.Tour.Finish;
             tourApp.State = TOURSTATE.FINISHED;
             tourAppointmentService.Update(tourApp.GetTourAppointment());
         }
@@ -216,10 +216,10 @@ namespace ProjectTourism.WPF.ViewModel
         {
             TourAppointmentService tourAppointmentService = new TourAppointmentService();
 
-            tourApp.CurrentTourStop = tourApp.Tour.StopsList.Last();
+            tourApp.CurrentTourStop = tourApp.Tour.Finish;
             tourApp.State = TOURSTATE.FINISHED;
             tourAppointmentService.Update(tourApp.GetTourAppointment());
-            return tourApp.Tour.StopsList.Last();
+            return tourApp.Tour.Finish;
         }
         public void CheckTicket(TicketVM ticket)
         {
@@ -359,7 +359,10 @@ namespace ProjectTourism.WPF.ViewModel
         {
             get => HasGuideStartedTour();
         }
-
+        public bool IsTodaysAppsImageVisible
+        {
+            get => TourAppointments.Where(t => t.TourDateTime.Date.Equals(DateTime.Now.Date)).Count() == 0;
+        }
         private void SortByDate()
         {
             FinishedApps = new ObservableCollection<TourAppointmentVM>(TourAppointments.Where(t => t.State == TOURSTATE.FINISHED).OrderByDescending(a => a.TourDateTime));

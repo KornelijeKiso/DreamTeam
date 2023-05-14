@@ -25,12 +25,16 @@ namespace ProjectTourism.WPF.ViewModel
         public ObservableCollection<TourAppointmentVM> TourAppointments { get; set; }
         public string[] GetPictureURLsFromCSV()
         {
-            string[] pictures = PictureURLs.Split(',');
-            foreach (var picture in pictures)
+            if(PictureURLs != null)
             {
-                picture.Trim();
+                string[] pictures = PictureURLs.Split(',');
+                foreach (var picture in pictures)
+                {
+                    picture.Trim();
+                }
+                return pictures;
             }
-            return pictures;
+            return null;
         }
 
         public List<DateTime> dates
