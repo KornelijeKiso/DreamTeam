@@ -65,7 +65,7 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
         }
         public OwnerDTO Owner { get; set; }
         public NotificationDTO SelectedNotification { get; set; }
-        public void SwitchToMyAccommodations()
+        public void SwitchToMyAccommodations(object parameter)
         {
             Content= new YourAccommodationsMenuItem(Owner.Username);
             AccommodationsItem.Background = Brushes.LightSkyBlue;
@@ -76,7 +76,6 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
             ProfileItem.Background = Brushes.Transparent;
             ResetNotifications();
         }
-
         private void ResetNotifications()
         {
             if (NotificationsVisibility == Visibility.Visible)
@@ -85,8 +84,7 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
                 Owner.SeenNotifications();
             }
         }
-
-        public void SwitchToReservations()
+        public void SwitchToReservations(object parameter)
         {
             Content = new ReservationsMenuItem(Owner.Username);
             AccommodationsItem.Background = Brushes.Transparent;
@@ -97,7 +95,7 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
             ProfileItem.Background = Brushes.Transparent;
             ResetNotifications();
         }
-        public void SwitchToYourProfile()
+        public void SwitchToYourProfile(object parameter)
         {
             Content = new YourProfileMenuItem(Owner.Username);
             AccommodationsItem.Background = Brushes.Transparent;
@@ -109,21 +107,21 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
             ResetNotifications();
         }
 
-        public void CloseNotificationsClick()
+        public void CloseNotificationsClick(object parameter)
         {
             NotificationsVisibility = Visibility.Collapsed;
             Owner.SeenNotifications();
         }
-        public void ShowNotifications()
+        public void ShowNotifications(object parameter)
         {
             NotificationsVisibility = Visibility.Visible;
         }
-        public void DismissNotificationClick()
+        public void DismissNotificationClick(object parameter)
         {
             new NotificationService().Dismiss(SelectedNotification.GetNotification());
             Owner.Notifications.Remove(SelectedNotification);
         }
-        public void DismissAllNotificationClick()
+        public void DismissAllNotificationClick(object parameter)
         {
             Owner.DismissAllNotification();
         }
@@ -131,72 +129,34 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
         {
             Owner = new OwnerDTO(username);
         }
-        public void AreAllGuestsGraded(object sender, RoutedEventArgs e)
-        {
-            foreach (var reservation in Owner.Reservations)
-            {
-                if (reservation.IsAbleToGrade() && !reservation.Graded)
-                {
-                    MessageBox.Show("There are guests who are waiting to be graded.");
-                    break;
-                }
-            }
-        }
-        private ICommand _SwitchToMyAccommodationsCommand;
         public ICommand SwitchToMyAccommodationsCommand
         {
-            get
-            {
-                return _SwitchToMyAccommodationsCommand ?? (_SwitchToMyAccommodationsCommand = new CommandHandler(() => SwitchToMyAccommodations(), () => true));
-            }
+            get => new RelayCommand(SwitchToMyAccommodations);
         }
-        private ICommand _SwitchToReservationsCommand;
         public ICommand SwitchToReservationsCommand
         {
-            get
-            {
-                return _SwitchToReservationsCommand ?? (_SwitchToReservationsCommand = new CommandHandler(() => SwitchToReservations(), () => true));
-            }
+            get => new RelayCommand(SwitchToReservations);
         }
-        private ICommand _SwitchToYourProfileCommand;
         public ICommand SwitchToYourProfileCommand
         {
-            get
-            {
-                return _SwitchToYourProfileCommand ?? (_SwitchToYourProfileCommand = new CommandHandler(() => SwitchToYourProfile(), () => true));
-            }
+            get => new RelayCommand(SwitchToYourProfile);
         }
-        private ICommand _ShowNotificationsCommand;
         public ICommand ShowNotificationsCommand
         {
-            get
-            {
-                return _ShowNotificationsCommand ?? (_ShowNotificationsCommand = new CommandHandler(() => ShowNotifications(), () => true));
-            }
+            get => new RelayCommand(ShowNotifications);
         }
-        private ICommand _DismissAllNotificationsCommand;
         public ICommand DismissAllNotificationsCommand
         {
-            get
-            {
-                return _DismissAllNotificationsCommand ?? (_DismissAllNotificationsCommand = new CommandHandler(() => DismissAllNotificationClick(), () => true));
-            }
+            get => new RelayCommand(DismissAllNotificationClick);
         }
-        private ICommand _DismissNotificationCommand;
         public ICommand DismissNotificationCommand
         {
-            get
-            {
-                return _DismissNotificationCommand ?? (_DismissNotificationCommand = new CommandHandler(() => DismissNotificationClick(), () => true));
-            }
+            get => new RelayCommand(DismissNotificationClick);
         }
-        private ICommand _CloseNotificationsCommand;
         public ICommand CloseNotificationsCommand
         {
-            get
-            {
-                return _CloseNotificationsCommand ?? (_CloseNotificationsCommand = new CommandHandler(() => CloseNotificationsClick(), () => true));
-            }
+            get => new RelayCommand(CloseNotificationsClick);
         }
+        
     }
 }

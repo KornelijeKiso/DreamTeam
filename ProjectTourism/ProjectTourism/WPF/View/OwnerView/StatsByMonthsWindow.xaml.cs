@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProjectTourism.DTO;
 
 namespace ProjectTourism.WPF.View.OwnerView
 {
@@ -23,8 +24,8 @@ namespace ProjectTourism.WPF.View.OwnerView
     public partial class StatsByMonthsWindow : Window
     {
         public AccommodationStatisticsVM YearlyStats { get; set; }
-        public AccommodationVM Accommodation { get; set; }
-        public StatsByMonthsWindow(AccommodationStatisticsVM yearStats, AccommodationVM accommodation)
+        public AccommodationDTO Accommodation { get; set; }
+        public StatsByMonthsWindow(AccommodationStatisticsVM yearStats, AccommodationDTO accommodation)
         {
             YearlyStats = yearStats;
             Accommodation = accommodation;

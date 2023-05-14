@@ -21,15 +21,29 @@ using ProjectTourism.Repositories;
 using ProjectTourism.WPF.ViewModel;
 using ProjectTourism.WPF.View.OwnerView;
 using ProjectTourism.WPF.ViewModel.OwnerViewModel;
+using ProjectTourism.DTO;
 
 namespace ProjectTourism.View.OwnerView
 {
     public partial class MainOwnerWindow : Window
     {
+        public string Username { get; set; }
         public MainOwnerWindow(string username)
         {
             InitializeComponent();
+            Username = username;
             DataContext = new MainOwnerWindowVM(username);
+        }
+        public void AreAllGuestsGraded(object sender, RoutedEventArgs e)
+        {
+            foreach (var reservation in new OwnerDTO(Username).Reservations)
+            {
+                if (reservation.IsAbleToGrade() && !reservation.Graded)
+                {
+                    MessageBox.Show("There are guests who are waiting to be graded.");
+                    break;
+                }
+            }
         }
     }
 }

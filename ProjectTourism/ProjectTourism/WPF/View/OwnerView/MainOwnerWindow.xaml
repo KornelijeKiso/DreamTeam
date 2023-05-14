@@ -8,7 +8,7 @@
         xmlns:vm="clr-namespace:ProjectTourism.WPF.ViewModel.OwnerViewModel"
         mc:Ignorable="d"
         Name="OwnerWindow"
-        Title="MainOwnerWindow" Height="720" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" Width="1000" HorizontalAlignment="Center" VerticalAlignment="Top">
+        Title="MainOwnerWindow" Height="720" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" Width="1000" HorizontalAlignment="Center" VerticalAlignment="Top" Loaded="AreAllGuestsGraded">
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
@@ -18,9 +18,9 @@
         </ControlTemplate>
         <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Window.Resources>
-    <!--<Window.DataContext>
+    <Window.DataContext>
         <vm:MainOwnerWindowVM/>
-    </Window.DataContext>-->
+    </Window.DataContext>
     <Grid Margin="0,0,0,0">
 
         <Menu Margin="0,0,0,640" BorderThickness="1" BorderBrush="DodgerBlue">
