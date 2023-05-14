@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Globalization;
-public enum STATUS { USED, VALID, INVALID };
 
 namespace ProjectTourism.Model
 {
@@ -16,19 +15,9 @@ namespace ProjectTourism.Model
         public Ticket Ticket { get; set; }
         public int TicketId { get; set; }
         public DateTime UsedOnDate { get; set; }
-
         public Voucher()
         {
             TicketId = -1;
-        }
-        public Voucher(string guest2username, DateTime validFrom, DateTime validDue, STATUS status, string description, int ticketId)
-        {
-            Guest2Username = guest2username;
-            ValidFrom = validFrom;
-            ValidDue = validDue;
-            Status = status;
-            Description = description;
-            TicketId = ticketId;
         }
         public string[] ToCSV()
         {
