@@ -9,7 +9,7 @@
         d:DesignHeight="500" 
         d:DesignWidth="700"
         Style="{StaticResource Page_Style}"     >
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -114,7 +114,7 @@
                               SelectionMode="Single" 
                               AutoGenerateColumns="False" IsReadOnly="True"
                               VerticalScrollBarVisibility="Visible"
-                              RowHeight="150" ColumnWidth="*"
+                              RowHeight="170" ColumnWidth="*"
                               Background="LightBlue" RowBackground="LightBlue"
                               BorderThickness="0" BorderBrush="Black"
                               >
@@ -127,8 +127,34 @@
                             <DataGridTemplateColumn Width="150" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Image Stretch="Fill" 
-                                   Source="{Binding Path=Pictures[0]}"/>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="150"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="75"/>
+                                                <ColumnDefinition Width="75"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Stretch="UniformToFill" Grid.Row="0" Grid.ColumnSpan="2" 
+                                                   Source="{Binding Path=Pictures, UpdateSourceTrigger=PropertyChanged}"/>
+                                            <Button x:Name="BackwardPictureButton"
+                                                    Height="20" Width="25" HorizontalAlignment="Right" Margin="0 0 0 0" 
+                                                    Grid.Row="1" Grid.Column="0"
+                                                    BorderBrush="Transparent" Background="Transparent" 
+                                                    Command="{Binding PictureCommand}">
+                                                <!--TO DO   Click="BackwardsClick">-->
+                                                <Image Source="https://img.icons8.com/fluency/512/double-left.png"></Image>
+                                            </Button>
+                                            <Button x:Name="ForwardPictureButton"
+                                                    Height="20" Width="25" HorizontalAlignment="Left" Margin="0 0 0 0" 
+                                                    Grid.Row="1" Grid.Column="1"
+                                                    BorderBrush="Transparent" Background="Transparent" 
+                                                    Command="{Binding PictureCommand}">
+                                                <!--TO DO   Click="ForwardClick">-->
+                                                <Image Source="https://img.icons8.com/fluency/2x/double-right.png"></Image>
+                                            </Button>
+                                        </Grid>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

@@ -254,5 +254,19 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                 CreateTicketWindow createTicketWidnow = new CreateTicketWindow(Guest2, SelectedTour);
                 createTicketWidnow.ShowDialog();
         }
+
+        private ICommand _PictureCommand;
+        public ICommand PictureCommand
+        {
+            get
+            {
+                return _PictureCommand ?? (_PictureCommand = new CommandHandler(() => Picture_Click(), () => true));
+            }
+        }
+
+        public void Picture_Click()
+        {
+
+        }
     }
 }
