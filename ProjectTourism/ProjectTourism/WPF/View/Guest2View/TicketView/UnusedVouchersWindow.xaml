@@ -35,7 +35,7 @@
                 <DataGridTemplateColumn Width="120" >
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Image Stretch="Fill" Source="/WPF/View/Guest2View/Menu/img_voucher2.png"/>
+                            <Image Stretch="Fill" Source="../../../../Images/Guest2/voucher2.png"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
