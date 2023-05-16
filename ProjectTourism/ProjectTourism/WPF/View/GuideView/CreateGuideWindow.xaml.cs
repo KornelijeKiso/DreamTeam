@@ -1,4 +1,5 @@
-﻿using ProjectTourism.Model;
+﻿using ProjectTourism.DTO;
+using ProjectTourism.Model;
 using ProjectTourism.WPF.ViewModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -8,13 +9,13 @@ namespace ProjectTourism.View.GuideView
 {
     public partial class CreateGuideWindow : Window, INotifyPropertyChanged
     {
-        public GuideVM Guide { get; set; }
+        public GuideDTO Guide { get; set; }
         public UserVM UserVM { get; set; }
         public CreateGuideWindow(UserVM userVM)
         {
             InitializeComponent();
             DataContext = this;
-            Guide = new GuideVM(new Guide(userVM.GetUser()));
+            Guide = new GuideDTO(new Guide(userVM.GetUser()));
             UserVM = userVM;
         }
         private void CreateGuideButton_Click(object sender, RoutedEventArgs e)

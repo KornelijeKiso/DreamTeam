@@ -1,28 +1,34 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using ProjectTourism.DTO;
 using ProjectTourism.View.GuideView.TourView;
 using ProjectTourism.View.TourView;
-using ProjectTourism.WPF.ViewModel;
 
-namespace ProjectTourism.WPF.View.GuideView.TourView
+namespace ProjectTourism.WPF.ViewModel.GuideViewModels
 {
-    public partial class HomeUserControl : UserControl, INotifyPropertyChanged
+    public class HomeUserControlVM: ViewBase
     {
+        public Label HomeLabel { get; set; } = new Label();
+        public Label WelcomeLabel { get; set; } = new Label();
+        public Label UpcomingLabel { get; set; } = new Label();
+        public Label UpcomingLabelName { get; set; } = new Label();
+        public Button AddNewTourButton { get; set; } = new Button();
+        public Button AllToursButton { get; set; } = new Button();
+        public Border ImageBorder { get; set; } = new Border();
+        public Image UpcomingImage { get; set; } = new Image();
+        public ComboBox LocalizationComboBox { get; set; } = new ComboBox();
+        public ContentControl ContentArea { get; set; } = new ContentControl();
+
+
         private App app;
         public GuideDTO Guide { get; set; }
         public string UpcomingTourPicture { get; set; }
         public string Username { get; set; }
-        public HomeUserControl(string username)
+        public HomeUserControlVM(string username)
         {
             Username = username;
             app = (App)Application.Current;
-
-            InitializeComponent();
-            DataContext = this;
 
             Guide = new GuideDTO(username);
             SetLanguage();
@@ -60,17 +66,17 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         {
             elements.ForEach(element => element.Visibility = Visibility.Hidden);
         }
-        private void AddNewTourButton_Click(object sender, RoutedEventArgs e)
+        private void AddNewTourButton_Click(object parameter)
         {
             HideElements(new List<UIElement> { HomeLabel, WelcomeLabel, UpcomingLabel, UpcomingLabelName, AddNewTourButton, AllToursButton, ImageBorder, UpcomingImage });
             ContentArea.Content = new CreateTourUserControl(Guide);
         }
-        private void AllToursButton_Click(object sender, RoutedEventArgs e)
+        private void AllToursButton_Click(object parameter)
         {
             HideElements(new List<UIElement> { HomeLabel, WelcomeLabel, UpcomingLabel, UpcomingLabelName, AddNewTourButton, AllToursButton, ImageBorder, UpcomingImage });
             ContentArea.Content = new AllToursUserControl(Guide.Username);
         }
-        private void Localization_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void Localization_SelectionChanged(object parameter)
         {
             ComboBoxItem selectedItem = LocalizationComboBox.SelectedItem as ComboBoxItem;
 
@@ -103,12 +109,6 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 }
                 SetLanguage();
             }
-        }
-        public void Update() { }
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

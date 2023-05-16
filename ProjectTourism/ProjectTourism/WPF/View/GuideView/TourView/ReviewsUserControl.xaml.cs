@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using ProjectTourism.DTO;
 using ProjectTourism.Localization;
 using ProjectTourism.WPF.ViewModel;
 
@@ -12,18 +13,18 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
 {
     public partial class ReviewsUserControl : UserControl, INotifyPropertyChanged
     {
-        public TicketVM SelectedTicket { get; set; }
-        public ObservableCollection<TicketVM> Tickets { get; set; }
-        public List<TicketVM> TicketsList { get; set; }
-        public GuideVM Guide { get; set; }
-        public ReviewsUserControl(TourAppointmentVM tourApp)
+        public TicketDTO SelectedTicket { get; set; }
+        public ObservableCollection<TicketDTO> Tickets { get; set; }
+        public List<TicketDTO> TicketsList { get; set; }
+        public GuideDTO Guide { get; set; }
+        public ReviewsUserControl(TourAppointmentDTO tourApp)
         {
             InitializeComponent();
             DataContext = this;
 
-            Tickets = new ObservableCollection<TicketVM>(tourApp.Tickets);
-            TicketsList = new List<TicketVM>(tourApp.Tickets);
-            Guide = new GuideVM(tourApp.Tour.GuideUsername);
+            Tickets = new ObservableCollection<TicketDTO>(tourApp.Tickets);
+            TicketsList = new List<TicketDTO>(tourApp.Tickets);
+            Guide = new GuideDTO(tourApp.Tour.GuideUsername);
             Update();
         }
 

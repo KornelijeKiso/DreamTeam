@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using ProjectTourism.Model;
 using ProjectTourism.Services;
 using System.Timers;
+using ProjectTourism.WPF.ViewModel;
+using ProjectTourism.Domain.Model;
 
 namespace ProjectTourism.DTO
 {
@@ -73,6 +75,111 @@ namespace ProjectTourism.DTO
             TourAppointments = new ObservableCollection<TourAppointmentDTO>(_guide.TourAppointments.Select(r => new TourAppointmentDTO(r)).ToList());
             TodaysAppointments = new ObservableCollection<TourAppointmentDTO>(TourAppointments.Where(t => t.TourDateTime.Date.Equals(DateTime.Now.Date)).OrderBy(t => t.TourDateTime));
             SortByDate();
+        }
+        public void ReportTicketGrade(TicketDTO ticket)
+        {
+            TicketGradeService ticketGradeService = new TicketGradeService();
+            ticket.TicketGrade.IsNotReported = false;
+            ticketGradeService.Update(ticket.TicketGrade.GetTicketGrade());
+        }
+        public void CancelAppointment(TourAppointmentDTO tourApp)
+        {
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
+            tourApp.State = TOURSTATE.CANCELED;
+            tourAppointmentService.Update(tourApp.GetTourAppointment());
+        }
+        public string NextStop(TourAppointment tourApp)
+        {
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
+            GuideService guideService = new GuideService();
+
+            string currentStop = tourApp.CurrentTourStop;
+            int stopIndex = CalculateStopIndex(tourApp, currentStop);
+            MoveCurrentStop(tourApp, stopIndex);
+            tourApp.State = TOURSTATE.STARTED;
+            tourAppointmentService.Update(tourApp);
+            return tourApp.CurrentTourStop;
+        }
+        private static void MoveCurrentStop(TourAppointment tourApp, int stopIndex)
+        {
+            if (stopIndex == tourApp.Tour.StopsList.Count)
+                tourApp.CurrentTourStop = tourApp.Tour.StopsList.Last();
+            else
+                tourApp.CurrentTourStop = tourApp.Tour.StopsList[stopIndex + 1];
+        }
+        private static int CalculateStopIndex(TourAppointment tourApp, string currentStop)
+        {
+            int stopIndex = 0;
+            foreach (var stop in tourApp.Tour.StopsList)
+            {
+                if (stop.Trim() == currentStop.Trim())
+                    return stopIndex;
+                stopIndex += 1;
+            }
+            return stopIndex;
+        }
+        public void EndTour(TourAppointmentDTO tourApp)
+        {
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
+
+            tourApp.CurrentTourStop = tourApp.Tour.Finish;
+            tourApp.State = TOURSTATE.FINISHED;
+            tourAppointmentService.Update(tourApp.GetTourAppointment());
+        }
+        public string FinishTourAndReturnStop(TourAppointmentDTO tourApp)
+        {
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
+
+            tourApp.CurrentTourStop = tourApp.Tour.Finish;
+            tourApp.State = TOURSTATE.FINISHED;
+            tourAppointmentService.Update(tourApp.GetTourAppointment());
+            return tourApp.Tour.Finish;
+        }
+        public void CheckTicket(TicketDTO ticket)
+        {
+            ticket.HasGuideChecked = true;
+            TicketService ticketService = new TicketService();
+            ticketService.Update(ticket.GetTicket());
+        }
+        public void EmergencyStop(TourAppointmentDTO tourApp)
+        {
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
+
+            tourApp.State = TOURSTATE.STOPPED;
+            tourAppointmentService.Update(tourApp.GetTourAppointment());
+        }
+        public bool CanGuideAcceptAppointment(DateTime dateTime)
+        {
+            foreach (var tourApp in TourAppointments)
+            {
+                if (tourApp.TourDateTime.Date == dateTime.Date && tourApp.TourDateTime.AddHours(tourApp.Tour.Duration) > dateTime)
+                    return false;
+            }
+            return true;
+        }
+        public void AcceptTourRequest(TourRequestDTO tourRequest)
+        {
+            TourRequestService tourRequestService = new TourRequestService();
+            tourRequest.State = REQUESTSTATE.ACCEPTED;
+            tourRequestService.Update(tourRequest.GetTourRequest());
+        }
+        public void AddTour(TourDTO NewTour, LocationDTO NewLocation)
+        {
+            TourService tourService = new TourService();
+            LocationService locationService = new LocationService();
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
+
+            Location location = new Location(NewLocation.City, NewLocation.Country);
+            location.Id = locationService.AddAndReturnId(location);
+            NewLocation.Id = location.Id;
+            NewTour.LocationId = location.Id;
+            NewTour.Location = new LocationDTO(location);
+
+            Tours.Add(NewTour);
+            _guide.Tours.Add(NewTour.GetTour());
+            Tour tour = new Tour(NewTour.GetTour());
+            tour.Id = tourService.AddAndReturnId(NewTour.GetTour());
+            tourAppointmentService.MakeTourAppointments(tour);
         }
         public void ChangeLocalization()
         {
