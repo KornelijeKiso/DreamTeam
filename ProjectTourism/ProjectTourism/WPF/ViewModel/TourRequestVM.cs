@@ -12,7 +12,7 @@ using ProjectTourism.Services;
 
 namespace ProjectTourism.WPF.ViewModel
 {
-    public enum REQUESTSTATE { PENDING, ACCEPTED, EXPIRED }
+    
     public class TourRequestVM : INotifyPropertyChanged, IDataErrorInfo
     {
         private TourRequest _tourRequest;

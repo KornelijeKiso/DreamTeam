@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Timers;
+using ProjectTourism.Domain.Model;
 using ProjectTourism.Model;
 using ProjectTourism.Services;
 

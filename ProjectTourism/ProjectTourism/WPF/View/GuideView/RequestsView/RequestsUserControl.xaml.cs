@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using ProjectTourism.Domain.Model;
 using ProjectTourism.View.TourView;
 using ProjectTourism.WPF.ViewModel;
 

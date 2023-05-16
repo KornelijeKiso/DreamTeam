@@ -24,10 +24,10 @@ namespace ProjectTourism.Repositories
         {
             foreach (var tourRequest in TourRequests)
             {
-                if (tourRequest.State == WPF.ViewModel.REQUESTSTATE.PENDING 
+                if (tourRequest.State == REQUESTSTATE.PENDING 
                     && (DateTime.Compare(tourRequest.StartDate.ToDateTime(TimeOnly.MinValue), DateTime.Now.AddDays(2)) < 0))
                 {
-                    tourRequest.State = WPF.ViewModel.REQUESTSTATE.EXPIRED;
+                    tourRequest.State = REQUESTSTATE.EXPIRED;
                 }
             }
             FileHandler.Save(TourRequests);
