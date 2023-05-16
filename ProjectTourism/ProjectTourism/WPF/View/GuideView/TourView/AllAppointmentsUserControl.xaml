@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.GuideView.TourView"
         xmlns:ns="clr-namespace:ProjectTourism.Localization"
-             xmlns:conv="clr-namespace:ProjectTourism.Converters"
-             mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
+        xmlns:conv="clr-namespace:ProjectTourism.Converters"
+        mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
+    
     <UserControl.Resources>
         <ResourceDictionary>
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
