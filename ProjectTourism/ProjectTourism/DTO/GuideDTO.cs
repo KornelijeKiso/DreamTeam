@@ -4,25 +4,26 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Timers;
-using ProjectTourism.Domain.Model;
+using System.Text;
+using System.Threading.Tasks;
 using ProjectTourism.Model;
 using ProjectTourism.Services;
+using System.Timers;
 
-namespace ProjectTourism.WPF.ViewModel
+namespace ProjectTourism.DTO
 {
-    public class GuideVM : INotifyPropertyChanged
+    public class GuideDTO : INotifyPropertyChanged
     {
         private Guide _guide;
         public Timer Timer;
-        public GuideVM(Guide guide)
+        public GuideDTO(Guide guide)
         {
             _guide = guide;
-            Tours = new ObservableCollection<TourVM>(_guide.Tours.Select(r => new TourVM(r)).ToList());
-            TourAppointments = new ObservableCollection<TourAppointmentVM>(_guide.TourAppointments.Select(r => new TourAppointmentVM(r)).ToList());
-            TodaysAppointments = new ObservableCollection<TourAppointmentVM>(TourAppointments.Where(t => t.TourDateTime.Date.Equals(DateTime.Now.Date)).OrderBy(t => t.TourDateTime));
+            Tours = new ObservableCollection<TourDTO>(_guide.Tours.Select(r => new TourDTO(r)).ToList());
+            TourAppointments = new ObservableCollection<TourAppointmentDTO>(_guide.TourAppointments.Select(r => new TourAppointmentDTO(r)).ToList());
+            TodaysAppointments = new ObservableCollection<TourAppointmentDTO>(TourAppointments.Where(t => t.TourDateTime.Date.Equals(DateTime.Now.Date)).OrderBy(t => t.TourDateTime));
         }
-        public GuideVM(string username)
+        public GuideDTO(string username)
         {
             Synchronize(username);
             Timer = new Timer(5000);
@@ -58,8 +59,8 @@ namespace ProjectTourism.WPF.ViewModel
                 tour.Guide = _guide;
                 tour.Location = locationService.GetOne(tour.LocationId);
                 tour.TourAppointments = SynchronizeTourAppointments(tourAppointmentService, ticketService, ticketGradeService, guest2Service, voucherService, tour);
-                
-                foreach(var app in tour.TourAppointments)
+
+                foreach (var app in tour.TourAppointments)
                 {
                     if (!_guide.TourAppointments.Contains(app))
                     {
@@ -68,36 +69,35 @@ namespace ProjectTourism.WPF.ViewModel
                     }
                 }
             }
-            Tours = new ObservableCollection<TourVM>(_guide.Tours.Select(r => new TourVM(r)).ToList());
-            TourAppointments = new ObservableCollection<TourAppointmentVM>(_guide.TourAppointments.Select(r => new TourAppointmentVM(r)).ToList());
-            TodaysAppointments = new ObservableCollection<TourAppointmentVM>(TourAppointments.Where(t => t.TourDateTime.Date.Equals(DateTime.Now.Date)).OrderBy(t => t.TourDateTime));
+            Tours = new ObservableCollection<TourDTO>(_guide.Tours.Select(r => new TourDTO(r)).ToList());
+            TourAppointments = new ObservableCollection<TourAppointmentDTO>(_guide.TourAppointments.Select(r => new TourAppointmentDTO(r)).ToList());
+            TodaysAppointments = new ObservableCollection<TourAppointmentDTO>(TourAppointments.Where(t => t.TourDateTime.Date.Equals(DateTime.Now.Date)).OrderBy(t => t.TourDateTime));
             SortByDate();
         }
-
         public void ChangeLocalization()
         {
             GuideService guideService = new GuideService();
             guideService.UpdateLocalization(_guide);
         }
-        public List<TourAppointmentVM> FindGuidesReadyAppointments()
+        public List<TourAppointmentDTO> FindGuidesReadyAppointments()
         {
-            List<TourAppointmentVM> readyTourApps = new List<TourAppointmentVM>();
-            foreach(var tourApp in TourAppointments)
+            List<TourAppointmentDTO> readyTourApps = new List<TourAppointmentDTO>();
+            foreach (var tourApp in TourAppointments)
             {
-                if(tourApp.State == TOURSTATE.READY && tourApp.TourDateTime >= DateTime.Now)
+                if (tourApp.State == TOURSTATE.READY && tourApp.TourDateTime >= DateTime.Now)
                     readyTourApps.Add(tourApp);
             }
             return readyTourApps;
         }
-        public TourAppointmentVM FindGuidesUpcomingTourApp()
+        public TourAppointmentDTO FindGuidesUpcomingTourApp()
         {
-            List<TourAppointmentVM> ReadyAppointments = new List<TourAppointmentVM>();
+            List<TourAppointmentDTO> ReadyAppointments = new List<TourAppointmentDTO>();
             ReadyAppointments = FindGuidesReadyAppointments();
             if (ReadyAppointments.Count == 0)
             {
                 return null;
             }
-            TourAppointmentVM closestTourAppointment = new TourAppointmentVM(ReadyAppointments[0].GetTourAppointment());
+            TourAppointmentDTO closestTourAppointment = new TourAppointmentDTO(ReadyAppointments[0].GetTourAppointment());
             TimeSpan closestDifference = closestTourAppointment.TourDateTime - DateTime.Today;
             if (closestDifference < TimeSpan.Zero)
             {
@@ -114,7 +114,7 @@ namespace ProjectTourism.WPF.ViewModel
 
                 if (tourAppDifference < closestDifference)
                 {
-                    closestTourAppointment = new TourAppointmentVM(tourApp.GetTourAppointment());
+                    closestTourAppointment = new TourAppointmentDTO(tourApp.GetTourAppointment());
                     closestDifference = tourAppDifference;
                 }
             }
@@ -127,14 +127,6 @@ namespace ProjectTourism.WPF.ViewModel
             GuideService guideService = new GuideService();
             guideService.Add(Guide);
         }
-        public void AcceptTourRequest(TourRequestVM tourRequest)
-        {
-            TourRequestService tourRequestService = new TourRequestService();
-            tourRequest.State = REQUESTSTATE.ACCEPTED;
-            tourRequestService.Update(tourRequest.GetTourRequest());
-        }
-        
-        
         private List<TourAppointment> SynchronizeTourAppointments(TourAppointmentService tourAppointmentService, TicketService ticketService, TicketGradeService ticketGradeService, Guest2Service guest2Service, VoucherService voucherService, Tour tour)
         {
             List<TourAppointment> tourAppointments = new List<TourAppointment>();
@@ -163,125 +155,27 @@ namespace ProjectTourism.WPF.ViewModel
                 ticket.TourAppointment = tourApp;
             }
         }
-        public void ReportTicketGrade(TicketVM ticket)
-        {
-            TicketGradeService ticketGradeService = new TicketGradeService();
-            ticket.TicketGrade.IsNotReported = false;
-            ticketGradeService.Update(ticket.TicketGrade.GetTicketGrade());
-        }
-        public void CancelAppointment(TourAppointmentVM tourApp)
-        {
-            TourAppointmentService tourAppointmentService = new TourAppointmentService();
-            tourApp.State = TOURSTATE.CANCELED;
-            tourAppointmentService.Update(tourApp.GetTourAppointment());
-        }
-        public string NextStop(TourAppointment tourApp)
-        {
-            TourAppointmentService tourAppointmentService = new TourAppointmentService();
-            GuideService guideService = new GuideService();
 
-            string currentStop = tourApp.CurrentTourStop;
-            int stopIndex = CalculateStopIndex(tourApp, currentStop);
-            MoveCurrentStop(tourApp, stopIndex);
-            tourApp.State = TOURSTATE.STARTED;
-            tourAppointmentService.Update(tourApp);
-            return tourApp.CurrentTourStop;
-        }
-        private static void MoveCurrentStop(TourAppointment tourApp, int stopIndex)
-        {
-            if (stopIndex == tourApp.Tour.StopsList.Count)
-                tourApp.CurrentTourStop = tourApp.Tour.StopsList.Last();
-            else
-                tourApp.CurrentTourStop = tourApp.Tour.StopsList[stopIndex + 1];
-        }
-        private static int CalculateStopIndex(TourAppointment tourApp, string currentStop)
-        {
-            int stopIndex = 0;
-            foreach (var stop in tourApp.Tour.StopsList)
-            {
-                if (stop.Trim() == currentStop.Trim())
-                    return stopIndex;
-                stopIndex += 1;
-            }
-            return stopIndex;
-        }
-        public void EndTour(TourAppointmentVM tourApp)
-        {
-            TourAppointmentService tourAppointmentService = new TourAppointmentService();
-
-            tourApp.CurrentTourStop = tourApp.Tour.Finish;
-            tourApp.State = TOURSTATE.FINISHED;
-            tourAppointmentService.Update(tourApp.GetTourAppointment());
-        }
-        public string FinishTourAndReturnStop(TourAppointmentVM tourApp)
-        {
-            TourAppointmentService tourAppointmentService = new TourAppointmentService();
-
-            tourApp.CurrentTourStop = tourApp.Tour.Finish;
-            tourApp.State = TOURSTATE.FINISHED;
-            tourAppointmentService.Update(tourApp.GetTourAppointment());
-            return tourApp.Tour.Finish;
-        }
-        public void CheckTicket(TicketVM ticket)
-        {
-            ticket.HasGuideChecked = true;
-            TicketService ticketService = new TicketService();
-            ticketService.Update(ticket.GetTicket());
-        }
-        public void EmergencyStop(TourAppointmentVM tourApp)
-        {
-            TourAppointmentService tourAppointmentService = new TourAppointmentService();
-
-            tourApp.State = TOURSTATE.STOPPED;
-            tourAppointmentService.Update(tourApp.GetTourAppointment());
-        }
-        public void AddTour(TourVM NewTour, LocationVM NewLocation)
-        {
-            TourService tourService = new TourService();
-            LocationService locationService = new LocationService();
-            TourAppointmentService tourAppointmentService = new TourAppointmentService();
-
-            Location location = new Location(NewLocation.City, NewLocation.Country);
-            location.Id = locationService.AddAndReturnId(location);
-            NewLocation.Id = location.Id;
-            NewTour.LocationId = location.Id;
-            NewTour.Location = new LocationVM(location);
-
-            Tours.Add(NewTour);
-            _guide.Tours.Add(NewTour.GetTour());
-            Tour tour = new Tour(NewTour.GetTour());
-            tour.Id = tourService.AddAndReturnId(NewTour.GetTour());
-            tourAppointmentService.MakeTourAppointments(tour);
-        }
         public Guide GetGuide()
         {
             return _guide;
         }
-        public ObservableCollection<TourRequestVM> GetAllTourRequests()
+        public ObservableCollection<TourRequestDTO> GetAllTourRequests()
         {
             TourRequestService tourRequestService = new TourRequestService();
             LocationService locationService = new LocationService();
-            ObservableCollection<TourRequestVM> tourRequests = new ObservableCollection<TourRequestVM>();
+            ObservableCollection<TourRequestDTO> tourRequests = new ObservableCollection<TourRequestDTO>();
 
             foreach (var tourRequest in tourRequestService.GetAll())
             {
                 tourRequest.Location = locationService.GetOne(tourRequest.LocationId);
-                tourRequests.Add(new TourRequestVM(tourRequest));
+                tourRequests.Add(new TourRequestDTO(tourRequest));
             }
             return tourRequests;
         }
-        public bool CanGuideAcceptAppointment(DateTime dateTime)
-        {
-            foreach (var tourApp in TourAppointments)
-            {
-                if (tourApp.TourDateTime.Date == dateTime.Date && tourApp.TourDateTime.AddHours(tourApp.Tour.Duration) > dateTime)
-                    return false;
-            }
-            return true;
-        }
 
-        private ObservableCollection<TourAppointmentVM> _FinishedApps;
-        public ObservableCollection<TourAppointmentVM> FinishedApps
+        private ObservableCollection<TourAppointmentDTO> _FinishedApps;
+        public ObservableCollection<TourAppointmentDTO> FinishedApps
         {
             get => _FinishedApps;
             set
@@ -293,8 +187,8 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        private ObservableCollection<TourAppointmentVM> _CanceledApps;
-        public ObservableCollection<TourAppointmentVM> CanceledApps
+        private ObservableCollection<TourAppointmentDTO> _CanceledApps;
+        public ObservableCollection<TourAppointmentDTO> CanceledApps
         {
             get => _CanceledApps;
             set
@@ -306,8 +200,8 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        private ObservableCollection<TourAppointmentVM> _ReadyApps;
-        public ObservableCollection<TourAppointmentVM> ReadyApps
+        private ObservableCollection<TourAppointmentDTO> _ReadyApps;
+        public ObservableCollection<TourAppointmentDTO> ReadyApps
         {
             get => _ReadyApps;
             set
@@ -319,8 +213,8 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        private ObservableCollection<TourAppointmentVM> _StoppedApps;
-        public ObservableCollection<TourAppointmentVM> StoppedApps
+        private ObservableCollection<TourAppointmentDTO> _StoppedApps;
+        public ObservableCollection<TourAppointmentDTO> StoppedApps
         {
             get => _StoppedApps;
             set
@@ -333,8 +227,8 @@ namespace ProjectTourism.WPF.ViewModel
             }
         }
 
-        private ObservableCollection<TourAppointmentVM> _ExpiredApps;
-        public ObservableCollection<TourAppointmentVM> ExpiredApps
+        private ObservableCollection<TourAppointmentDTO> _ExpiredApps;
+        public ObservableCollection<TourAppointmentDTO> ExpiredApps
         {
             get => _ExpiredApps;
             set
@@ -349,9 +243,9 @@ namespace ProjectTourism.WPF.ViewModel
 
         private bool HasGuideStartedTour()
         {
-            foreach(var tourApp in TourAppointments)
+            foreach (var tourApp in TourAppointments)
             {
-                if(tourApp.State.Equals(TOURSTATE.STARTED)) 
+                if (tourApp.State.Equals(TOURSTATE.STARTED))
                     return true;
             }
             return false;
@@ -366,15 +260,15 @@ namespace ProjectTourism.WPF.ViewModel
         }
         private void SortByDate()
         {
-            FinishedApps = new ObservableCollection<TourAppointmentVM>(TourAppointments.Where(t => t.State == TOURSTATE.FINISHED).OrderByDescending(a => a.TourDateTime));
-            ReadyApps = new ObservableCollection<TourAppointmentVM>(TourAppointments.Where(t => t.State == TOURSTATE.READY).OrderByDescending(a => a.TourDateTime));
-            StoppedApps = new ObservableCollection<TourAppointmentVM>(TourAppointments.Where(t => t.State == TOURSTATE.STOPPED).OrderByDescending(a => a.TourDateTime));
-            CanceledApps = new ObservableCollection<TourAppointmentVM>(TourAppointments.Where(t => t.State == TOURSTATE.CANCELED).OrderByDescending(a => a.TourDateTime));
-            ExpiredApps = new ObservableCollection<TourAppointmentVM>(TourAppointments.Where(t => t.State == TOURSTATE.EXPIRED).OrderByDescending(a => a.TourDateTime));
+            FinishedApps = new ObservableCollection<TourAppointmentDTO>(TourAppointments.Where(t => t.State == TOURSTATE.FINISHED).OrderByDescending(a => a.TourDateTime));
+            ReadyApps = new ObservableCollection<TourAppointmentDTO>(TourAppointments.Where(t => t.State == TOURSTATE.READY).OrderByDescending(a => a.TourDateTime));
+            StoppedApps = new ObservableCollection<TourAppointmentDTO>(TourAppointments.Where(t => t.State == TOURSTATE.STOPPED).OrderByDescending(a => a.TourDateTime));
+            CanceledApps = new ObservableCollection<TourAppointmentDTO>(TourAppointments.Where(t => t.State == TOURSTATE.CANCELED).OrderByDescending(a => a.TourDateTime));
+            ExpiredApps = new ObservableCollection<TourAppointmentDTO>(TourAppointments.Where(t => t.State == TOURSTATE.EXPIRED).OrderByDescending(a => a.TourDateTime));
         }
 
-        private ObservableCollection<TourVM> _Tours;
-        public ObservableCollection<TourVM> Tours
+        private ObservableCollection<TourDTO> _Tours;
+        public ObservableCollection<TourDTO> Tours
         {
             get => _Tours;
             set
@@ -386,8 +280,8 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public ObservableCollection<TourAppointmentVM> _TourAppointments;
-        public ObservableCollection<TourAppointmentVM> TourAppointments
+        public ObservableCollection<TourAppointmentDTO> _TourAppointments;
+        public ObservableCollection<TourAppointmentDTO> TourAppointments
         {
             get => _TourAppointments;
             set
@@ -399,8 +293,8 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public ObservableCollection<TourAppointmentVM> _TodaysAppointments;
-        public ObservableCollection<TourAppointmentVM> TodaysAppointments
+        public ObservableCollection<TourAppointmentDTO> _TodaysAppointments;
+        public ObservableCollection<TourAppointmentDTO> TodaysAppointments
         {
             get => _TodaysAppointments;
             set
@@ -412,9 +306,9 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        private ObservableCollection<TourRequestVM> _TourRequests;
-        public ObservableCollection<TourRequestVM> TourRequests
-        { 
+        private ObservableCollection<TourRequestDTO> _TourRequests;
+        public ObservableCollection<TourRequestDTO> TourRequests
+        {
             get => GetAllTourRequests();
             set
             {
