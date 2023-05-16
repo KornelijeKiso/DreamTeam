@@ -21,7 +21,7 @@ namespace ProjectTourism.WPF.View.OwnerView
     /// <summary>
     /// Interaction logic for YourProfileMenuItem.xaml
     /// </summary>
-    public partial class YourProfileMenuItem : UserControl, INotifyPropertyChanged
+    public partial class YourProfileMenuItem : UserControl
     {
         public OwnerVM Owner { get; set; }
         public string Average { get; set; }
@@ -39,14 +39,6 @@ namespace ProjectTourism.WPF.View.OwnerView
             {
                 parentWindow.Close();
             }
-        }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }
