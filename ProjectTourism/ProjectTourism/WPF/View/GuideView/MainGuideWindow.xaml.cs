@@ -1,45 +1,14 @@
 ﻿using System.Windows;
-using System.Windows.Navigation;
-using ProjectTourism.View.GuideView.TourView;
-using ProjectTourism.WPF.View.GuideView.TourView;
+using ProjectTourism.WPF.ViewModel.GuideViewModels;
 
 namespace ProjectTourism.View.GuideView
 {
     public partial class MainGuideWindow : Window
     {
-        public string Username { get; set; }
         public MainGuideWindow(string username)
         {
             InitializeComponent();
-            DataContext = this;
-            Username = username;
-            ContentArea.Content = new HomeUserControl(username);
+            DataContext = new MainGuideWindowVM(username);
         }
-        private void HomeLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
-        {
-            ContentArea.Content = new HomeUserControl(Username);
-            e.Handled = true;
-        }
-        private void AllAppointmentsLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
-        {
-            ContentArea.Content = new AllAppointmentsUserControl(Username);
-            e.Handled = true;
-        }
-        private void ProfileLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
-        {
-            ContentArea.Content = new ProfileUserControl(Username);
-            e.Handled = true;
-        }
-        private void RequestsLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
-        {
-            ContentArea.Content = new RequestsUserControl(Username);
-            e.Handled = true;
-        }
-        private void LiveTourMonitorLink_RequestNavigate(object sender, RequestNavigateEventArgs e)
-        {
-            ContentArea.Content = new TodaysToursUserControl(Username);
-            e.Handled = true;
-        }
-
     }
 }

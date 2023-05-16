@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using ProjectTourism.DTO;
 using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.GuideView.TourView
 {
     public partial class ProfileUserControl : UserControl
     {
-        public GuideVM Guide { get; set; }
-        private List<UIElement> profileUIElements;
+        public GuideDTO Guide { get; set; }
         public ProfileUserControl(string username)
         {
             InitializeComponent();
             DataContext = this;
-            Guide = new GuideVM(username);
+            Guide = new GuideDTO(username);
         }
         private void SignOutLink_Click(object sender, RoutedEventArgs e)
         {
@@ -21,7 +21,5 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             if (parentWindow != null)
                 parentWindow.Close();
         }
-        private void toggleSwitch_Checked(object sender, RoutedEventArgs e) { }
-        private void toggleSwitch_Unchecked(object sender, RoutedEventArgs e) { }
     }
 }

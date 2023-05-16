@@ -6,6 +6,7 @@ using System.Linq;
 using System.Windows.Input;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
+using ProjectTourism.WPF.View.Guest2View;
 using ProjectTourism.WPF.View.Guest2View.TicketView;
 using ProjectTourism.Utilities;
 
@@ -253,6 +254,53 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         {
                 CreateTicketWindow createTicketWidnow = new CreateTicketWindow(Guest2, SelectedTour);
                 createTicketWidnow.ShowDialog();
+        }
+
+
+        //private ICommand _PictureForwardCommand;
+        //public ICommand PictureForwardCommand
+        //{
+        //    get
+        //    {
+        //        return _PictureForwardCommand ?? (_PictureForwardCommand = new CommandHandler(() => PictureForwardClick(), () => true));
+        //    }
+        //}
+        //public void PictureForwardClick()
+        //{
+
+        //}
+
+        //private ICommand _PictureBackwardCommand;
+        //public ICommand PictureBackwardCommand
+        //{
+        //    get
+        //    {
+        //        return _PictureBackwardCommand ?? (_PictureBackwardCommand = new CommandHandler(() => PictureBackwardClick(), () => true));
+        //    }
+        //}
+        //public void PictureBackwardClick()
+        //{
+         
+        //}
+
+        private ICommand _PictureCommand;
+        public ICommand PictureCommand
+        {
+            get
+            {
+                return _PictureCommand ?? (_PictureCommand = new CommandHandler(() => PictureClick(), () => CanPictureClick()));
+            }
+        }
+
+        private bool CanPictureClick()
+        {
+            return (/*SelectedTour != null &&*/ !SelectedTour.ArePicturesEmpty);
+        }
+        public void PictureClick()
+        {
+            // TO DO -> Create PictureDisplayUserControl
+            PictureDisplayWindow pictureDisplayWindow = new PictureDisplayWindow(SelectedTour);
+            pictureDisplayWindow.ShowDialog();
         }
     }
 }

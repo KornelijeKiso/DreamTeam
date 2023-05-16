@@ -7,110 +7,32 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectTourism.Domain.Model;
-using ProjectTourism.Model;
 using ProjectTourism.Services;
+using ProjectTourism.WPF.ViewModel;
 
-namespace ProjectTourism.WPF.ViewModel
+namespace ProjectTourism.DTO
 {
-    
-    public class TourRequestVM : INotifyPropertyChanged, IDataErrorInfo
+    public class TourRequestDTO : INotifyPropertyChanged, IDataErrorInfo
     {
         private TourRequest _tourRequest;
-        public TourRequestVM(TourRequest tourRequest)
+        public TourRequestDTO(TourRequest tourRequest)
         {
             _tourRequest = tourRequest;
         }
-        public TourRequestVM(TourRequestVM tourRequest)
+        public TourRequestDTO(TourRequestDTO tourRequest)
         {
             _tourRequest = new TourRequest(tourRequest.GetTourRequest());
         }
-        public TourRequestVM() { }
-        
+        public TourRequestDTO() { }
+
         public TourRequest GetTourRequest()
         {
             return _tourRequest;
         }
-        public List<string> TourRequestLanguagesInLastYear()
-        {
-            TourRequestService tourRequestService = new TourRequestService();
-            List<string> languages = new List<string>();
-
-            foreach (var tourRequest in tourRequestService.GetAll())
-            {
-                if (tourRequest.CreationDateTime >= DateTime.UtcNow.AddYears(-1))
-                    languages.Add(tourRequest.Language);
-            }
-            return languages;
-        }
-        public List<string> TourRequestLocationsInLastYear()
-        {
-            TourRequestService tourRequestService = new TourRequestService();
-            List<string> locations = new List<string>();
-
-            foreach (var tourRequest in tourRequestService.GetAll())
-            {
-                if (tourRequest.CreationDateTime >= DateTime.UtcNow.AddYears(-1))
-                    locations.Add(tourRequest.Location.City + ", " + tourRequest.Location.Country);
-            }
-            return locations;
-        }
-        public ObservableCollection<string> GetAllLanguages()
-        {
-            ObservableCollection<string> languages = new ObservableCollection<string>();
-            foreach(var tourRequest in GetAll())
-            {
-                if(!languages.Contains(tourRequest.Language))
-                    languages.Add(tourRequest.Language);
-            }
-            return languages;
-        }
-        public ObservableCollection<string> GetAllLocations()
-        {
-            ObservableCollection<string> locations = new ObservableCollection<string>();
-            foreach (var tourRequest in GetAll())
-            {
-                if (!locations.Contains(tourRequest.Location.City + ", " + tourRequest.Location.Country))
-                    locations.Add(tourRequest.Location.City + ", " + tourRequest.Location.Country);
-            }
-            return locations;
-        }
-        public ObservableCollection<TourRequestVM> GetAll()
-        {
-            TourRequestService tourRequestService = new TourRequestService();
-            ObservableCollection<TourRequestVM> tourRequests = new ObservableCollection<TourRequestVM>();
-            foreach(var tourRequest in tourRequestService.GetAll())
-            {
-                tourRequests.Add(new TourRequestVM(tourRequest));
-            }
-            return tourRequests;
-        }
-        public ObservableCollection<TourRequestVM> GetAllByYear(int year)
-        {
-            TourRequestService tourRequestService = new TourRequestService();
-            ObservableCollection<TourRequestVM> tourRequests = new ObservableCollection<TourRequestVM>();
-            foreach (var tourRequest in tourRequestService.GetAll())
-            {
-                if(tourRequest.CreationDateTime.Year == year)
-                    tourRequests.Add(new TourRequestVM(tourRequest));
-            }
-            return tourRequests;
-        }
-        public ObservableCollection<int> Years()
-        {
-            ObservableCollection<TourRequestVM> TourRequests = new ObservableCollection<TourRequestVM>();
-            TourRequests = GetAll();
-            List<int> years = new List<int>();
-            TourRequests.ToList().ForEach(tourRequest => { if (!years.Contains(tourRequest.CreationDateTime.Year)) years.Add(tourRequest.CreationDateTime.Year); });
-            years.Sort();
-            years.Reverse();
-
-            ObservableCollection<int> YearsList = new ObservableCollection<int>(years);
-            return YearsList;
-        }
         public int StatForYear(int year)
         {
             int tourRequestCounter = 0;
-            foreach(var tourRequest in GetAll())
+            foreach (var tourRequest in GetAll())
             {
                 if (tourRequest.CreationDateTime.Year == year)
                     tourRequestCounter++;
@@ -151,9 +73,9 @@ namespace ProjectTourism.WPF.ViewModel
         public List<int> MonthlyStats(int year)
         {
             List<int> months = Enumerable.Repeat(0, 12).ToList();
-            foreach (var tourRequest in GetAllByYear(year) )
+            foreach (var tourRequest in GetAllByYear(year))
             {
-                months[tourRequest.CreationDateTime.Month-1]++;
+                months[tourRequest.CreationDateTime.Month - 1]++;
             }
             return months;
         }
@@ -163,7 +85,7 @@ namespace ProjectTourism.WPF.ViewModel
             List<int> months = Enumerable.Repeat(0, 12).ToList();
             foreach (var tourRequest in GetAllByYear(year))
             {
-                if(tourRequest.Language.Equals(language))
+                if (tourRequest.Language.Equals(language))
                     months[tourRequest.CreationDateTime.Month - 1]++;
             }
             return months;
@@ -190,6 +112,83 @@ namespace ProjectTourism.WPF.ViewModel
             }
             return months;
         }
+        public ObservableCollection<string> GetAllLanguages()
+        {
+            ObservableCollection<string> languages = new ObservableCollection<string>();
+            foreach (var tourRequest in GetAll())
+            {
+                if (!languages.Contains(tourRequest.Language))
+                    languages.Add(tourRequest.Language);
+            }
+            return languages;
+        }
+        public ObservableCollection<string> GetAllLocations()
+        {
+            ObservableCollection<string> locations = new ObservableCollection<string>();
+            foreach (var tourRequest in GetAll())
+            {
+                if (!locations.Contains(tourRequest.Location.City + ", " + tourRequest.Location.Country))
+                    locations.Add(tourRequest.Location.City + ", " + tourRequest.Location.Country);
+            }
+            return locations;
+        }
+        public List<string> TourRequestLanguagesInLastYear()
+        {
+            TourRequestService tourRequestService = new TourRequestService();
+            List<string> languages = new List<string>();
+
+            foreach (var tourRequest in tourRequestService.GetAll())
+            {
+                if (tourRequest.CreationDateTime >= DateTime.UtcNow.AddYears(-1))
+                    languages.Add(tourRequest.Language);
+            }
+            return languages;
+        }
+        public List<string> TourRequestLocationsInLastYear()
+        {
+            TourRequestService tourRequestService = new TourRequestService();
+            List<string> locations = new List<string>();
+
+            foreach (var tourRequest in tourRequestService.GetAll())
+            {
+                if (tourRequest.CreationDateTime >= DateTime.UtcNow.AddYears(-1))
+                    locations.Add(tourRequest.Location.City + ", " + tourRequest.Location.Country);
+            }
+            return locations;
+        }
+        public ObservableCollection<int> Years()
+        {
+            ObservableCollection<TourRequestDTO> TourRequests = new ObservableCollection<TourRequestDTO>();
+            TourRequests = GetAll();
+            List<int> years = new List<int>();
+            TourRequests.ToList().ForEach(tourRequest => { if (!years.Contains(tourRequest.CreationDateTime.Year)) years.Add(tourRequest.CreationDateTime.Year); });
+            years.Sort();
+            years.Reverse();
+
+            ObservableCollection<int> YearsList = new ObservableCollection<int>(years);
+            return YearsList;
+        }
+        public ObservableCollection<TourRequestDTO> GetAll()
+        {
+            TourRequestService tourRequestService = new TourRequestService();
+            ObservableCollection<TourRequestDTO> tourRequests = new ObservableCollection<TourRequestDTO>();
+            foreach (var tourRequest in tourRequestService.GetAll())
+            {
+                tourRequests.Add(new TourRequestDTO(tourRequest));
+            }
+            return tourRequests;
+        }
+        public ObservableCollection<TourRequestDTO> GetAllByYear(int year)
+        {
+            TourRequestService tourRequestService = new TourRequestService();
+            ObservableCollection<TourRequestDTO> tourRequests = new ObservableCollection<TourRequestDTO>();
+            foreach (var tourRequest in tourRequestService.GetAll())
+            {
+                if (tourRequest.CreationDateTime.Year == year)
+                    tourRequests.Add(new TourRequestDTO(tourRequest));
+            }
+            return tourRequests;
+        }
         public int Id
         {
             get => _tourRequest.Id;
@@ -202,9 +201,9 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public LocationVM Location
+        public LocationDTO Location
         {
-            get => new LocationVM(_tourRequest.Location);
+            get => new LocationDTO(_tourRequest.Location);
             set
             {
                 if (value.GetLocation() != _tourRequest.Location)
@@ -291,7 +290,7 @@ namespace ProjectTourism.WPF.ViewModel
             get => _tourRequest.Guest2Username;
             set
             {
-                if(value != _tourRequest.Guest2Username)
+                if (value != _tourRequest.Guest2Username)
                 {
                     _tourRequest.Guest2Username = value;
                     OnPropertyChanged();
@@ -310,7 +309,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
         public DateTime CreationDateTime
         {
             get => _tourRequest.CreationDateTime;
@@ -323,14 +321,6 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        // validation
         public string Error => null;
         public string? this[string columnName]
         {
@@ -374,7 +364,7 @@ namespace ProjectTourism.WPF.ViewModel
                 return null;
             }
         }
-        private readonly string[] _validatedProperties = { "Description", "Language", "NumberOfGuests", "StartDate", "EndDate" , "Location.Country" , "Location.City" };
+        private readonly string[] _validatedProperties = { "Description", "Language", "NumberOfGuests", "StartDate", "EndDate", "Location.Country", "Location.City" };
 
         public bool IsValid
         {
@@ -387,6 +377,11 @@ namespace ProjectTourism.WPF.ViewModel
                 }
                 return true;
             }
+        }
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

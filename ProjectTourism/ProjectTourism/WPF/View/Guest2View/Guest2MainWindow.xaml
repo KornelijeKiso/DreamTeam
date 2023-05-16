@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:ProjectTourism.WPF.ViewModel.Guest2ViewModel"
         xmlns:Menu="clr-namespace:ProjectTourism.Utilities"
+        xmlns:images="ProjectTourism.Images.Guest2"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest2View"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
@@ -12,11 +13,43 @@
         Title="Guest2 Main Window" 
         Height="550" Width="850"
         ResizeMode="CanMinimize">
-       
-    <!--<Window.DataContext>
-        <vm:NavigationVM />
-    </Window.DataContext>-->
+   
+    <Window.Resources>
+        <Style x:Key="IconsStyle"
+           TargetType="Image">
+            <Setter Property="HorizontalAlignment"
+                Value="Left" />
+            <Setter Property="VerticalAlignment"
+                Value="Center" />
+            <Setter Property="Stretch"
+                Value="Uniform" />
+            <Setter Property="Height"
+                Value="30" />
+            <Setter Property="Width"
+                Value="30" />
+            <Setter Property="Margin"
+                Value="10,0,0,0" />
+        </Style>
 
+        <Style x:Key="TextStyle"
+           TargetType="TextBlock">
+
+            <Setter Property="FontFamily"
+                Value="/Fonts/#Rubik" />
+            <Setter Property="VerticalAlignment"
+                Value="Center" />
+            <Setter Property="HorizontalAlignment"
+                Value="Left" />
+            <Setter Property="Foreground"
+                Value="#DBDBDB" />
+            <Setter Property="FontSize"
+                Value="18" />
+            <Setter Property="Margin"
+                Value="70,0,0,0" />
+
+        </Style>
+
+    </Window.Resources>
     <Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -57,10 +90,8 @@
                                 Style="{StaticResource BtnStyle}"
                                 IsChecked="True"    >
                         <Grid>
-                            <Image Source="/WPF/View/Guest2View/img_home.png"
-                                   Style="{StaticResource Image_Style}"     />
-                            <TextBlock Text="Home"
-                                       Style="{StaticResource Text_Style}"  />
+                            <Image Source="../../../Images/Guest2/home.png" Style="{StaticResource IconsStyle}"/>
+                            <TextBlock Text="Home" Style="{StaticResource TextStyle}"  />
                         </Grid>
                     </Menu:Btn>
 
@@ -68,10 +99,8 @@
                     <Menu:Btn   Command="{Binding TicketsCommand}" 
                                 Style="{StaticResource BtnStyle}"   >
                         <Grid>
-                            <Image Source="/WPF/View/Guest2View/img_tickets.png"
-                                   Style="{StaticResource Image_Style}"     />
-                            <TextBlock Text="Tickets"
-                                       Style="{StaticResource Text_Style}"  />
+                            <Image Source="../../../Images/Guest2/tickets.png" Style="{StaticResource IconsStyle}"     />
+                            <TextBlock Text="Tickets" Style="{StaticResource TextStyle}"  />
                         </Grid>
                     </Menu:Btn>
 
@@ -79,10 +108,8 @@
                     <Menu:Btn   Command="{Binding VouchersCommand}" 
                                 Style="{StaticResource BtnStyle}"   >
                         <Grid>
-                            <Image Source="/WPF/View/Guest2View/img_voucher.png"
-                                   Style="{StaticResource Image_Style}"     />
-                            <TextBlock Text="Vouchers"
-                                       Style="{StaticResource Text_Style}"  />
+                            <Image Source="../../../Images/Guest2/voucher.png" Style="{StaticResource IconsStyle}"     />
+                            <TextBlock Text="Vouchers" Style="{StaticResource TextStyle}"  />
                         </Grid>
                     </Menu:Btn>
 
@@ -90,10 +117,8 @@
                     <Menu:Btn   Command="{Binding ProfileCommand}" 
                                 Style="{StaticResource BtnStyle}"   >
                         <Grid>
-                            <Image Source="/WPF/View/Guest2View/img_profile.png"
-                                   Style="{StaticResource Image_Style}"     />
-                            <TextBlock Text="Profile"
-                                       Style="{StaticResource Text_Style}"  />
+                            <Image Source="../../../Images/Guest2/profile.png" Style="{StaticResource IconsStyle}"     />
+                            <TextBlock Text="Profile" Style="{StaticResource TextStyle}"  />
                         </Grid>
                     </Menu:Btn>
 
@@ -101,10 +126,8 @@
                     <Menu:Btn   Command="{Binding TourRequestsCommand}" 
                                 Style="{StaticResource BtnStyle}"   >
                         <Grid>
-                            <Image Source="/WPF/View/Guest2View/img_suggest_tour.png"
-                                   Style="{StaticResource Image_Style}"     />
-                            <TextBlock Text="Request &#x0d; a tour"
-                                       Style="{StaticResource Text_Style}"  />
+                            <Image Source="../../../Images/Guest2/suggesttour.png" Style="{StaticResource IconsStyle}"     />
+                            <TextBlock Text="    Tour &#x0d;Requests" Style="{StaticResource TextStyle}"  />
                         </Grid>
                     </Menu:Btn>
 
@@ -112,10 +135,8 @@
                     <Menu:Btn   Command="{Binding ComplexToursCommand}" 
                                 Style="{StaticResource BtnStyle}"   >
                         <Grid>
-                            <Image Source="/WPF/View/Guest2View/img_complex_tour.png"
-                                   Style="{StaticResource Image_Style}"     />
-                            <TextBlock Text="Complex &#x0d;   tours"
-                                       Style="{StaticResource Text_Style}"  />
+                            <Image Source="../../../Images/Guest2/complextour.png" Style="{StaticResource IconsStyle}"     />
+                            <TextBlock Text="Complex &#x0d;   tours" Style="{StaticResource TextStyle}"  />
                         </Grid>
                     </Menu:Btn>
                 </StackPanel>

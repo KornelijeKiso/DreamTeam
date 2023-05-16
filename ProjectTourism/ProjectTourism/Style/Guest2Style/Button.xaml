@@ -128,7 +128,7 @@
                             BorderThickness="1"
                             Background="Black">
                         <Grid>
-                            <Image Source="/Style/Guest2Style/img_profile.png"
+                            <Image Source="../../Images/Guest2/profile.png"
                                    Style="{StaticResource Image_Style}"     />
                             <TextBlock Text="Log Out"
                                        Style="{StaticResource Text_Style}"  />
@@ -177,7 +177,7 @@
                             BorderThickness="1"
                             Background="Black">
                         <Grid>
-                            <Image Source="/Style/Guest2Style/img_demo.png"
+                            <Image Source="../../Images/Guest2/demo.png"
                                    Style="{StaticResource Image_Style}" />
                             <TextBlock Text="Demo"
                                        Style="{StaticResource Text_Style}"  />
@@ -225,7 +225,7 @@
                             BorderThickness="1"
                             Background="Black">
                         <Grid>
-                            <Image Source="/Style/Guest2Style/img_search.png"
+                            <Image Source="../../Images/Guest2/search.png"
                                    Style="{StaticResource Image_Style}" 
                                    HorizontalAlignment="Center"/>
                             <!--<TextBlock Text="Search"

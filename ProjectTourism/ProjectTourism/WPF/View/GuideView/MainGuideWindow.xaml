@@ -12,7 +12,7 @@
         <Image Source="../../../Images/Guide/LightBackground.jpg" Margin="-30,-47,-22,0"/>
         <StackPanel Orientation="Horizontal" Margin="419,46,20,596" HorizontalAlignment="Right">
             <TextBlock FontSize="20">
-        <Hyperlink x:Name="HomeLink_Click" NavigateUri="home.xaml" RequestNavigate="HomeLink_RequestNavigate">
+        <Hyperlink x:Name="HomeLink_Click" NavigateUri="home.xaml" Command="{Binding HomeLink_RequestNavigateCommand}">
             <StackPanel Orientation="Horizontal">
                 <Image Source="https://cdn-icons-png.flaticon.com/512/1946/1946436.png" Width="18" Height="18" Margin="0,0,5,0"/>
                 <TextBlock Text="{ns:Loc Home}"/>
@@ -20,7 +20,7 @@
         </Hyperlink>
             </TextBlock>
             <TextBlock Margin="40,0,0,0" FontSize="20">
-        <Hyperlink x:Name="LiveTourMonitorLink" NavigateUri="home.xaml" RequestNavigate="LiveTourMonitorLink_RequestNavigate">
+        <Hyperlink x:Name="LiveTourMonitorLink" NavigateUri="home.xaml" Command="{Binding LiveTourMonitorLink_RequestNavigateCommand}">
             <StackPanel Orientation="Horizontal">
                 <Image Source="https://cdn-icons-png.flaticon.com/512/3253/3253051.png" Width="20" Height="20" Margin="0,0,5,0"/>
                 <TextBlock Text="{ns:Loc TodaysAppointments}"/>
@@ -28,7 +28,7 @@
         </Hyperlink>
             </TextBlock>
             <TextBlock Margin="40,0,0,0" FontSize="20">
-        <Hyperlink x:Name="AllAppointmentsLink" NavigateUri="home.xaml" RequestNavigate="AllAppointmentsLink_RequestNavigate">
+        <Hyperlink x:Name="AllAppointmentsLink" NavigateUri="home.xaml" Command="{Binding AllAppointmentsLink_RequestNavigateCommand}">
             <StackPanel Orientation="Horizontal">
                 <Image Source="https://cdn-icons-png.flaticon.com/512/10302/10302455.png" Width="18" Height="18" Margin="0,0,5,0"/>
                 <TextBlock Text="{ns:Loc AllAppointments}"/>
@@ -36,7 +36,7 @@
         </Hyperlink>
             </TextBlock>
             <TextBlock Margin="40,0,0,0" FontSize="20">
-        <Hyperlink x:Name="RequestsLink" NavigateUri="home.xaml" RequestNavigate="RequestsLink_RequestNavigate">
+        <Hyperlink x:Name="RequestsLink" NavigateUri="home.xaml" Command="{Binding RequestsLink_RequestNavigateCommand}">
             <StackPanel Orientation="Horizontal">
                 <Image Source="https://cdn-icons-png.flaticon.com/512/7358/7358481.png" Width="20" Height="20" Margin="0,0,5,0"/>
                 <TextBlock Text="{ns:Loc Requests}"/>
@@ -44,7 +44,7 @@
         </Hyperlink>
             </TextBlock>
             <TextBlock Margin="40,0,0,0" FontSize="20">
-        <Hyperlink x:Name="ProfileLink" NavigateUri="home.xaml" RequestNavigate="ProfileLink_RequestNavigate">
+        <Hyperlink x:Name="ProfileLink" NavigateUri="home.xaml" Command="{Binding ProfileLink_RequestNavigateCommand}">
             <StackPanel Orientation="Horizontal">
                 <Image Source="https://cdn-icons-png.flaticon.com/512/709/709722.png" Width="20" Height="20" Margin="0,0,5,0"/>
                 <TextBlock Text="{ns:Loc Profile}"/>
@@ -53,6 +53,6 @@
             </TextBlock>
         </StackPanel>
 
-        <ContentControl x:Name="ContentArea"/>
+        <ContentControl x:Name="ContentArea" Content="{Binding ContentArea.Content}"/>
     </Grid>
 </Window>

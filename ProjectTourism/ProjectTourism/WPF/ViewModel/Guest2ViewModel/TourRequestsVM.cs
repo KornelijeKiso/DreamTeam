@@ -8,6 +8,7 @@ using ProjectTourism.Services;
 using ProjectTourism.WPF.View.Guest2View.TicketView;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using ProjectTourism.Domain.Model;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
