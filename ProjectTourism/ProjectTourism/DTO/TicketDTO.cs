@@ -49,6 +49,23 @@ namespace ProjectTourism.DTO
         {
             return _ticket;
         }
+        private SolidColorBrush SetButtonColor()
+        {
+            if (_ticket.HasGuestConfirmed)
+                return Brushes.Green;
+            else if (HasGuideChecked)
+                return Brushes.IndianRed;
+            return Brushes.Transparent;
+        }
+
+        public SolidColorBrush ButtonColor
+        {
+            get => SetButtonColor();
+            set
+            {
+                OnPropertyChanged();
+            }
+        }
         public int Id
         {
             get => _ticket.Id;

@@ -7,16 +7,17 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using ProjectTourism.DTO;
 using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.GuideView.TourView
 {
     public partial class TourStatisticsUserControl : UserControl
     {
-        public GuideVM Guide { get; set; }
-        public List<TourAppointmentVM> TourApps { get; set; }
-        public TourAppointmentVM SelectedTourApp { get; set; }
-        public ObservableCollection<TourAppointmentVM> TourAppsObs { get; set; }
+        public GuideDTO Guide { get; set; }
+        public List<TourAppointmentDTO> TourApps { get; set; }
+        public TourAppointmentDTO SelectedTourApp { get; set; }
+        public ObservableCollection<TourAppointmentDTO> TourAppsObs { get; set; }
         public ObservableCollection<double> TourAppPercentage { get; set; }
         public int SelectedYear { get; set; }
         public List<int> Years { get; set; }
@@ -46,7 +47,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             if (row != null)
             {
                 UnhideStatsInstructions();
-                var item = row.Item as TourAppointmentVM;
+                var item = row.Item as TourAppointmentDTO;
                 FieldSet.Header = item.Tour.Name;
                 CalculateTicketPercentage(item);
                 CalculateAgeStats(item);
@@ -70,11 +71,11 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
 
         private void SetModels(string username)
         {
-            Guide = new GuideVM(username);
-            TourAppsObs = new ObservableCollection<TourAppointmentVM>();
+            Guide = new GuideDTO(username);
+            TourAppsObs = new ObservableCollection<TourAppointmentDTO>();
             TourAppPercentage = new ObservableCollection<double>();
-            TourApps = new List<TourAppointmentVM>(Guide.TourAppointments);
-            TourAppsObs = new ObservableCollection<TourAppointmentVM>(TourApps);
+            TourApps = new List<TourAppointmentDTO>(Guide.TourAppointments);
+            TourAppsObs = new ObservableCollection<TourAppointmentDTO>(TourApps);
             Years = new List<int>(GetYears());
             AgeGroups = new ObservableCollection<int>();
         }
@@ -103,7 +104,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
 
             return years;
         }
-        private void CalculateTicketPercentage(TourAppointmentVM SelectedTourApp)
+        private void CalculateTicketPercentage(TourAppointmentDTO SelectedTourApp)
         {
             int tickets = 0;
             int vouchers = 0;
@@ -115,7 +116,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             TourAppPercentage.Add(Math.Round(tickets != 0 ? (double)(tickets - vouchers) / tickets * 100 : 0));
             TourAppPercentage.Add(Math.Round(tickets != 0 ? (double)vouchers / tickets * 100 : 0));
         }
-        private void CalculateAgeStats(TourAppointmentVM SelectedTourApp)
+        private void CalculateAgeStats(TourAppointmentDTO SelectedTourApp)
         {
             int year = DateTime.Now.Year;
             int group1 = 0, group2 = 0, group3 = 0;

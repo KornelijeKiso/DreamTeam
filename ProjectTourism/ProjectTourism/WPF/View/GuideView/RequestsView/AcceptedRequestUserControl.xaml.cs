@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using ProjectTourism.DTO;
 using ProjectTourism.Localization;
 using ProjectTourism.Model;
 using ProjectTourism.WPF.View.GuideView.TourView;
@@ -17,13 +18,13 @@ namespace ProjectTourism.View.TourView
 {
     public partial class AcceptedRequestUserControl : UserControl, INotifyPropertyChanged
     {
-        public TourRequestVM TourRequest { get; set; }
-        public TourVM NewTour { get; set; }
-        public LocationVM NewLocation { get; set; }
-        public GuideVM Guide { get; set; }
-        public TourAppointmentVM TourAppointment { get; set; }
+        public TourRequestDTO TourRequest { get; set; }
+        public TourDTO NewTour { get; set; }
+        public LocationDTO NewLocation { get; set; }
+        public GuideDTO Guide { get; set; }
+        public TourAppointmentDTO TourAppointment { get; set; }
         private Dictionary<DateTime, List<TimeSpan>> appointments = new Dictionary<DateTime, List<TimeSpan>>();
-        public AcceptedRequestUserControl(GuideVM guide, TourRequestVM tourRequest)
+        public AcceptedRequestUserControl(GuideDTO guide, TourRequestDTO tourRequest)
         {
             InitializeComponent();
             DataContext = this;
@@ -48,11 +49,11 @@ namespace ProjectTourism.View.TourView
 
         private void SetModels()
         {
-            NewTour = new TourVM(new Tour());
+            NewTour = new TourDTO(new Tour());
             NewTour.dates = new List<DateTime>();
             NewTour.GuideUsername = Guide.Username;
             NewTour.Guide = Guide;
-            NewLocation = new LocationVM(new Location());
+            NewLocation = new LocationDTO(new Location());
             NewTour.Language = TourRequest.Language;
             NewTour.Description = TourRequest.Description;
             NewTour.MaxNumberOfGuests = TourRequest.NumberOfGuests;

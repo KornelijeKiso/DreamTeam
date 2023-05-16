@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using ProjectTourism.Domain.Model;
+using ProjectTourism.DTO;
 using ProjectTourism.View.TourView;
 using ProjectTourism.WPF.ViewModel;
 
@@ -13,11 +14,11 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
 {
     public partial class RequestsUserControl : UserControl, INotifyPropertyChanged
     {
-        public TourRequestVM SelectedTourRequest { get; set; }
-        public ObservableCollection<TourRequestVM> TourRequests { get; set; }
-        public List<TourRequestVM> TourRequestList { get; set; }
-        public List<TourRequestVM> UpdatedList { get; set; }
-        public GuideVM Guide { get; set; }
+        public TourRequestDTO SelectedTourRequest { get; set; }
+        public ObservableCollection<TourRequestDTO> TourRequests { get; set; }
+        public List<TourRequestDTO> TourRequestList { get; set; }
+        public List<TourRequestDTO> UpdatedList { get; set; }
+        public GuideDTO Guide { get; set; }
         public string SearchedLocation { get; set; }
         public string SearchedNumberOfGuests { get; set; }
         public string SearchedLanguage { get; set; }
@@ -29,10 +30,10 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         {
             InitializeComponent();
             DataContext = this;
-            Guide = new GuideVM(username);
+            Guide = new GuideDTO(username);
             SetRequests();
-            TourRequestList = new List<TourRequestVM>(TourRequests);
-            UpdatedList= new List<TourRequestVM>();
+            TourRequestList = new List<TourRequestDTO>(TourRequests);
+            UpdatedList= new List<TourRequestDTO>();
             SetStartSearchedValues();
         }
         private void RequestStatisticsLink_Click(object sender, RoutedEventArgs e)
@@ -49,7 +50,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         }
         public void SetRequests()
         {
-            TourRequests = new ObservableCollection<TourRequestVM>();
+            TourRequests = new ObservableCollection<TourRequestDTO>();
             foreach (var request in Guide.TourRequests)
                 if (request.State == REQUESTSTATE.PENDING)
                     TourRequests.Add(request);
@@ -157,7 +158,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             TourRequests.Clear();
             foreach (var tourRequest in Guide.TourRequests)
                 TourRequests.Add(tourRequest);
-            TourRequestList = new List<TourRequestVM>(TourRequests);
+            TourRequestList = new List<TourRequestDTO>(TourRequests);
         }
         public void HideRequestsContent()
         {

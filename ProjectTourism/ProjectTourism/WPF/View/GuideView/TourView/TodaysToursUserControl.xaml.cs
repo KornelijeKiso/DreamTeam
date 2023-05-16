@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using ProjectTourism.DTO;
 using ProjectTourism.WPF.View.GuideView;
 using ProjectTourism.WPF.View.GuideView.TourView;
 using ProjectTourism.WPF.ViewModel;
@@ -11,13 +12,13 @@ namespace ProjectTourism.View.GuideView.TourView
 {
     public partial class TodaysToursUserControl : UserControl, INotifyPropertyChanged
     {
-        public GuideVM Guide { get; set; }
-        public TourAppointmentVM SelectedTourAppointment { get; set; }
+        public GuideDTO Guide { get; set; }
+        public TourAppointmentDTO SelectedTourAppointment { get; set; }
         public TodaysToursUserControl(string username)
         {
             InitializeComponent();
             DataContext = this;
-            Guide = new GuideVM(username);
+            Guide = new GuideDTO(username);
         }
         private void ImageButton_Click(object sender, RoutedEventArgs e)
         {

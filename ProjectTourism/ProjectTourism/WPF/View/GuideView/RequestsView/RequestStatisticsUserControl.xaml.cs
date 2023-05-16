@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using ProjectTourism.DTO;
 using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.GuideView.TourView
@@ -16,7 +17,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             public int Year { get; set; }
             public int StatsForThatYear { get; set; }
         }
-        public TourRequestVM TourRequest { get; set; }
+        public TourRequestDTO TourRequest { get; set; }
         public ObservableCollection<Stat> Stats { get; set; }
         public ObservableCollection<int> MonthlyStats { get; set; }
         public Stat SelectedStat { get; set; }
@@ -38,7 +39,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         }
         private void SetAttributes()
         {
-            TourRequest = new TourRequestVM();
+            TourRequest = new TourRequestDTO();
             Stats = new ObservableCollection<Stat>();
             Languages = new ObservableCollection<string>();
             Locations = new ObservableCollection<string>();
