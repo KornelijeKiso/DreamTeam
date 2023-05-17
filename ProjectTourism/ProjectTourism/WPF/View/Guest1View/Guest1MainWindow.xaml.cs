@@ -225,6 +225,18 @@ namespace ProjectTourism.View.Guest1View
             Update();
         }
 
+        public void MyProfileClick(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+
+            string username = Guest1VM.Username;
+
+            MyProfileWindow myProfileWindow = new MyProfileWindow(username);
+            myProfileWindow.ShowDialog();
+            Update();
+
+        }
+
         public void Update()
         {
 

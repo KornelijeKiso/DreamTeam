@@ -67,6 +67,7 @@
         <Button Content="Filter" HorizontalAlignment="Left" IsDefault="True" Margin="30,455,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="FilterAccommodationsClick"/>
         <Button Content="My Reservations" HorizontalAlignment="Left" IsDefault="True" Margin="270,75,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="MyReservationsClick"/>
         <Button Content="See Gradable Accommodations" HorizontalAlignment="Left" IsDefault="True" Margin="500,75,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="ShowGradableClick"/>
+        <Button Content="My Profile" HorizontalAlignment="Left" IsDefault="True" Margin="730,75,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="MyProfileClick"/>
         <Rectangle HorizontalAlignment="Left" Height="385" Stroke="Blue" VerticalAlignment="Top" Width="235" Margin="10,49,0,0"/>
         <TextBox HorizontalAlignment="Left" Margin="30,90,0,0" TextWrapping="Wrap" Text="{Binding Path=NameSearch, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="33"/>
         <TextBox HorizontalAlignment="Left" Margin="30,150,0,0" TextWrapping="Wrap" Text="{Binding Path=LocationSearch, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="33"/>

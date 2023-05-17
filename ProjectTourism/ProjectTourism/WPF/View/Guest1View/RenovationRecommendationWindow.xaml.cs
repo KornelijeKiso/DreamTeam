@@ -51,21 +51,7 @@ namespace ProjectTourism.WPF.View.Guest1View
         private void SubmitRecommendationClick(object sender, RoutedEventArgs e)
         {
             RegisterLevel();
-            //foreach (RadioButton radioButton in Level.Children)
-            //{
-            //    if (radioButton.IsChecked == true)
-            //    {
-            //        break;
-            //    }
-            //    else
-            //    {
-            //        MessageBox.Show("You have to choose a level of urgency.");
-            //        return;
-            //    }
-            //}
-
-            //Guest1VM.GradeAccommodation(RenovationRecommendationVM);
-            //MessageBox.Show("You've successfully graded this accommodation");
+            
             Close();
         }
 

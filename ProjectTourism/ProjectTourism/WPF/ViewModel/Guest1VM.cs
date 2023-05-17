@@ -132,6 +132,14 @@ namespace ProjectTourism.WPF.ViewModel
                 return false;
             }
         }
+        public void CalculateGrade(string username)
+        {
+            foreach(ReservationVM reservationVM in MyReservations)
+            {
+                
+            }
+            
+        }
         private void BookAccommodation(ReservationVM reservationVM)
         {
             ReservationService reservationService = new ReservationService();
