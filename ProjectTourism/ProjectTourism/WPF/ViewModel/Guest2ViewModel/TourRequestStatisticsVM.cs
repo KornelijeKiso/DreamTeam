@@ -8,6 +8,8 @@ using ProjectTourism.Services;
 using ProjectTourism.WPF.ViewModel;
 using ProjectTourism.WPF.View.Guest2View.TicketView;
 using System.Collections.ObjectModel;
+using LiveCharts.Wpf;
+using LiveCharts;
 using System.Windows.Input;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
@@ -17,11 +19,16 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public Guest2VM Guest2 { get; set; }
         public List<TourRequestVM> AllTourRequests { get; set; }
         public List<int> Years { get; set; }
-        public List<string> Languages { get; set; }
-        public List<string> Locations { get; set; }
         public int SelectedYear { get; set; }
-        public string SelectedLanguage { get; set; }
-        public string SelectedLocation { get; set; }
+        public List<string> Languages { get; set; }
+        public SeriesCollection LanguageSeries { get; set; }
+        public Func<double, string> LanguageFormatter { get; set; }
+        public SeriesCollection LocationSeries { get; set; }
+        public Func<double, string> LocationFormatter { get; set; }
+        public List<string> Locations { get; set; }
+
+        public double LanguageStat { get; set; }
+
 
         private int _Accepted;
         public int Accepted
@@ -78,10 +85,8 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         }
         
 
-        // TO DO -> Year Stats
-        //          Language Stats
+        // TO DO -> Language Stats
         //          Location Stats
-        //          NumberOfGuest Stats, year
 
         public TourRequestStatisticsVM() { }
         public TourRequestStatisticsVM(Guest2VM guest2)
@@ -100,6 +105,11 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             
             NumberOfGuestsStat = CalculateAverageNumberOfGuests(AllTourRequests);
             CalculateYearlyStats(AllTourRequests);
+
+            LanguageFormatter = value => value.ToString("N");
+            LocationFormatter = value => value.ToString("N");
+            DisplayLanguageStat();
+            DisplayLocationStat();
         }
 
         private List<TourRequestVM> GetAllRequests(ObservableCollection<TourRequestVM> Guest2Requests)
@@ -141,7 +151,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             List<string> locations = new List<string>();
             foreach (var request in requests)
             {
-                string location = request.Location.Country + ", " + request.Location.City;
+                string location = request.Location.Country + "\n " + request.Location.City;
                 if (!locations.Contains(location))
                 {
                     locations.Add(location);
@@ -151,8 +161,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         }
 
 
-        //////////////////
-        
+        // YEARLY STATISTICS
         public double CalculateAverageNumberOfGuests(List<TourRequestVM> tourRequests)
         {
             if (tourRequests.Count == 0) return 0;
@@ -165,19 +174,77 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             stat =  sum /(double) tourRequests.Count;
             return stat;
         }
-
         public void CalculateYearlyStats(List<TourRequestVM> allRequests)
         {
             Pending = allRequests.Where(request => request.State == REQUESTSTATE.PENDING).Count();
             Accepted = allRequests.Where(request => request.State == REQUESTSTATE.ACCEPTED).Count();
             Expired = allRequests.Where(request => request.State == REQUESTSTATE.EXPIRED).Count();
         }
-        
-        public void CalculateYearlyStats(List<TourRequestVM> allRequests, int year)
+        public void CalculateYearlyStatsFiltered(List<TourRequestVM> allRequests, int year)
         {
             List<TourRequestVM> filterYear = allRequests.Where(request => request.CreationDateTime.Year == year).ToList();
             CalculateYearlyStats(filterYear);
             NumberOfGuestsStat = CalculateAverageNumberOfGuests(filterYear);
+        }
+
+        
+        // LANGUAGE STATISTICS
+        public void DisplayLanguageStat()
+        {
+            LanguageSeries = new SeriesCollection();
+            foreach (var year in Years)
+            {
+                LanguageSeries.Add(new ColumnSeries
+                {
+                    Title = year.ToString(),
+                    Values = GenerateLanguageChartValue(AllTourRequests, year)
+                }) ;
+
+            }
+        }
+        private ChartValues<double> GenerateLanguageChartValue(List<TourRequestVM> requests, int year)
+        {
+            ChartValues<double> chartValue = new ChartValues<double>();
+            double value;
+            foreach (var language in Languages)
+            {
+                value = requests.Where(request => request.CreationDateTime.Year == year 
+                                               && request.Language.Equals(language)).Count();
+                chartValue.Add(value);
+            }        
+            return chartValue;
+        }
+
+
+        // LOCATION STATISTICS
+        public void DisplayLocationStat()
+        {
+            LocationSeries = new SeriesCollection();
+            foreach (var year in Years)
+            {
+                LocationSeries.Add(new ColumnSeries
+                {
+                    Title = year.ToString(),
+                    Values = GenerateLocationChartValue(AllTourRequests, year)
+                });
+            }
+        }
+        private ChartValues<double> GenerateLocationChartValue(List<TourRequestVM> requests, int year)
+        {
+            ChartValues<double> chartValue = new ChartValues<double>();
+            double value;
+            foreach (var location in Locations)
+            {
+                string[] locationString = location.Split('\n');
+                string country = locationString[0].Trim();
+                string city = locationString[1].Trim();
+
+                value = requests.Where(request => request.CreationDateTime.Year == year 
+                                               && request.Location.Country.Equals(country)
+                                               && request.Location.City.Equals(city)).Count();
+                chartValue.Add(value);
+            }
+            return chartValue;
         }
     }
 }

@@ -75,7 +75,7 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
 
         private void FilterYear(object sender, SelectionChangedEventArgs e)
         {
-            TourRequestStatisticsVM.CalculateYearlyStats(TourRequestStatisticsVM.AllTourRequests, TourRequestStatisticsVM.SelectedYear);
+            TourRequestStatisticsVM.CalculateYearlyStatsFiltered(TourRequestStatisticsVM.AllTourRequests, TourRequestStatisticsVM.SelectedYear);
             ClearPieChart(RequestsPieChart);
             DisplayPieChartData();
         }

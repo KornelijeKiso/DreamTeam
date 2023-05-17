@@ -192,15 +192,17 @@
                       FontFamily="Fonts/#Rubik" FontSize="14" FontWeight="SemiBold">
                 <Grid Grid.Row="2" Grid.Column="1">
 
-                    <lvc:CartesianChart x:Name="LanguagesCartesianChart" LegendLocation="Right"
-                                    Grid.Row="0" 
-                                    Height="100" Width="280">
+                    <lvc:CartesianChart x:Name="LanguagesCartesianChart" 
+                                        Series="{Binding LanguageSeries}"
+                                        LegendLocation="Left"
+                                        Grid.Row="0" 
+                                        Height="150" Width="290">
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis Title="Languages" Labels="{Binding Languages}"/>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="Number of &#x0d;Requests" />
-                            <!--Labels="{Binding }"-->
+                            <lvc:Axis Title="Number of &#x0d;Requests" 
+                                      LabelFormatter="{Binding LanguageFormatter}"/>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                 </Grid>
@@ -214,15 +216,17 @@
                       FontFamily="Fonts/#Rubik" FontSize="14" FontWeight="SemiBold">
                 <Grid Grid.Row="2" Grid.Column="1">
 
-                    <lvc:CartesianChart x:Name="LcationsCartesianChart" LegendLocation="Right"
-                                    Grid.Row="0" 
-                                    Height="100" Width="280">
+                    <lvc:CartesianChart x:Name="LocationsCartesianChart" 
+                                        Series="{Binding LocationSeries}"
+                                        LegendLocation="Left"
+                                        Grid.Row="0" 
+                                       Height="150" Width="290">
                         <lvc:CartesianChart.AxisX>
                             <lvc:Axis Title="Locations" Labels="{Binding Locations}"/>
                         </lvc:CartesianChart.AxisX>
                         <lvc:CartesianChart.AxisY>
-                            <lvc:Axis Title="Number of &#x0d;Requests" />
-                            <!--Labels="{Binding }"-->
+                            <lvc:Axis Title="Number of &#x0d;Requests" 
+                                      LabelFormatter="{Binding LocationFormatter}"/>
                         </lvc:CartesianChart.AxisY>
                     </lvc:CartesianChart>
                 </Grid>
