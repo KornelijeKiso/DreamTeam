@@ -4,13 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectTourism.Utilities;
-using ProjectTourism.Services;
 using ProjectTourism.WPF.ViewModel;
 using ProjectTourism.WPF.View.Guest2View.TicketView;
 using System.Collections.ObjectModel;
 using LiveCharts.Wpf;
 using LiveCharts;
-using System.Windows.Input;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
@@ -84,10 +82,6 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             }
         }
         
-
-        // TO DO -> Language Stats
-        //          Location Stats
-
         public TourRequestStatisticsVM() { }
         public TourRequestStatisticsVM(Guest2VM guest2)
         {
@@ -162,7 +156,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 
 
         // YEARLY STATISTICS
-        public double CalculateAverageNumberOfGuests(List<TourRequestVM> tourRequests)
+        private double CalculateAverageNumberOfGuests(List<TourRequestVM> tourRequests)
         {
             if (tourRequests.Count == 0) return 0;
             double stat = 0;
@@ -174,7 +168,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             stat =  sum /(double) tourRequests.Count;
             return stat;
         }
-        public void CalculateYearlyStats(List<TourRequestVM> allRequests)
+        private void CalculateYearlyStats(List<TourRequestVM> allRequests)
         {
             Pending = allRequests.Where(request => request.State == REQUESTSTATE.PENDING).Count();
             Accepted = allRequests.Where(request => request.State == REQUESTSTATE.ACCEPTED).Count();
@@ -189,7 +183,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 
         
         // LANGUAGE STATISTICS
-        public void DisplayLanguageStat()
+        private void DisplayLanguageStat()
         {
             LanguageSeries = new SeriesCollection();
             foreach (var year in Years)
@@ -217,7 +211,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 
 
         // LOCATION STATISTICS
-        public void DisplayLocationStat()
+        private void DisplayLocationStat()
         {
             LocationSeries = new SeriesCollection();
             foreach (var year in Years)

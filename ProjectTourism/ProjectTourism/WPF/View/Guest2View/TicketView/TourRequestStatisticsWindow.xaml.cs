@@ -48,21 +48,21 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
         private void DisplayPieChartData()
         {
             RequestsPieChart.Series.Add(new PieSeries
-                {
-                    Title = "Accepted",
-                    Stroke = Brushes.Black,
-                    Fill = Brushes.DarkSlateBlue,
-                    StrokeThickness = 2,
-                    Values = new ChartValues<double> { TourRequestStatisticsVM.Accepted }
-                });
+            {
+                Title = "Accepted",
+                Stroke = Brushes.Black,
+                Fill = Brushes.DarkSlateBlue,
+                StrokeThickness = 2,
+                Values = new ChartValues<double> { TourRequestStatisticsVM.Accepted }
+            });
             RequestsPieChart.Series.Add(new PieSeries
-                {
-                    Title = "Expired",
-                    Stroke = Brushes.Black,
-                    Fill = Brushes.DarkRed,
-                    StrokeThickness = 2,
-                    Values = new ChartValues<double> { TourRequestStatisticsVM.Expired }
-                });
+            {
+                Title = "Expired",
+                Stroke = Brushes.Black,
+                Fill = Brushes.DarkRed,
+                StrokeThickness = 2,
+                Values = new ChartValues<double> { TourRequestStatisticsVM.Expired }
+            });
             RequestsPieChart.Series.Add(new PieSeries
             {
                 Title = "Pending",
@@ -79,6 +79,5 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
             ClearPieChart(RequestsPieChart);
             DisplayPieChartData();
         }
-        
     }
 }
