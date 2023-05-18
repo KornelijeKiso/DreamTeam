@@ -4,10 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.OwnerView"
-                xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:vm="clr-namespace:ProjectTourism.WPF.ViewModel.OwnerViewModel"
 
         mc:Ignorable="d"
         Title="StatsByMonthsWindow" Height="540" Width="650" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+    <Window.DataContext>
+        <vm:YourAccommodationsMenuItemVM/>
+    </Window.DataContext>
     <Grid>
         <StackPanel Orientation="Vertical" Margin="20 10 20 0">
             <Label HorizontalAlignment="Left" Content="{Binding Accommodation.Name}" FontSize="22" FontWeight="SemiBold"></Label>
@@ -15,7 +19,7 @@
             <DataGrid Background="LightSkyBlue" SelectionMode="Single"  RowHeight="35" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False" RowHeaderWidth="0" BorderBrush="DodgerBlue" BorderThickness="2"  Margin=" 0 0 0 0" ItemsSource="{Binding YearlyStats.StatsByMonths}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Height="240">
                 <DataGrid.Resources>
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
-                   Color="#FFFFFF9D"/>
+                   Color="LightSkyBlue"/>
                 </DataGrid.Resources>
                 <DataGrid.CellStyle>
                     <Style TargetType="DataGridCell">
@@ -76,13 +80,13 @@
                             <Label ContentStringFormat="{}{0} reservations" Content="{Binding Path=YearlyStats.BestMonth.Reservations}" FontSize="16" HorizontalAlignment="Center" ></Label>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Margin="110 -135 0 0">
-                            <lvc:PieChart x:Name="myPieChart" StartingRotationAngle="0" Height="70"/>
+                            <lvc:PieChart x:Name="myPieChartf" StartingRotationAngle="0" Series="{Binding myPieChart.Series}" Height="70"/>
 
                             <Label ContentStringFormat="{}{0}% Occupancy" Content="{Binding Path=YearlyStats.BestMonth.Occupancy}" FontSize="16" HorizontalAlignment="Center" ></Label>
                         </StackPanel>
                     </StackPanel>
                 </GroupBox>
-                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content ="Cancel" Click="CancelClick" Width="80" Height="35" Margin="220 -40 0 0"></Button>
+                <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content ="Cancel" Click="CancelClick"  Width="80" Height="35" Margin="220 -40 0 0"></Button>
             </StackPanel>
            </StackPanel>
     </Grid>

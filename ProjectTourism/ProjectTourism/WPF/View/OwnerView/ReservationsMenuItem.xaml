@@ -16,7 +16,7 @@
         <DataGrid x:Name="DataGridReservations" ItemsSource="{Binding Owner.Reservations, UpdateSourceTrigger=PropertyChanged}"
             SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single" RowHeight="90" 
             IsReadOnly="True" VerticalScrollBarVisibility="Visible" AutoGenerateColumns="False" Margin="130,89,135,49" HorizontalScrollBarVisibility="Disabled" RowHeaderWidth="0" GridLinesVisibility="None" HeadersVisibility="None"
-            BorderThickness="2" BorderBrush="DodgerBlue" Background="LightYellow" RowBackground="{Binding Background, RelativeSource={RelativeSource Self}}" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" >
+            BorderThickness="2" BorderBrush="DodgerBlue" Background="LightSkyBlue" RowBackground="LightYellow" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" >
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Setter Property="BorderThickness" Value="0,2,0,2"/>
@@ -118,7 +118,7 @@
                                     <Label FontSize="13" Margin="0,-10,0,0"  Content ="{Binding Path=Guest1.Email}"></Label>
                                     <Image Source="https://img.icons8.com/external-anggara-flat-anggara-putra/2x/external-verified-ui-basic-anggara-flat-anggara-putra.png" Width="25" Height="25" Margin="140 -40 0 0"></Image>
                                     <Button Content="Postpone request" FontSize="10" BorderBrush="DeepSkyBlue" Click="PostponeRequestClick"
-                                    BorderThickness="2" Visibility="{Binding Path=RequestedPostpone, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}" Width="120" Margin="0 3 0 0">
+                                    BorderThickness="2" Visibility="{Binding Path=RequestedPostpone, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}" Width="120" Margin="0 1 0 0" Height="23">
                                         <Button.Resources>
                                             <Style TargetType="Border">
                                                 <Setter Property="CornerRadius" Value="5"/>
@@ -139,9 +139,9 @@
                             <StackPanel>
                                 <Label Margin="10 4 0 0" Content ="Grading deadline:"></Label>
                                 <Label Margin="10,-8,0,0" Content="{Binding GradingDeadlineMessage}" FontWeight="SemiBold"></Label>
-                                <Button Height="20" Width="120" BorderBrush="DeepSkyBlue" 
+                                <Button Height="23" Width="120" BorderBrush="DeepSkyBlue" 
                                     BorderThickness="2" IsEnabled="{Binding CanBeGraded,UpdateSourceTrigger=PropertyChanged}" Click="GradeGuestClick" 
-                                    Content="Grade your guest" FontSize="10" Margin="0 5 0 0">
+                                    Content="Grade your guest" FontSize="10" Margin="0 3 0 0">
                                     <Button.Resources>
                                         <Style TargetType="Border">
                                             <Setter Property="CornerRadius" Value="5"/>
@@ -161,8 +161,8 @@
                             <StackPanel>
                                 <Label Margin="-10 4 0 0" Content ="Grade your guests to be"></Label>
                                 <Label Margin="-10,-8,0,0" Content="able to see their review"></Label>
-                                <Button Height="20" Width="120" BorderBrush="DeepSkyBlue" 
-                                    BorderThickness="2" Margin="-59 5 0 0" FontSize="10" IsEnabled="{Binding VisibleReview}" Click="SeeReviewClick" 
+                                <Button Height="23" Width="120" BorderBrush="DeepSkyBlue" 
+                                    BorderThickness="2" Margin="-59 3 0 0" FontSize="10" IsEnabled="{Binding VisibleReview}" Click="SeeReviewClick" 
                                     Content="See guests review">
                                     <Button.Resources>
                                         <Style TargetType="Border">

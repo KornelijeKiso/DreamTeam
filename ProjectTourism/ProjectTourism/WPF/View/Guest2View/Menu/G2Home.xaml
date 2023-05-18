@@ -9,7 +9,7 @@
         d:DesignHeight="500" 
         d:DesignWidth="700"
         Style="{StaticResource Page_Style}"     >
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -127,8 +127,81 @@
                             <DataGridTemplateColumn Width="150" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Image Stretch="Fill" 
-                                   Source="{Binding Path=Pictures[0]}"/>
+                                        <Button Command="{Binding PictureCommand}" 
+                                                Height="150" Width="150" 
+                                                Background="Transparent" 
+                                                BorderThickness="1" >
+                                            <Button.Style>
+                                                <Style TargetType="{x:Type Button}">
+                                                    <Setter Property="Background" Value="Green"/>
+                                                    <Setter Property="Template">
+                                                        <Setter.Value>
+                                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                                <Border Background="{TemplateBinding Background}" 
+                                                                        BorderBrush="Black" BorderThickness="1" >
+                                                                    <ContentPresenter HorizontalAlignment="Center" 
+                                                                                      VerticalAlignment="Center"/>
+                                                                </Border>
+                                                            </ControlTemplate>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Style.Triggers>
+                                                        <Trigger Property="IsMouseOver" Value="True">
+                                                            <Setter Property="Background" Value="Red"/>
+                                                        </Trigger>
+                                                        <DataTrigger Binding="{Binding Path=ArePicturesEmpty}" Value="True">
+                                                            <Setter Property="Background">
+                                                                <Setter.Value>
+                                                                    <ImageBrush ImageSource="https://rdacentralwest.org.au/wp-content/themes/unbound/images/No-Image-Found-400x264.png"/>
+                                                                </Setter.Value>
+                                                            </Setter>
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </Button.Style>
+                                            <Button.Content>
+                                                <Image Stretch="Fill">
+                                                    <Image.Style>
+                                                        <Style TargetType="Image">
+                                                            <Setter Property="Source" Value="{Binding Pictures[0]}" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Path=ArePicturesEmpty}" Value="True">
+                                                                    <Setter Property="Source" Value="https://rdacentralwest.org.au/wp-content/themes/unbound/images/No-Image-Found-400x264.png" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Image.Style>
+                                                </Image>
+                                            </Button.Content>
+                                        </Button>
+
+                                        <!--
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="150"/>
+                                                --><!--<RowDefinition Height="*"/>--><!--
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="75"/>
+                                                <ColumnDefinition Width="75"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Image Stretch="UniformToFill" Grid.Row="0" Grid.ColumnSpan="2" 
+                                                   Source="{Binding Path=Pictures[0], UpdateSourceTrigger=PropertyChanged}"/>
+                                            --><!--<Button x:Name="BackwardPictureButton"
+                                                    Height="20" Width="25" HorizontalAlignment="Right" Margin="0 0 0 0" 
+                                                    Grid.Row="1" Grid.Column="0"
+                                                    BorderBrush="Transparent" Background="Transparent" 
+                                                    Command="{Binding PictureBackwardCommand}">
+                                                <Image Source="https://img.icons8.com/fluency/512/double-left.png"></Image>
+                                            </Button>
+                                            <Button x:Name="ForwardPictureButton"
+                                                    Height="20" Width="25" HorizontalAlignment="Left" Margin="0 0 0 0" 
+                                                    Grid.Row="1" Grid.Column="1"
+                                                    BorderBrush="Transparent" Background="Transparent" 
+                                                    Command="{Binding PictureForwardCommand}">
+                                                <Image Source="https://img.icons8.com/fluency/2x/double-right.png"></Image>
+                                            </Button>-->
+                                        <!--</Grid>-->
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -596,6 +669,7 @@
                 </Button.Style>
             </Button>
         </Grid>
-
+        
+        <!--<ContentControl x:Name="ContentArea"></ContentControl>-->
     </Grid>
 </UserControl>

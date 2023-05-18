@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using ProjectTourism.DTO;
 using ProjectTourism.WPF.View.GuideView;
 using ProjectTourism.WPF.View.GuideView.TourView;
 using ProjectTourism.WPF.ViewModel;
@@ -10,13 +11,13 @@ namespace ProjectTourism.View.GuideView.TourView
 {
     public partial class AllToursUserControl : UserControl, INotifyPropertyChanged
     {
-        public GuideVM Guide { get; set; }
-        public TourVM SelectedTour { get; set; }
+        public GuideDTO Guide { get; set; }
+        public TourDTO SelectedTour { get; set; }
         public AllToursUserControl(string username)
         {
             InitializeComponent();
             DataContext = this;
-            Guide = new GuideVM(username);
+            Guide = new GuideDTO(username);
         }
         private void TourStatistics_Click(object sender, RoutedEventArgs e)
         {

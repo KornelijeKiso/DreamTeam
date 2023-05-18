@@ -6,20 +6,21 @@ using ProjectTourism.WPF.ViewModel;
 using System.Runtime.CompilerServices;
 using ProjectTourism.WPF.View.GuideView.TourView;
 using ProjectTourism.Localization;
+using ProjectTourism.DTO;
 
 namespace ProjectTourism.View.GuideView.TourView
 {
     public partial class AllAppointmentsUserControl : UserControl, INotifyPropertyChanged
     {
-        public TourAppointmentVM SelectedAppointment { get; set; }
-        public GuideVM Guide { get; set; }
+        public TourAppointmentDTO SelectedAppointment { get; set; }
+        public GuideDTO Guide { get; set; }
         
 
         public AllAppointmentsUserControl(string username)
         {
             InitializeComponent();
             DataContext = this;
-            Guide = new GuideVM(username);
+            Guide = new GuideDTO(username);
         }
         private void ReviewsButton_Click(object sender, RoutedEventArgs e)
         {

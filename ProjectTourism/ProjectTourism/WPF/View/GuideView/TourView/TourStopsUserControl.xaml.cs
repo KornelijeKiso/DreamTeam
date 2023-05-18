@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
+using ProjectTourism.DTO;
 using ProjectTourism.Localization;
 using ProjectTourism.WPF.View.GuideView.TourView;
 using ProjectTourism.WPF.ViewModel;
@@ -16,18 +17,18 @@ namespace ProjectTourism.View.GuideView.TourView
 {
     public partial class TourStopsUserControl : UserControl, INotifyPropertyChanged
     {
-        public TourAppointmentVM TourAppointment { get; set; }
-        public TicketVM SelectedTicket { get; set; }
-        public GuideVM Guide { get; set; }
-        public ObservableCollection<TicketVM> Tickets { get; set; }
-        public TourStopsUserControl(TourAppointmentVM SelectedTourAppointment)
+        public TourAppointmentDTO TourAppointment { get; set; }
+        public TicketDTO SelectedTicket { get; set; }
+        public GuideDTO Guide { get; set; }
+        public ObservableCollection<TicketDTO> Tickets { get; set; }
+        public TourStopsUserControl(TourAppointmentDTO SelectedTourAppointment)
         {
             InitializeComponent();
             DataContext = this;
 
-            Guide = new GuideVM(SelectedTourAppointment.Tour.Guide.GetGuide());
+            Guide = new GuideDTO(SelectedTourAppointment.Tour.Guide.GetGuide());
             TourAppointment = SelectedTourAppointment;
-            Tickets = new ObservableCollection<TicketVM>(TourAppointment.Tickets);
+            Tickets = new ObservableCollection<TicketDTO>(TourAppointment.Tickets);
             EmergencyButtonSet();
             if (SelectedTourAppointment.CurrentTourStop.Equals(SelectedTourAppointment.Tour.Finish))
             {
@@ -74,7 +75,7 @@ namespace ProjectTourism.View.GuideView.TourView
         }
         private void CheckpointPassedButton_Click(object sender, RoutedEventArgs e)
         {
-            Guide = new GuideVM(TourAppointment.Tour.Guide.GetGuide());
+            Guide = new GuideDTO(TourAppointment.Tour.Guide.GetGuide());
             if (CanGuidePassStop())
             {
                 if(TourAppointment.Tour.Stops != null)

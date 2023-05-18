@@ -106,6 +106,8 @@ namespace ProjectTourism.DTO
                 reservation.Guest1 = new Guest1Service().GetOne(reservation.Guest1Username);
                 reservation.Accommodation = accommodation;
                 reservation.AccommodationGrade = new AccommodationGradeService().GetOneByReservation(reservation.Id);
+                if (reservation.AccommodationGrade != null)
+                    reservation.AccommodationGrade.RenovationRecommendation = new RenovationRecommendationService().GetOneByAccommodationGrade(reservation.AccommodationGrade.Id);
                 reservation.Guest1Grade = new Guest1GradeService().GetOneByReservation(reservation.Id);
             }
             return reservations;
@@ -271,6 +273,7 @@ namespace ProjectTourism.DTO
         public void SeenNotifications()
         {
             foreach (var n in Notifications) n.New = false;
+            HasNewNotifications = false;
             new NotificationService().Seen();
         }
         private bool _NoNotifications;

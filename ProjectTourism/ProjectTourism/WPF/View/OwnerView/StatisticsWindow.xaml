@@ -6,11 +6,15 @@
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.OwnerView"
         xmlns:conv="clr-namespace:ProjectTourism.Converters"
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+        xmlns:vm="clr-namespace:ProjectTourism.WPF.ViewModel.OwnerViewModel"
         mc:Ignorable="d"
         Title="StatisticsWindow" Height="690" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Window.Resources>
         <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Window.Resources>
+    <Window.DataContext>
+        <vm:YourAccommodationsMenuItemVM/>
+    </Window.DataContext>
     <Grid>
         <StackPanel Orientation="Vertical" Margin="20 20 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
             <StackPanel  Orientation="Horizontal">
@@ -58,7 +62,7 @@
                             <Label ContentStringFormat="{}{0} reservations" Content="{Binding Path=Accommodation.BestYear.Reservations}" FontSize="16" HorizontalAlignment="Center" ></Label>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Margin="70 -135 0 0">
-                            <lvc:PieChart x:Name="myPieChart" StartingRotationAngle="0" Height="70"/>
+                            <lvc:PieChart x:Name="myPieChart" Series="{Binding myPieChart.Series}" StartingRotationAngle="0" Height="70"/>
 
                             <Label ContentStringFormat="{}{0}% Occupancy" Content="{Binding Path=Accommodation.BestYear.Occupancy}" FontSize="16" HorizontalAlignment="Center" ></Label>
                         </StackPanel>
@@ -69,7 +73,7 @@
             <DataGrid Background="LightSkyBlue" SelectionMode="Single" SelectedItem="{Binding SelectedYear, UpdateSourceTrigger=PropertyChanged}" RowHeight="55" CanUserAddRows="False" CanUserResizeColumns="False" CanUserResizeRows="False" CanUserReorderColumns="False" RowHeaderWidth="0" BorderBrush="DodgerBlue" BorderThickness="2"  Margin=" 0 0 0 0" ItemsSource="{Binding Accommodation.Stats}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Visible" HorizontalScrollBarVisibility="Disabled" Height="350">
                 <DataGrid.Resources>
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
-                   Color="#FFFFFF9D"/>
+                   Color="LightGray"/>
                 </DataGrid.Resources>
                 <DataGrid.CellStyle>
                     <Style TargetType="DataGridCell">
@@ -119,7 +123,7 @@
                     <DataGridTemplateColumn Header="Stats by months" Width="120">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Stats by months" Click="StatsByMonthsClick"  HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100">
+                                <Button Content="Stats by months" Command="{Binding DataContext.StatsByMonthsClickCommand, RelativeSource={RelativeSource AncestorType={x:Type local:StatisticsWindow}}}"  HorizontalAlignment="Center" VerticalAlignment="Center" Height="30" Width="100">
                                     <Button.Resources>
                                         <Style TargetType="Border">
                                             <Setter Property="CornerRadius" Value="5"/>

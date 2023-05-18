@@ -1,0 +1,114 @@
+﻿@startuml
+!theme mars
+actor       Guide as Gu
+participant RequestsUserControl as ReUC
+participant AcceptedRequestUserControl as AccReUC
+participant GuideVM as GuVM
+participant TourService as ToSe
+participant TourRequestService as ToReSe
+participant LocationService as LoSe
+participant TourAppointmentService as ToAppSe
+participant TourRepository as ToRe
+participant LocationRepository as LoRe
+participant TourAppointmentRepository as ToAppRe
+participant TourRequestRepository as ToReRe
+participant LocationFileHandler as LoFiHe
+participant TourFileHandler as ToFiHe
+participant TourAppointmentFileHandler as ToAppFiHe
+participant TourRequestFileHandler as ToReFiHe
+
+Gu -> ReUC: RequestsLink_RequestNavigate
+
+activate ReUC
+
+ReUC -> AccReUC: Accept_Click()
+activate AccReUC
+Gu -> AccReUC: SaveTour_Click()
+
+opt if (appointmentsListBox.Items.Count == 0)
+  AccReUC -> Gu:ShowLocalizedErrorMessage("NoDatesError")
+end
+alt if (NewTour.IsValid && NewLocation.IsValid)
+  AccReUC -> GuVM: AddTour(NewLocation, NewTour)
+  activate GuVM
+  
+  
+  GuVM -> LoSe: AddAndReturnId(location)
+  
+  activate LoSe
+  LoSe -> LoRe: AddAndReturnId(location)
+  activate LoRe
+  LoRe -> LoFiHe: Save(Locations)
+  activate LoFiHe
+  LoFiHe --> LoRe
+  deactivate LoFiHe
+  LoRe --> LoSe: location.Id
+  deactivate LoRe
+  
+  LoSe --> GuVM: location.Id
+  
+  deactivate LoSe
+  
+  
+  GuVM -> ToSe: AddAndReturnId(NewTour.GetTour())
+  activate ToSe
+  ToSe -> ToRe: Add(Tour)
+  activate ToRe
+  
+  ToRe -> ToFiHe: Save(Tours)
+  activate ToFiHe
+  ToFiHe --> ToRe
+  deactivate ToFiHe
+  ToRe --> ToSe: Tour.Id
+  deactivate ToRe
+  
+  ToSe --> GuVM: Tour.Id
+  
+  deactivate ToSe
+  
+  GuVM -> ToAppSe: MakeTourAppointments(Tour)
+  activate ToAppSe
+  
+  loop foreach (var date in tour.dates)
+    ToAppSe -> ToAppRe: Add(TourAppointment)
+    activate ToAppRe
+    ToAppRe -> ToAppFiHe: Save(TourAppointments)
+    activate ToAppFiHe
+    ToAppFiHe --> ToAppRe
+    deactivate ToAppFiHe
+    ToAppRe --> ToAppSe
+    deactivate ToAppRe
+  end
+  
+  ToAppSe --> GuVM
+  deactivate ToAppSe
+  
+  GuVM --> AccReUC
+  deactivate GuVM
+  AccReUC -> GuVM: AcceptTourRequest(TourRequest)
+  activate GuVM
+  
+  GuVM -> ToReSe: Update(TourRequest.GetTourRequest())
+  activate ToReSe
+  ToReSe -> ToReRe: Update(TourRequest)
+  activate ToReRe
+  ToReRe -> ToReFiHe: Save(TourRequests)
+  activate ToReFiHe
+  ToReFiHe --> ToReRe
+  deactivate ToReFiHe
+  ToReRe --> ToReSe: tour.Id
+  deactivate ToReRe
+  ToReSe --> GuVM
+  deactivate ToReSe
+  GuVM --> AccReUC
+  deactivate GuVM
+  
+  AccReUC --> ReUC
+else
+  AccReUC -> Gu: ShowLocalizedErrorMessage("NoGoodFieldsError")
+end
+
+deactivate AccReUC
+ReUC --> Gu: ShowPopupMessage(GetLocalizedErrorMessage("TourAdded"))
+deactivate ReUC
+@enduml

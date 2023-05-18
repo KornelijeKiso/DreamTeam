@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.OwnerView"
         xmlns:conv="clr-namespace:ProjectTourism.Converters"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:vm="clr-namespace:ProjectTourism.WPF.ViewModel.OwnerViewModel"
         mc:Ignorable="d"
         Title="Renovations" Height="690" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Window.Resources>
@@ -81,10 +82,10 @@
                                     <Label Content="Enter duration :" FontWeight="Normal"></Label>
                                     <xctk:IntegerUpDown LostFocus="ValidateNumberInput" Name="DurationTextBox" PreviewTextInput="IntegerValidation" Margin="36,3,0 0" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Width="110" Height="24" Minimum="1" Maximum="1000" Value="{Binding RenovationAppointment.Duration, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=False, ValidatesOnDataErrors=False, ValidatesOnNotifyDataErrors=False}"/>
                                 </StackPanel>
-                                <Button Margin="0 30 0 0" Click="SelectFreeAppointmentClick" FontWeight="Normal" Width="200"  Content="Select free appointment" FontSize="12"  Height="28"></Button>
+                                <Button Margin="0 30 0 0" Command="{Binding SelectFreeAppointmentClickCommand}" FontWeight="Normal" Width="200"  Content="Select free appointment" FontSize="12"  Height="28"></Button>
                                 <Label Content="Selected appointment :" FontSize="12" Margin="5 0"></Label>
-                                <TextBox Name="SelectedFreeAppointment" IsEnabled="False" TextAlignment="Center" FontSize="15" Padding="3"  Margin="0 -5 0 0" Height="30" Width="280"></TextBox>
-                                <Button Click="DeclineClick" Margin="264 -30 10 0" Background="Transparent" BorderBrush="Transparent">
+                                <TextBox Name="SelectedFreeAppointment" Text="{Binding SelectedFreeAppointment.Text}" IsEnabled="False" TextAlignment="Center" FontSize="15" Padding="3"  Margin="0 -5 0 0" Height="30" Width="280"></TextBox>
+                                <Button Command="{Binding DeclineClickCommand}" Margin="264 -30 10 0" Background="Transparent" BorderBrush="Transparent">
                                     <Button.Content>
                                         <Image Source="https://pics.freeicons.io/uploads/icons/png/11523361591679820327-64.png" Stretch="Fill" Visibility="Visible"></Image>
                                     </Button.Content>
@@ -93,7 +94,7 @@
                         </GroupBox>
                         <Label Content="Description" Margin="10 -3 0 0" FontSize="13"></Label>
                         <xctk:WatermarkTextBox Watermark="Enter description for renovation here."  Width="310" Height="60" BorderBrush="DodgerBlue" BorderThickness="2" Text="{Binding NewRenovation.Description}" FontWeight="Normal" TextWrapping="Wrap" FontSize="13"></xctk:WatermarkTextBox>
-                        <Button Margin="0 10 0 0" Width="130" Content="Schedule renovation" FontSize="13" FontWeight="Normal" Height="28" Click="ScheduleRenovationClick">
+                        <Button Margin="0 10 0 0" Width="130" Content="Schedule renovation" FontSize="13" FontWeight="Normal" Height="28" Command="{Binding ScheduleRenovationClickCommand}">
                             <Button.Resources>
                                 <Style TargetType="Border">
                                     <Setter Property="CornerRadius" Value="5"/>
@@ -135,7 +136,8 @@
                                                     </TextBlock>
                                                 </Label.Content>
                                             </Label>
-                                            <Button Content="Cancel renovation" Width="120" IsEnabled="{Binding Cancellable}" Visibility="{Binding Path=NotFinished, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}" Click="CancelRenovationClick">
+                                            <Button Content="Cancel renovation" Width="120" IsEnabled="{Binding Cancellable}" Visibility="{Binding Path=NotFinished, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}" 
+                                                    Command="{Binding DataContext.CancelRenovationClickCommand, RelativeSource={RelativeSource AncestorType={x:Type local:RenovationsWindow}}}">
                                                 <Button.Resources>
                                                     <Style TargetType="Border">
                                                         <Setter Property="CornerRadius" Value="5"/>

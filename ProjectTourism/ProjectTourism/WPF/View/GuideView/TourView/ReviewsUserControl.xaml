@@ -5,11 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView.TourView"
         xmlns:ns="clr-namespace:ProjectTourism.Localization"
+        xmlns:conv="clr-namespace:ProjectTourism.Converters"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
-
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <Label Content="{ns:Loc Reviews}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
-        <DataGrid  Name="DataGridRow" RowHeight="100" CanUserAddRows="False" HorizontalAlignment="Center" Height="486" VerticalAlignment="Top" Width="1048" 
+        <DataGrid Name="DataGridRow" RowHeight="100" CanUserAddRows="False" HorizontalAlignment="Center" Height="486" VerticalAlignment="Top" Width="1048" 
             SelectedItem="{Binding SelectedTicket, UpdateSourceTrigger=PropertyChanged}" 
             ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="0,149,0,0">
             <DataGrid.Resources>
@@ -120,8 +125,9 @@
                     </DataGridTemplateColumn.HeaderStyle>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="BadReviewButton" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="35" Click="BadReviewButton_Click" 
-                            IsEnabled="{Binding TicketGrade.IsNotReported, UpdateSourceTrigger=PropertyChanged, Mode=OneWay}">
+                            <Button VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="35" 
+                                Command="{Binding DataContext.BadReviewButton_ClickCommand, RelativeSource={RelativeSource AncestorType=UserControl}}" 
+                                    Visibility="{Binding TicketGrade.IsNotReported, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
                                 <Button.Background>
                                     <ImageBrush ImageSource="https://img.icons8.com/color/256/cancel.png" />
                                 </Button.Background>
@@ -131,6 +137,7 @@
                                     </Style>
                                 </Button.Resources>
                             </Button>
+
 
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

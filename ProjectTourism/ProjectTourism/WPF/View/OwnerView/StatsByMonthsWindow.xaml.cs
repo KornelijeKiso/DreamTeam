@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using ProjectTourism.DTO;
+using ProjectTourism.WPF.ViewModel.OwnerViewModel;
 
 namespace ProjectTourism.WPF.View.OwnerView
 {
@@ -23,18 +24,12 @@ namespace ProjectTourism.WPF.View.OwnerView
     /// </summary>
     public partial class StatsByMonthsWindow : Window
     {
-        public AccommodationStatisticsVM YearlyStats { get; set; }
-        public AccommodationDTO Accommodation { get; set; }
-        public StatsByMonthsWindow(AccommodationStatisticsVM yearStats, AccommodationDTO accommodation)
+        public StatsByMonthsWindow(AccommodationStatisticsDTO yearStats, AccommodationDTO accommodation)
         {
-            YearlyStats = yearStats;
-            Accommodation = accommodation;
             InitializeComponent();
-            DataContext = this;
-            myPieChart.Series.Add(new PieSeries { Title = "Reserved", Stroke = Brushes.Black, Fill = Brushes.Orange, StrokeThickness = 2, Values = new ChartValues<double> { YearlyStats.BestMonth.Occupancy } });
-            myPieChart.Series.Add(new PieSeries { Title = "Free", Stroke = Brushes.Black, Fill = Brushes.White, StrokeThickness = 2, Values = new ChartValues<double> { 100 - YearlyStats.BestMonth.Occupancy } });
+            DataContext = new StatsByMonthsWindowVM(yearStats, accommodation);
         }
-        public void CancelClick(object sender, EventArgs e)
+        public void CancelClick(object sender, RoutedEventArgs e)
         {
             Close();
         }

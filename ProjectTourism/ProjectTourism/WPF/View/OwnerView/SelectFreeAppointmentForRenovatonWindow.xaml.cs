@@ -1,4 +1,5 @@
-﻿using ProjectTourism.WPF.ViewModel;
+﻿using ProjectTourism.DTO;
+using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,11 +22,11 @@ namespace ProjectTourism.WPF.View.OwnerView
     /// </summary>
     public partial class SelectFreeAppointmentForRenovatonWindow : Window
     {
-        public RenovationAppointmentVM RenovationAppointment { get; set; }
-        public RenovationVM SelectedRenovation { get; set; }
-        public ObservableCollection<RenovationVM> OfferedAppointments { get; set; }
+        public RenovationAppointmentDTO RenovationAppointment { get; set; }
+        public RenovationDTO SelectedRenovation { get; set; }
+        public ObservableCollection<RenovationDTO> OfferedAppointments { get; set; }
         public bool NoAppointments { get; set; }
-        public SelectFreeAppointmentForRenovatonWindow(RenovationAppointmentVM renovationAppointment)
+        public SelectFreeAppointmentForRenovatonWindow(RenovationAppointmentDTO renovationAppointment)
         {
             InitializeComponent();
             DataContext = this;

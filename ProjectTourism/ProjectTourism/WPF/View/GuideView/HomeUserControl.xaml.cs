@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using ProjectTourism.DTO;
 using ProjectTourism.View.GuideView.TourView;
 using ProjectTourism.View.TourView;
 using ProjectTourism.WPF.ViewModel;
@@ -12,7 +13,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
     public partial class HomeUserControl : UserControl, INotifyPropertyChanged
     {
         private App app;
-        public GuideVM Guide { get; set; }
+        public GuideDTO Guide { get; set; }
         public string UpcomingTourPicture { get; set; }
         public string Username { get; set; }
         public HomeUserControl(string username)
@@ -23,7 +24,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             InitializeComponent();
             DataContext = this;
 
-            Guide = new GuideVM(username);
+            Guide = new GuideDTO(username);
             SetLanguage();
 
             UpcomingTourPicture = "";
@@ -32,7 +33,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
 
         private void SetLanguage()
         {
-            Guide = new GuideVM(Username);
+            Guide = new GuideDTO(Username);
             if (Guide.Localization == "ENG")
             {
                 app.ChangeLanguage("en-US");
@@ -45,7 +46,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
 
         private void SetUpcomingTour()
         {
-            TourAppointmentVM UpcomingTourApp = Guide.FindGuidesUpcomingTourApp();
+            TourAppointmentDTO UpcomingTourApp = Guide.FindGuidesUpcomingTourApp();
             if (UpcomingTourApp != null && UpcomingTourApp.Tour.Pictures != null && !UpcomingTourApp.Tour.ArePicturesNull())
             {
                 UpcomingTourPicture = UpcomingTourApp.Tour.Pictures[0];

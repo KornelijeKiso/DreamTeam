@@ -4,8 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.OwnerView"
+        xmlns:conv="clr-namespace:ProjectTourism.Converters"
         mc:Ignorable="d"
         Title="Guests Review" Height="515" Width="450" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Window.Resources>
     <Grid>
         
         <GroupBox Header="Reservation info" Background="DeepSkyBlue" FontSize="14" Height="124" Width="418" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,3,0,0" BorderThickness="2" BorderBrush="Black"/>
@@ -68,8 +72,22 @@
         <Label Height="30" Width="150" Margin="-260,150,0,0" Content="Comment" FontSize="14" FontWeight="Medium"></Label>
         <TextBox Text="{Binding Reservation.AccommodationGrade.Comment}" IsEnabled="False" AcceptsReturn="True" TextWrapping="Wrap" Height="100" Width="300" Margin="-110,270,0,0" BorderBrush="Black" BorderThickness="2"></TextBox>
         <Rectangle Height="80" Width="80" Margin="315,250,0,0" Stroke="DodgerBlue" Fill="White" StrokeThickness="3" ></Rectangle>
+        <StackPanel Orientation="Vertical">
+            <CheckBox Content="Recommended renovation" IsChecked="{Binding Path=Reservation.AccommodationGrade.RenovationRecommended,Mode=OneWay}" FontSize="14" IsEnabled="False" Margin="15,430,0,0" ></CheckBox>
+            <Label Margin="10 -5 0 0" Foreground="Red" Visibility="{Binding Path=Reservation.AccommodationGrade.RenovationRecommended, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
+                <Label.Content>
+                    <TextBlock>
+                        <TextBlock.Text>
+                            <MultiBinding StringFormat="Level {0} : {1}">
+                                <Binding Path="Reservation.AccommodationGrade.RenovationRecommendation.Level"/>
+                                <Binding Path="Reservation.AccommodationGrade.RenovationRecommendation.LevelDescription"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </Label.Content>
+            </Label>
+        </StackPanel>
         <TextBlock Height="58" Width="80" Text="{Binding Path=Average, UpdateSourceTrigger=PropertyChanged}" FontSize="40" FontWeight="Bold" TextAlignment="Center" Foreground="DodgerBlue" Margin="315,248,0,0"></TextBlock>
-        <CheckBox Content="Recommended renovation" IsChecked="True" FontSize="14" IsEnabled="False" Margin="15,430,0,0"></CheckBox>
         <Button Content="Cancel" Foreground="DodgerBlue" FontSize="15" Background="Transparent" Height="30" Width="70" Margin="315,390,0,0" IsCancel="True"></Button>
     </Grid>
 </Window>

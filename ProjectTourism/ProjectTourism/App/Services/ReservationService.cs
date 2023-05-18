@@ -38,7 +38,7 @@ namespace ProjectTourism.Services
         }
         public List<Reservation> GetAll()
         {
-            return ReservationRepo.GetAll();
+            return ReservationRepo.GetAll().OrderByDescending(r=>r.StartDate).ToList();
         }
         public List<Reservation> GetAllByAccommodation(int id)
         {

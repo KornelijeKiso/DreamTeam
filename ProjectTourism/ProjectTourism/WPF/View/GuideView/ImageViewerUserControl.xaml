@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
     <Grid x:Name="BlackBackground" MouseDown="BlackBackground_MouseDown">
@@ -15,16 +14,15 @@
                 <Image Source="https://img.icons8.com/office/1x/close-window.png" />
             </Button.Content>
         </Button>
-        <Border x:Name="ImageBorder" Margin="241,105,241,105" BorderThickness="3" BorderBrush="AliceBlue">
+        <Border x:Name="ImageBorder"  Margin="241,105,241,105" BorderThickness="3" BorderBrush="AliceBlue">
             <Image Stretch="UniformToFill" Source="{Binding Picture, UpdateSourceTrigger=PropertyChanged}" />
         </Border>
-
-        <Button Click="Left_Click" HorizontalAlignment="Left" Height="44" Margin="460,626,0,0" VerticalAlignment="Top" Width="44">
+        <Button Command="{Binding Left_ClickCommand}" HorizontalAlignment="Left" Height="44" Margin="460,626,0,0" VerticalAlignment="Top" Width="44">
             <Button.Content>
                 <Image Source="https://img.icons8.com/ultraviolet/1x/less-than-2.png" />
             </Button.Content>
         </Button>
-        <Button Click="Right_Click" HorizontalAlignment="Left" Height="44" Margin="736,626,0,0" VerticalAlignment="Top" Width="44">
+        <Button Command="{Binding Right_ClickCommand}" HorizontalAlignment="Left" Height="44" Margin="736,626,0,0" VerticalAlignment="Top" Width="44">
             <Button.Content>
                 <Image Source="https://img.icons8.com/ultraviolet/256/more-than-2.png" />
             </Button.Content>

@@ -8,6 +8,7 @@ using ProjectTourism.Services;
 using ProjectTourism.WPF.View.Guest2View.TicketView;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using ProjectTourism.Domain.Model;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
@@ -79,14 +80,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         {
             get
             {
-                return _TourRequestCommand ?? (_TourRequestCommand = new CommandHandler(() => TourRequest_Click(), () => CanRequest));
-            }
-        }
-        public bool CanRequest
-        {
-            get
-            {
-                return (Guest2 != null);
+                return _TourRequestCommand ?? (_TourRequestCommand = new CommandHandler(() => TourRequest_Click(), () => true));
             }
         }
         public void TourRequest_Click()
@@ -97,6 +91,20 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             // TO DO -> new PENDING request that we just created isn't visible when the tourRequestWindow is closed,
             //          only when we enter the RequestTour MenuItem again
             //          FIX THIS
+        }
+
+        private ICommand _TourRequestStatisticsCommand;
+        public ICommand TourRequestStatisticsCommand
+        {
+            get
+            {
+                return _TourRequestStatisticsCommand ?? (_TourRequestStatisticsCommand = new CommandHandler(() => TourRequestStatisticsClick(), () => true));
+            }
+        }
+        public void TourRequestStatisticsClick()
+        {
+            TourRequestStatisticsWindow tourRequestStatisticsWindow = new TourRequestStatisticsWindow(Guest2);
+            tourRequestStatisticsWindow.ShowDialog();
         }
     }
 }

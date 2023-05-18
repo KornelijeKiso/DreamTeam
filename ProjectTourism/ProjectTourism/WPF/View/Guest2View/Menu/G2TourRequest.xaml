@@ -531,11 +531,9 @@
 
 
             <!-- TOUR REQUEST STATISTICS BUTTON -->
-            <!--Command="{Binding TourRequestStatisticsCommand}" -->
             <Button x:Name="TourRequestStatisticsButton" 
                     Grid.Column="2"
-
-                    >
+                    Command="{Binding TourRequestStatisticsCommand}"  >
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Height" Value="40"/>

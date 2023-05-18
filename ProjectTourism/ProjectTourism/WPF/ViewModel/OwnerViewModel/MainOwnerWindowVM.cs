@@ -111,10 +111,19 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
         {
             NotificationsVisibility = Visibility.Collapsed;
             Owner.SeenNotifications();
+            NotificationsItem.Background = Brushes.Transparent;
         }
         public void ShowNotifications(object parameter)
         {
+            if (NotificationsVisibility == Visibility.Visible)
+            {
+                NotificationsVisibility = Visibility.Collapsed;
+                NotificationsItem.Background = Brushes.Transparent;
+                Owner.SeenNotifications();
+                return;
+            }
             NotificationsVisibility = Visibility.Visible;
+            NotificationsItem.Background = Brushes.LightSkyBlue;
         }
         public void DismissNotificationClick(object parameter)
         {

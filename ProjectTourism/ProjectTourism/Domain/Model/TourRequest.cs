@@ -5,6 +5,7 @@ using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.Domain.Model
 {
+    public enum REQUESTSTATE { PENDING, ACCEPTED, EXPIRED }
     public class TourRequest : Serializable
     {
         public int Id;

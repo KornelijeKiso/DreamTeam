@@ -71,8 +71,11 @@ namespace ProjectTourism.WPF.View.OwnerView
             Owner.timer.Stop();
             PostponeRequestWindow postponeRequestWindow = new PostponeRequestWindow(SelectedReservation);
             postponeRequestWindow.ShowDialog();
-            if (SelectedReservation.PostponeRequest.Accepted) ShowPopupMessage("You have successfully accepted postpone request.\n Reservation is postponed for the appointment requested by guest.");
-            if (SelectedReservation.PostponeRequest.Rejected) ShowPopupMessage("You have successfully rejected postpone request.\n Your guest will be informed about this action.");
+            if(SelectedReservation!=null)
+            {
+                if (SelectedReservation.PostponeRequest.Accepted) ShowPopupMessage("You have successfully accepted postpone request.\n Reservation is postponed for the appointment requested by guest.");
+                if (SelectedReservation.PostponeRequest.Rejected) ShowPopupMessage("You have successfully rejected postpone request.\n Your guest will be informed about this action.");
+            }
             Owner.SetTimer();
         }
         private async void ShowPopupMessage(string message)

@@ -13,6 +13,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Images\Guest2\complextour.png" />
+    <None Remove="Images\Guest2\demo.png" />
+    <None Remove="Images\Guest2\home.png" />
+    <None Remove="Images\Guest2\profile.png" />
+    <None Remove="Images\Guest2\search.png" />
+    <None Remove="Images\Guest2\suggesttour.png" />
+    <None Remove="Images\Guest2\tickets.png" />
+    <None Remove="Images\Guest2\voucher.png" />
+    <None Remove="Images\Guest2\voucher2.png" />
+    <None Remove="Images\Guest2\voucher3.png" />
     <None Remove="Images\GuideLightBackground.jpg" />
     <None Remove="Style\Guest2Style\img_demo.png" />
     <None Remove="Style\Guest2Style\img_profile.png" />
@@ -38,18 +48,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\Guest2\complextour.png" />
+    <Resource Include="Images\Guest2\demo.png" />
+    <Resource Include="Images\Guest2\home.png" />
+    <Resource Include="Images\Guest2\profile.png" />
+    <Resource Include="Images\Guest2\search.png" />
+    <Resource Include="Images\Guest2\suggesttour.png" />
+    <Resource Include="Images\Guest2\tickets.png" />
+    <Resource Include="Images\Guest2\voucher.png" />
+    <Resource Include="Images\Guest2\voucher2.png" />
+    <Resource Include="Images\Guest2\voucher3.png" />
     <Resource Include="Images\Guide\LightBackground.jpg" />
-    <Resource Include="Style\Guest2Style\img_demo.png" />
-    <Resource Include="Style\Guest2Style\img_profile.png" />
-    <Resource Include="Style\Guest2Style\img_search.png" />
-    <Resource Include="WPF\View\Guest2View\img_complex_tour.png" />
-    <Resource Include="WPF\View\Guest2View\img_home.png" />
-    <Resource Include="WPF\View\Guest2View\img_profile.png" />
-    <Resource Include="WPF\View\Guest2View\img_suggest_tour.png" />
-    <Resource Include="WPF\View\Guest2View\img_tickets.png" />
-    <Resource Include="WPF\View\Guest2View\img_voucher.png" />
-    <Resource Include="WPF\View\Guest2View\Menu\img_voucher2.png" />
-    <Resource Include="WPF\View\Guest2View\Menu\img_voucher3.png" />
     <Resource Include="Images\Guide\LightMakeTour.jpg" />
   </ItemGroup>
 

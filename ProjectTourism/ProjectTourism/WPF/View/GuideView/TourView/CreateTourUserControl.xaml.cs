@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using ProjectTourism.DTO;
 using ProjectTourism.Localization;
 using ProjectTourism.Model;
 using ProjectTourism.View.GuideView.TourView;
@@ -19,13 +20,13 @@ namespace ProjectTourism.View.TourView
 {
     public partial class CreateTourUserControl : UserControl, INotifyPropertyChanged
     {
-        public TourVM NewTour { get; set; }
-        public LocationVM NewLocation { get; set; }
-        public GuideVM Guide { get; set; }
-        public TourAppointmentVM TourAppointment { get; set; }
+        public TourDTO NewTour { get; set; }
+        public LocationDTO NewLocation { get; set; }
+        public GuideDTO Guide { get; set; }
+        public TourAppointmentDTO TourAppointment { get; set; }
         public ObservableCollection<string> LanguagesObservable { get; set; }
         private Dictionary<DateTime, List<TimeSpan>> appointments = new Dictionary<DateTime, List<TimeSpan>>();
-        public CreateTourUserControl(GuideVM guide)
+        public CreateTourUserControl(GuideDTO guide)
         {
             InitializeComponent();
             DataContext = this;
@@ -44,11 +45,11 @@ namespace ProjectTourism.View.TourView
         }
         private void SetModels()
         {
-            NewTour = new TourVM(new Tour());
+            NewTour = new TourDTO(new Tour());
             NewTour.dates = new List<DateTime>();
             NewTour.GuideUsername = Guide.Username;
             NewTour.Guide = Guide;
-            NewLocation = new LocationVM(new Location());
+            NewLocation = new LocationDTO(new Location());
             LanguagesObservable = new ObservableCollection<string>(SetLanguages());
         }
         private async void ShowPopupMessage(string message)

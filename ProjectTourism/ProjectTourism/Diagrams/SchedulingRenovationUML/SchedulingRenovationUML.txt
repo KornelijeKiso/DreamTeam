@@ -1,0 +1,98 @@
+@startuml
+
+actor Owner as O
+participant RenovationsWindow as RenW
+participant SelectFreeAppointmentForRenovationWindow as FreeW
+participant RenovationAppointmentDTO as RenAppDTO
+participant RenovationService as RenSer
+participant ReservationService as ResSer
+participant RenovationRepository as RenRep
+participant ReservationRepository as ResRep
+participant ReservationFileHandler as ResFH
+participant RenovationFileHandler as RenFH 
+
+O->RenW:RenovationsCLick()
+activate RenW
+
+RenW->FreeW:SelectFreeAppointmentClick(RenovationAppointment)
+activate FreeW
+
+FreeW->RenAppDTO: RenovationAppointment
+activate RenAppDTO
+
+RenAppDTO->RenSer: OfferAppointments(StartDate, EndDate, Duration, AccommodationId)
+activate RenSer
+
+loop start<=endDate.AddDays(-1*duration)
+  RenSer->RenSer ++: renovation
+  RenSer->RenRep: GetAllByAccommodation(AccommodationId)
+  activate RenRep
+  RenRep->RenFH: Load()
+  activate RenFH
+  RenFH-->RenRep: Renovations
+  deactivate RenFH
+  RenRep-->RenSer:RenovationsForSameAccommodation
+  deactivate RenRep
+  RenSer->ResSer: GetAllByAccommodation(AccommodationId)
+  activate ResSer
+  ResSer->ResRep: GetAllByAccommodation(AccommodationId)
+  activate ResRep
+  ResRep->ResFH: Load()
+  activate ResFH
+  ResFH-->ResRep: Renovations
+  deactivate ResFH
+  ResRep-->ResSer:ReservationsForSameAccommodation
+  deactivate ResRep
+  ResSer-->RenSer: ReservationsForSameAccommodation
+  deactivate ResSer
+  loop foreach ren in RenovationSForSameAccommodation
+   RenSer->RenSer:Conflict(ren, renovation)
+  end
+  loop foreach res in ReservationSForSameAccommodation
+   RenSer->RenSer:ReservationConflict(res, renovation)
+  end
+  RenSer->RenSer --: IsPossible(renovation)
+  
+  opt IsPossible(renovation) && startDate<Today
+    RenSer->RenSer:renovations.Add(renovation)
+  end
+end
+
+RenSer-->RenAppDTO:renovations
+deactivate RenSer
+
+RenAppDTO-->FreeW: OfferedAppointments
+deactivate RenAppDTO
+
+FreeW-->O: OfferedAppointments
+alt select
+  O->FreeW : SelectAppointmentCLick()
+  FreeW --> RenW: SelectedAppointment
+  RenW-->O: SelectedAppointment
+else cancel
+  O->FreeW : CancelCLick()
+end
+deactivate FreeW
+O->RenW: ScheduleRenovationClick()
+alt SelectedAppointment != null
+ RenW->RenSer: AddAndReturnId (Renovation)
+ activate RenSer
+ RenSer->RenRep: AddAndReturnId (Renovation)
+ activate RenRep
+ RenRep->RenRep: Renovation.Id = GenerateId()
+ RenRep->RenRep: Renovations.Add(Renovation)
+ RenRep->RenFH: Save(Renovations)
+ activate RenFH
+ RenFH-->RenRep
+ deactivate RenFH
+ RenRep-->RenSer : Id
+ deactivate RenRep
+ RenSer-->RenW : Id
+ deactivate RenSer
+ RenW->RenW: Owner.Renovations.Add(Renovation)
+ RenW-->O : Owner.Renovations
+else SelectedAppointment==null
+ RenW-->O: MessaageBox.Show("Choose an appointment")
+end
+deactivate RenW
+@enduml

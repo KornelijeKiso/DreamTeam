@@ -81,21 +81,30 @@ namespace ProjectTourism.WPF.ViewModel
                 accommodation.Renovations = new RenovationService().GetAllByAccommodation(accommodation.Id);
                 accommodation.Location = new LocationService().GetOne(accommodation.LocationId);
                 accommodation.Reservations = SynchronizeReservations(accommodation);
-                AddReservationsToOwner(accommodation);
             }
+            AddReservationsToOwner();
             Accommodations = new ObservableCollection<AccommodationVM>(_owner.Accommodations.Select(r => new AccommodationVM(r)).ToList());
-            Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).Reverse().ToList());
+            Reservations = new ObservableCollection<ReservationVM>(_owner.Reservations.Select(r => new ReservationVM(r)).ToList());
             SetDestinations();
             LoadNotifications();
         }
 
-        private void AddReservationsToOwner(Accommodation accommodation)
+        private void AddReservationsToOwner()
         {
-            if (accommodation.Reservations != null && accommodation.Reservations.Any())
-            {
-                foreach (Reservation reservation in accommodation.Reservations)
-                    _owner.Reservations.Add(reservation);
-            }
+                foreach (Reservation res in new ReservationService().GetAll())
+                {
+                    foreach (var accommodation in _owner.Accommodations)
+                    {
+                        if (accommodation.Reservations != null && accommodation.Reservations.Any())
+                        {
+                            foreach (Reservation reservation in accommodation.Reservations)
+                            {
+                                if (res.Id == reservation.Id)
+                                    _owner.Reservations.Add(reservation);
+                            }
+                        }
+                    }
+                }
         }
 
         private void LoadNotifications()
@@ -114,6 +123,8 @@ namespace ProjectTourism.WPF.ViewModel
                 reservation.Guest1 = new Guest1Service().GetOne(reservation.Guest1Username);
                 reservation.Accommodation = accommodation;
                 reservation.AccommodationGrade = new AccommodationGradeService().GetOneByReservation(reservation.Id);
+                if(reservation.AccommodationGrade != null)
+                    reservation.AccommodationGrade.RenovationRecommendation = new RenovationRecommendationService().GetOneByAccommodationGrade(reservation.AccommodationGrade.Id);
                 reservation.Guest1Grade = new Guest1GradeService().GetOneByReservation(reservation.Id);
             }
             return reservations;
