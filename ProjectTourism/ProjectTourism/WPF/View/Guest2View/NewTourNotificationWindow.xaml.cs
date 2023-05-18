@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProjectTourism.WPF.ViewModel;
+using ProjectTourism.WPF.ViewModel.Guest2ViewModel;
 
 namespace ProjectTourism.WPF.View.Guest2View
 {
@@ -19,13 +21,29 @@ namespace ProjectTourism.WPF.View.Guest2View
     /// </summary>
     public partial class NewTourNotificationWindow : Window
     {
+        public NewTourNotificationVM newTourNotificationVM { get; set; }
         public NewTourNotificationWindow()
         {
             InitializeComponent();
+            //DataContext = new NewTourNotificationVM();
+        }
+
+        public NewTourNotificationWindow(Guest2VM guest2)
+        {
+            InitializeComponent();
+            this.newTourNotificationVM = new NewTourNotificationVM(guest2);
+            DataContext = this.newTourNotificationVM;
         }
 
         private void ExitClick(object sender, RoutedEventArgs e)
         {
+            this.newTourNotificationVM.SeenNotification();
+            Close();
+        }
+
+        private void DismissNotificationClick(object sender, RoutedEventArgs e)
+        {
+            this.newTourNotificationVM.DismissNotification();
             Close();
         }
     }

@@ -44,5 +44,9 @@ namespace ProjectTourism.Services
         {
             NotificationRepo.Seen();
         }
+        public void Seen(int id)
+        {
+            NotificationRepo.Seen(id);
+        }
     }
 }
