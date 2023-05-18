@@ -271,6 +271,7 @@ namespace ProjectTourism.DTO
         public void SeenNotifications()
         {
             foreach (var n in Notifications) n.New = false;
+            HasNewNotifications = false;
             new NotificationService().Seen();
         }
         private bool _NoNotifications;
