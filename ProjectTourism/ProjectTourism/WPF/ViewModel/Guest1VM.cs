@@ -23,6 +23,13 @@ namespace ProjectTourism.WPF.ViewModel
         public ObservableCollection<ReservationVM> Reservations { get; set; }
         public ObservableCollection<ReservationVM> MyReservations { get; set; }
         public ObservableCollection<ReservationVM> GradableReservations { get; set; }
+        int totalCleanness { get; set; }
+        int totalCommunication { get; set; }
+        int totalFollowingTheRules { get; set; }
+        int totalGrade { get; set; }
+        int gradeCount { get; set; }
+        int reservationCount { get; set; }
+        bool SuperGuest { get; set; }
 
         public Guest1VM(string username)
         {
@@ -35,7 +42,8 @@ namespace ProjectTourism.WPF.ViewModel
             MyReservations = new ObservableCollection<ReservationVM>();
             GradableReservations = new ObservableCollection<ReservationVM>();
             Reservations = new ObservableCollection<ReservationVM>(reservationService.GetAll().Select(r => new ReservationVM(r)).Reverse().ToList());
-            
+            SuperGuest = false;
+
             foreach (ReservationVM reservationVM in Reservations)
             {
                 if (IsReserved(reservationVM))
@@ -48,6 +56,18 @@ namespace ProjectTourism.WPF.ViewModel
                     reservationVM.Accommodation = new AccommodationVM(Accommodations.ToList().Find(a => a.Id == reservationVM.AccommodationId).GetAccommodation());
                     GradableReservations.Add(reservationVM);
                 }
+            }
+
+            foreach (ReservationVM reservationVM in Reservations)
+            {
+                if (reservationVM.EndDate < DateOnly.FromDateTime(DateTime.Now) && reservationVM.EndDate > DateOnly.FromDateTime(DateTime.Now).AddYears(-1))
+                {
+                    reservationCount += 1;
+                }
+            }
+            if (reservationCount > 9)
+            {
+                SuperGuest = true;
             }
         }
 
@@ -132,14 +152,23 @@ namespace ProjectTourism.WPF.ViewModel
                 return false;
             }
         }
-        public void CalculateGrade(string username)
-        {
-            foreach(ReservationVM reservationVM in MyReservations)
-            {
-                
-            }
-            
-        }
+        //public float CalculateGrade()
+        //{
+        //    Guest1GradeService guest1GradeService = new Guest1GradeService();
+        //
+        //    foreach(ReservationVM reservationVM in Reservations)
+        //    {
+        //        if(reservationVM.EndDate < DateOnly.FromDateTime(DateTime.Now))
+        //        {
+        //            totalCleanness += guest1GradeService.GetOneByReservation(reservationVM.Id).Grades["Cleanness"];
+        //            totalCommunication += guest1GradeService.GetOneByReservation(reservationVM.Id).Grades["Communication"];
+        //            totalFollowingTheRules += guest1GradeService.GetOneByReservation(reservationVM.Id).Grades["FollowingTheRules"];
+        //            totalGrade += totalCleanness + totalCommunication + totalFollowingTheRules;
+        //            gradeCount += 3;
+        //        }
+        //    }
+        //    return totalGrade / gradeCount;
+        //}
         private void BookAccommodation(ReservationVM reservationVM)
         {
             ReservationService reservationService = new ReservationService();
@@ -162,6 +191,10 @@ namespace ProjectTourism.WPF.ViewModel
                 reservationVM.StartDate = reservationVM.StartDate.AddDays(1);
                 reservationVM.EndDate = reservationVM.EndDate.AddDays(1);
             }
+        }
+        public bool isSuperGuest
+        {
+            get => SuperGuest;
         }
         public Guest1VM(Guest1 guest1)
         {

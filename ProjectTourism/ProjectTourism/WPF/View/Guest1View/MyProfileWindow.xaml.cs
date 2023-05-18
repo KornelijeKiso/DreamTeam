@@ -22,12 +22,13 @@ namespace ProjectTourism.WPF.View.Guest1View
     public partial class MyProfileWindow : Window
     {
         public Guest1VM Guest1VM { get; set; }
+        //public float AverageGrade { get; set; }
         public MyProfileWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
             Guest1VM = new Guest1VM(username);
-
+            //AverageGrade = Guest1VM.CalculateGrade();
         }
     }
 }
