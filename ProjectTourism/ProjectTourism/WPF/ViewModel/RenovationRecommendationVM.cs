@@ -56,9 +56,29 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+        public string LevelDescription
+        {
+            get
+            {
+                if (Level == null) return "";
+                switch(Level)
+                {
+                    case 1:  return "Few details, but good overall.";
+                    case 2:  return "Small problems, could be fixed.";
+                    case 3:  return "Few problems that need fixing";
+                    case 4:  return "Quite bad, renovation strongly recommended.";
+                    case 5:  return "Shouldn't be rented againt without renovation.";
+                    default: return "";
+                }
+            }
+        }
         public int Level
         {
-            get => _renovationRecommendation.Level;
+            get
+            {
+                if (_renovationRecommendation != null) return _renovationRecommendation.Level;
+                else return 0;
+            }
             set
             {
                 if (value != _renovationRecommendation.Level)

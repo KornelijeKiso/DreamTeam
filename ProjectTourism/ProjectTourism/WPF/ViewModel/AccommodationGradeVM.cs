@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ProjectTourism.WPF.ViewModel
 {
-    public class AccommodationGradeVM:INotifyPropertyChanged
+    public class AccommodationGradeVM : INotifyPropertyChanged
     {
         private AccommodationGrade _accommodationGrade;
         public AccommodationGradeVM(AccommodationGrade accommodationGrade)
@@ -20,7 +20,23 @@ namespace ProjectTourism.WPF.ViewModel
         {
             return _accommodationGrade;
         }
-        public RenovationRecommendationVM RenovationRecommendation { get; set; }
+        public RenovationRecommendationVM RenovationRecommendation
+        {
+            get => new RenovationRecommendationVM(_accommodationGrade.RenovationRecommendation);
+            set
+            {
+                if (value.GetRenovationRecommendation() != _accommodationGrade.RenovationRecommendation)
+                {
+                    _accommodationGrade.RenovationRecommendation = value.GetRenovationRecommendation();
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public bool RenovationRecommended
+        {
+            get => RenovationRecommendation.GetRenovationRecommendation() != null;
+        }
+
         public int Id
         {
             get => _accommodationGrade.Id;

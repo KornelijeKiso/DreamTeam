@@ -126,7 +126,7 @@ namespace ProjectTourism.DTO
             Reservations = accommodation.Reservations.Where(r => r.StartDate.Year == Year).Count();
             PostponedReservations = accommodation.Reservations.Where(r => new PostponeRequestService().GetOneAcceptedByReservation(r.Id) != null && r.StartDate.Year == Year).Count();
             CanceledReservations = new CanceledReservationService().GetAllByAccommodation(accommodation.Id).Where(c => c.StartDate.Year == Year).Count();
-            RenovationReccommendations = 0;
+            RenovationReccommendations = accommodation.Reservations.Where(r => r.StartDate.Year == Year && r.AccommodationGrade.GetAccommodationGrade() != null).Where(r => r.AccommodationGrade.RenovationRecommended).Count(); ;
             if (Month == -1) CalculateStatisticsByMonths(accommodation, Year);
             CalculateOccupancy(accommodation);
         }
@@ -138,7 +138,7 @@ namespace ProjectTourism.DTO
                 accommodationStatisticsDTO.Reservations = accommodation.Reservations.Where(r => r.StartDate.Year == accommodationStatisticsDTO.Year && r.StartDate.Month == i).Count();
                 accommodationStatisticsDTO.PostponedReservations = accommodation.Reservations.Where(r => new PostponeRequestService().GetOneAcceptedByReservation(r.Id) != null && r.StartDate.Year == accommodationStatisticsDTO.Year && r.StartDate.Month == i).Count();
                 accommodationStatisticsDTO.CanceledReservations = new CanceledReservationService().GetAllByAccommodation(accommodation.Id).Where(c => c.StartDate.Year == accommodationStatisticsDTO.Year && c.StartDate.Month == i).Count();
-                accommodationStatisticsDTO.RenovationReccommendations = 0;
+                accommodationStatisticsDTO.RenovationReccommendations = accommodation.Reservations.Where(r=> r.StartDate.Year == accommodationStatisticsDTO.Year && r.StartDate.Month == i && r.AccommodationGrade.GetAccommodationGrade()!=null).Where(r=>r.AccommodationGrade.RenovationRecommended).Count();
                 accommodationStatisticsDTO.CalculateOccupancy(accommodation);
                 StatsByMonths.Add(accommodationStatisticsDTO);
             }

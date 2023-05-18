@@ -16,6 +16,7 @@ namespace ProjectTourism.Model
         public static readonly string[] CategoryNames = { "Cleanness", "Comfort", "Hospitality", "Price and quality ratio", "Location" };
         public string Comment;
         public Reservation Reservation;
+        public RenovationRecommendation RenovationRecommendation;
         public Dictionary<string, int> Grades;
         public string PictureURLs;
 

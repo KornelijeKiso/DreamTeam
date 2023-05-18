@@ -1,4 +1,5 @@
 ﻿using ProjectTourism.Model;
+using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,7 +21,22 @@ namespace ProjectTourism.DTO
         {
             return _accommodationGrade;
         }
-        public RenovationRecommendationDTO RenovationRecommendation { get; set; }
+        public RenovationRecommendationDTO RenovationRecommendation
+        {
+            get => new RenovationRecommendationDTO(_accommodationGrade.RenovationRecommendation);
+            set
+            {
+                if (value.GetRenovationRecommendation() != _accommodationGrade.RenovationRecommendation)
+                {
+                    _accommodationGrade.RenovationRecommendation = value.GetRenovationRecommendation();
+                    OnPropertyChanged();
+                }
+            }
+        }
+        public bool RenovationRecommended
+        {
+            get => RenovationRecommendation.GetRenovationRecommendation() != null;
+        }
         public int Id
         {
             get => _accommodationGrade.Id;
