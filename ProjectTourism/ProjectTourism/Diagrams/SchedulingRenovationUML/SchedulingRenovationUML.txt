@@ -27,10 +27,6 @@ loop start<=endDate.AddDays(-1*duration)
   RenSer->RenSer ++: renovation
   RenSer->RenRep: GetAllByAccommodation(AccommodationId)
   activate RenRep
-  RenRep->RenFH: Load()
-  activate RenFH
-  RenFH-->RenRep: Renovations
-  deactivate RenFH
   RenRep-->RenSer:RenovationsForSameAccommodation
   deactivate RenRep
   RenSer->ResSer: GetAllByAccommodation(AccommodationId)
@@ -45,13 +41,23 @@ loop start<=endDate.AddDays(-1*duration)
   deactivate ResRep
   ResSer-->RenSer: ReservationsForSameAccommodation
   deactivate ResSer
-  loop foreach ren in RenovationSForSameAccommodation
-   RenSer->RenSer:Conflict(ren, renovation)
+  loop  foreach  ren in RenovationsForSameAccommodation
+   alt Conflict(ren, renovation)
+     RenSer->RenSer: return false
+   else
+     RenSer->RenSer: continue
+   end
   end
   loop foreach res in ReservationSForSameAccommodation
-   RenSer->RenSer:ReservationConflict(res, renovation)
+   alt ReservationConflict(res, renovation)
+     RenSer->RenSer: return false
+   else
+     RenSer->RenSer: continue
+   end
   end
+  RenSer->RenSer: return true
   RenSer->RenSer --: IsPossible(renovation)
+  
   
   opt IsPossible(renovation) && startDate<Today
     RenSer->RenSer:renovations.Add(renovation)
