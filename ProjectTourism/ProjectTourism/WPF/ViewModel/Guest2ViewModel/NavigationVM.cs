@@ -8,6 +8,7 @@ using System.Windows;
 using ProjectTourism.Utilities;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
+using ProjectTourism.WPF.View.Guest2View;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
@@ -36,6 +37,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public ICommand ProfileCommand { get; set; }
         public ICommand TourRequestsCommand { get; set; }
         public ICommand ComplexToursCommand { get; set; }
+        public ICommand NotificationsCommand { get; set; }
 
         private void Home(object obj) => CurrentView = new HomeVM(Guest2);
         private void Tickets(object obj) => CurrentView = new TicketsVM(Guest2);
@@ -43,10 +45,25 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         private void Profile(object obj) => CurrentView = new ProfileVM(Guest2);
         private void TourRequests(object obj) => CurrentView = new TourRequestsVM(Guest2);
         //private void ComplexTour(object obj) => CurrentView = ComplexTourVM(Guest2);
+        private void Notifications(object obj)
+        {
+            NotificationsWindow notificationWindow = new NotificationsWindow(Guest2);
+            notificationWindow.ShowDialog();
+            Guest2.HasNewNotifications = false;
+            Guest2.NumberOfNotifications = 0;
+        }
+
         public NavigationVM(string username)
         {
             Username = username;
             Guest2 = new Guest2VM(Username);
+
+            // TO DO -> display Notifications first
+            //if (HasNotification)
+            //{
+            //    NotificationsWindow notificationWindow = new NotificationsWindow(Guest2);
+            //    notificationWindow.ShowDialog();
+            //}
 
             HomeCommand = new RelayCommand(Home);
             TicketsCommand = new RelayCommand(Tickets);
@@ -54,6 +71,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             ProfileCommand = new RelayCommand(Profile);
             TourRequestsCommand = new RelayCommand(TourRequests);
             //ComplexToursCommand = new RelayCommand(ComplexTour);
+            NotificationsCommand = new RelayCommand(Notifications);
 
             // Startup Page
             CurrentView = new HomeVM(Guest2);

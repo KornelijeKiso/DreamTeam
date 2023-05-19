@@ -19,32 +19,36 @@ namespace ProjectTourism.WPF.View.Guest2View
     /// <summary>
     /// Interaction logic for NewTourNotificationWindow.xaml
     /// </summary>
-    public partial class NewTourNotificationWindow : Window
+    public partial class NotificationsWindow : Window
     {
-        public NewTourNotificationVM newTourNotificationVM { get; set; }
-        public NewTourNotificationWindow()
+        public NotificationsVM NotificationsVM { get; set; }
+        public NotificationsWindow()
         {
             InitializeComponent();
             //DataContext = new NewTourNotificationVM();
         }
 
-        public NewTourNotificationWindow(Guest2VM guest2)
+        public NotificationsWindow(Guest2VM guest2)
         {
             InitializeComponent();
-            this.newTourNotificationVM = new NewTourNotificationVM(guest2);
-            DataContext = this.newTourNotificationVM;
+            this.NotificationsVM = new NotificationsVM(guest2);
+            DataContext = this.NotificationsVM;
         }
 
         private void ExitClick(object sender, RoutedEventArgs e)
         {
-            this.newTourNotificationVM.SeenNotification();
+            this.NotificationsVM.SeenNotification();
             Close();
         }
 
         private void DismissNotificationClick(object sender, RoutedEventArgs e)
         {
-            this.newTourNotificationVM.DismissNotification();
-            Close();
+            this.NotificationsVM.DismissNotification();
+        }
+
+        private void DetailsDisplayClick(object sender, RoutedEventArgs e)
+        {
+            this.NotificationsVM.DetailsDisplayClick();
         }
     }
 }

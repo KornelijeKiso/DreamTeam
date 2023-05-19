@@ -16,6 +16,7 @@
     <None Remove="Images\Guest2\complextour.png" />
     <None Remove="Images\Guest2\demo.png" />
     <None Remove="Images\Guest2\home.png" />
+    <None Remove="Images\Guest2\notification.png" />
     <None Remove="Images\Guest2\profile.png" />
     <None Remove="Images\Guest2\search.png" />
     <None Remove="Images\Guest2\suggesttour.png" />
@@ -51,6 +52,7 @@
     <Resource Include="Images\Guest2\complextour.png" />
     <Resource Include="Images\Guest2\demo.png" />
     <Resource Include="Images\Guest2\home.png" />
+    <Resource Include="Images\Guest2\notification.png" />
     <Resource Include="Images\Guest2\profile.png" />
     <Resource Include="Images\Guest2\search.png" />
     <Resource Include="Images\Guest2\suggesttour.png" />

@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:ProjectTourism.WPF.ViewModel.Guest2ViewModel"
+        xmlns:conv="clr-namespace:ProjectTourism.Converters"
         xmlns:Menu="clr-namespace:ProjectTourism.Utilities"
         xmlns:images="ProjectTourism.Images.Guest2"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest2View"
@@ -137,6 +138,53 @@
                         <Grid>
                             <Image Source="../../../Images/Guest2/complextour.png" Style="{StaticResource IconsStyle}"     />
                             <TextBlock Text="Complex &#x0d;   tours" Style="{StaticResource TextStyle}"  />
+                        </Grid>
+                    </Menu:Btn>
+                    
+                    
+                    <!-- NOTIFICATIONS -->
+                    <Menu:Btn   Command="{Binding NotificationsCommand}"
+                                Style="{StaticResource BtnStyle}"
+                                VerticalAlignment="Bottom"              >
+                        <Grid>
+                            <Image Source="../../../Images/Guest2/notification.png" Style="{StaticResource IconsStyle}"
+                                   ToolTip="Notifications"/>
+                            <Button Visibility="{Binding Path=Guest2.HasNewNotifications, Converter={conv:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                    Height="10" Width="10" Margin="0 0 60 30">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </Button.Resources>
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="Red"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border x:Name="border"
+                                                            BorderThickness="0"
+                                                            Background="Red">
+                                                        <TextBlock Text="{Binding Path=Guest2.NumberOfNotifications, UpdateSourceTrigger=PropertyChanged}"
+                                                                   FontFamily="/Fonts/#Rubik" FontSize="7" 
+                                                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver"
+                                                                 Value="True"   >
+                                                            <Setter Property="Background"
+                                                                    TargetName="border"
+                                                                    Value="Red" />
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed" Value="True" />
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <!--<TextBlock Text="Notif" Style="{StaticResource TextStyle}"  />-->
                         </Grid>
                     </Menu:Btn>
                 </StackPanel>

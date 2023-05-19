@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectTourism.Domain.Model;
+using ProjectTourism.DTO;
 //using System.Text.RegularExpressions;
 
 namespace ProjectTourism.WPF.ViewModel
@@ -47,6 +48,12 @@ namespace ProjectTourism.WPF.ViewModel
             SynchronizeTicketsList(_guest2);
             SynchronizeVouchersList(_guest2);
             SynchronizeTourRequestsList(_guest2);
+
+            // TO DO -> Copy int Guest2DTO
+            Notifications = new ObservableCollection<NotificationDTO>(new NotificationService().GetAllByOwner(_guest2.Username).Select(r => new NotificationDTO(r)).Reverse().ToList());
+            HasNewNotifications = Notifications.ToList().Any(n => n.New);
+            NumberOfNotifications = Notifications.Where(r => r.New == true).Count();
+            ///
         }
 
         private void SynchronizeVouchersList(Guest2 _guest2)
@@ -149,7 +156,6 @@ namespace ProjectTourism.WPF.ViewModel
                 tour.StopsList = tourService.LoadStops(tour.GetTour());
             }
         }
-
         public Guest2 GetGuest2()
         {
             return _guest2;
@@ -279,6 +285,49 @@ namespace ProjectTourism.WPF.ViewModel
         public ObservableCollection<TicketVM> Tickets { get; set; }
         public ObservableCollection<VoucherVM> Vouchers { get; set; }
         public ObservableCollection<TourRequestVM> TourRequests { get; set; }
+
+        // TO DO -> Copy int Guest2DTO
+        private ObservableCollection<NotificationDTO> _Notifications;
+        public ObservableCollection<NotificationDTO> Notifications
+        {
+            get => _Notifications;
+            set
+            {
+                if (value != _Notifications)
+                {
+                    _Notifications = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool _HasNewNotifications;
+        public bool HasNewNotifications
+        {
+            get => _HasNewNotifications;
+            set
+            {
+                if (value != _HasNewNotifications)
+                {
+                    _HasNewNotifications = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private int _NumberOfNotifications;
+        public int NumberOfNotifications
+        {
+            get => _NumberOfNotifications;
+            set
+            {
+                if (value != _NumberOfNotifications)
+                {
+                    _NumberOfNotifications = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        ///////////////////////////
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
