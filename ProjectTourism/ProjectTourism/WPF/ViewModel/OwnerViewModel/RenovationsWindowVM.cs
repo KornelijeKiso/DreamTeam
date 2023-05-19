@@ -32,6 +32,7 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
             RenovationAppointment = new RenovationAppointmentDTO();
             RenovationAppointment.AccommodationId = Accommodation.Id;
             NewRenovation.AccommodationId = Accommodation.Id;
+            popupContainer.Visibility = Visibility.Collapsed;
         }
         public RenovationsWindowVM()
         {
