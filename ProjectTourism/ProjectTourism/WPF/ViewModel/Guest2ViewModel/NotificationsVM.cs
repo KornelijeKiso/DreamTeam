@@ -67,15 +67,10 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                 // Tour Attendance case
                 case 1:
                     {
+                        // TO DO -> replace VM with DTO
                         ticketVM = Guest2.Tickets.First(r => r.Id == GetTicketId(SelectedNotification.Title));
                         Guest2AttendanceWindow guest2AttendanceWindow = new Guest2AttendanceWindow(ticketVM, Guest2);
                         guest2AttendanceWindow.ShowDialog();
-                        
-                        // TO DO -> check if ticket.TourAppointment EXPIRED
-                        //if (ticketVM.TourAppointment.State == TOURSTATE.STARTED)
-                        //{ }
-                        //else
-                        //{ }
                         break;
                     }
                 // error case
