@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:conv="clr-namespace:ProjectTourism.Converters"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest2View.TicketView"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
@@ -30,9 +31,7 @@
                        Foreground="#DBDBDB"
                        FontSize="20"
                        Height="auto"/>
-                <Label FontFamily="/Fonts/#Rubik"
-                       Foreground="#DBDBDB"
-                       FontSize="12"
+                <Label FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
                        MaxHeight="25" Margin="0 -4 0 -4">
                     <Label.Content>
                         <TextBlock>
@@ -45,9 +44,7 @@
                         </TextBlock>
                     </Label.Content>
                 </Label>
-                <Label FontFamily="/Fonts/#Rubik"
-                       Foreground="#DBDBDB"
-                       FontSize="12"
+                <Label FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
                        MaxHeight="25" Margin="0 -4 0 -4">
                     <Label.Content>
                         <TextBlock>
@@ -74,9 +71,7 @@
                         </TextBlock>
                     </Label.Content>
                 </Label>
-                <Label FontFamily="/Fonts/#Rubik"
-                       Foreground="#DBDBDB"
-                       FontSize="12"
+                <Label FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
                        MaxHeight="25" Margin="0 -4 0 -4">
                     <Label.Content>
                         <TextBlock>
@@ -95,12 +90,10 @@
         <Grid Grid.Row="1"
               Background="Black" Margin="5 0 5 0">
             <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                <GroupBox Header="Description of Tour" FontFamily="/Fonts/#Rubik"
-                          Foreground="#DBDBDB" FontSize="12"
+                <GroupBox Header="Description of Tour" 
+                          FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
                           Height="80" Margin="5 0 5 0" >
-                    <Label FontFamily="/Fonts/#Rubik"
-                           Foreground="#DBDBDB"
-                           FontSize="12"
+                    <Label FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
                            MaxHeight="80" >
                         <Label.Content>
                         <TextBlock TextWrapping="Wrap"
@@ -109,14 +102,35 @@
                     </Label>
                 </GroupBox>
 
-                <GroupBox Header="Number of tickets" FontFamily="/Fonts/#Rubik"
-                          Foreground="#DBDBDB" FontSize="12"
+                <GroupBox Header="Date" 
+                          FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
+                          Height="auto" Margin="5 0 5 0">
+                    <!-- combobox dates -->
+                    <Grid Height="auto">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" 
+                               FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
+                               MaxHeight="25" Margin="0 -4 0 -4"
+                               Content="Date and Time: " />
+                        <ComboBox x:Name="DatesComboBox"
+                                  Grid.Column="1"
+                                  ItemsSource="{Binding Path = dates}"
+                                  SelectionChanged="DatesComboBox_SelectionChanged"
+                                  HorizontalAlignment="Left" VerticalAlignment="Center"
+                                  Height="30" Width="200"   >
+                        </ComboBox>
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="Number of tickets" 
+                          FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
                           Height="auto" Margin="5 0 5 0">
                     <StackPanel>
-                        <Label FontFamily="/Fonts/#Rubik"
-                       Foreground="#DBDBDB"
-                       FontSize="12"
-                       MaxHeight="25" Margin="0 0 0 0">
+                        <Label FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
+                               MaxHeight="25" Margin="0 0 0 0">
                             <Label.Content>
                                 <TextBlock>
                                     <TextBlock.Text>
@@ -137,51 +151,45 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0"
-                           FontFamily="/Fonts/#Rubik"
-                           Foreground="#DBDBDB"
-                           FontSize="12"
-                           MaxHeight="25" Margin="0 -4 0 -4"
-                           Content="Number of Tickets: " />
+                                   FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
+                                   MaxHeight="25" Margin="0 -4 0 -4"
+                                   Content="Number of Tickets: " />
                             <TextBox x:Name="sliderText" 
-                             Grid.Column="1"
-                             Text="{Binding ElementName=slider,Path=Value,UpdateSourceTrigger=PropertyChanged}"
-                             HorizontalAlignment="Left" VerticalAlignment="Center"
-                             Height="20" Width="30" >
-                            </TextBox>
+                                     Grid.Column="1"
+                                     Text="{Binding ElementName=slider,Path=Value,UpdateSourceTrigger=PropertyChanged}"
+                                     Visibility="{Binding PickedAnAppointment, Converter={conv:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                     HorizontalAlignment="Left" VerticalAlignment="Center"
+                                     Height="20" Width="30" />
+
                             <Slider x:Name="slider" 
-                            Grid.Column="2"
-                            Minimum="1" Maximum="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" 
-                            Value="{Binding Path=Ticket.NumberOfGuests}" 
-                            HorizontalAlignment="Center" VerticalAlignment="Center"
-                            Height="30" Width="200"
-                            FontFamily="/Fonts/#Rubik"
-                            Foreground="#DBDBDB"
-                            FontSize="12">
+                                    Grid.Column="2"
+                                    Minimum="1" Maximum="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" 
+                                    Value="{Binding Path=Ticket.NumberOfGuests}" 
+                                    Visibility="{Binding PickedAnAppointment, Converter={conv:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center"
+                                    Height="30" Width="200"
+                                    FontFamily="/Fonts/#Rubik"
+                                    Foreground="#DBDBDB"
+                                    FontSize="12">
                             </Slider>
                             <Label Grid.Column="3"
-                           FontFamily="/Fonts/#Rubik"
-                           Foreground="#DBDBDB"
-                           FontSize="12"
-                           MaxHeight="25" Margin="0 -4 0 -4"
-                           Content="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" />
+                                   FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
+                                   MaxHeight="25" Margin="0 -4 0 -4"
+                                   Content="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" />
                             <Label Grid.Column="4"
-                           FontFamily="/Fonts/#Rubik"
-                           Foreground="#DBDBDB"
-                           FontSize="12"
-                           MaxHeight="25" Margin="0 -4 0 -4"
-                           Content="available seats" />
+                                   FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
+                                   MaxHeight="25" Margin="0 -4 0 -4"
+                                   Content="available seats" />
                         </Grid>
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox Header="Checkpoints" FontFamily="/Fonts/#Rubik"
-                          Foreground="#DBDBDB" FontSize="12"
+                <GroupBox Header="Checkpoints" 
+                          FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
                           Height="auto" Margin="5 0 5 0">
                     <StackPanel>
-                        <Label FontFamily="/Fonts/#Rubik"
-                       Foreground="#DBDBDB"
-                       FontSize="12"
-                       MaxHeight="30" Margin="0 0 0 0">
+                        <Label FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
+                               MaxHeight="30" Margin="0 0 0 0">
                             <Label.Content>
                                 <TextBlock>
                                     <TextBlock.Text>
@@ -199,25 +207,20 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Label Grid.Column="0"
-                           FontFamily="/Fonts/#Rubik"
-                           Foreground="#DBDBDB"
-                           FontSize="12"
-                           MaxHeight="25" Margin="0 -4 0 -4"
-                           Content="Your starting checkpoint: " />
+                                   FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
+                                   MaxHeight="25" Margin="0 -4 0 -4"
+                                   Content="Your starting checkpoint: " />
                             <ComboBox x:Name="StopsComboBox"
-                              Grid.Column="1" 
-                              ItemsSource="{Binding Path = StopsList}"
-                              SelectedIndex="0"
-                              SelectionChanged="StopsComboBox_SelectionChanged"
-                              HorizontalAlignment="Left" VerticalAlignment="Center"
-                              Height="30" Width="200"
-                              >
+                                      Grid.Column="1" 
+                                      ItemsSource="{Binding Path=SelectedTour.StopsList}"
+                                      SelectedIndex="0"
+                                      HorizontalAlignment="Left" VerticalAlignment="Center"
+                                      Height="30" Width="200"   >
+                                <!--SelectionChanged="StopsComboBox_SelectionChanged"-->
                             </ComboBox>
                         </Grid>
-                        <Label FontFamily="/Fonts/#Rubik"
-                       Foreground="#DBDBDB"
-                       FontSize="12"
-                       MaxHeight="30" Margin="0 0 0 0">
+                        <Label FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
+                               MaxHeight="30" Margin="0 0 0 0">
                             <Label.Content>
                                 <TextBlock>
                                     <TextBlock.Text>
@@ -231,31 +234,7 @@
                     </StackPanel>
                 </GroupBox>
 
-                <GroupBox Header="Date" FontFamily="/Fonts/#Rubik"
-                          Foreground="#DBDBDB" FontSize="12"
-                          Height="auto" Margin="5 0 5 0">
-                    <!-- combobox dates -->
-                    <Grid Height="auto">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="200" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0"
-                           FontFamily="/Fonts/#Rubik"
-                           Foreground="#DBDBDB"
-                           FontSize="12"
-                           MaxHeight="25" Margin="0 -4 0 -4"
-                           Content="Date and Time: " />
-                        <ComboBox x:Name="DatesComboBox"
-                              Grid.Column="1"
-                              ItemsSource="{Binding Path = dates}"
-                              SelectedIndex="0"
-                              SelectionChanged="DatesComboBox_SelectionChanged"
-                              HorizontalAlignment="Left" VerticalAlignment="Center"
-                              Height="30" Width="200"   >
-                        </ComboBox>
-                    </Grid>
-                </GroupBox>
+                
             </StackPanel>
         </Grid>
         
@@ -286,11 +265,8 @@
                                             BorderThickness="1"
                                             Background="Black">
                                         <TextBlock Text="Use Voucher"
-                                            FontFamily="/Fonts/#Rubik" 
-                                            FontSize="18"
-                                            Foreground="#DBDBDB" 
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center" />
+                                                   FontFamily="/Fonts/#Rubik" FontSize="18" Foreground="#DBDBDB"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
                                     </Border>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsMouseOver"
@@ -328,11 +304,8 @@
                                             BorderThickness="1"
                                             Background="Black">
                                         <TextBlock Text="Buy Ticket"
-                                            FontFamily="/Fonts/#Rubik" 
-                                            FontSize="18"
-                                            Foreground="#DBDBDB" 
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center" />
+                                                   FontFamily="/Fonts/#Rubik" FontSize="18" Foreground="#DBDBDB"
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
                                     </Border>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsMouseOver"

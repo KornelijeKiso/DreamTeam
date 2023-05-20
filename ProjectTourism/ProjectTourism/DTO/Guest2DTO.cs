@@ -138,6 +138,7 @@ namespace ProjectTourism.DTO
             GuideService guideService = new GuideService();
             TourAppointmentService tourAppointmentService = new TourAppointmentService();
             LocationService locationService = new LocationService();
+            TicketService ticketService = new TicketService();
 
             foreach (var tour in Tours)
             {
@@ -149,6 +150,13 @@ namespace ProjectTourism.DTO
                     tour.TourAppointments.Add(new TourAppointmentDTO(tourAppointment));
                 }
                 tour.StopsList = tourService.LoadStops(tour.GetTour());
+
+
+                foreach (var tourAppointment in tour.TourAppointments)
+                {
+                    tourAppointment.Tickets = new ObservableCollection<TicketDTO>(ticketService.GetByAppointment(tourAppointment.Id).Select(r => new TicketDTO(r)).ToList());
+                    tourAppointment.Tour = new TourDTO(tourService.GetOne(tourAppointment.TourId));
+                }
             }
         }
         private void SynchronizeNotifications(Guest2 _guest2)

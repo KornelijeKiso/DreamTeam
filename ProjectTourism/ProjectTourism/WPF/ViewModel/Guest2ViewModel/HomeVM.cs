@@ -113,7 +113,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         {
             foreach (TourAppointmentDTO tourApp in tour.TourAppointments)
             {
-                if (tourApp.State == TOURSTATE.READY && tourApp.AvailableSeats != 0 && tourApp.TourDateTime >= DateTime.Now)
+                if (tourApp.IsAvailable)
                     return true;
             }
             return false;

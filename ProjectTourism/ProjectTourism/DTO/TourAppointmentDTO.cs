@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using ProjectTourism.Model;
 using ProjectTourism.Services;
-using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.DTO
 {
@@ -21,19 +20,17 @@ namespace ProjectTourism.DTO
             Tickets = new ObservableCollection<TicketDTO>(_tourAppointment.Tickets.Select(r => new TicketDTO(r)).ToList());
             TicketGrades = new ObservableCollection<TicketGradeDTO>(_tourAppointment.TicketGrades.Select(r => new TicketGradeDTO(r)).ToList());
         }
-
-        private void Synchronize()
-        {
-            TourService tourService = new TourService();
-            _tourAppointment.Tour = tourService.GetOne(_tourAppointment.TourId);
-        }
-
         public TourAppointmentDTO(Tour tour, DateTime date)
         {
             TourAppointmentService tourAppointmentService = new TourAppointmentService();
             _tourAppointment = tourAppointmentService.GetByDate(tour.Id, date);
             Synchronize();
             Tickets = new ObservableCollection<TicketDTO>(_tourAppointment.Tickets.Select(r => new TicketDTO(r)).ToList());
+        }
+        private void Synchronize()
+        {
+            TourService tourService = new TourService();
+            _tourAppointment.Tour = tourService.GetOne(_tourAppointment.TourId);
         }
 
         public void UpdateTourAppointmentDTO(TourAppointmentDTO tourAppointmentDTO)
@@ -125,18 +122,6 @@ namespace ProjectTourism.DTO
         }
         public ObservableCollection<TicketDTO> Tickets;
         public ObservableCollection<TicketGradeDTO> TicketGrades;
-        public int AvailableSeats
-        {
-            get => _tourAppointment.AvailableSeats;
-            set
-            {
-                if (_tourAppointment.AvailableSeats != value)
-                {
-                    _tourAppointment.AvailableSeats = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
         public TOURSTATE State
         {
             get => _tourAppointment.State;
@@ -150,6 +135,24 @@ namespace ProjectTourism.DTO
             }
         }
 
+
+        public int AvailableSeats
+        {
+            get => GetAvailableSeats();
+        }
+        public int GetAvailableSeats()
+        {
+            int availableSeats = _tourAppointment.Tour.MaxNumberOfGuests;
+            foreach (var ticket in Tickets)
+            {
+                availableSeats = availableSeats - ticket.NumberOfGuests;
+            }
+            return availableSeats;
+        }
+        public bool IsAvailable 
+        {
+            get => ((AvailableSeats > 0) && (_tourAppointment.State == TOURSTATE.READY) && (_tourAppointment.TourDateTime >= DateTime.Now)); 
+        }
         public bool CanBeCanceled { get => _tourAppointment.TourDateTime > DateTime.Now.AddHours(48); }
 
         public event PropertyChangedEventHandler? PropertyChanged;

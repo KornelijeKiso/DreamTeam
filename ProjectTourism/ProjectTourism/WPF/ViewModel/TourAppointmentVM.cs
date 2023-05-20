@@ -130,15 +130,15 @@ namespace ProjectTourism.WPF.ViewModel
         public ObservableCollection<TicketGradeVM> TicketGrades;
         public int AvailableSeats
         {
-            get => _tourAppointment.AvailableSeats;
-            set
-            {
-                if (_tourAppointment.AvailableSeats != value)
-                {
-                    _tourAppointment.AvailableSeats = value;
-                    OnPropertyChanged();
-                }
-            }
+            get;// => _tourAppointment.AvailableSeats;
+            set;
+            //{
+            //    if (_tourAppointment.AvailableSeats != value)
+            //    {
+            //        _tourAppointment.AvailableSeats = value;
+            //        OnPropertyChanged();
+            //    }
+            //}
         }
         public TOURSTATE State
         {
