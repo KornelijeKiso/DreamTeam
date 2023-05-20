@@ -34,12 +34,12 @@ namespace ProjectTourism.DTO
         }
         public string OwnerUsername
         {
-            get => _notification.OwnerUsername;
+            get => _notification.Username;
             set
             {
-                if (!value.Equals(_notification.OwnerUsername))
+                if (!value.Equals(_notification.Username))
                 {
-                    _notification.OwnerUsername = value;
+                    _notification.Username = value;
                     OnPropertyChanged();
                 }
             }

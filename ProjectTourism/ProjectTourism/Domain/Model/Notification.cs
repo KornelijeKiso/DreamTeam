@@ -13,18 +13,18 @@ namespace ProjectTourism.Domain.Model
     public class Notification:Serializable
     {
         public int Id;
-        public string OwnerUsername;
+        public string Username;
         public string Title;
         public string Text;
         public DateTime Time;
         public bool New;
 
         public Notification() { }
-        public Notification(string title, string text, string ownerUsername) 
+        public Notification(string title, string text, string username) 
         {
             Title = title;
             Text = text;
-            OwnerUsername = ownerUsername;
+            Username = username;
             Time = DateTime.Now;
             New = true;
         }
@@ -33,7 +33,7 @@ namespace ProjectTourism.Domain.Model
             string[] csvValues =
             {
                 Id.ToString(),
-                OwnerUsername,
+                Username,
                 Title,
                 Text,
                 New.ToString(),
@@ -45,7 +45,7 @@ namespace ProjectTourism.Domain.Model
         public void FromCSV(string[] values)
         {
             Id = int.Parse(values[0]);
-            OwnerUsername = values[1];
+            Username = values[1];
             Title = values[2];
             Text = values[3];
             New = bool.Parse(values[4]);

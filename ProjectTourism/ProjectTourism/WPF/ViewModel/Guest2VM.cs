@@ -50,7 +50,7 @@ namespace ProjectTourism.WPF.ViewModel
             SynchronizeTourRequestsList(_guest2);
 
             // TO DO -> Copy int Guest2DTO
-            Notifications = new ObservableCollection<NotificationDTO>(new NotificationService().GetAllByOwner(_guest2.Username).Select(r => new NotificationDTO(r)).Reverse().ToList());
+            Notifications = new ObservableCollection<NotificationDTO>(new NotificationService().GetAllByUser(_guest2.Username).Select(r => new NotificationDTO(r)).Reverse().ToList());
             HasNewNotifications = Notifications.ToList().Any(n => n.New);
             NumberOfNotifications = Notifications.Where(r => r.New == true).Count();
             ///

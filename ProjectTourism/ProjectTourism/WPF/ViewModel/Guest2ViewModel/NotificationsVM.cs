@@ -34,7 +34,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         }
         public void SeenNotification()
         {
-            List<Notification> notifications = NotificationService.GetAllByOwner(Guest2.Username);
+            List<Notification> notifications = NotificationService.GetAllByUser(Guest2.Username);
             NotificationService.Seen(notifications);
             Guest2.HasNewNotifications = false;
             Guest2.NumberOfNotifications = 0;

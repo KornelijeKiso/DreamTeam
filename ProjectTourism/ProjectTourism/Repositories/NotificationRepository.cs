@@ -39,7 +39,7 @@ namespace ProjectTourism.Repositories
         }
         public void DeleteAll(string username)
         {
-            Notifications.RemoveAll(n=>n.OwnerUsername.Equals(username));
+            Notifications.RemoveAll(n=>n.Username.Equals(username));
             FileHandler.Save(Notifications);
         }
 
@@ -48,20 +48,14 @@ namespace ProjectTourism.Repositories
             return Notifications;
         }
 
-        public List<Notification> GetAllByOwner(string ownerUsername)
+        public List<Notification> GetAllByUser(string username)
         {
-            return Notifications.Where(n=>n.OwnerUsername.Equals(ownerUsername)).ToList();
+            return Notifications.Where(n=>n.Username.Equals(username)).ToList();
         }
 
         public Notification GetOne(int id)
         {
             return Notifications.Find(a => a.Id == id);
-        }
-
-        public void Seen()
-        {
-            foreach (var notification in Notifications) notification.New = false;
-            FileHandler.Save(Notifications);
         }
         public void Seen(List<Notification> notifications)
         {

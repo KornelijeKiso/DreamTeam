@@ -109,7 +109,7 @@ namespace ProjectTourism.WPF.ViewModel
 
         private void LoadNotifications()
         {
-            Notifications = new ObservableCollection<NotificationVM>(new NotificationService().GetAllByOwner(_owner.Username).Select(r => new NotificationVM(r)).Reverse().ToList());
+            Notifications = new ObservableCollection<NotificationVM>(new NotificationService().GetAllByUser(_owner.Username).Select(r => new NotificationVM(r)).Reverse().ToList());
             HasNewNotifications = Notifications.ToList().Any(n => n.New);
             NoNotifications = !Notifications.ToList().Any();
         }
@@ -308,7 +308,12 @@ namespace ProjectTourism.WPF.ViewModel
         public void SeenNotifications()
         {
             foreach (var n in Notifications) n.New = false;
-            new NotificationService().Seen();
+            List<Notification> notifications = new List<Notification>();
+            foreach (var n in Notifications)
+            {
+                notifications.Add(n.GetNotification());
+            }
+            new NotificationService().Seen(notifications);
         }
         private bool _NoNotifications;
         public bool NoNotifications

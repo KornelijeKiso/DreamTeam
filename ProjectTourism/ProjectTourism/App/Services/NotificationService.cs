@@ -36,13 +36,9 @@ namespace ProjectTourism.Services
         {
             return NotificationRepo.GetAll();
         }
-        public List<Notification> GetAllByOwner(string username)
+        public List<Notification> GetAllByUser(string username)
         {
-            return NotificationRepo.GetAllByOwner(username);
-        }
-        public void Seen()
-        {
-            NotificationRepo.Seen();
+            return NotificationRepo.GetAllByUser(username);
         }
         public void Seen(List<Notification> notifications)
         {
