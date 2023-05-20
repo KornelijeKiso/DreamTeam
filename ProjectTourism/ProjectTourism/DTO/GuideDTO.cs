@@ -181,6 +181,21 @@ namespace ProjectTourism.DTO
             tour.Id = tourService.AddAndReturnId(NewTour.GetTour());
             tourAppointmentService.MakeTourAppointments(tour);
         }
+
+        public void NotifyGuests(TourDTO newTour)   // New Tour notification
+        {
+            NotificationService notificationService = new NotificationService();
+            TourRequestService requestService = new TourRequestService();
+
+            List<TourRequest> tourRequests = requestService.GetByNewTour(newTour.GetTour());
+            foreach (TourRequest tourRequest in tourRequests)
+            {
+                notificationService.Add(new Notification("New Tour (id:" + newTour.Id + ")" ,
+                                                         "Guide " + newTour.Guide.FirstName + " " + newTour.Guide.LastName + " (" + newTour.Guide.Username + ") has created a Tour similar to your unfulfilled request - check out new " + newTour.Name,
+                                                         tourRequest.Guest2Username));
+            }
+        }
+
         public void ChangeLocalization()
         {
             GuideService guideService = new GuideService();

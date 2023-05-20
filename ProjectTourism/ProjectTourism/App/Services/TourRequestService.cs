@@ -37,5 +37,9 @@ namespace ProjectTourism.Services
         {
             TourRequestRepository.Update(tourRequest);
         }
+        public List<TourRequest> GetByNewTour(Tour newTour)
+        {
+            return TourRequestRepository.GetByNewTour(newTour);
+        }
     }
 }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.Domain.Model;
 using ProjectTourism.FileHandler;
+using ProjectTourism.Model;
 
 namespace ProjectTourism.Repositories
 {
@@ -72,6 +73,26 @@ namespace ProjectTourism.Repositories
                 }
             }
             FileHandler.Save(TourRequests);
+        }
+
+        public List<TourRequest> GetByNewTour(Tour newTour)
+        {
+            List<TourRequest> list = new List<TourRequest>();
+            foreach (var request in TourRequests)
+            {
+                if (IsSameLanguageOrLocation(newTour, request) &&
+                    (request.State == REQUESTSTATE.EXPIRED || request.State == REQUESTSTATE.PENDING))
+                {
+                    list.Add(request);
+                }
+            }
+                return list;
+        }
+
+        private bool IsSameLanguageOrLocation(Tour tour, TourRequest request)
+        {
+            return (request.Language.Equals(tour.Language) ||
+                   ((request.Location.Country.Equals(tour.Location.Country)) && (request.Location.City.Equals(tour.Location.City))));
         }
     }
 }
