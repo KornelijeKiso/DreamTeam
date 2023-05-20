@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectTourism.Domain.Model;
+using ProjectTourism.Model;
 
 namespace ProjectTourism.Domain.IRepositories
 {
@@ -14,5 +15,6 @@ namespace ProjectTourism.Domain.IRepositories
         void Add(TourRequest tourRequest);
         void Update(TourRequest tourRequest);
         void Delete(TourRequest tourRequest);
+        List<TourRequest> GetByNewTour(Tour newTour);
     }
 }

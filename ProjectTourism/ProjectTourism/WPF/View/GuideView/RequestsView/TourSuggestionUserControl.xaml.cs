@@ -125,6 +125,7 @@ namespace ProjectTourism.View.TourView
         {
             SaveDates();
             Guide.AddTour(NewTour, NewLocation);
+            Guide.NotifyGuests(NewTour);
             HideTourCreateContents();
             ContentArea.Content = new HomeUserControl(NewTour.Guide.Username);
         }

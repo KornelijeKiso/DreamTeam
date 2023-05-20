@@ -4,8 +4,8 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:ProjectTourism.WPF.ViewModel.Guest2ViewModel"
+        xmlns:conv="clr-namespace:ProjectTourism.Converters"
         xmlns:Menu="clr-namespace:ProjectTourism.Utilities"
-        xmlns:images="ProjectTourism.Images.Guest2"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest2View"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
@@ -56,7 +56,7 @@
                 <ColumnDefinition Width="150" />
                 <ColumnDefinition Width="700" />
             </Grid.ColumnDefinitions>
-            
+
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="500"/>
@@ -69,7 +69,7 @@
                 <Button x:Name="Demo"  
                         Style="{StaticResource Demo}"     >
                 </Button>
-                               
+
                 <!-- LOGOUT BUTTON -->
                 <Button x:Name="LogOut"
                         Style="{StaticResource LogOut}" Click="LogOut_Click"     >
@@ -139,14 +139,129 @@
                             <TextBlock Text="Complex &#x0d;   tours" Style="{StaticResource TextStyle}"  />
                         </Grid>
                     </Menu:Btn>
+
+
+                    <!-- NOTIFICATIONS -->
+                    <Menu:Btn   Command="{Binding NotificationsCommand}"
+                                Style="{StaticResource BtnStyle}"
+                                VerticalAlignment="Bottom"              >
+                        <Grid>
+                            <Image Source="../../../Images/Guest2/notification.png" Style="{StaticResource IconsStyle}"
+                                   ToolTip="Notifications"/>
+                            <Button Visibility="{Binding Path=Guest2.HasNewNotifications, Converter={conv:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                    Height="10" Width="10" Margin="0 0 60 30">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </Button.Resources>
+                                <Button.Style>
+                                    <Style TargetType="Button">
+                                        <Setter Property="Background" Value="Red"/>
+                                        <Setter Property="Template">
+                                            <Setter.Value>
+                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                    <Border x:Name="border"
+                                                            BorderThickness="0"
+                                                            Background="Red">
+                                                        <TextBlock Text="{Binding Path=Guest2.NumberOfNotifications, UpdateSourceTrigger=PropertyChanged}"
+                                                                   FontFamily="/Fonts/#Rubik" FontSize="7" 
+                                                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                    </Border>
+                                                    <ControlTemplate.Triggers>
+                                                        <Trigger Property="IsMouseOver"
+                                                                 Value="True"   >
+                                                            <Setter Property="Background"
+                                                                    TargetName="border"
+                                                                    Value="Red" />
+                                                        </Trigger>
+                                                        <Trigger Property="IsPressed" Value="True" />
+                                                    </ControlTemplate.Triggers>
+                                                </ControlTemplate>
+                                            </Setter.Value>
+                                        </Setter>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <!--<TextBlock Text="Notif" Style="{StaticResource TextStyle}"  />-->
+                        </Grid>
+                    </Menu:Btn>
                 </StackPanel>
-                
+
             </Grid>
-            
+
             <Grid Grid.Column="1" Grid.Row="1" >
                 <ContentControl x:Name="Pages"
                                 Content="{Binding CurrentView}" />
             </Grid>
+
+            <!-- NOTIFICATION POPUP -->
+            <Popup x:Name="NotificationPopup" 
+                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Placement="Center"
+                   Height="150" Width="200" >
+               <!--Opened="OpenNotificationPopup"
+                   IsOpen="{Binding Path=Guest2.HasNewNotifications, UpdateSourceTrigger=PropertyChanged}"-->
+                <Border BorderBrush="Black" BorderThickness="2" Background="DarkGray" >
+                    <Border.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="9"/>
+                        </Style>
+                    </Border.Resources>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"/>
+                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <!--<Rectangle Height="150" Width="200" 
+                               Grid.Row="0" Grid.RowSpan="3"
+                               Fill="DarkGray" Stroke="Black" StrokeThickness="2"
+                               RadiusX="10" RadiusY="10" 
+                               VerticalAlignment="Top" >
+                            <Rectangle.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="15"/>
+                                </Style>
+                            </Rectangle.Resources>
+                        </Rectangle>-->
+
+                        <Button Grid.Row="0"
+                            VerticalAlignment="Top" HorizontalAlignment="Right"
+                            Height="30" Width="50"
+                            Background="Red" Margin="0 5 5 0"
+                            FontFamily="/Fonts/#Rubik" FontSize="18" FontWeight="Bold"
+                            Content="X"
+                            BorderBrush="#212529" BorderThickness="1"
+                            Click="ClosePopupClick"
+                            >
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="9"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                        <TextBlock x:Name="NotifTextBox" Grid.Row="1"
+                               FontFamily="/Fonts/#Rubik" FontSize="16" FontWeight="Bold" 
+                               TextWrapping="Wrap" TextAlignment="Center"
+                               Text="You have new notifications!"
+                               />
+                        <Button Click="DisplayNotificationsClick" Content="Open notifications" 
+                            FontFamily="/Fonts/#Rubik" FontSize="16" FontWeight="SemiBold" 
+                            Margin="15 5 15 15"
+                            Grid.Row="2">
+                            <!--Command="{Binding NotificationsCommand}"-->
+                            <Button.Resources>
+                                <Style TargetType="Border">
+                                    <Setter Property="CornerRadius" Value="9"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </Grid>
+                </Border>
+            </Popup>
 
         </Grid>
     </Grid>

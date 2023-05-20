@@ -1,0 +1,194 @@
+﻿<Window x:Class="ProjectTourism.WPF.View.Guest2View.NotificationsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:conv="clr-namespace:ProjectTourism.Converters"
+        xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest2View"
+        mc:Ignorable="d"
+        Title="New Tour Notification Window" 
+        WindowStartupLocation="CenterScreen"
+        Background="Transparent"
+        AllowsTransparency="True"
+        Height="500" Width="450"
+        WindowStyle="None">
+    <!-- TO DO -> fix WindowStartupLocation -->
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid x:Name="NotificationGrid" Grid.Column="1"
+              Height="450" Width="400" 
+              VerticalAlignment="Bottom" 
+              HorizontalAlignment="Left"
+              >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="350"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+
+            <Rectangle Height="450" Width="400" 
+                       Grid.Row="0" Grid.RowSpan="3"
+                       Fill="DarkGray" 
+                       RadiusX="10" RadiusY="10" 
+                       VerticalAlignment="Top" >
+                <Rectangle.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Rectangle.Resources>
+            </Rectangle>
+
+            <TextBlock Text="Notifications" Grid.Row="0"
+                       VerticalAlignment="Center" HorizontalAlignment="Center"
+                       FontFamily="/Fonts/#Rubik" FontSize="20" FontWeight="SemiBold"   />
+            <Button Grid.Row="0"
+                    VerticalAlignment="Top" HorizontalAlignment="Right"
+                    Height="30" Width="50"
+                    Background="Red" Margin="0 2 2 0"
+                    FontFamily="/Fonts/#Rubik" FontSize="18" FontWeight="Bold"
+                    Content="X"
+                    BorderBrush="#212529" BorderThickness="1"
+                    Click="ExitClick"
+                    >
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="9"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <DataGrid x:Name="DataGridNotifications"
+                      Grid.Row="1" Margin="30 10 30 30" 
+                      SelectionMode="Single" 
+                      AutoGenerateColumns="False" IsReadOnly="True"
+                      VerticalScrollBarVisibility="Visible"
+                      BorderThickness="2" BorderBrush="White"
+                      Background="LightBlue" HeadersVisibility="None"
+                      FontFamily="/Fonts/#Rubik" FontSize="14"
+                      ItemsSource="{Binding Path=Guest2.Notifications, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedNotification, UpdateSourceTrigger=PropertyChanged}"
+                      >
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                                             Color="#339AF0"/>
+                </DataGrid.Resources>
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="DataGridRow">
+                                    <Border BorderBrush="White" BorderThickness="1" 
+                                            Background="White" CornerRadius="8" 
+                                            Margin="2" Padding="2">
+                                        <SelectiveScrollingGrid>
+                                            <SelectiveScrollingGrid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </SelectiveScrollingGrid.ColumnDefinitions>
+                                            <SelectiveScrollingGrid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </SelectiveScrollingGrid.RowDefinitions>
+                                            <DataGridCellsPresenter Grid.Column="1" ItemsPanel="{TemplateBinding ItemsPanel}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                            <DataGridDetailsPresenter Grid.Column="1" Grid.Row="1" Visibility="{TemplateBinding DetailsVisibility}" />
+                                        </SelectiveScrollingGrid>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+
+                        <Setter Property="BorderThickness" Value="0,2,0,2"/>
+                        <Setter Property="BorderBrush" Value="LightSkyBlue"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="BorderThickness" Value="0,2,0,2"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Width="309">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="30"/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="30"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="200"/>
+                                            <ColumnDefinition Width="200"/>
+                                        </Grid.ColumnDefinitions>
+
+                                        <!-- Row 0 -->
+                                        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
+                                            <!--<Label Content="{Binding Title}" 
+                                               VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                               Height="auto" Width="auto" 
+                                               FontFamily="/Fonts/#Rubik" FontSize="16" FontWeight="SemiBold" />-->
+                                            <Label Content="NEW" Foreground="Red" 
+                                               VerticalAlignment="Top" HorizontalAlignment="Left"
+                                               FontFamily="/Fonts/#Rubik" FontSize="14" FontWeight="Bold"
+                                               Visibility="{Binding New, Converter={conv:BoolToVisibilityConverter}}" />
+                                        </StackPanel>
+                                        <TextBlock FontFamily="/Fonts/#Rubik" FontSize="16" FontWeight="SemiBold" 
+                                                   Grid.Row="0" Grid.Column="1" Margin="50 0 0 0"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left" >
+                                            <Hyperlink Name="dismiss" Click="DismissNotificationClick">Dismiss</Hyperlink>
+                                        </TextBlock>
+                                        <!-- Row 1 -->
+                                        <TextBlock Text="{Binding Text}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                                   TextWrapping="Wrap" TextAlignment="Center"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                                   Height="auto" Width="280" 
+                                                   FontFamily="/Fonts/#Rubik" FontSize="14"   />
+
+                                        <!-- Row 2 -->
+                                        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                                            <Label Content="{Binding Time}" 
+                                                   VerticalAlignment="Bottom" HorizontalAlignment="Left" 
+                                                   Height="auto" Width="auto" 
+                                                   FontFamily="/Fonts/#Rubik" FontSize="14"
+                                                   Foreground="Gray" />
+                                            <Button Click="DetailsDisplayClick"
+                                                    Content="View details"
+                                                    VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                    Margin="90 0 0 0"
+                                                    Height="30" Width="120" 
+                                                    FontFamily="/Fonts/#Rubik" FontSize="14" FontWeight="SemiBold"
+                                                    Background="White" BorderBrush="Black" BorderThickness="2">
+                                                <!--Command="{Binding this.DataContext.DetailsDisplayCommand}"-->
+                                                <Button.Resources>
+                                                    <Style TargetType="Border">
+                                                        <Setter Property="CornerRadius" Value="9"/>
+                                                    </Style>
+                                                </Button.Resources>
+                                            </Button>
+                                        </Grid>
+                                    </Grid>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        
+        <Rectangle Grid.Column="0" 
+                   HorizontalAlignment="Right" VerticalAlignment="Bottom" 
+                   Margin="0 0 -30 50"
+                   Height="40" Width="40" 
+                   Fill="DarkGray" >
+            <Rectangle.LayoutTransform>
+                <RotateTransform Angle="-45"/>
+            </Rectangle.LayoutTransform>
+        </Rectangle>
+    </Grid>
+</Window>

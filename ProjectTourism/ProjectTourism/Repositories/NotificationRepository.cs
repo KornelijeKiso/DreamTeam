@@ -63,5 +63,13 @@ namespace ProjectTourism.Repositories
             foreach (var notification in Notifications) notification.New = false;
             FileHandler.Save(Notifications);
         }
+        public void Seen(List<Notification> notifications)
+        {
+            foreach (var notification in notifications)
+            {
+                notification.New = false;
+            }
+            FileHandler.Save(Notifications);
+        }
     }
 }
