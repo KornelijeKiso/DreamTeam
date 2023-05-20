@@ -27,9 +27,11 @@ namespace ProjectTourism.WPF.View.Guest2View
         public Guest2MainWindow(string username)
         {
             InitializeComponent();
-            //this._NavigationVM = new NavigationVM(username, this.frame.NavigationService);
             this._NavigationVM = new NavigationVM(username);
             this.DataContext = this._NavigationVM;
+
+            if (_NavigationVM.Guest2.HasNewNotifications) NotificationPopup.IsOpen = true;
+            else NotificationPopup.IsOpen = false;
         }
 
         private void LogOut_Click(object sender, RoutedEventArgs e)
@@ -40,5 +42,23 @@ namespace ProjectTourism.WPF.View.Guest2View
                 parentWindow.Close();
             }
         }
+
+        private void DisplayNotificationsClick(object sender, RoutedEventArgs e)
+        {
+            NotificationPopup.IsOpen = false;
+            _NavigationVM.DisplayNotifications();
+        }
+
+        private void ClosePopupClick(object sender, EventArgs e)
+        {
+            //NotificationPopup.Visibility = Visibility.Collapsed;
+            NotificationPopup.IsOpen = false;
+        }
+
+        //private void OpenNotificationPopup(object sender, EventArgs e)
+        //{
+        //    if (_NavigationVM.Guest2.HasNewNotifications) NotificationPopup.IsOpen = true;
+        //    else NotificationPopup.IsOpen = false;
+        //}
     }
 }

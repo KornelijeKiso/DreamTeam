@@ -58,13 +58,6 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             Username = username;
             Guest2 = new Guest2VM(Username);
 
-            // TO DO -> display Notifications first
-            //if (HasNotification)
-            //{
-            //    NotificationsWindow notificationWindow = new NotificationsWindow(Guest2);
-            //    notificationWindow.ShowDialog();
-            //}
-
             HomeCommand = new RelayCommand(Home);
             TicketsCommand = new RelayCommand(Tickets);
             VouchersCommand = new RelayCommand(Vouchers);
@@ -75,6 +68,14 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 
             // Startup Page
             CurrentView = new HomeVM(Guest2);
+        }
+
+        public void DisplayNotifications()
+        {
+            NotificationsWindow notificationWindow = new NotificationsWindow(Guest2);
+            notificationWindow.ShowDialog();
+            Guest2.HasNewNotifications = false;
+            Guest2.NumberOfNotifications = 0;
         }
     }
 }
