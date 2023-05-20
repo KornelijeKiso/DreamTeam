@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectTourism.Utilities;
-using ProjectTourism.Repositories;
-using ProjectTourism.Services;
+﻿using ProjectTourism.Utilities;
 using System.Collections.ObjectModel;
+using ProjectTourism.DTO;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
     public class VouchersVM : ViewModelBase
     {
-        public Guest2VM Guest2 { get; set; }
-        public ObservableCollection<VoucherVM> UsedVouchers { get; set; }
-        public ObservableCollection<VoucherVM> UnusedVouchers { get; set; }
-        public ObservableCollection<VoucherVM> ExpiredVouchers { get; set; }
+        public Guest2DTO Guest2 { get; set; }
+        public ObservableCollection<VoucherDTO> UsedVouchers { get; set; }
+        public ObservableCollection<VoucherDTO> UnusedVouchers { get; set; }
+        public ObservableCollection<VoucherDTO> ExpiredVouchers { get; set; }
 
         public VouchersVM() { }
-        public VouchersVM(Guest2VM guest2)
+        public VouchersVM(Guest2DTO guest2)
         {
             Guest2 = guest2;
             UsedVouchers = SetUsedVouchers();
@@ -26,9 +20,9 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             ExpiredVouchers = SetExpiredVouchers();
         }
 
-        private ObservableCollection<VoucherVM> SetUsedVouchers()
+        private ObservableCollection<VoucherDTO> SetUsedVouchers()
         {
-            ObservableCollection<VoucherVM> used = new ObservableCollection<VoucherVM>();
+            ObservableCollection<VoucherDTO> used = new ObservableCollection<VoucherDTO>();
             foreach (var voucher in Guest2.Vouchers)
             {
                 if (voucher.Status == STATUS.USED)
@@ -37,9 +31,9 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             return used;
         }
 
-        private ObservableCollection<VoucherVM> SetUnusedVouchers()
+        private ObservableCollection<VoucherDTO> SetUnusedVouchers()
         {
-            ObservableCollection<VoucherVM> unused = new ObservableCollection<VoucherVM>();
+            ObservableCollection<VoucherDTO> unused = new ObservableCollection<VoucherDTO>();
             foreach (var voucher in Guest2.Vouchers)
             {
                 if (voucher.Status == STATUS.VALID)
@@ -48,9 +42,9 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             return unused;
         }
 
-        private ObservableCollection<VoucherVM> SetExpiredVouchers()
+        private ObservableCollection<VoucherDTO> SetExpiredVouchers()
         {
-            ObservableCollection<VoucherVM> expired = new ObservableCollection<VoucherVM>();
+            ObservableCollection<VoucherDTO> expired = new ObservableCollection<VoucherDTO>();
             foreach (var voucher in Guest2.Vouchers)
             {
                 if (voucher.Status == STATUS.INVALID)

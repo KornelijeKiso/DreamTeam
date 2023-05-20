@@ -3,20 +3,11 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ProjectTourism.Model;
-using ProjectTourism.WPF.ViewModel;
-using ProjectTourism.WPF.View.Guest2View.TicketView;
 using System.Globalization;
+using ProjectTourism.DTO;
 
 namespace ProjectTourism.WPF.View.Guest2View.TicketView
 {
@@ -25,14 +16,14 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
     /// </summary>
     public partial class CreateTicketWindow : Window, INotifyPropertyChanged
     {
-        public Guest2VM Guest2 { get; set; }
-        public TourVM SelectedTour { get; set; }
-        public TourAppointmentVM selectedAppointment { get; set; }
-        public TicketVM Ticket { get; set; }
+        public Guest2DTO Guest2 { get; set; }
+        public TourDTO SelectedTour { get; set; }
+        public TourAppointmentDTO selectedAppointment { get; set; }
+        public TicketDTO Ticket { get; set; }
         public List<string> StopsList { get; set; }
         public List<DateTime> dates { get; set; }
         
-        public CreateTicketWindow(Guest2VM guest2, TourVM tour)
+        public CreateTicketWindow(Guest2DTO guest2, TourDTO tour)
         {
             InitializeComponent();
             DataContext = this;
@@ -41,8 +32,8 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
             SelectedTour = tour;
             if (DateTime.TryParse(DatesComboBox.SelectedIndex.ToString("dd.MM.yyyy HH:mm"), 
                 new CultureInfo("en-GB"), DateTimeStyles.None, out var dateTimeParsed))
-            selectedAppointment = new TourAppointmentVM(SelectedTour.GetTour(), dateTimeParsed);
-            Ticket = new TicketVM(new Ticket());
+            selectedAppointment = new TourAppointmentDTO(SelectedTour.GetTour(), dateTimeParsed);
+            Ticket = new TicketDTO(new Ticket());
 
             dates = FindDates();
 
@@ -68,7 +59,7 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
             {
                 Ticket.CreateTicket(new Ticket(selectedAppointment.Id, StopsComboBox.Text, Guest2.Username, int.Parse(sliderText.Text)));
                 selectedAppointment.AvailableSeats -= int.Parse(sliderText.Text);
-                selectedAppointment.UpdateTourAppointmentVM(selectedAppointment);
+                selectedAppointment.UpdateTourAppointmentDTO(selectedAppointment);
                 Close();
             }
             else
@@ -93,7 +84,7 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
             return available;
         }
 
-        private List<DateTime> FindAllDates(TourVM tour)
+        private List<DateTime> FindAllDates(TourDTO tour)
         {
             List<DateTime> dates = new List<DateTime>();
             foreach(var tourApp in tour.TourAppointments)
@@ -136,8 +127,8 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
 
             foreach (DateTime date in AllDates)
             {
-                TourAppointmentVM tourAppointmentVM = new TourAppointmentVM(SelectedTour.GetTour(), date);
-                if ((tourAppointmentVM.AvailableSeats != 0) && (tourAppointmentVM.State == TOURSTATE.READY))
+                TourAppointmentDTO tourAppointmentDTO = new TourAppointmentDTO(SelectedTour.GetTour(), date);
+                if ((tourAppointmentDTO.AvailableSeats != 0) && (tourAppointmentDTO.State == TOURSTATE.READY))
                     NoFreeSeats.Add(date);
             }
             return NoFreeSeats;
@@ -146,7 +137,7 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
         private void DatesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             DateTime date = dates[DatesComboBox.SelectedIndex];
-            selectedAppointment = new TourAppointmentVM(SelectedTour.GetTour(), date);
+            selectedAppointment = new TourAppointmentDTO(SelectedTour.GetTour(), date);
             slider.Maximum = selectedAppointment.AvailableSeats;
         }
         private void UseVoucherClick(object sender, RoutedEventArgs e)
@@ -160,7 +151,7 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
                 if (unusedVouchersWindow.IsUsed)
                 {
                     selectedAppointment.AvailableSeats -= int.Parse(sliderText.Text);
-                    selectedAppointment.UpdateTourAppointmentVM(selectedAppointment);
+                    selectedAppointment.UpdateTourAppointmentDTO(selectedAppointment);
                 }
                 else
                 {   // delete created Ticket if UseVoucher is canceled

@@ -1,20 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using ProjectTourism.WPF.ViewModel;
+using ProjectTourism.DTO;
 
 namespace ProjectTourism.WPF.View.Guest2View
 {
@@ -23,7 +11,7 @@ namespace ProjectTourism.WPF.View.Guest2View
     /// </summary>
     public partial class PictureDisplayWindow : Window
     {
-        public TourVM Tour { get; set; }
+        public TourDTO Tour { get; set; }
         private int _i;
         public int i
         {
@@ -50,7 +38,7 @@ namespace ProjectTourism.WPF.View.Guest2View
                 }
             }
         }
-        public PictureDisplayWindow(TourVM tour)
+        public PictureDisplayWindow(TourDTO tour)
         {
             InitializeComponent();
             DataContext = this;
