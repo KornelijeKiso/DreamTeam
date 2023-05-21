@@ -1,0 +1,130 @@
+@startuml
+actor "Guest2" as G2
+participant "Guest2MainWindow" as G2Main
+participant "NavigationVM" as G2Nav
+participant "NotificationsWindow" as NW
+participant "NotificationsVM" as NVM
+participant "TourDTO" as TDTO
+participant "TourService" as TS
+participant "TourRepository" as TRepo
+participant "TourFileHandler" as TFh
+participant "CreateTicketWindow" as CTW
+participant "Guest2DTO" as G2DTO
+participant "Guest2Service" as G2S
+participant "Guest2Repository" as G2Repo
+participant "Guest2FileHandler" as G2Fh
+participant "NotificationService" as NS
+participant "NotificationRepository" as NRepo
+participant "NotificationFileHandler" as NFh
+participant "G2HomeWindow" as HW
+participant "HomeVM" as HVM
+
+
+activate G2
+G2 -> G2Main : Login\nGuest2MainWindow(username)
+activate G2Main
+G2Main -> G2Nav : new \nNavigationVM(username)
+activate G2Nav
+
+G2Nav -> G2DTO: new Guest2DTO(username)
+activate G2DTO
+
+G2DTO -> G2DTO : Synchronize(username)
+activate G2DTO #FFBBBB
+
+
+G2DTO -> G2S : GetOne(username)
+activate G2S
+G2S -> G2Repo : GetOne(username)
+activate G2Repo
+G2Repo -> G2Fh : Load()
+activate G2Fh 
+G2Fh --> G2Repo : Guests2
+deactivate G2Fh 
+G2Repo --> G2S : Guest2
+deactivate G2Repo
+G2S --> G2DTO : _guest2
+deactivate G2S
+
+G2DTO -> G2DTO : SynchronizeTours(Tours)
+G2DTO -> G2DTO : SynchronizeTicketsList(_guest2)
+G2DTO -> G2DTO : SynchronizeVouchersList(_guest2)
+G2DTO -> G2DTO : SynchronizeTourRequestsList(_guest2)
+
+group SynchronizeNotifications(_guest2)
+   G2DTO -> NS : GetAllByUser(_guest2.Username)
+   activate NS
+   NS -> NRepo : GetAllByUser(username)
+   activate NRepo
+   NRepo -> NFh : Load()
+   activate NFh 
+   NFh --> NRepo : Notifications
+   deactivate NFh 
+   NRepo --> NS : Notifications
+   deactivate NRepo
+   NS --> G2DTO : Notifications
+   deactivate NS
+
+   G2DTO --> G2DTO : HasNewNotifications =\nNotifications.Any(n => n.New)
+   deactivate G2DTO
+end
+
+G2DTO --> G2Nav : Guest2
+deactivate G2DTO
+
+G2Nav -> HW : new HomeVM(Guest2)
+activate HW
+HW -> HVM : new HomeVM(Guest2)
+activate HVM
+HVM --> HW
+deactivate HVM
+HW --> G2Nav : CurrentView
+deactivate HW
+
+
+alt if (_NavigationVM.Guest2.HasNewNotifications)
+ G2Main --> G2Main : NotificationPopup.IsOpen = true
+ G2Main -> G2Nav : DisplayNotifications()
+note left
+ Popup opened
+ DisplayNotificationsClick
+end note
+ G2Nav -> NW : new NotificationsWindow(Guest2)
+ activate NW
+ NW -> NVM : new NotificationsVM(Guest2)
+ activate NVM
+ NVM --> NVM : GetNewTourId\n(SelectedNotification.Title)
+ NVM -> TS : GetOne(id)
+ activate TS
+ TS -> TRepo : GetOne(id)
+ activate TRepo
+ TRepo -> TFh : Load()
+ activate TFh
+ TFh --> TRepo : Tours
+ deactivate TFh
+ TRepo --> TS : Tour
+ deactivate TRepo
+ TS -> NVM : Tour
+ deactivate TS
+ NVM -> TDTO : new TourDTO(Tour)
+ activate TDTO
+ TDTO --> NVM : NewTour
+ deactivate TDTO
+ NVM -> CTW : new CreateTicketWindow(Guest2, NewTour)
+ activate CTW
+ CTW --> NVM : displayed details, closed window
+ deactivate CTW
+
+ NVM --> NW : DataContext
+ deactivate NVM
+ NW --> G2Nav : notifications closed
+ deactivate NW
+else
+ G2Main --> G2Main : NotificationPopup.IsOpen = false
+end
+G2Nav --> G2Main : _NavigationVM
+deactivate G2Nav
+G2Main --> G2
+deactivate G2Main
+deactivate G2
+@enduml
