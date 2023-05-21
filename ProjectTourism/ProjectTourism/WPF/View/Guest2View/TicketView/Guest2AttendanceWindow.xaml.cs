@@ -1,21 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using ProjectTourism.Model;
-using ProjectTourism.WPF.ViewModel;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using ProjectTourism.DTO;
 
 namespace ProjectTourism.WPF.View.Guest2View.TicketView
 {
@@ -24,11 +13,11 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
     /// </summary>
     public partial class Guest2AttendanceWindow : Window, INotifyPropertyChanged
     {
-        public Guest2VM Guest2 { get; set; }
-        public TicketVM Ticket { get; set; }
+        public Guest2DTO Guest2 { get; set; }
+        public TicketDTO Ticket { get; set; }
         private DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
         
-        public Guest2AttendanceWindow(TicketVM ticket, Guest2VM guest2)
+        public Guest2AttendanceWindow(TicketDTO ticket, Guest2DTO guest2)
         {
             InitializeComponent();
             DataContext = this;
@@ -54,7 +43,7 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
         
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
-            Ticket = new TicketVM(Ticket.UpdateTicketTourAppointmentData(Ticket.GetTicket()));
+            Ticket = new TicketDTO(Ticket.UpdateTicketTourAppointmentData(Ticket.GetTicket()));
             // triggering PropertyChanged for CurrentTourStopLabel
             OnPropertyChanged(nameof(Ticket)); 
 
@@ -94,7 +83,7 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
         }
 
         private void TourAppointmentFinished()
-        {   // TO DO -> move finished tour, update ObservableCollections in TicketsVM
+        {   // TO DO -> move finished tour, update ObservableCollections in TicketsDTO
             JoinButton.Visibility = Visibility.Collapsed;   // invisible
             MessageBox.Show("Tour is already finished ! ");
             

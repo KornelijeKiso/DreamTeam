@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows;
+﻿using System.Windows.Input;
 using ProjectTourism.Utilities;
-using ProjectTourism.Repositories;
-using ProjectTourism.Services;
 using ProjectTourism.WPF.View.Guest2View;
+using ProjectTourism.DTO;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
@@ -21,7 +14,8 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             set { _currentView = value; OnPropertyChanged(); }
         }
         
-        public Guest2VM Guest2 { get; set; }
+        //public Guest2VM Guest2 { get; set; }
+        public Guest2DTO Guest2 { get; set; }
         public string Username { get; set; }
 
         //public RelayCommand NavigateHomeCommand { get; set; }
@@ -56,7 +50,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public NavigationVM(string username)
         {
             Username = username;
-            Guest2 = new Guest2VM(Username);
+            Guest2 = new Guest2DTO(Username);
 
             HomeCommand = new RelayCommand(Home);
             TicketsCommand = new RelayCommand(Tickets);

@@ -1,23 +1,11 @@
 ﻿using ProjectTourism.Model;
-using ProjectTourism.Repositories;
 using ProjectTourism.Services;
-using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.WPF.ViewModel;
-using System;
-using System.Collections.Generic;
+using ProjectTourism.DTO;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+
 
 namespace ProjectTourism.View.Guest2View
 {
@@ -26,7 +14,7 @@ namespace ProjectTourism.View.Guest2View
     /// </summary>
     public partial class CreateGuest2Window : Window, INotifyPropertyChanged
     {
-        public Guest2VM Guest2 { get; set; }
+        public Guest2DTO Guest2 { get; set; }
         public UserVM UserVM { get; set; }
         public Guest2Service Guest2Service { get; set; }
         public UserService UserService { get; set; }
@@ -37,7 +25,7 @@ namespace ProjectTourism.View.Guest2View
             DataContext = this;
             Guest2Service = new Guest2Service();
             UserService = new UserService();
-            Guest2 = new Guest2VM(new Guest2(userVM.GetUser()));
+            Guest2 = new Guest2DTO(new Guest2(userVM.GetUser()));
             UserVM = userVM;
         }
 

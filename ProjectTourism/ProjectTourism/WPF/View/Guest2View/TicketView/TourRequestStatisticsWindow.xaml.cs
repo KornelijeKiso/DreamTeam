@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using LiveCharts.Wpf;
 using LiveCharts;
-using ProjectTourism.WPF.ViewModel;
 using ProjectTourism.WPF.ViewModel.Guest2ViewModel;
+using ProjectTourism.DTO;
 
 
 namespace ProjectTourism.WPF.View.Guest2View.TicketView
@@ -30,7 +20,7 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
             InitializeComponent();
             //DataContext = new TourRequestStatisticsVM(guest2);
         }
-        public TourRequestStatisticsWindow(Guest2VM guest2)
+        public TourRequestStatisticsWindow(Guest2DTO guest2)
         {
             InitializeComponent();
             this.TourRequestStatisticsVM = new TourRequestStatisticsVM(guest2);

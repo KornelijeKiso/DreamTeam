@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ProjectTourism.Utilities;
-using ProjectTourism.WPF.ViewModel;
-using ProjectTourism.WPF.View.Guest2View.TicketView;
 using System.Collections.ObjectModel;
 using LiveCharts.Wpf;
 using LiveCharts;
 using ProjectTourism.Domain.Model;
+using ProjectTourism.DTO;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
     public class TourRequestStatisticsVM : ViewModelBase
     {
-        public Guest2VM Guest2 { get; set; }
-        public List<TourRequestVM> AllTourRequests { get; set; }
+        public Guest2DTO Guest2 { get; set; }
+        public List<TourRequestDTO> AllTourRequests { get; set; }
         public List<int> Years { get; set; }
         public int SelectedYear { get; set; }
         public List<string> Languages { get; set; }
@@ -84,7 +81,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         }
         
         public TourRequestStatisticsVM() { }
-        public TourRequestStatisticsVM(Guest2VM guest2)
+        public TourRequestStatisticsVM(Guest2DTO guest2)
         {
             Guest2 = guest2;
             SetAttributes();
@@ -107,9 +104,9 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             DisplayLocationStat();
         }
 
-        private List<TourRequestVM> GetAllRequests(ObservableCollection<TourRequestVM> Guest2Requests)
+        private List<TourRequestDTO> GetAllRequests(ObservableCollection<TourRequestDTO> Guest2Requests)
         {
-            List<TourRequestVM> allRequests = new List<TourRequestVM>();
+            List<TourRequestDTO> allRequests = new List<TourRequestDTO>();
             foreach (var request in Guest2Requests)
             {
                 if (request.Guest2Username.Equals(Guest2.Username))
@@ -118,7 +115,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             return allRequests;
         }
         
-        private List<int> GetYears(List<TourRequestVM> allRequests)
+        private List<int> GetYears(List<TourRequestDTO> allRequests)
         {
             List<int> years = new List<int>();
             foreach (var request in allRequests)
@@ -128,7 +125,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             }
             return years;
         }
-        private List<string> GetLanguages(List<TourRequestVM> requests)
+        private List<string> GetLanguages(List<TourRequestDTO> requests)
         {
             List<string> languages = new List<string>();
             foreach (var request in requests)
@@ -141,7 +138,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             return languages;
         }
 
-        private List<string> GetLocations(List<TourRequestVM> requests)
+        private List<string> GetLocations(List<TourRequestDTO> requests)
         {
             List<string> locations = new List<string>();
             foreach (var request in requests)
@@ -157,7 +154,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 
 
         // YEARLY STATISTICS
-        private double CalculateAverageNumberOfGuests(List<TourRequestVM> tourRequests)
+        private double CalculateAverageNumberOfGuests(List<TourRequestDTO> tourRequests)
         {
             if (tourRequests.Count == 0) return 0;
             double stat = 0;
@@ -169,15 +166,15 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             stat =  sum /(double) tourRequests.Count;
             return stat;
         }
-        private void CalculateYearlyStats(List<TourRequestVM> allRequests)
+        private void CalculateYearlyStats(List<TourRequestDTO> allRequests)
         {
             Pending = allRequests.Where(request => request.State == REQUESTSTATE.PENDING).Count();
             Accepted = allRequests.Where(request => request.State == REQUESTSTATE.ACCEPTED).Count();
             Expired = allRequests.Where(request => request.State == REQUESTSTATE.EXPIRED).Count();
         }
-        public void CalculateYearlyStatsFiltered(List<TourRequestVM> allRequests, int year)
+        public void CalculateYearlyStatsFiltered(List<TourRequestDTO> allRequests, int year)
         {
-            List<TourRequestVM> filterYear = allRequests.Where(request => request.CreationDateTime.Year == year).ToList();
+            List<TourRequestDTO> filterYear = allRequests.Where(request => request.CreationDateTime.Year == year).ToList();
             CalculateYearlyStats(filterYear);
             NumberOfGuestsStat = CalculateAverageNumberOfGuests(filterYear);
         }
@@ -197,7 +194,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 
             }
         }
-        private ChartValues<double> GenerateLanguageChartValue(List<TourRequestVM> requests, int year)
+        private ChartValues<double> GenerateLanguageChartValue(List<TourRequestDTO> requests, int year)
         {
             ChartValues<double> chartValue = new ChartValues<double>();
             double value;
@@ -224,7 +221,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                 });
             }
         }
-        private ChartValues<double> GenerateLocationChartValue(List<TourRequestVM> requests, int year)
+        private ChartValues<double> GenerateLocationChartValue(List<TourRequestDTO> requests, int year)
         {
             ChartValues<double> chartValue = new ChartValues<double>();
             double value;

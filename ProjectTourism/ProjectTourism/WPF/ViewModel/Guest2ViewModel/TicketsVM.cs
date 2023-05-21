@@ -1,32 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
-using System.Text;
-using System.Threading.Tasks;
 using ProjectTourism.Utilities;
-using ProjectTourism.Repositories;
-using ProjectTourism.Services;
 using ProjectTourism.WPF.Guest2View.TicketView;
-using System.Windows;
 using ProjectTourism.WPF.View.Guest2View.TicketView;
+using ProjectTourism.DTO;
 
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
     public class TicketsVM : ViewModelBase
     {
-        public Guest2VM Guest2 { get; set; }
-        public TicketVM SelectedTicket { get; set; }
-        public ObservableCollection<TicketVM> UpcomingTickets { get; set; }
-        public ObservableCollection<TicketVM> AttendedTickets { get; set; }
-        public ObservableCollection<TicketVM> SkippedTickets { get; set; }
-        public ObservableCollection<TicketVM> CanceledTickets { get; set; }
-        public TicketGradeVM TicketGradeVM { get; set; }
+        public Guest2DTO Guest2 { get; set; }
+        public TicketDTO SelectedTicket { get; set; }
+        public ObservableCollection<TicketDTO> UpcomingTickets { get; set; }
+        public ObservableCollection<TicketDTO> AttendedTickets { get; set; }
+        public ObservableCollection<TicketDTO> SkippedTickets { get; set; }
+        public ObservableCollection<TicketDTO> CanceledTickets { get; set; }
+        public TicketGradeDTO TicketGrade { get; set; }
 
         public TicketsVM() { }
-        public TicketsVM(Guest2VM guest2)
+        public TicketsVM(Guest2DTO guest2)
         {
             Guest2 = guest2;
             UpcomingTickets = SetUpcomingTickets();
@@ -35,9 +28,9 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             CanceledTickets = SetCancecledByGuideTickets();
         }
         
-        private ObservableCollection<TicketVM> SetUpcomingTickets()
+        private ObservableCollection<TicketDTO> SetUpcomingTickets()
         {
-            ObservableCollection<TicketVM> upcoming = new ObservableCollection<TicketVM>();
+            ObservableCollection<TicketDTO> upcoming = new ObservableCollection<TicketDTO>();
             foreach (var ticket in Guest2.Tickets)
             {
                 if (IsUpcoming(ticket))
@@ -47,15 +40,15 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             }
             return upcoming;
         }
-        private bool IsUpcoming(TicketVM ticketVM)
+        private bool IsUpcoming(TicketDTO ticketDTO)
         {
-            return ticketVM.TourAppointment.State == TOURSTATE.STARTED
-                || ticketVM.TourAppointment.State == TOURSTATE.READY;
+            return ticketDTO.TourAppointment.State == TOURSTATE.STARTED
+                || ticketDTO.TourAppointment.State == TOURSTATE.READY;
         }
 
-        private ObservableCollection<TicketVM> SetAttendedTickets()
+        private ObservableCollection<TicketDTO> SetAttendedTickets()
         {
-            ObservableCollection<TicketVM> attended = new ObservableCollection<TicketVM>();
+            ObservableCollection<TicketDTO> attended = new ObservableCollection<TicketDTO>();
             foreach (var ticket in Guest2.Tickets)
             {
                 if (IsAttended(ticket))
@@ -65,17 +58,17 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             }
             return attended;
         }
-        private bool IsAttended(TicketVM ticketVM)
+        private bool IsAttended(TicketDTO ticketDTO)
         {
-            return ticketVM.HasGuideChecked
-                && ticketVM.HasGuestConfirmed
-                && (ticketVM.TourAppointment.State == TOURSTATE.FINISHED
-                || ticketVM.TourAppointment.State == TOURSTATE.STOPPED);
+            return ticketDTO.HasGuideChecked
+                && ticketDTO.HasGuestConfirmed
+                && (ticketDTO.TourAppointment.State == TOURSTATE.FINISHED
+                || ticketDTO.TourAppointment.State == TOURSTATE.STOPPED);
         }
 
-        private ObservableCollection<TicketVM> SetSkippedTickets()
+        private ObservableCollection<TicketDTO> SetSkippedTickets()
         {
-            ObservableCollection<TicketVM> skipped = new ObservableCollection<TicketVM>();
+            ObservableCollection<TicketDTO> skipped = new ObservableCollection<TicketDTO>();
             foreach (var ticket in Guest2.Tickets)
             {
                 if (IsSkipped(ticket))
@@ -85,17 +78,17 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             }
             return skipped;
         }
-        private bool IsSkipped(TicketVM ticketVM)
+        private bool IsSkipped(TicketDTO ticketDTO)
         {
-            return ticketVM.HasGuideChecked
-                && !ticketVM.HasGuestConfirmed
-                && (ticketVM.TourAppointment.State == TOURSTATE.FINISHED
-                || ticketVM.TourAppointment.State == TOURSTATE.STOPPED);
+            return ticketDTO.HasGuideChecked
+                && !ticketDTO.HasGuestConfirmed
+                && (ticketDTO.TourAppointment.State == TOURSTATE.FINISHED
+                || ticketDTO.TourAppointment.State == TOURSTATE.STOPPED);
         }
 
-        private ObservableCollection<TicketVM> SetCancecledByGuideTickets()
+        private ObservableCollection<TicketDTO> SetCancecledByGuideTickets()
         {
-            ObservableCollection<TicketVM> canceled = new ObservableCollection<TicketVM>();
+            ObservableCollection<TicketDTO> canceled = new ObservableCollection<TicketDTO>();
             foreach (var ticket in Guest2.Tickets)
             {
                 if (IsCanceled(ticket))
@@ -105,9 +98,9 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             }
             return canceled;
         }
-        private bool IsCanceled(TicketVM ticketVM)
+        private bool IsCanceled(TicketDTO ticketDTO)
         {
-            return ticketVM.TourAppointment.State == TOURSTATE.CANCELED;
+            return ticketDTO.TourAppointment.State == TOURSTATE.CANCELED;
         }
 
         private ICommand _GradeTicketCommand;
@@ -122,8 +115,8 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         {
             get
             {
-                TicketGradeVM = new TicketGradeVM(new Model.TicketGrade());
-                return (SelectedTicket != null && Guest2 != null && !TicketGradeVM.IsAlreadyGraded(SelectedTicket.GetTicket()));
+                TicketGrade = new TicketGradeDTO(new Model.TicketGrade());
+                return (SelectedTicket != null && Guest2 != null && !TicketGrade.IsAlreadyGraded(SelectedTicket.GetTicket()));
             }
         }
         public void GradeTicket_Click()

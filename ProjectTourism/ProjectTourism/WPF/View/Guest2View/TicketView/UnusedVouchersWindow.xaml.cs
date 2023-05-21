@@ -1,19 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ProjectTourism.Model;
-using ProjectTourism.WPF.ViewModel;
+﻿using System.Windows;
 using ProjectTourism.WPF.ViewModel.Guest2ViewModel;
+using ProjectTourism.DTO;
 
 namespace ProjectTourism.WPF.View.Guest2View.TicketView
 {
@@ -23,17 +10,17 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
     public partial class UnusedVouchersWindow : Window
     {
         public VouchersVM VouchersVM { get; set; }
-        public VoucherVM SelectedVoucherVM { get; set; }
-        public VoucherVM UsedVoucherVM { get; set; }
-        public TicketVM TicketVM { get; set; }
+        public VoucherDTO SelectedVoucherDTO { get; set; }
+        public VoucherDTO UsedVoucherDTO { get; set; }
+        public TicketDTO TicketDTO { get; set; }
         public bool IsUsed { get; set; }
 
-        public UnusedVouchersWindow(Guest2VM guest2, TicketVM ticketVM)
+        public UnusedVouchersWindow(Guest2DTO guest2, TicketDTO ticketDTO)
         {
             InitializeComponent();
             DataContext = this;
-            VouchersVM = new VouchersVM(guest2);
-            TicketVM = ticketVM;
+            VouchersVM = new VouchersVM(new Guest2DTO(guest2.GetGuest2()));
+            TicketDTO = ticketDTO;
             IsUsed = false;
         }
 
@@ -44,9 +31,9 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
 
         private void UseVoucherClick(object sender, RoutedEventArgs e)
         {
-            if (SelectedVoucherVM != null)
+            if (SelectedVoucherDTO != null)
             {
-                UsedVoucherVM = new VoucherVM(SelectedVoucherVM, TicketVM);
+                UsedVoucherDTO = new VoucherDTO(SelectedVoucherDTO, TicketDTO);
                 IsUsed = true;
                 Close();
             }

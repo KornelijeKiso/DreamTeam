@@ -9,24 +9,25 @@ using System.Threading.Tasks;
 using ProjectTourism.Domain.Model;
 using ProjectTourism.Model;
 using ProjectTourism.Services;
-using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.DTO
 {
     public class Guest2DTO : INotifyPropertyChanged, IDataErrorInfo
     {
         private Guest2 _guest2 { get; set; }
-
-        public ObservableCollection<TourDTO> Tours { get; set; }
+        public Guest2 GetGuest2()
+        {
+            return _guest2;
+        }
         public Guest2DTO(Guest2 guest2)
         {
             _guest2 = guest2;
+            Tours = new ObservableCollection<TourDTO>();
+            Notifications = new ObservableCollection<NotificationDTO>();
             Tickets = new ObservableCollection<TicketDTO>(_guest2.Tickets.Select(r => new TicketDTO(r)).ToList());
             Vouchers = new ObservableCollection<VoucherDTO>(_guest2.Vouchers.Select(r => new VoucherDTO(r)).ToList());
             TourRequests = new ObservableCollection<TourRequestDTO>(_guest2.TourRequests.Select(r => new TourRequestDTO(r)).ToList());
-            Tours = new ObservableCollection<TourDTO>();
         }
-
         public Guest2DTO(string username)
         {
             Synchronize(username);
@@ -34,6 +35,8 @@ namespace ProjectTourism.DTO
             Vouchers = new ObservableCollection<VoucherDTO>(_guest2.Vouchers.Select(r => new VoucherDTO(r)).ToList());
             TourRequests = new ObservableCollection<TourRequestDTO>(_guest2.TourRequests.Select(r => new TourRequestDTO(r)).ToList());
         }
+        
+       
         public void Synchronize(string username)
         {
             Guest2Service guest2Service = new Guest2Service();
@@ -42,12 +45,12 @@ namespace ProjectTourism.DTO
             TourService tourService = new TourService();
             Tours = new ObservableCollection<TourDTO>(tourService.GetAll().Select(r => new TourDTO(r)).ToList());
             SynchronizeTours(Tours);
-
+            SynchronizeNotifications(_guest2);
             SynchronizeTicketsList(_guest2);
             SynchronizeVouchersList(_guest2);
             SynchronizeTourRequestsList(_guest2);
         }
-
+       
         private void SynchronizeVouchersList(Guest2 _guest2)
         {
             TicketService ticketService = new TicketService();
@@ -135,6 +138,7 @@ namespace ProjectTourism.DTO
             GuideService guideService = new GuideService();
             TourAppointmentService tourAppointmentService = new TourAppointmentService();
             LocationService locationService = new LocationService();
+            TicketService ticketService = new TicketService();
 
             foreach (var tour in Tours)
             {
@@ -146,14 +150,21 @@ namespace ProjectTourism.DTO
                     tour.TourAppointments.Add(new TourAppointmentDTO(tourAppointment));
                 }
                 tour.StopsList = tourService.LoadStops(tour.GetTour());
+
+
+                foreach (var tourAppointment in tour.TourAppointments)
+                {
+                    tourAppointment.Tickets = new ObservableCollection<TicketDTO>(ticketService.GetByAppointment(tourAppointment.Id).Select(r => new TicketDTO(r)).ToList());
+                    tourAppointment.Tour = new TourDTO(tourService.GetOne(tourAppointment.TourId));
+                }
             }
         }
-
-        public Guest2 GetGuest2()
+        private void SynchronizeNotifications(Guest2 _guest2)
         {
-            return _guest2;
+            Notifications = new ObservableCollection<NotificationDTO>(new NotificationService().GetAllByUser(_guest2.Username).Select(r => new NotificationDTO(r)).Reverse().ToList());
+            HasNewNotifications = Notifications.ToList().Any(n => n.New);
+            NumberOfNotifications = Notifications.Where(r => r.New == true).Count();
         }
-
         public void GradeATicket(TicketGradeDTO ticketGrade)
         {
             TicketGradeService ticketGradeService = new TicketGradeService();
@@ -275,9 +286,51 @@ namespace ProjectTourism.DTO
             }
         }
 
+        public ObservableCollection<TourDTO> Tours { get; set; }
         public ObservableCollection<TicketDTO> Tickets { get; set; }
         public ObservableCollection<VoucherDTO> Vouchers { get; set; }
         public ObservableCollection<TourRequestDTO> TourRequests { get; set; }
+        
+        private ObservableCollection<NotificationDTO> _Notifications;
+        public ObservableCollection<NotificationDTO> Notifications
+        {
+            get => _Notifications;
+            set
+            {
+                if (value != _Notifications)
+                {
+                    _Notifications = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private bool _HasNewNotifications;
+        public bool HasNewNotifications
+        {
+            get => _HasNewNotifications;
+            set
+            {
+                if (value != _HasNewNotifications)
+                {
+                    _HasNewNotifications = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private int _NumberOfNotifications;
+        public int NumberOfNotifications
+        {
+            get => _NumberOfNotifications;
+            set
+            {
+                if (value != _NumberOfNotifications)
+                {
+                    _NumberOfNotifications = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

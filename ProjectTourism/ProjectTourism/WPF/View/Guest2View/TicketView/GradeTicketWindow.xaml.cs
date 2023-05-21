@@ -1,18 +1,8 @@
 ﻿using ProjectTourism.Model;
-using ProjectTourism.WPF.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using ProjectTourism.DTO;
 
 namespace ProjectTourism.WPF.Guest2View.TicketView
 {
@@ -21,14 +11,14 @@ namespace ProjectTourism.WPF.Guest2View.TicketView
     /// </summary>
     public partial class GradeTicketWindow : Window
     {
-        public Guest2VM Guest2 { get; set; }
-        public TicketGradeVM TicketGrade { get; set; }
-        public GradeTicketWindow(TicketVM ticket, Guest2VM guest2)
+        public Guest2DTO Guest2 { get; set; }
+        public TicketGradeDTO TicketGrade { get; set; }
+        public GradeTicketWindow(TicketDTO ticket, Guest2DTO guest2)
         {
             InitializeComponent();
             DataContext = this;
             Guest2 = guest2;
-            TicketGrade = new TicketGradeVM(new TicketGrade()); 
+            TicketGrade = new TicketGradeDTO(new TicketGrade()); 
             TicketGrade.TicketId = ticket.Id;
             TicketGrade.Ticket = ticket;
         }

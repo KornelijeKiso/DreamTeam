@@ -1,28 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ProjectTourism.Utilities;
-using ProjectTourism.Services;
+﻿using ProjectTourism.Utilities;
 using ProjectTourism.WPF.View.Guest2View.TicketView;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using ProjectTourism.Domain.Model;
+using ProjectTourism.DTO;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
     public class TourRequestsVM : ViewModelBase
     {
-        public Guest2VM Guest2 { get; set; }
-        public TourRequestVM SelectedTourRequest { get; set; }
-        public ObservableCollection<TourRequestVM> PendingRequests { get; set; }
-        public ObservableCollection<TourRequestVM> AcceptedRequests { get; set; }
-        public ObservableCollection<TourRequestVM> ExpiredRequests { get; set; }
-        public ObservableCollection<TourRequestVM> OthersRequests { get; set; }
+        public Guest2DTO Guest2 { get; set; }
+        public TourRequestDTO SelectedTourRequest { get; set; }
+        public ObservableCollection<TourRequestDTO> PendingRequests { get; set; }
+        public ObservableCollection<TourRequestDTO> AcceptedRequests { get; set; }
+        public ObservableCollection<TourRequestDTO> ExpiredRequests { get; set; }
+        public ObservableCollection<TourRequestDTO> OthersRequests { get; set; }
 
         public TourRequestsVM() { }
-        public TourRequestsVM(Guest2VM guest2)
+        public TourRequestsVM(Guest2DTO guest2)
         {
             Guest2 = guest2;
             PendingRequests = SetPendingRequests();
@@ -31,9 +26,9 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             OthersRequests = SetOthersRequests();
         }
 
-        private ObservableCollection<TourRequestVM> SetPendingRequests()
+        private ObservableCollection<TourRequestDTO> SetPendingRequests()
         {
-            ObservableCollection<TourRequestVM> pending = new ObservableCollection<TourRequestVM>();
+            ObservableCollection<TourRequestDTO> pending = new ObservableCollection<TourRequestDTO>();
             foreach (var request in Guest2.TourRequests)
             {
                 if ((request.Guest2Username.Equals(Guest2.Username)) && (request.State == REQUESTSTATE.PENDING))
@@ -42,9 +37,9 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             return pending;
         }
 
-        private ObservableCollection<TourRequestVM> SetAcceptedRequests()
+        private ObservableCollection<TourRequestDTO> SetAcceptedRequests()
         {
-            ObservableCollection<TourRequestVM> accepted = new ObservableCollection<TourRequestVM>();
+            ObservableCollection<TourRequestDTO> accepted = new ObservableCollection<TourRequestDTO>();
             foreach (var request in Guest2.TourRequests)
             {
                 if ((request.Guest2Username.Equals(Guest2.Username)) && (request.State == REQUESTSTATE.ACCEPTED))
@@ -53,9 +48,9 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             return accepted;
         }
 
-        private ObservableCollection<TourRequestVM> SetExpiredRequests()
+        private ObservableCollection<TourRequestDTO> SetExpiredRequests()
         {
-            ObservableCollection<TourRequestVM> expired = new ObservableCollection<TourRequestVM>();
+            ObservableCollection<TourRequestDTO> expired = new ObservableCollection<TourRequestDTO>();
             foreach (var request in Guest2.TourRequests)
             {
                 if ((request.Guest2Username.Equals(Guest2.Username)) && (request.State == REQUESTSTATE.EXPIRED))
@@ -64,9 +59,9 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             return expired;
         }
 
-        private ObservableCollection<TourRequestVM> SetOthersRequests()
+        private ObservableCollection<TourRequestDTO> SetOthersRequests()
         {
-            ObservableCollection<TourRequestVM> others = new ObservableCollection<TourRequestVM>();
+            ObservableCollection<TourRequestDTO> others = new ObservableCollection<TourRequestDTO>();
             foreach (var request in Guest2.TourRequests)
             {
                 if (!request.Guest2Username.Equals(Guest2.Username))
