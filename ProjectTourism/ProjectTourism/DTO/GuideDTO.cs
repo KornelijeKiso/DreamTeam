@@ -140,6 +140,11 @@ namespace ProjectTourism.DTO
             ticket.HasGuideChecked = true;
             TicketService ticketService = new TicketService();
             ticketService.Update(ticket.GetTicket());
+            // Ticket notification
+            NotificationService notificationService = new NotificationService();
+            notificationService.Add(new Notification("Ticket (id:" + ticket.Id + ")",
+                                                     "Guide " + ticket.TourAppointment.Tour.Guide.FirstName + " " + ticket.TourAppointment.Tour.Guide.LastName + " (" + ticket.TourAppointment.Tour.Guide.Username + ") has checked if you are present on " + ticket.TourAppointment.Tour.Name + ". Please confirm your attendance. ",
+                                                     ticket.Guest2Username));
         }
         public void EmergencyStop(TourAppointmentDTO tourApp)
         {

@@ -180,6 +180,9 @@
   <data name="CreateCustomTour" xml:space="preserve">
     <value>Zahtevana tura</value>
   </data>
+  <data name="CreateTour" xml:space="preserve">
+    <value>Kreiranje ture</value>
+  </data>
   <data name="CurrentTourStop" xml:space="preserve">
     <value>Trenutna stanica</value>
   </data>

@@ -3,29 +3,24 @@ using ProjectTourism.DTO;
 using ProjectTourism.Services;
 using ProjectTourism.Utilities;
 using ProjectTourism.WPF.View.Guest2View.TicketView;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
     public class NotificationsVM : ViewModelBase
     {
-        public Guest2VM Guest2 { get; set; }
+        public Guest2DTO Guest2 { get; set; }
         public NotificationDTO SelectedNotification { get; set; }
         public NotificationService NotificationService { get; set; }
         public int NotificationType { get; set; } 
         public TourService TourService { get; set; }
         public TourDTO NewTour { get; set; }
-        public TourVM SelectedTour { get; set; } // TO DO -> remove
-        public TicketVM ticketVM { get; set; }  // TO DO -> replace with DTO
+        public TicketDTO Ticket { get; set; }
 
         public NotificationsVM() { }
         
-        public NotificationsVM(Guest2VM guest2) 
+        public NotificationsVM(Guest2DTO guest2) 
         {
             Guest2 = guest2;
 
@@ -57,25 +52,18 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             {
                 // New Tour case
                 case 0:
-                    {   // TO DO -> replace SelectedTour(TourVM) with NewTour(TourDTO) in CreateTicketWindow
+                    {   
                         NewTour = new TourDTO(TourService.GetOne(GetNewTourId(SelectedNotification.Title)));
-                        SelectedTour = new TourVM(TourService.GetOne(GetNewTourId(SelectedNotification.Title)));
-                        CreateTicketWindow createTicketWidnow = new CreateTicketWindow(Guest2, SelectedTour);
+                        CreateTicketWindow createTicketWidnow = new CreateTicketWindow(Guest2, NewTour);
                         createTicketWidnow.ShowDialog();
                         break;
                     }
                 // Tour Attendance case
                 case 1:
                     {
-                        ticketVM = Guest2.Tickets.First(r => r.Id == GetTicketId(SelectedNotification.Title));
-                        Guest2AttendanceWindow guest2AttendanceWindow = new Guest2AttendanceWindow(ticketVM, Guest2);
+                        Ticket = Guest2.Tickets.First(t => t.Id == GetTicketId(SelectedNotification.Title));
+                        Guest2AttendanceWindow guest2AttendanceWindow = new Guest2AttendanceWindow(Ticket, Guest2);
                         guest2AttendanceWindow.ShowDialog();
-                        
-                        // TO DO -> check if ticket.TourAppointment EXPIRED
-                        //if (ticketVM.TourAppointment.State == TOURSTATE.STARTED)
-                        //{ }
-                        //else
-                        //{ }
                         break;
                     }
                 // error case

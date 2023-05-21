@@ -1,22 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using ProjectTourism.Model;
-using ProjectTourism.WPF.ViewModel;
-using System.Globalization;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using ProjectTourism.Domain.Model;
+using ProjectTourism.DTO;
 
 namespace ProjectTourism.WPF.View.Guest2View.TicketView
 {
@@ -25,12 +15,12 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
     /// </summary>
     public partial class CreateTourRequestWindow : Window, INotifyPropertyChanged
     {
-        public Guest2VM Guest2 { get; set; }
+        public Guest2DTO Guest2 { get; set; }
         public List<string> LanguageList { get; set; }
-        public TourRequestVM TourRequest { get; set; }
+        public TourRequestDTO TourRequest { get; set; }
 
 
-        public CreateTourRequestWindow(Guest2VM guest2)
+        public CreateTourRequestWindow(Guest2DTO guest2)
         {
             InitializeComponent();
             DataContext = this;
@@ -54,10 +44,10 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
 
         private void SetTourRequest()
         {
-            TourRequest = new TourRequestVM(new TourRequest());
+            TourRequest = new TourRequestDTO(new TourRequest());
             TourRequest.Guest2Username = Guest2.Username;
             TourRequest.CreationDateTime = DateTime.Now;
-            TourRequest.Location = new LocationVM(new Location());
+            TourRequest.Location = new LocationDTO(new Location());
         }
         private void SetUpDatePicker()
         {

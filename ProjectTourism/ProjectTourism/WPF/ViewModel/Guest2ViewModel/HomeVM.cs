@@ -1,33 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
-using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using ProjectTourism.WPF.View.Guest2View;
 using ProjectTourism.WPF.View.Guest2View.TicketView;
 using ProjectTourism.Utilities;
+using ProjectTourism.DTO;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
     public class HomeVM : ViewModelBase
     {
-        public Guest2VM Guest2 { get; set; }
+        public Guest2DTO Guest2 { get; set; }
         public TourService TourService { get; set; }
-        public TourVM? SelectedTour { get; set; }
-        public ObservableCollection<TourVM> AvailableTours { get; set; }
-        //public ObservableCollection<TourVM> ReservedTours { get; set; }
-        public ObservableCollection<TourVM> UnavailableTours { get; set; }
-        public ObservableCollection<TourVM> OldTours { get; set; }
+        public TourDTO? SelectedTour { get; set; }
+        public ObservableCollection<TourDTO> AvailableTours { get; set; }
+        //public ObservableCollection<TourDTO> ReservedTours { get; set; }
+        public ObservableCollection<TourDTO> UnavailableTours { get; set; }
+        public ObservableCollection<TourDTO> OldTours { get; set; }
         public string searchLocation { get; set; }
         public string searchLanguage { get; set; }
         public string searchDuration { get; set; }
         public string searchMaxNumberOfGuests { get; set; }
         
         public HomeVM() { }
-        public HomeVM(Guest2VM guest2)
+        public HomeVM(Guest2DTO guest2)
         {
             Guest2 = guest2;
 
@@ -43,19 +42,19 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             searchMaxNumberOfGuests = "";
         }
         
-        public void UpdateToursList(List<TourVM> tours)
+        public void UpdateToursList(List<TourDTO> tours)
         {
             AvailableTours.Clear();
-            foreach (TourVM tour in tours)
+            foreach (TourDTO tour in tours)
             {
                 AvailableTours.Add(tour);
             }
         }
         
-        private bool IsOldTour(TourVM tour)
+        private bool IsOldTour(TourDTO tour)
         {
             bool result = false;
-            foreach (TourAppointmentVM tourApp in tour.TourAppointments)
+            foreach (TourAppointmentDTO tourApp in tour.TourAppointments)
             {
                 if (tourApp.TourDateTime >= DateTime.Now)
                     return false;
@@ -64,20 +63,20 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             }
             return result;
         }
-        private ObservableCollection<TourVM> SetOldTours(ObservableCollection<TourVM> tours)
+        private ObservableCollection<TourDTO> SetOldTours(ObservableCollection<TourDTO> tours)
         {
-            ObservableCollection<TourVM> oldTours = new ObservableCollection<TourVM>();
-            foreach (TourVM tour in tours)
+            ObservableCollection<TourDTO> oldTours = new ObservableCollection<TourDTO>();
+            foreach (TourDTO tour in tours)
             {
                 if (IsOldTour(tour))
                     oldTours.Add(tour);
             }
             return oldTours;
         }
-        private ObservableCollection<TourVM> RemoveOldTours(ObservableCollection<TourVM> tours)
+        private ObservableCollection<TourDTO> RemoveOldTours(ObservableCollection<TourDTO> tours)
         {
-            ObservableCollection<TourVM> onlyNewTours = new ObservableCollection<TourVM>();
-            foreach (TourVM tour in tours)
+            ObservableCollection<TourDTO> onlyNewTours = new ObservableCollection<TourDTO>();
+            foreach (TourDTO tour in tours)
             {
                 if (!IsOldTour(tour))
                     onlyNewTours.Add(tour);
@@ -85,7 +84,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             return onlyNewTours;
         }
 
-        //private bool IsReserved(TourVM tour)
+        //private bool IsReserved(TourDTO tour)
         //{
         //    foreach (var ticket in Guest2.Tickets)
         //    {   
@@ -99,9 +98,9 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         //    }    
         //    return false;
         //}
-        //private ObservableCollection<TourVM> SetAlreadyReservedTours(ObservableCollection<TourVM> tours)
+        //private ObservableCollection<TourDTO> SetAlreadyReservedTours(ObservableCollection<TourDTO> tours)
         //{
-        //    ObservableCollection<TourVM> reservedTours = new ObservableCollection<TourVM>();
+        //    ObservableCollection<TourDTO> reservedTours = new ObservableCollection<TourDTO>();
         //    foreach(TourVM tour in tours)
         //    {
         //        if (IsReserved(tour))
@@ -110,29 +109,29 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         //    return reservedTours;
         //}
 
-        private bool IsAvailable(TourVM tour)
+        private bool IsAvailable(TourDTO tour)
         {
-            foreach (TourAppointmentVM tourApp in tour.TourAppointments)
+            foreach (TourAppointmentDTO tourApp in tour.TourAppointments)
             {
-                if (tourApp.State == TOURSTATE.READY && tourApp.AvailableSeats != 0 && tourApp.TourDateTime >= DateTime.Now)
+                if (tourApp.IsAvailable)
                     return true;
             }
             return false;
         }
-        private ObservableCollection<TourVM> SetUnavailableTours(ObservableCollection<TourVM> tours)
+        private ObservableCollection<TourDTO> SetUnavailableTours(ObservableCollection<TourDTO> tours)
         {
-            ObservableCollection<TourVM> unavailableTours = new ObservableCollection<TourVM>();
-            foreach (TourVM tour in tours)
+            ObservableCollection<TourDTO> unavailableTours = new ObservableCollection<TourDTO>();
+            foreach (TourDTO tour in tours)
             {
                 if (!IsAvailable(tour))
                     unavailableTours.Add(tour);
             }
             return unavailableTours;
         }
-        private ObservableCollection<TourVM> SetAvailableTours(ObservableCollection<TourVM> tours)
+        private ObservableCollection<TourDTO> SetAvailableTours(ObservableCollection<TourDTO> tours)
         {
-            ObservableCollection<TourVM> availableTours = new ObservableCollection<TourVM>();
-            foreach (TourVM tour in tours)
+            ObservableCollection<TourDTO> availableTours = new ObservableCollection<TourDTO>();
+            foreach (TourDTO tour in tours)
             {
                 if (IsAvailable(tour))
                     availableTours.Add(tour);
@@ -141,15 +140,15 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         }
 
 
-        private void SearchLocation(ObservableCollection<TourVM> tours)
+        private void SearchLocation(ObservableCollection<TourDTO> tours)
         {
-            List<TourVM> toursList = new List<TourVM>();
+            List<TourDTO> toursList = new List<TourDTO>();
             if (searchLocation != "")
             {
                 string[] searchQuery = searchLocation.ToLower().Split(',');
                 if (searchQuery.Length == 2)
                 {
-                    foreach (TourVM tour in tours)
+                    foreach (TourDTO tour in tours)
                     {
                         if ((tour.Location.City.Contains(searchQuery[0].Trim(), StringComparison.OrdinalIgnoreCase)
                                 && tour.Location.Country.Contains(searchQuery[1].Trim(), StringComparison.OrdinalIgnoreCase))
@@ -158,7 +157,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                             toursList.Add(tour);
                     }
                 }
-                foreach (TourVM tour in tours)
+                foreach (TourDTO tour in tours)
                 {
                     if ((tour.Location.City.Contains(searchLocation, StringComparison.OrdinalIgnoreCase)
                         || (tour.Location.Country.Contains(searchLocation, StringComparison.OrdinalIgnoreCase))))
@@ -167,12 +166,12 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                 UpdateToursList(toursList);
             }
         }
-        private void SearchLanguage(ObservableCollection<TourVM> tours)
+        private void SearchLanguage(ObservableCollection<TourDTO> tours)
         {
-            List<TourVM> toursList = new List<TourVM>();
+            List<TourDTO> toursList = new List<TourDTO>();
             if (searchLanguage != "")
             {
-                foreach (TourVM tour in tours)
+                foreach (TourDTO tour in tours)
                 {
                     if (tour.Language.Contains(searchLanguage, StringComparison.OrdinalIgnoreCase))
                         toursList.Add(tour);
@@ -181,13 +180,13 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             }
         }
 
-        private void SearchDuration(ObservableCollection<TourVM> tours)
+        private void SearchDuration(ObservableCollection<TourDTO> tours)
         {
-            List<TourVM> toursList = new List<TourVM>();
+            List<TourDTO> toursList = new List<TourDTO>();
             if (searchDuration != "")
             {
                 double WantedDuration = double.Parse(searchDuration);
-                foreach (TourVM tour in tours)
+                foreach (TourDTO tour in tours)
                 {
                     if (tour.Duration <= WantedDuration)
                         toursList.Add(tour);
@@ -196,13 +195,13 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             }
         }
 
-        private void SearchMaxNumberOfGuests(ObservableCollection<TourVM> tours)
+        private void SearchMaxNumberOfGuests(ObservableCollection<TourDTO> tours)
         {
-            List<TourVM> toursList = new List<TourVM>();
+            List<TourDTO> toursList = new List<TourDTO>();
             if (searchMaxNumberOfGuests != "")
             {
                 int WantedMaxNumberOfGuests = int.Parse(searchMaxNumberOfGuests);
-                foreach (TourVM tour in tours)
+                foreach (TourDTO tour in tours)
                 {
                     if (tour.MaxNumberOfGuests <= WantedMaxNumberOfGuests)
                         toursList.Add(tour);

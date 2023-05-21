@@ -12,7 +12,6 @@ namespace ProjectTourism.Model
         public int TourId;
         public Tour Tour;
         public List<Ticket> Tickets;
-        public int AvailableSeats;
         public TOURSTATE State;
         public List<TicketGrade> TicketGrades { get; set; }
         public TourAppointment()
@@ -26,7 +25,6 @@ namespace ProjectTourism.Model
             TourId = tourId;
             Tour = tour;
             CurrentTourStop = Tour.Start;
-            AvailableSeats = Tour.MaxNumberOfGuests;
             State = TOURSTATE.READY;
             Tickets = new List<Ticket>();
             TicketGrades = new List<TicketGrade>();
@@ -39,7 +37,6 @@ namespace ProjectTourism.Model
                 TourId.ToString(),
                 TourDateTime.ToString("dd.MM.yyyy HH:mm"),
                 CurrentTourStop.ToString(),
-                AvailableSeats.ToString(),
                 State.ToString()
             };
             return csvValues;
@@ -51,8 +48,7 @@ namespace ProjectTourism.Model
             if (DateTime.TryParse(values[2], new CultureInfo("en-GB"), DateTimeStyles.None, out var dateTimeParsed))
                 TourDateTime = dateTimeParsed;
             CurrentTourStop = values[3];
-            AvailableSeats = Convert.ToInt32(values[4]);
-            switch (values[5])
+            switch (values[4])
             {
                 case "READY":
                     { State = TOURSTATE.READY; break; }

@@ -1,18 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using ProjectTourism.WPF.ViewModel;
+﻿using System.Windows;
 using ProjectTourism.WPF.ViewModel.Guest2ViewModel;
+using ProjectTourism.DTO;
 
 namespace ProjectTourism.WPF.View.Guest2View
 {
@@ -28,7 +16,7 @@ namespace ProjectTourism.WPF.View.Guest2View
             //DataContext = new NewTourNotificationVM();
         }
 
-        public NotificationsWindow(Guest2VM guest2)
+        public NotificationsWindow(Guest2DTO guest2)
         {
             InitializeComponent();
             this.NotificationsVM = new NotificationsVM(guest2);

@@ -45,6 +45,26 @@ namespace ProjectTourism.DTO
             ticket.TourAppointment = updatedAppointment;
             return ticket;
         }
+        public void CreateTicket(Ticket ticket)
+        {
+            TicketService ticketService = new TicketService();
+            ticketService.Add(ticket);
+        }
+        public TicketDTO GetLast()
+        {
+            TicketService ticketService = new TicketService();
+            List<Ticket> tickets = ticketService.GetAll();
+            Ticket last = tickets.Last();
+            return new TicketDTO(last);
+        }
+
+        public void RemoveLast()
+        {
+            TicketService ticketService = new TicketService();
+            List<Ticket> tickets = ticketService.GetAll();
+            Ticket last = tickets.Last();
+            ticketService.Delete(last);
+        }
         public Ticket GetTicket()
         {
             return _ticket;
