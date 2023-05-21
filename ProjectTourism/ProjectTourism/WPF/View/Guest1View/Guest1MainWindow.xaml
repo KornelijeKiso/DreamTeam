@@ -48,6 +48,8 @@
                                 </StackPanel>
                                 <Image Source="https://img.icons8.com/fluency/2x/star.png" Height="30" Margin="400 -70 0 0" 
                                        Visibility="{Binding Path=Owner.IsSuperHost, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Image>
+                                <Image Margin="205 -253 0 0" Source="https://img.icons8.com/3d-fluency/2x/prize.png" Width="38" 
+                                       Visibility="{Binding Path=IsRecentlyRenovated, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Image>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

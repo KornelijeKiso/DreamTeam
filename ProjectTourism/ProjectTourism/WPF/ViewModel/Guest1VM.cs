@@ -69,6 +69,24 @@ namespace ProjectTourism.WPF.ViewModel
             {
                 SuperGuest = true;
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //ovo sam dodao
+            foreach(var a in Accommodations)
+            {
+                a.Renovations = new ObservableCollection<RenovationVM>(new RenovationService().GetAllByAccommodation(a.Id).Select(s=>new RenovationVM(s)).ToList());
+            }
         }
 
         private bool IsGradable(ReservationVM reservationVM)
