@@ -3,15 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:vm="clr-namespace:ProjectTourism.WPF.ViewModel.Guest2ViewModel"
              xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest2View.Menu"
              mc:Ignorable="d" 
              d:DesignHeight="550" 
              d:DesignWidth="700"
              Style="{StaticResource Page_Style}"        >
-    <!--<UserControl.DataContext>
-        <vm:VouchersVM />
-    </UserControl.DataContext>-->
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="450"/>
@@ -31,12 +28,78 @@
                         <Setter Property="BorderThickness" Value="3" />
                     </Style>
                 </TabControl.Style>
+
+                <!-- UNUSED -->
+                <TabItem Header="Unused" Height="20" VerticalAlignment="Top">
+                    <DataGrid x:Name="DataGridUnusedVouchers" Style="{StaticResource DataGrid_Style}"
+                              ItemsSource="{Binding UnusedVouchers, UpdateSourceTrigger=PropertyChanged}"
+                              Margin="0 0 0 0" BorderThickness="0" HeadersVisibility="None"  >
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                                             Color="#339AF0"/>
+                        </DataGrid.Resources>
+
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="150" >
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Stretch="Fill" Source="../../../../Images/Guest2/voucher2.png"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical" >
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Date of winning : {0}">
+                                                                <Binding Path="ValidFrom"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Valid until : {0}">
+                                                                <Binding Path="ValidDue"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Reason for the reward : {0}">
+                                                                <Binding Path="Description"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
                 
                 <!-- USED -->
                 <TabItem Header="Used" Height="20" VerticalAlignment="Top">
                     <DataGrid x:Name="DataGridUsedVouchers" Style="{StaticResource DataGrid_Style}"
                               ItemsSource="{Binding UsedVouchers, UpdateSourceTrigger=PropertyChanged}"
-                              Margin="0 0 0 0" BorderThickness="0"  >
+                              Margin="0 0 0 0" BorderThickness="0" HeadersVisibility="None" >
                         <DataGrid.Resources>
                             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
                                              Color="#339AF0"/>
@@ -160,79 +223,11 @@
                     </DataGrid>
                 </TabItem>
                 
-                
-                <!-- UNUSED -->
-                <TabItem Header="Unused" Height="20" VerticalAlignment="Top">
-                    <DataGrid x:Name="DataGridUnusedVouchers" Style="{StaticResource DataGrid_Style}"
-                              ItemsSource="{Binding UnusedVouchers, UpdateSourceTrigger=PropertyChanged}"
-                              Margin="0 0 0 0" BorderThickness="0"  >
-                        <DataGrid.Resources>
-                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
-                                             Color="#339AF0"/>
-                        </DataGrid.Resources>
-
-                        <DataGrid.Columns>
-                            <DataGridTemplateColumn Width="150" >
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Image Stretch="Fill" Source="../../../../Images/Guest2/voucher2.png"/>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTemplateColumn Width="*">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Vertical" >
-                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
-                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
-                                                <Label.Content>
-                                                    <TextBlock>
-                                                        <TextBlock.Text>
-                                                            <MultiBinding StringFormat="{}Date of winning : {0}">
-                                                                <Binding Path="ValidFrom"/>
-                                                            </MultiBinding>
-                                                        </TextBlock.Text>
-                                                    </TextBlock>
-                                                </Label.Content>
-                                            </Label>
-                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
-                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
-                                                <Label.Content>
-                                                    <TextBlock>
-                                                        <TextBlock.Text>
-                                                            <MultiBinding StringFormat="{}Valid until : {0}">
-                                                                <Binding Path="ValidDue"/>
-                                                            </MultiBinding>
-                                                        </TextBlock.Text>
-                                                    </TextBlock>
-                                                </Label.Content>
-                                            </Label>
-                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
-                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
-                                                <Label.Content>
-                                                    <TextBlock>
-                                                        <TextBlock.Text>
-                                                            <MultiBinding StringFormat="{}Reason for the reward : {0}">
-                                                                <Binding Path="Description"/>
-                                                            </MultiBinding>
-                                                        </TextBlock.Text>
-                                                    </TextBlock>
-                                                </Label.Content>
-                                            </Label>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </TabItem>
-               
-                
                 <!-- EXPIRED -->
                 <TabItem Header="Expired" Height="20" VerticalAlignment="Top">
                     <DataGrid x:Name="DataGridExpiredVouchers" Style="{StaticResource DataGrid_Style}"
                               ItemsSource="{Binding ExpiredVouchers, UpdateSourceTrigger=PropertyChanged}"
-                              Margin="0 0 0 0" BorderThickness="0"  >
+                              Margin="0 0 0 0" BorderThickness="0" HeadersVisibility="None" >
                         <DataGrid.Resources>
                             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
                                              Color="#339AF0"/>

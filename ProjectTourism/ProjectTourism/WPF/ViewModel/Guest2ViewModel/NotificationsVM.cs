@@ -52,7 +52,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             {
                 // New Tour case
                 case 0:
-                    {   // TO DO -> replace SelectedTour(TourVM) with NewTour(TourDTO) in CreateTicketWindow
+                    {   
                         NewTour = new TourDTO(TourService.GetOne(GetNewTourId(SelectedNotification.Title)));
                         CreateTicketWindow createTicketWidnow = new CreateTicketWindow(Guest2, NewTour);
                         createTicketWidnow.ShowDialog();
@@ -61,8 +61,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                 // Tour Attendance case
                 case 1:
                     {
-                        // TO DO -> replace VM with DTO
-                        Ticket = Guest2.Tickets.First(r => r.Id == GetTicketId(SelectedNotification.Title));
+                        Ticket = Guest2.Tickets.First(t => t.Id == GetTicketId(SelectedNotification.Title));
                         Guest2AttendanceWindow guest2AttendanceWindow = new Guest2AttendanceWindow(Ticket, Guest2);
                         guest2AttendanceWindow.ShowDialog();
                         break;
