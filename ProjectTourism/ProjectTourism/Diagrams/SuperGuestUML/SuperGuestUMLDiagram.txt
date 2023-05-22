@@ -1,0 +1,113 @@
+@startuml
+
+actor Guest1 as G
+participant Guest1MainWindow as GMW
+participant Guest1VM as GVM
+participant ReservationService as RS
+participant ReservationRepository as RR
+participant ReservationFileHandler as RFH
+participant Guest1Service as GS
+participant Guest1Repository as GR
+participant Guest1FileHandler as GFH
+
+activate GVM
+
+GVM -> RS : GetAll()
+activate RS
+
+RS -> RR : GetAll()
+activate RR
+
+RR -> RFH: Load()
+activate RFH
+RFH --> RR: Reservations
+deactivate RFH
+
+RR --> RS : Reservations
+deactivate RR
+RS --> GVM : Reservations
+deactivate RS
+
+loop foreach r in Reservations
+opt r.EndDate < Today && r.EndDate > Today.AddYears(-1) && r.Guest1.Username == _guest1.Username
+GVM->GVM: reservationsForSuperguestCount ++;
+end 
+end
+
+alt reservationsForSuperguestCount > 9
+GVM->GVM:IsSuperguest = true;
+opt Points == -1
+
+GVM->GVM: Points = 5;
+GVM -> GS : Update()
+activate GS
+
+GS -> GR : Update()
+activate GR
+
+GR -> GFH: Save(Guests1)
+activate GFH
+GFH --> GR
+deactivate GFH
+
+GR --> GS
+deactivate GR
+GS --> GVM
+deactivate GS
+end
+else
+GVM->GVM: Points = -1;
+
+GVM -> GS : Update()
+activate GS
+
+GS -> GR : Update()
+activate GR
+
+GR -> GFH: Save(Guests1)
+activate GFH
+GFH --> GR
+deactivate GFH
+
+GR --> GS
+deactivate GR
+GS --> GVM
+deactivate GS
+
+end
+
+deactivate GVM
+
+
+G -> GMW : ReserveAccommodationClick()
+activate G
+activate GMW
+
+GMW -> GVM : ProcessReservation(r)
+activate GVM
+GVM -> GVM : BookAccommodation(r)
+opt Points > 0
+GVM -> GVM : Points-- ;
+GVM -> GS : Update()
+activate GS
+
+GS -> GR : Update()
+activate GR
+
+GR -> GFH: Save(Guests1)
+activate GFH
+GFH --> GR
+deactivate GFH
+
+GR --> GS
+deactivate GR
+GS --> GVM
+deactivate GS
+end
+GVM --> GMW
+deactivate GVM
+GMW --> G: MessageBox.Show("Accommodation reserved") 
+deactivate GMW
+deactivate G
+
+@enduml

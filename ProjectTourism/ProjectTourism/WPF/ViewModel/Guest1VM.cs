@@ -60,7 +60,7 @@ namespace ProjectTourism.WPF.ViewModel
 
             foreach (ReservationVM reservationVM in Reservations)
             {
-                if (reservationVM.EndDate < DateOnly.FromDateTime(DateTime.Now) && reservationVM.EndDate > DateOnly.FromDateTime(DateTime.Now).AddYears(-1))
+                if (reservationVM.EndDate < DateOnly.FromDateTime(DateTime.Now) && reservationVM.EndDate > DateOnly.FromDateTime(DateTime.Now).AddYears(-1) && reservationVM.Guest1.Username == _guest1.Username)
                 {
                     reservationCount += 1;
                 }
@@ -180,23 +180,8 @@ namespace ProjectTourism.WPF.ViewModel
                 return false;
             }
         }
-        //public float CalculateGrade()
-        //{
-        //    Guest1GradeService guest1GradeService = new Guest1GradeService();
-        //
-        //    foreach(ReservationVM reservationVM in Reservations)
-        //    {
-        //        if(reservationVM.EndDate < DateOnly.FromDateTime(DateTime.Now))
-        //        {
-        //            totalCleanness += guest1GradeService.GetOneByReservation(reservationVM.Id).Grades["Cleanness"];
-        //            totalCommunication += guest1GradeService.GetOneByReservation(reservationVM.Id).Grades["Communication"];
-        //            totalFollowingTheRules += guest1GradeService.GetOneByReservation(reservationVM.Id).Grades["FollowingTheRules"];
-        //            totalGrade += totalCleanness + totalCommunication + totalFollowingTheRules;
-        //            gradeCount += 3;
-        //        }
-        //    }
-        //    return totalGrade / gradeCount;
-        //}
+       
+
         private void BookAccommodation(ReservationVM reservationVM)
         {
             ReservationService reservationService = new ReservationService();
@@ -228,6 +213,10 @@ namespace ProjectTourism.WPF.ViewModel
         public bool isSuperGuest
         {
             get => SuperGuest;
+        }
+        public double AverageGrade
+        {
+            get => CalculateAverageGrade();
         }
         public Guest1VM(Guest1 guest1)
         {
@@ -334,18 +323,18 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public double AverageGrade
-        {
-            get => _guest1.AverageGrade;
-            set
-            {
-                if (value != _guest1.AverageGrade)
-                {
-                    _guest1.AverageGrade = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        //public double AverageGrade
+        //{
+        //    get => _guest1.AverageGrade;
+        //    set
+        //    {
+        //        if (value != _guest1.AverageGrade)
+        //        {
+        //            _guest1.AverageGrade = value;
+        //            OnPropertyChanged();
+        //        }
+        //    }
+        //}
 
         public int Points
         {
@@ -359,6 +348,19 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+
+        private double CalculateAverageGrade()
+        {
+            try
+            {
+                return Reservations.Where(reservation => reservation.Guest1Graded && reservation.Guest1Username == _guest1.Username).Average(reservation => reservation.Guest1Grade.AverageGrade);
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
