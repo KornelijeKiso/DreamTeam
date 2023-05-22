@@ -122,6 +122,19 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+        private bool _Guest1Graded;
+        public bool Guest1Graded
+        {
+            get => _Guest1Graded = _reservation.Guest1Grade != null;
+            set
+            {
+                if (value != _Guest1Graded)
+                {
+                    _Guest1Graded = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public string Guest1Username
         {
             get => _reservation.Guest1Username;

@@ -214,6 +214,10 @@ namespace ProjectTourism.WPF.ViewModel
         {
             get => SuperGuest;
         }
+        public double AverageGrade
+        {
+            get => CalculateAverageGrade();
+        }
         public Guest1VM(Guest1 guest1)
         {
             _guest1 = guest1;
@@ -319,18 +323,18 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
-        public double AverageGrade
-        {
-            get => _guest1.AverageGrade;
-            set
-            {
-                if (value != _guest1.AverageGrade)
-                {
-                    _guest1.AverageGrade = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+        //public double AverageGrade
+        //{
+        //    get => _guest1.AverageGrade;
+        //    set
+        //    {
+        //        if (value != _guest1.AverageGrade)
+        //        {
+        //            _guest1.AverageGrade = value;
+        //            OnPropertyChanged();
+        //        }
+        //    }
+        //}
 
         public int Points
         {
@@ -344,6 +348,19 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+
+        private double CalculateAverageGrade()
+        {
+            try
+            {
+                return Reservations.Where(reservation => reservation.Guest1Graded && reservation.Guest1Username == _guest1.Username).Average(reservation => reservation.Guest1Grade.AverageGrade);
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

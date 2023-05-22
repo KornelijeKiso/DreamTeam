@@ -85,6 +85,20 @@ namespace ProjectTourism.WPF.ViewModel
                 }
             }
         }
+        public double AverageGrade
+        {
+            get => CalculateAverageGrade();
+        }
+
+        private double CalculateAverageGrade()
+        {
+            double sum = 0;
+            foreach (var category in CategoryNames)
+            {
+                sum += Grades[category];
+            }
+            return sum / CategoryNames.Length;
+        }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
