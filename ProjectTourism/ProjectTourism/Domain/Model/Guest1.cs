@@ -12,6 +12,7 @@ namespace ProjectTourism.Model
     {
         public double AverageGrade;
         public List<Reservation> Reservations;
+        public int Points;
         public Guest1()
         {
             AverageGrade = 0;
@@ -36,7 +37,9 @@ namespace ProjectTourism.Model
             string[] csvValues =
             {
                 Username,
-                AverageGrade.ToString()     };
+                AverageGrade.ToString(),
+                Points.ToString()
+            };
             return csvValues;
         }
 
@@ -44,6 +47,7 @@ namespace ProjectTourism.Model
         {
             Username = values[0];
             AverageGrade = double.Parse(values[1]);
+            Points = int.Parse(values[2]);
         }
     }
 }

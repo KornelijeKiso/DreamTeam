@@ -68,6 +68,16 @@ namespace ProjectTourism.WPF.ViewModel
             if (reservationCount > 9)
             {
                 SuperGuest = true;
+                if (Points == -1)
+                {
+                    Points = 5;
+                    new Guest1Service().Update(_guest1);
+                }
+            }
+            else
+            {
+                Points = -1;
+                new Guest1Service().Update(_guest1);
             }
         }
 
@@ -173,6 +183,11 @@ namespace ProjectTourism.WPF.ViewModel
         {
             ReservationService reservationService = new ReservationService();
             reservationService.Add(reservationVM.GetReservation());
+            if (Points > 0) 
+            { 
+                Points--;
+                new Guest1Service().Update(_guest1);
+            }
         }
         private void SendRequest(ReservationVM reservationVM)
         {
@@ -309,6 +324,19 @@ namespace ProjectTourism.WPF.ViewModel
                 if (value != _guest1.AverageGrade)
                 {
                     _guest1.AverageGrade = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public int Points
+        {
+            get => _guest1.Points;
+            set
+            {
+                if(value != _guest1.Points)
+                {
+                    _guest1.Points = value;
                     OnPropertyChanged();
                 }
             }

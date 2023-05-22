@@ -42,7 +42,12 @@ namespace ProjectTourism.Repositories
 
         public void Update(Guest1 guest1)
         {
-            throw new NotImplementedException();
+            Guest1 g = Guests1.Find(g1 => g1.Username.Equals(guest1.Username));
+            if (g != null)
+            {
+                g.Points = guest1.Points;
+                FileHandler.Save(Guests1);
+            }
         }
     }
 }

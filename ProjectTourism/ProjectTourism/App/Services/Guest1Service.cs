@@ -25,6 +25,10 @@ namespace ProjectTourism.Services
         {
             Guest1Repo.Delete(guest1);
         }
+        public void Update(Guest1 guest1)
+        {
+            Guest1Repo.Update(guest1);
+        }
         public Guest1 GetOne(string username)
         {
             return Guest1Repo.GetOne(username);
