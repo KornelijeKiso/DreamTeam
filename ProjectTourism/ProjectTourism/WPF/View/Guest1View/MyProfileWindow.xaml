@@ -4,11 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest1View"
+        xmlns:conv="clr-namespace:ProjectTourism.Converters"
         mc:Ignorable="d"
         Title="MyProfileWindow" Height="750" Width="430">
+    <Window.Resources>
+        <ResourceDictionary>
+            <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
         <Image VerticalAlignment="Top" HorizontalAlignment="Center" Source="https://img.icons8.com/cotton/2x/user-male-circle.png" Width="128" Height="128" Margin="0 100 0 0"></Image>
-        <Label Content="{Binding Path=Guest1VM.isSuperGuest}" VerticalAlignment="Top" HorizontalAlignment="Center" Width="128" Height="128" Margin="0 300 0 0">
+        <Label ContentStringFormat="Superguest: {0}" Content="{Binding Path=Guest1VM.isSuperGuest}" VerticalAlignment="Top" HorizontalAlignment="Center" Width="128" Height="128" Margin="0 300 0 0">
         </Label>
+
+        <Label Visibility="{Binding Path=Guest1VM.isSuperGuest, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}" ContentStringFormat="Points: {0}" Content="{Binding Path=Guest1VM.Points}" VerticalAlignment="Top" HorizontalAlignment="Center" Width="128" Height="128" Margin="0 330 0 0">
+        </Label>
+            
     </Grid>
 </Window>
