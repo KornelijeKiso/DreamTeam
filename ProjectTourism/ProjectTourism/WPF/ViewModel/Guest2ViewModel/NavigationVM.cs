@@ -14,7 +14,6 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             set { _currentView = value; OnPropertyChanged(); }
         }
         
-        //public Guest2VM Guest2 { get; set; }
         public Guest2DTO Guest2 { get; set; }
         public string Username { get; set; }
 
@@ -38,7 +37,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         private void Vouchers(object obj) => CurrentView = new VouchersVM(Guest2);
         private void Profile(object obj) => CurrentView = new ProfileVM(Guest2);
         private void TourRequests(object obj) => CurrentView = new TourRequestsVM(Guest2);
-        //private void ComplexTour(object obj) => CurrentView = ComplexTourVM(Guest2);
+        private void ComplexTour(object obj) => CurrentView = new ComplexToursVM(Guest2);
         private void Notifications(object obj)
         {
             NotificationsWindow notificationWindow = new NotificationsWindow(Guest2);
@@ -57,7 +56,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             VouchersCommand = new RelayCommand(Vouchers);
             ProfileCommand = new RelayCommand(Profile);
             TourRequestsCommand = new RelayCommand(TourRequests);
-            //ComplexToursCommand = new RelayCommand(ComplexTour);
+            ComplexToursCommand = new RelayCommand(ComplexTour);
             NotificationsCommand = new RelayCommand(Notifications);
 
             // Startup Page
