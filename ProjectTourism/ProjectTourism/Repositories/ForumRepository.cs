@@ -31,6 +31,7 @@ namespace ProjectTourism.Repositories
             if (Forums.Find(f => f.LocationId == forum.LocationId) != null)
                 return Forums.Find(f => f.LocationId == forum.LocationId);
             forum.Id = GenerateId();
+            forum.OpenedOn = DateTime.Now;
             Forums.Add(forum);
             FileHandler.Save(Forums);
             return forum;

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectTourism.App.Services
+namespace ProjectTourism.Services
 {
     public class ForumService
     {

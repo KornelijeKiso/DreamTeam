@@ -27,6 +27,7 @@ namespace ProjectTourism.Repositories
         {
             commentOnForum.Id = GenerateId();
             commentOnForum.Reports = 0;
+            commentOnForum.Published = DateTime.Now;
             CommentsOnForums.Add(commentOnForum);
             FileHandler.Save(CommentsOnForums);
             return commentOnForum;

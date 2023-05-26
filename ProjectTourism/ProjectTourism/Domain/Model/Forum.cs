@@ -2,6 +2,7 @@
 using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,6 +15,7 @@ namespace ProjectTourism.Domain.Model
         public int Id { get; set; }
         public int LocationId { get; set; }
         public Location Location { get; set; }
+        public DateTime OpenedOn { get; set; }
 
         public Forum(int id, int locationId)
         {
@@ -27,7 +29,9 @@ namespace ProjectTourism.Domain.Model
             string[] csvValues =
             {
                 Id.ToString(),
-                LocationId.ToString() };
+                LocationId.ToString(),
+                OpenedOn.ToString("dd.MM.yyyy HH:mm")
+            };
             return csvValues;
         }
 
@@ -35,6 +39,8 @@ namespace ProjectTourism.Domain.Model
         {
             Id = int.Parse(values[0]);
             LocationId = int.Parse(values[1]);
+            if (DateTime.TryParse(values[2], new CultureInfo("en-GB"), DateTimeStyles.None, out var dateTimeParsed))
+                OpenedOn = dateTimeParsed;
         }
     }
 }

@@ -67,8 +67,22 @@ namespace ProjectTourism.DTO
             Reservations = new ObservableCollection<ReservationDTO>(_owner.Reservations.Select(r => new ReservationDTO(r)).Reverse().ToList());
             SetPopularAndUnpopularDestination();
             LoadNotifications();
+            SynchronizeForums();
         }
-
+        private void SynchronizeForums()
+        {
+            List<ForumDTO> forums = new ForumService().GetAll().Where(f => Accommodations.ToList().Find(a => a.LocationId == f.LocationId) != null).ToList().Select(fo=>new ForumDTO(fo)).ToList();
+            foreach(ForumDTO forum in forums)
+            {
+                forum.Location = new LocationDTO(new LocationService().GetOne(forum.LocationId));
+                forum.Comments = new ObservableCollection<CommentOnForumDTO>(new CommentOnForumService().GetAllByForum(forum.Id).Select(c => new CommentOnForumDTO(c)));
+                foreach(CommentOnForumDTO comment in forum.Comments)
+                {
+                    comment.Forum = forum;
+                }
+            }
+            Forums = new ObservableCollection<ForumDTO>(forums);
+        }
         public void SetPopularAndUnpopularDestination()
         {
             Dictionary<int, DestinationDTO> locations = new Dictionary<int, DestinationDTO>();
@@ -238,6 +252,19 @@ namespace ProjectTourism.DTO
                 if (value != _Accommodations)
                 {
                     _Accommodations = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private ObservableCollection<ForumDTO> _Forums;
+        public ObservableCollection<ForumDTO> Forums
+        {
+            get => _Forums;
+            set
+            {
+                if (value != _Forums)
+                {
+                    _Forums = value;
                     OnPropertyChanged();
                 }
             }
