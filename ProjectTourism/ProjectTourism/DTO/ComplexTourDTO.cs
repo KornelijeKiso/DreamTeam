@@ -24,6 +24,7 @@ namespace ProjectTourism.DTO
         {
             _complexTour = complexTour;
             SynchronizeTourRequestsList(_complexTour);
+            TourRequests = new ObservableCollection<TourRequestDTO>(_complexTour.TourRequests.Select(r => new TourRequestDTO(r)).ToList());
         }
         private void SynchronizeTourRequestsList(ComplexTour complexTour)
         {

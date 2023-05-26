@@ -28,7 +28,156 @@
                 
                 <!-- YOUR COMPLEX TOURS -->
                 <TabItem Header="Your Complex Tour Requests" Height="20" VerticalAlignment="Top">
-                    
+                    <DataGrid x:Name="DataGridUpcomingTickets" Style="{StaticResource DataGrid_Style}"
+                              ItemsSource="{Binding YourComplexTours, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding Path=SelectedComplexTour, UpdateSourceTrigger=PropertyChanged}" 
+                              Margin="0 0 0 0" BorderThickness="0"  >
+                        <DataGrid.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                                             Color="#339AF0"/>
+                        </DataGrid.Resources>
+
+                        <DataGrid.Columns>
+
+                            <DataGridTemplateColumn Width="350">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical" >
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Suggested by : {0}">
+                                                                <Binding Path="Guest2Username"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Created on : {0}">
+                                                                <Binding Path="TourRequests[0].CreationDateTime"/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+                                            <!--<Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Valid until : {0}">
+                                                                <Binding Path=""/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>-->
+                                            <!--<Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat="{}Consists of simple Tour Requests : {0}">
+                                                                <Binding Path=""/>
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>-->
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTemplateColumn Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="50"/>
+                                            </Grid.RowDefinitions>
+                                            <!--<GroupBox BorderBrush="Black" FontSize="12" Height="50" 
+                                                      VerticalAlignment="Top" Margin="5 5 5 5"
+                                                      Header="Status">
+                                                <Label FontSize="14">
+                                                    <Label.Content>
+                                                        <TextBlock>
+                                                            <TextBlock.Text>
+                                                                <Binding Path="TourRequests[0].State"/>
+                                                            </TextBlock.Text>
+                                                        </TextBlock>
+                                                    </Label.Content>
+                                                </Label>
+                                            </GroupBox>-->
+                                            <ListView x:Name="TourRequestsListView" ItemsSource="{Binding Path=TourRequests}" 
+                                                      FontFamily="/Fonts/#Rubik" FontSize="12"
+                                                      VerticalAlignment="Center" HorizontalAlignment="Center"
+                                                      Background="LightBlue" Grid.Row="0">
+                                                <ListView.View>
+                                                    <GridView x:Name="TourRequestsGridView" >
+                                                        <GridViewColumn Width="auto" Header="State" DisplayMemberBinding="{Binding Path=State}"/>
+                                                        <GridViewColumn Width="auto" Header="Start Date" DisplayMemberBinding="{Binding Path=StartDate}"/>
+                                                        <GridViewColumn Width="auto" Header="End Date" DisplayMemberBinding="{Binding Path=EndDate}"/>
+                                                    </GridView>
+                                                </ListView.View>
+                                            </ListView>
+
+                                            <!-- VIEW DETAILS BUTTON 
+                                            Command="{Binding Path=DataContext.ComplexTourDetailsCommand,
+                                                              RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"-->
+                                            <Button x:Name="ViewComplexToursDetailsButton"
+                                                    Grid.Row="1"
+                                                    >
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Setter Property="Height" Value="30"/>
+                                                        <Setter Property="Width" Value="80"/>
+                                                        <Setter Property="Margin" Value="0 10 0 0"/>
+                                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                        <Setter Property="VerticalAlignment" Value="Bottom"/>
+                                                        <Setter Property="BorderThickness" Value="1"/>
+
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                                    <Border x:Name="border"
+                                                                            BorderThickness="1"
+                                                                            Background="Black">
+                                                                        <TextBlock Text="View details"
+                                                                                   FontFamily="/Fonts/#Rubik" 
+                                                                                   FontSize="14"
+                                                                                   Foreground="#DBDBDB" 
+                                                                                   HorizontalAlignment="Center"
+                                                                                   VerticalAlignment="Center" />
+                                                                    </Border>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <Trigger Property="IsMouseOver"
+                                                                                 Value="True"   >
+                                                                            <Setter Property="Background"
+                                                                                    TargetName="border"
+                                                                                    Value="#272B2F" />
+                                                                        </Trigger>
+                                                                        <Trigger Property="IsPressed" Value="True" />
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
+                                        </Grid>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </TabItem>
 
                 <!-- ALL COMPLEX TOURS -->
