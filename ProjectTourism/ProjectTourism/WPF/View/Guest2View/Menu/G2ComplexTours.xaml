@@ -191,7 +191,8 @@
         <Grid Grid.Row="1"  >
             <!-- MAKE A COMPLEX TOUR -->
             <!--Style="{StaticResource button}"  -->
-            <Button x:Name="MakeComplexTour" >
+            <Button x:Name="MakeComplexTour" 
+                    Command="{Binding MakeComplexTourCommand}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Height" Value="50"/>
