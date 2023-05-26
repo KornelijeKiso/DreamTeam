@@ -14,11 +14,13 @@ namespace ProjectTourism.Model
         public List<Voucher> Vouchers;
         public List<Ticket> Tickets;
         public List<TourRequest> TourRequests;
+        public List<ComplexTour> ComplexTours;
         public Guest2()
         {
             Vouchers = new List<Voucher>();
             Tickets = new List<Ticket>();
             TourRequests = new List<TourRequest>();
+            ComplexTours = new List<ComplexTour>();
         }
 
         public Guest2(User user)
@@ -34,7 +36,8 @@ namespace ProjectTourism.Model
 
             Vouchers = new List<Voucher>();
             Tickets = new List<Ticket>();
-            TourRequests = new List<TourRequest>();
+            TourRequests = new List<TourRequest>(); 
+            ComplexTours = new List<ComplexTour>();
         }
 
         public new string[] ToCSV()
