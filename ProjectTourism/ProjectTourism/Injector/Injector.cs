@@ -38,7 +38,8 @@ namespace Injector
             _implementations.Add(typeof(IRenovationRepository), new RenovationRepository());
             _implementations.Add(typeof(ITourRequestRepository), new TourRequestRepository());
             _implementations.Add(typeof(IRenovationRecommendationRepository), new RenovationRecommendationRepository());
-
+            _implementations.Add(typeof(IForumRepository), new ForumRepository());
+            _implementations.Add(typeof(ICommentOnForumRepository), new CommentOnForumRepository());
             _implementations.Add(typeof(INotificationRepository), new NotificationRepository());
         }
 

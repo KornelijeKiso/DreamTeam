@@ -16,7 +16,7 @@ namespace ProjectTourism.Services
         private ICanceledReservationRepository CanceledReservationRepo;
         public CanceledReservationService()
         {
-            CanceledReservationRepo = Injector.Injector.CreateInstance<ICanceledReservationRepository>(); ;
+            CanceledReservationRepo = Injector.Injector.CreateInstance<ICanceledReservationRepository>(); 
         }
         public void Add(Reservation reservation)
         {
