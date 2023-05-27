@@ -5,11 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView.TourView"
         xmlns:ns="clr-namespace:ProjectTourism.Localization"
-        xmlns:conv="clr-namespace:ProjectTourism.Converters"
+        xmlns:c="clr-namespace:ProjectTourism.Converters"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
+    
+    <UserControl.Resources>
+        <c:ThemeToForegroundConverter x:Key="ThemeToForegroundConverter" />
+    </UserControl.Resources>
     <Grid>
-
-        <Label Content="{ns:Loc TourStatistics}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
+        <Label Content="{ns:Loc TourStatistics}" Foreground="{Binding Path=Guide.DarkTheme, Converter={StaticResource ThemeToForegroundConverter}}"  HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         
         <DataGrid x:Name="DataGridTours" PreviewMouseLeftButtonDown="DataGridTours_PreviewMouseLeftButtonDown"  
                     ItemsSource="{Binding TourAppsObs, UpdateSourceTrigger=PropertyChanged}"

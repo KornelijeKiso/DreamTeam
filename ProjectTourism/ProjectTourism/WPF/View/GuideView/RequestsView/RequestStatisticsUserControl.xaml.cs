@@ -27,12 +27,15 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         public string SelectedLocation { get; set; }
         public bool WasLanguageChosen { get; set; }
         public bool WasLocationChosen { get; set; }
+        public GuideDTO Guide { get; set; }
 
-        public RequestStatisticsUserControl()
+        public RequestStatisticsUserControl(string username)
         {
             InitializeComponent();
             DataContext = this;
 
+
+            Guide = new GuideDTO(username);
             SetAttributes();
             CalculateYearStats();
             SetLanguagesAndLocations();

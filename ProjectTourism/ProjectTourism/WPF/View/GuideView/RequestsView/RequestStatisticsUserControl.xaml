@@ -5,10 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView.TourView"
              xmlns:ns="clr-namespace:ProjectTourism.Localization"
+             xmlns:c="clr-namespace:ProjectTourism.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <c:ThemeToForegroundConverter x:Key="ThemeToForegroundConverter" />
+    </UserControl.Resources>
     <Grid>
-        <Label x:Name="RequestsLabel" Content="{ns:Loc RequestStatistics}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="329" FontSize="40"/>
+        <Label x:Name="RequestsLabel" Content="{ns:Loc RequestStatistics}" Foreground="{Binding Path=Guide.DarkTheme, Converter={StaticResource ThemeToForegroundConverter}}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="329" FontSize="40"/>
         <Border x:Name="rectangle" Background="White" BorderBrush="Black" BorderThickness="1" CornerRadius="15" Margin="40,140,430,51"/>
 
         <DataGrid x:Name="DataGridStats" 
@@ -70,9 +74,9 @@
             </Canvas>
             <GroupBox FontSize="15" Margin="880,150,40,300" Background="LightGray" BorderBrush="DarkGray">
                 <GroupBox.Header>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="https://cdn-icons-png.flaticon.com/512/3031/3031293.png" Width="20" Height="20" Margin="0,0,5,0"/>
-                        <TextBlock Text="{ns:Loc SearchParameters}"/>
+                    <StackPanel Orientation="Horizontal" Margin="0, -20, 0, 0">
+                        <Image Source="https://cdn0.iconfinder.com/data/icons/ui-essence/32/_8ui-256.png" Width="30" Height="30" Margin="0,-5,5,0"/>
+                        <TextBlock  Text="{ns:Loc SearchParameters}" Foreground="{Binding Path=Guide.DarkTheme, Converter={StaticResource ThemeToForegroundConverter}}"/>
                     </StackPanel>
                 </GroupBox.Header>
             </GroupBox>
