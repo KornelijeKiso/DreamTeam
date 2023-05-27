@@ -25,7 +25,9 @@ namespace ProjectTourism.DTO
         }
         public OwnerDTO(string username)
         {
+            Forums = new ObservableCollection<ForumDTO>();
             Synchronize(username);
+            SynchronizeForums();
             timer = new Timer(5000);
             SetTimer();
         }
@@ -67,7 +69,7 @@ namespace ProjectTourism.DTO
             Reservations = new ObservableCollection<ReservationDTO>(_owner.Reservations.Select(r => new ReservationDTO(r)).Reverse().ToList());
             SetPopularAndUnpopularDestination();
             LoadNotifications();
-            SynchronizeForums();
+            
         }
         private void SynchronizeForums()
         {
@@ -81,7 +83,12 @@ namespace ProjectTourism.DTO
                     comment.Forum = forum;
                 }
             }
-            Forums = new ObservableCollection<ForumDTO>(forums);
+            foreach(var forum in forums) {
+                if (!Forums.Contains(forum))
+                {
+                    Forums.Add(forum);
+                }
+            }
         }
         public void SetPopularAndUnpopularDestination()
         {
@@ -296,8 +303,6 @@ namespace ProjectTourism.DTO
             }
         }
 
-        public event PropertyChangedEventHandler? PropertyChanged;
-
         public void SeenNotifications()
         {
             foreach (var n in Notifications) n.New = false;
@@ -338,6 +343,10 @@ namespace ProjectTourism.DTO
                 return 0;
             }
         }
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
