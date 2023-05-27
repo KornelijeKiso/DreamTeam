@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using ProjectTourism.DTO;
 using ProjectTourism.WPF.ViewModel.GuideViewModels;
 
 namespace ProjectTourism.View.GuideView
@@ -8,7 +9,8 @@ namespace ProjectTourism.View.GuideView
         public MainGuideWindow(string username)
         {
             InitializeComponent();
-            DataContext = new MainGuideWindowVM(username);
+            GuideDTO Guide = new GuideDTO(username);
+            DataContext = new MainGuideWindowVM(Guide);
         }
     }
 }

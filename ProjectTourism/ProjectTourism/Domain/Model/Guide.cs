@@ -8,6 +8,7 @@ namespace ProjectTourism.Model
         public string Biography;
         public string Language;
         public string Localization;
+        public bool DarkTheme;
         public List<Tour> Tours;
         public List<TourAppointment> TourAppointments;
 
@@ -31,6 +32,7 @@ namespace ProjectTourism.Model
             IsSuperGuide = false;
             Biography = "";
             Language = "";
+            DarkTheme = false;
             Tours = new List<Tour>();
             TourAppointments = new List<TourAppointment>();
         }
@@ -38,7 +40,7 @@ namespace ProjectTourism.Model
         {
             string?[] csvValues =
             {
-                 Username, Biography, Language, Localization
+                 Username, Biography, Language, Localization, DarkTheme.ToString()
             };
             return csvValues;
         }
@@ -49,6 +51,7 @@ namespace ProjectTourism.Model
             Biography = values[1];
             Language = values[2];
             Localization = values[3];
+            DarkTheme = bool.Parse(values[4]);
         }
     }
 }

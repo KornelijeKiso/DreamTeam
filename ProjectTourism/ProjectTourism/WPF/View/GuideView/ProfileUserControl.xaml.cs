@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using ProjectTourism.DTO;
-using ProjectTourism.WPF.ViewModel;
+using ProjectTourism.View.GuideView;
 
 namespace ProjectTourism.WPF.View.GuideView.TourView
 {
@@ -20,6 +19,16 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             Window parentWindow = Window.GetWindow(this);
             if (parentWindow != null)
                 parentWindow.Close();
+        }
+
+        private void ChangeTheme_Click(object sender, RoutedEventArgs e)
+        {
+            Guide.ChangeTheme();
+            Window parentWindow = Window.GetWindow(this);
+            if (parentWindow != null)
+                parentWindow.Close();
+            MainGuideWindow mainGuideWindow = new MainGuideWindow(Guide.Username);
+            mainGuideWindow.Show();
         }
     }
 }

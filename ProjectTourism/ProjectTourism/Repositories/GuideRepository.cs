@@ -50,7 +50,14 @@ namespace ProjectTourism.Repositories
         }
         public void Update(Guide guide)
         {
-
+            foreach (var existingGuide in Guides)
+            {
+                if (guide.Username.Equals(existingGuide.Username))
+                {
+                    existingGuide.DarkTheme = guide.DarkTheme;
+                }
+            }
+            FileHandler.Save(Guides);
         }
 
         public void UpdateLocalization(Guide guide)

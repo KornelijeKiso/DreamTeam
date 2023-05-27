@@ -25,6 +25,8 @@
     <None Remove="Images\Guest2\voucher2.png" />
     <None Remove="Images\Guest2\voucher3.png" />
     <None Remove="Images\GuideLightBackground.jpg" />
+    <None Remove="Images\Guide\DarkBackground.jpg" />
+    <None Remove="Images\Guide\DarkMakeTour.jpg" />
     <None Remove="Style\Guest2Style\img_demo.png" />
     <None Remove="Style\Guest2Style\img_profile.png" />
     <None Remove="Style\Guest2Style\img_search.png" />
@@ -60,6 +62,8 @@
     <Resource Include="Images\Guest2\voucher.png" />
     <Resource Include="Images\Guest2\voucher2.png" />
     <Resource Include="Images\Guest2\voucher3.png" />
+    <Resource Include="Images\Guide\DarkBackground.jpg" />
+    <Resource Include="Images\Guide\DarkMakeTour.jpg" />
     <Resource Include="Images\Guide\LightBackground.jpg" />
     <Resource Include="Images\Guide\LightMakeTour.jpg" />
   </ItemGroup>

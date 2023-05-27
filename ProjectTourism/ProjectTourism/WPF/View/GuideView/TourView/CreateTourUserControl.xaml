@@ -7,8 +7,11 @@
         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:ns="clr-namespace:ProjectTourism.Localization"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:conv="clr-namespace:ProjectTourism.Converters"
         mc:Ignorable="d"  d:DesignHeight="720" d:DesignWidth="1280">
     <UserControl.Resources>
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
                 <AdornedElementPlaceholder x:Name="textBox" />
@@ -16,9 +19,11 @@
             </StackPanel>
         </ControlTemplate>
     </UserControl.Resources>
+
     <Grid>
         <Label Name="CreateTourLabel" Content="{ns:Loc CreateTour}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         <Image x:Name="BackgroundImage" Source="../../../../Images/Guide/LightMakeTour.jpg" Margin="-13.5,60,0,-63"/>
+        <Image Source="../../../../Images/Guide/DarkMakeTour.jpg" Visibility="{Binding Path=Guide.DarkTheme, Converter={StaticResource BoolToVisibilityConverter}}" Margin="-13.5,58,0,-63"/>
         <Grid Margin="580,60,152,81" Height="370" Width="220" x:Name="calendargrid">
             <Rectangle Stroke="Black" Margin="0,-15,0,-20" Fill="#FF143675" RadiusX="14" RadiusY="14" RenderTransformOrigin="0.5,0.5" Grid.RowSpan="4" Name="rectangle">
                 <Rectangle.RenderTransform>

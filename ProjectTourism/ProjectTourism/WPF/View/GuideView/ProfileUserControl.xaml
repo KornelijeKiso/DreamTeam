@@ -5,7 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView.TourView"
         xmlns:ns="clr-namespace:ProjectTourism.Localization"
+        xmlns:c="clr-namespace:ProjectTourism.Converters"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
+    <UserControl.Resources>
+        <c:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        <!--<c:ThemeToForegroundConverter x:Key="ThemeToForegroundConverter" />-->
+    </UserControl.Resources>
     <Grid>
         <Label x:Name="NameSurnameLabel" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40">
             <Label.Content>
@@ -47,6 +52,7 @@
             <TextBox x:Name="textbox3" Grid.Row="2" Grid.Column="1" Text="{Binding Guide.Language}" Margin="0,8,0,8" IsReadOnly="True"/>
             <TextBox x:Name="textbox4" Grid.Row="3" Grid.Column="1" Text="{Binding Guide.Biography}" Margin="0,8,0,8" IsReadOnly="True" Grid.RowSpan="2"/>
             <TextBox x:Name="textbox5" Grid.Row="5" Grid.Column="1" Text="" Margin="0,8,0,8" IsReadOnly="True" Visibility="Hidden"/>
+            <Button Grid.Row="6" Grid.Column="1" Width="60" Height="30" Content="Switch" Click="ChangeTheme_Click"></Button>
 
         </Grid>
         <StackPanel Orientation="Horizontal" Margin="1145,160,-18,483">

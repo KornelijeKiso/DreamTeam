@@ -4,12 +4,9 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using ProjectTourism.Model;
 using ProjectTourism.Services;
 using System.Timers;
-using ProjectTourism.WPF.ViewModel;
 using ProjectTourism.Domain.Model;
 
 namespace ProjectTourism.DTO
@@ -299,6 +296,17 @@ namespace ProjectTourism.DTO
                 tourRequests.Add(new TourRequestDTO(tourRequest));
             }
             return tourRequests;
+        }
+
+        public void ChangeTheme()
+        {
+            GuideService guideService = new GuideService();
+
+            if (_guide.DarkTheme)
+                _guide.DarkTheme = false;
+            else
+                _guide.DarkTheme = true;
+            guideService.Update(_guide);
         }
 
         private ObservableCollection<TourAppointmentDTO> _FinishedApps;
@@ -594,10 +602,25 @@ namespace ProjectTourism.DTO
             }
         }
 
+        public bool DarkTheme
+        {
+            get => _guide.DarkTheme;
+            set
+            {
+                if (_guide.DarkTheme != value)
+                {
+                    _guide.DarkTheme = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+
+        
     }
 }

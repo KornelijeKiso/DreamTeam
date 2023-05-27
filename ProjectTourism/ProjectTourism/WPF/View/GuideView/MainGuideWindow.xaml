@@ -1,55 +1,90 @@
 ﻿<Window x:Class="ProjectTourism.View.GuideView.MainGuideWindow"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:local="clr-namespace:ProjectTourism.View.GuideView"
-    xmlns:ns="clr-namespace:ProjectTourism.Localization"
-    mc:Ignorable="d"
-    Title="Guide window" Height="720" Width="1280"
-    WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectTourism.View.GuideView"
+        xmlns:ns="clr-namespace:ProjectTourism.Localization"
+        xmlns:conv="clr-namespace:ProjectTourism.Converters"
+        mc:Ignorable="d"
+        Title="Guide window" Height="720" Width="1280"
+        WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+
+            <Style x:Key="HyperlinkStyle" TargetType="Hyperlink">
+                <Setter Property="Foreground" Value="Blue"/>
+                <Setter Property="TextBlock.FontSize" Value="20"/>
+                <Setter Property="TextBlock.Margin" Value="0,0,5,0"/>
+            </Style>
+
+            <Style x:Key="ImageStyle" TargetType="Image">
+                <Setter Property="Width" Value="18"/>
+                <Setter Property="Height" Value="18"/>
+                <Setter Property="Margin" Value="0,0,5,0"/>
+            </Style>
+
+            <Style x:Key="TextBlockStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="Margin" Value="40,0,0,0"/>
+            </Style>
+
+            <Style x:Key="StackPanelStyle" TargetType="StackPanel">
+                <Setter Property="Orientation" Value="Horizontal"/>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+
     <Grid>
         <Image Source="../../../Images/Guide/LightBackground.jpg" Margin="-30,-47,-22,0"/>
+        <Image Source="../../../Images/Guide/DarkBackground.jpg" Margin="-30,-47,-22,0" Visibility="{Binding Path=Guide.DarkTheme, Converter={StaticResource BoolToVisibilityConverter}}" />
+
         <StackPanel Orientation="Horizontal" Margin="419,46,20,596" HorizontalAlignment="Right">
-            <TextBlock FontSize="20">
-        <Hyperlink x:Name="HomeLink_Click" NavigateUri="home.xaml" Command="{Binding HomeLink_RequestNavigateCommand}">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="https://cdn-icons-png.flaticon.com/512/1946/1946436.png" Width="18" Height="18" Margin="0,0,5,0"/>
-                <TextBlock Text="{ns:Loc Home}"/>
-            </StackPanel>
-        </Hyperlink>
+            <TextBlock Style="{StaticResource TextBlockStyle}">
+                <Hyperlink x:Name="HomeLink_Click" NavigateUri="home.xaml" Command="{Binding HomeLink_RequestNavigateCommand}" Style="{StaticResource HyperlinkStyle}">
+                    <StackPanel Style="{StaticResource StackPanelStyle}">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/1946/1946436.png" Style="{StaticResource ImageStyle}"/>
+                        <TextBlock Text="{ns:Loc Home}"/>
+                    </StackPanel>
+                </Hyperlink>
             </TextBlock>
-            <TextBlock Margin="40,0,0,0" FontSize="20">
-        <Hyperlink x:Name="LiveTourMonitorLink" NavigateUri="home.xaml" Command="{Binding LiveTourMonitorLink_RequestNavigateCommand}">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="https://cdn-icons-png.flaticon.com/512/3253/3253051.png" Width="20" Height="20" Margin="0,0,5,0"/>
-                <TextBlock Text="{ns:Loc TodaysAppointments}"/>
-            </StackPanel>
-        </Hyperlink>
+
+            <TextBlock Style="{StaticResource TextBlockStyle}">
+                <Hyperlink x:Name="LiveTourMonitorLink" NavigateUri="home.xaml" Command="{Binding LiveTourMonitorLink_RequestNavigateCommand}" Style="{StaticResource HyperlinkStyle}">
+                    <StackPanel Style="{StaticResource StackPanelStyle}">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/3253/3253051.png" Style="{StaticResource ImageStyle}"/>
+                        <TextBlock Text="{ns:Loc TodaysAppointments}"/>
+                    </StackPanel>
+                </Hyperlink>
             </TextBlock>
-            <TextBlock Margin="40,0,0,0" FontSize="20">
-        <Hyperlink x:Name="AllAppointmentsLink" NavigateUri="home.xaml" Command="{Binding AllAppointmentsLink_RequestNavigateCommand}">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="https://cdn-icons-png.flaticon.com/512/10302/10302455.png" Width="18" Height="18" Margin="0,0,5,0"/>
-                <TextBlock Text="{ns:Loc AllAppointments}"/>
-            </StackPanel>
-        </Hyperlink>
+
+            <TextBlock Style="{StaticResource TextBlockStyle}">
+                <Hyperlink x:Name="AllAppointmentsLink" NavigateUri="home.xaml" Command="{Binding AllAppointmentsLink_RequestNavigateCommand}" Style="{StaticResource HyperlinkStyle}">
+                    <StackPanel Style="{StaticResource StackPanelStyle}">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/10302/10302455.png" Style="{StaticResource ImageStyle}"/>
+                        <TextBlock Text="{ns:Loc AllAppointments}"/>
+                    </StackPanel>
+                </Hyperlink>
             </TextBlock>
-            <TextBlock Margin="40,0,0,0" FontSize="20">
-        <Hyperlink x:Name="RequestsLink" NavigateUri="home.xaml" Command="{Binding RequestsLink_RequestNavigateCommand}">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="https://cdn-icons-png.flaticon.com/512/7358/7358481.png" Width="20" Height="20" Margin="0,0,5,0"/>
-                <TextBlock Text="{ns:Loc Requests}"/>
-            </StackPanel>
-        </Hyperlink>
+
+            <TextBlock Style="{StaticResource TextBlockStyle}">
+                <Hyperlink x:Name="RequestsLink" NavigateUri="home.xaml" Command="{Binding RequestsLink_RequestNavigateCommand}" Style="{StaticResource HyperlinkStyle}">
+                    <StackPanel Style="{StaticResource StackPanelStyle}">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/7358/7358481.png" Style="{StaticResource ImageStyle}"/>
+                        <TextBlock Text="{ns:Loc Requests}"/>
+                    </StackPanel>
+                </Hyperlink>
             </TextBlock>
-            <TextBlock Margin="40,0,0,0" FontSize="20">
-        <Hyperlink x:Name="ProfileLink" NavigateUri="home.xaml" Command="{Binding ProfileLink_RequestNavigateCommand}">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="https://cdn-icons-png.flaticon.com/512/709/709722.png" Width="20" Height="20" Margin="0,0,5,0"/>
-                <TextBlock Text="{ns:Loc Profile}"/>
-            </StackPanel>
-        </Hyperlink>
+
+            <TextBlock Style="{StaticResource TextBlockStyle}">
+                <Hyperlink x:Name="ProfileLink" NavigateUri="home.xaml" Command="{Binding ProfileLink_RequestNavigateCommand}" Style="{StaticResource HyperlinkStyle}">
+                    <StackPanel Style="{StaticResource StackPanelStyle}">
+                        <Image Source="https://cdn-icons-png.flaticon.com/512/709/709722.png" Style="{StaticResource ImageStyle}"/>
+                        <TextBlock Text="{ns:Loc Profile}"/>
+                    </StackPanel>
+                </Hyperlink>
             </TextBlock>
         </StackPanel>
 
