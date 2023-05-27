@@ -62,7 +62,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem Name="ForumsItem" FontSize="14" Background="{Binding ForumsItem.Background}" BorderBrush="DodgerBlue" Width="166">
+            <MenuItem Name="ForumsItem" FontSize="14" Command="{Binding SwitchToForumsCommand}" Background="{Binding ForumsItem.Background}" BorderBrush="DodgerBlue" Width="166">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="        Forums    " HorizontalAlignment="Center" Margin="0 3 0 0"/>

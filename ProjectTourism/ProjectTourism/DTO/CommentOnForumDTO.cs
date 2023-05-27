@@ -1,4 +1,5 @@
 ﻿using ProjectTourism.Domain.Model;
+using ProjectTourism.Model;
 using ProjectTourism.Services;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,7 @@ namespace ProjectTourism.DTO
         public CommentOnForumDTO(CommentOnForum comment)
         {
             _commentOnForum = comment;
+            User = new UserDTO(new UserService().GetOne(comment.Username));
         }
         public CommentOnForum GetCommentOnForum()
         {
@@ -82,17 +84,14 @@ namespace ProjectTourism.DTO
                 }
             }
         }
+        public UserDTO User { get; set; }
         public bool IsByOwner
         {
-            get => _commentOnForum.IsByOwner;
-            set
-            {
-                if (value != _commentOnForum.IsByOwner)
-                {
-                    _commentOnForum.IsByOwner = value;
-                    OnPropertyChanged();
-                }
-            }
+            get => User.Type==USERTYPE.OWNER;
+        }
+        public bool IsByGuest
+        {
+            get => !IsByOwner;
         }
         public ForumDTO Forum
         {

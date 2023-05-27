@@ -15,7 +15,6 @@ namespace ProjectTourism.Domain.Model
         public string Username { get; set; }
         public int Reports { get; set; }
         public string Text { get; set; }
-        public bool IsByOwner { get; set; }
         public DateTime Published { get; set; }
         public CommentOnForum()
         {
@@ -38,7 +37,6 @@ namespace ProjectTourism.Domain.Model
                 Username,
                 Reports.ToString(),
                 Text,
-                IsByOwner.ToString(),
                 Published.ToString("dd.MM.yyyy HH:mm")
             };
             return csvValues;
@@ -51,8 +49,7 @@ namespace ProjectTourism.Domain.Model
             Username = values[2];
             Reports = int.Parse(values[3]);
             Text = values[4];
-            IsByOwner = bool.Parse(values[5]);
-            if (DateTime.TryParse(values[6], new CultureInfo("en-GB"), DateTimeStyles.None, out var dateTimeParsed))
+            if (DateTime.TryParse(values[5], new CultureInfo("en-GB"), DateTimeStyles.None, out var dateTimeParsed))
                 Published = dateTimeParsed;
         }
     }

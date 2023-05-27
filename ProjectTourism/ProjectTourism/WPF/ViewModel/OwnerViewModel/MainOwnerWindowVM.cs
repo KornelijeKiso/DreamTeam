@@ -106,6 +106,17 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
             ProfileItem.Background = Brushes.LightSkyBlue;
             ResetNotifications();
         }
+        public void SwitchToForumsClick(object parameter)
+        {
+            Content = new ForumsMenuItem(Owner.Username);
+            AccommodationsItem.Background = Brushes.Transparent;
+            ReservationsItem.Background = Brushes.Transparent;
+            HelpItem.Background = Brushes.Transparent;
+            ForumsItem.Background = Brushes.LightSkyBlue;
+            NotificationsItem.Background = Brushes.Transparent;
+            ProfileItem.Background = Brushes.Transparent;
+            ResetNotifications();
+        }
 
         public void CloseNotificationsClick(object parameter)
         {
@@ -165,6 +176,10 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
         public ICommand CloseNotificationsCommand
         {
             get => new RelayCommand(CloseNotificationsClick);
+        }
+        public ICommand SwitchToForumsCommand
+        {
+            get => new RelayCommand(SwitchToForumsClick);
         }
         
     }
