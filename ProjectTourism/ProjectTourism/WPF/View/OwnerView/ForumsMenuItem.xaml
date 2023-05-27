@@ -125,8 +125,12 @@
                         </StackPanel>
                     </StackPanel>
                     <DataGrid Margin="0 10 0 0" Width="500" HeadersVisibility="None" BorderBrush="DodgerBlue" BorderThickness="2" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" CanUserResizeRows="False" CanUserSortColumns="False" Height="320" Background="LightSkyBlue"
-                              RowHeight="90" ItemsSource="{Binding SelectedForum.Comments}" HorizontalScrollBarVisibility="Hidden" GridLinesVisibility="Horizontal" AutoGenerateColumns="False">
-                        <DataGrid.Columns>
+                              RowHeight="90" ItemsSource="{Binding SelectedForum.Comments}" SelectedItem="{Binding SelectedComment, UpdateSourceTrigger=PropertyChanged}" HorizontalScrollBarVisibility="Hidden" GridLinesVisibility="Horizontal" AutoGenerateColumns="False">
+                            <DataGrid.Resources>
+                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                   Color="AliceBlue"/>
+                            </DataGrid.Resources>
+                            <DataGrid.Columns>
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
@@ -146,19 +150,20 @@
                                             </Label>
                                             <TextBlock Text="{Binding Text}" Foreground="Black" Height="40" Margin="10 0 10 0" TextWrapping="Wrap"></TextBlock>
                                             <Label HorizontalAlignment="Right" Margin=" 0 -5 14 0" Foreground="DimGray" FontWeight="SemiBold" Content="{Binding Published}" ></Label>
-                                            <TextBlock Margin="430 -86 0 0" FontSize="14" Visibility="{Binding Path=IsByGuest, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
-                                                 <Hyperlink >Report</Hyperlink>
+                                            <TextBlock Margin="412 -86 0 0" FontSize="14" Visibility="{Binding Path=IsByGuest, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
+                                                 <Hyperlink Command="{Binding DataContext.ReportCommand, RelativeSource={RelativeSource AncestorType={x:Type local:ForumsMenuItem}}}">Report</Hyperlink>
                                             </TextBlock>
                                             <Image Source="https://img.icons8.com/?size=512&amp;id=89123&amp;format=png" Margin="2 -150 0 0" HorizontalAlignment="Left" Height="20" Visibility="{Binding Path=IsByOwner, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Image>
                                             <Image Source="https://img.icons8.com/?size=512&amp;id=hkAQS0EsCD6P&amp;format=png" Margin="2 -150 0 0" HorizontalAlignment="Left" Height="20" Visibility="{Binding Path=IsByGuest, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Image>
-                                        </StackPanel>
+                                            <Label Content="{Binding Reports}" Foreground="Red" FontWeight="SemiBold" Width="28" Margin="454 -90 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Visibility="{Binding Path=IsByGuest, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Label>
+                                            </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                         </DataGrid.Columns>
                     </DataGrid>
-                        <xctk:WatermarkTextBox BorderThickness="2" FontSize="14" HorizontalAlignment="Left" Margin="23,10,0,0" TextWrapping="Wrap" Watermark="Enter your comment here." Text="{Binding Path=NewComment.Text, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="500" Height="80"/>
-                        <Button Width="120" Margin="10" Height="35" Content="Post" FontSize="17"></Button>
+                        <xctk:WatermarkTextBox BorderThickness="2" FontSize="14" HorizontalAlignment="Left" Margin="23,10,0,0" TextWrapping="Wrap" Watermark="Enter your comment here." Text="{Binding Path=CommentText, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="500" Height="80"/>
+                        <Button Width="120" Margin="10" Height="35" Content="Post" FontSize="17" Command="{Binding PostCommand}"></Button>
                     </StackPanel>
             </Border>
             </Grid>

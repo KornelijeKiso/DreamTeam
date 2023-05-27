@@ -64,25 +64,49 @@ namespace ProjectTourism.DTO
             get => _forum.OpenedOn;
             set
             {
-                if (value!= _forum.OpenedOn)
+                if (value != _forum.OpenedOn)
                 {
                     _forum.OpenedOn = value;
                     OnPropertyChanged();
                 }
             }
         }
+        private bool _IsVeryUseful;
         public bool IsVeryUseful
         {
-            get => CommentsByGuests >= 4 && CommentsByOwner >= 2;
+            get => _IsVeryUseful=CheckIfVeryUseful();
+            set
+            {
+                if(value!=_IsVeryUseful)
+                {
+                    _IsVeryUseful=value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public bool CheckIfVeryUseful()
+        {
+            OnPropertyChanged();
+            return CommentsByGuests >= 4 && CommentsByOwner >= 2;
         }
 
         public int CommentsByGuests
         {
             get => Comments.ToList().Where(c => !c.IsByOwner).Count();
         }
+        private int _CommentsByOwner;
         public int CommentsByOwner
         {
-            get => Comments.ToList().Where(c => c.IsByOwner).Count();
+            get => _CommentsByOwner = Comments.ToList().Where(c => c.IsByOwner).Count();
+            set
+            {
+                if (value != _CommentsByOwner)
+                {
+                    _CommentsByOwner = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
         private ObservableCollection<CommentOnForumDTO> _Comments;

@@ -20,6 +20,9 @@ namespace ProjectTourism.DTO
             _commentOnForum = comment;
             User = new UserDTO(new UserService().GetOne(comment.Username));
         }
+        public CommentOnForumDTO()
+        {
+        }
         public CommentOnForum GetCommentOnForum()
         {
             return _commentOnForum;

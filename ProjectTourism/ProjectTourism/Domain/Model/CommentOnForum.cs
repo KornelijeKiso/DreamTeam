@@ -20,6 +20,14 @@ namespace ProjectTourism.Domain.Model
         {
 
         }
+        public CommentOnForum(CommentOnForum c)
+        {
+            Reports = c.Reports;
+            Text = c.Text;
+            Username = c.Username;
+            ForumId = c.ForumId;
+
+        }
         public CommentOnForum(int id, int forumId, string username, int reports, string text)
         {
             Id = id;
