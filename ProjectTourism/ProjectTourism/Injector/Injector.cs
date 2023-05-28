@@ -41,6 +41,7 @@ namespace Injector
             _implementations.Add(typeof(IForumRepository), new ForumRepository());
             _implementations.Add(typeof(ICommentOnForumRepository), new CommentOnForumRepository());
             _implementations.Add(typeof(INotificationRepository), new NotificationRepository());
+            _implementations.Add(typeof(IReportedCommentRepository), new ReportedCommentRepository());
         }
 
         public static T CreateInstance<T>()
