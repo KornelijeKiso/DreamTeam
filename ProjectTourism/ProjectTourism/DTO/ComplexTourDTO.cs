@@ -35,7 +35,8 @@ namespace ProjectTourism.DTO
             foreach (string tourRequestId in tourRequestIDs)
             {
                 tourRequestId.Trim();
-                complexTour.TourRequests.Add(complexTourRequestPartService.GetOne(int.Parse(tourRequestId)));
+                if (tourRequestId != "")
+                    complexTour.TourRequests.Add(complexTourRequestPartService.GetOne(int.Parse(tourRequestId)));
             }
         }
         public int Id

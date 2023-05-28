@@ -202,6 +202,21 @@ namespace ProjectTourism.DTO
             TourRequests.Add(tourRequest);
         }
 
+        public void CreateComplexTourRequestPart(TourRequestDTO tourRequest)
+        {
+            ComplexTourRequestPartService requestService = new ComplexTourRequestPartService();
+            LocationService locationService = new LocationService();
+            tourRequest.LocationId = locationService.AddAndReturnId(tourRequest.Location.GetLocation());
+            requestService.Add(tourRequest.GetTourRequest());
+        }
+
+        public void CreateComplexTour(ComplexTourDTO complexTour)
+        {
+            ComplexTourService complexTourService = new ComplexTourService();
+            complexTourService.Add(complexTour.GetComplexTour());
+            ComplexTours.Add(complexTour);
+        }
+
         public string Username
         {
             get => _guest2.Username;

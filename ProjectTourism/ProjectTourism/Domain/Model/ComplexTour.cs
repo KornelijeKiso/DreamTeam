@@ -18,6 +18,7 @@ namespace ProjectTourism.Domain.Model
         {
             Guest2Username = username;
             TourRequestString = tourRequestString;
+            TourRequests = new List<TourRequest>();
         }
         public ComplexTour(string username, List<TourRequest> tourRequests)
         {
