@@ -50,10 +50,11 @@ namespace ProjectTourism.Repositories
                 if(comment.Id==id)
                 {
                     comment.Reports++;
-                    FileHandler.Save(CommentsOnForums);
-                    return;
+                    break;
                 }
             }
+            FileHandler.Save(CommentsOnForums);
+            return;
         }
     }
 }

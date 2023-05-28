@@ -148,8 +148,8 @@
                                                     </TextBlock>
                                                 </Label.Content>
                                             </Label>
-                                            <TextBlock Text="{Binding Text}" Foreground="Black" Height="40" Margin="10 0 10 0" TextWrapping="Wrap"></TextBlock>
-                                            <Label HorizontalAlignment="Right" Margin=" 0 -5 14 0" Foreground="DimGray" FontWeight="SemiBold" Content="{Binding Published}" ></Label>
+                                            <TextBlock Text="{Binding Text}" Foreground="Black" Height="32" Margin="10 0 10 0" TextWrapping="Wrap"></TextBlock>
+                                            <Label HorizontalAlignment="Right" Margin=" 0 3 14 0" Foreground="DimGray" FontWeight="SemiBold" Content="{Binding Published}" ></Label>
                                             <TextBlock Margin="412 -86 0 0" FontSize="14" Visibility="{Binding Path=IsByGuest, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
                                                  <Hyperlink Command="{Binding DataContext.ReportCommand, RelativeSource={RelativeSource AncestorType={x:Type local:ForumsMenuItem}}}">Report</Hyperlink>
                                             </TextBlock>

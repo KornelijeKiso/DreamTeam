@@ -82,18 +82,13 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
         {
             if(new ReportedCommentService().Add(SelectedComment.Id, Owner.Username))
             {
-                int i = SelectedComment.Reports;
-                SelectedComment.Reports++;
                 new CommentOnForumService().Report(SelectedComment.Id);
-                if (SelectedComment.Reports > i + 1)
-                {
-                    SelectedComment.Reports = i + 1;
-                }
-            }
+                Owner.timer.Stop();
+                Owner.Synchronize(Owner.Username);
+                Owner.timer.Start();
+            }  
             else
-            {
                 MessageBox.Show("You have already reported this comment.");
-            }
         }
         public ICommand PostCommand
         {
