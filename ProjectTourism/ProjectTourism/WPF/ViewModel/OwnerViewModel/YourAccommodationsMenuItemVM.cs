@@ -13,15 +13,83 @@ using System.Windows.Controls;
 using ProjectTourism.DTO;
 using ProjectTourism.Services;
 using ProjectTourism.Utilities;
+using System.ComponentModel;
 
 namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
 {
-    public class YourAccommodationsMenuItemVM:ViewBase
+    public class YourAccommodationsMenuItemVM:INotifyPropertyChanged
     {
-        public TextBlock popupText { get; } = new TextBlock();
-        public Grid popupContainer { get; } = new Grid();
-        public ComboBox ComboType { get; set; } = new ComboBox();
-        public ComboBox ComboDeadline { get; set; } = new ComboBox();
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        private string _popupText;
+        public string popupText
+        {
+            get => _popupText;
+            set
+            {
+                if (value != _popupText)
+                {
+                    _popupText = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private bool _popupVisible;
+        public bool popupVisible
+        {
+            get => _popupVisible;
+            set
+            {
+                if (value != _popupVisible)
+                {
+                    _popupVisible = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private double _popupOpacity;
+        public double popupOpacity
+        {
+            get => _popupOpacity;
+            set
+            {
+                if (value != _popupOpacity)
+                {
+                    _popupOpacity = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private string _SelectedType;
+        public string SelectedType
+        {
+            get => _SelectedType;
+            set
+            {
+                if (value != _SelectedType)
+                {
+                    _SelectedType = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _SelectedDeadline;
+        public string SelectedDeadline
+        {
+            get => _SelectedDeadline;
+            set
+            {
+                if (value != _SelectedDeadline)
+                {
+                    _SelectedDeadline = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public OwnerDTO Owner { get; set; }
         public AccommodationDTO SelectedAccommodation { get; set; }
         public AccommodationDTO NewAccommodation { get; set; }
@@ -36,7 +104,8 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
             InitializeTypes();
             InitializeNewEntities();
             SetOwner(username);
-            popupContainer.Visibility = Visibility.Collapsed;
+            popupOpacity = 1.0;
+            popupVisible = false;
         }
         public YourAccommodationsMenuItemVM() { }
         private void SetOwner(string username)
@@ -55,7 +124,7 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
         private void InitializeTypes()
         {
             Types = new List<string>() { "Apartment", "House", "Hut" };
-            ComboType.SelectedValue= Types[0];
+            SelectedType= Types[0];
         }
         private void InitializeDays()
         {
@@ -65,7 +134,7 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
             {
                 Days.Add(item, InDays(item));
             }
-            ComboDeadline.SelectedValue = Deadlines[0];
+            SelectedDeadline = Deadlines[0];
         }
 
         private int InDays(string deadline)
@@ -82,9 +151,9 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
 
         private void HandleTypeCombobox()
         {
-            if (ComboType.SelectedValue.ToString() == "Apartment")
+            if (SelectedType.ToString().Equals("Apartment"))
                 NewAccommodation.Type = ACCOMMODATIONTYPE.APARTMENT;
-            else if (ComboType.SelectedValue.ToString() == "House")
+            else if (SelectedType.ToString().Equals("House"))
                 NewAccommodation.Type = ACCOMMODATIONTYPE.HOUSE;
             else
                 NewAccommodation.Type = ACCOMMODATIONTYPE.HUT;
@@ -110,7 +179,7 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
         private void RegisterNewAccommodation()
         {
             HandleTypeCombobox();
-            NewAccommodation.CancellationDeadline = Days[(string)ComboDeadline.SelectedValue];
+            NewAccommodation.CancellationDeadline = Days[(string)SelectedDeadline];
             AddAccommodation(NewAccommodation, NewLocation);
             ShowPopupMessage("You have successfully registered new accommodation.\n You can see it in Your accommodations down below.");
             Reset();
@@ -128,23 +197,23 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
         }
         private async void ShowPopupMessage(string message)
         {
-            popupText.Text = message;
-            popupContainer.Visibility = Visibility.Visible;
+            popupText = message;
+            popupVisible = true;
             await Task.Delay(4000);
             for (int i = 0; i < 20; i++)
             {
                 await Task.Delay(9);
-                popupContainer.Opacity += -0.05;
+                popupOpacity += -0.05;
             }
-            popupContainer.Visibility = Visibility.Collapsed;
-            popupContainer.Opacity = 1.0;
+            popupVisible = false;
+            popupOpacity = 1.0;
         }
         private void Reset()
         {
             NewAccommodation.Reset();
             NewLocation.Reset();
-            ComboDeadline.SelectedValue = Deadlines[0];
-            ComboType.SelectedValue = Types[0];
+            SelectedDeadline = Deadlines[0];
+            SelectedType = Types[0];
         }
         public ICommand RegisterAccommodationClickCommand
         {

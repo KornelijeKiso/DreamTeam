@@ -138,11 +138,11 @@
         <xctk:IntegerUpDown Name="MaxUpDown" LostFocus="ValidateNumberInput" Margin="50,287,0 0" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Width="196" Height="29" Value="{Binding NewAccommodation.MaxNumberOfGuests}" Maximum="15" Minimum="1" PreviewTextInput="IntegerUpDown_PreviewTextInput">
         </xctk:IntegerUpDown>
         <xctk:IntegerUpDown Name="MinUpDown" LostFocus="ValidateNumberInput" Margin="50,341,0 0" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Width="196" Height="29" Value="{Binding NewAccommodation.MinDaysForReservation}" Maximum="7" Minimum="1" PreviewTextInput="IntegerUpDown_PreviewTextInput"/>
-        <ComboBox Name="ComboDeadlin" SelectedItem="{Binding ComboDeadline.SelectedItem,UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding ComboDeadline.SelectedValue,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="50,395,0,0" Width="196" Height="28" VerticalAlignment="Top" ItemsSource="{Binding Deadlines}"></ComboBox>
+        <ComboBox Name="ComboDeadlin" SelectedValue="{Binding SelectedDeadline,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="50,395,0,0" Width="196" Height="28" VerticalAlignment="Top" ItemsSource="{Binding Deadlines}"></ComboBox>
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Margin="50,503,0,0" TextWrapping="Wrap" Text="{Binding Path =NewAccommodation.PictureURLs, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="196" Height="91" Watermark="Enter comma separeted URLs.">
             
         </xctk:WatermarkTextBox>
-        <ComboBox Name="ComboTyp" SelectedValue="{Binding ComboType.SelectedValue,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding ComboType.SelectedItem,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Margin="50,449,0,0" VerticalAlignment="Top" Width="196" Height="29" ItemsSource="{Binding Types}">
+        <ComboBox Name="ComboTyp" SelectedValue="{Binding SelectedType,UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Left" Margin="50,449,0,0" VerticalAlignment="Top" Width="196" Height="29" ItemsSource="{Binding Types}">
         </ComboBox>
         <Label HorizontalAlignment="Left" Margin="50,83,0,0" VerticalAlignment="Top" Width="152">
             <Span>
@@ -162,17 +162,17 @@
                 <Span Foreground="Red">*</Span>
             </Span>
         </Label>
-        <Label Content="Number of guests" HorizontalAlignment="Left" Margin="50,261,0,0" VerticalAlignment="Top" Width="175"/>
-        <Label Content="Min days to reserve" HorizontalAlignment="Left" Margin="50,315,0,0" VerticalAlignment="Top" Width="152"/>
+        <Label Content="Number of guests (1-15)" HorizontalAlignment="Left" Margin="50,261,0,0" VerticalAlignment="Top" Width="175"/>
+        <Label Content="Min days to reserve (1-7)" HorizontalAlignment="Left" Margin="50,315,0,0" VerticalAlignment="Top" Width="152"/>
         <Label Content="Cancellation deadline" HorizontalAlignment="Left" Margin="50,370,0,0" VerticalAlignment="Top" Width="152"/>
         <Label Content="Accommodation type" HorizontalAlignment="Left" Margin="50,424,0,0" VerticalAlignment="Top" Width="152"/>
         <Label Content="Pictures" HorizontalAlignment="Left" Margin="50,478,0,0" VerticalAlignment="Top" Width="152"/>
 
         <Label Content="REGISTER A NEW ACCOMMODATION" FontSize="12" Foreground="DarkSlateGray" FontWeight="Bold" HorizontalAlignment="Left" Margin="30,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,0.708" Width="235"/>
         <Label Content="YOUR ACCOMMODATIONS" FontSize="12" Foreground="DarkSlateGray" FontWeight="Bold" HorizontalAlignment="Left" Margin="296,54,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,0.708" Width="176"/>
-        <Grid x:Name="popupContaine" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="{Binding popupContainer.Visibility}" Opacity="{Binding popupContainer.Opacity}" Margin="0 40 0 0">
+        <Grid x:Name="popupContaine" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="{Binding Path=popupVisible, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}" Opacity="{Binding popupOpacity, UpdateSourceTrigger=PropertyChanged}" Margin="0 40 0 0">
             <Border x:Name="popupBorder" BorderBrush="Black" BorderThickness="1" Background="DimGray" Width="540" CornerRadius="10" Opacity="0.9">
-                <TextBlock x:Name="popupText" Height="60" FontSize="15" FontWeight="SemiBold" Text="{Binding popupText.Text, UpdateSourceTrigger=PropertyChanged}" Padding="10" HorizontalAlignment="Center" Opacity="1.0"  Foreground="White" VerticalAlignment="Center"/>
+                <TextBlock x:Name="popupText" Height="60" FontSize="15" FontWeight="SemiBold" Text="{Binding popupText, UpdateSourceTrigger=PropertyChanged}" Padding="10" HorizontalAlignment="Center" Opacity="1.0"  Foreground="White" VerticalAlignment="Center"/>
             </Border>
         </Grid>
     </Grid>
