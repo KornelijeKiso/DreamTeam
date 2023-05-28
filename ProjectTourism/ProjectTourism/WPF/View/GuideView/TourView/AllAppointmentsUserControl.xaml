@@ -33,7 +33,7 @@
                     <DataGrid x:Name="DataGridReadyTours" 
                     ItemsSource="{Binding Path=Guide.ReadyApps, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged}"
-                    SelectionMode="Single"
+                    SelectionMode="Single" 
                     VerticalScrollBarVisibility="Visible" 
                     GridLinesVisibility="Horizontal"
                     IsReadOnly="True" AutoGenerateColumns="False" Margin="10,0,10,0" Height="425" RowHeight="50">
@@ -42,7 +42,7 @@
                         </DataGrid.Resources>
                         <DataGrid.CellStyle>
                             <Style TargetType="DataGridCell">
-                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="BorderThickness"  Value="2"/>
                             </Style>
                         </DataGrid.CellStyle>
                         <DataGrid.Columns>
