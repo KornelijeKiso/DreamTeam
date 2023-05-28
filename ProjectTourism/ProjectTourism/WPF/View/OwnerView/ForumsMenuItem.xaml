@@ -156,6 +156,8 @@
                                             <Image Source="https://img.icons8.com/?size=512&amp;id=89123&amp;format=png" Margin="2 -150 0 0" HorizontalAlignment="Left" Height="20" Visibility="{Binding Path=IsByOwner, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Image>
                                             <Image Source="https://img.icons8.com/?size=512&amp;id=hkAQS0EsCD6P&amp;format=png" Margin="2 -150 0 0" HorizontalAlignment="Left" Height="20" Visibility="{Binding Path=IsByGuest, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Image>
                                             <Label Content="{Binding Reports}" Foreground="Red" FontWeight="SemiBold" Width="28" Margin="454 -90 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Visibility="{Binding Path=IsByGuest, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Label>
+                                                <Image Source="https://img.icons8.com/?size=2x&amp;id=5tH5sHqq0t2q&amp;format=png" Height="20" Margin="5 -25 0 0" HorizontalAlignment="Left" Visibility="{Binding Path=Suspicious, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Image>
+                                                <Label HorizontalAlignment="Left" Margin="22 -25 0 0" FontSize="11" Foreground="Orange" Visibility="{Binding Path=Suspicious, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">This guest has never been to this destination.</Label>
                                             </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>

@@ -121,14 +121,23 @@ namespace ProjectTourism.DTO
             }
         }
 
-        public bool MaybeInvalid
+        public bool Suspicious
         {
             get {
                 if (!IsByOwner)
                 {
                     try {
-                        return (new ReservationService().GetAll().Where(r => r.Guest1Username.Equals(Username) && r.EndDate <= DateOnly.FromDateTime(Published) &&
-                            new AccommodationService().GetAll().Where(a => a.LocationId == Forum.LocationId && r.AccommodationId == a.Id).Count() > 0).Count() > 0);
+                        List<Reservation> reservations = new ReservationService().GetAll().Where(r => r.EndDate <= DateOnly.FromDateTime(Published) && r.Guest1Username.Equals(Username)).ToList();
+                        foreach(var r in reservations)
+                        {
+                            r.Accommodation = new AccommodationService().GetOne(r.AccommodationId);
+                            Location l = new LocationService().GetOne(r.Accommodation.LocationId);
+                            if(l.City == Forum.Location.City && l.Country.Equals(Forum.Location.Country))
+                            {
+                                return false;
+                            }
+                        }
+                        return true;
 
                     }
                     catch(Exception ex)
