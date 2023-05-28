@@ -3,24 +3,73 @@ using ProjectTourism.DTO;
 using ProjectTourism.Services;
 using ProjectTourism.Utilities;
 using ProjectTourism.WPF.View.OwnerView;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
-using Xceed.Wpf.Toolkit;
 
 namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
 {
-    public class RenovationsWindowVM:ViewBase
+    public class RenovationsWindowVM:INotifyPropertyChanged
     {
-        public TextBox SelectedFreeAppointment { get; set; } = new TextBox();
-        public Grid popupContainer { get;set; } = new Grid();
-        public TextBlock popupText { get; set; } = new TextBlock();
+        public event PropertyChangedEventHandler? PropertyChanged;
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+        private string _popupText;
+        public string popupText
+        {
+            get => _popupText;
+            set
+            {
+                if (value != _popupText)
+                {
+                    _popupText = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private bool _popupVisible;
+        public bool popupVisible
+        {
+            get => _popupVisible;
+            set
+            {
+                if (value != _popupVisible)
+                {
+                    _popupVisible = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private double _popupOpacity;
+        public double popupOpacity
+        {
+            get => _popupOpacity;
+            set
+            {
+                if (value != _popupOpacity)
+                {
+                    _popupOpacity = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private string _SelectedFreeAppointment;
+        public string SelectedFreeAppointment
+        {
+            get => _SelectedFreeAppointment;
+            set
+            {
+                if (value != _SelectedFreeAppointment)
+                {
+                    _SelectedFreeAppointment = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public AccommodationDTO Accommodation { get; set; }
         public RenovationDTO SelectedRenovation { get; set; }
         public RenovationDTO NewRenovation { get; set; }
@@ -32,20 +81,21 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
             RenovationAppointment = new RenovationAppointmentDTO();
             RenovationAppointment.AccommodationId = Accommodation.Id;
             NewRenovation.AccommodationId = Accommodation.Id;
-            popupContainer.Visibility = Visibility.Collapsed;
+            popupVisible = false;
+            popupOpacity = 1.0;
         }
         public RenovationsWindowVM()
         {
         }
         public void ScheduleRenovationClick(object parameter)
         {
-            if (SelectedFreeAppointment.Text.ToString() == "") System.Windows.MessageBox.Show("You have to select appointment for your renovation.");
+            if (SelectedFreeAppointment.ToString() == "") System.Windows.MessageBox.Show("You have to select appointment for your renovation.");
             else
             {
                 ScheduleNewRenovation(NewRenovation);
                 ShowPopupMessage("You have successfully scheduled new renovation.\n You can see it in Previously scheduled renovations down below.");
                 NewRenovation.Reset();
-                SelectedFreeAppointment.Text = "";
+                SelectedFreeAppointment = "";
             }
         }
         public void ScheduleNewRenovation(RenovationDTO renovation)
@@ -67,27 +117,27 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
             selectFreeAppointmentForRenovatonWindow.ShowDialog();
             if (selectFreeAppointmentForRenovatonWindow.SelectedRenovation != null)
             {
-                SelectedFreeAppointment.Text = selectFreeAppointmentForRenovatonWindow.SelectedRenovation.StartDate.ToString() + " - " + selectFreeAppointmentForRenovatonWindow.SelectedRenovation.EndDate.ToString();
+                SelectedFreeAppointment = selectFreeAppointmentForRenovatonWindow.SelectedRenovation.StartDate.ToString() + " - " + selectFreeAppointmentForRenovatonWindow.SelectedRenovation.EndDate.ToString();
                 NewRenovation.StartDate = selectFreeAppointmentForRenovatonWindow.SelectedRenovation.StartDate;
                 NewRenovation.EndDate = selectFreeAppointmentForRenovatonWindow.SelectedRenovation.EndDate;
             }
         }
         private async void ShowPopupMessage(string message)
         {
-            popupText.Text = message;
-            popupContainer.Visibility = Visibility.Visible;
+            popupText = message;
+            popupVisible = true;
             await Task.Delay(4000);
             for (int i = 0; i < 20; i++)
             {
                 await Task.Delay(9);
-                popupContainer.Opacity += -0.05;
+                popupOpacity += -0.05;
             }
-            popupContainer.Visibility = Visibility.Collapsed;
-            popupContainer.Opacity = 1.0;
+            popupVisible = false;
+            popupOpacity = 1.0;
         }
         public void DeclineClick(object sparameter)
         {
-            SelectedFreeAppointment.Text = "";
+            SelectedFreeAppointment = "";
         }
 
         public void CancelRenovationClick(object parameter)

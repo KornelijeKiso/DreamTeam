@@ -21,29 +21,12 @@ namespace ProjectTourism.WPF.View.OwnerView
         {
             var integerUpDown = (IntegerUpDown)sender;
             int? value = integerUpDown.Value;
-            if (!value.HasValue)
-            {
-                integerUpDown.Value = 1;
-            }
+            if (!value.HasValue) integerUpDown.Value = 1;
         }
         private void IntegerValidation(object sender, TextCompositionEventArgs e)
         {
-            if (!char.IsDigit(e.Text, e.Text.Length - 1))
-            {
-                e.Handled = true;
-            }
-            else
-            {
-                int res;
-                if (int.TryParse(DurationTextBox.Value.ToString(), out res))
-                {
-                    if(res == 0)
-                    {
-                        e.Handled = true;
-                        DurationTextBox.Value = 1;
-                    }
-                }
-            }
+            if (!char.IsDigit(e.Text, e.Text.Length - 1)) e.Handled = true;
+            if (DurationTextBox.Value == 0){ DurationTextBox.Value = 1; e.Handled = true;}
         }
     }
 }

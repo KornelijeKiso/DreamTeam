@@ -84,7 +84,7 @@
                                 </StackPanel>
                                 <Button Margin="0 30 0 0" Command="{Binding SelectFreeAppointmentClickCommand}" FontWeight="Normal" Width="200"  Content="Select free appointment" FontSize="12"  Height="28"></Button>
                                 <Label Content="Selected appointment :" FontSize="12" Margin="5 0"></Label>
-                                <TextBox Name="SelectedFreeAppointment" Text="{Binding SelectedFreeAppointment.Text}" IsEnabled="False" TextAlignment="Center" FontSize="15" Padding="3"  Margin="0 -5 0 0" Height="30" Width="280"></TextBox>
+                                <TextBox Name="SelectedFreeAppointment" Text="{Binding SelectedFreeAppointment,UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" TextAlignment="Center" FontSize="15" Padding="3"  Margin="0 -5 0 0" Height="30" Width="280"></TextBox>
                                 <Button Command="{Binding DeclineClickCommand}" Margin="264 -30 10 0" Background="Transparent" BorderBrush="Transparent">
                                     <Button.Content>
                                         <Image Source="https://pics.freeicons.io/uploads/icons/png/11523361591679820327-64.png" Stretch="Fill" Visibility="Visible"></Image>
@@ -181,9 +181,9 @@
             <TextBlock Foreground="Black" TextWrapping="Wrap" Text="You haven't renovated this" Margin="0 0"  FontSize="11" HorizontalAlignment="Center"></TextBlock>
             <TextBlock Foreground="Black" TextWrapping="Wrap" Text="accommodation in the last year." Margin="0 0"  FontSize="11" HorizontalAlignment="Center"></TextBlock>
         </StackPanel>
-        <Grid x:Name="popupContainer" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="{Binding popupContainer.Visibility}" Opacity="{Binding popupContainer.Opacity}"  Margin="0 40 0 0">
+        <Grid x:Name="popupContainer" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="{Binding Path=popupVisible, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}" Opacity="{Binding popupOpacity, UpdateSourceTrigger =PropertyChanged}"  Margin="0 40 0 0">
             <Border x:Name="popupBorder" BorderBrush="Black" BorderThickness="1" Background="DimGray" Width="540" CornerRadius="10" Opacity="0.9">
-                <TextBlock x:Name="popupText" Height="60"   FontSize="15" FontWeight="SemiBold" Text="{Binding popupText.Text}" Padding="10" HorizontalAlignment="Center" Opacity="1.0"  Foreground="White" VerticalAlignment="Center"/>
+                <TextBlock x:Name="popupText" Height="60"   FontSize="15" FontWeight="SemiBold" Text="{Binding popupText, UpdateSourceTrigger=PropertyChanged}" Padding="10" HorizontalAlignment="Center" Opacity="1.0"  Foreground="White" VerticalAlignment="Center"/>
             </Border>
         </Grid>
     </Grid>
