@@ -69,7 +69,16 @@ namespace ProjectTourism.DTO
             Reservations = new ObservableCollection<ReservationDTO>(_owner.Reservations.Select(r => new ReservationDTO(r)).Reverse().ToList());
             SetPopularAndUnpopularDestination();
             LoadNotifications();
-            
+            foreach(ForumDTO forum in Forums)
+            {
+                forum.Comments = new ObservableCollection<CommentOnForumDTO>(new CommentOnForumService().GetAllByForum(forum.Id).Select(c => new CommentOnForumDTO(c)));
+                forum.CommentsByOwner = forum.Comments.Where(c => c.IsByOwner).Count();
+                forum.IsVeryUseful = forum.CheckIfVeryUseful();
+                foreach (CommentOnForumDTO comment in forum.Comments)
+                {
+                    comment.Forum = forum;
+                }
+            }
         }
         private void SynchronizeForums()
         {
