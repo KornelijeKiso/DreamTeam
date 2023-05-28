@@ -37,6 +37,8 @@ namespace Injector
             _implementations.Add(typeof(ITicketRepository), new TicketRepository());
             _implementations.Add(typeof(IRenovationRepository), new RenovationRepository());
             _implementations.Add(typeof(ITourRequestRepository), new TourRequestRepository());
+            _implementations.Add(typeof(IComplexTourRepository), new ComplexTourRepository());
+            _implementations.Add(typeof(IComplexTourRequestPartRepository), new ComplexTourRequestPartRepository());
             _implementations.Add(typeof(IRenovationRecommendationRepository), new RenovationRecommendationRepository());
             _implementations.Add(typeof(IForumRepository), new ForumRepository());
             _implementations.Add(typeof(ICommentOnForumRepository), new CommentOnForumRepository());

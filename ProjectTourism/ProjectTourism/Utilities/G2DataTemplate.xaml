@@ -20,14 +20,13 @@
     <DataTemplate DataType="{x:Type vm:ProfileVM}">
         <view:G2Profile />
     </DataTemplate>
-    
+
     <DataTemplate DataType="{x:Type vm:TourRequestsVM}">
         <view:G2TourRequest />
     </DataTemplate>
-    
 
-    <!--<DataTemplate DataType="{x:Type vm:ComplexTourVM}">
-        <view:ComplexTours />
-    </DataTemplate>-->
+    <DataTemplate DataType="{x:Type vm:ComplexToursVM}">
+        <view:G2ComplexTours />
+    </DataTemplate>
     
 </ResourceDictionary>

@@ -27,6 +27,7 @@ namespace ProjectTourism.DTO
             Tickets = new ObservableCollection<TicketDTO>(_guest2.Tickets.Select(r => new TicketDTO(r)).ToList());
             Vouchers = new ObservableCollection<VoucherDTO>(_guest2.Vouchers.Select(r => new VoucherDTO(r)).ToList());
             TourRequests = new ObservableCollection<TourRequestDTO>(_guest2.TourRequests.Select(r => new TourRequestDTO(r)).ToList());
+            ComplexTours = new ObservableCollection<ComplexTourDTO>(_guest2.ComplexTours.Select(r => new ComplexTourDTO(r)).ToList());
         }
         public Guest2DTO(string username)
         {
@@ -34,6 +35,7 @@ namespace ProjectTourism.DTO
             Tickets = new ObservableCollection<TicketDTO>(_guest2.Tickets.Select(r => new TicketDTO(r)).ToList());
             Vouchers = new ObservableCollection<VoucherDTO>(_guest2.Vouchers.Select(r => new VoucherDTO(r)).ToList());
             TourRequests = new ObservableCollection<TourRequestDTO>(_guest2.TourRequests.Select(r => new TourRequestDTO(r)).ToList());
+            ComplexTours = new ObservableCollection<ComplexTourDTO>(_guest2.ComplexTours.Select(r => new ComplexTourDTO(r)).ToList());
         }
         
        
@@ -49,6 +51,7 @@ namespace ProjectTourism.DTO
             SynchronizeTicketsList(_guest2);
             SynchronizeVouchersList(_guest2);
             SynchronizeTourRequestsList(_guest2);
+            SynchronizeComplexToursList(_guest2);
         }
        
         private void SynchronizeVouchersList(Guest2 _guest2)
@@ -131,6 +134,17 @@ namespace ProjectTourism.DTO
                 _guest2.TourRequests.Add(request);
             }
         }
+        private void SynchronizeComplexToursList(Guest2 guest2)
+        {
+            ComplexTourService complexTourService = new ComplexTourService();
+            TourRequestService requestService = new TourRequestService();
+            _guest2.ComplexTours = new List<ComplexTour>();
+            foreach (var complexTour in complexTourService.GetAllByGuest(guest2))
+            {
+                complexTour.TourRequests = new List<TourRequest>();
+                _guest2.ComplexTours.Add(complexTour);
+            }
+        }
 
         private void SynchronizeTours(ObservableCollection<TourDTO> Tours)
         {
@@ -186,6 +200,21 @@ namespace ProjectTourism.DTO
             tourRequest.LocationId = locationService.AddAndReturnId(tourRequest.Location.GetLocation());
             requestService.Add(tourRequest.GetTourRequest());
             TourRequests.Add(tourRequest);
+        }
+
+        public void CreateComplexTourRequestPart(TourRequestDTO tourRequest)
+        {
+            ComplexTourRequestPartService requestService = new ComplexTourRequestPartService();
+            LocationService locationService = new LocationService();
+            tourRequest.LocationId = locationService.AddAndReturnId(tourRequest.Location.GetLocation());
+            requestService.Add(tourRequest.GetTourRequest());
+        }
+
+        public void CreateComplexTour(ComplexTourDTO complexTour)
+        {
+            ComplexTourService complexTourService = new ComplexTourService();
+            complexTourService.Add(complexTour.GetComplexTour());
+            ComplexTours.Add(complexTour);
         }
 
         public string Username
@@ -290,7 +319,8 @@ namespace ProjectTourism.DTO
         public ObservableCollection<TicketDTO> Tickets { get; set; }
         public ObservableCollection<VoucherDTO> Vouchers { get; set; }
         public ObservableCollection<TourRequestDTO> TourRequests { get; set; }
-        
+        public ObservableCollection<ComplexTourDTO> ComplexTours { get; set; }
+
         private ObservableCollection<NotificationDTO> _Notifications;
         public ObservableCollection<NotificationDTO> Notifications
         {
