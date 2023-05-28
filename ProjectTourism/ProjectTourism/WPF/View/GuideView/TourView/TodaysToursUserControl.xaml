@@ -19,7 +19,7 @@
         <DataGrid x:Name="DataGridTourAppointments" 
                 ItemsSource="{Binding Path=Guide.TodaysAppointments, UpdateSourceTrigger=PropertyChanged}"
                 SelectedItem="{Binding SelectedTourAppointment, UpdateSourceTrigger=PropertyChanged}" 
-                SelectionMode="Single" Background="#FF6982D4" BorderThickness="2" BorderBrush="DarkBlue"
+                SelectionMode="Single"
                 VerticalScrollBarVisibility="Visible" 
                 IsReadOnly="True" AutoGenerateColumns="False" Margin="280,150,280,80" RowHeight="130" HeadersVisibility="None" GridLinesVisibility="Horizontal" >
             <DataGrid.Resources>
