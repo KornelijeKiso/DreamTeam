@@ -6,14 +6,16 @@
         xmlns:local="clr-namespace:ProjectTourism.View.GuideView.TourView"
         xmlns:conv="clr-namespace:ProjectTourism.Converters"
         xmlns:ns="clr-namespace:ProjectTourism.Localization"
+        xmlns:c="clr-namespace:ProjectTourism.Converters"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <UserControl.Resources>
         <ResourceDictionary>
+            <c:ThemeToForegroundConverter x:Key="ThemeToForegroundConverter" />
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <Label Name="TodaysToursLabel" Content="{ns:Loc TodaysAppointments}" HorizontalAlignment="Left" Height="78" Margin="71,38,0,0" VerticalAlignment="Top" Width="400" FontSize="35"/>
+        <Label Name="TodaysToursLabel" Content="{ns:Loc TodaysAppointments}" Foreground="{Binding Path=Guide.DarkTheme, Converter={StaticResource ThemeToForegroundConverter}}"  HorizontalAlignment="Left" Height="78" Margin="71,38,0,0" VerticalAlignment="Top" Width="400" FontSize="35"/>
         <DataGrid x:Name="DataGridTourAppointments" 
                 ItemsSource="{Binding Path=Guide.TodaysAppointments, UpdateSourceTrigger=PropertyChanged}"
                 SelectedItem="{Binding SelectedTourAppointment, UpdateSourceTrigger=PropertyChanged}" 

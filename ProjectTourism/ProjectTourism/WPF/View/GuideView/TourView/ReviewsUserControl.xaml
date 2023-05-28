@@ -6,14 +6,16 @@
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView.TourView"
         xmlns:ns="clr-namespace:ProjectTourism.Localization"
         xmlns:conv="clr-namespace:ProjectTourism.Converters"
+        xmlns:c="clr-namespace:ProjectTourism.Converters"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <UserControl.Resources>
         <ResourceDictionary>
+            <c:ThemeToForegroundConverter x:Key="ThemeToForegroundConverter" />
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <Label Content="{ns:Loc Reviews}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
+        <Label Content="{ns:Loc Reviews}" Foreground="{Binding Path=Guide.DarkTheme, Converter={StaticResource ThemeToForegroundConverter}}"  HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         <DataGrid Name="DataGridRow" RowHeight="100" CanUserAddRows="False" HorizontalAlignment="Center" Height="486" VerticalAlignment="Top" Width="1048" 
             SelectedItem="{Binding SelectedTicket, UpdateSourceTrigger=PropertyChanged}" 
             ItemsSource="{Binding Tickets, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="0,149,0,0">

@@ -6,10 +6,12 @@
         xmlns:local="clr-namespace:ProjectTourism.View.GuideView.TourView"
         xmlns:ns="clr-namespace:ProjectTourism.Localization"
         xmlns:conv="clr-namespace:ProjectTourism.Converters"
+        xmlns:c="clr-namespace:ProjectTourism.Converters"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     
     <UserControl.Resources>
         <ResourceDictionary>
+            <c:ThemeToForegroundConverter x:Key="ThemeToForegroundConverter" />
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
@@ -31,7 +33,7 @@
                     <DataGrid x:Name="DataGridReadyTours" 
                     ItemsSource="{Binding Path=Guide.ReadyApps, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAppointment, UpdateSourceTrigger=PropertyChanged}"
-                    SelectionMode="Single"
+                    SelectionMode="Single" 
                     VerticalScrollBarVisibility="Visible" 
                     GridLinesVisibility="Horizontal"
                     IsReadOnly="True" AutoGenerateColumns="False" Margin="10,0,10,0" Height="425" RowHeight="50">
@@ -40,7 +42,7 @@
                         </DataGrid.Resources>
                         <DataGrid.CellStyle>
                             <Style TargetType="DataGridCell">
-                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="BorderThickness"  Value="2"/>
                             </Style>
                         </DataGrid.CellStyle>
                         <DataGrid.Columns>
@@ -464,7 +466,7 @@
             </TabItem>
         </TabControl>
 
-        <Label x:Name="AllAppsLabel" Content="{ns:Loc AllApps}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="377" FontSize="40"/>
+        <Label x:Name="AllAppsLabel" Content="{ns:Loc AllApps}" Foreground="{Binding Path=Guide.DarkTheme, Converter={StaticResource ThemeToForegroundConverter}}"  HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="377" FontSize="40"/>
         <ContentControl x:Name="ContentArea" Margin="0,0,0,596"></ContentControl>
     </Grid>
 

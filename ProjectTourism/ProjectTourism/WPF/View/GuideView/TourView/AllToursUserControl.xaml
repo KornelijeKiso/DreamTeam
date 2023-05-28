@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.GuideView.TourView"
         xmlns:ns="clr-namespace:ProjectTourism.Localization"
+        xmlns:c="clr-namespace:ProjectTourism.Converters"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
+    <UserControl.Resources>
+        <c:ThemeToForegroundConverter x:Key="ThemeToForegroundConverter" />
+    </UserControl.Resources>
     <Grid>
         <StackPanel x:Name="StatsPanel" Orientation="Horizontal" Margin="100,626,900,18">
             <Image Source="https://cdn-icons-png.flaticon.com/512/1325/1325099.png" Width="20" Height="20" Margin="0,-15,5,0"/>
@@ -17,7 +21,7 @@
         </Hyperlink>
             </TextBlock>
         </StackPanel>
-        <Label x:Name="AllToursLabel" Content="{ns:Loc AllToursLabel}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
+        <Label x:Name="AllToursLabel" Foreground="{Binding Path=Guide.DarkTheme, Converter={StaticResource ThemeToForegroundConverter}}"  Content="{ns:Loc AllToursLabel}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
         <DataGrid x:Name="DataGridTours" 
                     ItemsSource="{Binding Guide.Tours, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedTour, UpdateSourceTrigger=PropertyChanged}"

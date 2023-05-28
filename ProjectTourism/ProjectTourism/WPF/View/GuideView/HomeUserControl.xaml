@@ -5,15 +5,19 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView.TourView"
         xmlns:ns="clr-namespace:ProjectTourism.Localization"
+        xmlns:c="clr-namespace:ProjectTourism.Converters"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
+    <UserControl.Resources>
+        <c:ThemeToForegroundConverter x:Key="ThemeToForegroundConverter" />
+    </UserControl.Resources>
     <Grid>
-        <Label Name="HomeLabel" Content="{ns:Loc HomeLabel}" HorizontalAlignment="Left" Height="124" Margin="78,25,0,0" VerticalAlignment="Top" Width="500" FontSize="58"/>
-        <Label Name="UpcomingLabel" Content="{ns:Loc UpcomingLabel}" HorizontalAlignment="Left" Margin="20,217,0,0" VerticalAlignment="Top" FontSize="32">
+        <Label Name="HomeLabel" Content="{ns:Loc HomeLabel}" Foreground="{Binding Path=Guide.DarkTheme, Converter={StaticResource ThemeToForegroundConverter}}"  HorizontalAlignment="Left" Height="124" Margin="78,25,0,0" VerticalAlignment="Top" Width="500" FontSize="58"/>
+        <Label Name="UpcomingLabel" Content="{ns:Loc UpcomingLabel}" Foreground="{Binding Path=Guide.DarkTheme, Converter={StaticResource ThemeToForegroundConverter}}" HorizontalAlignment="Left" Margin="20,217,0,0" VerticalAlignment="Top" FontSize="32">
             <Label.Effect>
                 <DropShadowEffect Color="LightBlue" BlurRadius="20"/>
             </Label.Effect>
         </Label>
-        <Label Name="WelcomeLabel" Content="{ns:Loc WelcomeLabel}" HorizontalAlignment="Left" Height="124" Margin="944,570,0,0" VerticalAlignment="Top" Width="326" FontSize="60"/>
+        <Label Name="WelcomeLabel" Content="{ns:Loc WelcomeLabel}" Foreground="{Binding Path=Guide.DarkTheme, Converter={StaticResource ThemeToForegroundConverter}}" HorizontalAlignment="Left" Height="124" Margin="944,570,0,0" VerticalAlignment="Top" Width="326" FontSize="60"/>
         <Button x:Name="AllToursButton" Content="{ns:Loc AllTours}" HorizontalAlignment="Left" Height="54" Margin="60,600,0,0" VerticalAlignment="Top" Width="112" Click="AllToursButton_Click">
             <Button.Resources>
                 <Style TargetType="Border">
