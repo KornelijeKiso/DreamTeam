@@ -39,7 +39,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         private void RequestStatisticsLink_Click(object sender, RoutedEventArgs e)
         {
             HideRequestsContent();
-            ContentArea.Content = new RequestStatisticsUserControl();
+            ContentArea.Content = new RequestStatisticsUserControl(Guide.Username);
             e.Handled = true;
         }
         private void TourSuggestionLink_Click(object sender, RoutedEventArgs e)

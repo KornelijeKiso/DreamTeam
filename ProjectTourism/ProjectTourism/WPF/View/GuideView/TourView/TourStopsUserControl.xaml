@@ -6,9 +6,11 @@
         xmlns:local="clr-namespace:ProjectTourism.View.GuideView.TourView"
         xmlns:conv="clr-namespace:ProjectTourism.Converters"
         xmlns:ns="clr-namespace:ProjectTourism.Localization"
+        xmlns:c="clr-namespace:ProjectTourism.Converters"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <UserControl.Resources>
         <ResourceDictionary>
+            <c:ThemeToForegroundConverter x:Key="ThemeToForegroundConverter" />
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
@@ -35,9 +37,9 @@
             </Button.Resources>
         </Button>
 
-        <Label x:Name="TourNameLabel" Content="{Binding Path=TourAppointment.Tour.Name}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
-        <Label Name="CurrentTourStopLabel" Content="{ns:Loc CurrentTourStop}" HorizontalAlignment="Left" Margin="100,160,0,0" VerticalAlignment="Top" FontSize="22"/>
-        <Label Name="TourStateLabel" Content="{ns:Loc TourState}" HorizontalAlignment="Left" Margin="980,160,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <Label x:Name="TourNameLabel" Foreground="{Binding Path=Guide.DarkTheme, Converter={StaticResource ThemeToForegroundConverter}}" Content="{Binding Path=TourAppointment.Tour.Name}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40"/>
+        <Label Name="CurrentTourStopLabel" Foreground="{Binding Path=Guide.DarkTheme, Converter={StaticResource ThemeToForegroundConverter}}" Content="{ns:Loc CurrentTourStop}" HorizontalAlignment="Left" Margin="100,160,0,0" VerticalAlignment="Top" FontSize="22"/>
+        <Label Name="TourStateLabel" Foreground="{Binding Path=Guide.DarkTheme, Converter={StaticResource ThemeToForegroundConverter}}" Content="{ns:Loc TourState}" HorizontalAlignment="Left" Margin="980,160,0,0" VerticalAlignment="Top" FontSize="22"/>
 
         <TextBox x:Name="StopTextBox" HorizontalAlignment="Left" Height="42" Margin="100,213,0,0" TextWrapping="Wrap" Text="{Binding Path=TourAppointment.CurrentTourStop}" VerticalAlignment="Top" Width="348" FontSize="14" TextChanged="TextBox_TextChanged" IsReadOnly="True"/>
         <TextBox x:Name="TourStatusTextBox" HorizontalAlignment="Left" Height="42" Margin="980,213,0,0" TextWrapping="Wrap" Text="{Binding Path=TourAppointment.State}" VerticalAlignment="Top" Width="200" TextChanged="TextBox_TextChanged" FontSize="13" IsReadOnly="True"/>
