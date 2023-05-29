@@ -29,6 +29,7 @@ namespace ProjectTourism.DTO
         private void SynchronizeTourRequestsList(ComplexTour complexTour)
         {
             ComplexTourRequestPartService complexTourRequestPartService = new ComplexTourRequestPartService();
+            LocationService locationService = new LocationService();
             complexTour.TourRequests = new List<TourRequest>();
 
             string[] tourRequestIDs = complexTour.TourRequestString.Split(',');
@@ -38,7 +39,19 @@ namespace ProjectTourism.DTO
                 if (tourRequestId != "")
                     complexTour.TourRequests.Add(complexTourRequestPartService.GetOne(int.Parse(tourRequestId)));
             }
+
+            var updatedTourRequests = new List<TourRequest>();
+
+            foreach (var tourReq in complexTour.TourRequests)
+            {
+                tourReq.Location = locationService.GetOne(tourReq.LocationId);
+                updatedTourRequests.Add(tourReq);
+            }
+
+            complexTour.TourRequests = updatedTourRequests;
+
         }
+
         public int Id
         {
             get => _complexTour.Id;

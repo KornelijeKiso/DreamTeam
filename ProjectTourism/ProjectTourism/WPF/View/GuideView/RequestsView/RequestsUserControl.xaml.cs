@@ -50,7 +50,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         private void ComplexToursLink_Click(object sender, RoutedEventArgs e)
         {
             HideRequestsContent();
-            ContentArea.Content = new ComplexToursUserControl(Guide.Username);
+            ContentArea.Content = new ComplexTourRequestsUserControl(Guide.Username);
         }
         public void SetRequests()
         {

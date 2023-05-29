@@ -189,6 +189,8 @@ namespace ProjectTourism.DTO
             }
             return tourRequests;
         }
+
+        public bool IsPending { get => _tourRequest.State == REQUESTSTATE.PENDING; }
         public int Id
         {
             get => _tourRequest.Id;
