@@ -63,10 +63,10 @@
         <Label FontSize="16" FontWeight="Medium" ContentStringFormat="Hospitality: {0}"  Content="{Binding Hospitality}" HorizontalAlignment="Left" Margin="30,225,0,0" VerticalAlignment="Top" Width="195"/>
         <Label FontSize="16" FontWeight="Medium" ContentStringFormat="Cleanness: {0}"  Content="{Binding Cleanness}" HorizontalAlignment="Left" Margin="30,250,0,0" VerticalAlignment="Top" Width="195"/>
         <Image Height="130" Width="130" Stretch="UniformToFill" Margin="220,-45,0,0" Source="{Binding Picture, UpdateSourceTrigger=PropertyChanged}"></Image>
-        <Button Height="30" Width="25" Margin="67,-45,0,0" BorderBrush="Transparent" Background="Transparent" Click="BackwardsClick">
+        <Button Height="30" Width="25" Margin="67,-45,0,0" BorderBrush="Transparent" Background="Transparent" Command="{Binding BackwardsClickCommand}">
             <Image Source="https://img.icons8.com/fluency/512/double-left.png"></Image>
         </Button>
-        <Button Height="30" Width="25" Margin="373,-45,0,0" BorderBrush="Transparent" Background="Transparent" Click="ForwardClick">
+        <Button Height="30" Width="25" Margin="373,-45,0,0" BorderBrush="Transparent" Background="Transparent" Command="{Binding ForwardClickCommand}">
             <Image Source="https://img.icons8.com/fluency/2x/double-right.png"></Image>
         </Button>
         <Label Height="30" Width="150" Margin="-260,150,0,0" Content="Comment" FontSize="14" FontWeight="Medium"></Label>

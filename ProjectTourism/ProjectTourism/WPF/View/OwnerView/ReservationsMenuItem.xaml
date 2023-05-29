@@ -117,7 +117,7 @@
 
                                     <Label FontSize="13" Margin="0,-10,0,0"  Content ="{Binding Path=Guest1.Email}"></Label>
                                     <Image Source="https://img.icons8.com/external-anggara-flat-anggara-putra/2x/external-verified-ui-basic-anggara-flat-anggara-putra.png" Width="25" Height="25" Margin="140 -40 0 0"></Image>
-                                    <Button Content="Postpone request" FontSize="10" BorderBrush="DeepSkyBlue" Click="PostponeRequestClick"
+                                    <Button Content="Postpone request" FontSize="10" BorderBrush="DeepSkyBlue" Command="{Binding DataContext.PostponeRequestClickCommand, RelativeSource={RelativeSource AncestorType={x:Type local:ReservationsMenuItem}}}"
                                     BorderThickness="2" Visibility="{Binding Path=RequestedPostpone, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}" Width="120" Margin="0 1 0 0" Height="23">
                                         <Button.Resources>
                                             <Style TargetType="Border">
@@ -140,7 +140,7 @@
                                 <Label Margin="10 4 0 0" Content ="Grading deadline:"></Label>
                                 <Label Margin="10,-8,0,0" Content="{Binding GradingDeadlineMessage}" FontWeight="SemiBold"></Label>
                                 <Button Height="23" Width="120" BorderBrush="DeepSkyBlue" 
-                                    BorderThickness="2" IsEnabled="{Binding CanBeGraded,UpdateSourceTrigger=PropertyChanged}" Click="GradeGuestClick" 
+                                    BorderThickness="2" IsEnabled="{Binding CanBeGraded,UpdateSourceTrigger=PropertyChanged}" Command="{Binding DataContext.GradeGuestClickCommand, RelativeSource={RelativeSource AncestorType={x:Type local:ReservationsMenuItem}}}" 
                                     Content="Grade your guest" FontSize="10" Margin="0 3 0 0">
                                     <Button.Resources>
                                         <Style TargetType="Border">
@@ -162,7 +162,7 @@
                                 <Label Margin="-10 4 0 0" Content ="Grade your guests to be"></Label>
                                 <Label Margin="-10,-8,0,0" Content="able to see their review"></Label>
                                 <Button Height="23" Width="120" BorderBrush="DeepSkyBlue" 
-                                    BorderThickness="2" Margin="-59 3 0 0" FontSize="10" IsEnabled="{Binding VisibleReview}" Click="SeeReviewClick" 
+                                    BorderThickness="2" Margin="-59 3 0 0" FontSize="10" IsEnabled="{Binding VisibleReview}" Command="{Binding DataContext.SeeReviewClickCommand, RelativeSource={RelativeSource AncestorType={x:Type local:ReservationsMenuItem}}}"
                                     Content="See guests review">
                                     <Button.Resources>
                                         <Style TargetType="Border">
@@ -178,9 +178,9 @@
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="YOUR RESERVATIONS" FontSize="16" Foreground="Gray" FontWeight="Bold" HorizontalAlignment="Left" Margin="125,55,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,0.708" Width="200"/>
-        <Grid x:Name="popupContainer" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="Collapsed" Margin="0 40 0 0">
+        <Grid x:Name="popupContainer" VerticalAlignment="Top" HorizontalAlignment="Center" Visibility="{Binding Path=popupVisible,Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}" Margin="0 40 0 0" Opacity="{Binding Path=popupOpacity, UpdateSourceTrigger = PropertyChanged}">
             <Border x:Name="popupBorder" BorderBrush="Black" BorderThickness="1" Background="DimGray" Width="540" CornerRadius="10" Opacity="0.9">
-                <TextBlock x:Name="popupText" Height="60"   FontSize="15" FontWeight="SemiBold" Text="Hello, World!" Padding="10" HorizontalAlignment="Center" Opacity="1.0"  Foreground="White" VerticalAlignment="Center"/>
+                <TextBlock x:Name="popupText" Height="60"   FontSize="15" FontWeight="SemiBold" Text="{Binding popupText, UpdateSourceTrigger=PropertyChanged}" Padding="10" HorizontalAlignment="Center" Opacity="1.0"  Foreground="White" VerticalAlignment="Center"/>
             </Border>
         </Grid>
     </Grid>

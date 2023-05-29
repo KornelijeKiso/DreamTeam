@@ -115,7 +115,7 @@
                           RowBackground="White" Background="LightSkyBlue">
                     <DataGrid.Resources>
                         <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
-                   Color="White"/>
+                   Color="AliceBlue"/>
                     </DataGrid.Resources>
                     <DataGrid.RowStyle>
                         

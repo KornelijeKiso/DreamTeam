@@ -1,9 +1,11 @@
-﻿using ProjectTourism.Model;
+﻿using ProjectTourism.DTO;
+using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,15 +25,15 @@ namespace ProjectTourism.View.OwnerView
     /// </summary>
     public partial class GradeGuestWindow : Window
     {
-        public OwnerVM Owner { get; set; }
-        public Guest1GradeVM GuestGrade { get; set; }
-        public ReservationVM Reservation { get; set; }
-        public GradeGuestWindow(ReservationVM reservation, OwnerVM owner)
+        public OwnerDTO Owner { get; set; }
+        public Guest1GradeDTO GuestGrade { get; set; }
+        public ReservationDTO Reservation { get; set; }
+        public GradeGuestWindow(ReservationDTO reservation, OwnerDTO owner)
         {
             InitializeComponent();
             DataContext = this;
             Owner = owner;
-            GuestGrade = new Guest1GradeVM();
+            GuestGrade = new Guest1GradeDTO();
             Reservation = reservation;
             GuestGrade.ReservationId = reservation.Id;
             GuestGrade.Reservation = reservation;
@@ -50,7 +52,13 @@ namespace ProjectTourism.View.OwnerView
                     return;
                 }
             }
-            Owner.GradeAGuest(GuestGrade);
+            Guest1GradeService guest1GradeService = new Guest1GradeService();
+            var reservation = Owner.Reservations.ToList().Find(r => r.Id == GuestGrade.ReservationId);
+            reservation.Guest1Grade = GuestGrade;
+            reservation.Graded = true;
+            reservation.CanBeGraded = false;
+            reservation.VisibleReview = reservation.AccommodationGraded;
+            guest1GradeService.Add(GuestGrade.GetGuest1Grade());
             Close();
         }
 
