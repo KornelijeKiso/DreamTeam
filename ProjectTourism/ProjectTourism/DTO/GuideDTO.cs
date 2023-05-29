@@ -21,6 +21,7 @@ namespace ProjectTourism.DTO
             Tours = new ObservableCollection<TourDTO>(_guide.Tours.Select(r => new TourDTO(r)).ToList());
             TourAppointments = new ObservableCollection<TourAppointmentDTO>(_guide.TourAppointments.Select(r => new TourAppointmentDTO(r)).ToList());
             TodaysAppointments = new ObservableCollection<TourAppointmentDTO>(TourAppointments.Where(t => t.TourDateTime.Date.Equals(DateTime.Now.Date)).OrderBy(t => t.TourDateTime));
+            ComplexTours = new ObservableCollection<ComplexTourDTO>(_guide.ComplexTours.Select(r => new ComplexTourDTO(r)).ToList());
         }
         public GuideDTO(string username)
         {
@@ -68,10 +69,24 @@ namespace ProjectTourism.DTO
                     }
                 }
             }
+            SynchronizeComplexToursList(_guide);
             Tours = new ObservableCollection<TourDTO>(_guide.Tours.Select(r => new TourDTO(r)).ToList());
             TourAppointments = new ObservableCollection<TourAppointmentDTO>(_guide.TourAppointments.Select(r => new TourAppointmentDTO(r)).ToList());
             TodaysAppointments = new ObservableCollection<TourAppointmentDTO>(TourAppointments.Where(t => t.TourDateTime.Date.Equals(DateTime.Now.Date)).OrderBy(t => t.TourDateTime));
+            ComplexTours = new ObservableCollection<ComplexTourDTO>(_guide.ComplexTours.Select(r => new ComplexTourDTO(r)).ToList());
             SortByDate();
+        }
+
+        private void SynchronizeComplexToursList(Guide guide)
+        {
+            ComplexTourService complexTourService = new ComplexTourService();
+            TourRequestService requestService = new TourRequestService();
+            guide.ComplexTours = new List<ComplexTour>();
+            foreach (var complexTour in complexTourService.GetAll())
+            {
+                complexTour.TourRequests = new List<TourRequest>();
+                guide.ComplexTours.Add(complexTour);
+            }
         }
         public void ReportTicketGrade(TicketDTO ticket)
         {
@@ -400,6 +415,21 @@ namespace ProjectTourism.DTO
             StoppedApps = new ObservableCollection<TourAppointmentDTO>(TourAppointments.Where(t => t.State == TOURSTATE.STOPPED).OrderByDescending(a => a.TourDateTime));
             CanceledApps = new ObservableCollection<TourAppointmentDTO>(TourAppointments.Where(t => t.State == TOURSTATE.CANCELED).OrderByDescending(a => a.TourDateTime));
             ExpiredApps = new ObservableCollection<TourAppointmentDTO>(TourAppointments.Where(t => t.State == TOURSTATE.EXPIRED).OrderByDescending(a => a.TourDateTime));
+        }
+
+
+        public ObservableCollection<ComplexTourDTO> _ComplexTours;
+        public ObservableCollection<ComplexTourDTO> ComplexTours
+        {
+            get => _ComplexTours;
+            set
+            {
+                if (_ComplexTours != value)
+                {
+                    _ComplexTours = value;
+                    OnPropertyChanged();
+                }
+            }
         }
 
         private ObservableCollection<TourDTO> _Tours;

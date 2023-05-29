@@ -192,6 +192,15 @@
             </TextBlock>
         </StackPanel>
 
+        <StackPanel Orientation="Horizontal" Margin="500,626,581,18">
+            <Image x:Name="ComplexToursImage" Source="https://icons.iconarchive.com/icons/fatcow/farm-fresh/32/lightbulb-off-icon.png" Width="26" Height="26" Margin="0,-8,0,0"/>
+            <TextBlock x:Name="ComplexToursLink" FontSize="18">
+                <Hyperlink Click="ComplexToursLink_Click" Foreground="White">
+                    <Run Text="{ns:Loc ComplexTours}"/>
+                </Hyperlink>
+            </TextBlock>
+        </StackPanel>
+
         <ContentControl x:Name="ContentArea"></ContentControl>
     </Grid>
 </UserControl>

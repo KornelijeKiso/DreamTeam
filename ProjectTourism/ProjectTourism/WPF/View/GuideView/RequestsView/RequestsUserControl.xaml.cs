@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using ProjectTourism.Domain.Model;
 using ProjectTourism.DTO;
 using ProjectTourism.View.TourView;
+using ProjectTourism.WPF.View.GuideView.RequestsView;
 using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.GuideView.TourView
@@ -40,13 +41,16 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         {
             HideRequestsContent();
             ContentArea.Content = new RequestStatisticsUserControl(Guide.Username);
-            e.Handled = true;
         }
         private void TourSuggestionLink_Click(object sender, RoutedEventArgs e)
         {
             HideRequestsContent();
             ContentArea.Content = new TourSuggestionUserControl(Guide);
-            e.Handled = true;
+        }
+        private void ComplexToursLink_Click(object sender, RoutedEventArgs e)
+        {
+            HideRequestsContent();
+            ContentArea.Content = new ComplexToursUserControl(Guide.Username);
         }
         public void SetRequests()
         {
@@ -162,7 +166,7 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         }
         public void HideRequestsContent()
         {
-            List<UIElement> elementsToHide = new List<UIElement> { RequestsLabel, DataGridRow, rectangle, searchGrid, SearchButton, StatsLink, StatsImage, TourSuggestionImage, TourSuggestionLink };
+            List<UIElement> elementsToHide = new List<UIElement> { RequestsLabel, DataGridRow, rectangle, searchGrid, SearchButton, StatsLink, StatsImage, TourSuggestionImage, TourSuggestionLink, ComplexToursImage, ComplexToursLink };
             elementsToHide.ForEach(element => element.Visibility = Visibility.Hidden);
         }
         private void Accept_Click(object sender, RoutedEventArgs e)

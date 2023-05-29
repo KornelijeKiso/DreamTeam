@@ -171,6 +171,9 @@
   <data name="Comment" xml:space="preserve">
     <value>Komentar</value>
   </data>
+  <data name="ComplexTours" xml:space="preserve">
+    <value>Kompleksne ture</value>
+  </data>
   <data name="Country" xml:space="preserve">
     <value>Država</value>
   </data>

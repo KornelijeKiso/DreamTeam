@@ -171,6 +171,9 @@
   <data name="Comment" xml:space="preserve">
     <value>Comment</value>
   </data>
+  <data name="ComplexTours" xml:space="preserve">
+    <value>Complex tours</value>
+  </data>
   <data name="Country" xml:space="preserve">
     <value>Country</value>
   </data>

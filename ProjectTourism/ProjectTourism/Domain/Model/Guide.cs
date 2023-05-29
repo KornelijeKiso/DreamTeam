@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using ProjectTourism.Domain.Model;
 
 namespace ProjectTourism.Model
 {
@@ -11,12 +12,14 @@ namespace ProjectTourism.Model
         public bool DarkTheme;
         public List<Tour> Tours;
         public List<TourAppointment> TourAppointments;
+        public List<ComplexTour> ComplexTours;
 
         public Guide()
         {
             IsSuperGuide = false;
             Tours = new List<Tour>();
             TourAppointments = new List<TourAppointment>();
+            ComplexTours = new List<ComplexTour>();
         }
         public Guide(User user)
         {
@@ -35,6 +38,7 @@ namespace ProjectTourism.Model
             DarkTheme = false;
             Tours = new List<Tour>();
             TourAppointments = new List<TourAppointment>();
+            ComplexTours = new List<ComplexTour>();
         }
         public new string?[] ToCSV()
         {
