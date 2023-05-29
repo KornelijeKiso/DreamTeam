@@ -13,5 +13,68 @@
     </UserControl.Resources>
     <Grid>
         <Label Name="CreateTourLabel" Content="{ns:Loc ComplexTours}" Foreground="{Binding Path=Guide.DarkTheme, Converter={StaticResource ThemeToForegroundConverter}}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="431" FontSize="40"/>
+        <DataGrid
+                              ItemsSource="{Binding ComplexTours, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding Path=SelectedComplexTour, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False"
+                              Margin="290,206,290,100" BorderThickness="0"  >
+            <DataGrid.Columns>
+
+                <DataGridTemplateColumn Width="350">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Vertical" >
+                                <Label Height="25" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    <Label.Content>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}Suggested by : {0}">
+                                                    <Binding Path="Guest2Username"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Label.Content>
+                                </Label>
+                                <Label Height="25" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                    <Label.Content>
+                                        <TextBlock>
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}Created on : {0}">
+                                                    <Binding Path="TourRequests[0].CreationDateTime"/>
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </Label.Content>
+                                </Label>
+                               
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTemplateColumn Width="*">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="50"/>
+                                </Grid.RowDefinitions>
+                                <ListView x:Name="TourRequestsListView" ItemsSource="{Binding Path=TourRequests}" Width="300"
+                                                      VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0">
+                                    <ListView.View>
+                                        <GridView x:Name="TourRequestsGridView" >
+                                            <GridViewColumn Width="auto" Header="State" DisplayMemberBinding="{Binding Path=State}"/>
+                                            <GridViewColumn Width="auto" Header="Start Date" DisplayMemberBinding="{Binding Path=StartDate}"/>
+                                            <GridViewColumn Width="auto" Header="End Date" DisplayMemberBinding="{Binding Path=EndDate}"/>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                                
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>
