@@ -1,6 +1,7 @@
 ﻿using ProjectTourism.Domain.Model;
 using ProjectTourism.Model;
 using ProjectTourism.Services;
+using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -63,10 +64,10 @@ namespace ProjectTourism.DTO
                 accommodation.Renovations = new RenovationService().GetAllByAccommodation(accommodation.Id);
                 accommodation.Location = new LocationService().GetOne(accommodation.LocationId);
                 accommodation.Reservations = SynchronizeReservations(accommodation);
-                AddReservationsToOwner(accommodation);
             }
+            AddReservationsToOwner();
             Accommodations = new ObservableCollection<AccommodationDTO>(_owner.Accommodations.Select(r => new AccommodationDTO(r)).ToList());
-            Reservations = new ObservableCollection<ReservationDTO>(_owner.Reservations.Select(r => new ReservationDTO(r)).Reverse().ToList());
+            Reservations = new ObservableCollection<ReservationDTO>(_owner.Reservations.Select(r => new ReservationDTO(r)).ToList());
             SetPopularAndUnpopularDestination();
             LoadNotifications();
             foreach(ForumDTO forum in Forums)
@@ -112,12 +113,21 @@ namespace ProjectTourism.DTO
             PopularDestination = locations.Values.ToList().OrderByDescending(a => a.Occupancy).FirstOrDefault();
             UnpopularDestination = locations.Values.ToList().OrderByDescending(a => a.Occupancy).LastOrDefault();
         }
-        private void AddReservationsToOwner(Accommodation accommodation)
+        private void AddReservationsToOwner()
         {
-            if (accommodation.Reservations != null && accommodation.Reservations.Any())
+            foreach (Reservation res in new ReservationService().GetAll())
             {
-                foreach (Reservation reservation in accommodation.Reservations)
-                    _owner.Reservations.Add(reservation);
+                foreach (var accommodation in _owner.Accommodations)
+                {
+                    if (accommodation.Reservations != null && accommodation.Reservations.Any())
+                    {
+                        foreach (Reservation reservation in accommodation.Reservations)
+                        {
+                            if (res.Id == reservation.Id)
+                                _owner.Reservations.Add(reservation);
+                        }
+                    }
+                }
             }
         }
 

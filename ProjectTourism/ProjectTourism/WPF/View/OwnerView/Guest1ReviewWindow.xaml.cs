@@ -1,5 +1,7 @@
-﻿using ProjectTourism.Model;
+﻿using ProjectTourism.DTO;
+using ProjectTourism.Model;
 using ProjectTourism.WPF.ViewModel;
+using ProjectTourism.WPF.ViewModel.OwnerViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,84 +23,12 @@ namespace ProjectTourism.View.OwnerView
     /// <summary>
     /// Interaction logic for Guest1ReviewWindow.xaml
     /// </summary>
-    public partial class Guest1ReviewWindow : Window, INotifyPropertyChanged
+    public partial class Guest1ReviewWindow : Window
     {
-        public ReservationVM Reservation { get; set; }
-        public int Hospitality { get; set; }
-        public int Cleanness { get; set; }
-        public int Location { get; set; }
-        public int PriceQuality { get; set; }
-        public int Comfort { get; set; }
-        private int _i;
-        public int i
-        {
-            get => _i;
-            set
-            {
-                if(value != _i)
-                {
-                    _i = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private string _Picture;
-        public string Picture
-        {
-            get => _Picture;
-            set
-            {
-                if(value != _Picture)
-                {
-                    _Picture = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private string _Average;
-        public string Average
-        {
-            get => _Average;
-            set
-            {
-                if (value != _Average)
-                {
-                    _Average = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public Guest1ReviewWindow(ReservationVM reservation)
+        public Guest1ReviewWindow(ReservationDTO reservation)
         {
             InitializeComponent();
-            DataContext = this;
-            Reservation = reservation;
-            Hospitality = reservation.AccommodationGrade.Grades["Hospitality"];
-            Cleanness = reservation.AccommodationGrade.Grades["Cleanness"];
-            Location = reservation.AccommodationGrade.Grades["Location"];
-            Comfort = reservation.AccommodationGrade.Grades["Comfort"];
-            PriceQuality = reservation.AccommodationGrade.Grades["Price and quality ratio"];
-            i = 0;
-            Picture = reservation.AccommodationGrade.Pictures[i];
-            Average = String.Format("{0:0.0}", reservation.AccommodationGrade.AverageGrade);
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-        public void BackwardsClick(object sender, RoutedEventArgs e)
-        {
-            if (i > 0) i--;
-            else i = Reservation.AccommodationGrade.Pictures.Length - 1;
-            Picture = Reservation.AccommodationGrade.Pictures[i];
-        }
-        public void ForwardClick(object sender, RoutedEventArgs e)
-        {
-            if (i < Reservation.AccommodationGrade.Pictures.Length-1) i++; 
-            else i = 0; 
-            Picture = Reservation.AccommodationGrade.Pictures[i];
+            DataContext = new Guest1ReviewWindowVM(reservation);
         }
     }
 }
