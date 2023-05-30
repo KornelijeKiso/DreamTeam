@@ -1,4 +1,5 @@
-﻿using ProjectTourism.WPF.ViewModel;
+﻿using ProjectTourism.DTO;
+using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,13 +24,13 @@ namespace ProjectTourism.WPF.View.OwnerView
     /// </summary>
     public partial class YourProfileMenuItem : UserControl
     {
-        public OwnerVM Owner { get; set; }
+        public OwnerDTO Owner { get; set; }
         public string Average { get; set; }
         public YourProfileMenuItem(string username)
         {
             InitializeComponent();
             DataContext = this;
-            Owner = new OwnerVM(username);
+            Owner = new OwnerDTO(username);
             Average = Owner.AverageGrade.ToString("0.0");
         }
         private void LogOutClick(object sender, RoutedEventArgs e)
