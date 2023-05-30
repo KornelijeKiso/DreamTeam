@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Input;
 using ProjectTourism.Utilities;
 using System.ComponentModel;
+using System.Linq;
 
 namespace ProjectTourism.WPF.ViewModel.GuideViewModel
 {
@@ -20,8 +21,8 @@ namespace ProjectTourism.WPF.ViewModel.GuideViewModel
         public GuideDTO Guide { get; set; }
         public ReviewsUserControlVM(TourAppointmentDTO tourApp)
         {
-            Tickets = new ObservableCollection<TicketDTO>(tourApp.Tickets);
-            TicketsList = new List<TicketDTO>(tourApp.Tickets);
+            Tickets = new ObservableCollection<TicketDTO>(tourApp.Tickets.Where(t=>t.TicketGrade.GetTicketGrade()!=null).ToList());
+            TicketsList = new List<TicketDTO>(tourApp.Tickets.Where(t=>t.TicketGrade.GetTicketGrade()!=null).ToList());
             Guide = new GuideDTO(tourApp.Tour.GuideUsername);
             Update();
         }
