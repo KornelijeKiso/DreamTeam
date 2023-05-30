@@ -54,6 +54,18 @@ namespace ProjectTourism.DTO
 
             _guide = guideService.GetOne(username);
             _guide.Tours = tourService.GetAll().Where(t => t.GuideUsername.Equals(username)).ToList();
+            SynchronizeTours(tourAppointmentService, tourService, ticketService, ticketGradeService, locationService, guest2Service, voucherService);
+            SynchronizeComplexToursList(_guide);
+            Tours = new ObservableCollection<TourDTO>(_guide.Tours.Select(r => new TourDTO(r)).ToList());
+            TourAppointments = new ObservableCollection<TourAppointmentDTO>(_guide.TourAppointments.Select(r => new TourAppointmentDTO(r)).ToList());
+            TodaysAppointments = new ObservableCollection<TourAppointmentDTO>(TourAppointments.Where(t => t.TourDateTime.Date.Equals(DateTime.Now.Date)).OrderBy(t => t.TourDateTime));
+            ComplexTours = new ObservableCollection<ComplexTourDTO>(_guide.ComplexTours.Select(r => new ComplexTourDTO(r)).ToList());
+            SortByDate();
+            //CheckSuperGuide();
+        }
+
+        private void SynchronizeTours(TourAppointmentService tourAppointmentService, TourService tourService, TicketService ticketService, TicketGradeService ticketGradeService, LocationService locationService, Guest2Service guest2Service, VoucherService voucherService)
+        {
             foreach (var tour in _guide.Tours)
             {
                 tour.StopsList = tourService.LoadStops(tour);
@@ -70,14 +82,36 @@ namespace ProjectTourism.DTO
                     }
                 }
             }
-            SynchronizeComplexToursList(_guide);
-            Tours = new ObservableCollection<TourDTO>(_guide.Tours.Select(r => new TourDTO(r)).ToList());
-            TourAppointments = new ObservableCollection<TourAppointmentDTO>(_guide.TourAppointments.Select(r => new TourAppointmentDTO(r)).ToList());
-            TodaysAppointments = new ObservableCollection<TourAppointmentDTO>(TourAppointments.Where(t => t.TourDateTime.Date.Equals(DateTime.Now.Date)).OrderBy(t => t.TourDateTime));
-            ComplexTours = new ObservableCollection<ComplexTourDTO>(_guide.ComplexTours.Select(r => new ComplexTourDTO(r)).ToList());
-            SortByDate();
         }
-
+        private List<TourAppointment> SynchronizeTourAppointments(TourAppointmentService tourAppointmentService, TicketService ticketService, TicketGradeService ticketGradeService, Guest2Service guest2Service, VoucherService voucherService, Tour tour)
+        {
+            List<TourAppointment> tourAppointments = new List<TourAppointment>();
+            foreach (var tourApp in tourAppointmentService.GetAllByTour(tour.Id))
+            {
+                tourApp.Tour = tour;
+                tourApp.TicketGrades = new List<TicketGrade>();
+                tourApp.Tickets = new List<Ticket>();
+                SynchronizeTickets(ticketService, ticketGradeService, guest2Service, voucherService, tourApp);
+                tourAppointments.Add(tourApp);
+            }
+            return tourAppointments;
+        }
+        private static void SynchronizeTickets(TicketService ticketService, TicketGradeService ticketGradeService, Guest2Service guest2Service, VoucherService voucherService, TourAppointment tourApp)
+        {
+            foreach (var ticket in ticketService.GetByAppointment(tourApp.Id))
+            {
+                ticket.HasVoucher = voucherService.GetOneByTicket(ticket.Id) != null;
+                ticket.Guest2 = guest2Service.GetOne(ticket.Guest2Username);
+                ticket.TicketGrade = ticketGradeService.GetOneByTicket(ticket.Id);
+                tourApp.Tickets.Add(ticket);
+                if (ticket.TicketGrade != null)
+                {
+                    tourApp.TicketGrades.Add(ticket.TicketGrade);
+                }
+                ticket.TourAppointment = tourApp;
+            }
+            tourApp.TicketGrades.RemoveAll(t => t == null);
+        }
         private void SynchronizeComplexToursList(Guide guide)
         {
             ComplexTourService complexTourService = new ComplexTourService();
@@ -89,6 +123,89 @@ namespace ProjectTourism.DTO
                 guide.ComplexTours.Add(complexTour);
             }
         }
+        public List<string> GetAllLanguages()
+        {
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
+            List<string> languages = new List<string>();
+            foreach (var tourApp in tourAppointmentService.GetAll())
+            {
+                if (!languages.Contains(tourApp.Tour.Language))
+                    languages.Add(tourApp.Tour.Language);
+            }
+            return languages;
+        }
+
+        private List<TourAppointmentDTO> GetAllFinishedAppsThatHaveGuests()
+        {
+            List<TourAppointmentDTO> apps = new List<TourAppointmentDTO>();
+            foreach (var app in TourAppointments)
+            {
+                if (app.State == TOURSTATE.FINISHED && app.Tickets != null)
+                {
+                    apps.Add(app);
+                }
+            }
+            return apps;
+        }
+
+        public void CheckSuperGuide()
+        {
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
+
+            var languageCounts = new Dictionary<string, int>();
+            var languageSums = new Dictionary<string, double>();
+
+            foreach (var tourApp in GetAllFinishedAppsThatHaveGuests())
+            {
+                var language = tourApp.Tour.Language;
+
+                if (!languageCounts.ContainsKey(language))
+                {
+                    languageCounts[language] = 0;
+                    languageSums[language] = 0.0;
+                }
+
+                int toursCount = languageCounts[language];
+                double ratingsSum = languageSums[language];
+
+                foreach (var app in GetAllFinishedAppsThatHaveGuests())
+                {
+                    if (app.TourDateTime >= DateTime.Now.AddYears(-1))
+                    {
+                        int ticketGradeCounter = 0;
+                        int Rating = 0;
+
+                        foreach (var ticket in app.Tickets)
+                        {
+                            if (ticket.TicketGrade != null)
+                            {
+                                ticketGradeCounter++;
+                                Rating += ticket.TicketGrade.Grades["GuidesKnowledge"];
+                                Rating += ticket.TicketGrade.Grades["GuidesLanguage"];
+                                Rating += ticket.TicketGrade.Grades["Interesting"];
+                            }
+                        }
+
+                        if (ticketGradeCounter > 0)
+                        {
+                            Rating = (int)Math.Round(Rating / (3.0 * ticketGradeCounter));
+                            ratingsSum += Rating;
+                            toursCount++;
+                        }
+                    }
+                }
+
+                languageCounts[language] = toursCount;
+                languageSums[language] = ratingsSum;
+
+                if (toursCount >= 20 && ratingsSum / toursCount > 9.0)
+                {
+                    _guide.IsSuperGuide = true;
+                }
+            }
+        }
+
+
         public void ReportTicketGrade(TicketDTO ticket)
         {
             TicketGradeService ticketGradeService = new TicketGradeService();
@@ -267,35 +384,7 @@ namespace ProjectTourism.DTO
             GuideService guideService = new GuideService();
             guideService.Add(Guide);
         }
-        private List<TourAppointment> SynchronizeTourAppointments(TourAppointmentService tourAppointmentService, TicketService ticketService, TicketGradeService ticketGradeService, Guest2Service guest2Service, VoucherService voucherService, Tour tour)
-        {
-            List<TourAppointment> tourAppointments = new List<TourAppointment>();
-            foreach (var tourApp in tourAppointmentService.GetAllByTour(tour.Id))
-            {
-                tourApp.Tour = tour;
-                tourApp.TicketGrades = new List<TicketGrade>();
-                tourApp.Tickets = new List<Ticket>();
-                SynchronizeTickets(ticketService, ticketGradeService, guest2Service, voucherService, tourApp);
-                tourAppointments.Add(tourApp);
-            }
-            return tourAppointments;
-        }
-        private static void SynchronizeTickets(TicketService ticketService, TicketGradeService ticketGradeService, Guest2Service guest2Service, VoucherService voucherService, TourAppointment tourApp)
-        {
-            foreach (var ticket in ticketService.GetByAppointment(tourApp.Id))
-            {
-                ticket.HasVoucher = voucherService.GetOneByTicket(ticket.Id) != null;
-                ticket.Guest2 = guest2Service.GetOne(ticket.Guest2Username);
-                ticket.TicketGrade = ticketGradeService.GetOneByTicket(ticket.Id);
-                tourApp.Tickets.Add(ticket);
-                if (ticket.TicketGrade != null)
-                {
-                    tourApp.TicketGrades.Add(ticket.TicketGrade);
-                }
-                ticket.TourAppointment = tourApp;
-            }
-            tourApp.TicketGrades.RemoveAll(t => t == null);
-        }
+        
 
         public Guide GetGuide()
         {

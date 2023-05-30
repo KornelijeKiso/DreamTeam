@@ -55,6 +55,7 @@ namespace ProjectTourism.DTO
             return false;
         }
 
+        
         public bool IsNotFinished { get => _tourAppointment.State != TOURSTATE.FINISHED && _tourAppointment.State != TOURSTATE.STOPPED; }
         public bool IsFinished { get => _tourAppointment.State == TOURSTATE.FINISHED || _tourAppointment.State == TOURSTATE.STOPPED; }
         public bool IsReviewVisible { get => ((_tourAppointment.State == TOURSTATE.FINISHED || _tourAppointment.State == TOURSTATE.STOPPED) && AreThereAnyReviews()); }
