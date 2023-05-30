@@ -8,6 +8,7 @@ using ProjectTourism.Model;
 using ProjectTourism.Services;
 using System.Timers;
 using ProjectTourism.Domain.Model;
+using System.Windows;
 
 namespace ProjectTourism.DTO
 {
@@ -293,6 +294,7 @@ namespace ProjectTourism.DTO
                 }
                 ticket.TourAppointment = tourApp;
             }
+            tourApp.TicketGrades.RemoveAll(t => t == null);
         }
 
         public Guide GetGuide()
