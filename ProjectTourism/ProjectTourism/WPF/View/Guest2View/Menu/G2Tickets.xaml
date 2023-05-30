@@ -326,6 +326,7 @@
                 <TabItem Header="Skipped" Height="20" VerticalAlignment="Top">
                     <DataGrid x:Name="DataGridSkippedTickets" Style="{StaticResource DataGrid_Style}"
                               ItemsSource="{Binding SkippedTickets, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding Path=SelectedTicket, UpdateSourceTrigger=PropertyChanged}" 
                               Margin="0 0 0 0" BorderThickness="0"  >
                         <DataGrid.Resources>
                             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
@@ -439,6 +440,7 @@
                 <TabItem Header="Canceled By Guide" Height="20" VerticalAlignment="Top">
                     <DataGrid x:Name="DataGridCanceledTickets" Style="{StaticResource DataGrid_Style}"
                               ItemsSource="{Binding CanceledTickets, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding Path=SelectedTicket, UpdateSourceTrigger=PropertyChanged}" 
                               Margin="0 0 0 0" BorderThickness="0"  >
                         <DataGrid.Resources>
                             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
@@ -647,7 +649,8 @@
             <!-- MAKE A REPORT BUTTON -->
             <!--Style="{StaticResource button}"  -->
             <Button x:Name="MakeReport" 
-                    Grid.Column="3"                    >
+                    Grid.Column="3"                    
+                    Command="{Binding GeneratePDFDocumentCommand}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Height" Value="40"/>
