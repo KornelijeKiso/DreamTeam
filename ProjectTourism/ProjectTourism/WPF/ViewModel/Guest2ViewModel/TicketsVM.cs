@@ -5,6 +5,7 @@ using ProjectTourism.WPF.Guest2View.TicketView;
 using ProjectTourism.WPF.View.Guest2View.TicketView;
 using ProjectTourism.DTO;
 using System.Windows;
+using ProjectTourism.WPF.View.Guest2View;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
@@ -166,6 +167,8 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             GeneratePDFDocumentVM generatePDFDocumentVM = new GeneratePDFDocumentVM(SelectedTicket);
             MessageBox.Show("Your Report is generated in folder ../../PDF/Guest2PDFs\n\n" +
                 "under the name: ticket_report_" + SelectedTicket.Guest2Username + "_" + SelectedTicket.Id.ToString() + ".pdf");
+            PDFDisplayWindow pDFDisplayWindow = new PDFDisplayWindow(SelectedTicket);
+            pDFDisplayWindow.ShowDialog();
         }
     }
 }
