@@ -14,9 +14,9 @@
         <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </UserControl.Resources>
     <Grid>
-        <DataGrid FontSize="12" Name="DataGridRow" RowHeight="100" CanUserAddRows="False" HorizontalAlignment="Center" Height="452" VerticalAlignment="Center" Width="828"
+        <DataGrid FontSize="12" Name="DataGridRow" RowHeight="100" CanUserAddRows="False" HorizontalAlignment="Center" Height="452" VerticalAlignment="Top" Width="828"
             SelectedItem="{Binding SelectedTourRequest, UpdateSourceTrigger=PropertyChanged}" 
-            ItemsSource="{Binding TourRequests, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
+            ItemsSource="{Binding TourRequests, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="0,174,0,0">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
             </DataGrid.Resources>
@@ -105,7 +105,7 @@
                     </DataGridTemplateColumn.HeaderStyle>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button x:Name="BadReviewButton" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="35" Click="AcceptComplexTourPart_Click">
+                            <Button x:Name="BadReviewButton" Visibility="{Binding IsPending, Converter={conv:BoolToVisibilityConverter}}" VerticalAlignment="Center" HorizontalAlignment="Center" Height="35" Width="35" Click="AcceptComplexTourPart_Click">
                                 <Button.Resources>
                                     <Style TargetType="Border">
                                         <Setter Property="CornerRadius" Value="25"/>
@@ -141,5 +141,6 @@
 
             </DataGrid.Columns>
         </DataGrid>
+        <ContentControl x:Name="ContentArea"/>
     </Grid>
 </UserControl>

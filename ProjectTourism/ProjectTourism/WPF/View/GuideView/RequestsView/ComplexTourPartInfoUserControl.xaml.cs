@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using ProjectTourism.DTO;
+using ProjectTourism.View.TourView;
 
 namespace ProjectTourism.WPF.View.GuideView.RequestsView
 {
@@ -21,15 +22,19 @@ namespace ProjectTourism.WPF.View.GuideView.RequestsView
     {
         public ObservableCollection<TourRequestDTO> TourRequests { get; set; }
         public TourRequestDTO SelectedTourRequest { get; set; }
-        public ComplexTourPartInfoUserControl(ComplexTourDTO complexRequest)
+
+        public GuideDTO Guide { get; set; }
+        public ComplexTourPartInfoUserControl(ComplexTourDTO complexRequest, GuideDTO guide)
         {
             InitializeComponent();
             DataContext = this;
             TourRequests = new ObservableCollection<TourRequestDTO>(complexRequest.TourRequests);
+            Guide = guide;
         }
         private void AcceptComplexTourPart_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-
+            AcceptedRequestUserControl acceptedRequestUserControl = new AcceptedRequestUserControl(Guide, SelectedTourRequest);
+            ContentArea.Content = acceptedRequestUserControl;
         }
     }
 }

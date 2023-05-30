@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using ProjectTourism.Domain.Model;
 using ProjectTourism.DTO;
 using ProjectTourism.Localization;
 using ProjectTourism.Model;
+using ProjectTourism.Services;
 using ProjectTourism.WPF.View.GuideView.TourView;
 using ProjectTourism.WPF.ViewModel;
 
@@ -107,6 +109,8 @@ namespace ProjectTourism.View.TourView
         {
             SaveDates();
             Guide.AddTour(NewTour, NewLocation);
+            TourRequest.State = REQUESTSTATE.ACCEPTED;
+            new ComplexTourRequestPartService().Update(TourRequest.GetTourRequest());
             HideTourCreateContents();
             ContentArea.Content = new HomeUserControl(NewTour.Guide.Username);
         }

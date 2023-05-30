@@ -70,6 +70,7 @@ namespace ProjectTourism.Repositories
                     oldTourRequest.NumberOfGuests = tourRequest.NumberOfGuests;
                     oldTourRequest.StartDate = tourRequest.StartDate;
                     oldTourRequest.EndDate = tourRequest.EndDate;
+                    oldTourRequest.State = tourRequest.State;
                 }
             }
             FileHandler.Save(TourRequests);

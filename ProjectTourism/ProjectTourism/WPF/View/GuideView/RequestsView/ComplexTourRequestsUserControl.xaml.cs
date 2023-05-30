@@ -27,7 +27,8 @@ namespace ProjectTourism.WPF.View.GuideView.RequestsView
 
         private void InfoComplexTourPart_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            ComplexTourPartInfoUserControl complexTourPartInfoUserControl = new ComplexTourPartInfoUserControl(SelectedComplexTour);
+            CreateTourLabel.Visibility = System.Windows.Visibility.Hidden;
+            ComplexTourPartInfoUserControl complexTourPartInfoUserControl = new ComplexTourPartInfoUserControl(SelectedComplexTour, Guide);
             ContentArea.Content = complexTourPartInfoUserControl;
         }
         public event PropertyChangedEventHandler PropertyChanged;

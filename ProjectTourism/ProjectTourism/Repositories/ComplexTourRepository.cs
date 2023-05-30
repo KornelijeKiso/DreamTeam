@@ -7,21 +7,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.Repositories
 {
     public class ComplexTourRepository : IComplexTourRepository
     {
         public ComplexTourFileHandler FileHandler { get; set; }
-        public List<ComplexTour> ComplexTours { get; set; }
+        public List<ComplexTour> ComplexTourRequests { get; set; }
         public ComplexTourRepository()
         {
             FileHandler = new ComplexTourFileHandler();
-            ComplexTours = FileHandler.Load();
+            ComplexTourRequests = FileHandler.Load();
         }
         public ComplexTour GetOne(int id)
         {
-            foreach (var complexTour in ComplexTours)
+            foreach (var complexTour in ComplexTourRequests)
             {
                 if (complexTour.Id == id) return complexTour;
             }
@@ -29,17 +30,17 @@ namespace ProjectTourism.Repositories
         }
         public List<ComplexTour> GetAll()
         {
-            return ComplexTours;
+            return ComplexTourRequests;
         }
         public void Add(ComplexTour complexTour)
         {
-            ComplexTours.Add(complexTour);
-            FileHandler.Save(ComplexTours);
+            ComplexTourRequests.Add(complexTour);
+            FileHandler.Save(ComplexTourRequests);
         }
         public void Delete(ComplexTour complexTour)
         {
-            ComplexTours.Remove(complexTour);
-            FileHandler.Save(ComplexTours);
+            ComplexTourRequests.Remove(complexTour);
+            FileHandler.Save(ComplexTourRequests);
         }
         public void Update(ComplexTour complexTour)
         {
@@ -48,7 +49,7 @@ namespace ProjectTourism.Repositories
         public List<ComplexTour> GetAllByGuest(Guest2 guest2)
         {
             List<ComplexTour> complexTours = new List<ComplexTour>();
-            foreach(var complexTour in ComplexTours)
+            foreach(var complexTour in ComplexTourRequests)
             {
                 if (complexTour.Guest2Username.Equals(guest2.Username))
                     complexTours.Add(complexTour);
@@ -56,5 +57,9 @@ namespace ProjectTourism.Repositories
             return complexTours;
         }
 
+        public void UpdateTourRequest(TourRequest tourRequest)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
