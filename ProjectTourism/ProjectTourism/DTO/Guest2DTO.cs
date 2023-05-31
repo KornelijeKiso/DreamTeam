@@ -137,12 +137,25 @@ namespace ProjectTourism.DTO
         private void SynchronizeComplexToursList(Guest2 guest2)
         {
             ComplexTourService complexTourService = new ComplexTourService();
-            TourRequestService requestService = new TourRequestService();
-            _guest2.ComplexTours = new List<ComplexTour>();
+            ComplexTourRequestPartService complexTourRequestPartService = new ComplexTourRequestPartService();
+            LocationService locationService = new LocationService();
+            guest2.ComplexTours = new List<ComplexTour>();
+
             foreach (var complexTour in complexTourService.GetAllByGuest(guest2))
             {
                 complexTour.TourRequests = new List<TourRequest>();
-                _guest2.ComplexTours.Add(complexTour);
+                string[] tourRequestIDs = complexTour.TourRequestString.Split(',');
+                foreach (string tourRequestId in tourRequestIDs)
+                {
+                    tourRequestId.Trim();
+                    if (tourRequestId != "")
+                    {
+                        TourRequest complexTourPart = complexTourRequestPartService.GetOne(int.Parse(tourRequestId));
+                        complexTourPart.Location = locationService.GetOne(complexTourPart.LocationId);
+                        complexTour.TourRequests.Add(complexTourRequestPartService.GetOne(int.Parse(tourRequestId)));
+                    }
+                }
+                guest2.ComplexTours.Add(complexTour);
             }
         }
 

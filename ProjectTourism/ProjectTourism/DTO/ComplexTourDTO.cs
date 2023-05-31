@@ -23,33 +23,7 @@ namespace ProjectTourism.DTO
         public ComplexTourDTO(ComplexTour complexTour)
         {
             _complexTour = complexTour;
-            SynchronizeTourRequestsList(_complexTour);
             TourRequests = new ObservableCollection<TourRequestDTO>(_complexTour.TourRequests.Select(r => new TourRequestDTO(r)).ToList());
-        }
-        private void SynchronizeTourRequestsList(ComplexTour complexTour)
-        {
-            ComplexTourRequestPartService complexTourRequestPartService = new ComplexTourRequestPartService();
-            LocationService locationService = new LocationService();
-            complexTour.TourRequests = new List<TourRequest>();
-
-            string[] tourRequestIDs = complexTour.TourRequestString.Split(',');
-            foreach (string tourRequestId in tourRequestIDs)
-            {
-                tourRequestId.Trim();
-                if (tourRequestId != "")
-                    complexTour.TourRequests.Add(complexTourRequestPartService.GetOne(int.Parse(tourRequestId)));
-            }
-
-            var updatedTourRequests = new List<TourRequest>();
-
-            foreach (var tourReq in complexTour.TourRequests)
-            {
-                tourReq.Location = locationService.GetOne(tourReq.LocationId);
-                updatedTourRequests.Add(tourReq);
-            }
-
-            complexTour.TourRequests = updatedTourRequests;
-
         }
 
         public int Id

@@ -77,15 +77,27 @@ namespace ProjectTourism.DTO
             ComplexTours = new ObservableCollection<ComplexTourDTO>(_guide.ComplexTours.Select(r => new ComplexTourDTO(r)).ToList());
             SortByDate();
         }
-
         private void SynchronizeComplexToursList(Guide guide)
         {
-            ComplexTourService complexTourService = new ComplexTourService();
-            TourRequestService requestService = new TourRequestService();
+            ComplexTourService complexTourService = new ComplexTourService(); 
+            ComplexTourRequestPartService complexTourRequestPartService = new ComplexTourRequestPartService();
+            LocationService locationService = new LocationService();
             guide.ComplexTours = new List<ComplexTour>();
+            
             foreach (var complexTour in complexTourService.GetAll())
             {
                 complexTour.TourRequests = new List<TourRequest>();
+                string[] tourRequestIDs = complexTour.TourRequestString.Split(',');
+                foreach (string tourRequestId in tourRequestIDs)
+                {
+                    tourRequestId.Trim();
+                    if (tourRequestId != "")
+                    {
+                        TourRequest complexTourPart = complexTourRequestPartService.GetOne(int.Parse(tourRequestId));
+                        complexTourPart.Location = locationService.GetOne(complexTourPart.LocationId);
+                        complexTour.TourRequests.Add(complexTourRequestPartService.GetOne(int.Parse(tourRequestId)));
+                    }
+                }
                 guide.ComplexTours.Add(complexTour);
             }
         }
