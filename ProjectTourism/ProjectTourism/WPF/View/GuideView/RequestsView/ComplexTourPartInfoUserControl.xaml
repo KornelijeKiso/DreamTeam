@@ -31,7 +31,7 @@
             </DataGrid.CellStyle>
             <DataGrid.Columns>
 
-                <DataGridTemplateColumn Header="Request info" Width="*">
+                <DataGridTemplateColumn Header="{ns:Loc RequestInfo}" Width="*">
                     <DataGridTemplateColumn.HeaderStyle>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -41,7 +41,7 @@
                         <DataTemplate>
                             <StackPanel>
                                 <StackPanel>
-                                    <Label Content="GuestsRequest" FontWeight="SemiBold" FontSize="19" />
+                                    <Label Content="{ns:Loc GuestsRequest}" FontWeight="SemiBold" FontSize="19" />
                                     <Label Content="{Binding Guest2Username}" FontWeight="SemiBold" FontSize="19" Margin="152, -36, 0, 0"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Vertical" >
@@ -65,16 +65,16 @@
                                         <Label Content="{Binding Language}"></Label>
                                     </StackPanel>
                                     <StackPanel Margin="-20, 0, 0, 0">
-                                        <GroupBox Header="MaxNumberOfGuests" BorderThickness="1.5" BorderBrush="Black" Background="#AA8ED0FB" Height="45" Width="150" Margin="-10, -114, 0, 0"></GroupBox>
+                                        <GroupBox Header="{ns:Loc MaxNumberOfGuests}" BorderThickness="1.5" BorderBrush="Black" Background="#AA8ED0FB" Height="45" Width="150" Margin="-10, -114, 0, 0"></GroupBox>
                                         <StackPanel Margin="-12,-68,0,0">
                                             <Label Content="{Binding NumberOfGuests}" HorizontalAlignment="Center" FontSize="19" FontWeight="SemiBold"></Label>
                                         </StackPanel>
-                                        <GroupBox Header="Description" BorderThickness="1.5" BorderBrush="Black" Background="#AA8ED0FB" Height="90" Width="290" Margin="440, -80, 0, 0">
+                                        <GroupBox Header="{ns:Loc Description}" BorderThickness="1.5" BorderBrush="Black" Background="#AA8ED0FB" Height="90" Width="290" Margin="440, -80, 0, 0">
                                             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding Description}" TextWrapping="Wrap"/>
                                         </GroupBox>
                                     </StackPanel>
                                     <StackPanel Margin="-30, -50, 0, 0">
-                                        <GroupBox Header="Date" Width="150" BorderThickness="1.5" BorderBrush="Black" Background="#AA8ED0FB">
+                                        <GroupBox Header="{ns:Loc Date}" Width="150" BorderThickness="1.5" BorderBrush="Black" Background="#AA8ED0FB">
                                             <StackPanel>
                                                 <Label>
                                                     <Label.Content>

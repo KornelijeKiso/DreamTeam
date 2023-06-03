@@ -237,6 +237,9 @@
   <data name="FinishRequired" xml:space="preserve">
     <value>Cilj je neophodan!</value>
   </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Gost</value>
+  </data>
   <data name="GuestsRequest" xml:space="preserve">
     <value> Zahtev korisnika </value>
   </data>
@@ -324,6 +327,27 @@
   <data name="NumberOfVouchers" xml:space="preserve">
     <value>Broj vaučera</value>
   </data>
+  <data name="PDF1" xml:space="preserve">
+    <value>- Izveštaj gostiju</value>
+  </data>
+  <data name="PDF2" xml:space="preserve">
+    <value>Vreme: </value>
+  </data>
+  <data name="PDF3" xml:space="preserve">
+    <value>Jezik: </value>
+  </data>
+  <data name="PDF4" xml:space="preserve">
+    <value>Stanice: </value>
+  </data>
+  <data name="PDFLocation" xml:space="preserve">
+    <value>Vaš izveštaj je smešten na lokaciji</value>
+  </data>
+  <data name="PDFLocation2" xml:space="preserve">
+    <value>pod imenom: Izvestaj_gosti_</value>
+  </data>
+  <data name="PDFName" xml:space="preserve">
+    <value>../../../PDF/GuidePDF/Izvestaj_gosti_</value>
+  </data>
   <data name="PhoneNumber" xml:space="preserve">
     <value>Broj telefona</value>
   </data>
@@ -344,6 +368,9 @@
   </data>
   <data name="ReportReviewQuestion" xml:space="preserve">
     <value>Da li ste sigurni da želite da prijavite recenziju korisnika </value>
+  </data>
+  <data name="RequestInfo" xml:space="preserve">
+    <value>Informacije o zahtevu</value>
   </data>
   <data name="Requests" xml:space="preserve">
     <value>Zahtevi</value>
@@ -393,6 +420,9 @@
   <data name="StartTour" xml:space="preserve">
     <value>Započni</value>
   </data>
+  <data name="State" xml:space="preserve">
+    <value>Stanje</value>
+  </data>
   <data name="StatisticsLabel1" xml:space="preserve">
     <value>Izaberite turu čiju biste statistiku voleli da vidite.</value>
   </data>
@@ -404,6 +434,9 @@
   </data>
   <data name="SucecssfulDeletation" xml:space="preserve">
     <value> je uspešno izbrisano!</value>
+  </data>
+  <data name="Suggested" xml:space="preserve">
+    <value>Preporučeno od: </value>
   </data>
   <data name="Theme" xml:space="preserve">
     <value>Tema</value>
@@ -420,6 +453,9 @@
   <data name="TourInfo" xml:space="preserve">
     <value>Informacije o turi</value>
   </data>
+  <data name="TourLocation" xml:space="preserve">
+    <value>Lokacija ture: </value>
+  </data>
   <data name="TourState" xml:space="preserve">
     <value>Stanje ture</value>
   </data>
@@ -428,6 +464,9 @@
   </data>
   <data name="TourStatistics" xml:space="preserve">
     <value>Statistika tura</value>
+  </data>
+  <data name="TourStop" xml:space="preserve">
+    <value>Stanica</value>
   </data>
   <data name="TourSuggestion" xml:space="preserve">
     <value>Preporuka ture</value>

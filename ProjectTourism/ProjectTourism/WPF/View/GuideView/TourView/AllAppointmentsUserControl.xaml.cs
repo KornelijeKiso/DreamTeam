@@ -2,11 +2,11 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using ProjectTourism.WPF.ViewModel;
 using System.Runtime.CompilerServices;
 using ProjectTourism.WPF.View.GuideView.TourView;
 using ProjectTourism.Localization;
 using ProjectTourism.DTO;
+using ProjectTourism.PDF.GuidePDF;
 
 namespace ProjectTourism.View.GuideView.TourView
 {
@@ -28,7 +28,14 @@ namespace ProjectTourism.View.GuideView.TourView
             TabControl.Visibility = Visibility.Hidden;
             ContentArea.Content = new ReviewsUserControl(SelectedAppointment);
         }
-        
+        private void PdfReportButton_Click(object sender, RoutedEventArgs e)
+        {
+            Guide.Timer.Stop();
+            GuestsOnATourPDFGenerator generatePDFDocumentVM = new GuestsOnATourPDFGenerator(SelectedAppointment);
+            MessageBox.Show(GetLocalizedErrorMessage("PDFLocation") + " ../../PDF/GuidePDFs\n\n" +
+                GetLocalizedErrorMessage("PDFLocation2") + SelectedAppointment.Id.ToString() + ".pdf");
+            Guide.SetTimer();
+        }
         private void QuitButton_Click(object sender, RoutedEventArgs e)
         {
             Guide.Timer.Stop();

@@ -154,6 +154,7 @@ namespace ProjectTourism.DTO
             get => ((AvailableSeats > 0) && (_tourAppointment.State == TOURSTATE.READY) && (_tourAppointment.TourDateTime >= DateTime.Now)); 
         }
         public bool CanBeCanceled { get => _tourAppointment.TourDateTime > DateTime.Now.AddHours(48); }
+        public bool AreThereAnyTickets { get => _tourAppointment.Tickets.Any(); }
 
         public event PropertyChangedEventHandler? PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

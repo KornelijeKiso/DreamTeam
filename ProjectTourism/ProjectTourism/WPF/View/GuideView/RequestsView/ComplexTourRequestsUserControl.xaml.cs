@@ -19,12 +19,6 @@ namespace ProjectTourism.WPF.View.GuideView.RequestsView
             Guide = new GuideDTO(username);
             ComplexTourRequests = Guide.ComplexTours;
         }
-
-        private void AcceptComplexTourPart_Click(object sender, System.Windows.RoutedEventArgs e)
-        {
-
-        }
-
         private void InfoComplexTourPart_Click(object sender, System.Windows.RoutedEventArgs e)
         {
             CreateTourLabel.Visibility = System.Windows.Visibility.Hidden;

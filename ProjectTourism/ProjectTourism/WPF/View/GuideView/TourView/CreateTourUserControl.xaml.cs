@@ -14,7 +14,6 @@ using ProjectTourism.Localization;
 using ProjectTourism.Model;
 using ProjectTourism.View.GuideView.TourView;
 using ProjectTourism.WPF.View.GuideView.TourView;
-using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.View.TourView
 {

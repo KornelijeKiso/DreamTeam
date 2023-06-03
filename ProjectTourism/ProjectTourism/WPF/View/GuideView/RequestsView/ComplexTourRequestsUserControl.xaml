@@ -26,25 +26,14 @@
                             <StackPanel Orientation="Vertical" >
                                 <Label Height="25" VerticalAlignment="Center" HorizontalAlignment="Left">
                                     <Label.Content>
-                                        <TextBlock>
-                                            <TextBlock.Text>
-                                                <MultiBinding StringFormat="{}Suggested by: {0}">
-                                                    <Binding Path="Guest2Username"/>
-                                                </MultiBinding>
-                                            </TextBlock.Text>
-                                        </TextBlock>
+                                        <StackPanel>
+                                            <Label Content="{ns:Loc GuestsRequest}" FontWeight="SemiBold" FontSize="19" Margin="0, -12, 0, 0" />
+                                            <Label Content="{Binding Path=Guest2Username}" FontWeight="SemiBold" FontSize="19" Margin="152, -36, 0, 0"/>
+                                        </StackPanel>
                                     </Label.Content>
                                 </Label>
                                 <Label Height="25" VerticalAlignment="Center" HorizontalAlignment="Left">
-                                    <Label.Content>
-                                        <TextBlock>
-                                            <TextBlock.Text>
-                                                <MultiBinding StringFormat="{}Created on: {0}">
-                                                    <Binding Path="TourRequests[0].CreationDateTime"/>
-                                                </MultiBinding>
-                                            </TextBlock.Text>
-                                        </TextBlock>
-                                    </Label.Content>
+                                    <Label Content="{Binding Path=TourRequests[0].CreationDateTime}" Margin="50,-10,0,0"/>
                                 </Label>
                                 <Button Content="Info" Click="InfoComplexTourPart_Click" Width="100" Height="30" Margin="0, 30, 0, 0"/>
                             </StackPanel>
@@ -64,9 +53,9 @@
                                           Width="320" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Row="0">
                                     <ListView.View>
                                         <GridView x:Name="TourRequestsGridView">
-                                            <GridViewColumn Width="73" Header="State" DisplayMemberBinding="{Binding Path=State}"/>
-                                            <GridViewColumn Width="73" Header="Start Date" DisplayMemberBinding="{Binding Path=StartDate}"/>
-                                            <GridViewColumn Width="73" Header="End Date" DisplayMemberBinding="{Binding Path=EndDate}"/>
+                                            <GridViewColumn Width="73" Header="{ns:Loc State}" DisplayMemberBinding="{Binding Path=State}"/>
+                                            <GridViewColumn Width="73" Header="{ns:Loc StartDate}" DisplayMemberBinding="{Binding Path=StartDate}"/>
+                                            <GridViewColumn Width="73" Header="{ns:Loc EndDate}" DisplayMemberBinding="{Binding Path=EndDate}"/>
                                         </GridView>
                                     </ListView.View>
                                 </ListView>

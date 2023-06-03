@@ -237,6 +237,9 @@
   <data name="FinishRequired" xml:space="preserve">
     <value>Finish point is required!</value>
   </data>
+  <data name="Guest" xml:space="preserve">
+    <value>Guest</value>
+  </data>
   <data name="GuestsRequest" xml:space="preserve">
     <value>Request made by  </value>
   </data>
@@ -324,6 +327,27 @@
   <data name="NumberOfVouchers" xml:space="preserve">
     <value>Number of vouchers</value>
   </data>
+  <data name="PDF1" xml:space="preserve">
+    <value>'s guests report</value>
+  </data>
+  <data name="PDF2" xml:space="preserve">
+    <value>Time: </value>
+  </data>
+  <data name="PDF3" xml:space="preserve">
+    <value>Jezik: </value>
+  </data>
+  <data name="PDF4" xml:space="preserve">
+    <value>Tour stops: </value>
+  </data>
+  <data name="PDFLocation" xml:space="preserve">
+    <value>Your report is generated in folder</value>
+  </data>
+  <data name="PDFLocation2" xml:space="preserve">
+    <value>under the name: Tour_appointment_report_</value>
+  </data>
+  <data name="PDFName" xml:space="preserve">
+    <value>../../../PDF/GuidePDF/Tour_appointment_report_</value>
+  </data>
   <data name="PhoneNumber" xml:space="preserve">
     <value>Phone number</value>
   </data>
@@ -344,6 +368,9 @@
   </data>
   <data name="ReportReviewQuestion" xml:space="preserve">
     <value>Are you sure you want to report a review by </value>
+  </data>
+  <data name="RequestInfo" xml:space="preserve">
+    <value>Request info</value>
   </data>
   <data name="Requests" xml:space="preserve">
     <value>Requests</value>
@@ -393,6 +420,9 @@
   <data name="StartTour" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="State" xml:space="preserve">
+    <value>State</value>
+  </data>
   <data name="StatisticsLabel1" xml:space="preserve">
     <value>Select a tour of which you would like to see the statistics.</value>
   </data>
@@ -404,6 +434,9 @@
   </data>
   <data name="SucecssfulDeletation" xml:space="preserve">
     <value>has been succesfully deleted!</value>
+  </data>
+  <data name="Suggested" xml:space="preserve">
+    <value>Suggested by: </value>
   </data>
   <data name="Theme" xml:space="preserve">
     <value>Theme</value>
@@ -420,6 +453,9 @@
   <data name="TourInfo" xml:space="preserve">
     <value>Tour info</value>
   </data>
+  <data name="TourLocation" xml:space="preserve">
+    <value>Tour location: </value>
+  </data>
   <data name="TourState" xml:space="preserve">
     <value>Tour state</value>
   </data>
@@ -428,6 +464,9 @@
   </data>
   <data name="TourStatistics" xml:space="preserve">
     <value>Tour statistics</value>
+  </data>
+  <data name="TourStop" xml:space="preserve">
+    <value>Tour stop</value>
   </data>
   <data name="TourSuggestion" xml:space="preserve">
     <value>Tour suggestion</value>
