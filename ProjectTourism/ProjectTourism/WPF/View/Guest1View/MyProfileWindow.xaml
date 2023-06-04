@@ -6,20 +6,38 @@
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest1View"
         xmlns:conv="clr-namespace:ProjectTourism.Converters"
         mc:Ignorable="d"
-        Title="MyProfileWindow" Height="750" Width="430">
+        Title="MyProfileWindow" Height="750" Width="430" WindowStartupLocation="CenterScreen" FontFamily="Futura">
     <Window.Resources>
         <ResourceDictionary>
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         </ResourceDictionary>
     </Window.Resources>
     <Grid>
-        <Image VerticalAlignment="Top" HorizontalAlignment="Center" Source="https://img.icons8.com/cotton/2x/user-male-circle.png" Width="128" Height="128" Margin="0 100 0 0"></Image>
-        <Label ContentStringFormat="Superguest: {0}" Content="{Binding Path=Guest1VM.isSuperGuest}" VerticalAlignment="Top" HorizontalAlignment="Center" Width="128" Height="128" Margin="0 300 0 0">
+        <Label VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 165 0 0" ContentStringFormat="@{0}" FontSize="14" FontWeight="SemiBold" Foreground="DarkSlateGray" Content="{Binding Guest1.Username}"></Label>
+        <Label VerticalAlignment="Top" FontWeight="DemiBold" FontSize="20" HorizontalAlignment="Center" Margin="0 185 0 0">
+            <Label.Content>
+                <TextBlock>
+                    <TextBlock.Text>
+                        <MultiBinding StringFormat="{}{0} {1}">
+                            <Binding Path="Guest1.FirstName"/>
+                            <Binding Path="Guest1.LastName"/>
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Label.Content>
         </Label>
-        <Label ContentStringFormat="Guest Grade: {0}" Content="{Binding Path=Guest1VM.AverageGrade}" VerticalAlignment="Top" HorizontalAlignment="Center" Width="128" Height="128" Margin="0 360 0 0">
+        <GroupBox Header="Guest Profile" Margin="0 230 0 0" Height="180" Width="350" BorderBrush="OrangeRed" FontSize="15" Foreground="DarkSlateGray" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Center"></GroupBox>
+        <GroupBox Header="Personal Info" Margin="0 430 0 0" Height="180" Width="350" BorderBrush="OrangeRed" FontSize="15" Foreground="DarkSlateGray" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Center"></GroupBox>
+        <Image VerticalAlignment="Top" HorizontalAlignment="Center" Source="https://img.icons8.com/cotton/2x/user-male-circle.png" Width="128" Height="128" Margin="0 30 0 0"></Image>
+        <Label ContentStringFormat="Superguest : {0}" Content="{Binding Path=Guest1.isSuperGuest}" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="22" FontWeight="SemiBold" Width="128" Height="128" Margin="0 290 170 0">
         </Label>
-        <Label Visibility="{Binding Path=Guest1VM.isSuperGuest, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}" ContentStringFormat="Points: {0}" Content="{Binding Path=Guest1VM.Points}" VerticalAlignment="Top" HorizontalAlignment="Center" Width="128" Height="128" Margin="0 330 0 0">
+        <Label ContentStringFormat="Score : {0}" Content="{Binding Path=Guest1.AverageGrade}" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="22" FontWeight="SemiBold" Width="128" Height="128" Margin="0 250 170 0">
         </Label>
-            
+        <Label Visibility="{Binding Path=Guest1.isSuperGuest, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}" ContentStringFormat="Points: {0}" Content="{Binding Path=Guest1.Points}" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="22" FontWeight="SemiBold" Width="128" Height="128" Margin="0 330 170 0">
+        </Label>
+        <Label ContentStringFormat="Birthday : {0}" Content="{Binding Path=Guest1.Birthday}" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Width="155" Height="128" Margin="0 460 145 0">
+        </Label>
+        <Label ContentStringFormat="Email : {0}" Content="{Binding Path=Guest1.Email}" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Width="228" Height="128" Margin="0 500 75 0">
+        </Label>
     </Grid>
 </Window>

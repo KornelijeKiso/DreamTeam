@@ -19,6 +19,8 @@ namespace ProjectTourism.DTO
         public ObservableCollection<ReservationDTO> Reservations { get; set; }
         public ObservableCollection<ReservationDTO> MyReservations { get; set; }
         public ObservableCollection<ReservationDTO> GradableReservations { get; set; }
+        bool SuperGuest { get; set; }
+        int reservationCount { get; set; }
 
         public Guest1DTO(string username)
         {
@@ -31,6 +33,7 @@ namespace ProjectTourism.DTO
             MyReservations = new ObservableCollection<ReservationDTO>();
             GradableReservations = new ObservableCollection<ReservationDTO>();
             Reservations = new ObservableCollection<ReservationDTO>(reservationService.GetAll().Select(r => new ReservationDTO(r)).Reverse().ToList());
+            SuperGuest = false;
 
             foreach (ReservationDTO reservationDTO in Reservations)
             {
@@ -45,6 +48,28 @@ namespace ProjectTourism.DTO
                     GradableReservations.Add(reservationDTO);
                 }
             }
+            foreach (ReservationDTO reservationDTO in Reservations)
+            {
+                if (reservationDTO.EndDate < DateOnly.FromDateTime(DateTime.Now) && reservationDTO.EndDate > DateOnly.FromDateTime(DateTime.Now).AddYears(-1) && reservationDTO.Guest1.Username == _guest1.Username)
+                {
+                    reservationCount += 1;
+                }
+            }
+            if (reservationCount > 9)
+            {
+                SuperGuest = true;
+                if (Points == -1)
+                {
+                    Points = 5;
+                    new Guest1Service().Update(_guest1);
+                }
+            }
+            else
+            {
+                Points = -1;
+                new Guest1Service().Update(_guest1);
+            }
+
         }
 
         private bool IsGradable(ReservationDTO reservationVM)
@@ -163,18 +188,38 @@ namespace ProjectTourism.DTO
                 }
             }
         }
-        public double AverageGrade
+        public bool isSuperGuest
         {
-            get => _guest1.AverageGrade;
+            get => SuperGuest;
+        }
+        public int Points
+        {
+            get => _guest1.Points;
             set
             {
-                if (value != _guest1.AverageGrade)
+                if (value != _guest1.Points)
                 {
-                    _guest1.AverageGrade = value;
+                    _guest1.Points = value;
                     OnPropertyChanged();
                 }
             }
         }
+        public double AverageGrade
+        {
+            get => CalculateAverageGrade();
+        }
+        private double CalculateAverageGrade()
+        {
+            try
+            {
+                return Reservations.Where(reservation => reservation.Graded && reservation.Guest1Username == _guest1.Username).Average(reservation => reservation.Guest1Grade.AverageGrade);
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

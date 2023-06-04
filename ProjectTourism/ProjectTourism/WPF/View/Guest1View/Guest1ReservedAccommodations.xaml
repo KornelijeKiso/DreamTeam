@@ -6,14 +6,18 @@
         xmlns:conv="clr-namespace:ProjectTourism.Converters"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest1View"
         mc:Ignorable="d"
-        Title="Guest1ReservedAccommodations" Height="750" Width="430" WindowStartupLocation="CenterScreen">
+        Title="Guest1ReservedAccommodations" Height="750" Width="430" WindowStartupLocation="CenterScreen" FontFamily="Futura">
     <Grid>
+        <Rectangle VerticalAlignment="Top" Margin="0 0 0 0" Height="65" Width="430" Fill="#FFFFD0" StrokeThickness="2"/>
+        <Label Content="My Reservations" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" Foreground="#555" Margin="110 18 0 0"/>
+        <Image Source="https://cdn-icons-png.flaticon.com/128/3652/3652267.png" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 22 110 0" Height="26"></Image>
+        <Image Source="https://cdn-icons-png.flaticon.com/128/2976/2976215.png" VerticalAlignment="Top" HorizontalAlignment="left" Margin="20 20 0 0" Height="26"></Image>
+        <Image Source="https://cdn-icons-png.flaticon.com/128/3524/3524344.png" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 22 20 0" Height="24"></Image>
         <StackPanel VerticalAlignment="Top" Margin="0 65 0 0">
-            <Label Content="Notifications" FontSize="15" FontWeight="SemiBold" Foreground="Black" Margin="361 0 0 0"></Label>
-            <DataGrid Height="600" Width="395" HeadersVisibility="None" ItemsSource="{Binding Guest1VM.MyReservations}"
+            <DataGrid Height="650" Width="430" HeadersVisibility="None" ItemsSource="{Binding Guest1VM.MyReservations}"
                           CanUserAddRows="False" CanUserDeleteRows="False" SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False"
                           RowHeight="120" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" GridLinesVisibility="None"
-                          RowBackground="LightYellow" Background="AntiqueWhite">
+                          RowBackground="#FFFFE0" Background="White">
                 <DataGrid.Resources>
                     <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
                    Color="AliceBlue"/>
@@ -23,7 +27,7 @@
                         <Setter Property="Template">
                             <Setter.Value>
                                 <ControlTemplate TargetType="DataGridRow">
-                                    <Border BorderBrush="LightYellow" BorderThickness="1" Background="LightYellow" Margin="2" Padding="2">
+                                    <Border BorderBrush="#FFFFD0" BorderThickness="4" Background="LightYellow" Margin="2" Padding="2">
                                         <SelectiveScrollingGrid>
                                             <SelectiveScrollingGrid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto"/>
@@ -64,7 +68,7 @@
                                                     <Label Content="{Binding Path=StartDate}" FontWeight="Bold" FontSize="13" Margin="0,-4,0,0"></Label>
                                                 </StackPanel>
                                                 <StackPanel>
-                                                    <Button HorizontalAlignment="Center" Width="100" Height="33" Content="Postpone" FontWeight="SemiBold" Foreground="#222" Click="PostponeReservationClick" IsDefault="True" BorderThickness="2" Margin="53 10 0 0">
+                                                    <Button HorizontalAlignment="Center" Width="100" Height="33" Content="Postpone" FontWeight="SemiBold" Foreground="#222" Click="PostponeReservationClick" IsDefault="True" BorderThickness="2" Margin="63 10 0 0">
                                                         <Button.Resources>
                                                             <Style TargetType="Button">
                                                                 <Style.Triggers>
@@ -87,7 +91,7 @@
                                                     <Label Content="{Binding Path=EndDate}" FontWeight="Bold" FontSize="13" Margin="0,-4,0,0"></Label>
                                                 </StackPanel>
                                                 <StackPanel>
-                                                    <Button HorizontalAlignment="Center" Background="#D99" Width="100" Height="33" Content="Cancel" FontWeight="SemiBold" Foreground="#D22" Click="CancelReservationClick" IsDefault="True" BorderThickness="2" Margin="55 7 0 0">
+                                                    <Button HorizontalAlignment="Center" Background="#D99" Width="100" Height="33" Content="Cancel" FontWeight="SemiBold" Foreground="#D22" Click="CancelReservationClick" IsDefault="True" BorderThickness="2" Margin="65 7 0 0">
                                                         <Button.Resources>
                                                             <Style TargetType="Button">
                                                                 <Style.Triggers>

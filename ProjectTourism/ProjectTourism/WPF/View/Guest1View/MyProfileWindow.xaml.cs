@@ -1,4 +1,5 @@
-﻿using ProjectTourism.Model;
+﻿using ProjectTourism.DTO;
+using ProjectTourism.Model;
 using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -21,13 +22,13 @@ namespace ProjectTourism.WPF.View.Guest1View
     /// </summary>
     public partial class MyProfileWindow : Window
     {
-        public Guest1VM Guest1VM { get; set; }
+        public Guest1DTO Guest1 { get; set; }
         //public float AverageGrade { get; set; }
         public MyProfileWindow(string username)
         {
             InitializeComponent();
             DataContext = this;
-            Guest1VM = new Guest1VM(username);
+            Guest1 = new Guest1DTO(username);
             //AverageGrade = Guest1VM.CalculateGrade();
         }
     }

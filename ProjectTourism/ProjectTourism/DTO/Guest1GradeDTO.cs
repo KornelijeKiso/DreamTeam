@@ -86,6 +86,22 @@ namespace ProjectTourism.DTO
             }
         }
 
+        public double AverageGrade
+        {
+            get => CalculateAverageGrade();
+        }
+
+        private double CalculateAverageGrade()
+        {
+            double sum = 0;
+            foreach (var category in CategoryNames)
+            {
+                sum += Grades[category];
+            }
+            sum = sum / CategoryNames.Length;
+            return Math.Round(sum, 2);
+        }
+
         public event PropertyChangedEventHandler? PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
