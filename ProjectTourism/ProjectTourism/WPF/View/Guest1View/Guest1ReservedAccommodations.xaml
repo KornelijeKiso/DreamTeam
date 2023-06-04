@@ -3,67 +3,116 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:conv="clr-namespace:ProjectTourism.Converters"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest1View"
         mc:Ignorable="d"
-        Title="Guest1ReservedAccommodations" Height="450" Width="800">
+        Title="Guest1ReservedAccommodations" Height="750" Width="430" WindowStartupLocation="CenterScreen">
     <Grid>
-        <DataGrid x:Name="DataGridAccommodations" ItemsSource="{Binding Guest1VM.MyReservations, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
-                    IsReadOnly="True" AutoGenerateColumns="False" RowHeight="100" Margin="10,66,10,25">
-            <DataGrid.Columns>
+        <StackPanel VerticalAlignment="Top" Margin="0 65 0 0">
+            <Label Content="Notifications" FontSize="15" FontWeight="SemiBold" Foreground="Black" Margin="361 0 0 0"></Label>
+            <DataGrid Height="600" Width="395" HeadersVisibility="None" ItemsSource="{Binding Guest1VM.MyReservations}"
+                          CanUserAddRows="False" CanUserDeleteRows="False" SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False"
+                          RowHeight="120" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" GridLinesVisibility="None"
+                          RowBackground="LightYellow" Background="AntiqueWhite">
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                   Color="AliceBlue"/>
+                </DataGrid.Resources>
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="DataGridRow">
+                                    <Border BorderBrush="LightYellow" BorderThickness="1" Background="LightYellow" Margin="2" Padding="2">
+                                        <SelectiveScrollingGrid>
+                                            <SelectiveScrollingGrid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </SelectiveScrollingGrid.ColumnDefinitions>
+                                            <SelectiveScrollingGrid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </SelectiveScrollingGrid.RowDefinitions>
+                                            <DataGridCellsPresenter Grid.Column="1" ItemsPanel="{TemplateBinding ItemsPanel}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                            <DataGridDetailsPresenter Grid.Column="1" Grid.Row="1" Visibility="{TemplateBinding DetailsVisibility}" />
+                                        </SelectiveScrollingGrid>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="BorderThickness" Value="0,2,0,2"/>
+                        <Setter Property="BorderBrush" Value="LightSkyBlue"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="BorderThickness" Value="0,2,0,2"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Width="383">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Width="120" Height="120" Margin="0,0,0,0" HorizontalAlignment="Center" Stretch="Fill" Source="{Binding Path=Accommodation.PictureURLs}"/>
+                                        <StackPanel Orientation="Vertical" >
+                                            <Label Content="{Binding Path=Accommodation.Name}" FontWeight="SemiBold" FontSize="20" Margin="10,-5,0,-7" ></Label>
+                                            <StackPanel Orientation="Horizontal">
+                                                <StackPanel Orientation="Vertical" Margin="10,0,0,-7">
+                                                    <Label Content="reservation start " FontWeight="Regular" FontStyle="Italic" FontSize="10" Margin="0,7,-7,-7" ></Label>
+                                                    <Label Content="{Binding Path=StartDate}" FontWeight="Bold" FontSize="13" Margin="0,-4,0,0"></Label>
+                                                </StackPanel>
+                                                <StackPanel>
+                                                    <Button HorizontalAlignment="Center" Width="100" Height="33" Content="Postpone" FontWeight="SemiBold" Foreground="#222" Click="PostponeReservationClick" IsDefault="True" BorderThickness="2" Margin="53 10 0 0">
+                                                        <Button.Resources>
+                                                            <Style TargetType="Button">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsPressed" Value="True">
+                                                                        <Setter Property="Background" Value="SlateGray" />
+                                                                        <Setter Property="Foreground" Value="White"></Setter>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="CornerRadius" Value="10"/>
+                                                            </Style>
+                                                        </Button.Resources>
+                                                    </Button>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <StackPanel Orientation="Vertical" Margin="10,0,0,-7">
+                                                    <Label Content="reservation end " FontWeight="Regular" FontStyle="Italic" FontSize="10" Margin="0,-5,-7,-7" ></Label>
+                                                    <Label Content="{Binding Path=EndDate}" FontWeight="Bold" FontSize="13" Margin="0,-4,0,0"></Label>
+                                                </StackPanel>
+                                                <StackPanel>
+                                                    <Button HorizontalAlignment="Center" Background="#D99" Width="100" Height="33" Content="Cancel" FontWeight="SemiBold" Foreground="#D22" Click="CancelReservationClick" IsDefault="True" BorderThickness="2" Margin="55 7 0 0">
+                                                        <Button.Resources>
+                                                            <Style TargetType="Button">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsPressed" Value="True">
+                                                                        <Setter Property="Background" Value="#D66" />
+                                                                        <Setter Property="Foreground" Value="#D22"></Setter>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="CornerRadius" Value="10"/>
+                                                            </Style>
+                                                        </Button.Resources>
+                                                    </Button>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
 
-                <DataGridTemplateColumn Width="100">
-                    <DataGridTemplateColumn.Header>
-                        <TextBlock Text="Picture"/>
-                    </DataGridTemplateColumn.Header>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Image Stretch="Fill" Source="{Binding Path=Accommodation.PictureURLs}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="8*">
-                    <DataGridTemplateColumn.Header>
-                        <TextBlock Text="Info"/>
-                    </DataGridTemplateColumn.Header>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Vertical" >
-                                <Label Content="{Binding Path=Accommodation.Name}" FontWeight="SemiBold" Margin="0,-1,0,-7" ></Label>
-                                <!--Label Content="{Binding Path=Accommodation.Location}" Margin="0,0,0,-7"></Label-->
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label Content="RESERVATION START :" FontWeight="Bold" Margin="0,5,-7,-7" ></Label>
-                                    <Label Content="{Binding Path=StartDate}" FontWeight="Bold" Margin="0,5,0,0"></Label>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Margin="0,0,0,-7">
-                                    <Label Content="RESERVATION END :" FontWeight="Bold" Margin="0,10,-7,-7" ></Label>
-                                    <Label Content="{Binding Path=EndDate}" FontWeight="Bold" Margin="0,10,0,0"></Label>
-                                </StackPanel>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="2*" x:Name="Cancel">
-                    <DataGridTemplateColumn.Header>
-                        <TextBlock Text="Reservation"/>
-                    </DataGridTemplateColumn.Header>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Click="CancelReservationClick" Content="Cancel"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTemplateColumn Width="2*" x:Name="Postpone">
-                    <DataGridTemplateColumn.Header>
-                        <TextBlock Text="Postpone"/>
-                    </DataGridTemplateColumn.Header>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button Click="PostponeReservationClick" Content="Postpone"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
     </Grid>
 </Window>
