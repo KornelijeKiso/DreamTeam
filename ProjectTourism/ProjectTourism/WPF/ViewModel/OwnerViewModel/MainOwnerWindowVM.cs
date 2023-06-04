@@ -95,6 +95,17 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
             ProfileItem.Background = Brushes.Transparent;
             ResetNotifications();
         }
+        public void SwitchToHelp(object parameter)
+        {
+            Content = new Help();
+            AccommodationsItem.Background = Brushes.Transparent;
+            ReservationsItem.Background = Brushes.Transparent;
+            HelpItem.Background = Brushes.LightSkyBlue;
+            ForumsItem.Background = Brushes.Transparent;
+            NotificationsItem.Background = Brushes.Transparent;
+            ProfileItem.Background = Brushes.Transparent;
+            ResetNotifications();
+        }
         public void SwitchToYourProfile(object parameter)
         {
             Content = new YourProfileMenuItem(Owner.Username);
@@ -160,6 +171,10 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
         public ICommand SwitchToYourProfileCommand
         {
             get => new RelayCommand(SwitchToYourProfile);
+        }
+        public ICommand SwitchToHelpCommand
+        {
+            get => new RelayCommand(SwitchToHelp);
         }
         public ICommand ShowNotificationsCommand
         {

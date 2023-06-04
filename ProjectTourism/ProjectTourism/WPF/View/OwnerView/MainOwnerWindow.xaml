@@ -70,7 +70,7 @@
                     </StackPanel>
                 </MenuItem.Header>
             </MenuItem>
-            <MenuItem Name="HelpItem" FontSize="14" Background="{Binding HelpItem.Background}" BorderBrush="DodgerBlue" Width="167">
+            <MenuItem Name="HelpItem" FontSize="14" Command="{Binding SwitchToHelpCommand}" Background="{Binding HelpItem.Background}" BorderBrush="DodgerBlue" Width="167">
                 <MenuItem.Header>
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="         Help    " HorizontalAlignment="Center" Margin="0 3 0 0"/>

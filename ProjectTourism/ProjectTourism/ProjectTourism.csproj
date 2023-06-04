@@ -39,6 +39,9 @@
     <None Remove="WPF\View\Guest2View\Menu\img_voucher2.png" />
     <None Remove="WPF\View\Guest2View\Menu\img_voucher3.png" />
     <None Remove="WPF\View\GuideView\TourView\lightmaketourEDITED.jpg" />
+    <None Remove="WPF\View\OwnerView\accommodations_help.jpg" />
+    <None Remove="WPF\View\OwnerView\forums_help.jpg" />
+    <None Remove="WPF\View\OwnerView\reservations_help.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -67,6 +70,9 @@
     <Resource Include="Images\Guide\DarkMakeTour.jpg" />
     <Resource Include="Images\Guide\LightBackground.jpg" />
     <Resource Include="Images\Guide\LightMakeTour.jpg" />
+    <Resource Include="WPF\View\OwnerView\accommodations_help.jpg" />
+    <Resource Include="WPF\View\OwnerView\forums_help.jpg" />
+    <Resource Include="WPF\View\OwnerView\reservations_help.jpg" />
   </ItemGroup>
 
   <ItemGroup>
