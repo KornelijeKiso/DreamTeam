@@ -6,7 +6,6 @@ using System.Windows.Controls;
 using ProjectTourism.DTO;
 using ProjectTourism.View.GuideView.TourView;
 using ProjectTourism.View.TourView;
-using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.GuideView.TourView
 {
@@ -36,14 +35,15 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             Guide = new GuideDTO(Username);
             if (Guide.Localization == "ENG")
             {
+                LocalizationButton.Content = "Serbian";
                 app.ChangeLanguage("en-US");
             }
             else
             {
+                LocalizationButton.Content = "English";
                 app.ChangeLanguage("sr-Latn-RS");
             }
         }
-
         private void SetUpcomingTour()
         {
             TourAppointmentDTO UpcomingTourApp = Guide.FindGuidesUpcomingTourApp();
@@ -70,39 +70,11 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             HideElements(new List<UIElement> { HomeLabel, WelcomeLabel, UpcomingLabel, UpcomingLabelName, AddNewTourButton, AllToursButton, ImageBorder, UpcomingImage });
             ContentArea.Content = new AllToursUserControl(Guide.Username);
         }
-        private void Localization_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private void LocalizationButton_Click(object sender, RoutedEventArgs e)
         {
-            ComboBoxItem selectedItem = LocalizationComboBox.SelectedItem as ComboBoxItem;
-
-            if (selectedItem != null)
-            {
-                string selectedLanguage = selectedItem.Content as string;
-
-                if (selectedLanguage != null)
-                {
-                    switch (selectedLanguage)
-                    {
-                        case "ENG":
-                            {
-                                app.ChangeLanguage("en-US");
-                                Guide.ChangeLocalization();
-                                LocalizationComboBox.Text = "ENG";
-                                break;
-                            }
-                        case "SRB":
-                            {
-                                app.ChangeLanguage("sr-Latn-RS");
-                                Guide.ChangeLocalization();
-                                LocalizationComboBox.Text = "SRB";
-                                break;
-                            }
-                        default:
-                            app.ChangeLanguage("en-US");
-                            break;
-                    }
-                }
-                SetLanguage();
-            }
+            Guide.ChangeLocalization();
+            SetLanguage();
         }
         public void Update() { }
         public event PropertyChangedEventHandler? PropertyChanged;
