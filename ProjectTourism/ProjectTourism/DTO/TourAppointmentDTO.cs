@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using ProjectTourism.Model;
 using ProjectTourism.Services;
 
+public enum TOURSTATE { READY, STARTED, FINISHED, STOPPED, CANCELED, EXPIRED };
+
 namespace ProjectTourism.DTO
 {
     public class TourAppointmentDTO : INotifyPropertyChanged

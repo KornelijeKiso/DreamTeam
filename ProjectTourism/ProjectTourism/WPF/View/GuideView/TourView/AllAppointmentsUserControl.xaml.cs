@@ -31,7 +31,7 @@ namespace ProjectTourism.View.GuideView.TourView
         private void PdfReportButton_Click(object sender, RoutedEventArgs e)
         {
             Guide.Timer.Stop();
-            GuestsOnATourPDFGenerator generatePDFDocumentVM = new GuestsOnATourPDFGenerator(SelectedAppointment);
+            GuestsOnATourPDFGenerator generatePDFDocument = new GuestsOnATourPDFGenerator(SelectedAppointment);
             MessageBox.Show(GetLocalizedErrorMessage("PDFLocation") + " ../../PDF/GuidePDFs\n\n" +
                 GetLocalizedErrorMessage("PDFLocation2") + SelectedAppointment.Id.ToString() + ".pdf");
             Guide.SetTimer();

@@ -282,6 +282,9 @@
   <data name="Language" xml:space="preserve">
     <value>Jezik</value>
   </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Prečice</value>
+  </data>
   <data name="Location" xml:space="preserve">
     <value>Lokacija</value>
   </data>
@@ -404,6 +407,9 @@
   </data>
   <data name="SelectAYear" xml:space="preserve">
     <value>Izaberite godinu za koju biste želeli da vidite mesečni izveštaj</value>
+  </data>
+  <data name="Shortcuts" xml:space="preserve">
+    <value>Prečice</value>
   </data>
   <data name="SpokenLanguages" xml:space="preserve">
     <value>Poznavanje jezika</value>

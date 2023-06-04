@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ProjectTourism.DTO;
 using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.Guest2View
@@ -23,7 +24,7 @@ namespace ProjectTourism.WPF.View.Guest2View
     /// </summary>
     public partial class PictureDisplayUserControl : UserControl, INotifyPropertyChanged
     {
-        public TourVM Tour { get; set; }
+        public TourDTO Tour { get; set; }
         private int _i;
         public int i
         {
@@ -50,7 +51,7 @@ namespace ProjectTourism.WPF.View.Guest2View
                 }
             }
         }
-        public PictureDisplayUserControl(TourVM tour)
+        public PictureDisplayUserControl(TourDTO tour)
         {
             InitializeComponent();
             DataContext = this;

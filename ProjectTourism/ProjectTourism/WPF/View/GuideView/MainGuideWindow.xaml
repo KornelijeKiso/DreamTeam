@@ -10,6 +10,14 @@
         Title="Guide window" Height="720" Width="1280"
         WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
 
+    <Window.InputBindings>
+        <KeyBinding Key="H" Modifiers="Control" Command="{Binding HomeLink_RequestNavigateCommand}"/>
+        <KeyBinding Key="T" Modifiers="Control" Command="{Binding LiveTourMonitorLink_RequestNavigateCommand}"/>
+        <KeyBinding Key="A" Modifiers="Control" Command="{Binding AllAppointmentsLink_RequestNavigateCommand}"/>
+        <KeyBinding Key="R" Modifiers="Control" Command="{Binding RequestsLink_RequestNavigateCommand}"/>
+        <KeyBinding Key="P" Modifiers="Control" Command="{Binding ProfileLink_RequestNavigateCommand}"/>
+    </Window.InputBindings>
+    
     <Window.Resources>
         <ResourceDictionary>
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
@@ -42,7 +50,7 @@
         <Image Source="../../../Images/Guide/DarkBackground.jpg" Margin="-30,-47,-22,0" Visibility="{Binding Path=Guide.DarkTheme, Converter={StaticResource BoolToVisibilityConverter}}" />
 
         <StackPanel Orientation="Horizontal" Margin="419,46,20,596" HorizontalAlignment="Right">
-            <TextBlock Style="{StaticResource TextBlockStyle}">
+            <TextBlock Focusable="False" Style="{StaticResource TextBlockStyle}">
                 <Hyperlink x:Name="HomeLink_Click" NavigateUri="home.xaml" Command="{Binding HomeLink_RequestNavigateCommand}" Style="{StaticResource HyperlinkStyle}">
                     <StackPanel Style="{StaticResource StackPanelStyle}">
                         <Image Source="https://cdn-icons-png.flaticon.com/512/1946/1946436.png" Style="{StaticResource ImageStyle}"/>

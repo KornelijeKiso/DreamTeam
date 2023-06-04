@@ -9,6 +9,8 @@ using ProjectTourism.Model;
 using ProjectTourism.Services;
 using ProjectTourism.WPF.ViewModel;
 
+public enum STATUS { USED, VALID, INVALID };
+
 namespace ProjectTourism.DTO
 {
     public class VoucherDTO : INotifyPropertyChanged
