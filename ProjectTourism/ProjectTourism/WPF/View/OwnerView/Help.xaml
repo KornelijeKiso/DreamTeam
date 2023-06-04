@@ -11,7 +11,7 @@
             <TabItem Header="Accommodations">
                 <Grid>
                     <Border BorderBrush="Black" BorderThickness="2" Margin="10 0 0 30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="440" Width="608">
-                        <Image  Source="/WPF/View/OwnerView/accommodations_help.jpg"/>
+                        <Image  Source="../../../Images/Owner/accommodations_help.jpg"/>
                     </Border>
                     <TextBlock HorizontalAlignment="Left" Margin="40 30" Width="200" TextWrapping="Wrap" Text="To register a new accommodation, fill the fields on the left side of the screen and press the 'Submit' button at the bottom of the registration form" TextAlignment="Left"></TextBlock>
                     <Line X1="130" Y1="100" X2="120" Y2="250" Stroke="Black" StrokeThickness="2"/>
@@ -38,7 +38,7 @@
             <TabItem Header="Reservations">
                 <Grid>
                     <Border BorderBrush="Black" BorderThickness="2" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="440" Width="608">
-                        <Image  Source="/WPF/View/OwnerView/reservations_help.jpg"/>
+                        <Image Source="../../../Images/Owner/reservations_help.jpg"/>
                     </Border>
                     <TextBlock HorizontalAlignment="Left" Margin="40 30" Width="200" TextWrapping="Wrap" Text="To register a new accommodation, fill the fields on the left side of the screen and press the 'Submit' button at the bottom of the registration form" TextAlignment="Left"></TextBlock>
                     <Line X1="130" Y1="100" X2="120" Y2="250" Stroke="Black" StrokeThickness="2"/>
@@ -65,7 +65,7 @@
             <TabItem Header="Forums">
                 <Grid>
                     <Border BorderBrush="Black" BorderThickness="2" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="450" Width="620">
-                        <Image  Source="/WPF/View/OwnerView/forums_help.jpg"/>
+                        <Image  Source="../../../Images/Owner/forums_help.jpg"/>
                     </Border>
                 </Grid>
             </TabItem>
