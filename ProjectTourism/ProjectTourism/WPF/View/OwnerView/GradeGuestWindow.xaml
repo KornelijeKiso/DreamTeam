@@ -5,9 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.OwnerView"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:conv="clr-namespace:ProjectTourism.Converters"
         mc:Ignorable="d"
         Title="Grade a guest" Height="495" Width="450" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Background="LightBlue">
-
+    <Window.Resources>
+        <ResourceDictionary>
+            <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid >
 
         <StackPanel>
@@ -101,7 +106,13 @@
 
                 </StackPanel>
             </GroupBox>
-            <Button Content="Submit" FontSize="14" Click="GradeClick" IsDefault="True" BorderThickness="2" BorderBrush="Black" Margin="0 0 0 0" Width="91"></Button>
+            <Button Content="Submit" FontSize="14" Click="GradeClick" IsDefault="True" BorderThickness="2" BorderBrush="Black" Margin="0 0 0 0" Width="91">
+                <Button.ToolTip>
+                    <ToolTip Visibility="{Binding Owner.HelpOn, Converter={conv:BoolToVisibilityConverter}}">
+                        Submit your grades for guest
+                    </ToolTip>
+                </Button.ToolTip>
+            </Button>
         </StackPanel>
 
 

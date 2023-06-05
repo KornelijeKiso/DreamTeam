@@ -60,13 +60,9 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
         public ReservationDTO SelectedReservation { get; set; }
         public ReservationsMenuItemVM(string username)
         {
-            SetOwner(username);
+            Owner = new OwnerDTO(username);
             popupVisible = false;
             popupOpacity = 1.0;
-        }
-        private void SetOwner(string username)
-        {
-            Owner = new OwnerDTO(username);
         }
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

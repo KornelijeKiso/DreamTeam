@@ -168,12 +168,12 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
 
         public void StatisticsClick(object parameter)
         {
-            StatisticsWindow statisticsWindow = new StatisticsWindow(SelectedAccommodation);
+            StatisticsWindow statisticsWindow = new StatisticsWindow(SelectedAccommodation, Owner.HelpOn);
             statisticsWindow.ShowDialog();
         }
         public void RenovateClick(object parameter)
         {
-            RenovationsWindow renovationsWindow = new RenovationsWindow(SelectedAccommodation);
+            RenovationsWindow renovationsWindow = new RenovationsWindow(SelectedAccommodation, Owner.HelpOn);
             renovationsWindow.ShowDialog();
         }
         private void RegisterNewAccommodation()

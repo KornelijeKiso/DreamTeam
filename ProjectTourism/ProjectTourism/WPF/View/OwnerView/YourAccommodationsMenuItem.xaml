@@ -106,6 +106,11 @@
                                             <Setter Property="CornerRadius" Value="5"/>
                                         </Style>
                                     </Button.Resources>
+                                    <Button.ToolTip>
+                                        <ToolTip Visibility="{Binding Owner.HelpOn, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
+                                            Click here to renovate this accommodation
+                                        </ToolTip>
+                                    </Button.ToolTip>
                                 </Button>
                                 <Button BorderBrush="DodgerBlue" Command="{Binding DataContext.StatisticsClickCommand, RelativeSource={RelativeSource AncestorType={x:Type local:YourAccommodationsMenuItem}}}" BorderThickness="2" Content="Statistics" Height="25" Width="100" Margin="205 -152 0 0">
                                     <Button.Resources>
@@ -113,6 +118,11 @@
                                             <Setter Property="CornerRadius" Value="5"/>
                                         </Style>
                                     </Button.Resources>
+                                    <Button.ToolTip>
+                                        <ToolTip Visibility="{Binding Owner.HelpOn, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
+                                            Click here to see statistics for this accommodation
+                                        </ToolTip>
+                                    </Button.ToolTip>
                                 </Button>
                                 <Image Margin="205 -253 0 0" Source="https://img.icons8.com/3d-fluency/2x/prize.png" Width="38" Visibility="{Binding Path=IsRecentlyRenovated, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Image>
                                 <Label Margin="355 -206 0 0" Foreground="DarkRed" Height="25" Content="Renovated" Visibility="{Binding Path=IsRecentlyRenovated, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Label>
@@ -131,6 +141,11 @@
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
+            <Button.ToolTip>
+                <ToolTip Visibility="{Binding Owner.HelpOn, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
+                    Register new accommodation
+                </ToolTip>
+            </Button.ToolTip>
         </Button>
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Margin="50,109,0,0" TextWrapping="Wrap" Watermark="Enter accommodation name here."  Text="{Binding Path=NewAccommodation.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Top" Width="196" Height="29"/>
         <xctk:WatermarkTextBox HorizontalAlignment="Left" Margin="50,163,0,0" TextWrapping="Wrap" Watermark="Enter city here." Text="{Binding Path=NewLocation.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Validation.ErrorTemplate="{StaticResource ValidationTemplate}" VerticalAlignment="Top" Width="196" Height="29"/>

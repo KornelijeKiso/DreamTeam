@@ -124,6 +124,11 @@
                                                 <Setter Property="CornerRadius" Value="5"/>
                                             </Style>
                                         </Button.Resources>
+                                        <Button.ToolTip>
+                                            <ToolTip Visibility="{Binding Owner.HelpOn, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
+                                                Handle postpone request
+                                            </ToolTip>
+                                        </Button.ToolTip>
                                     </Button>
                                 </StackPanel>
                             </GroupBox>
@@ -147,6 +152,11 @@
                                             <Setter Property="CornerRadius" Value="5"/>
                                         </Style>
                                     </Button.Resources>
+                                    <Button.ToolTip>
+                                        <ToolTip Visibility="{Binding Owner.HelpOn, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
+                                            Click here to grade your guest
+                                        </ToolTip>
+                                    </Button.ToolTip>
                                 </Button>
                             </StackPanel>
                         </DataTemplate>
@@ -169,12 +179,16 @@
                                             <Setter Property="CornerRadius" Value="5"/>
                                         </Style>
                                     </Button.Resources>
+                                    <Button.ToolTip>
+                                        <ToolTip Visibility="{Binding Owner.HelpOn, Converter={conv:BoolToVisibilityConverter}}">
+                                            Click here to see review
+                                        </ToolTip>
+                                    </Button.ToolTip>
                                 </Button>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="YOUR RESERVATIONS" FontSize="16" Foreground="Gray" FontWeight="Bold" HorizontalAlignment="Left" Margin="125,55,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,0.708" Width="200"/>

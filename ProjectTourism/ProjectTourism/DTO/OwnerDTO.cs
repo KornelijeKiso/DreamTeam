@@ -169,6 +169,18 @@ namespace ProjectTourism.DTO
                 }
             }
         }
+        public bool HelpOn
+        {
+            get => _owner.HelpOn;
+            set
+            {
+                if (value != _owner.HelpOn)
+                {
+                    _owner.HelpOn = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private bool _HasNewNotifications;
         public bool HasNewNotifications
         {

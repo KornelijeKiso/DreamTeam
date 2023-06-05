@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProjectTourism.DTO;
+using ProjectTourism.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,10 +22,30 @@ namespace ProjectTourism.WPF.View.OwnerView
     /// </summary>
     public partial class Help : UserControl
     {
-        public Help()
+        public OwnerDTO Owner { get; set; }
+        public Help(string username)
         {
             InitializeComponent();
             DataContext = this;
+            Owner = new OwnerDTO(username);
+            if (!Owner.HelpOn) but.Content = "Off";
+        }
+
+        public void SwitchHelp(object sender, RoutedEventArgs e)
+        {
+            if(Owner.HelpOn) 
+            { 
+                Owner.HelpOn = false;
+                but.Content = "Off";
+                new OwnerService().TurnHelpOff(Owner.GetOwner());
+            }
+            else
+            {
+                Owner.HelpOn = true;
+                but.Content = "On";
+                new OwnerService().TurnHelpOn(Owner.GetOwner());
+
+            }
         }
     }
 }

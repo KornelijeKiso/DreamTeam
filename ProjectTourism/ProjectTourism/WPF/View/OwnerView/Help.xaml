@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1000">
     <Grid>
-        <TabControl Margin="0 45 0 0">
+        <TabControl Name="Tab" Margin="0 45 0 0">
             <TabItem Header="Accommodations">
                 <Grid>
                     <Border BorderBrush="Black" BorderThickness="2" Margin="10 0 0 30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="440" Width="608">
@@ -79,5 +79,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
+        <Button Name="but" Height="20" Width="50" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="40 44" Click="SwitchHelp">On</Button>
+        <Label Height="30" Width="60" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="90 41">ToolTips: </Label>
     </Grid>
 </UserControl>

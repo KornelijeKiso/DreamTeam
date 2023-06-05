@@ -13,7 +13,7 @@
         <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Window.Resources>
     <Window.DataContext>
-        <vm:YourAccommodationsMenuItemVM/>
+        <vm:StatisticsWindowVM/>
     </Window.DataContext>
     <Grid>
         <StackPanel Orientation="Vertical" Margin="20 20 0 0" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -129,6 +129,11 @@
                                             <Setter Property="CornerRadius" Value="5"/>
                                         </Style>
                                     </Button.Resources>
+                                    <Button.ToolTip>
+                                        <ToolTip Visibility="{Binding Help, Converter={conv:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}">
+                                            See stats by every month in selected year
+                                        </ToolTip>
+                                    </Button.ToolTip>
                                 </Button>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>

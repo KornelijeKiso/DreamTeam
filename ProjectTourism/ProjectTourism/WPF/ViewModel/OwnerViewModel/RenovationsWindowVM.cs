@@ -74,7 +74,8 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
         public RenovationDTO SelectedRenovation { get; set; }
         public RenovationDTO NewRenovation { get; set; }
         public RenovationAppointmentDTO RenovationAppointment { get; set; }
-        public RenovationsWindowVM(AccommodationDTO accommodation)
+        public bool Help { get; set; }
+        public RenovationsWindowVM(AccommodationDTO accommodation, bool help)
         {
             Accommodation = accommodation;
             NewRenovation = new RenovationDTO();
@@ -83,6 +84,7 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
             NewRenovation.AccommodationId = Accommodation.Id;
             popupVisible = false;
             popupOpacity = 1.0;
+            Help = help;
         }
         public RenovationsWindowVM()
         {

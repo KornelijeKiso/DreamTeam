@@ -26,10 +26,10 @@ namespace ProjectTourism.WPF.View.OwnerView
     /// </summary>
     public partial class StatisticsWindow : Window
     {
-        public StatisticsWindow(AccommodationDTO accommodation)
+        public StatisticsWindow(AccommodationDTO accommodation, bool help)
         {
             InitializeComponent();
-            DataContext = new StatisticsWindowVM(accommodation);
+            DataContext = new StatisticsWindowVM(accommodation, help);
         }
     }
 }

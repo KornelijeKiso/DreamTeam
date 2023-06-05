@@ -97,7 +97,12 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
         }
         public void SwitchToHelp(object parameter)
         {
-            Content = new Help();
+            Help h = new Help(Owner.Username);
+            if(AccommodationsItem.Background==Brushes.LightSkyBlue) h.Tab.SelectedIndex= 0; 
+            if(ReservationsItem.Background==Brushes.LightSkyBlue) h.Tab.SelectedIndex= 1; 
+            if(ForumsItem.Background==Brushes.LightSkyBlue) h.Tab.SelectedIndex= 2; 
+
+            Content = h;
             AccommodationsItem.Background = Brushes.Transparent;
             ReservationsItem.Background = Brushes.Transparent;
             HelpItem.Background = Brushes.LightSkyBlue;
