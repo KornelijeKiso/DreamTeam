@@ -51,18 +51,21 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
                 }
             }
         }
+        public bool AnyForums { get; set; }
         public CommentOnForum NewComment = new CommentOnForum();
         public ForumsMenuItemVM() { }
         public ForumsMenuItemVM(string username)
         {
             Owner = new OwnerDTO(username);
-            if(Owner.Forums.Any())
+            if (Owner.Forums.Any())
             {
                 SelectedForum = Owner.Forums.First();
             }
             NewComment.Username = username;
             NewComment.Reports = 0;
-            NewComment.ForumId = SelectedForum.Id;
+            if (SelectedForum != null)
+                NewComment.ForumId = SelectedForum.Id;
+            AnyForums = SelectedForum != null;
         }
 
         private void Post(object parameter)

@@ -59,6 +59,13 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
             SetOwner(username);
             NotificationsVisibility = Visibility.Collapsed;
         }
+        public MainOwnerWindowVM(string username, int i)
+        {
+            Content = new Help(username);
+            HelpItem.Background = Brushes.LightSkyBlue;
+            SetOwner(username);
+            NotificationsVisibility = Visibility.Collapsed;
+        }
         public MainOwnerWindowVM()
         {
             

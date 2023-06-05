@@ -1,5 +1,6 @@
 ﻿using ProjectTourism.Model;
 using ProjectTourism.Services;
+using ProjectTourism.View.OwnerView;
 using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,8 @@ namespace ProjectTourism.DTO
             OwnerDTO Owner = new OwnerDTO(new Model.Owner(GetUser()));
             userService.Add(this);
             ownerService.Add(Owner.GetOwner());
+            MainOwnerWindow ow = new MainOwnerWindow(Username, 1);
+            ow.Show();
         }
 
         public void Add(UserDTO user)

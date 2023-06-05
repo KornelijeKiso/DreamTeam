@@ -91,7 +91,7 @@
 
             </Rectangle>
             <Border Background="White" Height="560" Width="550" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="DodgerBlue" BorderThickness="2" Margin="70 80 100 20" >
-                <StackPanel>
+                    <StackPanel Visibility="{Binding AnyForums, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="360">
                             <Label FontSize="24" FontWeight="SemiBold" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top">

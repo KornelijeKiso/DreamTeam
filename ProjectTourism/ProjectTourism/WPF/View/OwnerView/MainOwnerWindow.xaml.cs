@@ -34,6 +34,12 @@ namespace ProjectTourism.View.OwnerView
             Username = username;
             DataContext = new MainOwnerWindowVM(username);
         }
+        public MainOwnerWindow(string username, int i)
+        {
+            InitializeComponent();
+            Username = username;
+            DataContext = new MainOwnerWindowVM(username, i);
+        }
         public void AreAllGuestsGraded(object sender, RoutedEventArgs e)
         {
             foreach (var reservation in new OwnerDTO(Username).Reservations)
