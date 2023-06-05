@@ -13,26 +13,28 @@
                     <Border BorderBrush="Black" BorderThickness="2" Margin="10 0 0 30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="440" Width="608">
                         <Image  Source="../../../Images/Owner/accommodations_help.jpg"/>
                     </Border>
-                    <TextBlock HorizontalAlignment="Left" Margin="40 30" Width="200" TextWrapping="Wrap" Text="To register a new accommodation, fill the fields on the left side of the screen and press the 'Submit' button at the bottom of the registration form" TextAlignment="Left"></TextBlock>
-                    <Line X1="130" Y1="100" X2="120" Y2="250" Stroke="Black" StrokeThickness="2"/>
-                    <Line X1="120" Y1="250" X2="126" Y2="240" Stroke="Black" StrokeThickness="2"/>
-                    <Line X1="120" Y1="250" X2="115" Y2="240" Stroke="Black" StrokeThickness="2"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="290 30" Width="200" TextWrapping="Wrap" Text="On the right side of the screen, you can see accommodations you have already registered. Each accommodation will have a picture on the left and other information on the right." TextAlignment="Left"></TextBlock>
-                    <Line X1="360" Y1="120" X2="420" Y2="250" Stroke="Black" StrokeThickness="2"/>
-                    <Line X1="420" Y1="250" X2="410" Y2="242" Stroke="Black" StrokeThickness="2"/>
-                    <Line X1="420" Y1="250" X2="421" Y2="238" Stroke="Black" StrokeThickness="2"/>
-                    <TextBlock HorizontalAlignment="Right" Margin="60 30" Width="250" TextWrapping="Wrap" Text="If you want to see statistics of an accommodation, press the button 'Statistics' which is position on the right side of information about accommodation you want to analyze. The statistics window will appear where you can see stats about chosen accommdodation by every year and month." TextAlignment="Left"></TextBlock>
-                    <Line X1="760" Y1="150" X2="570" Y2="250" Stroke="Black" StrokeThickness="2"/>
-                    <Line X1="570" Y1="250" X2="578" Y2="238" Stroke="Black" StrokeThickness="2"/>
-                    <Line X1="570" Y1="250" X2="584" Y2="250" Stroke="Black" StrokeThickness="2"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="40 35" Width="200" TextWrapping="Wrap" Text="To register a new accommodation, fill the fields on the left side of the screen and press the 'Submit' button at the bottom of the registration form" TextAlignment="Left"></TextBlock>
+                    <Line X1="130" Y1="100" X2="120" Y2="250" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Line X1="120" Y1="250" X2="126" Y2="240" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Line X1="120" Y1="250" X2="115" Y2="240" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="290 35" Width="200" TextWrapping="Wrap" Text="On the right side of the screen, you can see accommodations you have already registered. Each accommodation will have a picture on the left and other information on the right." TextAlignment="Left"></TextBlock>
+                    <Line X1="360" Y1="120" X2="420" Y2="250" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Line X1="420" Y1="250" X2="410" Y2="242" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Line X1="420" Y1="250" X2="421" Y2="238" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <TextBlock HorizontalAlignment="Right" Margin="60 35" Width="250" TextWrapping="Wrap" Text="If you want to see statistics of an accommodation, press the button 'Statistics' which is position on the right side of information about accommodation you want to analyze. The statistics window will appear where you can see stats about chosen accommdodation by every year and month." TextAlignment="Left"></TextBlock>
+                    <Line X1="760" Y1="150" X2="570" Y2="250" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Line X1="570" Y1="250" X2="578" Y2="238" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Line X1="570" Y1="250" X2="584" Y2="250" Stroke="DeepSkyBlue" StrokeThickness="2"/>
                     <TextBlock HorizontalAlignment="Right" Margin="60 220" Width="250" TextWrapping="Wrap" Text="If you want to schedule a new renovation, or see previously scheduled renovations, press the button 'Renovate' which is positioned under the 'Statistics' button for accommodation you want to renovate. Renovation window will appear and on the left side of it you would be able to see form intended for scheduling new renovation, while on the right side previously scheduled renovations will be visible." TextAlignment="Left"></TextBlock>
-                    <Line X1="760" Y1="390" X2="570" Y2="430" Stroke="Black" StrokeThickness="2"/>
-                    <Line X1="570" Y1="430" X2="578" Y2="422" Stroke="Black" StrokeThickness="2"/>
-                    <Line X1="570" Y1="430" X2="580" Y2="434" Stroke="Black" StrokeThickness="2"/>
+                    <Line X1="760" Y1="390" X2="570" Y2="430" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Line X1="570" Y1="430" X2="578" Y2="422" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Line X1="570" Y1="430" X2="580" Y2="434" Stroke="DeepSkyBlue" StrokeThickness="2"/>
                     <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="60 100" Width="250" TextWrapping="Wrap" Text="Accommodations that have been renovated in the past year will be labeled as 'Recently renovated" TextAlignment="Left"></TextBlock>
-                    <Line X1="660" Y1="490" X2="560" Y2="480" Stroke="Black" StrokeThickness="2"/>
-                    <Line X1="560" Y1="480" X2="572" Y2="476" Stroke="Black" StrokeThickness="2"/>
-                    <Line X1="560" Y1="480" X2="572" Y2="487" Stroke="Black" StrokeThickness="2"/>
+                    <Line X1="660" Y1="490" X2="560" Y2="480" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Line X1="560" Y1="480" X2="572" Y2="476" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Line X1="560" Y1="480" X2="572" Y2="487" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Label HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0" Content="To access your accommodations, click on the menu item 'Accommodations'" FontWeight="SemiBold" FontSize="15"></Label>
+
                 </Grid>
             </TabItem>
             <TabItem Header="Reservations">
@@ -40,33 +42,40 @@
                     <Border BorderBrush="Black" BorderThickness="2" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="440" Width="608">
                         <Image Source="../../../Images/Owner/reservations_help.jpg"/>
                     </Border>
-                    <TextBlock HorizontalAlignment="Left" Margin="40 30" Width="200" TextWrapping="Wrap" Text="To register a new accommodation, fill the fields on the left side of the screen and press the 'Submit' button at the bottom of the registration form" TextAlignment="Left"></TextBlock>
-                    <Line X1="130" Y1="100" X2="120" Y2="250" Stroke="Black" StrokeThickness="2"/>
-                    <Line X1="120" Y1="250" X2="126" Y2="240" Stroke="Black" StrokeThickness="2"/>
-                    <Line X1="120" Y1="250" X2="115" Y2="240" Stroke="Black" StrokeThickness="2"/>
-                    <TextBlock HorizontalAlignment="Left" Margin="290 30" Width="200" TextWrapping="Wrap" Text="On the right side of the screen, you can see accommodations you have already registered. Each accommodation will have a picture on the left and other information on the right." TextAlignment="Left"></TextBlock>
-                    <Line X1="360" Y1="120" X2="420" Y2="250" Stroke="Black" StrokeThickness="2"/>
-                    <Line X1="420" Y1="250" X2="410" Y2="242" Stroke="Black" StrokeThickness="2"/>
-                    <Line X1="420" Y1="250" X2="421" Y2="238" Stroke="Black" StrokeThickness="2"/>
-                    <TextBlock HorizontalAlignment="Right" Margin="60 30" Width="250" TextWrapping="Wrap" Text="If you want to see statistics of an accommodation, press the button 'Statistics' which is position on the right side of information about accommodation you want to analyze. The statistics window will appear where you can see stats about chosen accommdodation by every year and month." TextAlignment="Left"></TextBlock>
-                    <Line X1="760" Y1="150" X2="570" Y2="250" Stroke="Black" StrokeThickness="2"/>
-                    <Line X1="570" Y1="250" X2="578" Y2="238" Stroke="Black" StrokeThickness="2"/>
-                    <Line X1="570" Y1="250" X2="584" Y2="250" Stroke="Black" StrokeThickness="2"/>
-                    <TextBlock HorizontalAlignment="Right" Margin="60 220" Width="250" TextWrapping="Wrap" Text="If you want to schedule a new renovation, or see previously scheduled renovations, press the button 'Renovate' which is positioned under the 'Statistics' button for accommodation you want to renovate. Renovation window will appear and on the left side of it you would be able to see form intended for scheduling new renovation, while on the right side previously scheduled renovations will be visible." TextAlignment="Left"></TextBlock>
-                    <Line X1="760" Y1="390" X2="570" Y2="430" Stroke="Black" StrokeThickness="2"/>
-                    <Line X1="570" Y1="430" X2="578" Y2="422" Stroke="Black" StrokeThickness="2"/>
-                    <Line X1="570" Y1="430" X2="580" Y2="434" Stroke="Black" StrokeThickness="2"/>
-                    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="60 100" Width="250" TextWrapping="Wrap" Text="Accommodations that have been renovated in the past year will be labeled as 'Recently renovated" TextAlignment="Left"></TextBlock>
-                    <Line X1="660" Y1="490" X2="560" Y2="480" Stroke="Black" StrokeThickness="2"/>
-                    <Line X1="560" Y1="480" X2="572" Y2="476" Stroke="Black" StrokeThickness="2"/>
-                    <Line X1="560" Y1="480" X2="572" Y2="487" Stroke="Black" StrokeThickness="2"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="40 35" Width="250" TextWrapping="Wrap" Text="Basic information about reservation are placed in the first segment on the left side of each reservation, including some information about your accommodation and destination it's placed on. Also youc can see appointment which guest chose for his residence." TextAlignment="Left"></TextBlock>
+                    <Line X1="120" Y1="130" X2="120" Y2="250" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Line X1="120" Y1="250" X2="126" Y2="240" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Line X1="120" Y1="250" X2="115" Y2="240" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="350 35" Width="270" TextWrapping="Wrap" Text="Here you can see personal info about your guest. If guest has requested to postpone his reservation to other appointment, 'Postpone request' button will be showed below his personal info. By clicking 'Postpone request' button you are entering dialog for handling postpone request, and you will be able to accept or reject guests request." TextAlignment="Left"></TextBlock>
+                    <Line X1="360" Y1="150" X2="300" Y2="250" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Line X1="300" Y1="250" X2="310" Y2="243" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Line X1="300" Y1="250" X2="300" Y2="238" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <TextBlock HorizontalAlignment="Right" Margin="60 70" Width="250" TextWrapping="Wrap" Text="After the visit is over, you have opportunity to grade your guest based on his behaviour and kindness during his residence at your apartment. Click the 'Grade your guest' button and rate guest from 1 to 5 at each of the listed categories. At the end, you can optionally leave an additional comment on his visit. Deadline for grading a guest is due to 5 days after the visit is over." TextAlignment="Left"></TextBlock>
+                    <Line X1="700" Y1="220" X2="410" Y2="440" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Line X1="410" Y1="440" X2="420" Y2="438" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Line X1="410" Y1="440" X2="416" Y2="429" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <TextBlock HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="60 150" Width="250" TextWrapping="Wrap" Text="Here you can see how guests rated your accommodation and you as a host, if they left a review after their visit. There is a few categories for grading such as hospitality, communication, cleanness etc. Guest can also leave a few pictures in his review. If guest recommended renovation of your accommodation, it will be showed at the bottom of the Review window. Click the 'See guests review' button and new window with guests review will show up, but only after you grade your guest first." TextAlignment="Left"></TextBlock>
+                    <Line X1="700" Y1="470" X2="510" Y2="510" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Line X1="510" Y1="510" X2="519" Y2="513" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Line X1="510" Y1="510" X2="517" Y2="503" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Label HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0" Content="To access your reservations, click on the menu item 'Reservations'" FontWeight="SemiBold" FontSize="15"></Label>
+
                 </Grid>
             </TabItem>
             <TabItem Header="Forums">
                 <Grid>
-                    <Border BorderBrush="Black" BorderThickness="2" Margin="5" HorizontalAlignment="Left" VerticalAlignment="Bottom" Height="450" Width="620">
+                    <Border BorderBrush="Black" HorizontalAlignment="Right" BorderThickness="2" Margin="40 40" VerticalAlignment="Bottom" Height="500" Width="690">
                         <Image  Source="../../../Images/Owner/forums_help.jpg"/>
                     </Border>
+                    <TextBlock HorizontalAlignment="Left" Margin="20 100" Width="200" TextWrapping="Wrap" Text="List of forums about locations on which you have at least one registered accommodation is placed on the left side of the window. Forums with at least 4 comments by guests and at least 2 answers by owners will be labeled as 'Very useful'. To acces the chat of any forum, just click on it in the list on the left." TextAlignment="Left"></TextBlock>
+                    <Line X1="220" Y1="160" X2="260" Y2="200" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Line X1="260" Y1="200" X2="248" Y2="197" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Line X1="260" Y1="200" X2="257" Y2="190" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="20 80" Width="200" TextWrapping="Wrap" Text="On the right side of the window you can see chat of the selected forum. Also, you have field under the chat where you can type your responses and comments. By clicking button 'Post', your comment will be published. You have an option to report any comment of any guest if it's incorrect or if guest has never been to destination his comment is about. 'Report' link is placed in the top-right corner of guests comment, and next to it you can see number of previous reports." TextAlignment="Left"></TextBlock>
+                    <Line X1="220" Y1="450" X2="540" Y2="390" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Line X1="540" Y1="390" X2="532" Y2="397" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Line X1="540" Y1="390" X2="530" Y2="386" Stroke="DeepSkyBlue" StrokeThickness="2"/>
+                    <Label HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0" Content="To access forums, click on the menu item 'Forums'" FontWeight="SemiBold" FontSize="15"></Label>
                 </Grid>
             </TabItem>
         </TabControl>
