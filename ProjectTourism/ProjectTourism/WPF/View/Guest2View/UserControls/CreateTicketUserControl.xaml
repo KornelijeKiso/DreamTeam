@@ -15,28 +15,6 @@
             <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
 
-
-        <!--<Grid Grid.Row="0" Margin="5 5 5 5">
-            <DataGrid x:Name="CreateTicketDataGrid"
-                      Height="auto" Width="auto"
-                      SelectionMode="Single" 
-                      AutoGenerateColumns="False" IsReadOnly="True"
-                      VerticalScrollBarVisibility="Visible"
-                      RowHeight="150" ColumnWidth="*"
-                      Background="Black" RowBackground="LightBlue"
-                      BorderThickness="1" BorderBrush="Black">
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Width="150" >
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                </DataGrid.Columns>
-            </DataGrid>
-        </Grid>-->
-        
         <Grid Grid.Row="0" Margin="5 5 20 5">
             <ScrollViewer x:Name="CreateTicketScrollViewer" Margin="5 5 5 5"
                           Background="Black"
@@ -145,6 +123,7 @@
                                     <ComboBox x:Name="DatesComboBox"
                                               Grid.Column="1"
                                               ItemsSource="{Binding Path = dates}"
+                                              SelectedItem="{Binding date, UpdateSourceTrigger=PropertyChanged}"
                                               SelectionChanged="DatesComboBox_SelectionChanged"
                                               HorizontalAlignment="Left" VerticalAlignment="Center"
                                               Height="30" Width="200"   >
@@ -182,16 +161,15 @@
                                                MaxHeight="25" Margin="0 -4 0 -4"
                                                Content="Number of Tickets: " />
                                         <TextBox x:Name="sliderText" 
-                                                 Grid.Column="1"
+                                                 Grid.Column="1" IsEnabled="False"
                                                  Text="{Binding ElementName=slider,Path=Value,UpdateSourceTrigger=PropertyChanged}"
-                                                 Visibility="{Binding PickedAnAppointment, Converter={conv:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                                                  HorizontalAlignment="Right" VerticalAlignment="Center"
                                                  Height="20" Width="30" />
                                         <Slider x:Name="slider" 
-                                                Grid.Column="2"
-                                                Minimum="1" Maximum="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" 
+                                                Grid.Column="2" IsEnabled="False"
+                                                Minimum="1" 
+                                                Maximum="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" 
                                                 Value="{Binding Path=Ticket.NumberOfGuests}" 
-                                                Visibility="{Binding PickedAnAppointment, Converter={conv:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                                                 HorizontalAlignment="Center" VerticalAlignment="Center"
                                                 Height="30" Width="200"
                                                 FontFamily="/Fonts/#Rubik"
@@ -199,7 +177,7 @@
                                                 FontSize="12"   />
                                         <Label Grid.Column="3"
                                                FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                               MaxHeight="25" 
+                                               MaxHeight="25" Width="auto" HorizontalAlignment="Right"
                                                Content="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" />
                                         <Label Grid.Column="4"
                                                FontFamily="/Fonts/#Rubik" FontSize="11" Foreground="#DBDBDB"
@@ -239,9 +217,9 @@
                                                   Grid.Column="1" 
                                                   ItemsSource="{Binding Path=SelectedTour.StopsList}"
                                                   SelectedIndex="0"
+                                                  SelectedItem="{Binding Path=Ticket.TourStop}"
                                                   HorizontalAlignment="Left" VerticalAlignment="Center"
                                                   Height="30" Width="200"   >
-                                            <!--SelectionChanged="StopsComboBox_SelectionChanged"-->
                                         </ComboBox>
                                     </Grid>
                                     <Label FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
@@ -274,7 +252,8 @@
             <Button x:Name="UseVoucherButton" 
                     Grid.Column="0"
                     Content="Create" 
-                    IsDefault="True" Click="UseVoucherClick"  >
+                    IsDefault="True" 
+                    Command="{Binding UseVoucherCommand}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Height" Value="40"/>
@@ -313,7 +292,8 @@
             <Button x:Name="CreateTicketButton" 
                     Grid.Column="1"
                     Content="Create" 
-                    IsDefault="True" Click="CreateTicket"  >
+                    IsDefault="True"
+                    Command="{Binding CreateTicketCommand}" >
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Height" Value="40"/>

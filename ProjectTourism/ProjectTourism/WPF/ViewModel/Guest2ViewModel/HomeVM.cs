@@ -249,8 +249,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         {
             if (SelectedTour != null)
             {
-                Guest2.SelectedTour = SelectedTour;
-                HomeContent = new CreateTicketVM(Guest2);
+                HomeContent = new CreateTicketVM(Guest2, SelectedTour);
             }
             else
             {

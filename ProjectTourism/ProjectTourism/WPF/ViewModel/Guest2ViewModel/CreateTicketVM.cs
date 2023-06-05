@@ -10,6 +10,7 @@ using ProjectTourism.Model;
 using ProjectTourism.Utilities;
 using ProjectTourism.DTO;
 using System.Windows.Input;
+using System.Windows;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
@@ -17,19 +18,36 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
     {
         public Guest2DTO Guest2 { get; set; }
         public TourDTO SelectedTour { get; set; }
-        public TourAppointmentDTO selectedAppointment { get; set; }
         public TicketDTO Ticket { get; set; }
         public List<DateTime> dates { get; set; }
-
-        private bool _PickedAnAppointment;
-        public bool PickedAnAppointment
-        {
-            get => _PickedAnAppointment;
+        private DateTime? _date;
+        public DateTime? date 
+        { 
+            get => _date;
             set
             {
-                if (value != _PickedAnAppointment)
+                if (value != _date)
                 {
-                    _PickedAnAppointment = value;
+                    _date = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private TourAppointmentDTO _selectedAppointment;
+        public TourAppointmentDTO selectedAppointment
+        {   // TO DO 
+            get => _selectedAppointment;
+            //{   
+            //    if (date != null)
+            //        return SelectedTour.TourAppointments.First(a => a.TourDateTime == date); 
+            //    else 
+            //        return null;
+            //}
+            set
+            {
+                if (value != _selectedAppointment)
+                {
+                    _selectedAppointment = value;
                     OnPropertyChanged();
                 }
             }
@@ -42,25 +60,24 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             set { _HomeContent = value; OnPropertyChanged(); }
         }
         public CreateTicketVM() { }
-        public CreateTicketVM(Guest2DTO guest2)
+        
+        public CreateTicketVM(Guest2DTO guest2, TourDTO tour)
         {
             Guest2 = guest2;
-            if (Guest2.SelectedTour != null)
-                SelectedTour = Guest2.SelectedTour;
-            PickedAnAppointment = false;
+            SelectedTour = tour;
             Ticket = new TicketDTO(new Ticket());
 
-            // TO DO
-            dates = new List<DateTime>();
-            //dates = FindDates();
-
+            dates = FindDates();
+            date = null;
+            if (date != null)
+                selectedAppointment = SelectedTour.TourAppointments.First(a => a.TourDateTime == date); 
+            
             //HomeCommand
             HomeCommand = new RelayCommand(ReturnHome);
         }
         public ICommand HomeCommand { get; set; }
         private void ReturnHome(Object obj)
         {
-            Guest2.SelectedTour = null;
             HomeContent = new HomeVM(Guest2);
         }
         private List<DateTime> FindDates()
@@ -121,6 +138,62 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                     NoFreeSeats.Add(date);
             }
             return NoFreeSeats;
+        }
+
+
+        // CREATE TICKET COMMAND 
+        private ICommand _CreateTicketCommand;
+        public ICommand CreateTicketCommand
+        {
+            get
+            {
+                return _CreateTicketCommand ?? (_CreateTicketCommand = new CommandHandler(() => CreateTicketClick(), () => true));
+            }
+        }
+        private void CreateTicketClick()
+        {
+            if (selectedAppointment != null)
+            {
+                Ticket.CreateTicket(new Ticket(selectedAppointment.Id, Ticket.TourStop, Guest2.Username, Ticket.NumberOfGuests));
+                selectedAppointment.UpdateTourAppointmentDTO(selectedAppointment);
+                //Close();// TO DO
+            }
+            else
+            {
+                MessageBox.Show("Please check if you entered the data correctly! ");
+            }
+        }
+        // USE VOUCHER COMMAND 
+        private ICommand _UseVoucherCommand;
+        public ICommand UseVoucherCommand
+        {
+            get
+            {
+                return _UseVoucherCommand ?? (_UseVoucherCommand = new CommandHandler(() => UseVoucherClick(), () => true));
+            }
+        }
+        private void UseVoucherClick()
+        {
+            if (selectedAppointment != null)// (dates.Count > 0)
+            {
+                Ticket.CreateTicket(new Ticket(selectedAppointment.Id, Ticket.TourStop, Guest2.Username, Ticket.NumberOfGuests));
+                Ticket = Ticket.GetLast();
+                UnusedVouchersWindow unusedVouchersWindow = new UnusedVouchersWindow(Guest2, Ticket);
+                unusedVouchersWindow.ShowDialog();
+                if (unusedVouchersWindow.IsUsed)
+                {
+                    selectedAppointment.UpdateTourAppointmentDTO(selectedAppointment);
+                }
+                else
+                {   // delete created Ticket if UseVoucher is canceled
+                    Ticket.RemoveLast();
+                }
+                //Close(); // TO DO
+            }
+            else
+            {
+                MessageBox.Show("Please check if you entered the data correctly! ");
+            }
         }
     }
 }
