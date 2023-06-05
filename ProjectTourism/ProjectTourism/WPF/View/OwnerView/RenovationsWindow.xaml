@@ -159,11 +159,6 @@
                                                         <Setter Property="CornerRadius" Value="5"/>
                                                     </Style>
                                                 </Button.Resources>
-                                                <Button.ToolTip>
-                                                    <ToolTip Visibility="{Binding Help, Converter={conv:BoolToVisibilityConverter}}">
-                                                        Cancel previously scheduled renovation
-                                                    </ToolTip>
-                                                </Button.ToolTip>
                                             </Button>
                                             <StackPanel Orientation="Horizontal" Margin="24 -6 0 0" Visibility="{Binding Path=Finished, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
                                                 <Image Source="https://img.icons8.com/color/2x/checkmark.png" Height="25"></Image>

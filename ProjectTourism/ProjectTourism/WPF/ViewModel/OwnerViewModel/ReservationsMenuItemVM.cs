@@ -88,7 +88,7 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
         private void PostponeRequestClick(object parameter)
         {
             Owner.timer.Stop();
-            PostponeRequestWindow postponeRequestWindow = new PostponeRequestWindow(SelectedReservation);
+            PostponeRequestWindow postponeRequestWindow = new PostponeRequestWindow(SelectedReservation, Owner.HelpOn);
             postponeRequestWindow.ShowDialog();
             if (SelectedReservation != null)
             {

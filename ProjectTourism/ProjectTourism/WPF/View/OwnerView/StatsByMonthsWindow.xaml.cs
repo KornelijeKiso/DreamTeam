@@ -24,11 +24,24 @@ namespace ProjectTourism.WPF.View.OwnerView
     /// </summary>
     public partial class StatsByMonthsWindow : Window
     {
-        public StatsByMonthsWindow(AccommodationStatisticsDTO yearStats, AccommodationDTO accommodation)
+        public bool Help { get; set; }
+        public StatsByMonthsWindow(AccommodationStatisticsDTO yearStats, AccommodationDTO accommodation, bool help)
         {
             InitializeComponent();
             DataContext = new StatsByMonthsWindowVM(yearStats, accommodation);
+            Help = help;
+            
         }
+        private void toti_Loaded(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            ToolTip toolTip = button.ToolTip as ToolTip;
+            if (toolTip != null)
+            {
+                toolTip.Visibility = Help ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+
         public void CancelClick(object sender, RoutedEventArgs e)
         {
             Close();

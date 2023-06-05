@@ -1,8 +1,10 @@
-﻿using ProjectTourism.Domain.Model;
+﻿using iText.Svg.Renderers.Path.Impl;
+using ProjectTourism.Domain.Model;
 using ProjectTourism.DTO;
 using ProjectTourism.Services;
 using ProjectTourism.Utilities;
 using ProjectTourism.WPF.View.OwnerView;
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -77,14 +79,21 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
         public bool Help { get; set; }
         public RenovationsWindowVM(AccommodationDTO accommodation, bool help)
         {
-            Accommodation = accommodation;
-            NewRenovation = new RenovationDTO();
-            RenovationAppointment = new RenovationAppointmentDTO();
-            RenovationAppointment.AccommodationId = Accommodation.Id;
-            NewRenovation.AccommodationId = Accommodation.Id;
-            popupVisible = false;
-            popupOpacity = 1.0;
-            Help = help;
+            try
+            {
+                Accommodation = accommodation;
+                NewRenovation = new RenovationDTO();
+                RenovationAppointment = new RenovationAppointmentDTO();
+                RenovationAppointment.AccommodationId = Accommodation.Id;
+                NewRenovation.AccommodationId = Accommodation.Id;
+                popupVisible = false;
+                popupOpacity = 1.0;
+                Help = help;
+            }
+            catch(NullReferenceException e)
+            {
+                
+            }
         }
         public RenovationsWindowVM()
         {
