@@ -9,6 +9,13 @@
         mc:Ignorable="d"
         Name="OwnerWindow"
         Title="MainOwnerWindow" Height="720" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" Width="1000" HorizontalAlignment="Center" VerticalAlignment="Top" Loaded="AreAllGuestsGraded">
+    <Window.InputBindings>
+        <KeyBinding Key="H" Modifiers="Control" Command="{Binding SwitchToHelpCommand}"/>
+        <KeyBinding Key="F" Modifiers="Control" Command="{Binding SwitchToForumsCommand}"/>
+        <KeyBinding Key="A" Modifiers="Control" Command="{Binding SwitchToMyAccommodationsCommand}"/>
+        <KeyBinding Key="R" Modifiers="Control" Command="{Binding SwitchToReservationsCommand}"/>
+        <KeyBinding Key="P" Modifiers="Control" Command="{Binding SwitchToYourProfileCommand}"/>
+    </Window.InputBindings>
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
             <StackPanel>
