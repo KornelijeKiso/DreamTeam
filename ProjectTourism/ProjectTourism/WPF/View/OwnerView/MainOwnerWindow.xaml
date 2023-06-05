@@ -15,6 +15,7 @@
         <KeyBinding Key="A" Modifiers="Control" Command="{Binding SwitchToMyAccommodationsCommand}"/>
         <KeyBinding Key="R" Modifiers="Control" Command="{Binding SwitchToReservationsCommand}"/>
         <KeyBinding Key="P" Modifiers="Control" Command="{Binding SwitchToYourProfileCommand}"/>
+        <KeyBinding Key="N" Modifiers="Control" Command="{Binding ShowNotificationsCommand}"/>
     </Window.InputBindings>
     <Window.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
