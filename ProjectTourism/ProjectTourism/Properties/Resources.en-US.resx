@@ -453,6 +453,9 @@
   <data name="Suggested" xml:space="preserve">
     <value>Suggested by: </value>
   </data>
+  <data name="SuperGuide" xml:space="preserve">
+    <value>Super guide</value>
+  </data>
   <data name="Switch" xml:space="preserve">
     <value>Switch</value>
   </data>
