@@ -34,7 +34,11 @@
     <DataTemplate DataType="{x:Type vm:CreateTicketVM}">
         <uc:CreateTicketUserControl />
     </DataTemplate>
-    
-    
-    
+
+    <DataTemplate DataType="{x:Type vm:TourRequestStatisticsVM}">
+        <uc:TourRequestStatisticsUserControl />
+    </DataTemplate>
+
+
+
 </ResourceDictionary>

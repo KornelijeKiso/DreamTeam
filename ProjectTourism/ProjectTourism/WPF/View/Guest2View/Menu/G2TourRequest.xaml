@@ -571,5 +571,8 @@
             </Button>
         </Grid>
 
+        <ContentControl Grid.Row="0" Grid.RowSpan="2"
+                        x:Name="TourRequestsContentArea"
+                        Content="{Binding TourRequestsContent, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </UserControl>

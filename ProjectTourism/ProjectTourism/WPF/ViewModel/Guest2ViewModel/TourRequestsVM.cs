@@ -15,7 +15,13 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public ObservableCollection<TourRequestDTO> AcceptedRequests { get; set; }
         public ObservableCollection<TourRequestDTO> ExpiredRequests { get; set; }
         public ObservableCollection<TourRequestDTO> OthersRequests { get; set; }
-
+        
+        private object _TourRequestsContent;
+        public object TourRequestsContent
+        {
+            get { return _TourRequestsContent; }
+            set { _TourRequestsContent = value; OnPropertyChanged(); }
+        }
         public TourRequestsVM() { }
         public TourRequestsVM(Guest2DTO guest2)
         {
@@ -24,6 +30,9 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             AcceptedRequests = SetAcceptedRequests();
             ExpiredRequests = SetExpiredRequests();
             OthersRequests = SetOthersRequests();
+
+            //DisplayStatisticsCommand
+            TourRequestStatisticsCommand = new RelayCommand(TourRequestStatisticsClick);
         }
 
         private ObservableCollection<TourRequestDTO> SetPendingRequests()
@@ -88,18 +97,10 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             //          FIX THIS
         }
 
-        private ICommand _TourRequestStatisticsCommand;
-        public ICommand TourRequestStatisticsCommand
+        public ICommand TourRequestStatisticsCommand { get; set; }
+        public void TourRequestStatisticsClick(object obj)
         {
-            get
-            {
-                return _TourRequestStatisticsCommand ?? (_TourRequestStatisticsCommand = new CommandHandler(() => TourRequestStatisticsClick(), () => true));
-            }
-        }
-        public void TourRequestStatisticsClick()
-        {
-            TourRequestStatisticsWindow tourRequestStatisticsWindow = new TourRequestStatisticsWindow(Guest2);
-            tourRequestStatisticsWindow.ShowDialog();
+            TourRequestsContent = new TourRequestStatisticsVM(Guest2);
         }
     }
 }
