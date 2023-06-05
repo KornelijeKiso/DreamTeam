@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:vm="clr-namespace:ProjectTourism.WPF.ViewModel.Guest2ViewModel"
+                    xmlns:uc="clr-namespace:ProjectTourism.WPF.View.Guest2View.UserControls"
                     xmlns:view="clr-namespace:ProjectTourism.WPF.View.Guest2View.Menu"
                     >
 
@@ -28,5 +29,12 @@
     <DataTemplate DataType="{x:Type vm:ComplexToursVM}">
         <view:G2ComplexTours />
     </DataTemplate>
+    
+    <!-- TO DO -> fix UserControls -->
+    <DataTemplate DataType="{x:Type vm:CreateTicketVM}">
+        <uc:CreateTicketUserControl />
+    </DataTemplate>
+    
+    
     
 </ResourceDictionary>

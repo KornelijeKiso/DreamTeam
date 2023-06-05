@@ -22,6 +22,7 @@ namespace ProjectTourism.DTO
         public Guest2DTO(Guest2 guest2)
         {
             _guest2 = guest2;
+            //SelectedTour = null;//new TourDTO(new Tour());
             Tours = new ObservableCollection<TourDTO>();
             Notifications = new ObservableCollection<NotificationDTO>();
             Tickets = new ObservableCollection<TicketDTO>(_guest2.Tickets.Select(r => new TicketDTO(r)).ToList());
@@ -32,6 +33,7 @@ namespace ProjectTourism.DTO
         public Guest2DTO(string username)
         {
             Synchronize(username);
+            //SelectedTour = null;//new TicketDTO(new Ticket());
             Tickets = new ObservableCollection<TicketDTO>(_guest2.Tickets.Select(r => new TicketDTO(r)).ToList());
             Vouchers = new ObservableCollection<VoucherDTO>(_guest2.Vouchers.Select(r => new VoucherDTO(r)).ToList());
             TourRequests = new ObservableCollection<TourRequestDTO>(_guest2.TourRequests.Select(r => new TourRequestDTO(r)).ToList());
@@ -370,6 +372,20 @@ namespace ProjectTourism.DTO
                 if (value != _NumberOfNotifications)
                 {
                     _NumberOfNotifications = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        private TourDTO _SelectedTour;
+        public TourDTO? SelectedTour
+        {
+            get => _SelectedTour;
+            set
+            {
+                if (value != _SelectedTour)
+                {
+                    _SelectedTour = value;
                     OnPropertyChanged();
                 }
             }

@@ -8,6 +8,7 @@ using ProjectTourism.WPF.View.Guest2View;
 using ProjectTourism.WPF.View.Guest2View.TicketView;
 using ProjectTourism.Utilities;
 using ProjectTourism.DTO;
+using System.Windows;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
@@ -233,28 +234,34 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             SearchOne();
         }
 
-        private ICommand _BuyTicketCommand;
         public ICommand BuyTicketCommand
         {
             get
             {
-                return _BuyTicketCommand ?? (_BuyTicketCommand = new CommandHandler(() => BuyTicket_Click(), () => CanBuy));
+                //NavigationVM navigationVM = new NavigationVM(Guest2.Username);
+                //navigationVM.Guest2.SelectedTour = SelectedTour;
+                //navigationVM.CreateTicketCommand = new RelayCommand(CreateTicket);
+                //return navigationVM.CreateTicketCommand;
+                //return new RelayCommand(CreateTicket);
             }
+            //get => new RelayCommand(CreateTicket);
         }
-        public bool CanBuy
+        private void CreateTicket(object obj)
         {
-            get
+            if (SelectedTour != null)
             {
-                return (SelectedTour != null && Guest2 != null); 
+                //Guest2.SelectedTour = SelectedTour;
+                //NavigationVM navigationVM = new NavigationVM(Guest2.Username);
+                //navigationVM.Guest2.SelectedTour = SelectedTour;
+                //navigationVM.CurrentView = new CreateTicketVM(Guest2);
+                ////navigationVM.CreateTicketCommand = new RelayCommand();
+                //navigationVM.CreateTicketCommand.CanExecute(obj);
+            }
+            else
+            {
+                MessageBox.Show("Please select the tour you would like to make a reservationa ! ");
             }
         }
-
-        public void BuyTicket_Click()
-        {
-                CreateTicketWindow createTicketWidnow = new CreateTicketWindow(Guest2, SelectedTour);
-                createTicketWidnow.ShowDialog();
-        }
-
 
         //private ICommand _PictureForwardCommand;
         //public ICommand PictureForwardCommand
