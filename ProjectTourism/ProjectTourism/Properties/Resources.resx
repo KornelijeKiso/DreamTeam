@@ -360,6 +360,15 @@
   <data name="Profile" xml:space="preserve">
     <value>Profil</value>
   </data>
+  <data name="Quit" xml:space="preserve">
+    <value>Otkaz</value>
+  </data>
+  <data name="QuitQuestion" xml:space="preserve">
+    <value>Da li ste sigurni da želite da date otkaz?</value>
+  </data>
+  <data name="QuitSuccessful" xml:space="preserve">
+    <value>Svi Vaši zahtevi za ture su otkazani. Izvinjavamo se zbog eventualnih neugodnosti. Hvala na usluzi."</value>
+  </data>
   <data name="Ready" xml:space="preserve">
     <value>Spremno</value>
   </data>
@@ -443,6 +452,9 @@
   </data>
   <data name="Suggested" xml:space="preserve">
     <value>Preporučeno od: </value>
+  </data>
+  <data name="Switch" xml:space="preserve">
+    <value>Promeni</value>
   </data>
   <data name="Theme" xml:space="preserve">
     <value>Tema</value>

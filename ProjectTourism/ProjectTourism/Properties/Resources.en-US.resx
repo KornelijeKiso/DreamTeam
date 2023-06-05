@@ -360,6 +360,15 @@
   <data name="Profile" xml:space="preserve">
     <value>Profile</value>
   </data>
+  <data name="Quit" xml:space="preserve">
+    <value>Quit</value>
+  </data>
+  <data name="QuitQuestion" xml:space="preserve">
+    <value>Are you sure you want to quit?</value>
+  </data>
+  <data name="QuitSuccessful" xml:space="preserve">
+    <value>All of your tour requests have been canceled. We apologize for any inconvenience caused. Thank you for your service and dedication.</value>
+  </data>
   <data name="Ready" xml:space="preserve">
     <value>Ready</value>
   </data>
@@ -443,6 +452,9 @@
   </data>
   <data name="Suggested" xml:space="preserve">
     <value>Suggested by: </value>
+  </data>
+  <data name="Switch" xml:space="preserve">
+    <value>Switch</value>
   </data>
   <data name="Theme" xml:space="preserve">
     <value>Theme</value>
