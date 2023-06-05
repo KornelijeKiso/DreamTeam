@@ -282,6 +282,9 @@
   <data name="Language" xml:space="preserve">
     <value>Jezik</value>
   </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Prečice</value>
+  </data>
   <data name="Location" xml:space="preserve">
     <value>Lokacija</value>
   </data>
@@ -346,7 +349,7 @@
     <value>pod imenom: Izvestaj_gosti_</value>
   </data>
   <data name="PDFName" xml:space="preserve">
-    <value>../../../PDF/GuidePDF/Izvestaj_gosti_</value>
+    <value>../../../PDF/GuidePDFs/Izvestaj_gosti_</value>
   </data>
   <data name="PhoneNumber" xml:space="preserve">
     <value>Broj telefona</value>
@@ -356,6 +359,15 @@
   </data>
   <data name="Profile" xml:space="preserve">
     <value>Profil</value>
+  </data>
+  <data name="Quit" xml:space="preserve">
+    <value>Otkaz</value>
+  </data>
+  <data name="QuitQuestion" xml:space="preserve">
+    <value>Da li ste sigurni da želite da date otkaz?</value>
+  </data>
+  <data name="QuitSuccessful" xml:space="preserve">
+    <value>Svi Vaši zahtevi za ture su otkazani. Izvinjavamo se zbog eventualnih neugodnosti. Hvala na usluzi."</value>
   </data>
   <data name="Ready" xml:space="preserve">
     <value>Spremno</value>
@@ -405,6 +417,9 @@
   <data name="SelectAYear" xml:space="preserve">
     <value>Izaberite godinu za koju biste želeli da vidite mesečni izveštaj</value>
   </data>
+  <data name="Shortcuts" xml:space="preserve">
+    <value>Prečice</value>
+  </data>
   <data name="SpokenLanguages" xml:space="preserve">
     <value>Poznavanje jezika</value>
   </data>
@@ -437,6 +452,9 @@
   </data>
   <data name="Suggested" xml:space="preserve">
     <value>Preporučeno od: </value>
+  </data>
+  <data name="Switch" xml:space="preserve">
+    <value>Promeni</value>
   </data>
   <data name="Theme" xml:space="preserve">
     <value>Tema</value>

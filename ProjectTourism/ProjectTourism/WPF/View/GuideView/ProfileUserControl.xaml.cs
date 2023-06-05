@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using ProjectTourism.DTO;
+using ProjectTourism.Localization;
 using ProjectTourism.View.GuideView;
 
 namespace ProjectTourism.WPF.View.GuideView.TourView
@@ -29,6 +31,25 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
                 parentWindow.Close();
             MainGuideWindow mainGuideWindow = new MainGuideWindow(Guide.Username);
             mainGuideWindow.Show();
+        }
+
+        string GetLocalizedErrorMessage(string resourceKey)
+        {
+            TextBlock Templabel = new TextBlock();
+            LocExtension locExtension = new LocExtension(resourceKey);
+            BindingOperations.SetBinding(Templabel, TextBlock.TextProperty, locExtension.ProvideValue(null) as BindingBase);
+            return Templabel.Text;
+        }
+
+        private void QuitButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show(GetLocalizedErrorMessage("QuitQuestion"), GetLocalizedErrorMessage("Quit"), MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                MessageBox.Show(GetLocalizedErrorMessage("QuitSuccessful"));
+                Guide.Quit();
+            }
         }
     }
 }

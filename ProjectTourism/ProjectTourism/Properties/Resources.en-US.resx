@@ -282,6 +282,9 @@
   <data name="Language" xml:space="preserve">
     <value>Language</value>
   </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Shortcuts</value>
+  </data>
   <data name="Location" xml:space="preserve">
     <value>Location</value>
   </data>
@@ -346,7 +349,7 @@
     <value>under the name: Tour_appointment_report_</value>
   </data>
   <data name="PDFName" xml:space="preserve">
-    <value>../../../PDF/GuidePDF/Tour_appointment_report_</value>
+    <value>../../../PDF/GuidePDFs/Tour_appointment_report_</value>
   </data>
   <data name="PhoneNumber" xml:space="preserve">
     <value>Phone number</value>
@@ -356,6 +359,15 @@
   </data>
   <data name="Profile" xml:space="preserve">
     <value>Profile</value>
+  </data>
+  <data name="Quit" xml:space="preserve">
+    <value>Quit</value>
+  </data>
+  <data name="QuitQuestion" xml:space="preserve">
+    <value>Are you sure you want to quit?</value>
+  </data>
+  <data name="QuitSuccessful" xml:space="preserve">
+    <value>All of your tour requests have been canceled. We apologize for any inconvenience caused. Thank you for your service and dedication.</value>
   </data>
   <data name="Ready" xml:space="preserve">
     <value>Ready</value>
@@ -405,6 +417,9 @@
   <data name="SelectAYear" xml:space="preserve">
     <value>Select a year of which you would like to see monthly report</value>
   </data>
+  <data name="Shortcuts" xml:space="preserve">
+    <value>Shortcuts</value>
+  </data>
   <data name="SpokenLanguages" xml:space="preserve">
     <value>Spoken languages</value>
   </data>
@@ -437,6 +452,9 @@
   </data>
   <data name="Suggested" xml:space="preserve">
     <value>Suggested by: </value>
+  </data>
+  <data name="Switch" xml:space="preserve">
+    <value>Switch</value>
   </data>
   <data name="Theme" xml:space="preserve">
     <value>Theme</value>

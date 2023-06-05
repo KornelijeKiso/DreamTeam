@@ -19,6 +19,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProjectTourism.DTO;
 
 namespace ProjectTourism.View.UserView
 {
@@ -27,12 +28,12 @@ namespace ProjectTourism.View.UserView
     /// </summary>
     public partial class CreateUserWindow : Window, INotifyPropertyChanged
     {
-        public UserVM User { get; set; }
+        public UserDTO User { get; set; }
         public CreateUserWindow()
         {
             InitializeComponent();
             DataContext = this;
-            User = new UserVM(new User());
+            User = new UserDTO(new User());
         }
         private void CreateUserClick(object sender, RoutedEventArgs e)
         {

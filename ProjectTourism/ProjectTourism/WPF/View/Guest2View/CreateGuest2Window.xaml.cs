@@ -15,11 +15,11 @@ namespace ProjectTourism.View.Guest2View
     public partial class CreateGuest2Window : Window, INotifyPropertyChanged
     {
         public Guest2DTO Guest2 { get; set; }
-        public UserVM UserVM { get; set; }
+        public UserDTO UserVM { get; set; }
         public Guest2Service Guest2Service { get; set; }
         public UserService UserService { get; set; }
 
-        public CreateGuest2Window(UserVM userVM)
+        public CreateGuest2Window(UserDTO userVM)
         {
             InitializeComponent();
             DataContext = this;

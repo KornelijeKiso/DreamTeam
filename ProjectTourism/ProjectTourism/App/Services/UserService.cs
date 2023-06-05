@@ -1,4 +1,5 @@
 ﻿using ProjectTourism.Domain.IRepositories;
+using ProjectTourism.DTO;
 using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.WPF.ViewModel;
@@ -17,13 +18,13 @@ namespace ProjectTourism.Services
         {
             UserRepo = Injector.Injector.CreateInstance<IUserRepository>();
         }
-        public void Add(UserVM user)
+        public void Add(UserDTO user)
         {
             UserRepo.Add(user.GetUser());
         }
-        public UserVM Identify(UserVM userVM)
+        public UserDTO Identify(UserDTO userVM)
         {
-            return new UserVM(UserRepo.Identify(userVM.GetUser()));
+            return new UserDTO(UserRepo.Identify(userVM.GetUser()));
         }
 
         public bool UsernameAlreadyInUse(string username)

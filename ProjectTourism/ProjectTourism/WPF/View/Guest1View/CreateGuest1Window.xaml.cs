@@ -18,6 +18,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProjectTourism.DTO;
 
 namespace ProjectTourism.View.Guest1View
 {
@@ -27,11 +28,11 @@ namespace ProjectTourism.View.Guest1View
     public partial class CreateGuest1Window : Window, INotifyPropertyChanged
     {
         public Guest1VM Guest1VM { get; set; }
-        public UserVM UserVM { get; set; }
+        public UserDTO UserVM { get; set; }
         public Guest1Service Guest1Service { get; set; }
         public UserService UserService { get; set; }
 
-        public CreateGuest1Window(UserVM userVM)
+        public CreateGuest1Window(UserDTO userVM)
         {
             InitializeComponent();
             DataContext = this;

@@ -16,6 +16,10 @@ namespace ProjectTourism.DTO
     {
         private Guide _guide;
         public Timer Timer;
+        public Guide GetGuide()
+        {
+            return _guide;
+        }
         public GuideDTO(Guide guide)
         {
             _guide = guide;
@@ -309,10 +313,7 @@ namespace ProjectTourism.DTO
             tourApp.TicketGrades.RemoveAll(t => t == null);
         }
 
-        public Guide GetGuide()
-        {
-            return _guide;
-        }
+        
         public ObservableCollection<TourRequestDTO> GetAllTourRequests()
         {
             TourRequestService tourRequestService = new TourRequestService();
@@ -325,6 +326,25 @@ namespace ProjectTourism.DTO
                 tourRequests.Add(new TourRequestDTO(tourRequest));
             }
             return tourRequests;
+        }
+
+        public void Quit()
+        {
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
+            foreach (var tourApp in _guide.TourAppointments)
+            {
+                if (tourApp.State == TOURSTATE.READY || tourApp.State == TOURSTATE.STARTED)
+                {
+
+                    if (tourApp.Tickets.Any())
+                    {
+                        //TO-DO: If there are tickets on this tourapp, give the guests vouchers
+                    }
+
+                    tourApp.State = TOURSTATE.CANCELED;
+                    tourAppointmentService.Update(tourApp);
+                }
+            }
         }
 
         public void ChangeTheme()

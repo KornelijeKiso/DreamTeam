@@ -3,7 +3,9 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using ProjectTourism.DTO;
+using ProjectTourism.Localization;
 using ProjectTourism.View.GuideView.TourView;
 using ProjectTourism.View.TourView;
 
@@ -62,13 +64,29 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         }
         private void AddNewTourButton_Click(object sender, RoutedEventArgs e)
         {
-            HideElements(new List<UIElement> { HomeLabel, WelcomeLabel, UpcomingLabel, UpcomingLabelName, AddNewTourButton, AllToursButton, ImageBorder, UpcomingImage });
+            HideElements(new List<UIElement> { HomeLabel, WelcomeLabel, UpcomingLabel, UpcomingLabelName, AddNewTourButton, AllToursButton, ImageBorder, UpcomingImage, ShortcutsLinkTextBlock });
             ContentArea.Content = new CreateTourUserControl(Guide);
         }
         private void AllToursButton_Click(object sender, RoutedEventArgs e)
         {
-            HideElements(new List<UIElement> { HomeLabel, WelcomeLabel, UpcomingLabel, UpcomingLabelName, AddNewTourButton, AllToursButton, ImageBorder, UpcomingImage });
+            HideElements(new List<UIElement> { HomeLabel, WelcomeLabel, UpcomingLabel, UpcomingLabelName, AddNewTourButton, AllToursButton, ImageBorder, UpcomingImage, ShortcutsLinkTextBlock });
             ContentArea.Content = new AllToursUserControl(Guide.Username);
+        }
+
+        string GetLocalizedErrorMessage(string resourceKey)
+        {
+            TextBlock Templabel = new TextBlock();
+            LocExtension locExtension = new LocExtension(resourceKey);
+            BindingOperations.SetBinding(Templabel, TextBlock.TextProperty, locExtension.ProvideValue(null) as BindingBase);
+            return Templabel.Text;
+        }
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("CTRL + H: " + GetLocalizedErrorMessage("Home") +
+                            "\nCTRL + T: " + GetLocalizedErrorMessage("TodaysAppointments") +
+                            "\nCTRL + A: " + GetLocalizedErrorMessage("AllAppointments") +
+                            "\nCTRL + R: " + GetLocalizedErrorMessage("Requests") +
+                            "\nCTRL + P: " + GetLocalizedErrorMessage("Profile"), GetLocalizedErrorMessage("Shortcuts"), MessageBoxButton.OK);
         }
 
         private void LocalizationButton_Click(object sender, RoutedEventArgs e)

@@ -91,6 +91,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Diagrams\UseCaseDiagrams\" />
     <Folder Include="PDF\Guest2PDFs\" />
   </ItemGroup>
 
