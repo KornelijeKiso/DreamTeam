@@ -39,32 +39,6 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         private void TourRequests(object obj) => CurrentView = new TourRequestsVM(Guest2);
         private void ComplexTour(object obj) => CurrentView = new ComplexToursVM(Guest2);
 
-        /// TO DO -> fix UserControls
-        /// public ICommand CreateTicketCommand { get; set; }
-        private ICommand _CreateTicketCommand;
-        public ICommand CreateTicketCommand 
-        {
-            get { return new RelayCommand(CreateTicketClick); } 
-            //set;
-            //{
-            //    return _CreateTicketCommand ?? (_CreateTicketCommand = new CommandHandler(() => CreateTicketClick(), () => CanCreateTicket));
-            //}
-        }
-        private void CreateTicketClick(object ocj)
-        {
-            CurrentView = new CreateTicketVM(Guest2);
-        }
-        private bool CanCreateTicket
-        {
-            get
-            {
-                return (Guest2.SelectedTour != null);
-            }
-        }
-
-        /// TO DO -> fix UserControls
-        //public void CreateTicket(object obj) => CurrentView = new CreateTicketVM(Guest2);
-      
         
         private void Notifications(object obj)
         {
@@ -86,12 +60,9 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             TourRequestsCommand = new RelayCommand(TourRequests);
             ComplexToursCommand = new RelayCommand(ComplexTour);
             NotificationsCommand = new RelayCommand(Notifications);
+            
             // Startup Page
             CurrentView = new HomeVM(Guest2);
-            
-            
-            /// TO DO -> fix UserControls
-            //CreateTicketCommand = new RelayCommand(CreateTicket);
         }
 
         public void DisplayNotifications()

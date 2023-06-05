@@ -34,8 +34,8 @@ namespace ProjectTourism.WPF.View.Guest2View.UserControls
         public CreateTicketUserControl(Guest2DTO guest2)
         {
             InitializeComponent();
-            createTicketVM = new CreateTicketVM(guest2);
-            DataContext = createTicketVM;
+            this.createTicketVM = new CreateTicketVM(guest2);
+            DataContext = this.createTicketVM;
         }
 
         private void CreateTicket(object sender, RoutedEventArgs e)
@@ -84,11 +84,6 @@ namespace ProjectTourism.WPF.View.Guest2View.UserControls
                 MessageBox.Show("You can't buy tickets or use vouchers for this tour! \nIt is already full!");
                 //Close();
             }
-        }
-        private void CancelClick(object sender, RoutedEventArgs e)
-        {
-            // TO DO -> return to HomeVM
-            //Close();
         }
     }
 }

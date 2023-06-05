@@ -9,6 +9,7 @@ using ProjectTourism.WPF.View.Guest2View.TicketView;
 using ProjectTourism.Model;
 using ProjectTourism.Utilities;
 using ProjectTourism.DTO;
+using System.Windows.Input;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
@@ -33,19 +34,35 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                 }
             }
         }
+
+        private object _HomeContent;
+        public object HomeContent
+        {
+            get { return _HomeContent; }
+            set { _HomeContent = value; OnPropertyChanged(); }
+        }
         public CreateTicketVM() { }
         public CreateTicketVM(Guest2DTO guest2)
         {
             Guest2 = guest2;
-            SelectedTour = Guest2.SelectedTour;
+            if (Guest2.SelectedTour != null)
+                SelectedTour = Guest2.SelectedTour;
             PickedAnAppointment = false;
             Ticket = new TicketDTO(new Ticket());
 
             // TO DO
-            dates = new List<DateTime>(); 
+            dates = new List<DateTime>();
             //dates = FindDates();
-        }
 
+            //HomeCommand
+            HomeCommand = new RelayCommand(ReturnHome);
+        }
+        public ICommand HomeCommand { get; set; }
+        private void ReturnHome(Object obj)
+        {
+            Guest2.SelectedTour = null;
+            HomeContent = new HomeVM(Guest2);
+        }
         private List<DateTime> FindDates()
         {
             List<DateTime> allDates = FindAllDates(SelectedTour);

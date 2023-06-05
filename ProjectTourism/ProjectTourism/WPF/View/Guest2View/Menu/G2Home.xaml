@@ -630,7 +630,7 @@
         <Grid Grid.Row="2" >
             <!-- BUY TICKET   -->
             <Button x:Name="BuyTicket"
-                    Command="{Binding BuyTicketCommand}">
+                    Command="{Binding CreateTicketCommand}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Height" Value="40"/>
@@ -669,7 +669,10 @@
                 </Button.Style>
             </Button>
         </Grid>
+
+        <ContentControl Grid.Row="0" Grid.RowSpan="3"
+                        x:Name="HomeContentArea"
+                        Content="{Binding HomeContent, UpdateSourceTrigger=PropertyChanged}" />
         
-        <!--<ContentControl x:Name="ContentArea"></ContentControl>-->
     </Grid>
 </UserControl>

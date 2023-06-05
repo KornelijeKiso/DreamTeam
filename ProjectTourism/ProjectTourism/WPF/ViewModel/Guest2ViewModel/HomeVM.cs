@@ -25,7 +25,14 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public string searchLanguage { get; set; }
         public string searchDuration { get; set; }
         public string searchMaxNumberOfGuests { get; set; }
-        
+
+        private object _HomeContent;
+        public object HomeContent
+        {
+            get { return _HomeContent; }
+            set { _HomeContent = value; OnPropertyChanged(); }
+        }
+
         public HomeVM() { }
         public HomeVM(Guest2DTO guest2)
         {
@@ -41,6 +48,9 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             searchLanguage = "";
             searchDuration = "";
             searchMaxNumberOfGuests = "";
+
+            // CreateTicketCommand
+            CreateTicketCommand = new RelayCommand(CreateTicket);
         }
         
         public void UpdateToursList(List<TourDTO> tours)
@@ -234,32 +244,17 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             SearchOne();
         }
 
-        public ICommand BuyTicketCommand
-        {
-            get
-            {
-                //NavigationVM navigationVM = new NavigationVM(Guest2.Username);
-                //navigationVM.Guest2.SelectedTour = SelectedTour;
-                //navigationVM.CreateTicketCommand = new RelayCommand(CreateTicket);
-                //return navigationVM.CreateTicketCommand;
-                //return new RelayCommand(CreateTicket);
-            }
-            //get => new RelayCommand(CreateTicket);
-        }
+        public ICommand CreateTicketCommand { get; set; }
         private void CreateTicket(object obj)
         {
             if (SelectedTour != null)
             {
-                //Guest2.SelectedTour = SelectedTour;
-                //NavigationVM navigationVM = new NavigationVM(Guest2.Username);
-                //navigationVM.Guest2.SelectedTour = SelectedTour;
-                //navigationVM.CurrentView = new CreateTicketVM(Guest2);
-                ////navigationVM.CreateTicketCommand = new RelayCommand();
-                //navigationVM.CreateTicketCommand.CanExecute(obj);
+                Guest2.SelectedTour = SelectedTour;
+                HomeContent = new CreateTicketVM(Guest2);
             }
             else
             {
-                MessageBox.Show("Please select the tour you would like to make a reservationa ! ");
+                MessageBox.Show("Please select the tour!");
             }
         }
 
