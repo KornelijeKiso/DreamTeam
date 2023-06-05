@@ -103,7 +103,7 @@
                             <DataGridTemplateColumn Width="45" Header="Pdf" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Visibility="{Binding AreThereAnyTickets, Converter={conv:BoolToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="35" Margin="0, 0, 0, 0" Click="PdfReportButton_Click">
+                                        <Button Visibility="{Binding AreThereAnyTickets, Converter={conv:BoolToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="35" Margin="0, 0, 0, 0" Command="{Binding DataContext.PdfReportButton_ClickCommand, RelativeSource={RelativeSource AncestorType={x:Type local:AllAppointmentsUserControl}}}">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="https://cdn-icons-png.flaticon.com/256/8304/8304482.png" />
                                             </Button.Background>
@@ -121,7 +121,7 @@
                             <DataGridTemplateColumn Width="45" Header="{ns:Loc Cancel}" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Visibility="{Binding CanBeCanceled, Converter={conv:BoolToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="35" Margin="0, 0, 0, 0" Click="QuitButton_Click">
+                                        <Button Visibility="{Binding CanBeCanceled, Converter={conv:BoolToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="35" Margin="0, 0, 0, 0" Command="{Binding DataContext.QuitButton_ClickCommand, RelativeSource={RelativeSource AncestorType={x:Type local:AllAppointmentsUserControl}}}">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="https://img.icons8.com/pulsar-color/1x/cancel.png" />
                                             </Button.Background>
@@ -222,7 +222,7 @@
                             <DataGridTemplateColumn Width="45" Header="Pdf" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Visibility="{Binding AreThereAnyTickets, Converter={conv:BoolToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="35" Margin="0, 0, 0, 0" Click="PdfReportButton_Click">
+                                        <Button Visibility="{Binding AreThereAnyTickets, Converter={conv:BoolToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="35" Margin="0, 0, 0, 0" Command="{Binding DataContext.PdfReportButton_ClickCommand, RelativeSource={RelativeSource AncestorType={x:Type local:AllAppointmentsUserControl}}}">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="https://cdn-icons-png.flaticon.com/256/8304/8304482.png" />
                                             </Button.Background>
@@ -325,7 +325,7 @@
                             <DataGridTemplateColumn Width="45" Header="Pdf" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Visibility="{Binding AreThereAnyTickets, Converter={conv:BoolToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="35" Margin="0, 0, 0, 0" Click="PdfReportButton_Click">
+                                        <Button Visibility="{Binding AreThereAnyTickets, Converter={conv:BoolToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="35" Margin="0, 0, 0, 0" Command="{Binding DataContext.PdfReportButton_ClickCommand, RelativeSource={RelativeSource AncestorType={x:Type local:AllAppointmentsUserControl}}}">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="https://cdn-icons-png.flaticon.com/256/8304/8304482.png" />
                                             </Button.Background>
@@ -423,7 +423,7 @@
                             <DataGridTemplateColumn Width="45" Header="Pdf" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Visibility="{Binding AreThereAnyTickets, Converter={conv:BoolToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="35" Margin="0, 0, 0, 0" Click="PdfReportButton_Click">
+                                        <Button Visibility="{Binding AreThereAnyTickets, Converter={conv:BoolToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="35" Margin="0, 0, 0, 0" Command="{Binding DataContext.PdfReportButton_ClickCommand, RelativeSource={RelativeSource AncestorType={x:Type local:AllAppointmentsUserControl}}}">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="https://cdn-icons-png.flaticon.com/256/8304/8304482.png" />
                                             </Button.Background>
@@ -521,7 +521,7 @@
                             <DataGridTemplateColumn Width="45" Header="Pdf" >
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button Visibility="{Binding AreThereAnyTickets, Converter={conv:BoolToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="35" Margin="0, 0, 0, 0" Click="PdfReportButton_Click">
+                                        <Button Visibility="{Binding AreThereAnyTickets, Converter={conv:BoolToVisibilityConverter}}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="35" Margin="0, 0, 0, 0" Command="{Binding DataContext.PdfReportButton_ClickCommand, RelativeSource={RelativeSource AncestorType={x:Type local:AllAppointmentsUserControl}}}">
                                             <Button.Background>
                                                 <ImageBrush ImageSource="https://cdn-icons-png.flaticon.com/256/8304/8304482.png" />
                                             </Button.Background>

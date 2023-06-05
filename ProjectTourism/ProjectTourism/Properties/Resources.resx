@@ -349,7 +349,7 @@
     <value>pod imenom: Izvestaj_gosti_</value>
   </data>
   <data name="PDFName" xml:space="preserve">
-    <value>../../../PDF/GuidePDF/Izvestaj_gosti_</value>
+    <value>../../../PDF/GuidePDFs/Izvestaj_gosti_</value>
   </data>
   <data name="PhoneNumber" xml:space="preserve">
     <value>Broj telefona</value>

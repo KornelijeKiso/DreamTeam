@@ -47,9 +47,14 @@
             </Border>
             <Label Margin="3, 185, 3, 25" HorizontalContentAlignment="Center" Width="340" FontSize="17" Background="AliceBlue" HorizontalAlignment="Center" x:Name="UpcomingLabelName"></Label>
             <TextBlock HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Bottom">
-        <Hyperlink ButtonBase.Click="Hyperlink_Click">
-            <TextBlock Text="{ns:Loc LearnMore}" Margin="-130,0,0,-160" FontSize="18" TextDecorations="Underline" Height="27"/>
-        </Hyperlink>
+                
+        <TextBlock x:Name="ShortcutsLinkTextBlock" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Bottom">
+            <Hyperlink ButtonBase.Click="Hyperlink_Click">
+                <TextBlock Text="{ns:Loc LearnMore}" Margin="-130,0,0,-160" FontSize="18" TextDecorations="Underline" Height="27"/>
+            </Hyperlink>
+        </TextBlock>
+
+
     </TextBlock>
         </Grid>
         <ContentControl x:Name="ContentArea"></ContentControl>
