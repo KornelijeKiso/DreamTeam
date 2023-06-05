@@ -21,7 +21,7 @@ namespace ProjectTourism.WPF.View.Guest1View
     /// <summary>
     /// Interaction logic for GradeAccommodatonWindow.xaml
     /// </summary>
-    public partial class GradeAccommodatonWindow : Window
+    public partial class GradeAccommodatonWindow : UserControl
     {
         public Guest1VM Guest1VM { get; set; }
         public AccommodationGradeVM AccommodationGradeVM { get; set; }
@@ -40,7 +40,7 @@ namespace ProjectTourism.WPF.View.Guest1View
         private void RenovationRecommendationClick(object sender, RoutedEventArgs e)
         {
             RenovationRecommendationWindow renovationRecommendationWindow = new RenovationRecommendationWindow();
-            renovationRecommendationWindow.ShowDialog();
+            //renovationRecommendationWindow.ShowDialog();
             AccommodationGradeVM.RenovationRecommendation = renovationRecommendationWindow.renovationRecommendationVM;
 
         }
@@ -63,7 +63,7 @@ namespace ProjectTourism.WPF.View.Guest1View
             }
             Guest1VM.GradeAccommodation(AccommodationGradeVM);
             MessageBox.Show("You've successfully graded this accommodation");
-            Close();
+            //Close();
         }
 
         private void GradePriceAndQuality()

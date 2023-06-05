@@ -19,7 +19,7 @@ namespace ProjectTourism.WPF.View.Guest1View
     /// <summary>
     /// Interaction logic for RenovationRecommendationWindow.xaml
     /// </summary>
-    public partial class RenovationRecommendationWindow : Window
+    public partial class RenovationRecommendationWindow : UserControl
     {
         public RenovationRecommendationVM renovationRecommendationVM { get; set; } 
         public RenovationRecommendationWindow()
@@ -52,7 +52,7 @@ namespace ProjectTourism.WPF.View.Guest1View
         {
             RegisterLevel();
             
-            Close();
+            //Close();
         }
 
     }

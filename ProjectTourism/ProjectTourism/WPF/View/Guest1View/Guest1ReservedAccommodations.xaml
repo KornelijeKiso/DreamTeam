@@ -8,7 +8,7 @@
         mc:Ignorable="d"
         Title="Guest1ReservedAccommodations" Height="750" Width="430" WindowStartupLocation="CenterScreen" FontFamily="Futura">
     <Grid>
-        <Rectangle VerticalAlignment="Top" Margin="0 0 0 0" Height="65" Width="430" Fill="#FFFFD0" StrokeThickness="2"/>
+        <Rectangle VerticalAlignment="Top" Margin="0 0 0 0" Fill="#FFFFD0" Height="65" Width="430" StrokeThickness="2"/>
         <Label Content="My Reservations" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" Foreground="#555" Margin="110 18 0 0"/>
         <Image Source="https://cdn-icons-png.flaticon.com/128/3652/3652267.png" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 22 110 0" Height="26"></Image>
         <Image Source="https://cdn-icons-png.flaticon.com/128/2976/2976215.png" VerticalAlignment="Top" HorizontalAlignment="left" Margin="20 20 0 0" Height="26"></Image>
@@ -117,6 +117,5 @@
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-
     </Grid>
 </Window>

@@ -33,7 +33,7 @@ namespace ProjectTourism.WPF.View.Guest1View
         public PostponeReservationWindow(ReservationVM reservationVM, string username)
         {
             InitializeComponent();
-            DataContext = this;
+            //DataContext = this;
             ReservationVM = new ReservationVM(new Reservation());
             SetReservation(reservationVM);
             Guest1VM = new Guest1VM(username);
@@ -94,7 +94,7 @@ namespace ProjectTourism.WPF.View.Guest1View
                     if (Guest1VM.ProcessRequest(ReservationVM))
                     {
                         MessageBox.Show("Postpone request sent successfully!");
-                        Close();
+                        //Close();
                     }
                     else
                     {

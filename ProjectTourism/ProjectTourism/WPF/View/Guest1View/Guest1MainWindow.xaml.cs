@@ -3,11 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using ProjectTourism.Model;
 using ProjectTourism.WPF.ViewModel;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -52,19 +49,19 @@ namespace ProjectTourism.View.Guest1View
             FilteredAccommodations = new ObservableCollection<AccommodationVM>(accommodationService.GetAll().Select(r => new AccommodationVM(r)).ToList().OrderByDescending(a => a.Owner.IsSuperHost).ToList());
             AccommodationVMs = new ObservableCollection<AccommodationVM>(accommodationService.GetAll().Select(r => new AccommodationVM(r)).ToList().OrderByDescending(a => a.Owner.IsSuperHost).ToList());
 
-            SetUpDatePicker();
+            //SetUpDatePicker();
 
         }
 
-        private void SetUpDatePicker()
-        {
-            StartDatePicker.DisplayDate = DateTime.Now;
-            startingDate = DateOnly.FromDateTime(DateTime.Now);
-            StartDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1, 1, 1), DateTime.Now.AddDays(-1)));
-            EndDatePicker.DisplayDate = DateTime.Now;
-            endingDate = DateOnly.FromDateTime(DateTime.Now);
-            EndDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1, 1, 1), DateTime.Now.AddDays(-1)));
-        }
+        //private void SetUpDatePicker()
+        //{
+        //    StartDatePicker.DisplayDate = DateTime.Now;
+        //    startingDate = DateOnly.FromDateTime(DateTime.Now);
+        //    StartDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1, 1, 1), DateTime.Now.AddDays(-1)));
+        //    EndDatePicker.DisplayDate = DateTime.Now;
+        //    endingDate = DateOnly.FromDateTime(DateTime.Now);
+        //    EndDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1, 1, 1), DateTime.Now.AddDays(-1)));
+        //}
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -146,29 +143,29 @@ namespace ProjectTourism.View.Guest1View
             }
         }
 
-        private bool TypeMatch(AccommodationVM accommodationVM)
-        {
-            if (ComboType.SelectedIndex == 0)
-            {
-                return true;
-            }
-            if (ComboType.SelectedIndex == 1 && accommodationVM.Type == ACCOMMODATIONTYPE.APARTMENT)
-            {
-                return true;
-            }
-            else if (ComboType.SelectedIndex == 2 && accommodationVM.Type == ACCOMMODATIONTYPE.HOUSE)
-            {
-                return true;
-            }
-            else if (ComboType.SelectedIndex == 3 && accommodationVM.Type == ACCOMMODATIONTYPE.HUT)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+        //private bool TypeMatch(AccommodationVM accommodationVM)
+        ////{
+        //////    if (ComboType.SelectedIndex == 0)
+        ////////    {
+        ////////        return true;
+        ////////    }
+        ////////    if (ComboType.SelectedIndex == 1 && accommodationVM.Type == ACCOMMODATIONTYPE.APARTMENT)
+        ////////    {
+        ////////        return true;
+        ////////    }
+        ////////    else if (ComboType.SelectedIndex == 2 && accommodationVM.Type == ACCOMMODATIONTYPE.HOUSE)
+        ////////    {
+        ////////        return true;
+        ////////    }
+        ////////    else if (ComboType.SelectedIndex == 3 && accommodationVM.Type == ACCOMMODATIONTYPE.HUT)
+        ////////    {
+        ////////        return true;
+        ////////    }
+        ////////    else
+        ////////    {
+        //////        return false;
+        ////    }
+        //}
 
         public void FilterAccommodationsClick(object sender, RoutedEventArgs e)
         {
@@ -187,8 +184,8 @@ namespace ProjectTourism.View.Guest1View
         {
             return ReservationAvailable(startingDate, endingDate, accommodationVM)
                                 && GuestNumberMatch(GuestCountSearch, accommodationVM)
-                                && NameMatch(NameSearch, accommodationVM)
-                                && TypeMatch(accommodationVM);
+                                && NameMatch(NameSearch, accommodationVM);
+                                //&& TypeMatch(accommodationVM);
         }
 
         public void ReserveAccommodationClick(object sender, RoutedEventArgs e)

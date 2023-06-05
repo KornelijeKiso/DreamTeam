@@ -40,7 +40,7 @@ namespace ProjectTourism.View.Guest1View
         public Guest1ReservationWindow(ReservationVM reservationVM, AccommodationVM accommodationVM, string username)
         {
             InitializeComponent();
-            DataContext = this;
+            //DataContext = this;
             ReservationVM = new ReservationVM(new Reservation());
             SetReservation(reservationVM, accommodationVM);
             Guest1VM = new Guest1VM(username);
@@ -104,7 +104,7 @@ namespace ProjectTourism.View.Guest1View
                             if (Guest1VM.ProcessReservation(ReservationVM))
                             {
                                 MessageBox.Show("Accommodation reserved successfully!");
-                                Close();
+                                //Close();
                             }
                             else
                             {

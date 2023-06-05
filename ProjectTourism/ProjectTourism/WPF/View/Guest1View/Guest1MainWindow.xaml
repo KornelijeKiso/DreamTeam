@@ -7,14 +7,111 @@
         xmlns:local="clr-namespace:ProjectTourism.View.Guest1View"
         xmlns:conv="clr-namespace:ProjectTourism.Converters"
         mc:Ignorable="d"
-        Title="MainGuest1Window" Height="570" Width="1000">
+        Title="" Height="750" Width="430" WindowStartupLocation="CenterScreen" FontFamily="Futura">
     <Window.Resources>
         <ResourceDictionary>
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
         </ResourceDictionary>
     </Window.Resources>
-    <Grid Margin="0,0,0,-113">
-        <DataGrid x:Name="DataGridAccommodations" ItemsSource="{Binding Guest1VM.Accommodations, UpdateSourceTrigger=PropertyChanged}"
+    <Grid >
+        <Rectangle VerticalAlignment="Top" Margin="0 0 0 0" Height="65" Width="430" Fill="#FFFFD0" StrokeThickness="2"/>
+        <Label Content="Accommodations" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" Foreground="#555" Margin="107 18 0 0"/>
+        <Image Source="https://cdn-icons-png.flaticon.com/128/4727/4727811.png" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 20 107 0" Height="24"></Image>
+        <Image Source="https://cdn-icons-png.flaticon.com/128/2976/2976215.png" VerticalAlignment="Top" HorizontalAlignment="left" Margin="20 20 0 0" Height="26"></Image>
+        <Image Source="https://cdn-icons-png.flaticon.com/128/3524/3524344.png" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 22 20 0" Height="24"></Image>
+        <StackPanel VerticalAlignment="Top" Margin="0 65 0 0">
+            <DataGrid Height="650" Width="430" HeadersVisibility="None" ItemsSource="{Binding Guest1VM.Accommodations}"
+                          CanUserAddRows="False" CanUserDeleteRows="False" SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False"
+                          RowHeight="120" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" GridLinesVisibility="None"
+                          RowBackground="#FFFFE0" Background="White">
+                <DataGrid.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
+                   Color="AliceBlue"/>
+                </DataGrid.Resources>
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="DataGridRow">
+                                    <Border BorderBrush="#FFFFD0" BorderThickness="4" Background="LightYellow" Margin="2" Padding="2">
+                                        <SelectiveScrollingGrid>
+                                            <SelectiveScrollingGrid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </SelectiveScrollingGrid.ColumnDefinitions>
+                                            <SelectiveScrollingGrid.RowDefinitions>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </SelectiveScrollingGrid.RowDefinitions>
+                                            <DataGridCellsPresenter Grid.Column="1" ItemsPanel="{TemplateBinding ItemsPanel}" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                            <DataGridDetailsPresenter Grid.Column="1" Grid.Row="1" Visibility="{TemplateBinding DetailsVisibility}" />
+                                        </SelectiveScrollingGrid>
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="BorderThickness" Value="0,2,0,2"/>
+                        <Setter Property="BorderBrush" Value="LightSkyBlue"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="BorderThickness" Value="0,2,0,2"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Width="400">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Width="120" Height="120" Margin="0,0,0,0" HorizontalAlignment="Center" Stretch="Fill" Source="{Binding Path=Accommodation.PictureURLs}"/>
+                                        <StackPanel Orientation="Vertical" >
+                                            <Label Content="{Binding Path=Accommodation.Name}" FontWeight="SemiBold" FontSize="20" Margin="10,25,0,-7" ></Label>
+                                            <StackPanel Orientation="Horizontal">
+                                                <StackPanel Orientation="Vertical" Margin="10,0,0,-7">
+                                                    <Label Content="reservation start " FontWeight="Regular" FontStyle="Italic" FontSize="10" Margin="0,7,-7,-7" ></Label>
+                                                    <Label Content="{Binding Path=StartDate}" FontWeight="Bold" FontSize="13" Margin="0,-4,0,0"></Label>
+                                                    <Image Source="https://img.icons8.com/fluency/2x/star.png" Height="30" Margin="100 -70 0 0" 
+                                                    Visibility="{Binding Path=Owner.IsSuperHost, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Image>
+                                                    <Image Margin="100 0 0 0" Source="https://img.icons8.com/3d-fluency/2x/prize.png" Width="30" 
+                                                    Visibility="{Binding Path=IsRecentlyRenovated, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Image>
+
+                                                </StackPanel>
+                                                <StackPanel>
+                                                    <Button HorizontalAlignment="Center" Width="100" Height="33" Content="Reserve" FontWeight="SemiBold" Background="CadetBlue" Foreground="#FFF" Click="ReserveAccommodationClick" IsDefault="True" BorderThickness="2" Margin="63 20 0 0">
+                                                        <Button.Resources>
+                                                            <Style TargetType="Button">
+                                                                <Style.Triggers>
+                                                                    <Trigger Property="IsPressed" Value="True">
+                                                                        <Setter Property="Background" Value="SlateGray" />
+                                                                        <Setter Property="Foreground" Value="White"></Setter>
+                                                                    </Trigger>
+                                                                </Style.Triggers>
+                                                            </Style>
+                                                            <Style TargetType="Border">
+                                                                <Setter Property="CornerRadius" Value="10"/>
+                                                            </Style>
+                                                        </Button.Resources>
+                                                    </Button>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <StackPanel Orientation="Vertical" Margin="10,0,0,-7">
+                                                    <Label Content="reservation end " FontWeight="Regular" FontStyle="Italic" FontSize="10" Margin="0,-5,-7,-7" ></Label>
+                                                    <Label Content="{Binding Path=EndDate}" FontWeight="Bold" FontSize="13" Margin="0,-4,0,0"></Label>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+        <!--DataGrid x:Name="DataGridAccommodations" ItemsSource="{Binding Guest1VM.Accommodations, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                     IsReadOnly="True" AutoGenerateColumns="False" Height="324" RowHeight="100" Margin="270,66,10,168">
             <DataGrid.Columns>
@@ -65,8 +162,8 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
-        </DataGrid>
-        <Button Content="Filter" HorizontalAlignment="Left" IsDefault="True" Margin="30,455,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="FilterAccommodationsClick"/>
+        </DataGrid-->
+        <!--Button Content="Filter" HorizontalAlignment="Left" IsDefault="True" Margin="30,455,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="FilterAccommodationsClick"/>
         <Button Content="My Reservations" HorizontalAlignment="Left" IsDefault="True" Margin="270,75,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="MyReservationsClick"/>
         <Button Content="See Gradable Accommodations" HorizontalAlignment="Left" IsDefault="True" Margin="500,75,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="ShowGradableClick"/>
         <Button Content="My Profile" HorizontalAlignment="Left" IsDefault="True" Margin="730,75,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="MyProfileClick"/>
@@ -96,7 +193,7 @@
         <Label Content="Number of Guests:" HorizontalAlignment="Left" Margin="30,185,0,0" VerticalAlignment="Top" Width="152"/>
         <Label Content="Starting Date:" HorizontalAlignment="Left" Margin="30,245,0,0" VerticalAlignment="Top" Width="152"/>
         <Label Content="Ending Date:" HorizontalAlignment="Left" Margin="30,305,0,0" VerticalAlignment="Top" Width="152"/>
-        <Label Content="Accommodation type:" HorizontalAlignment="Left" Margin="30,365,0,0" VerticalAlignment="Top" Width="152"/>
+        <Label Content="Accommodation type:" HorizontalAlignment="Left" Margin="30,365,0,0" VerticalAlignment="Top" Width="152"/-->
 
     </Grid>
 </Window>
