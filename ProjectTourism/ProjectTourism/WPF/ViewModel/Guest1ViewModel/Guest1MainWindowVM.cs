@@ -56,8 +56,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest1ViewModel
 
         public void SwitchToAccommodations(object parameter)
         {
-            ReservationVM reservationVM = new ReservationVM(new Model.Reservation());
-            Content = new GradeAccommodatonWindow(reservationVM, Guest.Username);
+            Content = new Guest1Window(Guest.Username);
             //AccommodationsItem.Background = Brushes.LightSkyBlue;
             //ReservationsItem.Background = Brushes.Transparent;
             //HelpItem.Background = Brushes.Transparent;

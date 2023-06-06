@@ -19,7 +19,7 @@
         <Label Content="Accommodations" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" Foreground="#555" Margin="107 18 0 0"/>
         <Image Source="https://cdn-icons-png.flaticon.com/128/4727/4727811.png" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 20 107 0" Height="24"></Image>
         <StackPanel VerticalAlignment="Top" Margin="0 65 0 0">
-            <DataGrid Height="645" Width="430" HeadersVisibility="None" ItemsSource="{Binding Guest1VM.Accommodations}"
+            <DataGrid Height="645" Width="430" HeadersVisibility="None" ItemsSource="{Binding Guest1.Accommodations}"
                           CanUserAddRows="False" CanUserDeleteRows="False" SelectedItem="{Binding SelectedReservation, UpdateSourceTrigger=PropertyChanged}" CanUserResizeColumns="False" CanUserReorderColumns="False" CanUserResizeRows="False"
                           RowHeight="120" AutoGenerateColumns="False" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" GridLinesVisibility="None"
                           RowBackground="#FFFFE0" Background="White">
@@ -64,41 +64,46 @@
                             <DataTemplate>
                                 <StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <Image Width="120" Height="120" Margin="0,0,0,0" HorizontalAlignment="Center" Stretch="Fill" Source="{Binding Path=Accommodation.PictureURLs}"/>
+                                        <Image Width="120" Height="120" Margin="0,0,0,0" HorizontalAlignment="Center" Stretch="Fill" Source="{Binding Path = PictureURLs}"/>
                                         <StackPanel Orientation="Vertical" >
-                                            <Label Content="{Binding Path=Accommodation.Name}" FontWeight="SemiBold" FontSize="20" Margin="10,25,0,-7" ></Label>
                                             <StackPanel Orientation="Horizontal">
-                                                <StackPanel Orientation="Vertical" Margin="10,0,0,-7">
-                                                    <Label Content="reservation start " FontWeight="Regular" FontStyle="Italic" FontSize="10" Margin="0,7,-7,-7" ></Label>
-                                                    <Label Content="{Binding Path=StartDate}" FontWeight="Bold" FontSize="13" Margin="0,-4,0,0"></Label>
-                                                    <Image Source="https://img.icons8.com/fluency/2x/star.png" Height="30" Margin="100 -70 0 0" 
-                                                    Visibility="{Binding Path=Owner.IsSuperHost, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Image>
-                                                    <Image Margin="100 0 0 0" Source="https://img.icons8.com/3d-fluency/2x/prize.png" Width="30" 
-                                                    Visibility="{Binding Path=IsRecentlyRenovated, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Image>
-
-                                                </StackPanel>
-                                                <StackPanel>
-                                                    <Button HorizontalAlignment="Center" Width="100" Height="33" Content="Reserve" FontWeight="SemiBold" Background="CadetBlue" Foreground="#FFF" Click="ReserveAccommodationClick" IsDefault="True" BorderThickness="2" Margin="63 20 0 0">
-                                                        <Button.Resources>
-                                                            <Style TargetType="Button">
-                                                                <Style.Triggers>
-                                                                    <Trigger Property="IsPressed" Value="True">
-                                                                        <Setter Property="Background" Value="SlateGray" />
-                                                                        <Setter Property="Foreground" Value="White"></Setter>
-                                                                    </Trigger>
-                                                                </Style.Triggers>
-                                                            </Style>
-                                                            <Style TargetType="Border">
-                                                                <Setter Property="CornerRadius" Value="10"/>
-                                                            </Style>
-                                                        </Button.Resources>
-                                                    </Button>
+                                                <Button Margin="170 45 0 0" HorizontalAlignment="Center" Width="100" Height="33" Content="Reserve" FontWeight="SemiBold" Background="CadetBlue" Foreground="#FFF" Click="ReserveAccommodationClick" IsDefault="True" BorderThickness="2">
+                                                    <Button.Resources>
+                                                        <Style TargetType="Button">
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsPressed" Value="True">
+                                                                    <Setter Property="Background" Value="SlateGray" />
+                                                                    <Setter Property="Foreground" Value="White"></Setter>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                        <Style TargetType="Border">
+                                                            <Setter Property="CornerRadius" Value="10"/>
+                                                        </Style>
+                                                    </Button.Resources>
+                                                </Button>
+                                                    <Label Content="{Binding Path = Name}" FontWeight="SemiBold" FontSize="17" Margin="-260,0,0,0" ></Label>
+                                                    <Image HorizontalAlignment="Left" Source="https://img.icons8.com/fluency/2x/star.png" Height="20" Margin="-100 -53 0 0" 
+                                                        Visibility="{Binding Path=Owner.IsSuperHost, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Image>
+                                                    <Image Margin="-130 -53 0 0" Source="https://img.icons8.com/3d-fluency/2x/prize.png" Width="20" 
+                                                        Visibility="{Binding Path=IsRecentlyRenovated, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Image>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <StackPanel Orientation="Vertical" Margin="10,-55,0,-7">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <Image Source="https://img.icons8.com/color/2x/place-marker.png" Height="20" Margin="5 -5 0 0"></Image>
+                                                        <Label ContentStringFormat=" {0}" Content="{Binding Path=Location.City}" FontSize="13" FontWeight="DemiBold"/>
+                                                        <Label ContentStringFormat=", {0}" Content="{Binding Path=Location.Country}" FontSize="13" FontWeight="DemiBold" Margin="-10 0 0 0"/>
+                                                    </StackPanel>
+                                                    <Label ContentStringFormat="Capacity : {0} guests" Content="{Binding Path=MaxNumberOfGuests}" FontSize="10"/>
+                                                    <Label ContentStringFormat="Minimum {0} days for reservation" Content="{Binding Path=MinDaysForReservation}" FontSize="10" Margin="0 -10 0 0"/>
+                                                    <!--TextBlock Margin="10 10 0 0">
+                                                        <Hyperlink Foreground="Blue" Click="ShowDetailsClick"> >>Details </Hyperlink>
+                                                    </TextBlock-->
                                                 </StackPanel>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal">
                                                 <StackPanel Orientation="Vertical" Margin="10,0,0,-7">
-                                                    <Label Content="reservation end " FontWeight="Regular" FontStyle="Italic" FontSize="10" Margin="0,-5,-7,-7" ></Label>
-                                                    <Label Content="{Binding Path=EndDate}" FontWeight="Bold" FontSize="13" Margin="0,-4,0,0"></Label>
                                                 </StackPanel>
                                             </StackPanel>
                                         </StackPanel>

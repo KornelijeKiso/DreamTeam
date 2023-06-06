@@ -47,7 +47,7 @@ namespace ProjectTourism.WPF.View.Guest1View
             DataContext = this;
 
             Guest1 = new Guest1DTO(username);
-
+            
             AccommodationService accommodationService = new AccommodationService();
             FilteredAccommodations = new ObservableCollection<AccommodationDTO>(accommodationService.GetAll().Select(r => new AccommodationDTO(r)).ToList().OrderByDescending(a => a.Owner.IsSuperHost).ToList());
             AccommodationDTOs = new ObservableCollection<AccommodationDTO>(accommodationService.GetAll().Select(r => new AccommodationDTO(r)).ToList().OrderByDescending(a => a.Owner.IsSuperHost).ToList());
@@ -55,7 +55,14 @@ namespace ProjectTourism.WPF.View.Guest1View
             //SetUpDatePicker();
 
         }
-        
+        /*public void ShowDetailsClick(object sender, RoutedEventArgs e)
+        {
+            Menu.Visibility = Visibility.Visible;
+        }*/
+
+
+
+
         //private void SetUpDatePicker()
         //{
         //    StartDatePicker.DisplayDate = DateTime.Now;
