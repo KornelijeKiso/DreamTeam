@@ -35,6 +35,12 @@
         <uc:CreateTicketUserControl />
     </DataTemplate>
 
+    
+    
+    <DataTemplate DataType="{x:Type vm:CreateTourRequestVM}">
+        <uc:CreateTourRequestUserControl />
+    </DataTemplate>
+    
     <DataTemplate DataType="{x:Type vm:TourRequestStatisticsVM}">
         <uc:TourRequestStatisticsUserControl />
     </DataTemplate>

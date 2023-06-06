@@ -33,6 +33,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 
             //DisplayStatisticsCommand
             TourRequestStatisticsCommand = new RelayCommand(TourRequestStatisticsClick);
+            TourRequestCommand = new RelayCommand(CreateTourRequest);
         }
 
         private ObservableCollection<TourRequestDTO> SetPendingRequests()
@@ -79,22 +80,15 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             return others;
         }
 
-        private ICommand _TourRequestCommand;
-        public ICommand TourRequestCommand
+        public ICommand TourRequestCommand { get; set; }
+        public void CreateTourRequest(object obj)
         {
-            get
-            {
-                return _TourRequestCommand ?? (_TourRequestCommand = new CommandHandler(() => TourRequest_Click(), () => true));
-            }
-        }
-        public void TourRequest_Click()
-        {
-            CreateTourRequestWindow tourRequestWindow = new CreateTourRequestWindow(Guest2);
-            tourRequestWindow.ShowDialog();
-            PendingRequests = SetPendingRequests(); // updating pending list
-            // TO DO -> new PENDING request that we just created isn't visible when the tourRequestWindow is closed,
-            //          only when we enter the RequestTour MenuItem again
-            //          FIX THIS
+            TourRequestsContent = new CreateTourRequestVM(Guest2);
+            
+            //PendingRequests = SetPendingRequests(); // updating pending list
+            //// TO DO -> new PENDING request that we just created isn't visible when the tourRequestWindow is closed,
+            ////          only when we enter the RequestTour MenuItem again
+            ////          FIX THIS
         }
 
         public ICommand TourRequestStatisticsCommand { get; set; }
