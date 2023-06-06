@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ProjectTourism.Services;
-using ProjectTourism.WPF.View.Guest2View;
 using ProjectTourism.WPF.View.Guest2View.TicketView;
 using ProjectTourism.Model;
 using ProjectTourism.Utilities;
@@ -33,16 +31,23 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                 }
             }
         }
+        private bool _PickedAnAppointment;
+        public bool PickedAnAppointment
+        {
+            get => _PickedAnAppointment;
+            set
+            {
+                if (value != _PickedAnAppointment)
+                {
+                    _PickedAnAppointment = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         private TourAppointmentDTO _selectedAppointment;
         public TourAppointmentDTO selectedAppointment
-        {   // TO DO 
+        {
             get => _selectedAppointment;
-            //{   
-            //    if (date != null)
-            //        return SelectedTour.TourAppointments.First(a => a.TourDateTime == date); 
-            //    else 
-            //        return null;
-            //}
             set
             {
                 if (value != _selectedAppointment)
@@ -54,7 +59,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         }
 
         private object _HomeContent;
-        public object HomeContent
+        public object Content
         {
             get { return _HomeContent; }
             set { _HomeContent = value; OnPropertyChanged(); }
@@ -69,17 +74,32 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 
             dates = FindDates();
             date = null;
-            if (date != null)
-                selectedAppointment = SelectedTour.TourAppointments.First(a => a.TourDateTime == date); 
+            PickedAnAppointment = false;
             
-            //HomeCommand
-            HomeCommand = new RelayCommand(ReturnHome);
+            // Commands
+            ContentCommand = new RelayCommand(ReturnToHome);
+            DateSelectionChangedCommand = new RelayCommand(DateSelectionChanged);
         }
-        public ICommand HomeCommand { get; set; }
-        private void ReturnHome(Object obj)
+        public ICommand ContentCommand { get; set; }
+        private void ReturnToHome(Object obj)
         {
-            HomeContent = new HomeVM(Guest2);
+            Content = new HomeVM(Guest2);
         }
+
+        // DATE COMBO BOX SELECTION CHANGED
+        public ICommand DateSelectionChangedCommand { get; set; }
+        private void DateSelectionChanged(object obj)
+        {
+            if (date != null)
+            {
+                selectedAppointment = SelectedTour.TourAppointments.First(a => a.TourDateTime == date);
+                PickedAnAppointment = true;
+            }
+            else
+                MessageBox.Show("Please select the date! ");
+        }
+
+
         private List<DateTime> FindDates()
         {
             List<DateTime> allDates = FindAllDates(SelectedTour);
@@ -156,7 +176,8 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             {
                 Ticket.CreateTicket(new Ticket(selectedAppointment.Id, Ticket.TourStop, Guest2.Username, Ticket.NumberOfGuests));
                 selectedAppointment.UpdateTourAppointmentDTO(selectedAppointment);
-                //Close();// TO DO
+                MessageBox.Show("Successfully reserved a ticket! ");
+                Content = new HomeVM(Guest2);
             }
             else
             {
@@ -188,7 +209,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                 {   // delete created Ticket if UseVoucher is canceled
                     Ticket.RemoveLast();
                 }
-                //Close(); // TO DO
+                Content = new HomeVM(Guest2);
             }
             else
             {

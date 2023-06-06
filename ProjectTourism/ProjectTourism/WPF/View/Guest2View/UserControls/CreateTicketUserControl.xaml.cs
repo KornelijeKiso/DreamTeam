@@ -22,14 +22,5 @@ namespace ProjectTourism.WPF.View.Guest2View.UserControls
             this.createTicketVM = new CreateTicketVM(guest2, tour);
             DataContext = this.createTicketVM;
         }
-
-        private void DatesComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            slider.IsEnabled = true;
-            sliderText.IsEnabled = true;
-            
-            // TO DO -> selectedAppointment
-            //createTicketVM.selectedAppointment = createTicketVM.SelectedTour.TourAppointments.First(a => a.TourDateTime == createTicketVM.date);
-        }
     }
 }
