@@ -15,13 +15,20 @@
         <Label x:Name="RequestsLabel" Content="{ns:Loc RequestStatistics}" Foreground="{Binding Path=Guide.DarkTheme, Converter={StaticResource ThemeToForegroundConverter}}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="329" FontSize="40"/>
         <Border x:Name="rectangle" Background="White" BorderBrush="Black" BorderThickness="1" CornerRadius="15" Margin="40,140,430,51"/>
 
-        <DataGrid x:Name="DataGridStats" 
-                    ItemsSource="{Binding Stats, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedItem="{Binding SelectedStat, UpdateSourceTrigger=PropertyChanged}"
-                    SelectionMode="Single"
-                    VerticalScrollBarVisibility="Visible" 
-                    IsReadOnly="True" AutoGenerateColumns="False" Margin="70,180,900,110" RowHeight="90"
-                    SelectionChanged="DataGridStats_SelectionChanged">
+        <Grid Margin="70,165,430,51">
+            <TextBlock Text="{ns:Loc SelectAYear}" FontSize="19"></TextBlock>
+        </Grid>
+        
+        <DataGrid x:Name="DataGridStats"
+            ItemsSource="{Binding Stats, UpdateSourceTrigger=PropertyChanged}"
+            SelectedItem="{Binding SelectedStat, UpdateSourceTrigger=PropertyChanged}"
+            SelectionMode="Single"
+            VerticalScrollBarVisibility="Visible"
+            IsReadOnly="True"
+            AutoGenerateColumns="False"
+            Margin="70,210,830,110"
+            RowHeight="80"
+            SelectionChanged="DataGridStats_SelectionChanged">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
             </DataGrid.Resources>
@@ -32,19 +39,6 @@
             </DataGrid.CellStyle>
             <DataGrid.Columns>
 
-                <DataGridTemplateColumn Width="*" Header="{ns:Loc Year}" >
-                    <DataGridTemplateColumn.HeaderStyle>
-                        <Style TargetType="{x:Type DataGridColumnHeader}">
-                            <Setter Property="HorizontalContentAlignment" Value="Center"/>
-                        </Style>
-                    </DataGridTemplateColumn.HeaderStyle>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Label VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center" Content="{Binding Year, UpdateSourceTrigger=PropertyChanged}"></Label>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-
                 <DataGridTemplateColumn Width="*" Header="{ns:Loc NumberOfRequests}">
                     <DataGridTemplateColumn.HeaderStyle>
                         <Style TargetType="{x:Type DataGridColumnHeader}">
@@ -53,16 +47,26 @@
                     </DataGridTemplateColumn.HeaderStyle>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Label VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center" Content="{Binding StatsForThatYear, UpdateSourceTrigger=PropertyChanged}"></Label>
+                            <Label VerticalAlignment="Center" FontSize="18" HorizontalAlignment="Center">
+                                <TextBlock>
+                            <Run Text="In the year " FontSize="15"/>
+                            <Run Text="{Binding Year, UpdateSourceTrigger=PropertyChanged}" FontSize="15" FontWeight="Bold"/>
+                            <Run Text=" there were " FontSize="15"/>
+                            <Run Text="{Binding StatsForThatYear, UpdateSourceTrigger=PropertyChanged}" FontSize="15" FontWeight="Bold"/>
+                            <Run Text=" requests" FontSize="15"/>
+                                </TextBlock>
+                            </Label>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
 
+
         <Grid>
-            <Label Content="{ns:Loc SelectAYear}" FontSize="17" Margin="370, 170, 0, 0"></Label>
-            <Canvas x:Name="StatsCanvas" Margin="460,310,48,43" RenderTransformOrigin="0.5,0.5">
+            <Grid Margin="370,170,151,0">
+            </Grid>
+            <Canvas x:Name="StatsCanvas" Margin="460,310,48,43" RenderTransformOrigin="0.5,0.5" >
                 <Canvas.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform ScaleX="-1" ScaleY="-1"/>

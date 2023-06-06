@@ -183,6 +183,9 @@
   <data name="CreateCustomTour" xml:space="preserve">
     <value>Zahtevana tura</value>
   </data>
+  <data name="CreatedOn" xml:space="preserve">
+    <value>Kreirano: </value>
+  </data>
   <data name="CreateTour" xml:space="preserve">
     <value>Kreiranje ture</value>
   </data>

@@ -16,7 +16,7 @@
     <Grid>
         <DataGrid FontSize="12" Name="DataGridRow" RowHeight="100" CanUserAddRows="False" HorizontalAlignment="Center" Height="452" VerticalAlignment="Top" Width="828"
             SelectedItem="{Binding SelectedTourRequest, UpdateSourceTrigger=PropertyChanged}" 
-            ItemsSource="{Binding TourRequests, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="0,174,0,0">
+            ItemsSource="{Binding TourRequests, UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False" Margin="0,174,0,0" CanUserResizeColumns="False">
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FF7ED0FB"/>
             </DataGrid.Resources>

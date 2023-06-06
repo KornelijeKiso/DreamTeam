@@ -183,6 +183,9 @@
   <data name="CreateCustomTour" xml:space="preserve">
     <value>Create custom tour</value>
   </data>
+  <data name="CreatedOn" xml:space="preserve">
+    <value>Created on:</value>
+  </data>
   <data name="CreateTour" xml:space="preserve">
     <value>Create tour</value>
   </data>

@@ -7,7 +7,6 @@
              xmlns:ns="clr-namespace:ProjectTourism.Localization"
              xmlns:c="clr-namespace:ProjectTourism.Converters"
              xmlns:conv="clr-namespace:ProjectTourism.Converters"
-             
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1280">
     <UserControl.Resources>
@@ -33,7 +32,10 @@
                                     </Label.Content>
                                 </Label>
                                 <Label Height="25" VerticalAlignment="Center" HorizontalAlignment="Left">
-                                    <Label Content="{Binding Path=TourRequests[0].CreationDateTime}" Margin="50,-10,0,0"/>
+                                    <TextBlock Margin="10,0,0,0">
+                                        <Run Text="{ns:Loc CreatedOn}" />
+                                        <Run Text="{Binding Path=TourRequests[0].CreationDateTime}" />
+                                    </TextBlock>
                                 </Label>
                                 <Button Content="Info" Click="InfoComplexTourPart_Click" Width="100" Height="30" Margin="0, 30, 0, 0"/>
                             </StackPanel>
