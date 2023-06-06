@@ -13,10 +13,6 @@ namespace ProjectTourism.WPF.View.GuideView
             InitializeComponent();
             DataContext = new ImageViewerUserControlVM(tour);
         }
-        private void ExitButtonClick(object sender, RoutedEventArgs e)
-        {
-            BlackBackground.Visibility = Visibility.Hidden;
-        }
         private void BlackBackground_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (!IsMouseOverImageBorder(e))

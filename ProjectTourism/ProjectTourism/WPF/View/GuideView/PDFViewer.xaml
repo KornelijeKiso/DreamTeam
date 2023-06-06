@@ -1,0 +1,13 @@
+﻿<Window x:Class="ProjectTourism.WPF.View.GuideView.PDFViewer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView"
+             xmlns:pdfViewer="clr-namespace:Syncfusion.Windows.PdfViewer;assembly=Syncfusion.PDFViewer.WPF"
+             mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+             Height="720" Width="1280">
+    <Grid>
+        <pdfViewer:PdfViewerControl x:Name="pdfViewerControl" ZoomMode="FitPage" />
+    </Grid>
+</Window>

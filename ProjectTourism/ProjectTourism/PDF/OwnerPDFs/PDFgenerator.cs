@@ -5,10 +5,13 @@ using iText.Layout;
 using iText.Layout.Properties;
 using iText.Layout.Element;
 using iText.Kernel.Colors;
+using ProjectTourism.WPF.View.OwnerView;
+
 namespace ProjectTourism.PDF.OwnerPDFs
 {
     public class PDFgenerator
     {
+        private string path;
         private PdfWriter pdfWriter { get; set; }
         private PdfDocument pdfDocument { get; set; }
         private Document document { get; set; }
@@ -17,6 +20,7 @@ namespace ProjectTourism.PDF.OwnerPDFs
         {
             // TO DO -> add where to save doc
             pdfWriter = new PdfWriter("../../../PDF/OwnerPDFs/statistics_report" + acc.Id.ToString() + ".pdf");
+            path = "../../../PDF/OwnerPDFs/statistics_report" + acc.Id.ToString() + ".pdf";
             pdfDocument = new PdfDocument(pdfWriter);
             document = new Document(pdfDocument);
 
@@ -414,6 +418,8 @@ namespace ProjectTourism.PDF.OwnerPDFs
             document.Close();
             pdfDocument.Close();
             pdfWriter.Close();
+            PdfViewer pdf = new PdfViewer(path);
+            pdf.Show();
         }
     }
 }

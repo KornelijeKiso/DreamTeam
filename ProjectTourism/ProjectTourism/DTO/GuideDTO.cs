@@ -16,6 +16,10 @@ namespace ProjectTourism.DTO
     {
         private Guide _guide;
         public Timer Timer;
+        public Guide GetGuide()
+        {
+            return _guide;
+        }
         public GuideDTO(Guide guide)
         {
             _guide = guide;
@@ -309,10 +313,7 @@ namespace ProjectTourism.DTO
             tourApp.TicketGrades.RemoveAll(t => t == null);
         }
 
-        public Guide GetGuide()
-        {
-            return _guide;
-        }
+        
         public ObservableCollection<TourRequestDTO> GetAllTourRequests()
         {
             TourRequestService tourRequestService = new TourRequestService();
@@ -325,6 +326,25 @@ namespace ProjectTourism.DTO
                 tourRequests.Add(new TourRequestDTO(tourRequest));
             }
             return tourRequests;
+        }
+
+        public void Quit()
+        {
+            TourAppointmentService tourAppointmentService = new TourAppointmentService();
+            foreach (var tourApp in _guide.TourAppointments)
+            {
+                if (tourApp.State == TOURSTATE.READY || tourApp.State == TOURSTATE.STARTED)
+                {
+
+                    if (tourApp.Tickets.Any())
+                    {
+                        //TO-DO: If there are tickets on this tourapp, give the guests vouchers
+                    }
+
+                    tourApp.State = TOURSTATE.CANCELED;
+                    tourAppointmentService.Update(tourApp);
+                }
+            }
         }
 
         public void ChangeTheme()
@@ -422,6 +442,89 @@ namespace ProjectTourism.DTO
         {
             get => TourAppointments.Where(t => t.TourDateTime.Date.Equals(DateTime.Now.Date)).Count() == 0;
         }
+        public ObservableCollection<string> GetAllLanguages()
+        {
+            ObservableCollection<string> languages = new ObservableCollection<string>();
+            foreach (var tourApp in _guide.TourAppointments)
+            {
+                if (!languages.Contains(tourApp.Tour.Language))
+                    languages.Add(tourApp.Tour.Language);
+            }
+            return languages;
+        }
+
+        private ObservableCollection<string> SuperGuideChecker()
+        {
+            ObservableCollection<string> SuperGuideLanguages = new ObservableCollection<string>();
+
+            DateTime oneYearAgo = DateTime.Now.AddYears(-1);
+
+            foreach (var language in GetAllLanguages())
+            {
+                int tourCount = 0;
+                double totalRating = 0.0;
+
+                foreach (var tourApp in _guide.TourAppointments)
+                {
+                    if (tourApp.TourDateTime >= oneYearAgo && tourApp.Tour.Language == language)
+                    {
+                        foreach (var ticket in tourApp.Tickets)
+                        {
+                            if (ticket.TicketGrade != null && GoodGrade(ticket.TicketGrade))
+                            {
+                                tourCount++;
+                                totalRating += CalculateAverageScore(ticket.TicketGrade);
+                            }
+                        }
+                    }
+                }
+
+                if (tourCount >= 3 && totalRating / tourCount > 9.0) //treba da stoji 20
+                {
+                    SuperGuideLanguages.Add(language);
+                }
+            }
+
+            return SuperGuideLanguages;
+        }
+
+        private bool GoodGrade(TicketGrade grade)
+        {
+            foreach (var category in TicketGrade.CategoryNames)
+            {
+                if (grade.Grades[category] <= 9)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private double CalculateAverageScore(TicketGrade grade)
+        {
+            double totalScore = 0.0;
+            int totalGrades = 0;
+
+            foreach (var category in TicketGrade.CategoryNames)
+            {
+                totalScore += grade.Grades[category];
+                totalGrades++;
+            }
+
+            return totalScore / totalGrades;
+        }
+
+        public bool IsSuperGuide
+        {
+            get => SuperGuideChecker().Count() != 0;
+        }
+
+        public ObservableCollection<String> SuperGuidesLanguages
+        {
+            get => SuperGuideChecker();
+        }
+
         private void SortByDate()
         {
             FinishedApps = new ObservableCollection<TourAppointmentDTO>(TourAppointments.Where(t => t.State == TOURSTATE.FINISHED).OrderByDescending(a => a.TourDateTime));
@@ -494,18 +597,6 @@ namespace ProjectTourism.DTO
                 if (_TourRequests != value)
                 {
                     _TourRequests = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        public bool? IsSuperGuide
-        {
-            get => _guide.IsSuperGuide;
-            set
-            {
-                if (_guide.IsSuperGuide != value)
-                {
-                    _guide.IsSuperGuide = value;
                     OnPropertyChanged();
                 }
             }

@@ -27,6 +27,9 @@
     <None Remove="Images\GuideLightBackground.jpg" />
     <None Remove="Images\Guide\DarkBackground.jpg" />
     <None Remove="Images\Guide\DarkMakeTour.jpg" />
+    <None Remove="Images\Owner\accommodations_help.jpg" />
+    <None Remove="Images\Owner\forums_help.jpg" />
+    <None Remove="Images\Owner\reservations_help.jpg" />
     <None Remove="Style\Guest2Style\img_demo.png" />
     <None Remove="Style\Guest2Style\img_profile.png" />
     <None Remove="Style\Guest2Style\img_search.png" />
@@ -49,6 +52,7 @@
     <PackageReference Include="Extended.Wpf.Toolkit" Version="4.5.0" />
     <PackageReference Include="itext7" Version="7.2.4" />
     <PackageReference Include="LiveCharts.Wpf" Version="0.9.7" />
+    <PackageReference Include="Syncfusion.PdfViewer.WPF" Version="21.2.9" />
   </ItemGroup>
 
   <ItemGroup>
@@ -67,6 +71,9 @@
     <Resource Include="Images\Guide\DarkMakeTour.jpg" />
     <Resource Include="Images\Guide\LightBackground.jpg" />
     <Resource Include="Images\Guide\LightMakeTour.jpg" />
+    <Resource Include="Images\Owner\accommodations_help.jpg" />
+    <Resource Include="Images\Owner\forums_help.jpg" />
+    <Resource Include="Images\Owner\reservations_help.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -85,6 +92,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Diagrams\UseCaseDiagrams\" />
     <Folder Include="PDF\Guest2PDFs\" />
   </ItemGroup>
 

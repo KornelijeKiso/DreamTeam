@@ -19,6 +19,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using ProjectTourism.DTO;
 
 namespace ProjectTourism.View.UserView
 {
@@ -27,7 +28,7 @@ namespace ProjectTourism.View.UserView
     /// </summary>
     public partial class IdentifyUserWindow : Window
     {
-        public UserVM UserVM { get; set; }
+        public UserDTO UserVM { get; set; }
         public IdentifyUserWindow()
         {
             InitializeComponent();
@@ -38,7 +39,7 @@ namespace ProjectTourism.View.UserView
                 MessageBox.Show("Write your username and password.");
             else
             {
-                UserVM = new UserVM(txtUsername.Text);
+                UserVM = new UserDTO(txtUsername.Text);
                 if (UserVM.GetUser() == null)
                 {
                     MessageBox.Show("User with that username doesn't exist.");

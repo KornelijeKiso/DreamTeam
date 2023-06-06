@@ -11,10 +11,10 @@ namespace ProjectTourism.WPF.View.OwnerView
     /// </summary>
     public partial class RenovationsWindow : Window
     {
-        public RenovationsWindow(AccommodationDTO accommodation)
+        public RenovationsWindow(AccommodationDTO accommodation, bool help)
         {
             InitializeComponent();
-            DataContext = new RenovationsWindowVM(accommodation);
+            DataContext = new RenovationsWindowVM(accommodation, help);
         }
         
         public void ValidateNumberInput(object sender, RoutedEventArgs e)

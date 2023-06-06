@@ -3,10 +3,11 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using ProjectTourism.DTO;
+using ProjectTourism.Localization;
 using ProjectTourism.View.GuideView.TourView;
 using ProjectTourism.View.TourView;
-using ProjectTourism.WPF.ViewModel;
 
 namespace ProjectTourism.WPF.View.GuideView.TourView
 {
@@ -36,14 +37,15 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
             Guide = new GuideDTO(Username);
             if (Guide.Localization == "ENG")
             {
+                LocalizationButton.Content = "Serbian";
                 app.ChangeLanguage("en-US");
             }
             else
             {
+                LocalizationButton.Content = "English";
                 app.ChangeLanguage("sr-Latn-RS");
             }
         }
-
         private void SetUpcomingTour()
         {
             TourAppointmentDTO UpcomingTourApp = Guide.FindGuidesUpcomingTourApp();
@@ -62,47 +64,35 @@ namespace ProjectTourism.WPF.View.GuideView.TourView
         }
         private void AddNewTourButton_Click(object sender, RoutedEventArgs e)
         {
-            HideElements(new List<UIElement> { HomeLabel, WelcomeLabel, UpcomingLabel, UpcomingLabelName, AddNewTourButton, AllToursButton, ImageBorder, UpcomingImage });
+            HideElements(new List<UIElement> { HomeLabel, WelcomeLabel, UpcomingLabel, UpcomingLabelName, AddNewTourButton, AllToursButton, ImageBorder, UpcomingImage, ShortcutsLinkTextBlock });
             ContentArea.Content = new CreateTourUserControl(Guide);
         }
         private void AllToursButton_Click(object sender, RoutedEventArgs e)
         {
-            HideElements(new List<UIElement> { HomeLabel, WelcomeLabel, UpcomingLabel, UpcomingLabelName, AddNewTourButton, AllToursButton, ImageBorder, UpcomingImage });
+            HideElements(new List<UIElement> { HomeLabel, WelcomeLabel, UpcomingLabel, UpcomingLabelName, AddNewTourButton, AllToursButton, ImageBorder, UpcomingImage, ShortcutsLinkTextBlock });
             ContentArea.Content = new AllToursUserControl(Guide.Username);
         }
-        private void Localization_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        string GetLocalizedErrorMessage(string resourceKey)
         {
-            ComboBoxItem selectedItem = LocalizationComboBox.SelectedItem as ComboBoxItem;
+            TextBlock Templabel = new TextBlock();
+            LocExtension locExtension = new LocExtension(resourceKey);
+            BindingOperations.SetBinding(Templabel, TextBlock.TextProperty, locExtension.ProvideValue(null) as BindingBase);
+            return Templabel.Text;
+        }
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("CTRL + H: " + GetLocalizedErrorMessage("Home") +
+                            "\nCTRL + T: " + GetLocalizedErrorMessage("TodaysAppointments") +
+                            "\nCTRL + A: " + GetLocalizedErrorMessage("AllAppointments") +
+                            "\nCTRL + R: " + GetLocalizedErrorMessage("Requests") +
+                            "\nCTRL + P: " + GetLocalizedErrorMessage("Profile"), GetLocalizedErrorMessage("Shortcuts"), MessageBoxButton.OK);
+        }
 
-            if (selectedItem != null)
-            {
-                string selectedLanguage = selectedItem.Content as string;
-
-                if (selectedLanguage != null)
-                {
-                    switch (selectedLanguage)
-                    {
-                        case "ENG":
-                            {
-                                app.ChangeLanguage("en-US");
-                                Guide.ChangeLocalization();
-                                LocalizationComboBox.Text = "ENG";
-                                break;
-                            }
-                        case "SRB":
-                            {
-                                app.ChangeLanguage("sr-Latn-RS");
-                                Guide.ChangeLocalization();
-                                LocalizationComboBox.Text = "SRB";
-                                break;
-                            }
-                        default:
-                            app.ChangeLanguage("en-US");
-                            break;
-                    }
-                }
-                SetLanguage();
-            }
+        private void LocalizationButton_Click(object sender, RoutedEventArgs e)
+        {
+            Guide.ChangeLocalization();
+            SetLanguage();
         }
         public void Update() { }
         public event PropertyChangedEventHandler? PropertyChanged;

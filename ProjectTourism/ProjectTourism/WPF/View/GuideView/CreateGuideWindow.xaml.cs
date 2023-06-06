@@ -10,8 +10,8 @@ namespace ProjectTourism.View.GuideView
     public partial class CreateGuideWindow : Window, INotifyPropertyChanged
     {
         public GuideDTO Guide { get; set; }
-        public UserVM UserVM { get; set; }
-        public CreateGuideWindow(UserVM userVM)
+        public UserDTO UserVM { get; set; }
+        public CreateGuideWindow(UserDTO userVM)
         {
             InitializeComponent();
             DataContext = this;

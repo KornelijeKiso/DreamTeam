@@ -43,5 +43,30 @@ namespace ProjectTourism.Repositories
         {
             throw new NotImplementedException();
         }
+
+        public void TurnHelpOn(Owner owner)
+        {
+            foreach(var o in Owners){
+                if (o.Username.Equals(owner.Username))
+                {
+                    o.HelpOn = true;
+                    break;
+                }
+            }
+            FileHandler.Save(Owners); 
+        }
+
+        public void TurnHelpOff(Owner owner)
+        {
+            foreach (var o in Owners)
+            {
+                if (o.Username.Equals(owner.Username))
+                {
+                    o.HelpOn = false;
+                    break;
+                }
+            }
+            FileHandler.Save(Owners);
+        }
     }
 }

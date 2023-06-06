@@ -14,5 +14,7 @@ namespace ProjectTourism.Domain.IRepositories
         void Add(Owner owner);
         void Delete(Owner owner);
         void Update(Owner owner);
+        void TurnHelpOn(Owner owner);
+        void TurnHelpOff(Owner owner);
     }
 }

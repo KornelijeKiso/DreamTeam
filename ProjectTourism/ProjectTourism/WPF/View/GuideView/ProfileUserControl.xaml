@@ -6,9 +6,11 @@
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.GuideView.TourView"
         xmlns:ns="clr-namespace:ProjectTourism.Localization"
         xmlns:c="clr-namespace:ProjectTourism.Converters"
+        xmlns:conv="clr-namespace:ProjectTourism.Converters"
         mc:Ignorable="d" d:DesignHeight="720" d:DesignWidth="1280">
     <UserControl.Resources>
         <c:ThemeToForegroundConverter x:Key="ThemeToForegroundConverter" />
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </UserControl.Resources>
     <Grid>
         <Label x:Name="NameSurnameLabel" Foreground="{Binding Path=Guide.DarkTheme, Converter={StaticResource ThemeToForegroundConverter}}" HorizontalAlignment="Left" Height="78" Margin="90,35,0,0" VerticalAlignment="Top" Width="283" FontSize="40">
@@ -51,8 +53,13 @@
             <TextBox x:Name="textbox3" Grid.Row="2" Grid.Column="1" Text="{Binding Guide.Language}" Margin="0,8,0,8" IsReadOnly="True"/>
             <TextBox x:Name="textbox4" Grid.Row="3" Grid.Column="1" Text="{Binding Guide.Biography}" Margin="0,8,0,8" IsReadOnly="True" Grid.RowSpan="2"/>
             <TextBox x:Name="textbox5" Grid.Row="5" Grid.Column="1" Text="" Margin="0,8,0,8" IsReadOnly="True" Visibility="Hidden"/>
-            <Button Grid.Row="6" Grid.Column="1" Width="60" Height="30" Content="Switch" Click="ChangeTheme_Click"></Button>
-
+            <Button Grid.Row="6" Grid.Column="1" Width="60" Height="30" Content="{ns:Loc Switch}" Click="ChangeTheme_Click">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
         </Grid>
         <StackPanel Orientation="Horizontal" Margin="1145,160,-18,483">
             <Image x:Name="LogOutImage" Source="https://cdn-icons-png.flaticon.com/512/10521/10521967.png" Width="22" Height="22" Margin="0,-4,5,0"/>
@@ -63,6 +70,44 @@
             </TextBlock>
         </StackPanel>
 
-        <ContentControl x:Name="ContentArea"></ContentControl>
+        <DataGrid x:Name="DataGridStats"
+          Visibility="{Binding Guide.IsSuperGuide, Converter={conv:BoolToVisibilityConverter}}"
+          ItemsSource="{Binding Path=Guide.SuperGuidesLanguages}"          
+          IsReadOnly="True" 
+          AutoGenerateColumns="False" 
+          Margin="706,220,424,305" 
+          RowHeight="130">
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="White"/>
+            </DataGrid.Resources>
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="BorderThickness" Value="0"/>
+                </Style>
+            </DataGrid.CellStyle>
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Width="*" Header="{ns:Loc SuperGuide}">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Source="https://cdn-icons-png.flaticon.com/256/1021/1021220.png" Width="120" Height="120" Margin="0,0,10,0"/>
+                                <TextBlock Text="{Binding}" FontSize="17" Margin="-98,108,0,0"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+        <ContentControl x:Name="ContentArea">
+            <Button Content="{ns:Loc Quit}" Click="QuitButton_Click" HorizontalAlignment="Left" Height="33" Margin="1150,565,0,0" VerticalAlignment="Top" Width="89">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="10"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </ContentControl>
     </Grid>
 </UserControl>

@@ -15,7 +15,13 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public ObservableCollection<TourRequestDTO> AcceptedRequests { get; set; }
         public ObservableCollection<TourRequestDTO> ExpiredRequests { get; set; }
         public ObservableCollection<TourRequestDTO> OthersRequests { get; set; }
-
+        
+        private object _TourRequestsContent;
+        public object TourRequestsContent
+        {
+            get { return _TourRequestsContent; }
+            set { _TourRequestsContent = value; OnPropertyChanged(); }
+        }
         public TourRequestsVM() { }
         public TourRequestsVM(Guest2DTO guest2)
         {
@@ -24,6 +30,10 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             AcceptedRequests = SetAcceptedRequests();
             ExpiredRequests = SetExpiredRequests();
             OthersRequests = SetOthersRequests();
+
+            //DisplayStatisticsCommand
+            TourRequestStatisticsCommand = new RelayCommand(TourRequestStatisticsClick);
+            TourRequestCommand = new RelayCommand(CreateTourRequest);
         }
 
         private ObservableCollection<TourRequestDTO> SetPendingRequests()
@@ -70,36 +80,21 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             return others;
         }
 
-        private ICommand _TourRequestCommand;
-        public ICommand TourRequestCommand
+        public ICommand TourRequestCommand { get; set; }
+        public void CreateTourRequest(object obj)
         {
-            get
-            {
-                return _TourRequestCommand ?? (_TourRequestCommand = new CommandHandler(() => TourRequest_Click(), () => true));
-            }
-        }
-        public void TourRequest_Click()
-        {
-            CreateTourRequestWindow tourRequestWindow = new CreateTourRequestWindow(Guest2);
-            tourRequestWindow.ShowDialog();
-            PendingRequests = SetPendingRequests(); // updating pending list
-            // TO DO -> new PENDING request that we just created isn't visible when the tourRequestWindow is closed,
-            //          only when we enter the RequestTour MenuItem again
-            //          FIX THIS
+            TourRequestsContent = new CreateTourRequestVM(Guest2);
+            
+            //PendingRequests = SetPendingRequests(); // updating pending list
+            //// TO DO -> new PENDING request that we just created isn't visible when the tourRequestWindow is closed,
+            ////          only when we enter the RequestTour MenuItem again
+            ////          FIX THIS
         }
 
-        private ICommand _TourRequestStatisticsCommand;
-        public ICommand TourRequestStatisticsCommand
+        public ICommand TourRequestStatisticsCommand { get; set; }
+        public void TourRequestStatisticsClick(object obj)
         {
-            get
-            {
-                return _TourRequestStatisticsCommand ?? (_TourRequestStatisticsCommand = new CommandHandler(() => TourRequestStatisticsClick(), () => true));
-            }
-        }
-        public void TourRequestStatisticsClick()
-        {
-            TourRequestStatisticsWindow tourRequestStatisticsWindow = new TourRequestStatisticsWindow(Guest2);
-            tourRequestStatisticsWindow.ShowDialog();
+            TourRequestsContent = new TourRequestStatisticsVM(Guest2);
         }
     }
 }

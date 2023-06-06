@@ -8,6 +8,7 @@ using iText.Kernel.Colors;
 using ProjectTourism.Localization;
 using System.Windows.Controls;
 using System.Windows.Data;
+using ProjectTourism.WPF.View.GuideView;
 
 namespace ProjectTourism.PDF.GuidePDF
 {
@@ -16,6 +17,7 @@ namespace ProjectTourism.PDF.GuidePDF
         private PdfWriter pdfWriter { get; set; }
         private PdfDocument pdfDocument { get; set; }
         private Document document { get; set; }
+        private string path;
         string GetLocalizedErrorMessage(string resourceKey)
         {
             TextBlock Templabel = new TextBlock();
@@ -25,7 +27,8 @@ namespace ProjectTourism.PDF.GuidePDF
         }
         public GuestsOnATourPDFGenerator(TourAppointmentDTO tourApp)
         {
-            pdfWriter = new PdfWriter(GetLocalizedErrorMessage("PDFName") + tourApp.Id.ToString() + ".pdf");
+            path = GetLocalizedErrorMessage("PDFName") + tourApp.Id.ToString() + ".pdf";
+            pdfWriter = new PdfWriter(path);
             pdfDocument = new PdfDocument(pdfWriter);
             document = new Document(pdfDocument);
 
@@ -88,6 +91,8 @@ namespace ProjectTourism.PDF.GuidePDF
 
             document.Add(table);
             document.Close();
+            PDFViewer pDFViewer = new PDFViewer(path);
+            pDFViewer.Show();
         }
     }
 }

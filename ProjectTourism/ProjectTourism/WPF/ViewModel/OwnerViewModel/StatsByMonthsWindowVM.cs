@@ -32,8 +32,8 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
         private void PDF(object parameter)
         {
             PDFgenerator generatePDFDocumentVM = new PDFgenerator(YearlyStats, Accommodation);
-            MessageBox.Show("Your Report is generated in folder ../../PDF/OwnerPDFs\n\n" +
-                "under the name: statistics_report" + Accommodation.Id.ToString() + ".pdf");
+            //MessageBox.Show("Your Report is generated in folder ../../PDF/OwnerPDFs\n\n" +
+            //    "under the name: statistics_report" + Accommodation.Id.ToString() + ".pdf");
         }
 
         public ICommand PDFCommand

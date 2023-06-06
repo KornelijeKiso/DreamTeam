@@ -5,7 +5,6 @@ namespace ProjectTourism.Model
 {
     public class Guide : User, Serializable
     {
-        public bool? IsSuperGuide;
         public string Biography;
         public string Language;
         public string Localization;
@@ -16,7 +15,6 @@ namespace ProjectTourism.Model
 
         public Guide()
         {
-            IsSuperGuide = false;
             Tours = new List<Tour>();
             TourAppointments = new List<TourAppointment>();
             ComplexTours = new List<ComplexTour>();
@@ -32,7 +30,6 @@ namespace ProjectTourism.Model
             this.Email = user.Email;
             this.PhoneNumber = user.PhoneNumber;
 
-            IsSuperGuide = false;
             Biography = "";
             Language = "";
             DarkTheme = false;

@@ -9,11 +9,9 @@
         <Grid.Background >
             <SolidColorBrush  Color="Black" Opacity="0.75"/>
         </Grid.Background>
-        <Button Click="ExitButtonClick" HorizontalAlignment="Left" Margin="1220,10,0,0" VerticalAlignment="Top" Height="35" Width="35">
-            <Button.Content>
-                <Image Source="https://img.icons8.com/office/1x/close-window.png" />
-            </Button.Content>
-        </Button>
+        <Grid HorizontalAlignment="Left" Margin="1220,10,0,0" VerticalAlignment="Top" Height="35" Width="35">
+            <Image Source="https://img.icons8.com/office/1x/close-window.png" />
+        </Grid>
         <Border x:Name="ImageBorder"  Margin="241,105,241,105" BorderThickness="3" BorderBrush="AliceBlue">
             <Image Stretch="UniformToFill" Source="{Binding Picture, UpdateSourceTrigger=PropertyChanged}" />
         </Border>

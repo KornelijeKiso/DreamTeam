@@ -60,13 +60,9 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
         public ReservationDTO SelectedReservation { get; set; }
         public ReservationsMenuItemVM(string username)
         {
-            SetOwner(username);
+            Owner = new OwnerDTO(username);
             popupVisible = false;
             popupOpacity = 1.0;
-        }
-        private void SetOwner(string username)
-        {
-            Owner = new OwnerDTO(username);
         }
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -92,7 +88,7 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
         private void PostponeRequestClick(object parameter)
         {
             Owner.timer.Stop();
-            PostponeRequestWindow postponeRequestWindow = new PostponeRequestWindow(SelectedReservation);
+            PostponeRequestWindow postponeRequestWindow = new PostponeRequestWindow(SelectedReservation, Owner.HelpOn);
             postponeRequestWindow.ShowDialog();
             if (SelectedReservation != null)
             {

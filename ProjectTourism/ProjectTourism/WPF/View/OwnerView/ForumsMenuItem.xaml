@@ -91,7 +91,7 @@
 
             </Rectangle>
             <Border Background="White" Height="560" Width="550" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="DodgerBlue" BorderThickness="2" Margin="70 80 100 20" >
-                <StackPanel>
+                    <StackPanel Visibility="{Binding AnyForums, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
                     <StackPanel Orientation="Horizontal">
                         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top" Width="360">
                             <Label FontSize="24" FontWeight="SemiBold" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top">
@@ -165,7 +165,13 @@
                         </DataGrid.Columns>
                     </DataGrid>
                         <xctk:WatermarkTextBox BorderThickness="2" FontSize="14" HorizontalAlignment="Left" Margin="23,10,0,0" TextWrapping="Wrap" Watermark="Enter your comment here." Text="{Binding Path=CommentText, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="500" Height="80"/>
-                        <Button Width="120" Margin="10" Height="35" Content="Post" FontSize="17" Command="{Binding PostCommand}"></Button>
+                        <Button Width="120" Margin="10" Height="35" Content="Post" FontSize="17" Command="{Binding PostCommand}">
+                            <Button.ToolTip>
+                                <ToolTip Visibility="{Binding Owner.HelpOn, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">
+                                    Publish your comment
+                                </ToolTip>
+                            </Button.ToolTip>
+                        </Button>
                     </StackPanel>
             </Border>
             </Grid>

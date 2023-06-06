@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.OwnerView"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="RejectingPostponeMessageWindow" Height="300" Width="400" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="Reject postpone" Height="300" Width="400" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Grid>
         <TextBlock VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30 20 0 0" Width="340" Height="40" TextWrapping="Wrap" TextAlignment="Justify" Text="If you want, you can enter a message for the guest explaining why you rejected his request."></TextBlock>
         <xctk:WatermarkTextBox Name="textBox" Watermark="Enter explanation message here."  BorderBrush="Black" BorderThickness="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="30 70 0 0" Width="340" Height="140" TextWrapping="Wrap"></xctk:WatermarkTextBox>

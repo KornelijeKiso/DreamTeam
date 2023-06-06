@@ -26,10 +26,21 @@ namespace ProjectTourism.WPF.View.OwnerView
     /// </summary>
     public partial class StatisticsWindow : Window
     {
-        public StatisticsWindow(AccommodationDTO accommodation)
+        public StatisticsWindow(AccommodationDTO accommodation, bool help)
         {
             InitializeComponent();
-            DataContext = new StatisticsWindowVM(accommodation);
+            DataContext = new StatisticsWindowVM(accommodation, help);
+        }
+        private void toti_Loaded(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            ToolTip toolTip = button.ToolTip as ToolTip;
+            StatisticsWindowVM viewModel = DataContext as StatisticsWindowVM;
+
+            if (toolTip != null && viewModel != null)
+            {
+                toolTip.Visibility = viewModel.Help ? Visibility.Visible : Visibility.Collapsed;
+            }
         }
     }
 }

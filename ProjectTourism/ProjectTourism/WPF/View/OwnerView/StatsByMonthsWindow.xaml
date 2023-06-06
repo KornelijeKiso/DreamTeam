@@ -8,7 +8,7 @@
         xmlns:vm="clr-namespace:ProjectTourism.WPF.ViewModel.OwnerViewModel"
 
         mc:Ignorable="d"
-        Title="StatsByMonthsWindow" Height="540" Width="650" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+        Title="Monthly stats" Height="540" Width="650" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Window.DataContext>
         <vm:YourAccommodationsMenuItemVM/>
     </Window.DataContext>
@@ -87,13 +87,18 @@
                     </StackPanel>
                 </GroupBox>
                 <Button HorizontalAlignment="Right" VerticalAlignment="Bottom" Content ="Cancel" Click="CancelClick"  Width="80" Height="35" Margin="220 -40 0 0"></Button>
-                <Button Foreground="Red" FontWeight="SemiBold" BorderBrush="Red" BorderThickness="2" Width="80" Height="35" Margin="-280 150 0 0" Command="{Binding PDFCommand}"  Visibility="Visible">
+                <Button Foreground="Red" Loaded="toti_Loaded" FontWeight="SemiBold" BorderBrush="Red" BorderThickness="2" Width="80" Height="35" Margin="-280 150 0 0" Command="{Binding PDFCommand}"  Visibility="Visible">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal">
                             <Image Source="https://img.icons8.com/?size=2x&amp;id=zGrV8SMoAvHE&amp;format=png" Height="22"></Image>
                             <Label Content="Report" FontSize="13"></Label>
                         </StackPanel>
                     </Button.Content>
+                    <Button.ToolTip>
+                        <ToolTip x:Name="toolTip" Visibility="Collapsed">
+                            Generate prd report about yearly and monthly statistics for this accommodation
+                        </ToolTip>
+                    </Button.ToolTip>
                 </Button>
             </StackPanel>
            </StackPanel>

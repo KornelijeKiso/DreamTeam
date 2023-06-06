@@ -1,7 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using ProjectTourism.DTO;
 using System.Windows.Input;
-using System.Windows.Controls;
 using ProjectTourism.Utilities;
 using System.ComponentModel;
 
@@ -9,8 +8,6 @@ namespace ProjectTourism.WPF.ViewModel.GuideViewModels
 {
     public class ImageViewerUserControlVM: INotifyPropertyChanged
     {
-        public Border ImageBorder { get; set; } = new Border();
-        public Grid BlackBackground { get; set; } = new Grid();
         public TourDTO Tour { get; set; }
         private int _i;
         public int i

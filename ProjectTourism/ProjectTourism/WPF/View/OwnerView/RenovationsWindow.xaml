@@ -82,13 +82,24 @@
                                     <Label Content="Enter duration :" FontWeight="Normal"></Label>
                                     <xctk:IntegerUpDown LostFocus="ValidateNumberInput" Name="DurationTextBox" PreviewTextInput="IntegerValidation" Margin="36,3,0 0" TextAlignment="Left" HorizontalAlignment="Left" VerticalAlignment="Top" Width="110" Height="24" Minimum="1" Maximum="1000" Value="{Binding RenovationAppointment.Duration, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=False, ValidatesOnDataErrors=False, ValidatesOnNotifyDataErrors=False}"/>
                                 </StackPanel>
-                                <Button Margin="0 30 0 0" Command="{Binding SelectFreeAppointmentClickCommand}" FontWeight="Normal" Width="200"  Content="Select free appointment" FontSize="12"  Height="28"></Button>
+                                <Button Margin="0 30 0 0" Command="{Binding SelectFreeAppointmentClickCommand}" FontWeight="Normal" Width="200"  Content="Select free appointment" FontSize="12"  Height="28">
+                                    <Button.ToolTip>
+                                        <ToolTip Visibility="{Binding Help, Converter={conv:BoolToVisibilityConverter}}">
+                                            Select one of free appointments for renovation
+                                        </ToolTip>
+                                    </Button.ToolTip>
+                                </Button>
                                 <Label Content="Selected appointment :" FontSize="12" Margin="5 0"></Label>
                                 <TextBox Name="SelectedFreeAppointment" Text="{Binding SelectedFreeAppointment,UpdateSourceTrigger=PropertyChanged}" IsEnabled="False" TextAlignment="Center" FontSize="15" Padding="3"  Margin="0 -5 0 0" Height="30" Width="280"></TextBox>
                                 <Button Command="{Binding DeclineClickCommand}" Margin="264 -30 10 0" Background="Transparent" BorderBrush="Transparent">
                                     <Button.Content>
                                         <Image Source="https://pics.freeicons.io/uploads/icons/png/11523361591679820327-64.png" Stretch="Fill" Visibility="Visible"></Image>
                                     </Button.Content>
+                                    <Button.ToolTip>
+                                        <ToolTip Visibility="{Binding Help, Converter={conv:BoolToVisibilityConverter}}">
+                                            Decline selected appointment
+                                        </ToolTip>
+                                    </Button.ToolTip>
                                 </Button>
                             </StackPanel>
                         </GroupBox>
@@ -100,6 +111,11 @@
                                     <Setter Property="CornerRadius" Value="5"/>
                                 </Style>
                             </Button.Resources>
+                            <Button.ToolTip>
+                                <ToolTip Visibility="{Binding Help, Converter={conv:BoolToVisibilityConverter}}">
+                                    Schedule new renovation
+                                </ToolTip>
+                            </Button.ToolTip>
                         </Button>
                     </StackPanel>
                 </GroupBox>

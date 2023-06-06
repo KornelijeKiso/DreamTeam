@@ -59,6 +59,13 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
             SetOwner(username);
             NotificationsVisibility = Visibility.Collapsed;
         }
+        public MainOwnerWindowVM(string username, int i)
+        {
+            Content = new Help(username);
+            HelpItem.Background = Brushes.LightSkyBlue;
+            SetOwner(username);
+            NotificationsVisibility = Visibility.Collapsed;
+        }
         public MainOwnerWindowVM()
         {
             
@@ -90,6 +97,22 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
             AccommodationsItem.Background = Brushes.Transparent;
             ReservationsItem.Background = Brushes.LightSkyBlue;
             HelpItem.Background = Brushes.Transparent;
+            ForumsItem.Background = Brushes.Transparent;
+            NotificationsItem.Background = Brushes.Transparent;
+            ProfileItem.Background = Brushes.Transparent;
+            ResetNotifications();
+        }
+        public void SwitchToHelp(object parameter)
+        {
+            Help h = new Help(Owner.Username);
+            if(AccommodationsItem.Background==Brushes.LightSkyBlue) h.Tab.SelectedIndex= 0; 
+            if(ReservationsItem.Background==Brushes.LightSkyBlue) h.Tab.SelectedIndex= 1; 
+            if(ForumsItem.Background==Brushes.LightSkyBlue) h.Tab.SelectedIndex= 2; 
+
+            Content = h;
+            AccommodationsItem.Background = Brushes.Transparent;
+            ReservationsItem.Background = Brushes.Transparent;
+            HelpItem.Background = Brushes.LightSkyBlue;
             ForumsItem.Background = Brushes.Transparent;
             NotificationsItem.Background = Brushes.Transparent;
             ProfileItem.Background = Brushes.Transparent;
@@ -160,6 +183,10 @@ namespace ProjectTourism.WPF.ViewModel.OwnerViewModel
         public ICommand SwitchToYourProfileCommand
         {
             get => new RelayCommand(SwitchToYourProfile);
+        }
+        public ICommand SwitchToHelpCommand
+        {
+            get => new RelayCommand(SwitchToHelp);
         }
         public ICommand ShowNotificationsCommand
         {

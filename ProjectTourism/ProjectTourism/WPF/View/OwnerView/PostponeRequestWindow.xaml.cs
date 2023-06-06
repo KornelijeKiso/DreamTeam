@@ -1,6 +1,7 @@
 ﻿using ProjectTourism.Domain.Model;
 using ProjectTourism.DTO;
 using ProjectTourism.WPF.ViewModel;
+using ProjectTourism.WPF.ViewModel.OwnerViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,12 +23,14 @@ namespace ProjectTourism.WPF.View.OwnerView
     /// </summary>
     public partial class PostponeRequestWindow : Window
     {
+        public bool Help { get; set; }
         public ReservationDTO Reservation { get; set; }
-        public PostponeRequestWindow(ReservationDTO reservation)
+        public PostponeRequestWindow(ReservationDTO reservation, bool help)
         {
             InitializeComponent();
             DataContext = this;
             Reservation = reservation;
+            Help = help;
         }
         public void AcceptClick(object sender, RoutedEventArgs e)
         {
@@ -54,5 +57,15 @@ namespace ProjectTourism.WPF.View.OwnerView
                 Close();
             }
         }
+        private void toti_Loaded(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            ToolTip toolTip = button.ToolTip as ToolTip;
+            if (toolTip != null)
+            {
+                toolTip.Visibility = Help ? Visibility.Visible : Visibility.Collapsed;
+            }
+        }
+
     }
 }

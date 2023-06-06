@@ -8,6 +8,7 @@ using ProjectTourism.WPF.View.Guest2View;
 using ProjectTourism.WPF.View.Guest2View.TicketView;
 using ProjectTourism.Utilities;
 using ProjectTourism.DTO;
+using System.Windows;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
@@ -24,7 +25,14 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public string searchLanguage { get; set; }
         public string searchDuration { get; set; }
         public string searchMaxNumberOfGuests { get; set; }
-        
+
+        private object _HomeContent;
+        public object HomeContent
+        {
+            get { return _HomeContent; }
+            set { _HomeContent = value; OnPropertyChanged(); }
+        }
+
         public HomeVM() { }
         public HomeVM(Guest2DTO guest2)
         {
@@ -40,6 +48,9 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             searchLanguage = "";
             searchDuration = "";
             searchMaxNumberOfGuests = "";
+
+            // CreateTicketCommand
+            CreateTicketCommand = new RelayCommand(CreateTicket);
         }
         
         public void UpdateToursList(List<TourDTO> tours)
@@ -233,28 +244,18 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             SearchOne();
         }
 
-        private ICommand _BuyTicketCommand;
-        public ICommand BuyTicketCommand
+        public ICommand CreateTicketCommand { get; set; }
+        private void CreateTicket(object obj)
         {
-            get
+            if (SelectedTour != null)
             {
-                return _BuyTicketCommand ?? (_BuyTicketCommand = new CommandHandler(() => BuyTicket_Click(), () => CanBuy));
+                HomeContent = new CreateTicketVM(Guest2, SelectedTour);
+            }
+            else
+            {
+                MessageBox.Show("Please select the tour!");
             }
         }
-        public bool CanBuy
-        {
-            get
-            {
-                return (SelectedTour != null && Guest2 != null); 
-            }
-        }
-
-        public void BuyTicket_Click()
-        {
-                CreateTicketWindow createTicketWidnow = new CreateTicketWindow(Guest2, SelectedTour);
-                createTicketWidnow.ShowDialog();
-        }
-
 
         //private ICommand _PictureForwardCommand;
         //public ICommand PictureForwardCommand

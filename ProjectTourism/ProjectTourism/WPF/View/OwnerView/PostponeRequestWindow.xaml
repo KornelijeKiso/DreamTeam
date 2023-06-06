@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.OwnerView"
         xmlns:conv="clr-namespace:ProjectTourism.Converters"
         mc:Ignorable="d"
-        Title="PostponeRequestWindow" Height="400" Width="450" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="Postpone request" Height="400" Width="450" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary>
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
@@ -90,19 +90,29 @@
             </GroupBox.Header>
         </GroupBox>
         <Button Content="Cancel" Foreground="DarkBlue" FontSize="15" Background="Transparent" Height="30" Width="70" Margin="315,280,0,0" IsCancel="True"></Button>
-        <Button Content="Accept" BorderThickness="2" BorderBrush="DodgerBlue" Foreground="DarkBlue" FontSize="15" Background="Transparent" Height="30" Width="70" Margin="-185,260,0,0" Click="AcceptClick">
+        <Button Content="Accept" BorderThickness="2" Loaded="toti_Loaded" BorderBrush="DodgerBlue" Foreground="DarkBlue" FontSize="15" Background="Transparent" Height="30" Width="70" Margin="-185,260,0,0" Click="AcceptClick">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
+            <Button.ToolTip>
+                <ToolTip x:Name="toolTip1" Visibility="Collapsed">
+                    This action will change dates of reservation
+                </ToolTip>
+            </Button.ToolTip>
         </Button>
-        <Button Content="Reject" BorderThickness="2" BorderBrush="DodgerBlue" Foreground="DarkBlue" FontSize="15" Background="Transparent" Height="30" Width="70" Margin="-15,260,0,0" Click="RejectClick">
+        <Button Content="Reject" BorderThickness="2" Loaded="toti_Loaded" BorderBrush="DodgerBlue" Foreground="DarkBlue" FontSize="15" Background="Transparent" Height="30" Width="70" Margin="-15,260,0,0" Click="RejectClick">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5"/>
                 </Style>
             </Button.Resources>
+            <Button.ToolTip>
+                <ToolTip x:Name="toolTip2" Visibility="Collapsed">
+                    By rejecting request, reservation won't be changed
+                </ToolTip>
+            </Button.ToolTip>
         </Button>
         <Image Source="https://img.icons8.com/external-outline-design-circle/2x/external-Right-Arrow-web-design-and-development-outline-design-circle.png" Height="40" Margin="0 -25 0 0"></Image>
     </Grid>

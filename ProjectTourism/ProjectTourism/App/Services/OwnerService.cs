@@ -33,5 +33,13 @@ namespace ProjectTourism.Services
         {
             return OwnerRepo.GetAll();
         }
+        public void TurnHelpOn(Owner owner)
+        {
+            OwnerRepo.TurnHelpOn(owner);
+        }
+        public void TurnHelpOff(Owner owner)
+        {
+            OwnerRepo.TurnHelpOff(owner);
+        }
     }
 }
