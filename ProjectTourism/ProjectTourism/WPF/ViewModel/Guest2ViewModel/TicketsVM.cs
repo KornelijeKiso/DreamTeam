@@ -36,19 +36,25 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 
             // Update Ticket Command
             UpdateTicketCommand = new RelayCommand(UpdateTicket);
+            Guest2AttendanceCommand = new RelayCommand(Guest2Attendance);
         }
 
         public ICommand UpdateTicketCommand { get; set; }
         private void UpdateTicket(object obj)
         {
             if (SelectedTicket != null)
-            {
                 TicketContent = new UpdateTicketVM(Guest2, SelectedTicket);
-            }
             else
-            {
                 MessageBox.Show("Please select the ticket you would like to update!");
-            }
+        }
+
+        public ICommand Guest2AttendanceCommand { get; set; }
+        public void Guest2Attendance(object obj)
+        {
+            if (SelectedTicket != null)
+                TicketContent = new Guest2AttendanceVM(Guest2, SelectedTicket);
+            else
+                MessageBox.Show("Please select the ticket!");
         }
 
         private ObservableCollection<TicketDTO> SetUpcomingTickets()
@@ -148,26 +154,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             gradeTicketWindow.ShowDialog();
         }
 
-        private ICommand _Guest2AttendanceCommand;
-        public ICommand Guest2AttendanceCommand
-        {
-            get
-            {
-                return _Guest2AttendanceCommand ?? (_Guest2AttendanceCommand = new CommandHandler(() => Guest2Attendance_Click(), () => CanAttend));
-            }
-        }
-        public bool CanAttend
-        {
-            get
-            {
-                return (SelectedTicket != null && Guest2 != null);  //&& SelectedTicket.TourAppointment.State == TOURSTATE.STARTED);
-            }
-        }
-        public void Guest2Attendance_Click()
-        {
-            Guest2AttendanceWindow guest2AttendanceWindow = new Guest2AttendanceWindow(SelectedTicket, Guest2);
-            guest2AttendanceWindow.ShowDialog();
-        }
+        
 
         private ICommand _GeneratePDFDocumentCommand;
         public ICommand GeneratePDFDocumentCommand

@@ -39,6 +39,10 @@
         <uc:UpdateTicketUserControl />
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:Guest2AttendanceVM}">
+        <uc:Guest2AttendanceUserControl />
+    </DataTemplate>
+
     <DataTemplate DataType="{x:Type vm:CreateTourRequestVM}">
         <uc:CreateTourRequestUserControl />
     </DataTemplate>
@@ -47,6 +51,8 @@
         <uc:TourRequestStatisticsUserControl />
     </DataTemplate>
 
-
+    <!--<DataTemplate DataType="{x:Type vm:CreateComplexTourRequestVM}">
+        <uc:CreateComplexTourRequestUserControl />
+    </DataTemplate>-->
 
 </ResourceDictionary>
