@@ -21,8 +21,9 @@ using ProjectTourism.Repositories;
 using ProjectTourism.WPF.View.Guest1View;
 using ProjectTourism.WPF.ViewModel.Guest1ViewModel;
 using ProjectTourism.DTO;
+using ProjectTourism.View.Guest1View;
 
-namespace ProjectTourism.View.Guest1View
+namespace ProjectTourism.WPF.View.Guest1View
 {
     /// <summary>
     /// Interaction logic for Guest1Window.xaml

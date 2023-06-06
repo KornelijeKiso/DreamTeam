@@ -54,14 +54,14 @@ namespace ProjectTourism.View.Guest1View
             //SetUpDatePicker();
 
         }
-        //public void ShowMenu(object sender, RoutedEventArgs e)
-        //{
-        //    Menu.Visibility = Visibility.Visible;
-        //}
-        //public void HideMenu(object sender, RoutedEventArgs e)
-        //{
-        //    Menu.Visibility = Visibility.Collapsed;
-        //}
+        public void ShowMenu(object sender, RoutedEventArgs e)
+        {
+            Menu.Visibility = Visibility.Visible;
+        }
+        public void HideMenu(object sender, RoutedEventArgs e)
+        {
+            Menu.Visibility = Visibility.Collapsed;
+        }
         //private void SetUpDatePicker()
         //{
         //    StartDatePicker.DisplayDate = DateTime.Now;
