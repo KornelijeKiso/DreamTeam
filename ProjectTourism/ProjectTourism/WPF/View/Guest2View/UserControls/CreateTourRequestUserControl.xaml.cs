@@ -26,38 +26,25 @@ namespace ProjectTourism.WPF.View.Guest2View.UserControls
         public CreateTourRequestUserControl()
         {
             InitializeComponent();
+            SetUpDatePicker();
             //DataContext = new CreateTourRequestVM();
         }
 
         public CreateTourRequestUserControl(Guest2DTO guest2)
         {
             InitializeComponent();
+            SetUpDatePicker();
             this.createTourRequestVM = new CreateTourRequestVM();
-            SetUpDatePicker(createTourRequestVM.TourRequest);
             DataContext = this.createTourRequestVM;
         }
 
-        private void SetUpDatePicker(TourRequestDTO TourRequest)
-        {
+        private void SetUpDatePicker()
+        {   
             StartDatePicker.DisplayDate = DateTime.Now;
-            TourRequest.StartDate = DateOnly.FromDateTime(new DateTime(1, 1, 1));
             StartDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1, 1, 1), DateTime.Now.AddDays(2)));
 
             EndDatePicker.DisplayDate = DateTime.Now;
-            TourRequest.EndDate = DateOnly.FromDateTime(new DateTime(1, 1, 1));
             EndDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1, 1, 1), DateTime.Now.AddDays(2)));
-        }
-        
-        // TO DO -> fix
-        private void StartDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            createTourRequestVM.TourRequest.StartDate = DateOnly.FromDateTime((DateTime)(((DatePicker)sender).SelectedDate));
-            DateTime startDate = (createTourRequestVM.TourRequest.StartDate.ToDateTime(TimeOnly.MinValue));
-            EndDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1, 1, 1), startDate));
-        }
-        private void EndDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            createTourRequestVM.TourRequest.EndDate = DateOnly.FromDateTime((DateTime)(((DatePicker)sender).SelectedDate));
         }
     }
 }
