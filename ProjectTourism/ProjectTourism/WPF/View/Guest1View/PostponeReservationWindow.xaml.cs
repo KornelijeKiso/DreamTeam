@@ -1,4 +1,5 @@
-﻿using ProjectTourism.Model;
+﻿using ProjectTourism.DTO;
+using ProjectTourism.Model;
 using ProjectTourism.Repositories;
 using ProjectTourism.Services;
 using ProjectTourism.WPF.ViewModel;
@@ -22,21 +23,21 @@ namespace ProjectTourism.WPF.View.Guest1View
     /// <summary>
     /// Interaction logic for PostponeReservationWindow.xaml
     /// </summary>
-    public partial class PostponeReservationWindow : Window
+    public partial class PostponeReservationWindow : UserControl
     {
-        public Guest1VM Guest1VM { get; set; }
-        public ObservableCollection<ReservationVM> ReservationVMs { get; set; }
-        public ReservationVM ReservationVM { get; set; }
+        public Guest1DTO Guest1DTO { get; set; }
+        public ObservableCollection<ReservationDTO> ReservationDTOs { get; set; }
+        public ReservationDTO ReservationDTO { get; set; }
         public int GuestCount { get; set; }
         public DateOnly startingDate { get; set; }
         public DateOnly endingDate { get; set; }
-        public PostponeReservationWindow(ReservationVM reservationVM, string username)
+        public PostponeReservationWindow(ReservationDTO reservationDTO, string username)
         {
             InitializeComponent();
             //DataContext = this;
-            ReservationVM = new ReservationVM(new Reservation());
-            SetReservation(reservationVM);
-            Guest1VM = new Guest1VM(username);
+            ReservationDTO = new ReservationDTO(new Reservation());
+            SetReservation(reservationDTO);
+            Guest1DTO = new Guest1DTO(username);
             SetUpDatePicker();
         }
         private void SetUpDatePicker()
@@ -48,27 +49,27 @@ namespace ProjectTourism.WPF.View.Guest1View
             endingDate = DateOnly.FromDateTime(DateTime.Now);
             EndDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1, 1, 1), DateTime.Now.AddDays(-1)));
             ReservationService reservationService = new ReservationService();
-            ReservationVMs = new ObservableCollection<ReservationVM>(reservationService.GetAll().Select(r => new ReservationVM(r)).Reverse().ToList());
+            ReservationDTOs = new ObservableCollection<ReservationDTO>(reservationService.GetAll().Select(r => new ReservationDTO(r)).Reverse().ToList());
 
-            foreach (ReservationVM reservationVM in ReservationVMs)
+            foreach (ReservationDTO reservationDTO in ReservationDTOs)
             {
-                if (ReservationVM.AccommodationId == reservationVM.AccommodationId)
+                if (ReservationDTO.AccommodationId == reservationDTO.AccommodationId)
                 {
-                    StartDatePicker.BlackoutDates.Add(new CalendarDateRange(reservationVM.StartDate.ToDateTime(TimeOnly.Parse("00:00")), reservationVM.EndDate.ToDateTime(TimeOnly.Parse("00:00"))));
-                    EndDatePicker.BlackoutDates.Add(new CalendarDateRange(reservationVM.StartDate.ToDateTime(TimeOnly.Parse("00:00")), reservationVM.EndDate.ToDateTime(TimeOnly.Parse("00:00"))));
+                    StartDatePicker.BlackoutDates.Add(new CalendarDateRange(reservationDTO.StartDate.ToDateTime(TimeOnly.Parse("00:00")), reservationDTO.EndDate.ToDateTime(TimeOnly.Parse("00:00"))));
+                    EndDatePicker.BlackoutDates.Add(new CalendarDateRange(reservationDTO.StartDate.ToDateTime(TimeOnly.Parse("00:00")), reservationDTO.EndDate.ToDateTime(TimeOnly.Parse("00:00"))));
                 }
             }
         }
 
-        private void SetReservation(ReservationVM reservationVM)
+        private void SetReservation(ReservationDTO reservationDTO)
         {
-            ReservationVM.Id = reservationVM.Id;
-            ReservationVM.StartDate = startingDate;
-            ReservationVM.EndDate = endingDate;
-            ReservationVM.Guest1 = reservationVM.Guest1;
-            ReservationVM.Guest1Username = reservationVM.Guest1Username;
-            ReservationVM.AccommodationId = reservationVM.AccommodationId;
-            ReservationVM.Accommodation = reservationVM.Accommodation;
+            ReservationDTO.Id = reservationDTO.Id;
+            ReservationDTO.StartDate = startingDate;
+            ReservationDTO.EndDate = endingDate;
+            ReservationDTO.Guest1 = reservationDTO.Guest1;
+            ReservationDTO.Guest1Username = reservationDTO.Guest1Username;
+            ReservationDTO.AccommodationId = reservationDTO.AccommodationId;
+            ReservationDTO.Accommodation = reservationDTO.Accommodation;
         }
 
         private void StartDateChanged(object sender, SelectionChangedEventArgs e)
@@ -82,16 +83,16 @@ namespace ProjectTourism.WPF.View.Guest1View
 
         public void ConfirmPostponeClick(object sender, RoutedEventArgs e)
         {
-            ReservationVM.StartDate = startingDate;
-            ReservationVM.EndDate = endingDate;
+            ReservationDTO.StartDate = startingDate;
+            ReservationDTO.EndDate = endingDate;
 
-            var reservedDaysCount = ReservationVM.EndDate.DayNumber - ReservationVM.StartDate.DayNumber;
+            var reservedDaysCount = ReservationDTO.EndDate.DayNumber - ReservationDTO.StartDate.DayNumber;
 
-            if (reservedDaysCount >= (ReservationVM.Accommodation.MinDaysForReservation - 1) || reservedDaysCount < 0)
+            if (reservedDaysCount >= (ReservationDTO.Accommodation.MinDaysForReservation - 1) || reservedDaysCount < 0)
             {
                 if (reservedDaysCount >= 0)
                 {
-                    if (Guest1VM.ProcessRequest(ReservationVM))
+                    if (Guest1DTO.ProcessRequest(ReservationDTO))
                     {
                         MessageBox.Show("Postpone request sent successfully!");
                         //Close();
@@ -99,14 +100,14 @@ namespace ProjectTourism.WPF.View.Guest1View
                     else
                     {
                         MessageBox.Show("Selected Accommodation isn't available for the chosen date. \nTake a look at available dates?");
-                        MessageBox.Show("First available date is: " + ReservationVM.StartDate + " - " + ReservationVM.EndDate);
+                        MessageBox.Show("First available date is: " + ReservationDTO.StartDate + " - " + ReservationDTO.EndDate);
                     }
                 }
                 else
                 { MessageBox.Show("Invalid date format"); }
             }
             else
-            { MessageBox.Show("At least " + ReservationVM.Accommodation.MinDaysForReservation + " days must be reserved"); }
+            { MessageBox.Show("At least " + ReservationDTO.Accommodation.MinDaysForReservation + " days must be reserved"); }
         }
     }
 }

@@ -65,8 +65,8 @@ namespace ProjectTourism.View.UserView
                                 }
                             case USERTYPE.GUEST1:
                                 {
-                                    Guest1MainWindow guest1mainWindow = new Guest1MainWindow(UserVM.Username);
-                                    guest1mainWindow.Show();
+                                    Guest1MainWindow guest1Window = new Guest1MainWindow(UserVM.Username);
+                                    guest1Window.Show();
                                     Clear();
                                     break;
                                 }

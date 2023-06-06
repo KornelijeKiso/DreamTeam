@@ -21,7 +21,7 @@ namespace ProjectTourism.WPF.View.Guest1View
     /// <summary>
     /// Interaction logic for GradableAccommodationsWindow.xaml
     /// </summary>
-    public partial class GradableAccommodationsWindow : Window, INotifyPropertyChanged
+    public partial class GradableAccommodationsWindow : UserControl, INotifyPropertyChanged
     {
         public ReservationVM SelectedReservation { get; set; }
         public Guest1VM Guest1VM { get; set; }
@@ -42,7 +42,7 @@ namespace ProjectTourism.WPF.View.Guest1View
             reservationVM.Guest1Username = Guest1VM.Username;
 
             GradeAccommodatonWindow gradeAccommodatonWindow = new GradeAccommodatonWindow(reservationVM, Guest1VM.Username);
-            gradeAccommodatonWindow.ShowDialog();
+            //gradeAccommodatonWindow.ShowDialog();
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

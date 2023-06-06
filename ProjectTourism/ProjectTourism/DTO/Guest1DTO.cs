@@ -72,6 +72,85 @@ namespace ProjectTourism.DTO
 
         }
 
+        public void CancelReservation(ReservationDTO reservationDTO)
+        {
+            ReservationService reservationService = new ReservationService();
+            CanceledReservationService canceledReservationService = new CanceledReservationService();
+            MyReservations.Remove(reservationDTO);
+            reservationService.Cancel(reservationDTO.GetReservation());
+            canceledReservationService.Add(reservationDTO.GetReservation());
+            var accommodation = new AccommodationService().GetOne(reservationDTO.AccommodationId);
+            new NotificationService().Add(new Notification("Reservation cancellation",
+                                                            FirstName + " " + LastName + " (" + Username + ")" + " canceled his reservation at " + accommodation.Name + " scheduled for " + reservationDTO.StartDate + ". It is now removed from your reservations.",
+                                                            accommodation.OwnerUsername));
+        }
+        private void SendRequest(ReservationDTO reservationDTO)
+        {
+            PostponeRequestDTO postponeRequestDTO = new PostponeRequestDTO(new PostponeRequest());
+            postponeRequestDTO.ReservationId = reservationDTO.Id;
+            postponeRequestDTO.NewStartDate = reservationDTO.StartDate;
+            postponeRequestDTO.NewEndDate = reservationDTO.EndDate;
+            PostponeRequestService postponeRequestService = new PostponeRequestService();
+            postponeRequestService.Add(postponeRequestDTO.GetPostponeRequest());
+        }
+        public bool ProcessReservation(ReservationDTO reservationDTO)
+        {
+            ReservationService reservationService = new ReservationService();
+            if (reservationService.IsPossible(reservationDTO.GetReservation()))
+            {
+                BookAccommodation(reservationDTO);
+                var accommodation = new AccommodationService().GetOne(reservationDTO.AccommodationId);
+                new NotificationService().Add(new Notification("New reservation",
+                                                                FirstName + " " + LastName + " (" + Username + ")" + " booked " + accommodation.Name + " from " + reservationDTO.StartDate + " to " + reservationDTO.EndDate + ". You can see it in your reservations.",
+                                                                accommodation.OwnerUsername));
+                return true;
+            }
+            else
+            {
+                FindFirstAvailableAccommodation(reservationDTO);
+                return false;
+            }
+        }
+
+
+        private void BookAccommodation(ReservationDTO reservationDTO)
+        {
+            ReservationService reservationService = new ReservationService();
+            reservationService.Add(reservationDTO.GetReservation());
+            if (Points > 0)
+            {
+                Points--;
+                new Guest1Service().Update(_guest1);
+            }
+        }
+        
+        private void FindFirstAvailableAccommodation(ReservationDTO reservationDTO)
+        {
+            ReservationService reservationService = new ReservationService();
+            while (!reservationService.IsPossible(reservationDTO.GetReservation()))
+            {
+                reservationDTO.StartDate = reservationDTO.StartDate.AddDays(1);
+                reservationDTO.EndDate = reservationDTO.EndDate.AddDays(1);
+            }
+        }
+        public bool ProcessRequest(ReservationDTO reservationDTO)
+        {
+            ReservationService reservationService = new ReservationService();
+            if (reservationService.IsPossible(reservationDTO.GetReservation()))
+            {
+                SendRequest(reservationDTO);
+                var accommodation = new AccommodationService().GetOne(reservationDTO.AccommodationId);
+                new NotificationService().Add(new Notification("Reservation postpone request",
+                                                                FirstName + " " + LastName + " (" + Username + ")" + " made a request to postpone his reservation scheduled for " + reservationDTO.StartDate + " at " + accommodation.Name + ". You can see it in your reservations.",
+                                                                accommodation.OwnerUsername));
+                return true;
+            }
+            else
+            {
+                FindFirstAvailableAccommodation(reservationDTO);
+                return false;
+            }
+        }
         private bool IsGradable(ReservationDTO reservationVM)
         {
             return _guest1.Username == reservationVM.Guest1Username

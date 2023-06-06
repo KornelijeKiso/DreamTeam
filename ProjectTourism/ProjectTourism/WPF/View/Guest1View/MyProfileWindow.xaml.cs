@@ -20,7 +20,7 @@ namespace ProjectTourism.WPF.View.Guest1View
     /// <summary>
     /// Interaction logic for MyProfileWindow.xaml
     /// </summary>
-    public partial class MyProfileWindow : Window
+    public partial class MyProfileWindow : UserControl
     {
         public Guest1DTO Guest1 { get; set; }
         //public float AverageGrade { get; set; }

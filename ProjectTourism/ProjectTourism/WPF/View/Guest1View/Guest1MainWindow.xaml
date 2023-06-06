@@ -14,7 +14,84 @@
         </ResourceDictionary>
     </Window.Resources>
     <Grid >
-        <Rectangle VerticalAlignment="Top" Margin="0 0 0 0" Height="65" Width="430" Fill="#FFFFD0" StrokeThickness="2"/>
+        <ContentControl x:Name="Content" Content="{Binding Content, UpdateSourceTrigger=PropertyChanged}"/>
+        <Rectangle VerticalAlignment="Top" Margin="0 0 0 0" Fill="#FFFFD0" Height="65" Width="430" StrokeThickness="2"/>
+        <Rectangle VerticalAlignment="Bottom" Margin="0 0 0 0" Fill="#FFFFD0" Height="40" Width="430" StrokeThickness="2"/>
+        <Button Click="ShowMenu" Margin="24 24 0 0 " HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent" BorderBrush="Transparent" Width="30" Height="20"/>
+        <Image Source="https://cdn-icons-png.flaticon.com/128/2976/2976215.png" VerticalAlignment="Top" HorizontalAlignment="left" Margin="20 20 0 0" Height="26"></Image>
+        <Button Margin="0 14 11 0 " HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" BorderBrush="Transparent" Width="40" Height="40"/>
+        <Image Source="https://cdn-icons-png.flaticon.com/128/3524/3524344.png" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 23 20 0" Height="24"></Image>
+
+        <Border Name="Menu" Background="#FFFFC0" HorizontalAlignment="Left" Width="250" Height="750" Visibility="Visible">
+            <StackPanel>
+                <Button Click="HideMenu" Margin="14 10 0 0 " HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent" BorderBrush="Transparent" Width="40" Height="40"/>
+                <Image Source="https://cdn-icons-png.flaticon.com/128/2976/2976215.png" VerticalAlignment="Top" HorizontalAlignment="left" Margin="20 -30 0 0" Height="26"></Image>
+                <Label Content="Menu" FontSize="30" FontWeight="Bold" Margin="50 -40 0 0" />
+
+                <Menu Margin="0,0,0,640" BorderThickness="1"  Width="250" Background="#FFFFD0" BorderBrush="Transparent">
+                    <Menu.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <UniformGrid Rows="6" Height="300" HorizontalAlignment="Left"/>
+                        </ItemsPanelTemplate>
+                    </Menu.ItemsPanel>
+
+                    <MenuItem Name="MyProfileItem" FontSize="14" Click="HideMenu" Command="{Binding SwitchToMyProfileCommand}" Background="{Binding MyProfileItem.Background}" BorderBrush="Transparent" Width="246">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Your Profile   " HorizontalAlignment="Left" Margin="20 3 0 0"/>
+                                <Image Width="25" Height="25" Source="https://img.icons8.com/fluency/512/guest-male.png" HorizontalAlignment="Right"></Image>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem Name="AccommodationsItem" FontSize="14" Click="HideMenu" Command="{Binding SwitchToAccommodationsCommand}" Background="{Binding AccommodationsItem.Background}" BorderBrush="Transparent" Width="246">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Accommodations   " HorizontalAlignment="Left" Margin="20 3 0 0"/>
+                                <Image Width="25" Height="25" Source="https://img.icons8.com/external-xnimrodx-lineal-color-xnimrodx/512/external-hotel-holiday-xnimrodx-lineal-color-xnimrodx.png" HorizontalAlignment="Right"></Image>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem Name="MyReservationsItem" FontSize="14" Click="HideMenu" Command="{Binding SwitchToMyReservationsCommand}" Background="{Binding MyReservationsItem.Background}" BorderBrush="Transparent" Width="246">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="My Reservations    " HorizontalAlignment="Left" Margin="20 3 0 0"/>
+                                <Image Width="25" Height="25" Source="https://img.icons8.com/external-kiranshastry-lineal-color-kiranshastry/512/external-calendar-logistic-delivery-kiranshastry-lineal-color-kiranshastry.png" HorizontalAlignment="Right"></Image>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem Name="GradableItem" FontSize="14" Click="HideMenu" Command="{Binding SwitchToGradableCommand}" Background="{Binding GradableItem.Background}" BorderBrush="Transparent" Width="246">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Gradable    " HorizontalAlignment="Left" Margin="20 3 0 0"/>
+                                <Image Width="25" Height="25" Source="https://img.icons8.com/fluency/512/appointment-reminders.png" HorizontalAlignment="Right"></Image>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <!--MenuItem Name="ForumsItem" FontSize="14" Command="{Binding SwitchToForumsCommand}" Background="{Binding ForumsItem.Background}" BorderBrush="DodgerBlue" Width="166">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="        Forums    " HorizontalAlignment="Center" Margin="0 3 0 0"/>
+                                <Image Width="25" Height="25" Source="https://img.icons8.com/external-inipagistudio-mixed-inipagistudio/512/external-forum-coaching-and-mentoring-inipagistudio-mixed-inipagistudio.png" HorizontalAlignment="Right"></Image>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem Name="HelpItem" FontSize="14" Background="{Binding HelpItem.Background}" BorderBrush="DodgerBlue" Width="167">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="         Help    " HorizontalAlignment="Center" Margin="0 3 0 0"/>
+                                <Image Width="25" Height="25" Source="https://img.icons8.com/office/512/help.png" HorizontalAlignment="Right"></Image>
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem-->
+                </Menu>
+                <!--Label Content="MyProfile" Margin="0 20 0 0" FontSize="20" FontWeight="DemiBold" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Label Content="Accommodations" Margin="0 0 0 0" FontSize="20" FontWeight="DemiBold" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Label Content="My Reservations" Margin="0 0 0 0" FontSize="20" FontWeight="DemiBold" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Label Content="Gradable" Margin="0 0 0 0" FontSize="20" FontWeight="DemiBold" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                <Label Content="Forums" Margin="0 0 0 0" FontSize="20" FontWeight="DemiBold" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top"/-->
+            </StackPanel>
+        </Border>
+        <!--Rectangle VerticalAlignment="Top" Margin="0 0 0 0" Height="65" Width="430" Fill="#FFFFD0" StrokeThickness="2"/>
         <Label Content="Accommodations" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" Foreground="#555" Margin="107 18 0 0"/>
         <Image Source="https://cdn-icons-png.flaticon.com/128/4727/4727811.png" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 20 107 0" Height="24"></Image>
         <Image Source="https://cdn-icons-png.flaticon.com/128/2976/2976215.png" VerticalAlignment="Top" HorizontalAlignment="left" Margin="20 20 0 0" Height="26"></Image>
@@ -111,7 +188,7 @@
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
-        <!--DataGrid x:Name="DataGridAccommodations" ItemsSource="{Binding Guest1VM.Accommodations, UpdateSourceTrigger=PropertyChanged}"
+        <DataGrid x:Name="DataGridAccommodations" ItemsSource="{Binding Guest1VM.Accommodations, UpdateSourceTrigger=PropertyChanged}"
                     SelectedItem="{Binding SelectedAccommodation, UpdateSourceTrigger=PropertyChanged}" SelectionMode="Single"
                     IsReadOnly="True" AutoGenerateColumns="False" Height="324" RowHeight="100" Margin="270,66,10,168">
             <DataGrid.Columns>
@@ -162,8 +239,8 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
-        </DataGrid-->
-        <!--Button Content="Filter" HorizontalAlignment="Left" IsDefault="True" Margin="30,455,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="FilterAccommodationsClick"/>
+        </DataGrid>
+        <Button Content="Filter" HorizontalAlignment="Left" IsDefault="True" Margin="30,455,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="FilterAccommodationsClick"/>
         <Button Content="My Reservations" HorizontalAlignment="Left" IsDefault="True" Margin="270,75,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="MyReservationsClick"/>
         <Button Content="See Gradable Accommodations" HorizontalAlignment="Left" IsDefault="True" Margin="500,75,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="ShowGradableClick"/>
         <Button Content="My Profile" HorizontalAlignment="Left" IsDefault="True" Margin="730,75,0,0" VerticalAlignment="Top" Height="29" Width="196" Click="MyProfileClick"/>

@@ -19,6 +19,8 @@ using System.Windows.Shapes;
 using ProjectTourism.Services;
 using ProjectTourism.Repositories;
 using ProjectTourism.WPF.View.Guest1View;
+using ProjectTourism.WPF.ViewModel.Guest1ViewModel;
+using ProjectTourism.DTO;
 
 namespace ProjectTourism.View.Guest1View
 {
@@ -27,10 +29,10 @@ namespace ProjectTourism.View.Guest1View
     /// </summary>
     public partial class Guest1MainWindow : Window
     {
-        public Guest1VM Guest1VM { get; set; }
-        public ObservableCollection<AccommodationVM> AccommodationVMs { get; set; }
-        public AccommodationVM SelectedAccommodation { get; set; }
-        public ObservableCollection<AccommodationVM> FilteredAccommodations { get; set; }
+        public Guest1DTO Guest1 { get; set; }
+        public ObservableCollection<AccommodationDTO> AccommodationDTOs { get; set; }
+        public AccommodationDTO SelectedAccommodation { get; set; }
+        public ObservableCollection<AccommodationDTO> FilteredAccommodations { get; set; }
         public string NameSearch { get; set; }
         public string LocationSearch { get; set; }
         public string GuestCountSearch { get; set; }
@@ -41,18 +43,25 @@ namespace ProjectTourism.View.Guest1View
         public Guest1MainWindow(string username)
         {
             InitializeComponent();
-            DataContext = this;
+            DataContext = new Guest1MainWindowVM(username);
 
-            Guest1VM = new Guest1VM(username);
+            Guest1 = new Guest1DTO(username);
 
             AccommodationService accommodationService = new AccommodationService();
-            FilteredAccommodations = new ObservableCollection<AccommodationVM>(accommodationService.GetAll().Select(r => new AccommodationVM(r)).ToList().OrderByDescending(a => a.Owner.IsSuperHost).ToList());
-            AccommodationVMs = new ObservableCollection<AccommodationVM>(accommodationService.GetAll().Select(r => new AccommodationVM(r)).ToList().OrderByDescending(a => a.Owner.IsSuperHost).ToList());
+            FilteredAccommodations = new ObservableCollection<AccommodationDTO>(accommodationService.GetAll().Select(r => new AccommodationDTO(r)).ToList().OrderByDescending(a => a.Owner.IsSuperHost).ToList());
+            AccommodationDTOs = new ObservableCollection<AccommodationDTO>(accommodationService.GetAll().Select(r => new AccommodationDTO(r)).ToList().OrderByDescending(a => a.Owner.IsSuperHost).ToList());
 
             //SetUpDatePicker();
 
         }
-
+        //public void ShowMenu(object sender, RoutedEventArgs e)
+        //{
+        //    Menu.Visibility = Visibility.Visible;
+        //}
+        //public void HideMenu(object sender, RoutedEventArgs e)
+        //{
+        //    Menu.Visibility = Visibility.Collapsed;
+        //}
         //private void SetUpDatePicker()
         //{
         //    StartDatePicker.DisplayDate = DateTime.Now;
@@ -70,7 +79,7 @@ namespace ProjectTourism.View.Guest1View
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        private void StartDateChanged(object sender, SelectionChangedEventArgs e)
+        /*private void StartDateChanged(object sender, SelectionChangedEventArgs e)
         {
             startingDate = DateOnly.FromDateTime((DateTime)(((DatePicker)sender).SelectedDate));
         }
@@ -192,12 +201,12 @@ namespace ProjectTourism.View.Guest1View
         {
             Button button = (Button)sender;
 
-            ReservationVM reservationVM = new ReservationVM(new Reservation());
-            reservationVM.AccommodationId = SelectedAccommodation.Id;
-            reservationVM.Guest1Username = Guest1VM.Username;
+            ReservationDTO reservationDTO = new ReservationDTO(new Reservation());
+            reservationDTO.AccommodationId = SelectedAccommodation.Id;
+            reservationDTO.Guest1Username = Guest1.Username;
 
-            Guest1ReservationWindow guest1ReservationWindow = new Guest1ReservationWindow(reservationVM, SelectedAccommodation, Guest1VM.Username);
-            guest1ReservationWindow.ShowDialog();
+            Guest1ReservationWindow guest1ReservationWindow = new Guest1ReservationWindow(reservationDTO, SelectedAccommodation, Guest1.Username);
+            //guest1ReservationWindow.ShowDialog();
             Update();
         }
 
@@ -208,7 +217,7 @@ namespace ProjectTourism.View.Guest1View
             string username = Guest1VM.Username;
 
             Guest1ReservedAccommodations guest1ReservedAccommodations = new Guest1ReservedAccommodations(username);
-            guest1ReservedAccommodations.ShowDialog();
+            //guest1ReservedAccommodations.ShowDialog();
             Update();
         }
         public void ShowGradableClick(object sender, RoutedEventArgs e)
@@ -218,7 +227,7 @@ namespace ProjectTourism.View.Guest1View
             string username = Guest1VM.Username;
 
             GradableAccommodationsWindow gradableAccommodationsWindow = new GradableAccommodationsWindow(username);
-            gradableAccommodationsWindow.ShowDialog();
+            //gradableAccommodationsWindow.ShowDialog();
             Update();
         }
 
@@ -229,10 +238,10 @@ namespace ProjectTourism.View.Guest1View
             string username = Guest1VM.Username;
 
             MyProfileWindow myProfileWindow = new MyProfileWindow(username);
-            myProfileWindow.ShowDialog();
+            //myProfileWindow.ShowDialog();
             Update();
 
-        }
+        }*/
 
         public void Update()
         {

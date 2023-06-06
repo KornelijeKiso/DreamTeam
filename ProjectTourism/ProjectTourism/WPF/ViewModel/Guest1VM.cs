@@ -144,24 +144,6 @@ namespace ProjectTourism.WPF.ViewModel
                                                             FirstName + " " + LastName + " (" + Username + ")" + " canceled his reservation at " + accommodation.Name +" scheduled for "+reservationVM.StartDate +". It is now removed from your reservations.",
                                                             accommodation.OwnerUsername));
         }
-        public bool ProcessReservation(ReservationVM reservationVM)
-        {
-            ReservationService reservationService = new ReservationService();
-            if (reservationService.IsPossible(reservationVM.GetReservation()))
-            {
-                BookAccommodation(reservationVM);
-                var accommodation = new AccommodationService().GetOne(reservationVM.AccommodationId);
-                new NotificationService().Add(new Notification("New reservation",
-                                                                FirstName + " " + LastName + " (" + Username + ")" + " booked " + accommodation.Name + " from " + reservationVM.StartDate +" to "+reservationVM.EndDate+ ". You can see it in your reservations.",
-                                                                accommodation.OwnerUsername));
-                return true;
-            }
-            else
-            {
-                FindFirstAvailableAccommodation(reservationVM);
-                return false;
-            }
-        }
         public bool ProcessRequest(ReservationVM reservationVM)
         {
             ReservationService reservationService = new ReservationService();
@@ -171,6 +153,24 @@ namespace ProjectTourism.WPF.ViewModel
                 var accommodation = new AccommodationService().GetOne(reservationVM.AccommodationId);
                 new NotificationService().Add(new Notification("Reservation postpone request",
                                                                 FirstName + " " + LastName + " (" + Username + ")" + " made a request to postpone his reservation scheduled for "+reservationVM.StartDate+" at " + accommodation.Name + ". You can see it in your reservations.",
+                                                                accommodation.OwnerUsername));
+                return true;
+            }
+            else
+            {
+                FindFirstAvailableAccommodation(reservationVM);
+                return false;
+            }
+        }
+        public bool ProcessReservation(ReservationVM reservationVM)
+        {
+            ReservationService reservationService = new ReservationService();
+            if (reservationService.IsPossible(reservationVM.GetReservation()))
+            {
+                BookAccommodation(reservationVM);
+                var accommodation = new AccommodationService().GetOne(reservationVM.AccommodationId);
+                new NotificationService().Add(new Notification("New reservation",
+                                                                FirstName + " " + LastName + " (" + Username + ")" + " booked " + accommodation.Name + " from " + reservationVM.StartDate +" to "+reservationVM.EndDate+ ". You can see it in your reservations.",
                                                                 accommodation.OwnerUsername));
                 return true;
             }
@@ -192,15 +192,6 @@ namespace ProjectTourism.WPF.ViewModel
                 new Guest1Service().Update(_guest1);
             }
         }
-        private void SendRequest(ReservationVM reservationVM)
-        {
-            PostponeRequestVM postponeRequestVM = new PostponeRequestVM(new PostponeRequest());
-            postponeRequestVM.ReservationId = reservationVM.Id;
-            postponeRequestVM.NewStartDate = reservationVM.StartDate;
-            postponeRequestVM.NewEndDate = reservationVM.EndDate;
-            PostponeRequestService postponeRequestService = new PostponeRequestService();
-            postponeRequestService.Add(postponeRequestVM.GetPostponeRequest());
-        }
         private void FindFirstAvailableAccommodation(ReservationVM reservationVM)
         {
             ReservationService reservationService = new ReservationService();
@@ -209,6 +200,15 @@ namespace ProjectTourism.WPF.ViewModel
                 reservationVM.StartDate = reservationVM.StartDate.AddDays(1);
                 reservationVM.EndDate = reservationVM.EndDate.AddDays(1);
             }
+        }
+        private void SendRequest(ReservationVM reservationVM)
+        {
+            PostponeRequestVM postponeRequestVM = new PostponeRequestVM(new PostponeRequest());
+            postponeRequestVM.ReservationId = reservationVM.Id;
+            postponeRequestVM.NewStartDate = reservationVM.StartDate;
+            postponeRequestVM.NewEndDate = reservationVM.EndDate;
+            PostponeRequestService postponeRequestService = new PostponeRequestService();
+            postponeRequestService.Add(postponeRequestVM.GetPostponeRequest());
         }
         public bool isSuperGuest
         {
