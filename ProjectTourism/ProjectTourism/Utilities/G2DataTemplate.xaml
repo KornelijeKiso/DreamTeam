@@ -51,8 +51,8 @@
         <uc:TourRequestStatisticsUserControl />
     </DataTemplate>
 
-    <!--<DataTemplate DataType="{x:Type vm:CreateComplexTourRequestVM}">
+    <DataTemplate DataType="{x:Type vm:CreateComplexTourRequestVM}">
         <uc:CreateComplexTourRequestUserControl />
-    </DataTemplate>-->
+    </DataTemplate>
 
 </ResourceDictionary>
