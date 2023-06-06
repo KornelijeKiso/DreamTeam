@@ -150,7 +150,6 @@
                                             <ColumnDefinition Width="150" />
                                             <ColumnDefinition Width="50" />
                                             <ColumnDefinition Width="290" />
-                                            <ColumnDefinition Width="50" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <Label Grid.Column="0"
@@ -168,18 +167,18 @@
                                                 Maximum="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" 
                                                 Value="{Binding Path=Ticket.NumberOfGuests}" 
                                                 HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                Height="30" Width="200"
-                                                FontFamily="/Fonts/#Rubik"
-                                                Foreground="#DBDBDB"
-                                                FontSize="12"   />
-                                        <Label Grid.Column="3"
-                                               FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                               MaxHeight="25" Width="auto" HorizontalAlignment="Right"
-                                               Content="{Binding Path=selectedAppointment.AvailableSeats}" />
-                                        <Label Grid.Column="4"
-                                               FontFamily="/Fonts/#Rubik" FontSize="11" Foreground="#DBDBDB"
-                                               MaxHeight="25"  Margin="0 0 0 0" 
-                                               Content="available seats" />
+                                                Height="30" Width="250" 
+                                                FontFamily="/Fonts/#Rubik" Foreground="#DBDBDB" FontSize="12"   />
+                                        <StackPanel Grid.Column="3" Orientation="Horizontal">
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="14" Foreground="#DBDBDB"
+                                                   MaxHeight="25" Width="auto" 
+                                                   HorizontalAlignment="Right" VerticalAlignment="Top"
+                                                   Content="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" />
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="14" Foreground="#DBDBDB"
+                                                   MaxHeight="25"  
+                                                   VerticalAlignment="Top"
+                                                   Content="available seats" />
+                                        </StackPanel>
                                     </Grid>
                                 </StackPanel>
                             </GroupBox>
@@ -289,7 +288,7 @@
                     Grid.Column="2"
                     Content="Cancel" 
                     IsDefault="True" 
-                    Command="{Binding TicketCommand}">
+                    Command="{Binding ContentCommand}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Height" Value="40"/>
@@ -330,7 +329,7 @@
         </Grid>
 
         <ContentControl Grid.Row="0" Grid.RowSpan="2"
-                        x:Name="TicketContentArea"
-                        Content="{Binding TicketContent, UpdateSourceTrigger=PropertyChanged}" />
+                        x:Name="ContentArea"
+                        Content="{Binding Content, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </UserControl>

@@ -21,11 +21,11 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public TicketDTO Ticket { get; set; }
         public TicketService TicketService { get; set; }
         public TourAppointmentDTO selectedAppointment { get; set; }
-        private object _TicketContent;
-        public object TicketContent
+        private object _Content;
+        public object Content
         {
-            get { return _TicketContent; }
-            set { _TicketContent = value; OnPropertyChanged(); }
+            get { return _Content; }
+            set { _Content = value; OnPropertyChanged(); }
         }
 
         public UpdateTicketVM() { }
@@ -38,12 +38,12 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             TicketService = new TicketService();
 
             //TicketCommand
-            TicketCommand = new RelayCommand(ReturnToTickets);
+            ContentCommand = new RelayCommand(ReturnToTickets);
         }
-        public ICommand TicketCommand { get; set; }
+        public ICommand ContentCommand { get; set; }
         private void ReturnToTickets(Object obj)
         {
-            TicketContent = new TicketsVM(Guest2);
+            Content = new TicketsVM(Guest2);
         }
 
         // UPDATE TICKET COMMAND 
@@ -60,8 +60,9 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             if (selectedAppointment != null)
             {
                 TicketService.Update(Ticket.GetTicket());
-                MessageBox.Show("Ticket updated! ");
-                TicketContent = new TicketsVM(Guest2);
+                // TO DO -> update Guest2.Tickets
+                MessageBox.Show("Ticket successfully updated! ");
+                Content = new TicketsVM(Guest2);
             }
             else
             {

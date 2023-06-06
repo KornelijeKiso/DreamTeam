@@ -175,6 +175,11 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             if (selectedAppointment != null)
             {
                 Ticket.CreateTicket(new Ticket(selectedAppointment.Id, Ticket.TourStop, Guest2.Username, Ticket.NumberOfGuests));
+                // TO DO -> update Guest2.Tickets
+                Ticket.TourAppointment = selectedAppointment;
+                Ticket.TourAppointment.Tour = SelectedTour;
+                Guest2.Tickets.Add(Ticket); 
+                //
                 selectedAppointment.UpdateTourAppointmentDTO(selectedAppointment);
                 MessageBox.Show("Successfully reserved a ticket! ");
                 Content = new HomeVM(Guest2);

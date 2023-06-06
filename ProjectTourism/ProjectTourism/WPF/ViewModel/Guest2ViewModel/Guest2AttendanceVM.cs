@@ -19,11 +19,11 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         {
             get => (Ticket.TourAppointment.State == TOURSTATE.STARTED);
         }
-        private object _TicketContent;
-        public object TicketContent
+        private object _Content;
+        public object Content
         {
-            get { return _TicketContent; }
-            set { _TicketContent = value; OnPropertyChanged(); }
+            get { return _Content; }
+            set { _Content = value; OnPropertyChanged(); }
         }
 
         public Guest2AttendanceVM() { }
@@ -37,7 +37,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                 MessageBox.Show("Tour is already finished ! ");
 
             // TicketCommand 
-            TicketCommand = new RelayCommand(ReturnToTickets);
+            ContentCommand = new RelayCommand(ReturnToTickets);
         }
 
         private void StartTimer(bool IsStarted)
@@ -77,7 +77,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             {
                 Ticket.ConfirmAttendance(Ticket.GetTicket());
                 MessageBox.Show("Successfully joined Tour ! ");
-                TicketContent = new TicketsVM(Guest2);
+                Content = new TicketsVM(Guest2);
             }
             else if (Ticket.HasGuestConfirmed)
             {
@@ -96,10 +96,10 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                 && (Ticket.TourAppointment.Tour.StopsList.IndexOf(Ticket.TourAppointment.CurrentTourStop)
                   >= Ticket.TourAppointment.Tour.StopsList.IndexOf(Ticket.TourStop)));
         }
-        public ICommand TicketCommand { get; set; }
+        public ICommand ContentCommand { get; set; }
         public void ReturnToTickets(object obj)
         {
-            TicketContent = new TicketsVM(Guest2);
+            Content = new TicketsVM(Guest2);
         }
     }
 }
