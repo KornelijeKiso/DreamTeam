@@ -58,11 +58,11 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             }
         }
 
-        private object _HomeContent;
+        private object _Content;
         public object Content
         {
-            get { return _HomeContent; }
-            set { _HomeContent = value; OnPropertyChanged(); }
+            get { return _Content; }
+            set { _Content = value; OnPropertyChanged(); }
         }
         public CreateTicketVM() { }
         

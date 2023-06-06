@@ -8,6 +8,7 @@ using LiveCharts;
 using ProjectTourism.Domain.Model;
 using ProjectTourism.DTO;
 using System.Windows.Media;
+using System.Windows.Input;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
@@ -18,7 +19,19 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public List<int> Years { get; set; }
         public int SelectedYear { get; set; }
         public List<string> Languages { get; set; }
-        public SeriesCollection YearlySeries { get; set; }
+        private SeriesCollection _YearlySeries;
+        public SeriesCollection YearlySeries 
+        {
+            get => _YearlySeries;
+            set
+            {
+                if (value != _YearlySeries)
+                {
+                    _YearlySeries = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
         public Func<double, string> YearlyFormatter { get; set; }
         public SeriesCollection LanguageSeries { get; set; }
         public Func<double, string> LanguageFormatter { get; set; }
@@ -82,14 +95,25 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                 }
             }
         }
-        
+        private object _Content;
+        public object Content
+        {
+            get { return _Content; }
+            set { _Content = value; OnPropertyChanged(); }
+        }
+
+
         public TourRequestStatisticsVM() { }
         public TourRequestStatisticsVM(Guest2DTO guest2)
         {
             Guest2 = guest2;
             SetAttributes();
-        }
 
+            // Commands
+            ContentCommand = new RelayCommand(ReturnToTourRequests);
+            YearSelectionChangedCommand = new RelayCommand(YearSelectionChanged);
+        }
+        
         private void SetAttributes()
         {
             AllTourRequests = GetAllRequests(Guest2.TourRequests);
@@ -214,6 +238,13 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                 Values = new ChartValues<double> { Pending }
             });
         }
+        private void ClearPieChart(SeriesCollection pieChartCollection)
+        {
+            foreach (PieSeries series in pieChartCollection)
+            {
+                series.Values.Clear();
+            }
+        }
 
         // LANGUAGE STATISTICS
         private void DisplayLanguageStat()
@@ -272,6 +303,21 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                 chartValue.Add(value);
             }
             return chartValue;
+        }
+
+
+        // DATE COMBO BOX SELECTION CHANGED
+        public ICommand YearSelectionChangedCommand { get; set; }
+        private void YearSelectionChanged(object obj)
+        {
+            CalculateYearlyStatsFiltered(AllTourRequests, SelectedYear);
+            ClearPieChart(YearlySeries);
+            DisplayYearlyStat();
+        }
+        public ICommand ContentCommand { get; set; }
+        private void ReturnToTourRequests(Object obj)
+        {
+            Content = new TourRequestsVM(Guest2);
         }
     }
 }
