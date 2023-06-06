@@ -95,10 +95,12 @@
                                     <ColumnDefinition Width="150" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-                                <lvc:PieChart x:Name="RequestsPieChart" 
+                                <lvc:PieChart x:Name="RequestsPieChart"
+                                              Series="{Binding YearlySeries}"
                                               Grid.Column="0" 
                                               StartingRotationAngle="0" 
-                                              Height="100" Width="100"      />
+                                              Height="100" Width="250" 
+                                              LegendLocation="Right"/>
                                 <!--LegendLocation="Right"-->
                                 <Grid Grid.Column="1">
                                     <Grid.RowDefinitions>

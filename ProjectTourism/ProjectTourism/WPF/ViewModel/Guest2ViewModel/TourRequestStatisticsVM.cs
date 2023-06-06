@@ -7,6 +7,7 @@ using LiveCharts.Wpf;
 using LiveCharts;
 using ProjectTourism.Domain.Model;
 using ProjectTourism.DTO;
+using System.Windows.Media;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
@@ -17,6 +18,8 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public List<int> Years { get; set; }
         public int SelectedYear { get; set; }
         public List<string> Languages { get; set; }
+        public SeriesCollection YearlySeries { get; set; }
+        public Func<double, string> YearlyFormatter { get; set; }
         public SeriesCollection LanguageSeries { get; set; }
         public Func<double, string> LanguageFormatter { get; set; }
         public SeriesCollection LocationSeries { get; set; }
@@ -98,8 +101,10 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             NumberOfGuestsStat = CalculateAverageNumberOfGuests(AllTourRequests);
             CalculateYearlyStats(AllTourRequests);
 
+            YearlyFormatter = value => value.ToString("N");
             LanguageFormatter = value => value.ToString("N");
             LocationFormatter = value => value.ToString("N");
+            DisplayYearlyStat(); 
             DisplayLanguageStat();
             DisplayLocationStat();
         }
@@ -179,7 +184,37 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             NumberOfGuestsStat = CalculateAverageNumberOfGuests(filterYear);
         }
 
-        
+
+        // YEARLY STATISTICS
+        public void DisplayYearlyStat()
+        {
+            YearlySeries = new SeriesCollection();
+            YearlySeries.Add(new PieSeries
+            {
+                Title = "Accepted",
+                Stroke = Brushes.Black,
+                Fill = Brushes.DarkSlateBlue,
+                StrokeThickness = 2,
+                Values = new ChartValues<double> { Accepted }
+            });
+            YearlySeries.Add(new PieSeries
+            {
+                Title = "Expired",
+                Stroke = Brushes.Black,
+                Fill = Brushes.DarkRed,
+                StrokeThickness = 2,
+                Values = new ChartValues<double> { Expired }
+            });
+            YearlySeries.Add(new PieSeries
+            {
+                Title = "Pending",
+                Stroke = Brushes.Black,
+                Fill = Brushes.White,
+                StrokeThickness = 2,
+                Values = new ChartValues<double> { Pending }
+            });
+        }
+
         // LANGUAGE STATISTICS
         private void DisplayLanguageStat()
         {

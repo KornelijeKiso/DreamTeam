@@ -15,6 +15,7 @@ namespace ProjectTourism.WPF.View.Guest2View.UserControls
     public partial class TourRequestStatisticsUserControl : UserControl
     {
         public TourRequestStatisticsVM TourRequestStatisticsVM { get; set; }
+        public Guest2DTO Guest2 { get; set; }
         public TourRequestStatisticsUserControl()
         {
             InitializeComponent();
@@ -23,9 +24,11 @@ namespace ProjectTourism.WPF.View.Guest2View.UserControls
         public TourRequestStatisticsUserControl(Guest2DTO guest2)
         {
             InitializeComponent();
+            Guest2 = guest2;
             this.TourRequestStatisticsVM = new TourRequestStatisticsVM(guest2);
             DataContext = this.TourRequestStatisticsVM;
-            DisplayPieChartData();
+            FilterYear(this.TourRequestStatisticsVM);
+            
         }
 
         private void ClearPieChart(PieChart pieChart)
@@ -35,41 +38,23 @@ namespace ProjectTourism.WPF.View.Guest2View.UserControls
                 series.Values.Clear();
             }
         }
-        private void DisplayPieChartData()
-        {
-            // TO DO -> fix this
-            RequestsPieChart.Series.Add(new PieSeries
-            {
-                Title = "Accepted",
-                Stroke = Brushes.Black,
-                Fill = Brushes.DarkSlateBlue,
-                StrokeThickness = 2,
-                Values = new ChartValues<double> { TourRequestStatisticsVM.Accepted }
-            });
-            RequestsPieChart.Series.Add(new PieSeries
-            {
-                Title = "Expired",
-                Stroke = Brushes.Black,
-                Fill = Brushes.DarkRed,
-                StrokeThickness = 2,
-                Values = new ChartValues<double> { TourRequestStatisticsVM.Expired }
-            });
-            RequestsPieChart.Series.Add(new PieSeries
-            {
-                Title = "Pending",
-                Stroke = Brushes.Black,
-                Fill = Brushes.White,
-                StrokeThickness = 2,
-                Values = new ChartValues<double> { TourRequestStatisticsVM.Pending }
-            });
-        }
 
+        private void FilterYear(TourRequestStatisticsVM tourRequestStatisticsVM)
+        {
+            if ((tourRequestStatisticsVM != null) && (tourRequestStatisticsVM.SelectedYear != null))
+            {
+                tourRequestStatisticsVM.CalculateYearlyStatsFiltered(tourRequestStatisticsVM.AllTourRequests, tourRequestStatisticsVM.SelectedYear);
+                ClearPieChart(RequestsPieChart);
+                tourRequestStatisticsVM.DisplayYearlyStat();
+            }
+        }
         private void FilterYear(object sender, SelectionChangedEventArgs e)
         {
             // TO DO -> fix this
+            //TourRequestStatisticsVM TourRequestStatisticsVM = new TourRequestStatisticsVM(Guest2);
             TourRequestStatisticsVM.CalculateYearlyStatsFiltered(TourRequestStatisticsVM.AllTourRequests, TourRequestStatisticsVM.SelectedYear);
             ClearPieChart(RequestsPieChart);
-            DisplayPieChartData();
+            //this.TourRequestStatisticsVM.DisplayYearlyStat();
         }
     }
 }
