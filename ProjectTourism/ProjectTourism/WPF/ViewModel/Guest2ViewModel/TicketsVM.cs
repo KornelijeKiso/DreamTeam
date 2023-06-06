@@ -18,6 +18,12 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public ObservableCollection<TicketDTO> SkippedTickets { get; set; }
         public ObservableCollection<TicketDTO> CanceledTickets { get; set; }
         public TicketGradeDTO TicketGrade { get; set; }
+        private object _TicketContent;
+        public object TicketContent
+        {
+            get { return _TicketContent; }
+            set { _TicketContent = value; OnPropertyChanged(); }
+        }
 
         public TicketsVM() { }
         public TicketsVM(Guest2DTO guest2)
@@ -27,8 +33,24 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             AttendedTickets = SetAttendedTickets();
             SkippedTickets = SetSkippedTickets();
             CanceledTickets = SetCancecledByGuideTickets();
+
+            // Update Ticket Command
+            UpdateTicketCommand = new RelayCommand(UpdateTicket);
         }
-        
+
+        public ICommand UpdateTicketCommand { get; set; }
+        private void UpdateTicket(object obj)
+        {
+            if (SelectedTicket != null)
+            {
+                TicketContent = new UpdateTicketVM(Guest2, SelectedTicket);
+            }
+            else
+            {
+                MessageBox.Show("Please select the ticket you would like to update!");
+            }
+        }
+
         private ObservableCollection<TicketDTO> SetUpcomingTickets()
         {
             ObservableCollection<TicketDTO> upcoming = new ObservableCollection<TicketDTO>();

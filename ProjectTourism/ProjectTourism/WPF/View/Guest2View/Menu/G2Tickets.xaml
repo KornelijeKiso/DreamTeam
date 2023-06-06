@@ -11,10 +11,6 @@
              d:DesignWidth="700"
              Style="{StaticResource Page_Style}"        >
     
-    <!--<UserControl.DataContext>
-        <vm:TicketsVM />
-    </UserControl.DataContext>-->
-    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="380"/>
@@ -607,7 +603,8 @@
             <!-- UPDATE TICKET BUTTON -->
             <!--Style="{StaticResource button}"-->
             <Button x:Name="UpdateTicket"    
-                    Grid.Column="2">
+                    Grid.Column="2"
+                    Command="{Binding UpdateTicketCommand}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Height" Value="40"/>
@@ -733,5 +730,9 @@
             </Button>
 
         </Grid>
+
+        <ContentControl Grid.Row="0" Grid.RowSpan="2"
+                        x:Name="TicketContentArea"
+                        Content="{Binding TicketContent, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </UserControl>
