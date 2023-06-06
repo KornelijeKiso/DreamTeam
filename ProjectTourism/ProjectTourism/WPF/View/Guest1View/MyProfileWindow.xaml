@@ -13,6 +13,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
+        
         <Rectangle VerticalAlignment="Top" Margin="0 0 0 0" Fill="Transparent" Height="65" Width="430" StrokeThickness="2"/>
         <Rectangle VerticalAlignment="Bottom" Margin="0 0 0 0" Fill="Transparent" Height="40" Width="430" StrokeThickness="2"/>
         <Label Content="My Profile" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="20" FontWeight="Bold" Foreground="#555" Margin="140 18 0 0"/>
@@ -43,5 +44,63 @@
         </Label>
         <Label ContentStringFormat="Email : {0}" Content="{Binding Path=Guest1.Email}" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Width="228" Height="128" Margin="0 565 75 0">
         </Label>
+        <Button HorizontalAlignment="Center" Width="120" Height="33" Content="Reserved/Canceled" FontWeight="SemiBold" Background="CadetBlue" Foreground="#FFF" Click="ReportClick" IsDefault="True" BorderThickness="2" Margin="-160 140 0 0">
+            <Button.Resources>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="SlateGray" />
+                            <Setter Property="Foreground" Value="White"></Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Border  Name="ReportPDF" Width="300" Height="350" Background="#FFFFD0" Visibility="Collapsed">
+            <StackPanel>
+                <Label Content="Generate Report" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Center" Margin="0 20 0 0"/>
+                <Label Content="From :" HorizontalAlignment="Left" Margin="40,10,0,0"/>
+                <StackPanel>
+                    <DatePicker HorizontalAlignment="Center" Margin="0,5,0,0" IsTodayHighlighted="True" Name="StartDatePicker" SelectedDateChanged="StartDateChanged"
+                     VerticalAlignment="Top" Width="230" Height="33">
+                        <DatePicker.BlackoutDates>
+                            <CalendarDateRange End="01/01/1900 23:59:59" Start="01/01/0001 23:59:59"/>
+                        </DatePicker.BlackoutDates>
+                    </DatePicker>
+                </StackPanel>
+                <Label Content="To :" HorizontalAlignment="Left" Margin="40,10,0,0"/>
+                <StackPanel>
+                    <DatePicker HorizontalAlignment="Center" Margin="0,5,0,0" IsTodayHighlighted="True" Name="EndDatePicker" SelectedDateChanged="EndDateChanged"
+                     VerticalAlignment="Top" Width="230" Height="33">
+                        <DatePicker.BlackoutDates>
+                            <CalendarDateRange End="01/01/1900 23:59:59" Start="01/01/0001 23:59:59"/>
+                        </DatePicker.BlackoutDates>
+                    </DatePicker>
+                </StackPanel>
+                <Label Content="Select type :" HorizontalAlignment="Left" Margin="40,10,0,0"/>
+                <ComboBox Name="ReportType" HorizontalAlignment="Left" Margin="34,5,0,0" VerticalAlignment="Top" Width="96" Height="30">
+                    <ComboBoxItem Content="Canceled" IsSelected="True"/>
+                    <ComboBoxItem Content="Reserved"/>
+                </ComboBox>
+                <Button HorizontalAlignment="Center" Width="100" Height="33" Content="Generate" FontWeight="SemiBold" Background="CadetBlue" Foreground="#FFF" Click="GeneratePDFClick" IsDefault="True" BorderThickness="2" Margin="0 50 0 0">
+                    <Button.Resources>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="SlateGray" />
+                                    <Setter Property="Foreground" Value="White"></Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>
