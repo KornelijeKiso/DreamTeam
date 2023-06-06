@@ -81,5 +81,6 @@
         </TabControl>
         <Button Name="but" Height="20" Width="50" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="40 44" Click="SwitchHelp">On</Button>
         <Label Height="30" Width="60" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="90 41">ToolTips: </Label>
+        <Button Name="buto" Height="20" Width="65" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="180 44" Click="Shortcuts">Shortcuts</Button>
     </Grid>
 </UserControl>

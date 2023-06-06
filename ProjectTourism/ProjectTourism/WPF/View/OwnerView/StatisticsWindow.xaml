@@ -8,7 +8,7 @@
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:vm="clr-namespace:ProjectTourism.WPF.ViewModel.OwnerViewModel"
         mc:Ignorable="d"
-        Title="StatisticsWindow" Height="690" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+        Title="Statistics" Height="690" Width="900" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Window.Resources>
         <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Window.Resources>
