@@ -26,6 +26,15 @@ namespace ProjectTourism.DTO
             TourRequests = new ObservableCollection<TourRequestDTO>(_complexTour.TourRequests.Select(r => new TourRequestDTO(r)).ToList());
         }
 
+        public void AddTourPart(TourRequest part)
+        {
+            LocationService locationService = new LocationService();
+            part.Location = locationService.GetOne(part.LocationId);
+            TourRequestDTO complexTourRequestPart = new TourRequestDTO(part);
+            TourRequests.Add(complexTourRequestPart);
+            part = new TourRequest();
+        }
+
         public int Id
         {
             get => _complexTour.Id;
