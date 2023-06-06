@@ -38,6 +38,8 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         private void Profile(object obj) => CurrentView = new ProfileVM(Guest2);
         private void TourRequests(object obj) => CurrentView = new TourRequestsVM(Guest2);
         private void ComplexTour(object obj) => CurrentView = new ComplexToursVM(Guest2);
+
+        
         private void Notifications(object obj)
         {
             NotificationsWindow notificationWindow = new NotificationsWindow(Guest2);
@@ -58,7 +60,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             TourRequestsCommand = new RelayCommand(TourRequests);
             ComplexToursCommand = new RelayCommand(ComplexTour);
             NotificationsCommand = new RelayCommand(Notifications);
-
+            
             // Startup Page
             CurrentView = new HomeVM(Guest2);
         }

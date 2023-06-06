@@ -9,9 +9,6 @@
              d:DesignHeight="550" 
              d:DesignWidth="700"
              Style="{StaticResource Page_Style}"        >
-    <!--<UserControl.DataContext>
-        <vm:TourRequestsVM />
-    </UserControl.DataContext>-->
     
     <Grid>
         <Grid.RowDefinitions>
@@ -571,5 +568,8 @@
             </Button>
         </Grid>
 
+        <ContentControl Grid.Row="0" Grid.RowSpan="2"
+                        x:Name="TourRequestsContentArea"
+                        Content="{Binding TourRequestsContent, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </UserControl>

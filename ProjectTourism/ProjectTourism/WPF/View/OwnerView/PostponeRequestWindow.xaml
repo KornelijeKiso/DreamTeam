@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.OwnerView"
         xmlns:conv="clr-namespace:ProjectTourism.Converters"
         mc:Ignorable="d"
-        Title="PostponeRequestWindow" Height="400" Width="450" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+        Title="Postpone request" Height="400" Width="450" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <ResourceDictionary>
             <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />

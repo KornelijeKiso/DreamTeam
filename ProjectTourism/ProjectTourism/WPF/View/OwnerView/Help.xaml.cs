@@ -47,5 +47,14 @@ namespace ProjectTourism.WPF.View.OwnerView
 
             }
         }
+        public void Shortcuts(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("CTRL + P: " + "Your profile " +
+                            "\nCTRL + A: " + "Accommodations" +
+                            "\nCTRL + R: " + "Reservations" +
+                            "\nCTRL + N: " + "Notifications" +
+                            "\nCTRL + F: " + "Forums" +
+                            "\nCTRL + H: " + "Help");
+        }
     }
 }

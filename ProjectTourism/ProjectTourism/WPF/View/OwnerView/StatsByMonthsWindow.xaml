@@ -8,7 +8,7 @@
         xmlns:vm="clr-namespace:ProjectTourism.WPF.ViewModel.OwnerViewModel"
 
         mc:Ignorable="d"
-        Title="StatsByMonthsWindow" Height="540" Width="650" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
+        Title="Monthly stats" Height="540" Width="650" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Window.DataContext>
         <vm:YourAccommodationsMenuItemVM/>
     </Window.DataContext>
