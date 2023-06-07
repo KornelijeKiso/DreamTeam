@@ -41,8 +41,33 @@ namespace ProjectTourism.WPF.View.Guest1View
             reservationVM.Accommodation = SelectedReservation.Accommodation;
             reservationVM.Guest1Username = Guest1VM.Username;
 
-            GradeAccommodatonWindow gradeAccommodatonWindow = new GradeAccommodatonWindow(reservationVM, Guest1VM.Username);
+            GradeItem.Visibility = Visibility.Visible;
+
+            //GradeAccommodatonWindow gradeAccommodatonWindow = new GradeAccommodatonWindow(reservationVM, Guest1VM.Username);
             //gradeAccommodatonWindow.ShowDialog();
+        }
+
+        public void RenovationRecommendationClick(object sender, RoutedEventArgs e)
+        {
+            RRItem.Visibility = Visibility.Visible;
+        }
+        public void CancelRecommendationClick(object sender, RoutedEventArgs e)
+        {
+            RRItem.Visibility = Visibility.Collapsed;
+        }
+
+        public void CancelGradeClick(object sender, RoutedEventArgs e)
+        {
+            GradeItem.Visibility = Visibility.Collapsed;
+        }
+        public void GradeClick(object sender, RoutedEventArgs e)
+        {
+            GradeItem.Visibility = Visibility.Visible;
+        }
+
+        public void SubmitRecommendationClick(object sender, RoutedEventArgs e)
+        {
+            GradeItem.Visibility = Visibility.Visible;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

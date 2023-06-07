@@ -57,7 +57,7 @@ namespace ProjectTourism.WPF.View.Guest1View
             AccommodationDTOs = new ObservableCollection<AccommodationDTO>(accommodationService.GetAll().Select(r => new AccommodationDTO(r)).ToList().OrderByDescending(a => a.Owner.IsSuperHost).ToList());
             SelectedReservation = new ReservationDTO(new Reservation());
 
-            SetUpDatePicker();
+            //SetUpDatePicker();
 
         }
         public void CancelReservationClick(object sender, RoutedEventArgs e)
@@ -67,16 +67,30 @@ namespace ProjectTourism.WPF.View.Guest1View
 
         public void ReserveAccommodationClick(object sender, RoutedEventArgs e)
         {
-            Button button = (Button)sender;
-
-            ReservationDTO reservationDTO = new ReservationDTO(new Reservation());
-            reservationDTO.AccommodationId = SelectedAccommodation.Id;
-            reservationDTO.Guest1Username = Guest1.Username;
-
-            //Content = new Guest1ReservationWindow(reservationDTO, SelectedAccommodation, Guest1.Username);
             ReserveItem.Visibility = Visibility.Visible;
-            //Update();
         }
+        //public void ShowDetailsClick(object sender, RoutedEventArgs e)
+        //{
+        //    Details.Visibility = Visibility.Collapsed;
+        //}
+
+        //public void CancelDetailsClick(object sender, RoutedEventArgs e)
+        //{
+        //    Details.Visibility = Visibility.Visible;
+        //}
+
+        //public void ReserveAccommodationClick(object sender, RoutedEventArgs e)
+        //{
+        //    //Button button = (Button)sender;
+
+        //    //ReservationDTO reservationDTO = new ReservationDTO(new Reservation());
+        //    //reservationDTO.AccommodationId = SelectedAccommodation.Id;
+        //    //reservationDTO.Guest1Username = Guest1.Username;
+
+        //    //Content = new Guest1ReservationWindow(reservationDTO, SelectedAccommodation, Guest1.Username);
+        //    ReserveItem.Visibility = Visibility.Visible;
+        //    //Update();
+        //}
         private void SetUpDatePicker()
         {
             StartDatePicker.DisplayDate = DateTime.Now;

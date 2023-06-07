@@ -17,12 +17,20 @@
         <ContentControl x:Name="Content" Content="{Binding Content, UpdateSourceTrigger=PropertyChanged}"/>
         <Rectangle VerticalAlignment="Top" Margin="0 0 0 0" Fill="#FFFFD0" Height="65" Width="430" StrokeThickness="2"/>
         <Rectangle VerticalAlignment="Bottom" Margin="0 0 0 0" Fill="#FFFFD0" Height="40" Width="430" StrokeThickness="2"/>
+        <Button Background="Transparent" BorderBrush="Transparent" Height="40" Width="40"  HorizontalAlignment="Center" VerticalAlignment="Bottom" Command="{Binding SwitchToAccommodationsCommand}"/>
+        <Image Source="https://cdn-icons-png.flaticon.com/128/319/319248.png" Height="20" Width="20" Margin="0 0 0 10" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Image>
+        <Image Source="https://cdn-icons-png.flaticon.com/128/58/58315.png" Height="20" Width="20" Margin="0 0 250 10" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Image>
+        <Image Source="https://cdn-icons-png.flaticon.com/128/545/545666.png" Height="20" Width="20" Margin="250 0 0 10" HorizontalAlignment="Center" VerticalAlignment="Bottom"></Image>
+        <Label Name="AccommodationsLabel" Visibility="Collapsed" Content="Accommodations" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" FontWeight="Bold" Margin="0 15 0 0"/>
+        <Label Name="MyReservationsLabel" Visibility="Collapsed" Content="My Reservations" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" FontWeight="Bold" Margin="0 15 0 0"/>
+        <Label Name="MyProfileLabel"      Visibility="Collapsed" Content="MyProfile" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" FontWeight="Bold" Margin="0 15 0 0"/>
+        <Label Name="GradableLabel"       Visibility="Collapsed" Content="Gradable" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" FontWeight="Bold" Margin="0 15 0 0"/>
         <Button Click="ShowMenu" Margin="24 24 0 0 " HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent" BorderBrush="Transparent" Width="30" Height="20"/>
         <Image Source="https://cdn-icons-png.flaticon.com/128/2976/2976215.png" VerticalAlignment="Top" HorizontalAlignment="left" Margin="20 20 0 0" Height="26"></Image>
         <Button Margin="0 14 11 0 " HorizontalAlignment="Right" VerticalAlignment="Top" Background="Transparent" BorderBrush="Transparent" Width="40" Height="40"/>
         <Image Source="https://cdn-icons-png.flaticon.com/128/3524/3524344.png" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0 23 20 0" Height="24"></Image>
 
-        <Border Name="Menu" Background="#FFFFC0" HorizontalAlignment="Left" Width="250" Height="750" Visibility="Visible">
+        <Border Name="Menu" Background="#FFFFC0" HorizontalAlignment="Left" Width="250" Height="750" Visibility="Collapsed">
             <StackPanel>
                 <Button Click="HideMenu" Margin="14 10 0 0 " HorizontalAlignment="Left" VerticalAlignment="Top" Background="Transparent" BorderBrush="Transparent" Width="40" Height="40"/>
                 <Image Source="https://cdn-icons-png.flaticon.com/128/2976/2976215.png" VerticalAlignment="Top" HorizontalAlignment="left" Margin="20 -30 0 0" Height="26"></Image>

@@ -74,7 +74,7 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Border  Name="ReportPDF" Width="300" Height="350" Background="#FFFFD0" Visibility="Visible">
+        <Border  Name="ReportPDF" Width="300" Height="350" Background="#FFFFD0" Visibility="Collapsed">
             <StackPanel>
                 <Label Content="Generate Report" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Center" Margin="0 20 0 0"/>
                 <Label Content="From :" HorizontalAlignment="Left" Margin="40,10,0,0"/>

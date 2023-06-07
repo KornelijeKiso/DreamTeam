@@ -54,6 +54,7 @@ namespace ProjectTourism.View.Guest1View
             //SetUpDatePicker();
 
         }
+
         public void ShowMenu(object sender, RoutedEventArgs e)
         {
             Menu.Visibility = Visibility.Visible;
