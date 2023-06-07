@@ -33,6 +33,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             AttendedTickets = SetAttendedTickets();
             SkippedTickets = SetSkippedTickets();
             CanceledTickets = SetCancecledByGuideTickets();
+            TicketGrade = new TicketGradeDTO(new Model.TicketGrade());
 
             // Update Ticket Command
             UpdateTicketCommand = new RelayCommand(UpdateTicket);
@@ -137,24 +138,28 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         {
             get
             {
-                return _GradeTicketCommand ?? (_GradeTicketCommand = new CommandHandler(() => GradeTicket_Click(), () => CanGrade));
+                return _GradeTicketCommand ?? (_GradeTicketCommand = new CommandHandler(() => GradeTicket(), () => true));
             }
         }
-        public bool CanGrade
+        public void GradeTicket()
         {
-            get
+            if (SelectedTicket != null && !TicketGrade.IsAlreadyGraded(SelectedTicket.GetTicket()))
             {
-                TicketGrade = new TicketGradeDTO(new Model.TicketGrade());
-                return (SelectedTicket != null && Guest2 != null && !TicketGrade.IsAlreadyGraded(SelectedTicket.GetTicket()));
+                GradeTicketWindow gradeTicketWindow = new GradeTicketWindow(SelectedTicket, Guest2);
+                gradeTicketWindow.ShowDialog(); 
+                MessageBox.Show("Successfully graded a Ticket!");
             }
+            else
+            {
+                if (SelectedTicket != null && TicketGrade.IsAlreadyGraded(SelectedTicket.GetTicket()))
+                {
+                    MessageBox.Show("You already left a review!");
+                }
+                else
+                    MessageBox.Show("Please select the ticket you would like to grade!");
+            }
+            
         }
-        public void GradeTicket_Click()
-        {
-            GradeTicketWindow gradeTicketWindow = new GradeTicketWindow(SelectedTicket, Guest2);
-            gradeTicketWindow.ShowDialog();
-        }
-
-        
 
         private ICommand _GeneratePDFDocumentCommand;
         public ICommand GeneratePDFDocumentCommand
