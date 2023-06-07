@@ -29,6 +29,16 @@ namespace ProjectTourism.DTO
         {
             return _tourRequest;
         }
+
+        public void Reset()
+        {
+            Location = new LocationDTO(new Model.Location());
+            State = REQUESTSTATE.PENDING;
+            CreationDateTime = DateTime.Now;
+            Language = "";
+            Description = "";
+            NumberOfGuests = 0;
+        }
         public int StatForYear(int year)
         {
             int tourRequestCounter = 0;

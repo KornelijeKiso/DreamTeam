@@ -36,7 +36,7 @@
             <!--Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
             Text="{Binding Path=NewTourRequestPart.Location.Country, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" -->
             <TextBox x:Name="CountryText"
-                     Text="{Binding Path=NewTourRequestPart.Location.Country, UpdateSourceTrigger=PropertyChanged}" 
+                     Text="{Binding Path=NewLocation.Country, UpdateSourceTrigger=PropertyChanged}" 
                      
                      Width="200" Height="25"
                      FontFamily="/Fonts/#Rubik"
@@ -54,7 +54,7 @@
             <!--Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
             Text="{Binding Path=NewTourRequestPart.Location.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" -->
             <TextBox x:Name="CityText"
-                     Text="{Binding Path=NewTourRequestPart.Location.City, UpdateSourceTrigger=PropertyChanged}" 
+                     Text="{Binding Path=NewLocation.City, UpdateSourceTrigger=PropertyChanged}" 
                      
                      Width="200" Height="25"
                      FontFamily="/Fonts/#Rubik"

@@ -18,32 +18,6 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
     {
         public Guest2DTO Guest2 { get; set; }
         public ComplexTourDTO ComplexTour { get; set; }
-        private TourRequestDTO _NewTourRequestPart;
-        public TourRequestDTO NewTourRequestPart //{ get; set; }
-        {
-            get => _NewTourRequestPart;
-            set
-            {
-                if (value != _NewTourRequestPart)
-                {
-                    _NewTourRequestPart = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-        private ObservableCollection<TourRequestDTO> _TourRequests;
-        public ObservableCollection<TourRequestDTO> TourRequests //{ get; set; }
-        {
-            get => _TourRequests;
-            set
-            {
-                if (value != _TourRequests)
-                {
-                    _TourRequests = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
         
         // Contents
         private object _Content;
@@ -70,10 +44,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public CreateComplexTourRequestVM(Guest2DTO guest2)
         {
             Guest2 = guest2;
-            
-            ComplexTour = new ComplexTourDTO(new ComplexTour(Guest2.Username, ""));
-
-            TourRequests = new ObservableCollection<TourRequestDTO>();
+            ComplexTour = new ComplexTourDTO(new ComplexTour(Guest2.Username, "-1"));
 
             // Commands
             ContentCommand = new RelayCommand(ReturnToComplexTourRequests);
@@ -91,17 +62,21 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         {
             get
             {
-                return _MakeComplexTourCommand ?? (_MakeComplexTourCommand = new CommandHandler(() => MakeComplexTour_Click(), () => true));
+                return _MakeComplexTourCommand ?? (_MakeComplexTourCommand = new CommandHandler(() => CreateComplexTour(), () => true));
             }
         }
-        public void MakeComplexTour_Click()
+        public void CreateComplexTour()
         {
-            // TO DO -> save created Complex Tour
-            if (ComplexTour.IsValid && ComplexTour.TourRequests.Count >= 2)
+            if (ComplexTour.IsValid)
             {
-                Guest2.CreateComplexTour(ComplexTour);
-                MessageBox.Show("Complex Tour Request created! ");
-                Content = new ComplexToursVM(Guest2);
+                if (ComplexTour.TourRequests.Count >= 2)
+                {
+                    Guest2.CreateComplexTour(ComplexTour);
+                    MessageBox.Show("Complex Tour Request created! ");
+                    Content = new ComplexToursVM(Guest2);
+                }
+                else
+                    MessageBox.Show("Complex Tour Request must have at least 2 parts!");
             }
             else
             {
@@ -121,8 +96,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public ICommand PartsFormContentCommand { get; set; }
         private void DisplayForm(object obj)
         {
-            //new CreateComplexTourPartVM(NewTourRequestPart);
-            PartsFormContent = new CreateComplexTourPartVM(ComplexTour);
+            PartsFormContent = new CreateComplexTourPartVM(Guest2, ComplexTour);
         }
     }
 }

@@ -11,10 +11,11 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
     public class CreateComplexTourPartVM : ViewModelBase
     {
-        public List<string> LanguageList { get; set; }
+        public Guest2DTO Guest2 { get; set; }
         public ComplexTourDTO ComplexTour { get; set; }
+        public List<string> LanguageList { get; set; }
         private TourRequestDTO _NewTourRequestPart;
-        public TourRequestDTO NewTourRequestPart 
+        public TourRequestDTO NewTourRequestPart
         {
             get => _NewTourRequestPart;
             set
@@ -22,6 +23,19 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                 if (value != _NewTourRequestPart)
                 {
                     _NewTourRequestPart = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private LocationDTO _NewLocation;
+        public LocationDTO NewLocation
+        {
+            get => _NewLocation;
+            set
+            {
+                if (value != _NewLocation)
+                {
+                    _NewLocation = value;
                     OnPropertyChanged();
                 }
             }
@@ -67,48 +81,25 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             }
         }
         public CreateComplexTourPartVM() { }
-        public CreateComplexTourPartVM(ComplexTourDTO complexTour)
+        public CreateComplexTourPartVM(Guest2DTO guest2, ComplexTourDTO complexTour)
         {
+            Guest2 = guest2;
             ComplexTour = complexTour;
             LanguageList = new List<string> { "English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Japanese", "Korean", "Chinese", "Dutch", "Swedish", "Norwegian", "Danish", "Finnish", "Turkish", "Greek", "Polish", "Arabic", "Hebrew", };
-            SetNewTourRequestPart();
+            SetAttributes();
 
-            StartDateChangedCommand = new RelayCommand(StartDateChanged);
-            EndDateChangedCommand = new RelayCommand(EndDateChanged);
-        }
-        public CreateComplexTourPartVM(TourRequestDTO complexTourPart)
-        {
-            NewTourRequestPart = complexTourPart;
-            LanguageList = new List<string> { "English", "Spanish", "French", "German", "Italian", "Portuguese", "Russian", "Japanese", "Korean", "Chinese", "Dutch", "Swedish", "Norwegian", "Danish", "Finnish", "Turkish", "Greek", "Polish", "Arabic", "Hebrew", };
-            //SetNewTourRequestPart();
-
+            // Commands
             StartDateChangedCommand = new RelayCommand(StartDateChanged);
             EndDateChangedCommand = new RelayCommand(EndDateChanged);
         }
 
-        private void SetNewTourRequestPart()
+        private void SetAttributes()
         {
-            StartDate = null;
-            EndDate = null;
-
             NewTourRequestPart = new TourRequestDTO(new TourRequest());
-            //NewTourRequestPart.Guest2Username = Guest2.Username;
+            NewTourRequestPart.Guest2Username = Guest2.Username;
             NewTourRequestPart.CreationDateTime = DateTime.Now;
-            NewTourRequestPart.State = REQUESTSTATE.PENDING;
-
-            // TO DO -> clear text boxes
-            NewTourRequestPart.Location = new LocationDTO(new Location("", ""));
-            NewTourRequestPart.Language = "";
-            NewTourRequestPart.NumberOfGuests = 0;
-            NewTourRequestPart.Description = "";
-            NewTourRequestPart.StartDate = new DateOnly();
-            NewTourRequestPart.EndDate = new DateOnly();
-            // TO DO -> fix location validation
-            //NewTourRequestPart.Location.Country = "neka drzava";
-            //NewTourRequestPart.Location.City = "neki grad";
+            NewLocation = new LocationDTO(new Location());
         }
-
-
 
         // Commands
         private ICommand _AddTourRequestCommand;
@@ -121,33 +112,31 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         }
         public void AddTourRequestPartClick()
         {
-            if (NewTourRequestPart.IsValid)
+            if (NewTourRequestPart.IsValid && NewLocation.IsValid)
             {
                 if (NewTourRequestPart.StartDate > NewTourRequestPart.EndDate)
                     MessageBox.Show("Invalid start and end date!");
                 else
                 {
-                    //Guest2.CreateComplexTourRequestPart(NewTourRequestPart);
-                    ComplexTour.AddTourPart(NewTourRequestPart.GetTourRequest());
-                    //TourRequests.Add(NewTourRequestPart);
-
-                    if (ComplexTour.TourRequestString == "")
-                        ComplexTour.TourRequestString = NewTourRequestPart.Id.ToString();
-                    else
-                        ComplexTour.TourRequestString += "," + NewTourRequestPart.Id.ToString();
-
-                    //SetNewTourRequestPart();
-
-                    //ClearTextBoxs();
-                    // TO DO -> clear text boxes
+                    ComplexTour.CreateComplexTourRequestPart(ComplexTour, NewTourRequestPart, NewLocation);
+                    Reset();
                 }
             }
             else
                 MessageBox.Show("Tour Request can't be made because the data were not entered correctly.");
         }
+        private void Reset()
+        {
+            StartDate = new DateTime(NewTourRequestPart.EndDate.Year, NewTourRequestPart.EndDate.Month, NewTourRequestPart.EndDate.Day);
+            EndDate = null;
+            SetAttributes();
+            NewTourRequestPart.Reset();
+            NewLocation.Reset();
+        }
 
         // START DATE SELECTION CHANGED
         public ICommand StartDateChangedCommand { get; set; }
+
         private void StartDateChanged(object obj)
         {
             NewTourRequestPart.StartDate = DateOnly.FromDateTime((DateTime)StartDate);
