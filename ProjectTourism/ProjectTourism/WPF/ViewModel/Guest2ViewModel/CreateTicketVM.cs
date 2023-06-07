@@ -81,27 +81,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             ContentCommand = new RelayCommand(ReturnToHome);
             DateSelectionChangedCommand = new RelayCommand(DateSelectionChanged);
         }
-        public ICommand ContentCommand { get; set; }
-        private void ReturnToHome(Object obj)
-        {
-            Content = new HomeVM(Guest2);
-        }
-
-        // DATE COMBO BOX SELECTION CHANGED
-        public ICommand DateSelectionChangedCommand { get; set; }
-        private void DateSelectionChanged(object obj)
-        {
-            if (date != null)
-            {
-                selectedAppointment = SelectedTour.TourAppointments.First(a => a.TourDateTime == date);
-                PickedAnAppointment = true;
-                DateValidationVisible = false;
-            }
-            else
-                MessageBox.Show("Please select the date! ");
-        }
-
-
+        
         private List<DateTime> FindDates()
         {
             List<DateTime> allDates = FindAllDates(SelectedTour);
@@ -111,7 +91,6 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 
             return available;
         }
-
         private List<DateTime> FindAllDates(TourDTO tour)
         {
             List<DateTime> dates = new List<DateTime>();
@@ -163,6 +142,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         }
 
 
+
         // CREATE TICKET COMMAND 
         private ICommand _CreateTicketCommand;
         public ICommand CreateTicketCommand
@@ -179,9 +159,10 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                 Ticket.CreateTicket(new Ticket(selectedAppointment.Id, Ticket.TourStop, Guest2.Username, Ticket.NumberOfGuests));
                 Ticket.TourAppointment = selectedAppointment;
                 Ticket.TourAppointment.Tour = SelectedTour;
-                Guest2.Tickets.Add(Ticket); 
+                Guest2.Tickets.Add(Ticket);
                 selectedAppointment.UpdateTourAppointmentDTO(selectedAppointment);
                 MessageBox.Show("Successfully reserved a ticket! ");
+                Guest2.Synchronize(Guest2.Username);    // updating Guest2.Tickets
                 Content = new HomeVM(Guest2);
             }
             else
@@ -200,7 +181,8 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         }
         private void UseVoucherClick()
         {
-            if (selectedAppointment != null)// (dates.Count > 0)
+            if (Ticket.IsValid && selectedAppointment != null
+                && (Guest2.Vouchers.Where(v => v.Status == STATUS.VALID).Count() != 0))
             {
                 Ticket.CreateTicket(new Ticket(selectedAppointment.Id, Ticket.TourStop, Guest2.Username, Ticket.NumberOfGuests));
                 Ticket = Ticket.GetLast();
@@ -209,17 +191,44 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                 if (unusedVouchersWindow.IsUsed)
                 {
                     selectedAppointment.UpdateTourAppointmentDTO(selectedAppointment);
+                    Ticket.HasVoucher = true;
+                    MessageBox.Show("Successfully reserved a ticket!\nYou used your Voucher for this reservation! ");
+                    Guest2.Synchronize(Guest2.Username);    // updating used Voucher
+                    Content = new HomeVM(Guest2);
                 }
                 else
                 {   // delete created Ticket if UseVoucher is canceled
                     Ticket.RemoveLast();
                 }
-                Content = new HomeVM(Guest2);
             }
             else
             {
-                MessageBox.Show("Please check if you entered the data correctly! ");
+                if (Guest2.Vouchers.Where(v => v.Status == STATUS.VALID).Count() == 0)
+                {
+                    MessageBox.Show("You don't have valid Vouchers!\nPlease select Buy Ticket option! ");
+                }
+                else
+                    MessageBox.Show("Please check if you entered the data correctly! ");
             }
+        }
+        public ICommand ContentCommand { get; set; }
+        private void ReturnToHome(Object obj)
+        {
+            Content = new HomeVM(Guest2);
+        }
+
+        // DATE COMBO BOX SELECTION CHANGED
+        public ICommand DateSelectionChangedCommand { get; set; }
+        private void DateSelectionChanged(object obj)
+        {
+            if (date != null)
+            {
+                selectedAppointment = SelectedTour.TourAppointments.First(a => a.TourDateTime == date);
+                PickedAnAppointment = true;
+                DateValidationVisible = false;
+            }
+            else
+                MessageBox.Show("Please select the date! ");
         }
 
         private bool _DateValidationVisible;

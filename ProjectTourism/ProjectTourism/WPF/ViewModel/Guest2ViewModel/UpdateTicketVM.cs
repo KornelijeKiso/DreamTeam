@@ -37,14 +37,9 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             SelectedTour = ticket.TourAppointment.Tour;
             TicketService = new TicketService();
 
-            //TicketCommand
             ContentCommand = new RelayCommand(ReturnToTickets);
         }
-        public ICommand ContentCommand { get; set; }
-        private void ReturnToTickets(Object obj)
-        {
-            Content = new TicketsVM(Guest2);
-        }
+        
 
         // UPDATE TICKET COMMAND 
         private ICommand _UpdateTicketCommand; 
@@ -60,14 +55,19 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             if (Ticket.IsValid && selectedAppointment != null)
             {
                 TicketService.Update(Ticket.GetTicket());
-                // TO DO -> update Guest2.Tickets
                 MessageBox.Show("Ticket successfully updated! ");
+                Guest2.Synchronize(Guest2.Username);    // updating Guest2.Tickets
                 Content = new TicketsVM(Guest2);
             }
             else
             {
                 MessageBox.Show("Please check if you entered the data correctly! ");
             }
+        }
+        public ICommand ContentCommand { get; set; }
+        private void ReturnToTickets(Object obj)
+        {
+            Content = new TicketsVM(Guest2);
         }
     }
 }

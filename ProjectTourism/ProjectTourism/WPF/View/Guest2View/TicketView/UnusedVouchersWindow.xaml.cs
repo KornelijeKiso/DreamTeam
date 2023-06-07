@@ -34,6 +34,8 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
             if (SelectedVoucherDTO != null)
             {
                 UsedVoucherDTO = new VoucherDTO(SelectedVoucherDTO, TicketDTO);
+                UsedVoucherDTO.Ticket = TicketDTO;
+                UsedVoucherDTO.TicketId = TicketDTO.Id;
                 IsUsed = true;
                 Close();
             }

@@ -19,7 +19,7 @@
         <DataGrid x:Name="DataGridUnusedVouchers" Style="{StaticResource DataGrid_Style}"
                   Grid.Row="0"
                   ItemsSource="{Binding Path=VouchersVM.UnusedVouchers, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding Path=SelectedVoucherVM, UpdateSourceTrigger=PropertyChanged}" 
+                  SelectedItem="{Binding Path=SelectedVoucherDTO, UpdateSourceTrigger=PropertyChanged}" 
                   Margin="10 10 10 10" BorderThickness="0"  >
             <DataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" 
