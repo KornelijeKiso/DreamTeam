@@ -75,7 +75,8 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             dates = FindDates();
             date = null;
             PickedAnAppointment = false;
-            
+            DateValidationVisible = true;
+
             // Commands
             ContentCommand = new RelayCommand(ReturnToHome);
             DateSelectionChangedCommand = new RelayCommand(DateSelectionChanged);
@@ -94,6 +95,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             {
                 selectedAppointment = SelectedTour.TourAppointments.First(a => a.TourDateTime == date);
                 PickedAnAppointment = true;
+                DateValidationVisible = false;
             }
             else
                 MessageBox.Show("Please select the date! ");
@@ -217,6 +219,20 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             else
             {
                 MessageBox.Show("Please check if you entered the data correctly! ");
+            }
+        }
+
+        private bool _DateValidationVisible;
+        public bool DateValidationVisible
+        {
+            get => _DateValidationVisible;
+            set
+            {
+                if (value != _DateValidationVisible)
+                {
+                    _DateValidationVisible = value;
+                    OnPropertyChanged();
+                }
             }
         }
     }

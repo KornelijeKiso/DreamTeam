@@ -13,7 +13,11 @@
         public bool HasGuestConfirmed;
         public TicketGrade TicketGrade;
         public bool HasVoucher;
-        public Ticket() { HasVoucher = false; }
+        public Ticket() 
+        { 
+            HasVoucher = false; 
+            NumberOfGuests = 1;
+        }
         public Ticket(int tourAppId, string tourStop, string guest2Username, int numberOfGuests)
         {
             TourAppointmentId = tourAppId;

@@ -20,6 +20,7 @@
                            HorizontalAlignment="Right" VerticalAlignment="Top"/>
             </StackPanel>
         </ControlTemplate>
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </UserControl.Resources>
     
     <Grid>
@@ -124,7 +125,7 @@
                                       FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
                                       Height="auto" Margin="5 0 5 0">
                                 <!-- combobox dates -->
-                                <Grid Height="50">
+                                <Grid Height="70">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="200" />
                                         <ColumnDefinition Width="*" />
@@ -144,6 +145,13 @@
                                             <selchanged:SelectionChangedBehavior Command="{Binding DateSelectionChangedCommand}" />
                                         </i:Interaction.Behaviors>
                                     </ComboBox>
+                                    <Label Content="Date and Time is required!" 
+                                           FontFamily="/Fonts/#Rubik"
+                                           Foreground="Red" FontSize="12"
+                                           VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="55 0 0 0"
+                                           Grid.Column="1"
+                                           Visibility="{Binding DateValidationVisible, Converter={conv:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                    />
                                 </Grid>
                             </GroupBox>
 
@@ -178,8 +186,7 @@
 
                                         <TextBox x:Name="sliderText" 
                                                  Grid.Column="1"
-                                                 Text="{Binding ElementName=slider,Path=Value,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-                                                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
+                                                 Text="{Binding ElementName=slider,Path=Value,UpdateSourceTrigger=PropertyChanged}"
                                                  Visibility="{Binding PickedAnAppointment, Converter={conv:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                                                  HorizontalAlignment="Right" VerticalAlignment="Center"
                                                  Height="25" Width="30"
@@ -190,8 +197,7 @@
                                                 Minimum="1" 
                                                 Maximum="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" 
                                                 Visibility="{Binding PickedAnAppointment, Converter={conv:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
-                                                Value="{Binding Path=Ticket.NumberOfGuests, ValidatesOnDataErrors=True}"
-                                                Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
+                                                Value="{Binding Path=Ticket.NumberOfGuests}"
                                                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"
                                                 Height="30" Width="250"
                                                 FontFamily="/Fonts/#Rubik" Foreground="#DBDBDB" FontSize="12"   />

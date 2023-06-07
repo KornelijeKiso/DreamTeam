@@ -99,6 +99,8 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             NewTourRequestPart.Guest2Username = Guest2.Username;
             NewTourRequestPart.CreationDateTime = DateTime.Now;
             NewLocation = new LocationDTO(new Location());
+            StartDateValidationVisible = true;
+            EndDateValidationVisible = true;
         }
 
         // Commands
@@ -140,6 +142,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         private void StartDateChanged(object obj)
         {
             NewTourRequestPart.StartDate = DateOnly.FromDateTime((DateTime)StartDate);
+            StartDateValidationVisible = false;
             DateTime startDate = (NewTourRequestPart.StartDate.ToDateTime(TimeOnly.MinValue));
             //EndBlackoutDates = new CalendarDateRange(new DateTime(1, 1, 1), startDate);
             // TO DO -> blackout dates in EndDatePicker when StartDate is selected
@@ -151,6 +154,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             if (StartDate == null)
             {
                 EndDate = null;
+                EndDateValidationVisible = true;
                 MessageBox.Show("Please select start date first!");
             }
             else
@@ -159,9 +163,41 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                 {
                     MessageBox.Show("Invalid Start and End Date! \nEnd Date must be after Start Date!");
                     EndDate = null;
+                    EndDateValidationVisible = true;
                 }
                 else if (EndDate != null)
+                {
                     NewTourRequestPart.EndDate = DateOnly.FromDateTime((DateTime)EndDate);
+                    EndDateValidationVisible = false;
+                }
+                
+            }
+        }
+
+        private bool _StartDateValidationVisible;
+        public bool StartDateValidationVisible
+        {
+            get => _StartDateValidationVisible;
+            set
+            {
+                if (value != _StartDateValidationVisible)
+                {
+                    _StartDateValidationVisible = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private bool _EndDateValidationVisible;
+        public bool EndDateValidationVisible
+        {
+            get => _EndDateValidationVisible;
+            set
+            {
+                if (value != _EndDateValidationVisible)
+                {
+                    _EndDateValidationVisible = value;
+                    OnPropertyChanged();
+                }
             }
         }
     }

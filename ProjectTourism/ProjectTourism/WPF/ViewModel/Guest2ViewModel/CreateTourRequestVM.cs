@@ -92,7 +92,9 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         private void SetTourRequest()
         {
             StartDate = null;
+            StartDateValidationVisible = true;
             EndDate = null;
+            EndDateValidationVisible = true;
             NewLocation = new LocationDTO(new Location());
             TourRequest = new TourRequestDTO(new TourRequest());
             TourRequest.State = REQUESTSTATE.PENDING;
@@ -133,6 +135,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         private void StartDateChanged(object obj)
         {
             TourRequest.StartDate = DateOnly.FromDateTime((DateTime)StartDate);
+            StartDateValidationVisible = false;
             DateTime startDate = (TourRequest.StartDate.ToDateTime(TimeOnly.MinValue));
             //EndBlackoutDates = new CalendarDateRange(new DateTime(1, 1, 1), startDate);
             // TO DO -> blackout dates in EndDatePicker when StartDate is selected
@@ -143,7 +146,8 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         {
             if (StartDate == null)
             {
-                EndDate = null; 
+                EndDate = null;
+                EndDateValidationVisible = true;
                 MessageBox.Show("Please select start date first!");
             }
             else
@@ -151,16 +155,48 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                 if (StartDate > EndDate)
                 {
                     MessageBox.Show("Invalid Start and End Date! \nEnd Date must be after Start Date!");
+                    EndDateValidationVisible = true;
                     EndDate = null;
                 }    
                 else if (EndDate != null)
+                {
                     TourRequest.EndDate = DateOnly.FromDateTime((DateTime)EndDate);
+                    EndDateValidationVisible = false;
+                }
             }
         }
         public ICommand ContentCommand { get; set; }
         private void ReturnToTourRequests(Object obj)
         {
             Content = new TourRequestsVM(Guest2);
+        }
+
+        //
+        private bool _StartDateValidationVisible;
+        public bool StartDateValidationVisible
+        {
+            get => _StartDateValidationVisible;
+            set
+            {
+                if (value != _StartDateValidationVisible)
+                {
+                    _StartDateValidationVisible = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private bool _EndDateValidationVisible;
+        public bool EndDateValidationVisible
+        {
+            get => _EndDateValidationVisible;
+            set
+            {
+                if (value != _EndDateValidationVisible)
+                {
+                    _EndDateValidationVisible = value;
+                    OnPropertyChanged();
+                }
+            }
         }
     }
 }
