@@ -7,17 +7,26 @@
              xmlns:selchanged="clr-namespace:ProjectTourism.Utilities" 
              xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest2View.UserControls"
              mc:Ignorable="d" 
-             d:DesignHeight="320" d:DesignWidth="700">
+             d:DesignHeight="360" d:DesignWidth="700">
+    <UserControl.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" 
+                           FontSize="12" FontFamily="/Fonts/#Rubik"
+                           HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            </StackPanel>
+        </ControlTemplate>
+    </UserControl.Resources>
     <Grid>
         <Grid Background="Black" Margin="20 0 20 0" >
             <Grid.RowDefinitions>
-                <RowDefinition Height="55"/>
-                <RowDefinition Height="55"/>
-                <RowDefinition Height="55"/>
-                <RowDefinition Height="80"/>
-                <RowDefinition Height="55"/>
-                <RowDefinition Height="*"/>
-
+                <RowDefinition Height="65"/>
+                <RowDefinition Height="65"/>
+                <RowDefinition Height="65"/>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="65"/>
+                <RowDefinition Height="10"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="100"/>
@@ -30,14 +39,12 @@
                    FontFamily="/Fonts/#Rubik"
                    Foreground="#DBDBDB"
                    FontSize="16"
-                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0 7 0 0"
                    Grid.Column="1" Grid.Row="0"/>
 
-            <!--Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
-            Text="{Binding Path=NewTourRequestPart.Location.Country, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" -->
             <TextBox x:Name="CountryText"
-                     Text="{Binding Path=NewLocation.Country, UpdateSourceTrigger=PropertyChanged}" 
-                     
+                     Text="{Binding Path=NewLocation.Country, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
                      Width="200" Height="25"
                      FontFamily="/Fonts/#Rubik"
                      FontSize="16"
@@ -48,14 +55,12 @@
                    FontFamily="/Fonts/#Rubik"
                    Foreground="#DBDBDB"
                    FontSize="16"
-                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0 7 0 0"
                    Grid.Column="2" Grid.Row="0"
                    />
-            <!--Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
-            Text="{Binding Path=NewTourRequestPart.Location.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" -->
             <TextBox x:Name="CityText"
-                     Text="{Binding Path=NewLocation.City, UpdateSourceTrigger=PropertyChanged}" 
-                     
+                     Text="{Binding Path=NewLocation.City, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
                      Width="200" Height="25"
                      FontFamily="/Fonts/#Rubik"
                      FontSize="16"
@@ -66,13 +71,11 @@
                    FontFamily="/Fonts/#Rubik"
                    Foreground="#DBDBDB"
                    FontSize="16"
-                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0 7 0 0"
                    Grid.Column="1" Grid.Row="1"     />
-            <!--Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
-            Text="{Binding Path=NewTourRequestPart.Language, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" -->
             <ComboBox x:Name="LanguageComboBox" 
-                      Text="{Binding Path=NewTourRequestPart.Language, UpdateSourceTrigger=PropertyChanged}" 
-                      
+                      Text="{Binding Path=NewTourRequestPart.Language, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
                       ItemsSource="{Binding Path=LanguageList}"
                       Width="200" Height="25"
                       FontFamily="/Fonts/#Rubik"
@@ -83,13 +86,11 @@
             <Label Content="Chose new language: " Height="auto" 
                    FontFamily="/Fonts/#Rubik"
                    Foreground="#DBDBDB" FontSize="14"
-                   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0 0 0 0"
+                   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0 7 0 0"
                    Grid.Column="2" Grid.Row="1"     />
-            <!--Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
-            Text="{Binding Path=NewTourRequestPart.Language, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" -->
             <TextBox x:Name="LanguageText"
-                     Text="{Binding Path=NewTourRequestPart.Language, UpdateSourceTrigger=PropertyChanged}" 
-                     
+                     Text="{Binding Path=NewTourRequestPart.Language, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
                      Width="200" Height="25"
                      FontFamily="/Fonts/#Rubik" FontSize="16"
                      VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0 0 0 5"
@@ -97,13 +98,11 @@
 
             <Label Content="Max Number of Guests: " 
                    FontFamily="/Fonts/#Rubik" Foreground="#DBDBDB" FontSize="16"
-                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0 7 0 0"
                    Grid.Column="1" Grid.Row="2"     />
-            <!--Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
-            Text="{Binding Path=NewTourRequestPart.NumberOfGuests, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" -->
             <TextBox x:Name="NumberOfGuestsText"
-                     Text="{Binding Path=NewTourRequestPart.NumberOfGuests, UpdateSourceTrigger=PropertyChanged}" 
-                     
+                     Text="{Binding Path=NewTourRequestPart.NumberOfGuests, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                     Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
                      Width="200" Height="25"
                      FontFamily="/Fonts/#Rubik" FontSize="16"
                      VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0 0 0 5"
@@ -111,13 +110,10 @@
 
             <Label Content="Description: " 
                    FontFamily="/Fonts/#Rubik" Foreground="#DBDBDB" FontSize="16"
-                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0 7 0 0"
                    Grid.Column="1" Grid.Row="3"     />
-            <!--Validation.ErrorTemplate="{StaticResource ValidationTemplate}"
-            Text="{Binding Path=NewTourRequestPart.Description, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" -->
             <TextBox x:Name="DescriptionText"
                      Text="{Binding Path=NewTourRequestPart.Description, UpdateSourceTrigger=PropertyChanged}" 
-                     
                      Width="450" Height="50" TextWrapping="Wrap"
                      FontFamily="/Fonts/#Rubik" FontSize="16"
                      VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0 0 0 5"
@@ -126,14 +122,11 @@
             <Label Content="Start Date: " 
                    FontFamily="/Fonts/#Rubik"
                    Foreground="#DBDBDB" FontSize="16"
-                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0 7 0 0"
                    Grid.Column="1" Grid.Row="4"     />
-            <!--SelectedDate="{Binding Path=NewTourRequestPart.StartDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" -->
-            <!--Validation.ErrorTemplate="{StaticResource ValidationTemplate}"-->
-
-            <!--SelectedDateChanged="StartDateChanged"-->
             <DatePicker x:Name="StartDatePicker" IsTodayHighlighted="True"
-                        SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                        Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
                         Width="200" Height="25"
                         FontFamily="/Fonts/#Rubik" FontSize="16"
                         VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0 0 0 5"
@@ -147,14 +140,11 @@
                    FontFamily="/Fonts/#Rubik"
                    Foreground="#DBDBDB"
                    FontSize="16"
-                   VerticalAlignment="Top" HorizontalAlignment="Left"
+                   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0 7 0 0"
                    Grid.Column="2" Grid.Row="4"     />
-            <!-- SelectedDate="{Binding Path=NewTourRequestPart.EndDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" -->
-            <!--Validation.ErrorTemplate="{StaticResource ValidationTemplate}"-->
-
-            <!--SelectedDateChanged="EndDateChanged"-->
             <DatePicker x:Name="EndDatePicker" IsTodayHighlighted="True"
-                        SelectedDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                        Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
                         Width="200" Height="25"
                         FontFamily="/Fonts/#Rubik" FontSize="16"
                         VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0 0 0 5"

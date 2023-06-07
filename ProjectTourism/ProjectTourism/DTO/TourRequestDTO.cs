@@ -347,6 +347,8 @@ namespace ProjectTourism.DTO
                 {
                     if (string.IsNullOrEmpty(NumberOfGuests.ToString()))
                         return "Number Of Guests is required!";
+                    if (NumberOfGuests < 1)
+                        return "Number Of Guests has to be at least 1!";
                 }
                 else if (columnName == "StartDate")
                 {
@@ -358,20 +360,10 @@ namespace ProjectTourism.DTO
                     if (string.IsNullOrEmpty(EndDate.ToString()))
                         return "End Date is required!";
                 }
-                //else if (columnName == "Location.Country")
-                //{
-                //    if (string.IsNullOrEmpty(Location.Country))
-                //        return "Country is required!";
-                //}
-                //else if (columnName == "Location.City")
-                //{
-                //    if (string.IsNullOrEmpty(Location.City))
-                //        return "City is required!";
-                //}
                 return null;
             }
         }
-        private readonly string[] _validatedProperties = { "Language", "NumberOfGuests", "StartDate", "EndDate", /*"Location.Country", "Location.City"*/ };
+        private readonly string[] _validatedProperties = { "Language", "NumberOfGuests", "StartDate", "EndDate" };
 
         public bool IsValid
         {

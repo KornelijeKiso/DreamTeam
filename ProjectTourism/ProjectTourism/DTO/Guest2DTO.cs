@@ -206,11 +206,14 @@ namespace ProjectTourism.DTO
             }
         }
 
-        public void CreateTourRequest(TourRequestDTO tourRequest)
+        public void CreateTourRequest(TourRequestDTO tourRequest, LocationDTO location)
         {
             TourRequestService requestService = new TourRequestService();
             LocationService locationService = new LocationService();
-            tourRequest.LocationId = locationService.AddAndReturnId(tourRequest.Location.GetLocation());
+            
+            tourRequest.LocationId = locationService.AddAndReturnId(location.GetLocation());
+            location.Id = tourRequest.LocationId;
+            tourRequest.Location = location;
             requestService.Add(tourRequest.GetTourRequest());
             TourRequests.Add(tourRequest);
         }

@@ -80,7 +80,7 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
                     MessageBox.Show("Invalid start and end date!");
                 else
                 {
-                    Guest2.CreateTourRequest(TourRequest);
+                    //Guest2.CreateTourRequest(TourRequest);
                     Close();
                 }
             }

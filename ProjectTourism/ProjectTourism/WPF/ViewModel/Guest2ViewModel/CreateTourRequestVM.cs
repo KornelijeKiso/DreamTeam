@@ -1,17 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
-using System.Threading.Tasks;
 using ProjectTourism.Model;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using ProjectTourism.Domain.Model;
 using ProjectTourism.DTO;
 using ProjectTourism.Utilities;
 using System.Windows.Input;
-using System.Windows.Controls;
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 {
@@ -20,20 +14,33 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public Guest2DTO Guest2 { get; set; }
         public List<string> LanguageList { get; set; }
         public TourRequestDTO TourRequest { get; set; }
-        // TO DO -> blackout dates in EndDatePicker when StartDate is selected
-        private CalendarDateRange _EndBlackoutDates;
-        public CalendarDateRange EndBlackoutDates
+        private LocationDTO _NewLocation;
+        public LocationDTO NewLocation
         {
-            get => _EndBlackoutDates;
+            get => _NewLocation;
             set
             {
-                if (value != _EndBlackoutDates)
+                if (value != _NewLocation)
                 {
-                    _EndBlackoutDates = value;
+                    _NewLocation = value;
                     OnPropertyChanged();
                 }
             }
         }
+        // TO DO -> blackout dates in EndDatePicker when StartDate is selected
+        //private CalendarDateRange _EndBlackoutDates;
+        //public CalendarDateRange EndBlackoutDates
+        //{
+        //    get => _EndBlackoutDates;
+        //    set
+        //    {
+        //        if (value != _EndBlackoutDates)
+        //        {
+        //            _EndBlackoutDates = value;
+        //            OnPropertyChanged();
+        //        }
+        //    }
+        //}
         private DateTime? _StartDate;
         public DateTime? StartDate
         {
@@ -84,6 +91,9 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 
         private void SetTourRequest()
         {
+            StartDate = null;
+            EndDate = null;
+            NewLocation = new LocationDTO(new Location());
             TourRequest = new TourRequestDTO(new TourRequest());
             TourRequest.State = REQUESTSTATE.PENDING;
             TourRequest.Guest2Username = Guest2.Username;
@@ -102,13 +112,14 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         }
         private void CreateTourRequest()
         {
-            if (TourRequest.IsValid)
+            if (TourRequest.IsValid && NewLocation.IsValid
+                && StartDate != null && EndDate != null)
             {
                 if (TourRequest.StartDate > TourRequest.EndDate)
                     MessageBox.Show("Invalid start and end date!");
                 else
                 {
-                    Guest2.CreateTourRequest(TourRequest);
+                    Guest2.CreateTourRequest(TourRequest, NewLocation);
                     MessageBox.Show("Tour Request successfully created!");
                     Content = new TourRequestsVM(Guest2);
                 }
@@ -123,7 +134,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         {
             TourRequest.StartDate = DateOnly.FromDateTime((DateTime)StartDate);
             DateTime startDate = (TourRequest.StartDate.ToDateTime(TimeOnly.MinValue));
-            EndBlackoutDates = new CalendarDateRange(new DateTime(1, 1, 1), startDate);
+            //EndBlackoutDates = new CalendarDateRange(new DateTime(1, 1, 1), startDate);
             // TO DO -> blackout dates in EndDatePicker when StartDate is selected
         }
         // END DATE SELECTION CHANGED
