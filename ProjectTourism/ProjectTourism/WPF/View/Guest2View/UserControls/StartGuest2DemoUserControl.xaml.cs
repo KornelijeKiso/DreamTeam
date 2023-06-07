@@ -25,8 +25,8 @@ namespace ProjectTourism.WPF.View.Guest2View.UserControls
         public StartGuest2DemoUserControl()
         {
             InitializeComponent();
-            currentVM = new StartGuest2DemoVM(this);
-            this.DataContext = currentVM;
+            //currentVM = new StartGuest2DemoVM(this);
+            //this.DataContext = currentVM;
         }
     }
 }

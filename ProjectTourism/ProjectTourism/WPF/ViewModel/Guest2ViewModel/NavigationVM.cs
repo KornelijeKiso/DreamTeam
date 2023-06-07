@@ -80,9 +80,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public ICommand DemoCommand { get; set; }
         private void StartDemo(object obj)
         {
-            DemoOn = true;
-            ShowPopupMessage("Demo started! First feature - Tour Request Statistics!");
-            CurrentView = new TourRequestsVM(Guest2);
+            StartGuest2DemoVM startGuest2DemoVM = new StartGuest2DemoVM(Guest2, this);
         }
         // POP UP
         private string _popupText;
@@ -124,11 +122,11 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                 }
             }
         }
-        private async void ShowPopupMessage(string message)
+        public async void ShowPopupMessage(string message, int time)
         {
             popupText = message;
             popupVisible = true;
-            await Task.Delay(4000);
+            await Task.Delay(time);
             for (int i = 0; i < 20; i++)
             {
                 await Task.Delay(9);
