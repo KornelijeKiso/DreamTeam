@@ -19,6 +19,7 @@
     <None Remove="Images\Guest2\notification.png" />
     <None Remove="Images\Guest2\profile.png" />
     <None Remove="Images\Guest2\search.png" />
+    <None Remove="Images\Guest2\stop.png" />
     <None Remove="Images\Guest2\suggesttour.png" />
     <None Remove="Images\Guest2\tickets.png" />
     <None Remove="Images\Guest2\voucher.png" />
@@ -63,6 +64,7 @@
     <Resource Include="Images\Guest2\notification.png" />
     <Resource Include="Images\Guest2\profile.png" />
     <Resource Include="Images\Guest2\search.png" />
+    <Resource Include="Images\Guest2\stop.png" />
     <Resource Include="Images\Guest2\suggesttour.png" />
     <Resource Include="Images\Guest2\tickets.png" />
     <Resource Include="Images\Guest2\voucher.png" />

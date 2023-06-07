@@ -65,7 +65,17 @@
             <Grid Grid.Row="0"
                   Grid.Column="1" 
                   Background="#212529"  >
-                <!-- DEMO BUTTON -->
+
+                <!-- STOP DEMO BUTTON -->
+                <!-- TO DO -> press F1 to stot demo -->
+                <Button x:Name="StopDemo"  
+                        Style="{StaticResource StopDemo}"
+                        Command="{Binding StopDemoCommand}"
+                        Visibility="{Binding Path=DemoOn, Converter={conv:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                        >
+                </Button>
+                
+                <!-- START DEMO BUTTON -->
                 <Button x:Name="Demo"  
                         Style="{StaticResource Demo}"
                         Command="{Binding DemoCommand}">
@@ -274,7 +284,7 @@
                 <Border x:Name="popupBorder" 
                             BorderBrush="Black" BorderThickness="1" 
                             Background="DimGray" 
-                            Width="400" Height="50"
+                            Width="500" Height="80"
                             CornerRadius="10" Opacity="0.9">
                     <TextBlock x:Name="popupText" Text="{Binding popupText, UpdateSourceTrigger=PropertyChanged}" 
                                    Height="auto" 

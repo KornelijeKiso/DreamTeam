@@ -201,6 +201,55 @@
         </Setter>
     </Style>
 
+    <Style x:Key="StopDemo"
+           TargetType="{x:Type Button}">
+
+        <Setter Property="Height"
+                Value="40" />
+        <Setter Property="Width"
+                Value="150" />
+        <Setter Property="HorizontalAlignment"
+                Value="Left" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="Margin"
+                Value="40 0 200 0" />
+        <Setter Property="ToolTip"
+                Value="Stop Demo" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="border"
+                            BorderThickness="1"
+                            Background="Black">
+                        <Grid>
+                            <Image Source="../../Images/Guest2/stop.png"
+                                   Style="{StaticResource Image_Style}" />
+                            <TextBlock Text=" Stop &#x0d;Demo" 
+                                       Foreground="#DBDBDB" FontWeight="SemiBold" 
+                                       FontSize="16" FontFamily="/Fonts/#Rubik" 
+                                       VerticalAlignment="Center" HorizontalAlignment="Left" Margin="70,0,0,0"/>
+                        </Grid>
+                    </Border>
+
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver"
+                                 Value="True"   >
+                            <Setter Property="Background"
+                                    TargetName="border"
+                                    Value="#272B2F" />
+
+                        </Trigger>
+                        <Trigger Property="IsPressed"
+                                 Value="True"   ></Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
     <Style x:Key="Search"
            TargetType="{x:Type Button}">
 

@@ -19,7 +19,7 @@
                         <RowDefinition Height="40"/>
                         <RowDefinition Height="200"/>
                         <RowDefinition Height="360"/>
-                        <RowDefinition Height="30"/>
+                        <RowDefinition Height="40"/>
                     </Grid.RowDefinitions>
 
                     <Label Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"

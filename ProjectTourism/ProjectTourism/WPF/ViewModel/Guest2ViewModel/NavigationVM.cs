@@ -15,7 +15,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             set { _currentView = value; OnPropertyChanged(); }
         }
         public Guest2DTO Guest2 { get; set; }
-       
+
         public ICommand HomeCommand { get; set; }
         public ICommand TicketsCommand { get; set; }
         public ICommand VouchersCommand { get; set; }
@@ -61,12 +61,15 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
             CurrentView = new HomeVM(Guest2);
 
             // DEMO
+            DemoOn = false;
             DemoCommand = new RelayCommand(StartDemo);
+            StopDemoCommand = new RelayCommand(StopDemo);
             popupVisible = false;
             popupOpacity = 1.0;
         }
 
         // DEMO
+        public StartGuest2DemoVM StartGuest2Demo { get; set; }
         private bool _DemoOn;
         public bool DemoOn
         {
@@ -80,7 +83,15 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public ICommand DemoCommand { get; set; }
         private void StartDemo(object obj)
         {
-            StartGuest2DemoVM startGuest2DemoVM = new StartGuest2DemoVM(Guest2, this);
+            this.DemoOn = true;
+            this.StartGuest2Demo = new StartGuest2DemoVM(Guest2, this);
+        }
+        public ICommand StopDemoCommand { get; set; }
+        private void StopDemo(object obj)
+        {
+            DemoOn = false;
+            this.StartGuest2Demo.StopCommand.Execute(null);
+            ShowPopupMessage("DEMO STOPPED!", 3000);
         }
         // POP UP
         private string _popupText;
