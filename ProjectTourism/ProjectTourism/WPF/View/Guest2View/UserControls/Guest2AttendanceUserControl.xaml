@@ -324,7 +324,7 @@
                     Grid.Column="2"
                     Content="Cancel" 
                     IsDefault="True"
-                    Command="{Binding TicketCommand}">
+                    Command="{Binding ContentCommand}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Height" Value="40"/>
@@ -366,7 +366,7 @@
 
 
         <ContentControl Grid.Row="0" Grid.RowSpan="2"
-                        x:Name="TicketContentArea"
-                        Content="{Binding TicketContent, UpdateSourceTrigger=PropertyChanged}" />
+                        x:Name="ContentArea"
+                        Content="{Binding Content, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </UserControl>

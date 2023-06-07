@@ -114,42 +114,42 @@ namespace ProjectTourism.WPF.View.Guest2View.TicketView
         }
 
         ////////////////// COMMANDS ////////////////// 
-        private ICommand _AddTourRequestCommand;
-        public ICommand AddTourRequestCommand
-        {
-            get
-            {
-                return _AddTourRequestCommand ?? (_AddTourRequestCommand = new CommandHandler(() => AddTourRequestPartClick(), () => true));
-            }
-        }
-        public void AddTourRequestPartClick()
-        {
-            if (NewTourRequestPart.IsValid &&
-               (NewTourRequestPart.StartDate != DateOnly.FromDateTime(new DateTime(1, 1, 1))) &&
-               (NewTourRequestPart.EndDate != DateOnly.FromDateTime(new DateTime(1, 1, 1))))
-            {
-                if (NewTourRequestPart.StartDate > NewTourRequestPart.EndDate)
-                    MessageBox.Show("Invalid start and end date!");
-                else
-                {
-                    TourRequests.Add(NewTourRequestPart);
-                    Guest2.CreateComplexTourRequestPart(NewTourRequestPart);
+        //private ICommand _AddTourRequestCommand;
+        //public ICommand AddTourRequestCommand
+        //{
+        //    get
+        //    {
+        //        return _AddTourRequestCommand ?? (_AddTourRequestCommand = new CommandHandler(() => AddTourRequestPartClick(), () => true));
+        //    }
+        //}
+        //public void AddTourRequestPartClick()
+        //{
+        //    if (NewTourRequestPart.IsValid &&
+        //       (NewTourRequestPart.StartDate != DateOnly.FromDateTime(new DateTime(1, 1, 1))) &&
+        //       (NewTourRequestPart.EndDate != DateOnly.FromDateTime(new DateTime(1, 1, 1))))
+        //    {
+        //        if (NewTourRequestPart.StartDate > NewTourRequestPart.EndDate)
+        //            MessageBox.Show("Invalid start and end date!");
+        //        else
+        //        {
+        //            TourRequests.Add(NewTourRequestPart);
+        //            Guest2.CreateComplexTourRequestPart(NewTourRequestPart);
 
-                    if (ComplexTour.TourRequestString == "")
-                        ComplexTour.TourRequestString = NewTourRequestPart.Id.ToString();
-                    else
-                        ComplexTour.TourRequestString += "," + NewTourRequestPart.Id.ToString();
+        //            if (ComplexTour.TourRequestString == "")
+        //                ComplexTour.TourRequestString = NewTourRequestPart.Id.ToString();
+        //            else
+        //                ComplexTour.TourRequestString += "," + NewTourRequestPart.Id.ToString();
                     
-                    SetNewTourRequestPart();
+        //            SetNewTourRequestPart();
                     
-                    //ClearTextBoxs();
-                    // TO DO -> clear text boxes
-                    // TO DO -> set up datePickers 
-                }
-            }
-            else
-                MessageBox.Show("Tour Request can't be made because the data were not entered correctly.");
-        }
+        //            //ClearTextBoxs();
+        //            // TO DO -> clear text boxes
+        //            // TO DO -> set up datePickers 
+        //        }
+        //    }
+        //    else
+        //        MessageBox.Show("Tour Request can't be made because the data were not entered correctly.");
+        //}
         private void ClearTextBoxs()
         {
             // TO DO

@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:conv="clr-namespace:ProjectTourism.Converters"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:selchanged="clr-namespace:ProjectTourism.Utilities" 
              xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest2View.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="500" 
@@ -124,9 +126,11 @@
                                               Grid.Column="1"
                                               ItemsSource="{Binding Path = dates}"
                                               SelectedItem="{Binding date, UpdateSourceTrigger=PropertyChanged}"
-                                              SelectionChanged="DatesComboBox_SelectionChanged"
                                               HorizontalAlignment="Left" VerticalAlignment="Center"
                                               Height="30" Width="200"   >
+                                        <i:Interaction.Behaviors>
+                                            <selchanged:SelectionChangedBehavior Command="{Binding DateSelectionChangedCommand}" />
+                                        </i:Interaction.Behaviors>
                                     </ComboBox>
                                 </Grid>
                             </GroupBox>
@@ -153,36 +157,40 @@
                                             <ColumnDefinition Width="150" />
                                             <ColumnDefinition Width="50" />
                                             <ColumnDefinition Width="290" />
-                                            <ColumnDefinition Width="50" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <Label Grid.Column="0"
                                                FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                               MaxHeight="25" Margin="0 -4 0 -4"
+                                               MaxHeight="25"
                                                Content="Number of Tickets: " />
+
                                         <TextBox x:Name="sliderText" 
-                                                 Grid.Column="1" IsEnabled="False"
+                                                 Grid.Column="1"
                                                  Text="{Binding ElementName=slider,Path=Value,UpdateSourceTrigger=PropertyChanged}"
+                                                 Visibility="{Binding PickedAnAppointment, Converter={conv:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                                                  HorizontalAlignment="Right" VerticalAlignment="Center"
-                                                 Height="20" Width="30" />
+                                                 Height="25" Width="30"
+                                                 FontFamily="/Fonts/#Rubik" FontSize="14"  
+                                                 TextAlignment="Center"/>
                                         <Slider x:Name="slider" 
-                                                Grid.Column="2" IsEnabled="False"
+                                                Grid.Column="2"
                                                 Minimum="1" 
                                                 Maximum="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" 
+                                                Visibility="{Binding PickedAnAppointment, Converter={conv:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                                                 Value="{Binding Path=Ticket.NumberOfGuests}" 
-                                                HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                Height="30" Width="200"
-                                                FontFamily="/Fonts/#Rubik"
-                                                Foreground="#DBDBDB"
-                                                FontSize="12"   />
-                                        <Label Grid.Column="3"
-                                               FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                               MaxHeight="25" Width="auto" HorizontalAlignment="Right"
-                                               Content="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" />
-                                        <Label Grid.Column="4"
-                                               FontFamily="/Fonts/#Rubik" FontSize="11" Foreground="#DBDBDB"
-                                               MaxHeight="25"  Margin="0 0 0 0" 
-                                               Content="available seats" />
+                                                HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"
+                                                Height="30" Width="250"
+                                                FontFamily="/Fonts/#Rubik" Foreground="#DBDBDB" FontSize="12"   />
+                                        <StackPanel Grid.Column="3" Orientation="Horizontal">
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="14" Foreground="#DBDBDB"
+                                                   MaxHeight="25" Width="auto" 
+                                                   HorizontalAlignment="Right" VerticalAlignment="Top"
+                                                   Content="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" />
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="14" Foreground="#DBDBDB"
+                                                   MaxHeight="25"  
+                                                   VerticalAlignment="Top"
+                                                   Content="available seats" />
+                                        </StackPanel>
                                     </Grid>
                                 </StackPanel>
                             </GroupBox>
@@ -329,12 +337,11 @@
                 </Button.Style>
             </Button>
             
-            <!--Click="CancelClick"-->
             <Button x:Name="CancelButton" 
                     Grid.Column="2"
                     Content="Cancel" 
                     IsDefault="True" 
-                    Command="{Binding HomeCommand}">
+                    Command="{Binding ContentCommand}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Height" Value="40"/>
@@ -375,7 +382,7 @@
         </Grid>
 
         <ContentControl Grid.Row="0" Grid.RowSpan="2"
-                        x:Name="HomeContentArea"
-                        Content="{Binding HomeContent, UpdateSourceTrigger=PropertyChanged}" />
+                        x:Name="ContentArea"
+                        Content="{Binding Content, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </UserControl>

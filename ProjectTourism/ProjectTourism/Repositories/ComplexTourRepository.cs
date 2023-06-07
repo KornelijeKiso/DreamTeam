@@ -20,6 +20,11 @@ namespace ProjectTourism.Repositories
             FileHandler = new ComplexTourFileHandler();
             ComplexTourRequests = FileHandler.Load();
         }
+        private int GenerateId()
+        {
+            if (ComplexTourRequests == null || ComplexTourRequests.Count == 0) return 0;
+            else return ComplexTourRequests.Last().Id + 1;
+        }
         public ComplexTour GetOne(int id)
         {
             foreach (var complexTour in ComplexTourRequests)
@@ -34,6 +39,7 @@ namespace ProjectTourism.Repositories
         }
         public void Add(ComplexTour complexTour)
         {
+            complexTour.Id = GenerateId();
             ComplexTourRequests.Add(complexTour);
             FileHandler.Save(ComplexTourRequests);
         }

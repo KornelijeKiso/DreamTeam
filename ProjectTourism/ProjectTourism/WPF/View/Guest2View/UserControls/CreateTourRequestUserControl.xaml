@@ -3,12 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:conv="clr-namespace:ProjectTourism.Converters"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:selchanged="clr-namespace:ProjectTourism.Utilities" 
              xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest2View.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="500" 
              d:DesignWidth="700"
              Style="{StaticResource Page_Style}"    >
-
     <!-- TO DO -> VALIDATION -->
     <!--<UserControl.Resources>
         <ControlTemplate x:Key="ValidationTemplate">
@@ -194,20 +196,21 @@
                    HorizontalAlignment="Right"
                    Grid.Column="0" Grid.Row="5"
                    />
+            
             <!--SelectedDate="{Binding Path=TourRequest.StartDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" -->
             <!--Validation.ErrorTemplate="{StaticResource ValidationTemplate}"-->
+            <!--SelectedDateChanged="StartDateChanged"-->
             <DatePicker x:Name="StartDatePicker" IsTodayHighlighted="True"
-                        SelectedDateChanged="StartDateChanged"
-                        
+                        SelectedDate="{Binding StartDate, UpdateSourceTrigger=PropertyChanged}"
                         Width="200" Height="25"
                         FontFamily="/Fonts/#Rubik"
                         FontSize="16"
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
                         Grid.Column="1" Grid.Row="5"    >
-                <DatePicker.BlackoutDates>
-                    <CalendarDateRange End="01/01/1900 23:59:59" Start="01/01/0001 23:59:59"/>
-                </DatePicker.BlackoutDates>
+                <i:Interaction.Behaviors>
+                    <selchanged:SelectedDateChangedBehavior Command="{Binding StartDateChangedCommand}" />
+                </i:Interaction.Behaviors>
             </DatePicker>
 
             <Label Content="End Date: " 
@@ -217,10 +220,12 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Right"
                    Grid.Column="0" Grid.Row="6"     />
+            
             <!-- SelectedDate="{Binding Path=TourRequest.EndDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" -->
             <!--Validation.ErrorTemplate="{StaticResource ValidationTemplate}"-->
+            <!--SelectedDateChanged="EndDateChanged"-->
             <DatePicker x:Name="EndDatePicker" IsTodayHighlighted="True"
-                        SelectedDateChanged="EndDateChanged"
+                        SelectedDate="{Binding EndDate, UpdateSourceTrigger=PropertyChanged}"
                         
                         Width="200" Height="25"
                         FontFamily="/Fonts/#Rubik"
@@ -228,9 +233,9 @@
                         VerticalAlignment="Center"
                         HorizontalAlignment="Left"
                         Grid.Column="1" Grid.Row="6"    >
-                <DatePicker.BlackoutDates>
-                    <CalendarDateRange End="01/01/1900 23:59:59" Start="01/01/0001 23:59:59"/>
-                </DatePicker.BlackoutDates>
+                <i:Interaction.Behaviors>
+                    <selchanged:SelectedDateChangedBehavior Command="{Binding EndDateChangedCommand}" />
+                </i:Interaction.Behaviors>
             </DatePicker>
         </Grid>
 
@@ -285,9 +290,8 @@
 
             <Button x:Name="CancelButton" 
                     Grid.Column="1"
-                    Content="Cancel" 
                     IsDefault="True" 
-                    Command="{Binding TourRequestsCommand}">
+                    Command="{Binding ContentCommand}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Height" Value="40"/>
@@ -304,11 +308,8 @@
                                             BorderThickness="1"
                                             Background="Black">
                                         <TextBlock Text="Cancel"
-                                            FontFamily="/Fonts/#Rubik" 
-                                            FontSize="18"
-                                            Foreground="#DBDBDB" 
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center" />
+                                                   FontFamily="/Fonts/#Rubik" FontSize="18" Foreground="#DBDBDB" 
+                                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
                                     </Border>
                                     <ControlTemplate.Triggers>
                                         <Trigger Property="IsMouseOver"
@@ -327,9 +328,8 @@
             </Button>
         </Grid>
 
-        <ContentControl Grid.Row="0" Grid.RowSpan="2"
-                        x:Name="TourRequestsContentArea"
-                        Content="{Binding TourRequestsContent, UpdateSourceTrigger=PropertyChanged}" />
-
+        <ContentControl Grid.Row="0" Grid.RowSpan="3"
+                        x:Name="ContentArea"
+                        Content="{Binding Content, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </UserControl>
