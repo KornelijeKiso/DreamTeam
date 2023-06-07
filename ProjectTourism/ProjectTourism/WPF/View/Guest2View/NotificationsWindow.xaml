@@ -6,20 +6,24 @@
         xmlns:conv="clr-namespace:ProjectTourism.Converters"
         xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest2View"
         mc:Ignorable="d"
-        Title="New Tour Notification Window" 
         WindowStartupLocation="CenterScreen"
         Background="Transparent"
         AllowsTransparency="True"
-        Height="500" Width="450"
+        Height="540" Width="800"
         WindowStyle="None">
-    <!-- TO DO -> fix WindowStartupLocation -->
     <Grid >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5"/>
+        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="30"/>
+            <ColumnDefinition Width="150"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="22"/>
         </Grid.ColumnDefinitions>
 
-        <Grid x:Name="NotificationGrid" Grid.Column="1"
+        <Grid x:Name="NotificationGrid" Grid.Column="1" Grid.Row="1"
               Height="450" Width="400" 
               VerticalAlignment="Bottom" 
               HorizontalAlignment="Left"
@@ -130,9 +134,9 @@
                                         <!-- Row 0 -->
                                         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">
                                             <!--<Label Content="{Binding Title}" 
-                                               VerticalAlignment="Center" HorizontalAlignment="Left" 
-                                               Height="auto" Width="auto" 
-                                               FontFamily="/Fonts/#Rubik" FontSize="16" FontWeight="SemiBold" />-->
+                                                       VerticalAlignment="Center" HorizontalAlignment="Left" 
+                                                       Height="auto" Width="auto" 
+                                                       FontFamily="/Fonts/#Rubik" FontSize="16" FontWeight="SemiBold" />-->
                                             <Label Content="NEW" Foreground="Red" 
                                                VerticalAlignment="Top" HorizontalAlignment="Left"
                                                FontFamily="/Fonts/#Rubik" FontSize="14" FontWeight="Bold"
@@ -180,10 +184,10 @@
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
-        
-        <Rectangle Grid.Column="0" 
+
+        <Rectangle Grid.Column="0" Grid.Row="1"
                    HorizontalAlignment="Right" VerticalAlignment="Bottom" 
-                   Margin="0 0 -30 50"
+                   Margin="0 0 -30 12"
                    Height="40" Width="40" 
                    Fill="DarkGray" >
             <Rectangle.LayoutTransform>
