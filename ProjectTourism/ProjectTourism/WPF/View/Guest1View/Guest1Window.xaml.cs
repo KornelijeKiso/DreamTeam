@@ -34,6 +34,10 @@ namespace ProjectTourism.WPF.View.Guest1View
         public ObservableCollection<AccommodationDTO> AccommodationDTOs { get; set; }
         public AccommodationDTO SelectedAccommodation { get; set; }
         public ObservableCollection<AccommodationDTO> FilteredAccommodations { get; set; }
+        public ObservableCollection<ReservationDTO> ReservationDTOs { get; set; }
+        public ReservationDTO ReservationDTO { get; set; }
+        public ReservationDTO SelectedReservation { get; set; }
+        public int GuestCount { get; set; }
         public string NameSearch { get; set; }
         public string LocationSearch { get; set; }
         public string GuestCountSearch { get; set; }
@@ -51,33 +55,14 @@ namespace ProjectTourism.WPF.View.Guest1View
             AccommodationService accommodationService = new AccommodationService();
             FilteredAccommodations = new ObservableCollection<AccommodationDTO>(accommodationService.GetAll().Select(r => new AccommodationDTO(r)).ToList().OrderByDescending(a => a.Owner.IsSuperHost).ToList());
             AccommodationDTOs = new ObservableCollection<AccommodationDTO>(accommodationService.GetAll().Select(r => new AccommodationDTO(r)).ToList().OrderByDescending(a => a.Owner.IsSuperHost).ToList());
+            SelectedReservation = new ReservationDTO(new Reservation());
 
-            //SetUpDatePicker();
+            SetUpDatePicker();
 
         }
-        /*public void ShowDetailsClick(object sender, RoutedEventArgs e)
+        public void CancelReservationClick(object sender, RoutedEventArgs e)
         {
-            Menu.Visibility = Visibility.Visible;
-        }*/
-
-
-
-
-        //private void SetUpDatePicker()
-        //{
-        //    StartDatePicker.DisplayDate = DateTime.Now;
-        //    startingDate = DateOnly.FromDateTime(DateTime.Now);
-        //    StartDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1, 1, 1), DateTime.Now.AddDays(-1)));
-        //    EndDatePicker.DisplayDate = DateTime.Now;
-        //    endingDate = DateOnly.FromDateTime(DateTime.Now);
-        //    EndDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1, 1, 1), DateTime.Now.AddDays(-1)));
-        //}
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            ReserveItem.Visibility = Visibility.Collapsed;
         }
 
         public void ReserveAccommodationClick(object sender, RoutedEventArgs e)
@@ -88,10 +73,97 @@ namespace ProjectTourism.WPF.View.Guest1View
             reservationDTO.AccommodationId = SelectedAccommodation.Id;
             reservationDTO.Guest1Username = Guest1.Username;
 
-            Content = new Guest1ReservationWindow(reservationDTO, SelectedAccommodation, Guest1.Username);
-
+            //Content = new Guest1ReservationWindow(reservationDTO, SelectedAccommodation, Guest1.Username);
+            ReserveItem.Visibility = Visibility.Visible;
             //Update();
         }
+        private void SetUpDatePicker()
+        {
+            StartDatePicker.DisplayDate = DateTime.Now;
+            startingDate = DateOnly.FromDateTime(DateTime.Now);
+            StartDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1, 1, 1), DateTime.Now.AddDays(-1)));
+            EndDatePicker.DisplayDate = DateTime.Now;
+            endingDate = DateOnly.FromDateTime(DateTime.Now);
+            EndDatePicker.BlackoutDates.Add(new CalendarDateRange(new DateTime(1, 1, 1), DateTime.Now.AddDays(-1)));
+            //ReservationService reservationService = new ReservationService();
+            //ReservationDTOs = new ObservableCollection<ReservationDTO>(reservationService.GetAll().Select(r => new ReservationDTO(r)).Reverse().ToList());
+            //
+            //foreach (ReservationDTO reservationDTO in ReservationDTOs)
+            //{
+            //    if (SelectedReservation.Accommodation.Id == reservationDTO.AccommodationId)
+            //    {
+            //        StartDatePicker.BlackoutDates.Add(new CalendarDateRange(reservationDTO.StartDate.ToDateTime(TimeOnly.Parse("00:00")), reservationDTO.EndDate.ToDateTime(TimeOnly.Parse("00:00"))));
+            //        EndDatePicker.BlackoutDates.Add(new CalendarDateRange(reservationDTO.StartDate.ToDateTime(TimeOnly.Parse("00:00")), reservationDTO.EndDate.ToDateTime(TimeOnly.Parse("00:00"))));
+            //    }
+            //}
+        }
+
+        private void SetReservation(ReservationDTO reservationDTO, AccommodationDTO accommodationDTO)
+        {
+            ReservationDTO.StartDate = startingDate;
+            ReservationDTO.EndDate = endingDate;
+            ReservationDTO.Guest1 = reservationDTO.Guest1;
+            ReservationDTO.Guest1Username = reservationDTO.Guest1Username;
+            ReservationDTO.AccommodationId = accommodationDTO.Id;
+            ReservationDTO.Accommodation = accommodationDTO;
+        }
+
+        private void StartDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            startingDate = DateOnly.FromDateTime((DateTime)(((DatePicker)sender).SelectedDate));
+        }
+        private void EndDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            endingDate = DateOnly.FromDateTime((DateTime)(((DatePicker)sender).SelectedDate));
+        }
+
+        public void ConfirmReservationClick(object sender, RoutedEventArgs e)
+        {
+            ReservationDTO.StartDate = startingDate;
+            ReservationDTO.EndDate = endingDate;
+
+            var reservedDaysCount = ReservationDTO.EndDate.DayNumber - ReservationDTO.StartDate.DayNumber;
+
+            if (reservedDaysCount >= (ReservationDTO.Accommodation.MinDaysForReservation - 1) || reservedDaysCount < 0)
+            {
+                if (GuestCount <= ReservationDTO.Accommodation.MaxNumberOfGuests)
+                {
+                    if (GuestCount > 0)
+                    {
+                        if (reservedDaysCount >= 0)
+                        {
+                            if (Guest1.ProcessReservation(ReservationDTO))
+                            {
+                                MessageBox.Show("Accommodation reserved successfully!");
+                                //Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Selected Accommodation isn't available for the chosen date. \nTake a look at available dates?");
+                                MessageBox.Show("First available date is: " + ReservationDTO.StartDate + " - " + ReservationDTO.EndDate);
+                            }
+                        }
+                        else
+                        { MessageBox.Show("Invalid date format"); }
+                    }
+                    else
+                    { MessageBox.Show("At least 1 guest is required"); }
+                }
+                else
+                { MessageBox.Show("Maximum number of guests is " + ReservationDTO.Accommodation.MaxNumberOfGuests + "."); }
+            }
+            else
+            { MessageBox.Show("At least " + ReservationDTO.Accommodation.MinDaysForReservation + " days must be reserved"); }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        
         
         /*private void StartDateChanged(object sender, SelectionChangedEventArgs e)
         {

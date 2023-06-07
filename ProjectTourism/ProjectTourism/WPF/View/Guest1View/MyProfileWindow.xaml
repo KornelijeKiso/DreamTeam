@@ -32,19 +32,19 @@
             </Label.Content>
         </Label>
         <GroupBox Header="Guest Profile" Margin="0 295 0 0" Height="180" Width="350" BorderBrush="OrangeRed" FontSize="15" Foreground="DarkSlateGray" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Center"></GroupBox>
-        <GroupBox Header="Personal Info" Margin="0 495 0 0" Height="180" Width="350" BorderBrush="OrangeRed" FontSize="15" Foreground="DarkSlateGray" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Center"></GroupBox>
+        <GroupBox Header="Personal Info" Margin="0 495 0 0" Height="170" Width="350" BorderBrush="OrangeRed" FontSize="15" Foreground="DarkSlateGray" BorderThickness="2" VerticalAlignment="Top" HorizontalAlignment="Center"></GroupBox>
         <Image VerticalAlignment="Top" HorizontalAlignment="Center" Source="https://img.icons8.com/cotton/2x/user-male-circle.png" Width="128" Height="128" Margin="0 95 0 0"></Image>
-        <Label ContentStringFormat="Superguest : {0}" Content="{Binding Path=Guest1.isSuperGuest}" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="22" FontWeight="SemiBold" Width="128" Height="128" Margin="0 355 170 0">
+        <Label ContentStringFormat="Superguest : {0}" Content="{Binding Path=Guest1.isSuperGuest}" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="22" FontWeight="SemiBold" Width="128" Height="128" Margin="0 358 170 0">
         </Label>
-        <Label ContentStringFormat="Score : {0}" Content="{Binding Path=Guest1.AverageGrade}" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="22" FontWeight="SemiBold" Width="128" Height="128" Margin="0 315 170 0">
+        <Label ContentStringFormat="Score : {0}" Content="{Binding Path=Guest1.AverageGrade}" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="22" FontWeight="SemiBold" Width="128" Height="128" Margin="0 318 170 0">
         </Label>
-        <Label Visibility="{Binding Path=Guest1.isSuperGuest, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}" ContentStringFormat="Points: {0}" Content="{Binding Path=Guest1.Points}" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="22" FontWeight="SemiBold" Width="128" Height="128" Margin="0 395 170 0">
+        <Label Visibility="{Binding Path=Guest1.isSuperGuest, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}" ContentStringFormat="Points: {0}" Content="{Binding Path=Guest1.Points}" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="22" FontWeight="SemiBold" Width="128" Height="128" Margin="0 398 170 0">
         </Label>
         <Label ContentStringFormat="Birthday : {0}" Content="{Binding Path=Guest1.Birthday}" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Width="155" Height="128" Margin="0 525 145 0">
         </Label>
         <Label ContentStringFormat="Email : {0}" Content="{Binding Path=Guest1.Email}" VerticalAlignment="Top" HorizontalAlignment="Center" FontSize="16" FontWeight="SemiBold" Width="228" Height="128" Margin="0 565 75 0">
         </Label>
-        <Button HorizontalAlignment="Center" Width="120" Height="33" Content="Reserved/Canceled" FontWeight="SemiBold" Background="CadetBlue" Foreground="#FFF" Click="ReportClick" IsDefault="True" BorderThickness="2" Margin="-160 140 0 0">
+        <Button HorizontalAlignment="Center" Width="120" Height="33" Content="Reserved/Canceled" FontWeight="SemiBold" Background="CadetBlue" Foreground="#FFF" Click="ReportClick" IsDefault="True" BorderThickness="2" Margin="-180 500 0 0">
             <Button.Resources>
                 <Style TargetType="Button">
                     <Style.Triggers>
@@ -59,12 +59,27 @@
                 </Style>
             </Button.Resources>
         </Button>
-        <Border  Name="ReportPDF" Width="300" Height="350" Background="#FFFFD0" Visibility="Collapsed">
+        <Button HorizontalAlignment="Center" Width="120" Height="33" Content="See Reviews" FontWeight="SemiBold" Background="CadetBlue" Foreground="#FFF" Click="OpenReviewsClick" IsDefault="True" BorderThickness="2" Margin="120 -80 0 0">
+            <Button.Resources>
+                <Style TargetType="Button">
+                    <Style.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="SlateGray" />
+                            <Setter Property="Foreground" Value="White"></Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+        <Border  Name="ReportPDF" Width="300" Height="350" Background="#FFFFD0" Visibility="Visible">
             <StackPanel>
                 <Label Content="Generate Report" FontSize="17" FontWeight="DemiBold" HorizontalAlignment="Center" Margin="0 20 0 0"/>
                 <Label Content="From :" HorizontalAlignment="Left" Margin="40,10,0,0"/>
                 <StackPanel>
-                    <DatePicker HorizontalAlignment="Center" Margin="0,5,0,0" IsTodayHighlighted="True" Name="StartDatePicker" SelectedDateChanged="StartDateChanged"
+                    <DatePicker HorizontalAlignment="Center" Margin="0,5,0,0" IsTodayHighlighted="True" Name="StartDatePicker" 
                      VerticalAlignment="Top" Width="230" Height="33">
                         <DatePicker.BlackoutDates>
                             <CalendarDateRange End="01/01/1900 23:59:59" Start="01/01/0001 23:59:59"/>
@@ -73,7 +88,7 @@
                 </StackPanel>
                 <Label Content="To :" HorizontalAlignment="Left" Margin="40,10,0,0"/>
                 <StackPanel>
-                    <DatePicker HorizontalAlignment="Center" Margin="0,5,0,0" IsTodayHighlighted="True" Name="EndDatePicker" SelectedDateChanged="EndDateChanged"
+                    <DatePicker HorizontalAlignment="Center" Margin="0,5,0,0" IsTodayHighlighted="True" Name="EndDatePicker"
                      VerticalAlignment="Top" Width="230" Height="33">
                         <DatePicker.BlackoutDates>
                             <CalendarDateRange End="01/01/1900 23:59:59" Start="01/01/0001 23:59:59"/>
@@ -85,7 +100,61 @@
                     <ComboBoxItem Content="Canceled" IsSelected="True"/>
                     <ComboBoxItem Content="Reserved"/>
                 </ComboBox>
-                <Button HorizontalAlignment="Center" Width="100" Height="33" Content="Generate" FontWeight="SemiBold" Background="CadetBlue" Foreground="#FFF" Click="GeneratePDFClick" IsDefault="True" BorderThickness="2" Margin="0 50 0 0">
+                <Button HorizontalAlignment="Center" Width="100" Height="33" Content="Generate" FontWeight="SemiBold" Background="CadetBlue" Foreground="#FFF" Click="GeneratePDFClick" IsDefault="True" BorderThickness="2" Margin="120 30 0 0">
+                    <Button.Resources>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="SlateGray" />
+                                    <Setter Property="Foreground" Value="White"></Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+                <Button HorizontalAlignment="Center" Width="100" Height="33" Content="Close" FontWeight="SemiBold" Background="#FDD" Foreground="#F33" Click="CloseReportClick" IsDefault="True" BorderThickness="2" Margin="-120 -33 0 0">
+                    <Button.Resources>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <Trigger Property="IsPressed" Value="True">
+                                    <Setter Property="Background" Value="SlateGray" />
+                                    <Setter Property="Foreground" Value="White"></Setter>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="10"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </StackPanel>
+        </Border>
+        <Border Name="Reviews" Width="300" Height="550" Background="#FFFFD0" Visibility="Collapsed">
+            <StackPanel>
+                <Rectangle Width="260" Height="480" Fill="SlateGray" Margin="0 50 0 0"/>
+                <Label Content="Reviews" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 -520 0 0" Foreground="Black" FontSize="22" FontWeight="Bold"/>
+                <Label Content="Marko Perovic" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="-100 -470 0 0" Foreground="White" FontSize="17" FontWeight="Bold"/>
+                <Label Content="@Owner1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="-160 -450 0 0" Foreground="White" FontSize="13" FontWeight="SemiBold"/>
+                <Image VerticalAlignment="Top" HorizontalAlignment="Left" Source="https://cdn-icons-png.flaticon.com/128/2107/2107957.png" Width="20" Height="20" Margin="40  -425 0 0"></Image>
+                <Image VerticalAlignment="Top" HorizontalAlignment="Left" Source="https://cdn-icons-png.flaticon.com/128/2107/2107957.png" Width="20" Height="20" Margin="65  -425 0 0"></Image>
+                <Image VerticalAlignment="Top" HorizontalAlignment="Left" Source="https://cdn-icons-png.flaticon.com/128/2107/2107957.png" Width="20" Height="20" Margin="90  -425 0 0"></Image>
+                <Image VerticalAlignment="Top" HorizontalAlignment="Left" Source="https://cdn-icons-png.flaticon.com/128/2107/2107957.png" Width="20" Height="20" Margin="115 -425 0 0"></Image>
+                <Image VerticalAlignment="Top" HorizontalAlignment="Left" Source="https://cdn-icons-png.flaticon.com/128/2107/2107957.png" Width="20" Height="20" Margin="140 -425 0 0"></Image>
+                <TextBlock TextWrapping="Wrap" Width="220" Height="80" Text="Very good guest, all went well and the apartment was left in impecable state. Would recommend him as a gueast and hopefully we'll see him again next year" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 -395 0 0" Foreground="White" FontSize="12" FontWeight="Normal"/>
+                <Line X1="40" Y1="-320" X2="260" Y2="-320" Stroke="White" StrokeThickness="2"/>
+                <Label Content="Jimmy Butler " HorizontalAlignment="Center" VerticalAlignment="Top" Margin="-105 -305 0 0" Foreground="White" FontSize="17" FontWeight="Bold"/>
+                <Label Content="@Owner2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="-160 -285 0 0" Foreground="White" FontSize="13" FontWeight="SemiBold"/>
+                <Image VerticalAlignment="Top" HorizontalAlignment="Left" Source="https://cdn-icons-png.flaticon.com/128/2107/2107957.png" Width="20" Height="20" Margin="40  -260 0 0"></Image>
+                <Image VerticalAlignment="Top" HorizontalAlignment="Left" Source="https://cdn-icons-png.flaticon.com/128/2107/2107957.png" Width="20" Height="20" Margin="65  -260 0 0"></Image>
+                <Image VerticalAlignment="Top" HorizontalAlignment="Left" Source="https://cdn-icons-png.flaticon.com/128/2107/2107957.png" Width="20" Height="20" Margin="90  -260 0 0"></Image>
+                <Image VerticalAlignment="Top" HorizontalAlignment="Left" Source="https://cdn-icons-png.flaticon.com/128/2107/2107957.png" Width="20" Height="20" Margin="115 -260 0 0"></Image>
+                <Image VerticalAlignment="Top" HorizontalAlignment="Left" Source="https://cdn-icons-png.flaticon.com/128/2107/2107957.png" Width="20" Height="20" Margin="140 -260 0 0"></Image>
+                <TextBlock TextWrapping="Wrap" Width="220" Height="80" Text="Clean and responsible, very good guest to have, payed 100% upfront in cash so we didn't have any problems" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 -230 0 0" Foreground="White" FontSize="12" FontWeight="Normal"/>
+                <Line X1="40" Y1="-175" X2="260" Y2="-175" Stroke="White" StrokeThickness="2"/>
+                <Button HorizontalAlignment="Center" Width="100" Height="33" Content="Close" FontWeight="SemiBold" Background="#FDD" Foreground="#F33" Click="CloseReviewsClick" IsDefault="True" BorderThickness="2" Margin="0 -60 0 0">
                     <Button.Resources>
                         <Style TargetType="Button">
                             <Style.Triggers>

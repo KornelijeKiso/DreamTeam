@@ -22,8 +22,8 @@ namespace ProjectTourism.PDF.Guest1PDFs
         public ReportGenerator(DateOnly startDate, DateOnly endDate, Guest1DTO guest1, bool isCanceled)
         {
             // TO DO -> add where to save doc
-            pdfWriter = new PdfWriter("../../../PDF/GuestPDFs/cancelledReservation_report" + startDate.ToString() + endDate.ToString() + ".pdf");
-            path = ".. / .. / .. / PDF / GuestPDFs / cancelledReservation_report" + startDate.ToString() + endDate.ToString() + ".pdf";
+            pdfWriter = new PdfWriter("../../../PDF/Guest1PDFs/cancelledReservation_report" + ".pdf");
+            path = ".. / .. / .. / PDF / Guest1PDFs / cancelledReservation_report" + ".pdf";
             pdfDocument = new PdfDocument(pdfWriter);
             document = new Document(pdfDocument);
 
@@ -53,7 +53,9 @@ namespace ProjectTourism.PDF.Guest1PDFs
                 document.Add(tot);
             }
 
-            List<ReservationDTO> list = guest1.MyReservations.ToList().Where(r => r.StartDate >= startDate && r.EndDate <= endDate).ToList();
+
+            List<ReservationDTO> list = guest1.MyReservations.ToList();//.ToList().Where(r => r.StartDate >= startDate && r.EndDate <= endDate).ToList();
+            List<ReservationDTO> list2 = guest1.MyReservations.ToList();//.ToList().Where(r => r.StartDate >= startDate && r.EndDate <= endDate).ToList();
 
             Table total = new Table(4, false).UseAllAvailableWidth();
             Cell cellT2 = new Cell(1, 1)
@@ -72,7 +74,10 @@ namespace ProjectTourism.PDF.Guest1PDFs
                .SetBackgroundColor(ColorConstants.LIGHT_GRAY)
                .SetTextAlignment(TextAlignment.CENTER)
                .Add(new Paragraph("Location"));
-
+            total.AddCell(cellT2);
+            total.AddCell(cellT3);
+            total.AddCell(cellT4);
+            total.AddCell(cellT5);
             foreach (var reservation in list)
             {
                 if (!isCanceled)
@@ -96,10 +101,7 @@ namespace ProjectTourism.PDF.Guest1PDFs
                 }
             }
             
-            total.AddCell(cellT2);
-            total.AddCell(cellT3);
-            total.AddCell(cellT4);
-            total.AddCell(cellT5);
+            
             //total.AddCell(cellTR);
             //total.AddCell(cellTP);
             //total.AddCell(cellTC);

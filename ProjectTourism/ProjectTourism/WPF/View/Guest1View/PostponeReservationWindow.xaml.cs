@@ -69,7 +69,7 @@ namespace ProjectTourism.WPF.View.Guest1View
             ReservationDTO.Guest1 = reservationDTO.Guest1;
             ReservationDTO.Guest1Username = reservationDTO.Guest1Username;
             ReservationDTO.AccommodationId = reservationDTO.AccommodationId;
-            ReservationDTO.Accommodation = reservationDTO.Accommodation;
+            ReservationDTO.Accommodation = reservationDTO.Accommodation;                                            
         }
 
         private void StartDateChanged(object sender, SelectionChangedEventArgs e)

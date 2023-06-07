@@ -43,7 +43,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest1ViewModel
 
         public Guest1MainWindowVM(string username)
         {
-            Content = new RenovationRecommendationWindow(/*username*/);
+            Content = new Guest1Window(username);
             //AccommodationsItem.Background = Brushes.LightSkyBlue;
             Guest = new Guest1DTO(username);
         }

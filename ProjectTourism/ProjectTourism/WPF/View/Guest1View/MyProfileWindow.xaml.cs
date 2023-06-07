@@ -35,19 +35,34 @@ namespace ProjectTourism.WPF.View.Guest1View
             DataContext = this;
             Guest1 = new Guest1DTO(username);
             //AverageGrade = Guest1VM.CalculateGrade();
+            //From = DateOnly.FromDateTime(DateTime.Now);
+            //To = DateOnly.FromDateTime(DateTime.Now);
+               
         }
         public void ReportClick(object sender, RoutedEventArgs e)
         {
             ReportPDF.Visibility = Visibility.Visible;
         }
+        public void CloseReportClick(object sender, RoutedEventArgs e)
+        {
+            ReportPDF.Visibility = Visibility.Collapsed;
+        }
+        public void CloseReviewsClick(object sender, RoutedEventArgs e)
+        {
+            Reviews.Visibility = Visibility.Collapsed;
+        }
+        public void OpenReviewsClick(object sender, RoutedEventArgs e)
+        {
+            Reviews.Visibility = Visibility.Visible;
+        }
 
         public void GeneratePDFClick(object sender, RoutedEventArgs e)
         {
-            From = DateOnly.FromDateTime((DateTime)StartDatePicker.SelectedDate);
-            To = DateOnly.FromDateTime((DateTime)EndDatePicker.SelectedDate);
+            //From = DateOnly.FromDateTime((DateTime)StartDatePicker.SelectedDate);
+            //To = DateOnly.FromDateTime((DateTime)EndDatePicker.SelectedDate);
             Canceled = ReportType.SelectedIndex == 0;
 
-            ReportGenerator reportGenerator = new ReportGenerator(From, To, Guest1, Canceled);
+            ReportGenerator reportGenerator = new ReportGenerator(DateOnly.FromDateTime(DateTime.Now).AddYears(-2), DateOnly.FromDateTime(DateTime.Now), Guest1, Canceled);
 
         }
 
