@@ -57,7 +57,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         }
         private void UpdateTicket()
         {
-            if (selectedAppointment != null)
+            if (Ticket.IsValid && selectedAppointment != null)
             {
                 TicketService.Update(Ticket.GetTicket());
                 // TO DO -> update Guest2.Tickets

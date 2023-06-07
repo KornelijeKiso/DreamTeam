@@ -11,6 +11,17 @@
              d:DesignHeight="500" 
              d:DesignWidth="700"
              Style="{StaticResource Page_Style}"     >
+    <UserControl.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" 
+                           FontSize="12" FontFamily="/Fonts/#Rubik"
+                           HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            </StackPanel>
+        </ControlTemplate>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -40,7 +51,7 @@
                                    FontSize="20"
                                    Height="auto"/>
                             <Label FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                   MaxHeight="25" Margin="0 -4 0 -4">
+                                   MaxHeight="25">
                                 <Label.Content>
                                     <TextBlock>
                                         <TextBlock.Text>
@@ -53,7 +64,7 @@
                                 </Label.Content>
                             </Label>
                             <Label FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                   MaxHeight="25" Margin="0 -4 0 -4">
+                                   MaxHeight="25">
                                 <Label.Content>
                                     <TextBlock>
                                         <TextBlock.Text>
@@ -68,7 +79,7 @@
                             <Label FontFamily="/Fonts/#Rubik"
                                    Foreground="#DBDBDB"
                                    FontSize="12"
-                                   MaxHeight="25" Margin="0 -4 0 -4">
+                                   MaxHeight="25">
                                 <Label.Content>
                                     <TextBlock>
                                         <TextBlock.Text>
@@ -80,7 +91,7 @@
                                 </Label.Content>
                             </Label>
                             <Label FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                   MaxHeight="25" Margin="0 -4 0 -4">
+                                   MaxHeight="25">
                                 <Label.Content>
                                     <TextBlock>
                                         <TextBlock.Text>
@@ -113,19 +124,20 @@
                                       FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
                                       Height="auto" Margin="5 0 5 0">
                                 <!-- combobox dates -->
-                                <Grid Height="auto">
+                                <Grid Height="50">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="200" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <Label Grid.Column="0" 
                                            FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                           MaxHeight="25" Margin="0 -4 0 -4"
+                                           MaxHeight="25"
                                            Content="Date and Time: " />
                                     <ComboBox x:Name="DatesComboBox"
                                               Grid.Column="1"
                                               ItemsSource="{Binding Path = dates}"
-                                              SelectedItem="{Binding date, UpdateSourceTrigger=PropertyChanged}"
+                                              SelectedItem="{Binding date, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                              Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
                                               HorizontalAlignment="Left" VerticalAlignment="Center"
                                               Height="30" Width="200"   >
                                         <i:Interaction.Behaviors>
@@ -140,7 +152,7 @@
                                       Height="auto" Margin="5 0 5 0">
                                 <StackPanel>
                                     <Label FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                           MaxHeight="25" Margin="0 0 0 0">
+                                           MaxHeight="25">
                                         <Label.Content>
                                             <TextBlock>
                                                 <TextBlock.Text>
@@ -152,7 +164,7 @@
                                         </Label.Content>
                                     </Label >
 
-                                    <Grid Height="30">
+                                    <Grid Height="50">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="150" />
                                             <ColumnDefinition Width="50" />
@@ -166,7 +178,8 @@
 
                                         <TextBox x:Name="sliderText" 
                                                  Grid.Column="1"
-                                                 Text="{Binding ElementName=slider,Path=Value,UpdateSourceTrigger=PropertyChanged}"
+                                                 Text="{Binding ElementName=slider,Path=Value,UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                                 Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
                                                  Visibility="{Binding PickedAnAppointment, Converter={conv:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                                                  HorizontalAlignment="Right" VerticalAlignment="Center"
                                                  Height="25" Width="30"
@@ -177,18 +190,19 @@
                                                 Minimum="1" 
                                                 Maximum="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" 
                                                 Visibility="{Binding PickedAnAppointment, Converter={conv:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
-                                                Value="{Binding Path=Ticket.NumberOfGuests}" 
+                                                Value="{Binding Path=Ticket.NumberOfGuests, ValidatesOnDataErrors=True}"
+                                                Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
                                                 HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"
                                                 Height="30" Width="250"
                                                 FontFamily="/Fonts/#Rubik" Foreground="#DBDBDB" FontSize="12"   />
                                         <StackPanel Grid.Column="3" Orientation="Horizontal">
                                             <Label FontFamily="/Fonts/#Rubik" FontSize="14" Foreground="#DBDBDB"
                                                    MaxHeight="25" Width="auto" 
-                                                   HorizontalAlignment="Right" VerticalAlignment="Top"
+                                                   HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 0 10"
                                                    Content="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" />
                                             <Label FontFamily="/Fonts/#Rubik" FontSize="14" Foreground="#DBDBDB"
                                                    MaxHeight="25"  
-                                                   VerticalAlignment="Top"
+                                                   VerticalAlignment="Bottom" Margin="0 0 0 10"
                                                    Content="available seats" />
                                         </StackPanel>
                                     </Grid>
@@ -212,20 +226,20 @@
                                         </Label.Content>
                                     </Label >
                                     <!-- combobox stops -->
-                                    <Grid Height="30">
+                                    <Grid Height="50">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="200" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <Label Grid.Column="0"
                                                FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                               MaxHeight="25" Margin="0 -4 0 -4"
+                                               MaxHeight="25"
                                                Content="Your starting checkpoint: " />
                                         <ComboBox x:Name="StopsComboBox"
                                                   Grid.Column="1" 
                                                   ItemsSource="{Binding Path=SelectedTour.StopsList}"
-                                                  SelectedIndex="0"
-                                                  SelectedItem="{Binding Path=Ticket.TourStop}"
+                                                  SelectedItem="{Binding Path=Ticket.TourStop, ValidatesOnDataErrors=True}"
+                                                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
                                                   HorizontalAlignment="Left" VerticalAlignment="Center"
                                                   Height="30" Width="200"   >
                                         </ComboBox>

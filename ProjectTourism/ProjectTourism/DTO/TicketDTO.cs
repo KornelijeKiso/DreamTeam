@@ -231,13 +231,24 @@ namespace ProjectTourism.DTO
                 {
                     if (string.IsNullOrEmpty(NumberOfGuests.ToString()))
                         return "Number Of Tickets is required!";
+                    if (NumberOfGuests < 1)
+                        return "Number Of Tickets has to be at least 1!";
                 }
-
+                else if (columnName == "TourStop")
+                {
+                    if (string.IsNullOrEmpty(TourStop))
+                        return "Your starting point is required!";
+                }
+                else if (columnName == "TourAppointment")
+                {
+                    if (string.IsNullOrEmpty(TourStop))
+                        return "Date is required!";
+                }
 
                 return null;
             }
         }
-        private readonly string[] _validatedProperties = { "NumberOfGuests" };
+        private readonly string[] _validatedProperties = { "NumberOfGuests", "TourStop" , "TourAppointment" };
 
         public bool IsValid
         {
