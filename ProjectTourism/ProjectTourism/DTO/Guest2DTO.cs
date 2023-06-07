@@ -206,26 +206,31 @@ namespace ProjectTourism.DTO
             }
         }
 
-        public void CreateTourRequest(TourRequestDTO tourRequest)
+        public void CreateTourRequest(TourRequestDTO tourRequest, LocationDTO location)
         {
             TourRequestService requestService = new TourRequestService();
             LocationService locationService = new LocationService();
-            tourRequest.LocationId = locationService.AddAndReturnId(tourRequest.Location.GetLocation());
+            
+            tourRequest.LocationId = locationService.AddAndReturnId(location.GetLocation());
+            location.Id = tourRequest.LocationId;
+            tourRequest.Location = location;
             requestService.Add(tourRequest.GetTourRequest());
             TourRequests.Add(tourRequest);
-        }
-
-        public void CreateComplexTourRequestPart(TourRequestDTO tourRequest)
-        {
-            ComplexTourRequestPartService requestService = new ComplexTourRequestPartService();
-            LocationService locationService = new LocationService();
-            tourRequest.LocationId = locationService.AddAndReturnId(tourRequest.Location.GetLocation());
-            requestService.Add(tourRequest.GetTourRequest());
         }
 
         public void CreateComplexTour(ComplexTourDTO complexTour)
         {
             ComplexTourService complexTourService = new ComplexTourService();
+            ComplexTourRequestPartService requestService = new ComplexTourRequestPartService();
+            LocationService locationService = new LocationService();
+            complexTour.TourRequestString = "";
+            foreach (var part in complexTour.TourRequests)
+            {
+                requestService.Add(part.GetTourRequest());
+                complexTour.TourRequestString += part.Id.ToString() + ",";
+                part.LocationId = locationService.AddAndReturnId(part.Location.GetLocation());
+            }
+            complexTour.TourRequestString = complexTour.TourRequestString.Substring(0, complexTour.TourRequestString.Length - 1);
             complexTourService.Add(complexTour.GetComplexTour());
             ComplexTours.Add(complexTour);
         }

@@ -8,6 +8,17 @@
              d:DesignHeight="500" 
              d:DesignWidth="700"
              Style="{StaticResource Page_Style}"     >
+
+    <UserControl.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" 
+                           FontSize="12" FontFamily="/Fonts/#Rubik"
+                           HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            </StackPanel>
+        </ControlTemplate>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -37,7 +48,7 @@
                                    FontSize="20"
                                    Height="auto"/>
                             <Label FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                   MaxHeight="25" Margin="0 -4 0 -4">
+                                   MaxHeight="25">
                                 <Label.Content>
                                     <TextBlock>
                                         <TextBlock.Text>
@@ -50,7 +61,7 @@
                                 </Label.Content>
                             </Label>
                             <Label FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                   MaxHeight="25" Margin="0 -4 0 -4">
+                                   MaxHeight="25">
                                 <Label.Content>
                                     <TextBlock>
                                         <TextBlock.Text>
@@ -65,7 +76,7 @@
                             <Label FontFamily="/Fonts/#Rubik"
                                    Foreground="#DBDBDB"
                                    FontSize="12"
-                                   MaxHeight="25" Margin="0 -4 0 -4">
+                                   MaxHeight="25">
                                 <Label.Content>
                                     <TextBlock>
                                         <TextBlock.Text>
@@ -77,7 +88,7 @@
                                 </Label.Content>
                             </Label>
                             <Label FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                   MaxHeight="25" Margin="0 -4 0 -4">
+                                   MaxHeight="25">
                                 <Label.Content>
                                     <TextBlock>
                                         <TextBlock.Text>
@@ -89,8 +100,56 @@
                                 </Label.Content>
                             </Label>
                         </StackPanel>
-                        <Image Grid.Row="0" Grid.Column="1" Width="150"
-                               Source="{Binding Path=SelectedTour.Pictures[0]}" />
+                        
+                        <Button Command="{Binding Path=SelectedTour.PictureCommand}" 
+                                Grid.Row="0" Grid.Column="1"
+                                Height="150" Width="150" 
+                                Background="Transparent" 
+                                BorderThickness="1" >
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Background" Value="Green"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                                        BorderBrush="Black" BorderThickness="1" >
+                                                    <ContentPresenter HorizontalAlignment="Center" 
+                                                                                      VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="Red"/>
+                                        </Trigger>
+                                        <DataTrigger Binding="{Binding Path=ArePicturesEmpty}" Value="True">
+                                            <Setter Property="Background">
+                                                <Setter.Value>
+                                                    <ImageBrush ImageSource="https://rdacentralwest.org.au/wp-content/themes/unbound/images/No-Image-Found-400x264.png"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Content>
+                                <Image Stretch="Fill">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Source" Value="{Binding Path=SelectedTour.Pictures[0]}" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=ArePicturesEmpty}" Value="True">
+                                                    <Setter Property="Source" Value="https://rdacentralwest.org.au/wp-content/themes/unbound/images/No-Image-Found-400x264.png" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                            </Button.Content>
+                        </Button>
+
                     </Grid>
                     <Grid Grid.Row="1"
                           Background="Black" Margin="5 0 5 0">
@@ -110,14 +169,14 @@
                                       FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
                                       Height="auto" Margin="5 0 5 0">
                                 <!-- combobox dates -->
-                                <Grid Height="auto">
+                                <Grid Height="50">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="200" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <Label Grid.Column="0" 
                                            FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                           MaxHeight="25" Margin="0 -4 0 -4"
+                                           MaxHeight="25" 
                                            Content="Date and Time: " />
                                     <Label x:Name="DateLabel" Content="{Binding Path=selectedAppointment.TourDateTime}"
                                            Grid.Column="1"
@@ -133,7 +192,7 @@
                                       Height="auto" Margin="5 0 5 0">
                                 <StackPanel>
                                     <Label FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                           MaxHeight="25" Margin="0 0 0 0">
+                                           MaxHeight="25" >
                                         <Label.Content>
                                             <TextBlock>
                                                 <TextBlock.Text>
@@ -145,17 +204,16 @@
                                         </Label.Content>
                                     </Label >
 
-                                    <Grid Height="30">
+                                    <Grid Height="50">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="150" />
                                             <ColumnDefinition Width="50" />
                                             <ColumnDefinition Width="290" />
-                                            <ColumnDefinition Width="50" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <Label Grid.Column="0"
                                                FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                               MaxHeight="25" Margin="0 -4 0 -4"
+                                               MaxHeight="25" 
                                                Content="Number of Tickets: " />
                                         <TextBox x:Name="sliderText" 
                                                  Grid.Column="1" 
@@ -168,18 +226,18 @@
                                                 Maximum="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" 
                                                 Value="{Binding Path=Ticket.NumberOfGuests}" 
                                                 HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                Height="30" Width="200"
-                                                FontFamily="/Fonts/#Rubik"
-                                                Foreground="#DBDBDB"
-                                                FontSize="12"   />
-                                        <Label Grid.Column="3"
-                                               FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                               MaxHeight="25" Width="auto" HorizontalAlignment="Right"
-                                               Content="{Binding Path=selectedAppointment.AvailableSeats}" />
-                                        <Label Grid.Column="4"
-                                               FontFamily="/Fonts/#Rubik" FontSize="11" Foreground="#DBDBDB"
-                                               MaxHeight="25"  Margin="0 0 0 0" 
-                                               Content="available seats" />
+                                                Height="30" Width="250" 
+                                                FontFamily="/Fonts/#Rubik" Foreground="#DBDBDB" FontSize="12"   />
+                                        <StackPanel Grid.Column="3" Orientation="Horizontal">
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="14" Foreground="#DBDBDB"
+                                                   MaxHeight="25" Width="auto" 
+                                                   HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 0 10"
+                                                   Content="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" />
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="14" Foreground="#DBDBDB"
+                                                   MaxHeight="25"  
+                                                   VerticalAlignment="Bottom" Margin="0 0 0 10"
+                                                   Content="available seats" />
+                                        </StackPanel>
                                     </Grid>
                                 </StackPanel>
                             </GroupBox>
@@ -201,25 +259,26 @@
                                         </Label.Content>
                                     </Label >
                                     <!-- combobox stops -->
-                                    <Grid Height="30">
+                                    <Grid Height="50">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="200" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <Label Grid.Column="0"
                                                FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                               MaxHeight="25" Margin="0 -4 0 -4"
+                                               MaxHeight="25"
                                                Content="Your starting checkpoint: " />
                                         <ComboBox x:Name="StopsComboBox"
                                                   Grid.Column="1" 
                                                   ItemsSource="{Binding Path=SelectedTour.StopsList}"
-                                                  SelectedItem="{Binding Path=Ticket.TourStop}"
+                                                  SelectedItem="{Binding Path=Ticket.TourStop, ValidatesOnDataErrors=True}"
+                                                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
                                                   HorizontalAlignment="Left" VerticalAlignment="Center"
                                                   Height="30" Width="200"   >
                                         </ComboBox>
                                     </Grid>
                                     <Label FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                           MaxHeight="30" Margin="0 0 0 0">
+                                           MaxHeight="30">
                                         <Label.Content>
                                             <TextBlock>
                                                 <TextBlock.Text>
@@ -289,7 +348,7 @@
                     Grid.Column="2"
                     Content="Cancel" 
                     IsDefault="True" 
-                    Command="{Binding TicketCommand}">
+                    Command="{Binding ContentCommand}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Height" Value="40"/>
@@ -330,7 +389,7 @@
         </Grid>
 
         <ContentControl Grid.Row="0" Grid.RowSpan="2"
-                        x:Name="TicketContentArea"
-                        Content="{Binding TicketContent, UpdateSourceTrigger=PropertyChanged}" />
+                        x:Name="ContentArea"
+                        Content="{Binding Content, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </UserControl>

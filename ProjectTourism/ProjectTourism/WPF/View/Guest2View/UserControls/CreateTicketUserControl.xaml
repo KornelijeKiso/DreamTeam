@@ -4,11 +4,25 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:conv="clr-namespace:ProjectTourism.Converters"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:selchanged="clr-namespace:ProjectTourism.Utilities" 
              xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest2View.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="500" 
              d:DesignWidth="700"
              Style="{StaticResource Page_Style}"     >
+    <UserControl.Resources>
+        <ControlTemplate x:Key="ValidationTemplate">
+            <StackPanel>
+                <AdornedElementPlaceholder x:Name="textBox" />
+                <TextBlock Text="{Binding [0].ErrorContent}" Foreground="Red" 
+                           FontSize="12" FontFamily="/Fonts/#Rubik"
+                           HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            </StackPanel>
+        </ControlTemplate>
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -38,7 +52,7 @@
                                    FontSize="20"
                                    Height="auto"/>
                             <Label FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                   MaxHeight="25" Margin="0 -4 0 -4">
+                                   MaxHeight="25">
                                 <Label.Content>
                                     <TextBlock>
                                         <TextBlock.Text>
@@ -51,7 +65,7 @@
                                 </Label.Content>
                             </Label>
                             <Label FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                   MaxHeight="25" Margin="0 -4 0 -4">
+                                   MaxHeight="25">
                                 <Label.Content>
                                     <TextBlock>
                                         <TextBlock.Text>
@@ -66,7 +80,7 @@
                             <Label FontFamily="/Fonts/#Rubik"
                                    Foreground="#DBDBDB"
                                    FontSize="12"
-                                   MaxHeight="25" Margin="0 -4 0 -4">
+                                   MaxHeight="25">
                                 <Label.Content>
                                     <TextBlock>
                                         <TextBlock.Text>
@@ -78,7 +92,7 @@
                                 </Label.Content>
                             </Label>
                             <Label FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                   MaxHeight="25" Margin="0 -4 0 -4">
+                                   MaxHeight="25">
                                 <Label.Content>
                                     <TextBlock>
                                         <TextBlock.Text>
@@ -90,8 +104,56 @@
                                 </Label.Content>
                             </Label>
                         </StackPanel>
-                        <Image Grid.Row="0" Grid.Column="1" Width="150"
-                               Source="{Binding Path=SelectedTour.Pictures[0]}" />
+                        
+                        <Button Command="{Binding Path=SelectedTour.PictureCommand}" 
+                                Grid.Row="0" Grid.Column="1"
+                                Height="150" Width="150" 
+                                Background="Transparent" 
+                                BorderThickness="1" >
+                            <Button.Style>
+                                <Style TargetType="{x:Type Button}">
+                                    <Setter Property="Background" Value="Green"/>
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="{x:Type Button}">
+                                                <Border Background="{TemplateBinding Background}" 
+                                                                        BorderBrush="Black" BorderThickness="1" >
+                                                    <ContentPresenter HorizontalAlignment="Center" 
+                                                                                      VerticalAlignment="Center"/>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter Property="Background" Value="Red"/>
+                                        </Trigger>
+                                        <DataTrigger Binding="{Binding Path=ArePicturesEmpty}" Value="True">
+                                            <Setter Property="Background">
+                                                <Setter.Value>
+                                                    <ImageBrush ImageSource="https://rdacentralwest.org.au/wp-content/themes/unbound/images/No-Image-Found-400x264.png"/>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <Button.Content>
+                                <Image Stretch="Fill">
+                                    <Image.Style>
+                                        <Style TargetType="Image">
+                                            <Setter Property="Source" Value="{Binding Path=SelectedTour.Pictures[0]}" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Path=ArePicturesEmpty}" Value="True">
+                                                    <Setter Property="Source" Value="https://rdacentralwest.org.au/wp-content/themes/unbound/images/No-Image-Found-400x264.png" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Image.Style>
+                                </Image>
+                            </Button.Content>
+                        </Button>
+
                     </Grid>
                     <Grid Grid.Row="1"
                           Background="Black" Margin="5 0 5 0">
@@ -111,23 +173,33 @@
                                       FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
                                       Height="auto" Margin="5 0 5 0">
                                 <!-- combobox dates -->
-                                <Grid Height="auto">
+                                <Grid Height="70">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="200" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <Label Grid.Column="0" 
                                            FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                           MaxHeight="25" Margin="0 -4 0 -4"
+                                           MaxHeight="25"
                                            Content="Date and Time: " />
                                     <ComboBox x:Name="DatesComboBox"
                                               Grid.Column="1"
                                               ItemsSource="{Binding Path = dates}"
-                                              SelectedItem="{Binding date, UpdateSourceTrigger=PropertyChanged}"
-                                              SelectionChanged="DatesComboBox_SelectionChanged"
+                                              SelectedItem="{Binding date, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+                                              Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
                                               HorizontalAlignment="Left" VerticalAlignment="Center"
                                               Height="30" Width="200"   >
+                                        <i:Interaction.Behaviors>
+                                            <selchanged:SelectionChangedBehavior Command="{Binding DateSelectionChangedCommand}" />
+                                        </i:Interaction.Behaviors>
                                     </ComboBox>
+                                    <Label Content="Date and Time is required!" 
+                                           FontFamily="/Fonts/#Rubik"
+                                           Foreground="Red" FontSize="12"
+                                           VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="55 0 0 0"
+                                           Grid.Column="1"
+                                           Visibility="{Binding DateValidationVisible, Converter={conv:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                    />
                                 </Grid>
                             </GroupBox>
 
@@ -136,7 +208,7 @@
                                       Height="auto" Margin="5 0 5 0">
                                 <StackPanel>
                                     <Label FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                           MaxHeight="25" Margin="0 0 0 0">
+                                           MaxHeight="25">
                                         <Label.Content>
                                             <TextBlock>
                                                 <TextBlock.Text>
@@ -148,41 +220,45 @@
                                         </Label.Content>
                                     </Label >
 
-                                    <Grid Height="30">
+                                    <Grid Height="50">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="150" />
                                             <ColumnDefinition Width="50" />
                                             <ColumnDefinition Width="290" />
-                                            <ColumnDefinition Width="50" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <Label Grid.Column="0"
                                                FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                               MaxHeight="25" Margin="0 -4 0 -4"
+                                               MaxHeight="25"
                                                Content="Number of Tickets: " />
+
                                         <TextBox x:Name="sliderText" 
-                                                 Grid.Column="1" IsEnabled="False"
+                                                 Grid.Column="1"
                                                  Text="{Binding ElementName=slider,Path=Value,UpdateSourceTrigger=PropertyChanged}"
+                                                 Visibility="{Binding PickedAnAppointment, Converter={conv:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                                                  HorizontalAlignment="Right" VerticalAlignment="Center"
-                                                 Height="20" Width="30" />
+                                                 Height="25" Width="30"
+                                                 FontFamily="/Fonts/#Rubik" FontSize="14"  
+                                                 TextAlignment="Center"/>
                                         <Slider x:Name="slider" 
-                                                Grid.Column="2" IsEnabled="False"
+                                                Grid.Column="2"
                                                 Minimum="1" 
                                                 Maximum="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" 
-                                                Value="{Binding Path=Ticket.NumberOfGuests}" 
-                                                HorizontalAlignment="Center" VerticalAlignment="Center"
-                                                Height="30" Width="200"
-                                                FontFamily="/Fonts/#Rubik"
-                                                Foreground="#DBDBDB"
-                                                FontSize="12"   />
-                                        <Label Grid.Column="3"
-                                               FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                               MaxHeight="25" Width="auto" HorizontalAlignment="Right"
-                                               Content="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" />
-                                        <Label Grid.Column="4"
-                                               FontFamily="/Fonts/#Rubik" FontSize="11" Foreground="#DBDBDB"
-                                               MaxHeight="25"  Margin="0 0 0 0" 
-                                               Content="available seats" />
+                                                Visibility="{Binding PickedAnAppointment, Converter={conv:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                                Value="{Binding Path=Ticket.NumberOfGuests}"
+                                                HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 0 0 0"
+                                                Height="30" Width="250"
+                                                FontFamily="/Fonts/#Rubik" Foreground="#DBDBDB" FontSize="12"   />
+                                        <StackPanel Grid.Column="3" Orientation="Horizontal">
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="14" Foreground="#DBDBDB"
+                                                   MaxHeight="25" Width="auto" 
+                                                   HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 0 10"
+                                                   Content="{Binding Path=selectedAppointment.AvailableSeats, UpdateSourceTrigger=PropertyChanged}" />
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="14" Foreground="#DBDBDB"
+                                                   MaxHeight="25"  
+                                                   VerticalAlignment="Bottom" Margin="0 0 0 10"
+                                                   Content="available seats" />
+                                        </StackPanel>
                                     </Grid>
                                 </StackPanel>
                             </GroupBox>
@@ -204,20 +280,20 @@
                                         </Label.Content>
                                     </Label >
                                     <!-- combobox stops -->
-                                    <Grid Height="30">
+                                    <Grid Height="50">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="200" />
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <Label Grid.Column="0"
                                                FontFamily="/Fonts/#Rubik" FontSize="12" Foreground="#DBDBDB"
-                                               MaxHeight="25" Margin="0 -4 0 -4"
+                                               MaxHeight="25"
                                                Content="Your starting checkpoint: " />
                                         <ComboBox x:Name="StopsComboBox"
                                                   Grid.Column="1" 
                                                   ItemsSource="{Binding Path=SelectedTour.StopsList}"
-                                                  SelectedIndex="0"
-                                                  SelectedItem="{Binding Path=Ticket.TourStop}"
+                                                  SelectedItem="{Binding Path=Ticket.TourStop, ValidatesOnDataErrors=True}"
+                                                  Validation.ErrorTemplate="{StaticResource ValidationTemplate}" 
                                                   HorizontalAlignment="Left" VerticalAlignment="Center"
                                                   Height="30" Width="200"   >
                                         </ComboBox>
@@ -329,12 +405,11 @@
                 </Button.Style>
             </Button>
             
-            <!--Click="CancelClick"-->
             <Button x:Name="CancelButton" 
                     Grid.Column="2"
                     Content="Cancel" 
                     IsDefault="True" 
-                    Command="{Binding HomeCommand}">
+                    Command="{Binding ContentCommand}">
                 <Button.Style>
                     <Style TargetType="Button">
                         <Setter Property="Height" Value="40"/>
@@ -375,7 +450,7 @@
         </Grid>
 
         <ContentControl Grid.Row="0" Grid.RowSpan="2"
-                        x:Name="HomeContentArea"
-                        Content="{Binding HomeContent, UpdateSourceTrigger=PropertyChanged}" />
+                        x:Name="ContentArea"
+                        Content="{Binding Content, UpdateSourceTrigger=PropertyChanged}" />
     </Grid>
 </UserControl>

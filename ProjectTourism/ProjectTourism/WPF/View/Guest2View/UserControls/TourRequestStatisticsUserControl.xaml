@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:selchanged="clr-namespace:ProjectTourism.Utilities" 
              xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest2View.UserControls"
              mc:Ignorable="d" 
              d:DesignHeight="500" 
@@ -23,6 +25,48 @@
 
                 
                 <!-- TO DO -> add back to TourRequests button -->
+                <Button x:Name="BackButton" 
+                        Grid.Row="0"
+                        IsDefault="True" 
+                        Command="{Binding ContentCommand}">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Height" Value="30"/>
+                            <Setter Property="Width" Value="100"/>
+                            <Setter Property="Margin" Value="20 0 0 0"/>
+                            <Setter Property="HorizontalAlignment" Value="Left"/>
+                            <Setter Property="VerticalAlignment" Value="Center"/>
+                            <Setter Property="BorderThickness" Value="1"/>
+
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type Button}">
+                                        <Border x:Name="border"
+                                                BorderThickness="1"
+                                                Background="Black">
+                                            <TextBlock Text="Back"
+                                                       FontFamily="/Fonts/#Rubik" 
+                                                       FontSize="18"
+                                                       Foreground="#DBDBDB" 
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center" />
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver"
+                                                 Value="True"   >
+                                                <Setter Property="Background"
+                                                    TargetName="border"
+                                                    Value="#272B2F" />
+                                            </Trigger>
+                                            <Trigger Property="IsPressed" Value="True" />
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Button.Style>
+                </Button>
+
                 <Label Grid.Row="0" 
                        FontFamily="/Fonts/#Rubik" FontSize="18" FontWeight="Bold" Height="auto"
                        VerticalAlignment="Center" HorizontalAlignment="Center"
@@ -51,14 +95,21 @@
                                    HorizontalAlignment="Right" VerticalAlignment="Center" 
                                    Height="30" Width="auto" Margin="0 0 20 0"
                                    Grid.Column="0"     />
-                            <ComboBox x:Name="ComboBoxYear" 
+                            <!--SelectionChanged="FilterYear"-->
+                            <ComboBox x:Name="YearComboBox" 
                                       FontFamily="/Fonts/#Rubik" FontSize="12"
                                       HorizontalAlignment="Left" VerticalAlignment="Center" 
                                       Height="25" Width="150" 
                                       Grid.Column="1"
                                       ItemsSource="{Binding Years}"
                                       SelectedItem="{Binding SelectedYear}"
-                                      SelectionChanged="FilterYear"/>
+                                      >
+                                <i:Interaction.Behaviors>
+                                    <selchanged:SelectionChangedBehavior Command="{Binding YearSelectionChangedCommand}" />
+                                </i:Interaction.Behaviors>
+                            </ComboBox>
+
+
                             <GroupBox Grid.Row="1" Grid.Column="2"
                                       BorderThickness="2" BorderBrush="Black"
                                       Height="auto" Width="auto"
@@ -96,7 +147,7 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <lvc:PieChart x:Name="RequestsPieChart"
-                                              Series="{Binding YearlySeries}"
+                                              Series="{Binding YearlySeries, UpdateSourceTrigger=PropertyChanged}"
                                               Grid.Column="0" 
                                               StartingRotationAngle="0" 
                                               Height="100" Width="250" 
@@ -196,9 +247,8 @@
             </Grid>
         </ScrollViewer>
 
-        <!--<ContentControl Grid.Row="0" Grid.RowSpan="2"
-                        x:Name="TourRequestsContentArea"
-                        Content="{Binding TourRequestsContent, UpdateSourceTrigger=PropertyChanged}" />-->
+        <ContentControl x:Name="ContentArea"
+                        Content="{Binding Content, UpdateSourceTrigger=PropertyChanged}" />
 
     </Grid>
 </UserControl>

@@ -29,6 +29,16 @@ namespace ProjectTourism.DTO
         {
             return _tourRequest;
         }
+
+        public void Reset()
+        {
+            Location = new LocationDTO(new Model.Location());
+            State = REQUESTSTATE.PENDING;
+            CreationDateTime = DateTime.Now;
+            Language = "";
+            Description = "";
+            NumberOfGuests = 0;
+        }
         public int StatForYear(int year)
         {
             int tourRequestCounter = 0;
@@ -328,12 +338,7 @@ namespace ProjectTourism.DTO
         {
             get
             {
-                if (columnName == "Description")
-                {
-                    if (string.IsNullOrEmpty(Description))
-                        return "Description is required!";
-                }
-                else if (columnName == "Language")
+                if (columnName == "Language")
                 {
                     if (string.IsNullOrEmpty(Language))
                         return "Language is required!";
@@ -342,6 +347,8 @@ namespace ProjectTourism.DTO
                 {
                     if (string.IsNullOrEmpty(NumberOfGuests.ToString()))
                         return "Number Of Guests is required!";
+                    if (NumberOfGuests < 1)
+                        return "Number Of Guests has to be at least 1!";
                 }
                 else if (columnName == "StartDate")
                 {
@@ -353,20 +360,10 @@ namespace ProjectTourism.DTO
                     if (string.IsNullOrEmpty(EndDate.ToString()))
                         return "End Date is required!";
                 }
-                else if (columnName == "Location.Country")
-                {
-                    if (string.IsNullOrEmpty(Location.Country))
-                        return "Country is required!";
-                }
-                else if (columnName == "Location.City")
-                {
-                    if (string.IsNullOrEmpty(Location.City))
-                        return "City is required!";
-                }
                 return null;
             }
         }
-        private readonly string[] _validatedProperties = { "Description", "Language", "NumberOfGuests", "StartDate", "EndDate", "Location.Country", "Location.City" };
+        private readonly string[] _validatedProperties = { "Language", "NumberOfGuests", "StartDate", "EndDate" };
 
         public bool IsValid
         {

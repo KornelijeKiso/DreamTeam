@@ -12,6 +12,9 @@ using ProjectTourism.Model;
 using ProjectTourism.WPF.ViewModel;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
+using ProjectTourism.Utilities;
+using ProjectTourism.WPF.View.Guest2View;
 
 namespace ProjectTourism.DTO
 {
@@ -244,7 +247,6 @@ namespace ProjectTourism.DTO
             }
         }
 
-
         public string Error => null;
 
         private Regex _NameRegex = new Regex("[A-Z a-z]+");
@@ -343,6 +345,19 @@ namespace ProjectTourism.DTO
                     return true;
             }
             return false;
+        }
+        private ICommand _PictureCommand;
+        public ICommand PictureCommand 
+        {
+            get
+            {
+                return _PictureCommand ?? (_PictureCommand = new CommandHandler(() => PictureDisplay(), () => !ArePicturesEmpty));
+            }
+        }
+        public void PictureDisplay()
+        {
+            PictureDisplayWindow pictureDisplayWindow = new PictureDisplayWindow(new TourDTO(_tour));
+            pictureDisplayWindow.Show();
         }
         public bool ArePicturesEmpty { get => ArePicturesNull(); }
 
