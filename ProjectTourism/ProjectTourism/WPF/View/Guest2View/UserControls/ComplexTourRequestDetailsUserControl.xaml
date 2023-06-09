@@ -119,7 +119,7 @@
                         <!-- COMPLEX TOUR PART -->
                         <TabControl x:Name="PartsTabControl" Margin="10 0 10 0" SelectedIndex="0"
                                     ItemsSource="{Binding Path=PartsCollection}"
-                                    SelectedItem="{Binding Path=SelectedPart, UpdateSourceTrigger=PropertyChanged}"
+                                    SelectedItem="{Binding Path=SelectedPart}"
                                     >
                             <TabControl.Style>
                                 <Style TargetType="TabControl">
@@ -245,7 +245,8 @@
                                             <!-- BUY TICKET BUTTON -->
                                             <Button x:Name="BuyTicket" Grid.Column="1"
                                                     Visibility="{Binding Path=isAccepted, Converter={conv:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
-                                                    Command="{Binding CreateTicketCommand}" >
+                                                    Command="{Binding Path=DataContext.CreateTicketCommand, 
+                                                            RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}" >
                                                 <Button.Style>
                                                     <Style TargetType="Button">
                                                         <Setter Property="Height" Value="40"/>

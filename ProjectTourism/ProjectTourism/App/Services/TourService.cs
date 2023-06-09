@@ -8,6 +8,7 @@ using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.Repositories;
 using ProjectTourism.WPF.ViewModel;
 using ProjectTourism.Repositories.IRepositories;
+using ProjectTourism.Domain.Model;
 
 namespace ProjectTourism.Services
 {
@@ -69,6 +70,10 @@ namespace ProjectTourism.Services
             tour.StopsList = stops;
 
             return tour.StopsList[checkpointIndex + 1];
+        }
+        public Tour GetOneByTourRequest(TourRequest tourRequest)
+        {
+            return TourRepository.GetOneByTourRequest(tourRequest);
         }
     }
 }

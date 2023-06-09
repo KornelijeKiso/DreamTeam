@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using ProjectTourism.Domain.Model;
+using ProjectTourism.Model;
 using ProjectTourism.DTO;
 using ProjectTourism.Utilities;
+using ProjectTourism.Services;
 
 
 namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
@@ -47,7 +49,6 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         {
             Guest2 = guest2;
             ComplexTour = complexTour;
-
             SetAttributes();
 
             // Commands
@@ -67,6 +68,8 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
                 i++;
                 PartsCollection.Add(parts);
             }
+
+            SelectedPart = PartsCollection[0];
         }
 
         
@@ -74,6 +77,19 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         public void CreateTicket(object obj)
         {
             // TO DO 
+            TourService tourService = new TourService();
+            if (SelectedPart.isAccepted)
+            {
+                // Find Tour that is similar to your request
+                Tour tour = tourService.GetOneByTourRequest(SelectedPart.Part.GetTourRequest());
+                if (tour != null)
+                {
+                    TourDTO Tour = Guest2.Tours.First(x => x.Id == tour.Id);
+                    Content = new CreateTicketVM(Guest2, Tour);
+                }
+                else
+                    MessageBox.Show("error!!!");
+            }
         }
         public ICommand ContentCommand { get; set; }
         public void ReturnToComplexTours(object obj)

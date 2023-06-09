@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ProjectTourism.Domain.IRepositories;
+using ProjectTourism.Domain.Model;
 using ProjectTourism.FileHandler;
 using ProjectTourism.Model;
 using ProjectTourism.Repositories.IRepositories;
@@ -83,5 +84,23 @@ namespace ProjectTourism.Repositories
             }
             return null;
         }
+
+        private bool IsSimilarToTourRequest(Tour tour, TourRequest tourRequest)
+        {
+            return (tour.LocationId==tourRequest.LocationId && 
+                    tour.Language.Equals(tourRequest.Language) &&
+                    tour.MaxNumberOfGuests == tourRequest.NumberOfGuests &&
+                    tour.Description.Equals(tourRequest.Description) );
+        }
+        public Tour GetOneByTourRequest(TourRequest tourRequest)
+        {
+            foreach (var tour in Tours)
+            {
+                if (IsSimilarToTourRequest(tour, tourRequest))
+                    return tour;
+            }
+            return null;
+        }
+
     }
 }

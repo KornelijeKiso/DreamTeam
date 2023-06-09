@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectTourism.Domain.Model;
 using ProjectTourism.Model;
 using ProjectTourism.WPF.ViewModel;
 
@@ -16,5 +17,6 @@ namespace ProjectTourism.Domain.IRepositories
         void Delete(Tour tour);
         void Update(Tour tour);
         List<string> GetStops(Tour tour);
+        Tour GetOneByTourRequest(TourRequest tourRequest);
     }
 }
