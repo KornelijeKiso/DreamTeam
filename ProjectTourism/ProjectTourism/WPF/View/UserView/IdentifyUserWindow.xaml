@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ProjectTourism.View.UserView"
         mc:Ignorable="d"
         Title="Log in" Height="720" Width="1280"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize">
     <Grid>
         <Image Source="../../../Images/User/LogInWallpaper.jpg" Margin="-19,-29,-19,0"/>
         <Label FontSize="40" Margin="927,127,206,473" Foreground="#FF3A3223">
