@@ -85,7 +85,7 @@ namespace ProjectTourism.View.UserView
                 }
             }
         }
-        private void CreateUserClick(object sender, RoutedEventArgs e)
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
         {
             CreateUserWindow CreateUser = new CreateUserWindow();
             CreateUser.ShowDialog();

@@ -5,16 +5,89 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProjectTourism.View.UserView"
         mc:Ignorable="d"
-        Title="IdentifyUserWindow" Height="450" Width="800"
+        Title="Log in" Height="720" Width="1280"
         WindowStartupLocation="CenterScreen">
     <Grid>
-        <TextBox FontSize="15" Name="txtUsername" HorizontalAlignment="Left" Height="38" Margin="170,143,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="256px" Text="{Binding Path=User.Username, UpdateSourceTrigger=PropertyChanged}" RenderTransformOrigin="0.5,0.514" />
-        <PasswordBox FontSize="15" Name ="txtPassword" HorizontalAlignment="Left" Height="38" Margin="170,217,0,0" VerticalAlignment="Top" Width="256px" />
-        <Button FontSize="15" Content="Log in" IsDefault="True" HorizontalAlignment="Left" BorderBrush="Black" Background="#FF63E263" Height="38" Margin="470,217,0,0" VerticalAlignment="Top" Width="100" Click="LogInClick"/>
-        <Button FontSize="15" Content="Create account" HorizontalAlignment="Left" Height="38" Background="Yellow" Margin="470,312,0,0" VerticalAlignment="Top" Width="151" Click="CreateUserClick"/>
-        <Label FontSize="15" Content="Enter your username:" HorizontalAlignment="Left" Margin="170,117,0,0" VerticalAlignment="Top" Width="230"/>
-        <Label FontSize="15" Content="Enter your password:" HorizontalAlignment="Left" Margin="170,191,0,0" VerticalAlignment="Top" Width="230"/>
-        <Label Content="Don't have an account yet?" HorizontalAlignment="Left" Margin="470,286,0,0" VerticalAlignment="Top" Width="181"/>
+        <Image Source="../../../Images/User/LogInWallpaper.jpg" Margin="-19,-29,-19,0"/>
+        <Label FontSize="40" Margin="927,127,206,473" Foreground="#FF3A3223">
+            <Label.Effect>
+                <DropShadowEffect ShadowDepth="3" BlurRadius="10" Opacity="0.5"/>
+            </Label.Effect> Log in
+        </Label>
+        <TextBox FontSize="15" Name="txtUsername" HorizontalAlignment="Left" Height="38" Margin="866,236,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="260" Text="{Binding Path=User.Username, UpdateSourceTrigger=PropertyChanged}" RenderTransformOrigin="0.5,0.514" Background="#FFFBE6C3">
+            <TextBox.Effect>
+                <DropShadowEffect ShadowDepth="1" BlurRadius="10" Opacity="0.3"/>
+            </TextBox.Effect>
+            <TextBox.Resources>
+                <Style TargetType="TextBox">
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="BorderBrush" Value="#FF707070"/>
+                    <Setter Property="Padding" Value="10"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TextBox">
+                                <Grid>
+                                    <Border x:Name="Border" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" CornerRadius="5">
+                                        <ScrollViewer x:Name="PART_ContentHost"/>
+                                    </Border>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
+        <PasswordBox FontSize="15" Name="txtPassword" HorizontalAlignment="Left" Height="38" Margin="866,314,0,0" VerticalAlignment="Top" Width="260" Background="#FFFBE6C3">
+            <PasswordBox.Effect>
+                <DropShadowEffect ShadowDepth="1" BlurRadius="10" Opacity="0.3"/>
+            </PasswordBox.Effect>
+            <PasswordBox.Resources>
+                <Style TargetType="PasswordBox">
+                    <Setter Property="BorderThickness" Value="1"/>
+                    <Setter Property="BorderBrush" Value="#FF707070"/>
+                    <Setter Property="Padding" Value="10"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="PasswordBox">
+                                <Grid>
+                                    <Border x:Name="Border" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="{TemplateBinding BorderBrush}" Background="{TemplateBinding Background}" CornerRadius="5">
+                                        <ScrollViewer x:Name="PART_ContentHost"/>
+                                    </Border>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </PasswordBox.Resources>
+        </PasswordBox>
+        <Button FontSize="15" Content="Log in" IsDefault="True" HorizontalAlignment="Left" BorderBrush="Black" Background="#FFACCEA7" Height="38" Margin="950,400,0,0" VerticalAlignment="Top" Width="100" Click="LogInClick">
+            <Button.Effect>
+                <DropShadowEffect ShadowDepth="1" BlurRadius="10" Opacity="0.3"/>
+            </Button.Effect>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="10"/>
+                </Style>
+            </Button.Resources>
+        </Button>
+
+        <TextBlock x:Name="ShortcutsLinkTextBlock" Margin="1010,485,0,0">
+            <Hyperlink ButtonBase.Click="Hyperlink_Click">
+                <TextBlock Text="Sign up here"  FontSize="14" TextDecorations="Underline"/>
+            </Hyperlink>
+        </TextBlock>
+
+        <Label FontSize="15" Content="Username:" HorizontalAlignment="Left" Margin="866,201,0,0" VerticalAlignment="Top" Width="230">
+            <Label.Effect>
+                <DropShadowEffect ShadowDepth="6" BlurRadius="10" Opacity="0.5"/>
+            </Label.Effect>
+        </Label>
+        <Label FontSize="15" Content="Password:" HorizontalAlignment="Left" Margin="866,284,0,0" VerticalAlignment="Top" Width="230">
+            <Label.Effect>
+                <DropShadowEffect ShadowDepth="6" BlurRadius="10" Opacity="0.5"/>
+            </Label.Effect>
+        </Label>
+        <Label Content="Not a member?" FontSize="14" HorizontalAlignment="Left" Margin="900,480,0,0" VerticalAlignment="Top" Width="105"/>
 
     </Grid>
 </Window>
