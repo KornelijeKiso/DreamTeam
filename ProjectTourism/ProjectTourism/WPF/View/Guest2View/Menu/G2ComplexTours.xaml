@@ -79,18 +79,6 @@
                                                     </TextBlock>
                                                 </Label.Content>
                                             </Label>-->
-                                            <!--<Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
-                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
-                                                <Label.Content>
-                                                    <TextBlock>
-                                                        <TextBlock.Text>
-                                                            <MultiBinding StringFormat="{}Consists of simple Tour Requests : {0}">
-                                                                <Binding Path=""/>
-                                                            </MultiBinding>
-                                                        </TextBlock.Text>
-                                                    </TextBlock>
-                                                </Label.Content>
-                                            </Label>-->
                                         </StackPanel>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
@@ -103,19 +91,6 @@
                                                 <RowDefinition Height="*"/>
                                                 <RowDefinition Height="50"/>
                                             </Grid.RowDefinitions>
-                                            <!--<GroupBox BorderBrush="Black" FontSize="12" Height="50" 
-                                                      VerticalAlignment="Top" Margin="5 5 5 5"
-                                                      Header="Status">
-                                                <Label FontSize="14">
-                                                    <Label.Content>
-                                                        <TextBlock>
-                                                            <TextBlock.Text>
-                                                                <Binding Path="TourRequests[0].State"/>
-                                                            </TextBlock.Text>
-                                                        </TextBlock>
-                                                    </Label.Content>
-                                                </Label>
-                                            </GroupBox>-->
                                             <ListView x:Name="TourRequestsListView" ItemsSource="{Binding Path=TourRequests}" 
                                                       FontFamily="/Fonts/#Rubik" FontSize="12"
                                                       VerticalAlignment="Center" HorizontalAlignment="Center"

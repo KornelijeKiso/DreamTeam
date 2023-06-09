@@ -18,8 +18,8 @@
             </Grid.RowDefinitions>
 
             <Label Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"
-                           FontFamily="/Fonts/#Rubik" FontSize="20" 
-                           Content="Complex Tour Request Details"/>
+                   FontFamily="/Fonts/#Rubik" FontSize="20" 
+                   Content="Complex Tour Request Details"/>
             
             <Button x:Name="BackButton" 
                         Grid.Row="0"
@@ -68,8 +68,9 @@
                       BorderBrush="Black" BorderThickness="2" >
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="200"/>
-                        <RowDefinition Height="360"/>
+                        <RowDefinition Height="100"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="10"/>
                     </Grid.RowDefinitions>
 
                     <StackPanel Grid.Row="0" Margin="5 15 5 5"
@@ -112,26 +113,178 @@
                                 </TextBlock>
                             </Label.Content>
                         </Label>
-                        <!--<Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
-                               VerticalAlignment="Center" HorizontalAlignment="Left">
-                            <Label.Content>
-                                <TextBlock>
-                                    <TextBlock.Text>
-                                        <MultiBinding StringFormat="{}Consists of simple Tour Requests : {0}">
-                                            <Binding Path=""/>
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                            </Label.Content>
-                        </Label>-->
                     </StackPanel>
 
                     <Grid Grid.Row="1">
                         <!-- COMPLEX TOUR PART -->
-                    </Grid>
+                        <TabControl x:Name="PartsTabControl" Margin="10 0 10 0" SelectedIndex="0"
+                                    ItemsSource="{Binding Path=PartsCollection}"
+                                    SelectedItem="{Binding Path=SelectedPart, UpdateSourceTrigger=PropertyChanged}"
+                                    >
+                            <TabControl.Style>
+                                <Style TargetType="TabControl">
+                                    <Setter Property="FontFamily" Value="/Fonts/#Rubik" />
+                                    <Setter Property="FontSize" Value="16" />
+                                    <Setter Property="Foreground" Value="#DBDBDB" />
+                                    <Setter Property="BorderBrush" Value="Black" />
+                                    <Setter Property="BorderThickness" Value="2" />
+                                    <Setter Property="Background" Value="LightBlue" />
+                                </Style>
+                            </TabControl.Style>
 
-                    <!-- BUY TICKET BUTTON -->
-                    <!-- only for accepted parts -->
+                            <TabControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Header}"/>
+                                </DataTemplate>
+                            </TabControl.ItemTemplate>
+                            <TabControl.ContentTemplate>
+                                <DataTemplate>
+                                    <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="300"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <Grid Grid.Column="0">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="70"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="10"/>
+                                                </Grid.RowDefinitions>
+
+
+                                                <GroupBox Grid.Row="0" Margin="5 5 5 5"
+                                                          Header="Status" Width="auto" 
+                                                          HorizontalAlignment="Left" VerticalAlignment="Top" 
+                                                          FontFamily="/Fonts/#Rubik" FontSize="14" Foreground="Black"
+                                                          BorderBrush="Black" BorderThickness="1" >
+                                                    <Label VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                           FontFamily="/Fonts/#Rubik" FontSize="16" 
+                                                           Content="{Binding Path=Part.State}"/>
+                                                </GroupBox>
+                                                <StackPanel Grid.Row="1" Margin="5 5 5 5"
+                                                            Orientation="Vertical">
+                                                    <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                           VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                        <Label.Content>
+                                                            <TextBlock>
+                                                                <TextBlock.Text>
+                                                                    <MultiBinding StringFormat="{}Location : {0}, {1}">
+                                                                        <Binding Path="Part.Location.Country"/>
+                                                                        <Binding Path="Part.Location.City"/>
+                                                                    </MultiBinding>
+                                                                </TextBlock.Text>
+                                                            </TextBlock>
+                                                        </Label.Content>
+                                                    </Label>
+                                                    <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                           VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                        <Label.Content>
+                                                            <TextBlock>
+                                                                <TextBlock.Text>
+                                                                    <MultiBinding StringFormat="{}Language :   {0}">
+                                                                        <Binding Path="Part.Language"/>
+                                                                    </MultiBinding>
+                                                                </TextBlock.Text>
+                                                            </TextBlock>
+                                                        </Label.Content>
+                                                    </Label>
+                                                    <Label FontFamily="/Fonts/#Rubik" FontSize="12" 
+                                                           VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                           Width="280" Height="auto">
+                                                        <Label.Content>
+                                                            <TextBlock TextWrapping="Wrap">
+                                                                <TextBlock.Text>
+                                                                    <MultiBinding StringFormat="{}Description :     {0}">
+                                                                        <Binding Path="Part.Description"/>
+                                                                    </MultiBinding>
+                                                                </TextBlock.Text>
+                                                            </TextBlock>
+                                                        </Label.Content>
+                                                    </Label>
+                                                    <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                           VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                        <Label.Content>
+                                                            <TextBlock>
+                                                                <TextBlock.Text>
+                                                                    <MultiBinding StringFormat="{}Max number of guests :     {0}">
+                                                                        <Binding Path="Part.NumberOfGuests"/>
+                                                                    </MultiBinding>
+                                                                </TextBlock.Text>
+                                                            </TextBlock>
+                                                        </Label.Content>
+                                                    </Label>
+                                                    <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                           VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                        <Label.Content>
+                                                            <TextBlock>
+                                                                <TextBlock.Text>
+                                                                    <MultiBinding StringFormat="{}Start Date :     {0}">
+                                                                        <Binding Path="Part.StartDate"/>
+                                                                    </MultiBinding>
+                                                                </TextBlock.Text>
+                                                            </TextBlock>
+                                                        </Label.Content>
+                                                    </Label>
+                                                    <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                                                           VerticalAlignment="Center" HorizontalAlignment="Left">
+                                                        <Label.Content>
+                                                            <TextBlock>
+                                                                <TextBlock.Text>
+                                                                    <MultiBinding StringFormat="{}End Date :     {0}">
+                                                                        <Binding Path="Part.EndDate"/>
+                                                                    </MultiBinding>
+                                                                </TextBlock.Text>
+                                                            </TextBlock>
+                                                        </Label.Content>
+                                                    </Label>
+                                                </StackPanel>
+                                            </Grid>
+
+                                            <!-- BUY TICKET BUTTON -->
+                                            <Button x:Name="BuyTicket" Grid.Column="1"
+                                                    Visibility="{Binding Path=isAccepted, Converter={conv:BoolToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                                                    Command="{Binding CreateTicketCommand}" >
+                                                <Button.Style>
+                                                    <Style TargetType="Button">
+                                                        <Setter Property="Height" Value="40"/>
+                                                        <Setter Property="Width" Value="150"/>
+                                                        <Setter Property="Margin" Value="0 20 30 40"/>
+                                                        <Setter Property="HorizontalAlignment" Value="Right"/>
+                                                        <Setter Property="VerticalAlignment" Value="Top"/>
+                                                        <Setter Property="BorderThickness" Value="1"/>
+
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="{x:Type Button}">
+                                                                    <Border x:Name="border"
+                                                                            BorderThickness="1"
+                                                                            Background="Black">
+                                                                        <TextBlock Text="Buy a Ticket"
+                                                                                    FontFamily="/Fonts/#Rubik" FontSize="18" Foreground="#DBDBDB" 
+                                                                                    HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                                                    </Border>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <Trigger Property="IsMouseOver" Value="True"   >
+                                                                            <Setter Property="Background"
+                                                                                    TargetName="border"
+                                                                                    Value="#272B2F" />
+                                                                        </Trigger>
+                                                                        <Trigger Property="IsPressed" Value="True" />
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </Button.Style>
+                                            </Button>
+                                        </Grid>
+                                    </ScrollViewer>
+                                </DataTemplate>
+                            </TabControl.ContentTemplate>
+                        </TabControl>
+                    </Grid>
                 </Grid>
             </GroupBox>
         </Grid>
