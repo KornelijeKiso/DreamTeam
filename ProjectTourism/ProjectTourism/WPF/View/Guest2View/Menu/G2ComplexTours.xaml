@@ -129,12 +129,11 @@
                                                 </ListView.View>
                                             </ListView>
 
-                                            <!-- VIEW DETAILS BUTTON 
-                                            Command="{Binding Path=DataContext.ComplexTourDetailsCommand,
-                                                              RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"-->
+                                            <!-- VIEW DETAILS BUTTON -->
                                             <Button x:Name="ViewComplexToursDetailsButton"
                                                     Grid.Row="1"
-                                                    >
+                                                    Command="{Binding Path=DataContext.ComplexTourDetailsCommand,
+                                                              RelativeSource={RelativeSource AncestorType={x:Type DataGrid}}}"  >
                                                 <Button.Style>
                                                     <Style TargetType="Button">
                                                         <Setter Property="Height" Value="30"/>

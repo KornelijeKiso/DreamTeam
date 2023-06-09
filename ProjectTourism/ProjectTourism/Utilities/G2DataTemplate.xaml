@@ -63,4 +63,8 @@
         <uc:CreateComplexTourPartUserControl />
     </DataTemplate>
 
+    <DataTemplate DataType="{x:Type vm:ComplexTourRequestDetailsVM}">
+        <uc:ComplexTourRequestDetailsUserControl />
+    </DataTemplate>
+
 </ResourceDictionary>

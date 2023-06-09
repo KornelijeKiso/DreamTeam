@@ -1,0 +1,142 @@
+﻿<UserControl x:Class="ProjectTourism.WPF.View.Guest2View.UserControls.ComplexTourRequestDetailsUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:conv="clr-namespace:ProjectTourism.Converters"
+             xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest2View.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" 
+             d:DesignWidth="700"
+             Style="{StaticResource Page_Style}"    >
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"
+                           FontFamily="/Fonts/#Rubik" FontSize="20" 
+                           Content="Complex Tour Request Details"/>
+            
+            <Button x:Name="BackButton" 
+                        Grid.Row="0"
+                        IsDefault="True" 
+                        Command="{Binding ContentCommand}">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Height" Value="30"/>
+                        <Setter Property="Width" Value="100"/>
+                        <Setter Property="Margin" Value="20 0 0 0"/>
+                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type Button}">
+                                    <Border x:Name="border"
+                                                BorderThickness="1"
+                                                Background="Black">
+                                        <TextBlock Text="Back"
+                                                       FontFamily="/Fonts/#Rubik" 
+                                                       FontSize="18"
+                                                       Foreground="#DBDBDB" 
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center" />
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver"
+                                                 Value="True"   >
+                                            <Setter Property="Background"
+                                                    TargetName="border"
+                                                    Value="#272B2F" />
+                                        </Trigger>
+                                        <Trigger Property="IsPressed" Value="True" />
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
+            </Button>
+
+
+            <GroupBox Grid.Row="1" Margin="10 10 25 10"
+                      BorderBrush="Black" BorderThickness="2" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="200"/>
+                        <RowDefinition Height="360"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Margin="5 15 5 5"
+                                Orientation="Vertical" >
+                        <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                               VerticalAlignment="Center" HorizontalAlignment="Left">
+                            <Label.Content>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}Suggested by : {0} {1}  ({2})">
+                                            <Binding Path="Guest2.FirstName"/>
+                                            <Binding Path="Guest2.LastName"/>
+                                            <Binding Path="Guest2.Username"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Label.Content>
+                        </Label>
+                        <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                               VerticalAlignment="Center" HorizontalAlignment="Left">
+                            <Label.Content>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}Created on :   {0}">
+                                            <Binding Path="ComplexTour.TourRequests[0].CreationDateTime"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Label.Content>
+                        </Label>
+                        <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                               VerticalAlignment="Center" HorizontalAlignment="Left">
+                            <Label.Content>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}Valid until :     {0}">
+                                            <Binding Path="ValidUntil"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Label.Content>
+                        </Label>
+                        <!--<Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
+                               VerticalAlignment="Center" HorizontalAlignment="Left">
+                            <Label.Content>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}Consists of simple Tour Requests : {0}">
+                                            <Binding Path=""/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </Label.Content>
+                        </Label>-->
+                    </StackPanel>
+
+                    <Grid Grid.Row="1">
+                        <!-- COMPLEX TOUR PART -->
+                    </Grid>
+
+                    <!-- BUY TICKET BUTTON -->
+                    <!-- only for accepted parts -->
+                </Grid>
+            </GroupBox>
+        </Grid>
+
+        <ContentControl x:Name="ContentArea"
+                        Content="{Binding Content, UpdateSourceTrigger=PropertyChanged}" />
+    </Grid>
+</UserControl>
