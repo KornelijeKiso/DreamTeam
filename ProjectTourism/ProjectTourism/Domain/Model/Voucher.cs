@@ -19,6 +19,15 @@ namespace ProjectTourism.Model
         {
             TicketId = -1;
         }
+        public Voucher(string username, string description)
+        {
+            Guest2Username = username;
+            ValidFrom = DateTime.Now;
+            ValidDue = DateTime.Now.AddMonths(6);
+            Status = STATUS.VALID;
+            Description = description;
+            TicketId = -1;
+        }
         public string[] ToCSV()
         {
             string[] csvValues =

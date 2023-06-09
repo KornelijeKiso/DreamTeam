@@ -21,6 +21,7 @@
     <None Remove="Images\Guest2\search.png" />
     <None Remove="Images\Guest2\stop.png" />
     <None Remove="Images\Guest2\suggesttour.png" />
+    <None Remove="Images\Guest2\super_guide.png" />
     <None Remove="Images\Guest2\tickets.png" />
     <None Remove="Images\Guest2\voucher.png" />
     <None Remove="Images\Guest2\voucher2.png" />

@@ -52,6 +52,8 @@ namespace ProjectTourism.DTO
             SynchronizeVouchersList(_guest2);
             SynchronizeTourRequestsList(_guest2);
             SynchronizeComplexToursList(_guest2);
+            
+            WinVoucher(_guest2);
         }
        
         private void SynchronizeVouchersList(Guest2 _guest2)
@@ -233,6 +235,38 @@ namespace ProjectTourism.DTO
             complexTour.TourRequestString = complexTour.TourRequestString.Substring(0, complexTour.TourRequestString.Length - 1);
             complexTourService.Add(complexTour.GetComplexTour());
             ComplexTours.Add(complexTour);
+        }
+
+        public void WinVoucher(Guest2 guest2)
+        {
+            DateTime oneYearAgo = DateTime.Now.AddYears(-1);
+            int num = 0;
+            foreach (var ticket in guest2.Tickets)
+            {   // TO DO -> change this
+                if (ticket.TourAppointment.State == TOURSTATE.FINISHED &&
+                    ticket.HasGuideChecked && 
+                    //ticket.HasGuestConfirmed && // doesn't have to attend, only has a ticket on tour
+                    ticket.TourAppointment.TourDateTime >= oneYearAgo )
+                {
+                    num++;
+                }
+            }
+            Voucher voucher = new Voucher(guest2.Username, "Congrats, you won a Voucher! You have been on 5 tours in year " + oneYearAgo.Year + "!");
+            if (num >= 5 && !AlreadyWonVoucher(guest2, voucher))
+            {
+                VoucherService voucherService = new VoucherService();
+                voucherService.Add(voucher);
+                SynchronizeVouchersList(guest2);
+            }
+        }
+        private bool AlreadyWonVoucher(Guest2 guest2, Voucher voucher)
+        {
+            foreach (var v in guest2.Vouchers)
+            {
+                if (v.Description.Equals(voucher.Description))
+                    return true;
+            }
+            return false;
         }
 
         public string Username
