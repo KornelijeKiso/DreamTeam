@@ -68,6 +68,7 @@
     <Resource Include="Images\Guest2\search.png" />
     <Resource Include="Images\Guest2\stop.png" />
     <Resource Include="Images\Guest2\suggesttour.png" />
+    <Resource Include="Images\Guest2\super_guide.png" />
     <Resource Include="Images\Guest2\tickets.png" />
     <Resource Include="Images\Guest2\voucher.png" />
     <Resource Include="Images\Guest2\voucher2.png" />
