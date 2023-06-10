@@ -335,12 +335,15 @@ namespace ProjectTourism.DTO
             {
                 if (tourApp.State == TOURSTATE.READY || tourApp.State == TOURSTATE.STARTED)
                 {
-
-                    if (tourApp.Tickets.Any())
+                    foreach (var ticket in tourApp.Tickets)
                     {
-                        //TO-DO: If there are tickets on this tourapp, give the guests vouchers
+                        Voucher voucher = new Voucher(ticket.Guest2Username, 
+                            "Congrats, you won a Voucher! Guide " + _guide.FirstName + " " + _guide.LastName + " (" + _guide.Username + ") quit! " +
+                            "You have a ticket for his Tour - " + tourApp.Tour.Name + " on " + tourApp.TourDateTime.ToString() + "! " +
+                            "As an apology for the inconvinience we offer this Voucher! Use it until it expires!");
+                        VoucherService voucherService = new VoucherService();
+                        voucherService.Add(voucher);
                     }
-
                     tourApp.State = TOURSTATE.CANCELED;
                     tourAppointmentService.Update(tourApp);
                 }

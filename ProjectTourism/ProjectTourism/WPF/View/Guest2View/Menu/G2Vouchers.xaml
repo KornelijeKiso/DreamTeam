@@ -75,10 +75,11 @@
                                                     </TextBlock>
                                                 </Label.Content>
                                             </Label>
-                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
-                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" 
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                   Width="450" Height="auto">
                                                 <Label.Content>
-                                                    <TextBlock>
+                                                    <TextBlock TextWrapping="Wrap">
                                                         <TextBlock.Text>
                                                             <MultiBinding StringFormat="{}Reason for the reward : {0}">
                                                                 <Binding Path="Description"/>
@@ -323,10 +324,11 @@
                                                     </TextBlock>
                                                 </Label.Content>
                                             </Label>
-                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" Height="25"
-                                                   VerticalAlignment="Center" HorizontalAlignment="Left">
+                                            <Label FontFamily="/Fonts/#Rubik" FontSize="12" 
+                                                   VerticalAlignment="Center" HorizontalAlignment="Left"
+                                                   Width="450" Height="auto">
                                                 <Label.Content>
-                                                    <TextBlock>
+                                                    <TextBlock TextWrapping="Wrap">
                                                         <TextBlock.Text>
                                                             <MultiBinding StringFormat="{}Reason for the reward : {0}">
                                                                 <Binding Path="Description"/>
