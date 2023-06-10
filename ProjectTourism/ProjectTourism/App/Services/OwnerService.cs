@@ -41,5 +41,15 @@ namespace ProjectTourism.Services
         {
             OwnerRepo.TurnHelpOff(owner);
         }
+        public List<Owner> GetAllOnLocation(int locationId)
+        {
+            List<Owner> ret = new List<Owner>();
+            foreach(var owner in GetAll())
+            {
+                if(new AccommodationService().GetAllByOwner(owner.Username).Find(a=>a.LocationId==locationId)!=null)
+                    ret.Add(owner);
+            }
+            return ret;
+        }
     }
 }

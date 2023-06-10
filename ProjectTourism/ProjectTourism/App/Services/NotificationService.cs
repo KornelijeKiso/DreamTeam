@@ -1,6 +1,8 @@
 ﻿using ProjectTourism.Domain.IRepositories;
 using ProjectTourism.Domain.Model;
+using ProjectTourism.DTO;
 using ProjectTourism.Model;
+using ProjectTourism.WPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +45,15 @@ namespace ProjectTourism.Services
         public void Seen(List<Notification> notifications)
         {
             NotificationRepo.Seen(notifications);
+        }
+        public void NotifyAllOwnersAboutNewForum(Location location)
+        {
+            foreach(var owner in new OwnerService().GetAllOnLocation(location.Id))
+            {
+                Add(new Notification("New forum",
+                "New forum has just been opened on " + location.City + ", " + location.Country+". You can see it in your forums.",
+                owner.Username));
+            }
         }
     }
 }
