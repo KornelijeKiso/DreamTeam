@@ -18,7 +18,7 @@ using ProjectTourism.Services;
 
 namespace ProjectTourism.WPF.ViewModel.Guest1ViewModel
 {
-    internal class Guest1MainWindowVM : ViewModelBase
+    internal class Guest1MainWindowVM : INotifyPropertyChanged
     {
         private object _Content;
         public object Content
@@ -53,6 +53,13 @@ namespace ProjectTourism.WPF.ViewModel.Guest1ViewModel
 
         }
         public Guest1DTO Guest { get; set; }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public void SwitchToAccommodations(object parameter)
         {
@@ -114,6 +121,22 @@ namespace ProjectTourism.WPF.ViewModel.Guest1ViewModel
         public ICommand SwitchToGradableCommand
         {
             get => new RelayCommand(SwitchToGradable);
+        }
+        public void SwitchToForums(object parameter)
+        {
+            ForumsWindow f = new ForumsWindow(Guest.Username);
+            f.ShowDialog();
+            /*AccommodationsItem.Background = Brushes.Transparent;
+            ReservationsItem.Background = Brushes.Transparent;
+            HelpItem.Background = Brushes.Transparent;
+            ForumsItem.Background = Brushes.LightSkyBlue;
+            NotificationsItem.Background = Brushes.Transparent;
+            ProfileItem.Background = Brushes.Transparent;
+            ResetNotifications();*/
+        }
+        public ICommand SwitchToForumsCommand
+        {
+            get => new RelayCommand(SwitchToForums);
         }
     }
 }
