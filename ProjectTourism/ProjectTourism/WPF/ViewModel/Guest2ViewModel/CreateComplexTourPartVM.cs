@@ -129,7 +129,7 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
         }
         private void Reset()
         {
-            StartDate = new DateTime(NewTourRequestPart.EndDate.Year, NewTourRequestPart.EndDate.Month, NewTourRequestPart.EndDate.Day);
+            StartDate = null;
             EndDate = null;
             SetAttributes();
             NewTourRequestPart.Reset();
@@ -141,17 +141,21 @@ namespace ProjectTourism.WPF.ViewModel.Guest2ViewModel
 
         private void StartDateChanged(object obj)
         {
-            NewTourRequestPart.StartDate = DateOnly.FromDateTime((DateTime)StartDate);
-            StartDateValidationVisible = false;
-            DateTime startDate = (NewTourRequestPart.StartDate.ToDateTime(TimeOnly.MinValue));
-            //EndBlackoutDates = new CalendarDateRange(new DateTime(1, 1, 1), startDate);
-            // TO DO -> blackout dates in EndDatePicker when StartDate is selected
+            if (StartDate != null)
+            {
+                NewTourRequestPart.StartDate = DateOnly.FromDateTime((DateTime)StartDate);
+                StartDateValidationVisible = false;
+                // TO DO -> blackout dates in EndDatePicker when StartDate is selected
+                //DateTime startDate = (NewTourRequestPart.StartDate.ToDateTime(TimeOnly.MinValue));
+                //EndBlackoutDates = new CalendarDateRange(new DateTime(1, 1, 1), startDate);
+                
+            }
         }
         // END DATE SELECTION CHANGED
         public ICommand EndDateChangedCommand { get; set; }
         private void EndDateChanged(object obj)
         {
-            if (StartDate == null)
+            if (StartDate == null && EndDate != null)
             {
                 EndDate = null;
                 EndDateValidationVisible = true;
