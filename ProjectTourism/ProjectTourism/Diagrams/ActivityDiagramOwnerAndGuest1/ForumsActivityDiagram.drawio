@@ -1,6 +1,6 @@
-<mxfile host="Electron" modified="2023-06-10T21:14:33.435Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="uVXMNJ4iTgbyhUmr5oej" version="21.2.8" type="device">
+<mxfile host="Electron" modified="2023-06-12T10:50:43.622Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="q-AYeMPyjbIWzZvZM19E" version="21.2.8" type="device">
   <diagram id="prtHgNgQTEPvFCAcTncT" name="Page-1">
-    <mxGraphModel dx="1795" dy="2529" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1197" dy="2076" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -428,10 +428,13 @@
         <mxCell id="wQNE3chJPY6VE4QEGNj3-249" value="Povecanje broja prijava komentara" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;arcSize=14;strokeWidth=2;" parent="wQNE3chJPY6VE4QEGNj3-5" vertex="1">
           <mxGeometry x="20" y="560" width="100" height="60" as="geometry" />
         </mxCell>
+        <mxCell id="MfVQJabMDOntcWo5xnEB-3" value="Da" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="wQNE3chJPY6VE4QEGNj3-5">
+          <mxGeometry x="520" y="50" width="60" height="30" as="geometry" />
+        </mxCell>
         <mxCell id="wQNE3chJPY6VE4QEGNj3-6" value="Owner" style="swimlane;startSize=20;html=1;fillStyle=auto;" parent="wQNE3chJPY6VE4QEGNj3-3" vertex="1">
           <mxGeometry x="820" y="20" width="290" height="1230" as="geometry" />
         </mxCell>
-        <mxCell id="wQNE3chJPY6VE4QEGNj3-52" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="wQNE3chJPY6VE4QEGNj3-6" source="wQNE3chJPY6VE4QEGNj3-51" edge="1">
+        <mxCell id="wQNE3chJPY6VE4QEGNj3-52" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" parent="wQNE3chJPY6VE4QEGNj3-6" source="MfVQJabMDOntcWo5xnEB-1" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint y="74.62" as="sourcePoint" />
             <mxPoint x="72.5" y="75" as="targetPoint" />
@@ -512,6 +515,9 @@
         <mxCell id="wQNE3chJPY6VE4QEGNj3-256" value="" style="ellipse;html=1;shape=endState;fillColor=#000000;strokeColor=#ff0000;" parent="wQNE3chJPY6VE4QEGNj3-6" vertex="1">
           <mxGeometry x="172.5" y="1175" width="30" height="30" as="geometry" />
         </mxCell>
+        <mxCell id="MfVQJabMDOntcWo5xnEB-1" value="" style="rhombus;whiteSpace=wrap;html=1;fontFamily=Helvetica;fontSize=12;fontColor=#000000;align=center;rotation=90;" vertex="1" parent="wQNE3chJPY6VE4QEGNj3-6">
+          <mxGeometry x="-120" y="55" width="40" height="40" as="geometry" />
+        </mxCell>
         <mxCell id="wQNE3chJPY6VE4QEGNj3-14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="wQNE3chJPY6VE4QEGNj3-3" source="wQNE3chJPY6VE4QEGNj3-7" target="wQNE3chJPY6VE4QEGNj3-13" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="220" y="90" as="sourcePoint" />
@@ -525,6 +531,12 @@
               <mxPoint x="540" y="1170" />
               <mxPoint x="540" y="1225" />
             </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="MfVQJabMDOntcWo5xnEB-2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=classic;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" edge="1" parent="wQNE3chJPY6VE4QEGNj3-3" source="wQNE3chJPY6VE4QEGNj3-51" target="MfVQJabMDOntcWo5xnEB-1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1700" y="-525" as="sourcePoint" />
+            <mxPoint x="1992.5" y="-525" as="targetPoint" />
           </mxGeometry>
         </mxCell>
       </root>
