@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Diagrams\UseCaseDiagrams\**" />
+    <EmbeddedResource Remove="Diagrams\UseCaseDiagrams\**" />
+    <None Remove="Diagrams\UseCaseDiagrams\**" />
+    <Page Remove="Diagrams\UseCaseDiagrams\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Remove="WPF\View\Guest2View\MainGuest2Window.xaml.cs" />
   </ItemGroup>
 
@@ -99,7 +106,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Diagrams\UseCaseDiagrams\" />
     <Folder Include="PDF\Guest2PDFs\" />
   </ItemGroup>
 

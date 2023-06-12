@@ -228,9 +228,9 @@ namespace ProjectTourism.DTO
             complexTour.TourRequestString = "";
             foreach (var part in complexTour.TourRequests)
             {
+                part.LocationId = locationService.AddAndReturnId(part.Location.GetLocation()); 
                 requestService.Add(part.GetTourRequest());
                 complexTour.TourRequestString += part.Id.ToString() + ",";
-                part.LocationId = locationService.AddAndReturnId(part.Location.GetLocation());
             }
             complexTour.TourRequestString = complexTour.TourRequestString.Substring(0, complexTour.TourRequestString.Length - 1);
             complexTourService.Add(complexTour.GetComplexTour());
