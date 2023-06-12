@@ -56,6 +56,7 @@ namespace ProjectTourism.WPF.View.Guest1View
                 
                 new ForumService().Add(f);
                 noviforum = new ForumDTO(new ForumService().GetAll().Find(f => f.LocationId == location.Id));
+                noviforum.Location = new LocationDTO(new LocationService().GetOne(location.Id));
                 new NotificationService().NotifyAllOwnersAboutNewForum(location);
                 CommentOnForum cf = new CommentOnForum();
                 cf.ForumId = noviforum.Id;

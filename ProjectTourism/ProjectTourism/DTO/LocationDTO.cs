@@ -50,7 +50,8 @@ namespace ProjectTourism.DTO
                     OnPropertyChanged();
                 }
             }
-        }
+        }	
+
         public string Country
         {
             get => _location.Country;
