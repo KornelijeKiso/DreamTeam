@@ -29,6 +29,8 @@ namespace ProjectTourism.DTO
             ReservationService reservationService = new ReservationService();
 
             _guest1 = guest1Service.GetOne(username);
+            Forums = new ObservableCollection<ForumDTO>();
+            SynchronizeForums();
             Accommodations = new ObservableCollection<AccommodationDTO>(accommodationService.GetAll().Select(r => new AccommodationDTO(r)).ToList().OrderByDescending(a => a.Owner.IsSuperHost).ToList());
             MyReservations = new ObservableCollection<ReservationDTO>();
             GradableReservations = new ObservableCollection<ReservationDTO>();
@@ -72,6 +74,26 @@ namespace ProjectTourism.DTO
 
         }
 
+        private void SynchronizeForums()
+        {
+            List<ForumDTO> forums = new ForumService().GetAll().Select(fo => new ForumDTO(fo)).ToList();//.Where(f => Accommodations.ToList().Find(a => a.LocationId == f.LocationId) != null).ToList().Select(fo => new ForumDTO(fo)).ToList();
+            foreach (ForumDTO forum in forums)
+            {
+                forum.Location = new LocationDTO(new LocationService().GetOne(forum.LocationId));
+                forum.Comments = new ObservableCollection<CommentOnForumDTO>(new CommentOnForumService().GetAllByForum(forum.Id).Select(c => new CommentOnForumDTO(c)));
+                foreach (CommentOnForumDTO comment in forum.Comments)
+                {
+                    comment.Forum = forum;
+                }
+            }
+            foreach (var forum in forums)
+            {
+                if (!Forums.Contains(forum))
+                {
+                    Forums.Add(forum);
+                }
+            }
+        }
         public void CancelReservation(ReservationDTO reservationDTO)
         {
             ReservationService reservationService = new ReservationService();
@@ -279,6 +301,19 @@ namespace ProjectTourism.DTO
                 if (value != _guest1.Points)
                 {
                     _guest1.Points = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        private ObservableCollection<ForumDTO> _Forums;
+        public ObservableCollection<ForumDTO> Forums
+        {
+            get => _Forums;
+            set
+            {
+                if (value != _Forums)
+                {
+                    _Forums = value;
                     OnPropertyChanged();
                 }
             }

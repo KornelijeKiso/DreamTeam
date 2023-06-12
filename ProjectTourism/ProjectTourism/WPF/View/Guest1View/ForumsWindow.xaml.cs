@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectTourism.DTO;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,10 +19,13 @@ namespace ProjectTourism.WPF.View.Guest1View
     /// <summary>
     /// Interaction logic for ForumsWindow.xaml
     /// </summary>
-    public partial class ForumsWindow : UserControl
+    public partial class ForumsWindow : Window
     {
-        public ForumsWindow()
+        public Guest1DTO Guest1 { get; set; }
+        public ForumsWindow(string username)
         {
+            Guest1 = new Guest1DTO(username);
+
             InitializeComponent();
         }
     }
