@@ -1,0 +1,19 @@
+﻿<Window x:Class="ProjectTourism.WPF.View.Guest1View.NewForumWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectTourism.WPF.View.Guest1View"
+        mc:Ignorable="d"
+        Title="NewForumWindow" Height="350" Width="350" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Label Content="Enter City" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 60 130 0"/>
+        <TextBox Name="City" Width="200" Height="20" Margin="0 80 0 0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Label Content="Enter 1st comment" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="30 200 130 0"/>
+        <Label Content="Enter Country" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 130 130 0"/>
+        <TextBox Name="Country" Width="200" Height="20" Margin="0 150 0 0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <TextBox Name="ForumComment" Width="200" Height="50" Margin="0 220 0 0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Button Content="Submit" Click="SubmitNewForum" Width="100" Height="20" Margin="0 270 0 0"/>
+
+    </Grid>
+</Window>

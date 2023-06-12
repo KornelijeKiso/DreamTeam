@@ -7,7 +7,7 @@
              xmlns:conv="clr-namespace:ProjectTourism.Converters" 
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
-             d:DesignHeight="640" d:DesignWidth="1000" WindowStartupLocation="CenterScreen">
+             Height="740" Width="1000" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </Window.Resources>
@@ -83,6 +83,8 @@
                         </DataGridTemplateColumn>
                     </DataGrid.Columns>
                 </DataGrid>
+                <Button Content="Add Forum" Click="AddNewForum" Width="200" Margin="0 20 0 0"/>
+
             </StackPanel>
             <Line X1="0" Y1="42" X2="0" Y2="682" Stroke="DodgerBlue" StrokeThickness="2"/>
             <Grid>
@@ -151,10 +153,7 @@
                                                 <Label HorizontalAlignment="Right" Margin=" 0 3 14 0" Foreground="DimGray" FontWeight="SemiBold" Content="{Binding Published}" ></Label>
                                                 <Image Source="https://img.icons8.com/?size=512&amp;id=89123&amp;format=png" Margin="2 -150 0 0" HorizontalAlignment="Left" Height="20" Visibility="{Binding Path=IsByOwner, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Image>
                                                 <Image Source="https://img.icons8.com/?size=512&amp;id=hkAQS0EsCD6P&amp;format=png" Margin="2 -150 0 0" HorizontalAlignment="Left" Height="20" Visibility="{Binding Path=IsByGuest, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Image>
-                                                <Label Content="{Binding Reports}" Foreground="Red" FontWeight="SemiBold" Width="28" Margin="454 -90 0 0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" Visibility="{Binding Path=IsByGuest, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Label>
-                                                <Image Source="https://img.icons8.com/?size=2x&amp;id=5tH5sHqq0t2q&amp;format=png" Height="20" Margin="5 -25 0 0" HorizontalAlignment="Left" Visibility="{Binding Path=Suspicious, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}"></Image>
-                                                <Label HorizontalAlignment="Left" Margin="22 -25 0 0" FontSize="11" Foreground="Orange" Visibility="{Binding Path=Suspicious, Converter={conv:BoolToVisibilityConverter},UpdateSourceTrigger=PropertyChanged}">This guest has never been to this destination.</Label>
-                                            </StackPanel>
+                                                </StackPanel>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
